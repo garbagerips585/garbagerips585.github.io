@@ -39,92 +39,93 @@
     "data/30th.json's readme.",
     "",
     "SO 0 OF 199 IS THE CORRECT STARTING STATE, not a bug. The set releases 16",
-    "September 2026 and this file was written on the 11th."
+    "September 2026 and this file was written on the 11th.",
+    "",
+    "REBUILT FROM TYPED NUMBERS, 21 September 2026, AND THAT IS NOW THE WAY IN.",
+    "The owner: \"I will actually go back through and just send over the card numbers for",
+    "each card, that way you dont have to read the image, and can just match the card",
+    "image up with the card number\". Everything before this was identified off",
+    "photographs -- by HP and attack name for the Pikachu, because their numbers were",
+    "not legible at that angle -- and a typed number is his own reading of the card",
+    "where that was mine. The list he sent is the whole binder, so this REPLACES rather",
+    "than merges; `got`, `shot`, `illus` and the identification notes were carried",
+    "forward for every card that was already on file, and the 45 new ones carry no date",
+    "because none was given and inventing one would be the same class of error this",
+    "rebuild exists to remove."
   ],
-  "checked": "2026-09-17",
+  "checked": "2026-09-21",
   "owned": [
     {
-      "name": "Hydreigon",
-      "n": "099",
-      "of": 128,
-      "setCode": "30C",
-      "section": "main",
-      "rarity": "Double rare",
-      "illus": "Ryuta Fuse",
-      "got": "2026-09-11",
-      "shot": "30c-099-hydreigon",
-      "note": "Read off the card: 099/128, set code 30C, regulation mark J, Stage 2 evolving from Zweilous, 170 HP. NOT in Japan's 176 card list at all, which is the clearest single proof that the English set is a different set and not a translation of it."
+      "name": "Basic Grass Energy",
+      "n": "009",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 009."
     },
     {
-      "name": "Igglybuff",
-      "n": "120",
-      "of": 128,
-      "setCode": "30C",
-      "section": "main",
-      "illus": "Kanomi Ogata",
-      "got": "2026-09-11",
-      "shot": "30c-120-igglybuff",
-      "note": "Read off the card: 120/128, set code 30C, regulation mark J, 30 HP. Japan prints this card too, at #096, so the same card sits at two different numbers in the two sets. That is the numbering mismatch this page keeps warning about, demonstrated on one card."
+      "name": "Basic Fire Energy",
+      "n": "010",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 010."
+    },
+    {
+      "name": "Basic Water Energy",
+      "n": "011",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 011."
+    },
+    {
+      "name": "Basic Lightning Energy",
+      "n": "012",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 012."
+    },
+    {
+      "name": "Basic Psychic Energy",
+      "n": "013",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. THIS IS THE ONE NUMBER IN THE PHOTOGRAPH I AM INFERRING RATHER THAN READING, and it is recorded as such. Its footer is the least legible of the eight. Six others in the same photograph read cleanly -- Grass 009, Fire 010, Water 011, Lightning 012, Darkness 015, Metal 016 -- and those six sit in the standard Pokemon energy order (Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal) with no gaps except 013 and 014. Psychic is fifth in that order, so it is 013 and Fighting is 014. Six confirmed readings pinning a sequence is a strong inference, but it is still an inference: if a Fighting Energy ever turns up reading 013, this row is the one to check first."
+    },
+    {
+      "name": "Basic Fighting Energy",
+      "n": "014",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy"
+    },
+    {
+      "name": "Basic Darkness Energy",
+      "n": "015",
+      "setCode": "MEE",
+      "section": "energy",
+      "rarity": "Basic Energy",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 015."
     },
     {
       "name": "Basic Metal Energy",
       "n": "016",
       "setCode": "MEE",
       "section": "energy",
+      "rarity": "Basic Energy",
       "illus": "YOSHIROTTEN",
       "got": "2026-09-11",
       "shot": "mee-016-basic-metal-energy",
       "note": "Read off the card: MEE 016, NOT a 30C number, with the rainbow 30th Pikachu stamp and YOSHIROTTEN's name on it, which matches TPCi saying he designed the Energy. So the set's eight foil Energy are numbered in the MEE Energy sheet rather than in the main set."
-    },
-    {
-      "name": "Pikachu",
-      "n": "031",
-      "of": 128,
-      "setCode": "30C",
-      "section": "pikachu",
-      "rarity": "Pikachu Rare",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 50, [C] Gnaw (10), which is #031 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
-    },
-    {
-      "name": "Pikachu",
-      "n": "047",
-      "of": 128,
-      "setCode": "30C",
-      "section": "pikachu",
-      "rarity": "Pikachu Rare",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Play Rough (10+), which is #047 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture. A DOUBLE WAS RECORDED AGAINST THIS CARD ON 16 SEPTEMBER 2026 AND IT WAS WRONG. The first photograph was rotated a quarter turn and I read two cards in it as Play Rough; asked whether that was a double or a misread, he answered double, and it went in here. A clearer, upright photograph the same day shows exactly ONE Play Rough -- this card, 047/128, subset 25/30 -- and the repeated card is a second Get Some Air, 046/128. The claim is removed rather than moved, because a second copy is not recorded anywhere in this file by design. THE LESSON IS IN THE QUESTION, NOT THE ANSWER: he was asked \"double or misread?\" without being told that #052 Angry Bolt is also HP 70 with a (10+) attack, which is the fact that makes two cards easy to confuse. A question that hides the discriminating detail gets a confident answer to the wrong question, and his answer was reasonable given what he was told."
-    },
-    {
-      "name": "Pikachu",
-      "n": "046",
-      "of": 128,
-      "setCode": "30C",
-      "section": "pikachu",
-      "rarity": "Pikachu Rare",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [C] Get Some Air, second attack [CC] Smash Kick (20), which is #046 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
-    },
-    {
-      "name": "Pikachu",
-      "n": "039",
-      "of": 128,
-      "setCode": "30C",
-      "section": "pikachu",
-      "rarity": "Pikachu Rare",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Iron Tail (20x), which is #039 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
-    },
-    {
-      "name": "Pikachu",
-      "n": "043",
-      "of": 128,
-      "setCode": "30C",
-      "section": "pikachu",
-      "rarity": "Pikachu Rare",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [CC] Tropical Vibes, which is #043 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
     },
     {
       "name": "Pikachu",
@@ -133,18 +134,38 @@
       "setCode": "30C",
       "section": "pikachu",
       "rarity": "Pikachu Rare",
+      "pikachuNo": 6,
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [LC] Pika Ball (20), with the Lonely Gaze Ability above it, which is #028 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
     },
     {
       "name": "Pikachu",
-      "n": "051",
+      "n": "030",
       "of": 128,
       "setCode": "30C",
       "section": "pikachu",
       "rarity": "Pikachu Rare",
+      "pikachuNo": 8
+    },
+    {
+      "name": "Pikachu",
+      "n": "031",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 9,
       "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [LLL] Lightning Crash, which is #051 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 50, [C] Gnaw (10), which is #031 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "032",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 10
     },
     {
       "name": "Pikachu",
@@ -153,98 +174,336 @@
       "setCode": "30C",
       "section": "pikachu",
       "rarity": "Pikachu Rare",
+      "pikachuNo": 11,
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [L] Tiny Charge (10), which is #033 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
     },
     {
-      "name": "Eevee",
-      "n": "116",
+      "name": "Pikachu",
+      "n": "037",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 15
+    },
+    {
+      "name": "Pikachu",
+      "n": "039",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 17,
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Iron Tail (20x), which is #039 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "041",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 19
+    },
+    {
+      "name": "Pikachu",
+      "n": "043",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 21,
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [CC] Tropical Vibes, which is #043 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "046",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 24,
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 60, [C] Get Some Air, second attack [CC] Smash Kick (20), which is #046 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Pikachu",
+      "n": "047",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 25,
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [C] Play Rough (10+), which is #047 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture. A DOUBLE WAS RECORDED AGAINST THIS CARD ON 16 SEPTEMBER 2026 AND IT WAS WRONG. The first photograph was rotated a quarter turn and I read two cards in it as Play Rough; asked whether that was a double or a misread, he answered double, and it went in here. A clearer, upright photograph the same day shows exactly ONE Play Rough -- this card, 047/128, subset 25/30 -- and the repeated card is a second Get Some Air, 046/128. The claim is removed rather than moved, because a second copy is not recorded anywhere in this file by design. THE LESSON IS IN THE QUESTION, NOT THE ANSWER: he was asked \"double or misread?\" without being told that #052 Angry Bolt is also HP 70 with a (10+) attack, which is the fact that makes two cards easy to confuse. A question that hides the discriminating detail gets a confident answer to the wrong question, and his answer was reasonable given what he was told."
+    },
+    {
+      "name": "Pikachu",
+      "n": "051",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 29,
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"here are all the pikachu cards i pulled today\", with a photograph of nine laid out. IDENTIFIED BY HP AND ATTACK NAME, NOT BY READING THE COLLECTOR NUMBER: the photograph is rotated a quarter turn and the numbers sit small and angled at the card edge, where a misread digit puts the wrong card in the binder. The HP and the attack line are large and legible, and across all 30 of this set's Pikachu every one of these attack names appears EXACTLY ONCE -- checked against TCGplayer's own card text for the whole subset before any of these were written. So the identification is a lookup rather than a reading. This one is HP 70, [LLL] Lightning Crash, which is #051 and nothing else. No `shot`: he asked for sourced scans rather than his own photographs, so the pocket draws the checklist's picture."
+    },
+    {
+      "name": "Alolan Exeggutor",
+      "n": "002",
+      "of": 128,
       "setCode": "30C",
       "section": "main",
-      "rarity": "Common",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. THREE EEVEE SHARE THIS SET AND THE TEXT SEPARATES THEM CLEANLY: 116, 117 and 118 are all Common and all HP 70, but 117 and 118 both attack with Quick Attack (20+) and only 116 reads [C] Fetch and Hide followed by [C] Tackle (10), which is what the card in the photograph says. So this is a lookup on the attack line and not a guess between three lookalikes. No `shot`: sourced scans are preferred over his own photographs. SET CODE ADDED 17 SEPTEMBER 2026 for the same reason the Classic Collection rows got theirs: this was the one remaining pocket rendering a bare \"#116\" with no set marker, which is exactly the ambiguity the owner objected to. Every owned pocket now names its code, and the three codes in this file mean three real things -- 30C is the set, MEE is the Energy sheet the eight foil basics are numbered in, MEP is a promo that is not part of the 199."
+      "rarity": "Common"
     },
     {
-      "name": "Sneasel",
-      "n": "25/111",
+      "name": "Illumise",
+      "n": "004",
+      "of": 128,
       "setCode": "30C",
-      "section": "classic",
-      "rarity": "Classic Collection",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Sneasel in the set, and a 30th Celebration card in the Classic Collection, which is why the number is 25/111 rather than an /128: these reprints keep the numbering of the set they first appeared in, while the card itself prints 30C like the rest of this set. The old style frame and the LV.32 #215 line in the photograph are that reprint. No `shot`: sourced scans are preferred over his own photographs. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
-    },
-    {
-      "name": "Erika's Jigglypuff",
-      "n": "69/132",
-      "setCode": "30C",
-      "section": "classic",
-      "rarity": "Classic Collection",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Erika's Jigglypuff in the set. A 30th Celebration card in the Classic Collection, carrying 69/132 from the set it originally appeared in. Group Therapy and Pulled Punch (40-) on the card match its listed text. No `shot`: sourced scans are preferred over his own photographs. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
-    },
-    {
-      "name": "Poke Pad",
-      "n": "126",
       "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Tropius",
+      "n": "005",
+      "of": 128,
       "setCode": "30C",
-      "rarity": "Common",
-      "got": "2026-09-16",
-      "note": "The Trainer in the same photograph, and the only one of the ten cards there that the checklist can confirm outright: it holds Poke Pad at 126/128 Common, and the card reads 126/128 with the 30C set code. Yuko Morii illustrated it. Printed \"Poke Pad\" here without the accent to match the checklist's own spelling, which is what the renderers key on."
+      "section": "main",
+      "rarity": "Common"
     },
     {
-      "name": "Basic Grass Energy",
-      "n": "009",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 009."
+      "name": "Cherrim",
+      "n": "007",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
     },
     {
-      "name": "Basic Fire Energy",
+      "name": "Ninetales",
       "n": "010",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 010."
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
     },
     {
-      "name": "Basic Water Energy",
-      "n": "011",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 011."
+      "name": "Reshiram",
+      "n": "014",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
     },
     {
-      "name": "Basic Lightning Energy",
-      "n": "012",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 012."
-    },
-    {
-      "name": "Basic Psychic Energy",
-      "n": "013",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
-      "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. THIS IS THE ONE NUMBER IN THE PHOTOGRAPH I AM INFERRING RATHER THAN READING, and it is recorded as such. Its footer is the least legible of the eight. Six others in the same photograph read cleanly -- Grass 009, Fire 010, Water 011, Lightning 012, Darkness 015, Metal 016 -- and those six sit in the standard Pokemon energy order (Grass, Fire, Water, Lightning, Psychic, Fighting, Darkness, Metal) with no gaps except 013 and 014. Psychic is fifth in that order, so it is 013 and Fighting is 014. Six confirmed readings pinning a sequence is a strong inference, but it is still an inference: if a Fighting Energy ever turns up reading 013, this row is the one to check first."
-    },
-    {
-      "name": "Basic Darkness Energy",
+      "name": "Fuecoco ex",
       "n": "015",
-      "section": "energy",
-      "setCode": "MEE",
-      "rarity": "Basic Energy",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
       "got": "2026-09-16",
-      "note": "The owner, 16 September 2026, photographing them laid out. READ STRAIGHT OFF THE CARD, which is possible here and was not for the rotated Pikachu photograph: each one prints \"MEE EN\" and its number in the footer, large enough to read, alongside YOSHIROTTEN's name. THE MEE SET CODE IS THE WHOLE POINT OF THESE ROWS: the eight foil basic Energy are numbered in a DIFFERENT set from the 128 Pokemon and Trainers, which is why no /128 appears on them and why TCGplayer lists none of them under either 30th Celebration set name. data/30th-checklist.json holds zero Energy rows, so these eight can only ever be entered by hand from a card in front of him, and they draw no picture because no source this site may use has one. This one reads MEE EN 015."
+      "note": "The owner, 16 September 2026: \"regular double black star - double rare\", with a close-up. This set prints Fuecoco ex twice, 015/128 Double Rare and 147/128 Special Illustration Rare, and the two carry IDENTICAL text -- HP 210, Singe, Cheerful Flame (70x) -- so only the rarity mark and the artwork separate them. Two black stars IS the Double rare symbol, and the close-up shows 015/128 with the 30C set code, so the symbol and the printed number agree. That agreement is the check: either alone would have been enough to act on, and having both means nothing here rests on my reading of a small number in a photograph."
+    },
+    {
+      "name": "Slowpoke",
+      "n": "016",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Lapras",
+      "n": "017",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Palkia",
+      "n": "020",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Toxel",
+      "n": "058",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Toxtricity",
+      "n": "059",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Morpeko",
+      "n": "061",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Miraidon",
+      "n": "062",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Marill",
+      "n": "067",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Azumarill",
+      "n": "068",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Drifloon",
+      "n": "073",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Chandelure",
+      "n": "075",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Lunala",
+      "n": "080",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Gimmighoul",
+      "n": "081",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Groudon",
+      "n": "082",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Lucario",
+      "n": "083",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Seismitoad",
+      "n": "084",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Koraidon",
+      "n": "086",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Nidoran F",
+      "n": "087",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Nidorina",
+      "n": "088",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Scraggy",
+      "n": "094",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Zweilous",
+      "n": "098",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Hydreigon",
+      "n": "099",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "illus": "Ryuta Fuse",
+      "got": "2026-09-11",
+      "shot": "30c-099-hydreigon",
+      "note": "Read off the card: 099/128, set code 30C, regulation mark J, Stage 2 evolving from Zweilous, 170 HP. NOT in Japan's 176 card list at all, which is the clearest single proof that the English set is a different set and not a translation of it."
+    },
+    {
+      "name": "Yveltal",
+      "n": "100",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Galarian Meowth",
+      "n": "101",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
     },
     {
       "name": "Jirachi ex",
@@ -252,19 +511,105 @@
       "of": 128,
       "setCode": "30C",
       "section": "main",
-      "rarity": "Double rare",
+      "rarity": "Double Rare",
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"Jirachi ex is the double black star - double rare\". THE SYMBOL IS THE ANSWER AND THE TEXT COULD NEVER HAVE BEEN: this set prints Jirachi ex twice, 102/128 Double Rare and 155/128 Special Illustration Rare, and the two carry IDENTICAL card text -- HP 160, Wish Granter, Swift (150) -- so nothing readable separates them. Only the rarity mark and the artwork do. Two black stars IS the Double rare symbol, which is the same rule the rip log rows on this site follow, so this is 102. IT WAS WORTH ASKING RATHER THAN GUESSING: 102 is $5.63 raw and 155 is $580.00, so a coin flip here would have been wrong by a hundredfold while looking exactly as confident as being right."
     },
     {
-      "name": "Hisuian Zorua",
-      "n": "145",
+      "name": "Ferrothorn",
+      "n": "104",
       "of": 128,
       "setCode": "30C",
-      "section": "secret",
-      "rarity": "Illustration Rare",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Zacian",
+      "n": "106",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare"
+    },
+    {
+      "name": "Gholdengo",
+      "n": "108",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Jangmo-o",
+      "n": "110",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Hakamo-o",
+      "n": "111",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Kangaskhan",
+      "n": "114",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Ditto",
+      "n": "115",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
+    },
+    {
+      "name": "Eevee",
+      "n": "116",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
       "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 60, Scratch (20). The main set prints it at 122/128 Common."
+      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. THREE EEVEE SHARE THIS SET AND THE TEXT SEPARATES THEM CLEANLY: 116, 117 and 118 are all Common and all HP 70, but 117 and 118 both attack with Quick Attack (20+) and only 116 reads [C] Fetch and Hide followed by [C] Tackle (10), which is what the card in the photograph says. So this is a lookup on the attack line and not a guess between three lookalikes. No `shot`: sourced scans are preferred over his own photographs. SET CODE ADDED 17 SEPTEMBER 2026 for the same reason the Classic Collection rows got theirs: this was the one remaining pocket rendering a bare \"#116\" with no set marker, which is exactly the ambiguity the owner objected to. Every owned pocket now names its code, and the three codes in this file mean three real things -- 30C is the set, MEE is the Energy sheet the eight foil basics are numbered in, MEP is a promo that is not part of the 199."
+    },
+    {
+      "name": "Igglybuff",
+      "n": "120",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "illus": "Kanomi Ogata",
+      "got": "2026-09-11",
+      "shot": "30c-120-igglybuff",
+      "note": "Read off the card: 120/128, set code 30C, regulation mark J, 30 HP. Japan prints this card too, at #096, so the same card sits at two different numbers in the two sets. That is the numbering mismatch this page keeps warning about, demonstrated on one card."
+    },
+    {
+      "name": "Poke Pad",
+      "n": "126",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-16",
+      "note": "The Trainer in the same photograph, and the only one of the ten cards there that the checklist can confirm outright: it holds Poke Pad at 126/128 Common, and the card reads 126/128 with the 30C set code. Yuko Morii illustrated it. Printed \"Poke Pad\" here without the accent to match the checklist's own spelling, which is what the renderers key on."
+    },
+    {
+      "name": "Switch",
+      "n": "127",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common"
     },
     {
       "name": "Zapdos",
@@ -277,6 +622,14 @@
       "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 120, the Flash-Pop Flapping Ability and Thundering Lightning (210). The main set prints it at 055/128 Common, and the gap matters: 055 is $5.99 raw and 133 is $49.99."
     },
     {
+      "name": "Toxtricity",
+      "n": "134",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare"
+    },
+    {
       "name": "Scraggy",
       "n": "140",
       "of": 128,
@@ -287,23 +640,60 @@
       "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 80, Nitpick and Corkscrew Punch (30). The main set prints it at 094/128 Common."
     },
     {
-      "name": "Fuecoco ex",
-      "n": "015",
+      "name": "Galarian Meowth",
+      "n": "141",
       "of": 128,
       "setCode": "30C",
-      "section": "main",
-      "rarity": "Double rare",
+      "section": "secret",
+      "rarity": "Illustration Rare"
+    },
+    {
+      "name": "Hisuian Zorua",
+      "n": "145",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
       "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"regular double black star - double rare\", with a close-up. This set prints Fuecoco ex twice, 015/128 Double Rare and 147/128 Special Illustration Rare, and the two carry IDENTICAL text -- HP 210, Singe, Cheerful Flame (70x) -- so only the rarity mark and the artwork separate them. Two black stars IS the Double rare symbol, and the close-up shows 015/128 with the 30C set code, so the symbol and the printed number agree. That agreement is the check: either alone would have been enough to act on, and having both means nothing here rests on my reading of a small number in a photograph."
+      "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 60, Scratch (20). The main set prints it at 122/128 Common."
+    },
+    {
+      "name": "Jirachi ex",
+      "n": "155",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Special Illustration Rare"
     },
     {
       "name": "N",
       "n": "101/101",
+      "of": 128,
       "setCode": "30C",
       "section": "classic",
       "rarity": "Classic Collection",
       "got": "2026-09-16",
       "note": "The owner, 17 September 2026, sending its TCGplayer link outright after I could not identify it from the photograph. Product 716202 is N, 101/101, Classic Collection. THE NAME IS THE REASON THE LOOKUP FAILED AND IT WOULD NEVER HAVE WORKED. Every other card in that batch was found by reading its name or its card text and looking it up; this one is named \"N\", a single character, on a full-art textured Supporter where the nameplate is the hardest part of the card to read. There was nothing to search for. It was sitting in data/30th-checklist.json the whole time -- it appeared in the very first Classic Collection pull as \"101/101 N | id 716202\" -- and no amount of re-reading the photograph would have got there, which is worth recording as the limit of the identify-by-text method rather than as a near miss. A 30th Celebration card in the Classic Collection, carrying its original set's 101/101 rather than an /128 number. Unique at 101 in that section, unlike the two cards numbered 11 and the three numbered 106. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
+    },
+    {
+      "name": "Sneasel",
+      "n": "25/111",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Sneasel in the set, and a 30th Celebration card in the Classic Collection, which is why the number is 25/111 rather than an /128: these reprints keep the numbering of the set they first appeared in, while the card itself prints 30C like the rest of this set. The old style frame and the LV.32 #215 line in the photograph are that reprint. No `shot`: sourced scans are preferred over his own photographs. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
+    },
+    {
+      "name": "Erika's Jigglypuff",
+      "n": "69/132",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-16",
+      "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Erika's Jigglypuff in the set. A 30th Celebration card in the Classic Collection, carrying 69/132 from the set it originally appeared in. Group Therapy and Pulled Punch (40-) on the card match its listed text. No `shot`: sourced scans are preferred over his own photographs. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
     }
   ],
   "_shotNote": [
@@ -337,12 +727,19 @@
   "promos": [
     {
       "name": "Greninja ex",
-      "n": "035",
+      "n": "099",
       "setCode": "MEP",
       "rarity": "Double rare",
-      "from": "30th Celebration Greninja ex Tin",
+      "from": "Black Star Promo",
       "got": "2026-09-16",
-      "note": "The owner, 16 September 2026: \"this is a promo card from the Greninja ex 30th Celebration Tin\". NOT one of the 199 and that is why it is here: the set prints Greninja ex at 021/128 Double Rare and 148/128 Special Illustration Rare, and this is neither -- its footer reads MEP, the promo set code, not 30C. Same card text as both, HP 300, Stealthy Slash and Aqua Edge (160), so text could never have told them apart; the set code did. THE NUMBER IS READ FROM HIS PHOTOGRAPH AND IS THE LEAST CERTAIN THING IN THIS ROW. TCGplayer lists no promo set for this run under any name tried, so there is no checklist to look it up in and nothing to check the reading against. Worth correcting if it turns out to be another number; nothing else in the file depends on it."
+      "note": "The owner, 21 September 2026, typed it as \"Greninja ex - 099 - black star promo\". THAT NUMBER REPLACES A PHOTO-DERIVED 035 and the correction runs in the right direction: the 035 was read off his photograph of the card on 16 September, this is him reading the card itself. Same physical promo, out of the 30th Celebration Greninja ex Tin, which is how it was described when it first went in."
+    },
+    {
+      "name": "Lucario",
+      "n": "095",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "note": "The owner, 21 September 2026: \"Lucario - 095 - black star promo\". New to the binder with the 21 September rebuild."
     }
   ]
 }
