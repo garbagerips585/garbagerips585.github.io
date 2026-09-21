@@ -733,7 +733,10 @@
           "name": "Pok.eJoe Trading Cards",
           "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
         }
-      ]
+      ],
+      "flyer": "collectorfest-jcc-2026-09-27.jpg",
+      "flyerW": 440,
+      "flyerH": 569
     },
     {
       "id": "millcreek-mall-2026-10-02",
@@ -1303,7 +1306,10 @@
           "name": "Pok.eJoe Trading Cards",
           "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
         }
-      ]
+      ],
+      "flyer": "rocpokecon-2026-10-31.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "id": "collectorsfest-112-2026-11-01",
@@ -1426,7 +1432,10 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "flyer": "btcc-powerhouse-2026-11-13.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "name": "Buffalo Trading Card Con",
@@ -1467,7 +1476,10 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "flyer": "btcc-powerhouse-2026-11-13.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "name": "Buffalo Trading Card Con",
@@ -1508,7 +1520,10 @@
           "name": "TOAK Pulls",
           "confirmed": "TOAK Pulls to the channel, 3 September 2026: \"We also will be at Buffalo TCG Con, Flower City Comic Con, Collector fest Monthly, and POKEFEST and The Big Show in PA\"."
         }
-      ]
+      ],
+      "flyer": "btcc-powerhouse-2026-11-13.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "id": "extreme-pokemon-batavia-2026-11-15",
@@ -1602,7 +1617,10 @@
           "name": "Legends Card Shop",
           "confirmed": "Legends Card Shop posted the EC3CON flyer to their own Instagram story on 9 September 2026 saying \"We are excited to be apart of an epic event!\", and the owner passed it on the same day."
         }
-      ]
+      ],
+      "flyer": "ec3con-2026-11-28.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "id": "rocpoketour-2026-11-28",
@@ -1654,7 +1672,10 @@
           "name": "Legends Card Shop",
           "confirmed": "Legends Card Shop posted the EC3CON flyer to their own Instagram story on 9 September 2026 saying \"We are excited to be apart of an epic event!\", and the owner passed it on the same day."
         }
-      ]
+      ],
+      "flyer": "ec3con-2026-11-28.jpg",
+      "flyerW": 440,
+      "flyerH": 550
     },
     {
       "id": "golden-saucer-nf-2026-12-05",
@@ -2400,6 +2421,35 @@
       "flyer": "collectors-clubhouse-2026-10-25.jpg",
       "flyerW": 440,
       "flyerH": 673
+    },
+    {
+      "id": "prime-collectors-716-2026-10-10",
+      "name": "716 Prime Collectors",
+      "date": "2026-10-10",
+      "start": "10:00",
+      "end": "16:00",
+      "venue": "Eason Hall",
+      "address": "23 Elm St, Westfield, NY 14787",
+      "city": "Westfield",
+      "region": "away",
+      "farAfield": "BOTH GROUNDS APPLY HERE, which is unusual and is why they are both written out. THE DRIVE: Westfield is 62 road miles and 1h19m from Buffalo, its nearest anchor (OSRM over OSM road data, 21 September 2026), which is inside the 2 hour DRIVE_HOURS ceiling, so driveRegions() gives it the Buffalo chip exactly as it does Erie. It needs the opt-out anyway because the straight line is 52.8 miles and the area guard's radius is 45 -- the two measures disagree here in the ordinary way, and the guard is written in straight lines on purpose. THE VENDOR: Legends Card Shop is confirmed vending it, which is the owner's second ground and would carry this row on its own at any distance.",
+      "admission": null,
+      "organiser": "716 TCG & Collectables",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "THE FLYER NAMES NO CATEGORIES AT ALL, so this is read off what it SHOWS rather than off a list it does not carry. Two of the five hero products are Pokemon -- a Sword & Shield Lost Origin booster pack and a Base Set Charizard -- against a Magic pack, a Josh Allen autograph card and a Masters of the Universe Funko Pop, and the show bills itself as a \"TCG & Collectibles Show\". So Pokemon is plainly part of the floor and plainly not the whole of it, which is \"some\".",
+      "blurb": "A one day show in Eason Hall, run by 716 TCG & Collectables with the YWCA of Westfield. Ten to four, and the flyer states no admission price either way.",
+      "vendors": [
+        {
+          "name": "Legends Card Shop",
+          "confirmed": "Legends Card Shop sent this show's own flyer to the channel on 21 September 2026 as one of a batch of six, and the owner relayed it in those words: \"Legends Card Shop just sent me all of these flyers for upcoming events that they are confirmed to be vending at\". That is the shop speaking about its own circuit, which is the same kind of source as their 3 September dates flyer."
+        }
+      ],
+      "flyer": "prime-collectors-716-2026-10-10.jpg",
+      "flyerW": 440,
+      "flyerH": 623,
+      "source": "the show's own flyer, relayed by Legends Card Shop to the channel 21 September 2026",
+      "sourceNote": "NO ADMISSION PRICE IS PUBLISHED and none is guessed: `admission` is null, so the card reads \"Check the listing\" rather than inventing a figure. The flyer says BUY / SELL / TRADE, names the venue, the street address, the date and the hours, and says nothing about a door charge in either direction. THE DATE CARRIES NO YEAR on the flyer, which reads only \"OCTOBER 10TH\"; 2026 is taken from the batch it arrived in, all six of which are 2026 shows, and 10 October 2026 is a Saturday, which a card show date should be. The two sponsors are printed together at the foot, \"BROUGHT TO YOU BY ywca Westfield, NY & 716 TCG & Collectables\"; `organiser` names the second because it is the card business running the floor, and the YWCA is in the blurb."
     }
   ],
   "_towns": {
@@ -2494,6 +2544,10 @@
     "Clifton Park": [
       42.863037,
       -73.774762
+    ],
+    "Westfield": [
+      42.32228,
+      -79.578103
     ]
   },
   "_towns_note": [
@@ -2563,6 +2617,13 @@
       "miles": 139,
       "hours": 2.95,
       "label": "about 3 hours"
+    },
+    "Westfield": {
+      "anchor": "buffalo",
+      "anchorName": "Buffalo",
+      "miles": 62,
+      "hours": 1.32,
+      "label": "about 1 hour 20"
     }
   }
 }
