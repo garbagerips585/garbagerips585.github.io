@@ -741,5 +741,33 @@
       "from": "Black Star Promo",
       "note": "The owner, 21 September 2026: \"Lucario - 095 - black star promo\". New to the binder with the 21 September rebuild."
     }
+  ],
+  "_jumboNote": [
+    "JUMBO CARDS ARE TRACKED AND ARE NOT PART OF THE 199, for exactly the reason the",
+    "promos are not: the five sections add to 199 because that is what the SET is,",
+    "and an oversized card is in none of them. A jumbo in a section would count",
+    "toward the denominator and quietly make the completion percentage wrong, which",
+    "is the one number the owner asked this page to show.",
+    "",
+    "THEY ARE ALSO NOT THE SAME THING AS THE PROMOS and get their own key rather",
+    "than sharing one. A jumbo is a PHYSICAL FORMAT -- an oversized card that does",
+    "not fit a nine pocket page and is not tournament legal -- while a Black Star",
+    "Promo is a distribution channel. The same artwork can exist as both, which is",
+    "precisely why they cannot share a list: the owner's Greninja ex exists here as a",
+    "standard-size promo AND as a jumbo, and those are two different objects he owns.",
+    "",
+    "NO NUMBER IS RECORDED WHERE HE DID NOT GIVE ONE. Jumbo cards often carry the",
+    "same promo number as their standard-size twin, and the owner's standard Greninja",
+    "ex promo is 099, but 'often' is not evidence and this file does not hold",
+    "inferred numbers any more. Ask him rather than deriving it."
+  ],
+  "jumbos": [
+    {
+      "name": "Greninja ex",
+      "kind": "Jumbo",
+      "from": "Black Star Promo",
+      "got": "2026-09-21",
+      "note": "The owner, 21 September 2026: \"I got my first Jumbo card its the Greninja ex black star promo card jumbo card.\" HIS FIRST JUMBO. No collector number was given and none is inferred: the standard-size Greninja ex promo he owns is 099 and a jumbo commonly shares its twin's promo number, but this file stopped holding derived numbers on 21 September and will not start again here."
+    }
   ]
 }

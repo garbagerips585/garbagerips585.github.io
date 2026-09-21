@@ -76,6 +76,13 @@ const owned = binder.owned || [];
    that is what the set is, and a promo is in none of them, so counting one
    would make the percentage in the hero wrong. */
 const promos = binder.promos || [];
+/* JUMBOS ARE A THIRD LIST AND NOT A SIXTH SECTION, same reason as the promos and
+   spelled out in `_jumboNote`: the five sections add to 199 because that is the
+   SET, and an oversized card is in none of them. It is also deliberately not
+   folded in with the promos, because a jumbo is a physical FORMAT and a Black
+   Star Promo is a distribution channel -- the owner's Greninja ex is both, as
+   two separate objects, which is the case that proves they cannot share a list. */
+const jumbos = binder.jumbos || [];
 
 /* THE SET'S OWN LOGO IN THE HERO. The owner sent the artwork on 16 September
  * 2026 -- "30th logo now in the downloads folder" -- which closes the one gap
@@ -629,6 +636,12 @@ const BINDER_LEAVES = (() => {
       out.push(leafOf(promos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
         { key: "promo", label: "Promos", total: promos.length, page: p + 1, pages, of: promos.length }));
   }
+  if (jumbos.length) {
+    const pages = Math.max(1, Math.ceil(jumbos.length / POCKETS));
+    for (let p = 0; p < pages; p++)
+      out.push(leafOf(jumbos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
+        { key: "jumbo", label: "Jumbo cards", total: jumbos.length, page: p + 1, pages, of: jumbos.length }));
+  }
   return out.map((l, i) => ({ ...l, no: i + 1 }));
 })();
 const LEAF_N = BINDER_LEAVES.length;
@@ -701,7 +714,8 @@ const railHtml = (() => {
    survive as a compact summary above the binder rather than being lost with the
    headings they used to live on. */
 const sectionSummary = [...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
-  ...(promos.length ? [{ key: "promo", label: "Promos", total: null, have: promos.length }] : [])]
+  ...(promos.length ? [{ key: "promo", label: "Promos", total: null, have: promos.length }] : []),
+  ...(jumbos.length ? [{ key: "jumbo", label: "Jumbo cards", total: null, have: jumbos.length }] : [])]
   .map(({ label, total, have }) => {
     const pcLocal = total ? Math.round((have / total) * 100) : 0;
     const first = BINDER_LEAVES.find((l) => l.label === label);
