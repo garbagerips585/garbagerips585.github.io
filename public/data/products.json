@@ -1,9 +1,9 @@
 {
-  "checked": "2026-09-21",
+  "checked": "2026-09-22",
   "sets": {
     "151": {
       "tcgSet": "SV: Scarlet & Violet 151",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Ultra-Premium Collection",
@@ -24,7 +24,7 @@
           "productId": 501999,
           "market": 1275.77,
           "low": 1094.99,
-          "listings": 49,
+          "listings": 52,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501999_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501999_200w.jpg",
           "url": "https://www.tcgplayer.com/product/501999/151-pokemon-center-elite-trainer-box-exclusive"
@@ -34,9 +34,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "151 Elite Trainer Box",
           "productId": 503313,
-          "market": 498.66,
-          "low": 453.49,
-          "listings": 75,
+          "market": 498.22,
+          "low": 59.9,
+          "listings": 78,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/503313_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/503313_200w.jpg",
           "url": "https://www.tcgplayer.com/product/503313/151-elite-trainer-box"
@@ -46,7 +46,7 @@
           "blurb": "6 packs",
           "name": "151 Booster Bundle",
           "productId": 502000,
-          "market": 164.59,
+          "market": 165.85,
           "low": 25,
           "listings": 172,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/502000_in_1000x1000.jpg",
@@ -59,8 +59,8 @@
           "name": "151 Booster Pack",
           "productId": 504467,
           "market": 29.53,
-          "low": 22.99,
-          "listings": 98,
+          "low": 2.69,
+          "listings": 104,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/504467_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/504467_200w.jpg",
           "url": "https://www.tcgplayer.com/product/504467/151-booster-pack"
@@ -72,7 +72,7 @@
           "productId": 522705,
           "market": 50.73,
           "low": 5.98,
-          "listings": 16,
+          "listings": 14,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/522705_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/522705_200w.jpg",
           "url": "https://www.tcgplayer.com/product/522705/151-mini-tin-magneton-and-ekans"
@@ -82,7 +82,7 @@
           "blurb": "Packs plus promos, count not in our data",
           "name": "151 Poster Collection",
           "productId": 502001,
-          "market": 85.92,
+          "market": 85.59,
           "low": 0.99,
           "listings": 63,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/502001_in_1000x1000.jpg",
@@ -93,16 +93,16 @@
     },
     "pitch-black": {
       "tcgSet": "ME05: Pitch Black",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Pitch Black Booster Box",
           "productId": 692939,
-          "market": 192.76,
+          "market": 192.78,
           "low": 179.95,
-          "listings": 176,
+          "listings": 185,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692939_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692939_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692939/pitch-black-booster-box"
@@ -112,9 +112,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Pitch Black Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 692949,
-          "market": 115.59,
-          "low": 107,
-          "listings": 210,
+          "market": 112.94,
+          "low": 111.99,
+          "listings": 208,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692949_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692949_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692949/pitch-black-pokemon-center-elite-trainer-box-exclusive"
@@ -124,9 +124,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Pitch Black Elite Trainer Box",
           "productId": 692947,
-          "market": 70.79,
-          "low": 57.94,
-          "listings": 221,
+          "market": 73.25,
+          "low": 59.99,
+          "listings": 220,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692947_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692947_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692947/pitch-black-elite-trainer-box"
@@ -136,9 +136,9 @@
           "blurb": "6 packs",
           "name": "Pitch Black Booster Bundle",
           "productId": 692942,
-          "market": 40.55,
-          "low": 32,
-          "listings": 203,
+          "market": 39.57,
+          "low": 33.99,
+          "listings": 208,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692942_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692942_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692942/pitch-black-booster-bundle"
@@ -148,9 +148,9 @@
           "blurb": "4 packs plus a 40 card deck",
           "name": "Pitch Black Build & Battle Box",
           "productId": 692946,
-          "market": 37.92,
+          "market": 37.96,
           "low": 36.98,
-          "listings": 21,
+          "listings": 22,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692946_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692946_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692946/pitch-black-build-and-battle-box"
@@ -160,7 +160,7 @@
           "blurb": "Packs plus a promo card, count not in our data",
           "name": "Pitch Black Single Pack Blister [Slowpoke]",
           "productId": 692955,
-          "market": 9.26,
+          "market": 9.33,
           "low": 1.5,
           "listings": 95,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692955_in_1000x1000.jpg",
@@ -172,9 +172,9 @@
           "blurb": "One pack",
           "name": "Pitch Black Booster Pack",
           "productId": 692944,
-          "market": 6.13,
+          "market": 6.2,
           "low": 2.22,
-          "listings": 74,
+          "listings": 79,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/692944_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/692944_200w.jpg",
           "url": "https://www.tcgplayer.com/product/692944/pitch-black-booster-pack"
@@ -183,16 +183,16 @@
     },
     "chaos-rising": {
       "tcgSet": "ME04: Chaos Rising",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Chaos Rising Booster Box",
           "productId": 684444,
-          "market": 189.34,
-          "low": 37.38,
-          "listings": 156,
+          "market": 188.96,
+          "low": 184.96,
+          "listings": 159,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684444_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684444_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684444/chaos-rising-booster-box"
@@ -202,9 +202,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Chaos Rising Pokemon Center Elite Trainer Box",
           "productId": 684452,
-          "market": 115.82,
-          "low": 108,
-          "listings": 180,
+          "market": 115.3,
+          "low": 115.72,
+          "listings": 179,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684452_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684452_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684452/chaos-rising-pokemon-center-elite-trainer-box"
@@ -214,9 +214,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Chaos Rising Elite Trainer Box",
           "productId": 684450,
-          "market": 67.93,
-          "low": 1,
-          "listings": 325,
+          "market": 67.03,
+          "low": 50,
+          "listings": 330,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684450_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684450_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684450/chaos-rising-elite-trainer-box"
@@ -226,9 +226,9 @@
           "blurb": "6 packs",
           "name": "Chaos Rising Booster Bundle",
           "productId": 684456,
-          "market": 38.34,
+          "market": 37.54,
           "low": 5,
-          "listings": 298,
+          "listings": 302,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684456_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684456_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684456/chaos-rising-booster-bundle"
@@ -240,7 +240,7 @@
           "productId": 684454,
           "market": 44.01,
           "low": 37.49,
-          "listings": 29,
+          "listings": 28,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684454_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684454_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684454/chaos-rising-build-and-battle-box"
@@ -250,9 +250,9 @@
           "blurb": "Packs plus a promo card, count not in our data",
           "name": "Chaos Rising Single Pack Blister [Toxel]",
           "productId": 684457,
-          "market": 7.27,
+          "market": 6.9,
           "low": 2,
-          "listings": 78,
+          "listings": 79,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684457_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684457_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684457/chaos-rising-single-pack-blister-toxel"
@@ -262,9 +262,9 @@
           "blurb": "One pack",
           "name": "Chaos Rising Booster Pack",
           "productId": 684446,
-          "market": 5.44,
+          "market": 5.69,
           "low": 2.49,
-          "listings": 101,
+          "listings": 99,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/684446_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/684446_200w.jpg",
           "url": "https://www.tcgplayer.com/product/684446/chaos-rising-booster-pack"
@@ -273,16 +273,16 @@
     },
     "perfect-order": {
       "tcgSet": "ME03: Perfect Order",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Perfect Order Booster Box",
           "productId": 672394,
-          "market": 176.33,
-          "low": 49.99,
-          "listings": 152,
+          "market": 177.03,
+          "low": 169.9,
+          "listings": 154,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672394_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672394_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672394/perfect-order-booster-box"
@@ -292,9 +292,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Perfect Order Pokemon Center Elite Trainer Box",
           "productId": 672404,
-          "market": 124.8,
+          "market": 124.21,
           "low": 115,
-          "listings": 124,
+          "listings": 126,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672404_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672404_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672404/perfect-order-pokemon-center-elite-trainer-box"
@@ -304,9 +304,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Perfect Order Elite Trainer Box",
           "productId": 672401,
-          "market": 69.4,
-          "low": 1,
-          "listings": 253,
+          "market": 69.19,
+          "low": 65,
+          "listings": 251,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672401_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672401_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672401/perfect-order-elite-trainer-box"
@@ -316,9 +316,9 @@
           "blurb": "6 packs",
           "name": "Perfect Order Booster Bundle",
           "productId": 672396,
-          "market": 37.56,
-          "low": 31.99,
-          "listings": 196,
+          "market": 38.93,
+          "low": 32,
+          "listings": 201,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672396_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672396_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672396/perfect-order-booster-bundle"
@@ -328,9 +328,9 @@
           "blurb": "4 packs plus a 40 card deck",
           "name": "Perfect Order Build & Battle Box",
           "productId": 672400,
-          "market": 38.19,
+          "market": 38.03,
           "low": 34.24,
-          "listings": 28,
+          "listings": 27,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672400_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672400_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672400/perfect-order-build-and-battle-box"
@@ -340,9 +340,9 @@
           "blurb": "Packs plus a promo card, count not in our data",
           "name": "Perfect Order Single Pack Blister [Makuhita]",
           "productId": 672410,
-          "market": 7.72,
+          "market": 7.73,
           "low": 6,
-          "listings": 86,
+          "listings": 88,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672410_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672410_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672410/perfect-order-single-pack-blister-makuhita"
@@ -352,9 +352,9 @@
           "blurb": "One pack",
           "name": "Perfect Order Booster Pack",
           "productId": 672398,
-          "market": 5.72,
+          "market": 5.77,
           "low": 0.99,
-          "listings": 128,
+          "listings": 124,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672398_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672398_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672398/perfect-order-booster-pack"
@@ -363,16 +363,16 @@
     },
     "ascended-heroes": {
       "tcgSet": "ME: Ascended Heroes",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Pokemon Center Elite Trainer Box",
           "blurb": "11 packs plus 2 promo cards",
           "name": "Ascended Heroes Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 668497,
-          "market": 364.18,
-          "low": 340,
-          "listings": 138,
+          "market": 363.42,
+          "low": 50,
+          "listings": 141,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/668497_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/668497_200w.jpg",
           "url": "https://www.tcgplayer.com/product/668497/ascended-heroes-pokemon-center-elite-trainer-box-exclusive"
@@ -382,9 +382,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Ascended Heroes Elite Trainer Box",
           "productId": 668496,
-          "market": 146.31,
-          "low": 1,
-          "listings": 255,
+          "market": 148.01,
+          "low": 112.14,
+          "listings": 265,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/668496_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/668496_200w.jpg",
           "url": "https://www.tcgplayer.com/product/668496/ascended-heroes-elite-trainer-box"
@@ -394,9 +394,9 @@
           "blurb": "6 packs",
           "name": "Ascended Heroes Booster Bundle",
           "productId": 668541,
-          "market": 82.45,
+          "market": 83.39,
           "low": 60,
-          "listings": 193,
+          "listings": 200,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/668541_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/668541_200w.jpg",
           "url": "https://www.tcgplayer.com/product/668541/ascended-heroes-booster-bundle"
@@ -406,9 +406,9 @@
           "blurb": "One pack",
           "name": "Ascended Heroes Booster Pack",
           "productId": 672434,
-          "market": 13.3,
-          "low": 9.63,
-          "listings": 109,
+          "market": 13.24,
+          "low": 9.99,
+          "listings": 106,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/672434_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/672434_200w.jpg",
           "url": "https://www.tcgplayer.com/product/672434/ascended-heroes-booster-pack"
@@ -441,16 +441,16 @@
     },
     "phantasmal-flames": {
       "tcgSet": "ME02: Phantasmal Flames",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Phantasmal Flames Booster Box",
           "productId": 654137,
-          "market": 390.55,
-          "low": 314.99,
-          "listings": 92,
+          "market": 365.43,
+          "low": 78.89,
+          "listings": 95,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654137_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654137_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654137/phantasmal-flames-booster-box"
@@ -461,8 +461,8 @@
           "name": "Phantasmal Flames Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 654135,
           "market": 287.37,
-          "low": 272.98,
-          "listings": 83,
+          "low": 278,
+          "listings": 84,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654135_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654135_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654135/phantasmal-flames-pokemon-center-elite-trainer-box-exclusive"
@@ -472,9 +472,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Phantasmal Flames Elite Trainer Box",
           "productId": 654136,
-          "market": 150.68,
-          "low": 91.99,
-          "listings": 75,
+          "market": 150.39,
+          "low": 145,
+          "listings": 74,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654136_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654136_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654136/phantasmal-flames-elite-trainer-box"
@@ -484,9 +484,9 @@
           "blurb": "6 packs",
           "name": "Phantasmal Flames Booster Bundle",
           "productId": 654160,
-          "market": 88.1,
-          "low": 78.99,
-          "listings": 42,
+          "market": 88.15,
+          "low": 77,
+          "listings": 43,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654160_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654160_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654160/phantasmal-flames-booster-bundle"
@@ -510,7 +510,7 @@
           "productId": 654150,
           "market": 12.84,
           "low": 1.5,
-          "listings": 22,
+          "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654150_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654150_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654150/phantasmal-flames-single-pack-blister-whimsicott"
@@ -520,9 +520,9 @@
           "blurb": "One pack",
           "name": "Phantasmal Flames Booster Pack",
           "productId": 654144,
-          "market": 11.35,
-          "low": 2.38,
-          "listings": 52,
+          "market": 11.93,
+          "low": 10,
+          "listings": 56,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/654144_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/654144_200w.jpg",
           "url": "https://www.tcgplayer.com/product/654144/phantasmal-flames-booster-pack"
@@ -531,15 +531,15 @@
     },
     "mega-evolution": {
       "tcgSet": "ME01: Mega Evolution",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Mega Evolution Enhanced Booster Box",
           "productId": 644300,
-          "market": 288.54,
-          "low": 290,
+          "market": 287.62,
+          "low": 289.99,
           "listings": 98,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/644300_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/644300_200w.jpg",
@@ -550,9 +550,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Mega Evolution Pokemon Center Elite Trainer Box (Exclusive) [Mega Gardevoir]",
           "productId": 648415,
-          "market": 185.01,
+          "market": 186.27,
           "low": 199,
-          "listings": 62,
+          "listings": 63,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/648415_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/648415_200w.jpg",
           "url": "https://www.tcgplayer.com/product/648415/mega-evolution-pokemon-center-elite-trainer-box-exclusive-mega-gardevoir"
@@ -562,9 +562,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Mega Evolution Elite Trainer Box [Mega Gardevoir]",
           "productId": 644279,
-          "market": 121.66,
-          "low": 69.99,
-          "listings": 77,
+          "market": 121.83,
+          "low": 79.99,
+          "listings": 76,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/644279_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/644279_200w.jpg",
           "url": "https://www.tcgplayer.com/product/644279/mega-evolution-elite-trainer-box-mega-gardevoir"
@@ -574,9 +574,9 @@
           "blurb": "6 packs",
           "name": "Mega Evolution Booster Bundle",
           "productId": 644362,
-          "market": 63.88,
+          "market": 63.8,
           "low": 45,
-          "listings": 67,
+          "listings": 68,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/644362_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/644362_200w.jpg",
           "url": "https://www.tcgplayer.com/product/644362/mega-evolution-booster-bundle"
@@ -610,9 +610,9 @@
           "blurb": "One pack",
           "name": "Mega Evolution Booster Pack",
           "productId": 644352,
-          "market": 8.33,
+          "market": 8.38,
           "low": 3.98,
-          "listings": 89,
+          "listings": 92,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/644352_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/644352_200w.jpg",
           "url": "https://www.tcgplayer.com/product/644352/mega-evolution-booster-pack"
@@ -633,16 +633,16 @@
     },
     "white-flare": {
       "tcgSet": "SV: White Flare",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Pokemon Center Elite Trainer Box",
           "blurb": "11 packs plus 2 promo cards",
           "name": "White Flare Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 630688,
-          "market": 237.6,
+          "market": 238.98,
           "low": 236.99,
-          "listings": 53,
+          "listings": 55,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630688_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630688_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630688/white-flare-pokemon-center-elite-trainer-box-exclusive"
@@ -652,9 +652,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "White Flare Elite Trainer Box",
           "productId": 630689,
-          "market": 149.54,
-          "low": 30,
-          "listings": 90,
+          "market": 148.49,
+          "low": 20,
+          "listings": 89,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630689_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630689_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630689/white-flare-elite-trainer-box"
@@ -664,9 +664,9 @@
           "blurb": "6 packs",
           "name": "White Flare Booster Bundle",
           "productId": 630696,
-          "market": 92.96,
+          "market": 92.94,
           "low": 69.97,
-          "listings": 60,
+          "listings": 59,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630696_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630696_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630696/white-flare-booster-bundle"
@@ -676,7 +676,7 @@
           "blurb": "One pack",
           "name": "White Flare Booster Pack",
           "productId": 630699,
-          "market": 13.83,
+          "market": 13.92,
           "low": 4.75,
           "listings": 33,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630699_in_1000x1000.jpg",
@@ -699,16 +699,16 @@
     },
     "black-bolt": {
       "tcgSet": "SV: Black Bolt",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Pokemon Center Elite Trainer Box",
           "blurb": "11 packs plus 2 promo cards",
           "name": "Black Bolt Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 630687,
-          "market": 275.2,
+          "market": 274.32,
           "low": 258.98,
-          "listings": 47,
+          "listings": 46,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630687_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630687_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630687/black-bolt-pokemon-center-elite-trainer-box-exclusive"
@@ -718,9 +718,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Black Bolt Elite Trainer Box",
           "productId": 630686,
-          "market": 166.28,
+          "market": 165.91,
           "low": 82.99,
-          "listings": 87,
+          "listings": 90,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630686_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630686_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630686/black-bolt-elite-trainer-box"
@@ -730,9 +730,9 @@
           "blurb": "6 packs",
           "name": "Black Bolt Booster Bundle",
           "productId": 630431,
-          "market": 102.4,
+          "market": 102.72,
           "low": 71.6,
-          "listings": 63,
+          "listings": 65,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630431_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630431_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630431/black-bolt-booster-bundle"
@@ -742,9 +742,9 @@
           "blurb": "One pack",
           "name": "Black Bolt Booster Pack",
           "productId": 630434,
-          "market": 14.85,
+          "market": 14.9,
           "low": 4.9,
-          "listings": 46,
+          "listings": 41,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630434_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630434_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630434/black-bolt-booster-pack"
@@ -755,7 +755,7 @@
           "name": "Unova Mini Tin [Elektross & Galvantula]",
           "productId": 630445,
           "market": 23.86,
-          "low": 34,
+          "low": 11,
           "listings": 6,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630445_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630445_200w.jpg",
@@ -766,9 +766,9 @@
           "blurb": "Packs plus promos, count not in our data",
           "name": "Unova Poster Collection",
           "productId": 630612,
-          "market": 46.93,
+          "market": 46.85,
           "low": 1.98,
-          "listings": 41,
+          "listings": 39,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/630612_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/630612_200w.jpg",
           "url": "https://www.tcgplayer.com/product/630612/unova-poster-collection"
@@ -777,7 +777,7 @@
     },
     "destined-rivals": {
       "tcgSet": "SV10: Destined Rivals",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -808,9 +808,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Destined Rivals Elite Trainer Box",
           "productId": 624676,
-          "market": 117.72,
-          "low": 42.4,
-          "listings": 175,
+          "market": 116.49,
+          "low": 104.99,
+          "listings": 183,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/624676_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/624676_200w.jpg",
           "url": "https://www.tcgplayer.com/product/624676/destined-rivals-elite-trainer-box"
@@ -820,9 +820,9 @@
           "blurb": "6 packs",
           "name": "Destined Rivals Booster Bundle",
           "productId": 625670,
-          "market": 66.54,
+          "market": 65.91,
           "low": 57.95,
-          "listings": 138,
+          "listings": 140,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/625670_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/625670_200w.jpg",
           "url": "https://www.tcgplayer.com/product/625670/destined-rivals-booster-bundle"
@@ -846,7 +846,7 @@
           "productId": 633106,
           "market": 13.45,
           "low": 11,
-          "listings": 13,
+          "listings": 16,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/633106_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/633106_200w.jpg",
           "url": "https://www.tcgplayer.com/product/633106/destined-rivals-single-pack-blister-zarude"
@@ -856,9 +856,9 @@
           "blurb": "One pack",
           "name": "Destined Rivals Booster Pack",
           "productId": 624683,
-          "market": 9.13,
-          "low": 2.27,
-          "listings": 128,
+          "market": 9.19,
+          "low": 7.99,
+          "listings": 130,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/624683_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/624683_200w.jpg",
           "url": "https://www.tcgplayer.com/product/624683/destined-rivals-booster-pack"
@@ -867,16 +867,16 @@
     },
     "journey-together": {
       "tcgSet": "SV09: Journey Together",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Journey Together Booster Box",
           "productId": 610931,
-          "market": 236.41,
+          "market": 235.61,
           "low": 60.98,
-          "listings": 81,
+          "listings": 82,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610931_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610931_200w.jpg",
           "url": "https://www.tcgplayer.com/product/610931/journey-together-booster-box"
@@ -888,7 +888,7 @@
           "productId": 610929,
           "market": 195.25,
           "low": 185,
-          "listings": 50,
+          "listings": 51,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610929_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610929_200w.jpg",
           "url": "https://www.tcgplayer.com/product/610929/journey-together-pokemon-center-elite-trainer-box-exclusive"
@@ -898,9 +898,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Journey Together Elite Trainer Box",
           "productId": 610930,
-          "market": 138.2,
-          "low": 130,
-          "listings": 46,
+          "market": 138.02,
+          "low": 1.99,
+          "listings": 48,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610930_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610930_200w.jpg",
           "url": "https://www.tcgplayer.com/product/610930/journey-together-elite-trainer-box"
@@ -910,8 +910,8 @@
           "blurb": "6 packs",
           "name": "Journey Together Booster Bundle",
           "productId": 610953,
-          "market": 45.47,
-          "low": 40,
+          "market": 45.28,
+          "low": 30,
           "listings": 154,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610953_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610953_200w.jpg",
@@ -935,8 +935,8 @@
           "name": "Journey Together Single Pack Blister [Scraggy]",
           "productId": 610949,
           "market": 9.94,
-          "low": 9,
-          "listings": 9,
+          "low": 8.95,
+          "listings": 10,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610949_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610949_200w.jpg",
           "url": "https://www.tcgplayer.com/product/610949/journey-together-single-pack-blister-scraggy"
@@ -946,9 +946,9 @@
           "blurb": "One pack",
           "name": "Journey Together Booster Pack",
           "productId": 610935,
-          "market": 6.42,
+          "market": 6.62,
           "low": 2.35,
-          "listings": 124,
+          "listings": 123,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/610935_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/610935_200w.jpg",
           "url": "https://www.tcgplayer.com/product/610935/journey-together-booster-pack"
@@ -957,15 +957,15 @@
     },
     "prismatic-evolutions": {
       "tcgSet": "SV: Prismatic Evolutions",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Super-Premium Collection",
           "blurb": "Packs plus promos and accessories, count varies by product",
           "name": "Prismatic Evolutions Super-Premium Collection",
           "productId": 622770,
-          "market": 246.18,
-          "low": 30,
+          "market": 248.12,
+          "low": 240.01,
           "listings": 227,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/622770_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/622770_200w.jpg",
@@ -976,9 +976,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Prismatic Evolutions Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 593324,
-          "market": 412.31,
+          "market": 411.96,
           "low": 315.01,
-          "listings": 95,
+          "listings": 96,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/593324_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593324_200w.jpg",
           "url": "https://www.tcgplayer.com/product/593324/prismatic-evolutions-pokemon-center-elite-trainer-box-exclusive"
@@ -988,9 +988,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Prismatic Evolutions Elite Trainer Box",
           "productId": 593355,
-          "market": 139.86,
+          "market": 137.45,
           "low": 1.99,
-          "listings": 303,
+          "listings": 306,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/593355_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593355_200w.jpg",
           "url": "https://www.tcgplayer.com/product/593355/prismatic-evolutions-elite-trainer-box"
@@ -1000,9 +1000,9 @@
           "blurb": "6 packs",
           "name": "Prismatic Evolutions Booster Bundle",
           "productId": 600518,
-          "market": 88.45,
+          "market": 86.69,
           "low": 5,
-          "listings": 194,
+          "listings": 193,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/600518_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/600518_200w.jpg",
           "url": "https://www.tcgplayer.com/product/600518/prismatic-evolutions-booster-bundle"
@@ -1013,8 +1013,8 @@
           "name": "Prismatic Evolutions 2-Pack Blister [Eevee]",
           "productId": 609716,
           "market": 36.56,
-          "low": 1.5,
-          "listings": 12,
+          "low": 36.71,
+          "listings": 13,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/609716_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/609716_200w.jpg",
           "url": "https://www.tcgplayer.com/product/609716/prismatic-evolutions-2-pack-blister-eevee"
@@ -1024,9 +1024,9 @@
           "blurb": "One pack",
           "name": "Prismatic Evolutions Booster Pack",
           "productId": 593294,
-          "market": 13.37,
+          "market": 13.85,
           "low": 7.15,
-          "listings": 98,
+          "listings": 97,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/593294_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593294_200w.jpg",
           "url": "https://www.tcgplayer.com/product/593294/prismatic-evolutions-booster-pack"
@@ -1037,8 +1037,8 @@
           "name": "Prismatic Evolutions Mini Tin [Flareon]",
           "productId": 593457,
           "market": 32.68,
-          "low": 10,
-          "listings": 29,
+          "low": 12.99,
+          "listings": 28,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/593457_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593457_200w.jpg",
           "url": "https://www.tcgplayer.com/product/593457/prismatic-evolutions-mini-tin-flareon"
@@ -1048,8 +1048,8 @@
           "blurb": "Packs plus promos, count not in our data",
           "name": "Prismatic Evolutions Tech Sticker Collection [Leafeon]",
           "productId": 593453,
-          "market": 40.7,
-          "low": 4.95,
+          "market": 41.13,
+          "low": 35.29,
           "listings": 32,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/593453_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/593453_200w.jpg",
@@ -1059,7 +1059,7 @@
     },
     "surging-sparks": {
       "tcgSet": "SV08: Surging Sparks",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1080,7 +1080,7 @@
           "productId": 565632,
           "market": 270.76,
           "low": 239.99,
-          "listings": 56,
+          "listings": 59,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565632_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565632_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565632/surging-sparks-pokemon-center-elite-trainer-box-exclusive"
@@ -1090,9 +1090,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Surging Sparks Elite Trainer Box",
           "productId": 565630,
-          "market": 125.85,
+          "market": 125.12,
           "low": 44.98,
-          "listings": 104,
+          "listings": 106,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565630_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565630_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565630/surging-sparks-elite-trainer-box"
@@ -1102,9 +1102,9 @@
           "blurb": "6 packs",
           "name": "Surging Sparks Booster Bundle (Retail)",
           "productId": 679564,
-          "market": 60.64,
+          "market": 61.24,
           "low": 49.99,
-          "listings": 74,
+          "listings": 76,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/679564_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/679564_200w.jpg",
           "url": "https://www.tcgplayer.com/product/679564/surging-sparks-booster-bundle-retail"
@@ -1116,7 +1116,7 @@
           "productId": 565599,
           "market": 62.57,
           "low": 20,
-          "listings": 10,
+          "listings": 11,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565599_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565599_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565599/surging-sparks-build-and-battle-box"
@@ -1138,9 +1138,9 @@
           "blurb": "One pack",
           "name": "Surging Sparks Booster Pack",
           "productId": 565604,
-          "market": 8.34,
+          "market": 8.4,
           "low": 2.26,
-          "listings": 102,
+          "listings": 107,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/565604_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/565604_200w.jpg",
           "url": "https://www.tcgplayer.com/product/565604/surging-sparks-booster-pack"
@@ -1149,7 +1149,7 @@
     },
     "stellar-crown": {
       "tcgSet": "SV07: Stellar Crown",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1168,9 +1168,9 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Stellar Crown Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 557340,
-          "market": 170.99,
-          "low": 155,
-          "listings": 49,
+          "market": 170.73,
+          "low": 25,
+          "listings": 51,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/557340_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/557340_200w.jpg",
           "url": "https://www.tcgplayer.com/product/557340/stellar-crown-pokemon-center-elite-trainer-box-exclusive"
@@ -1181,7 +1181,7 @@
           "name": "Stellar Crown Elite Trainer Box",
           "productId": 557350,
           "market": 155.95,
-          "low": 154.96,
+          "low": 89.99,
           "listings": 26,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/557350_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/557350_200w.jpg",
@@ -1194,7 +1194,7 @@
           "productId": 557345,
           "market": 72.63,
           "low": 63,
-          "listings": 11,
+          "listings": 12,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/557345_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/557345_200w.jpg",
           "url": "https://www.tcgplayer.com/product/557345/stellar-crown-booster-bundle"
@@ -1230,7 +1230,7 @@
           "productId": 557331,
           "market": 10.63,
           "low": 2.85,
-          "listings": 38,
+          "listings": 41,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/557331_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/557331_200w.jpg",
           "url": "https://www.tcgplayer.com/product/557331/stellar-crown-booster-pack"
@@ -1239,7 +1239,7 @@
     },
     "shrouded-fable": {
       "tcgSet": "SV: Shrouded Fable",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Pokemon Center Elite Trainer Box",
@@ -1247,8 +1247,8 @@
           "name": "Shrouded Fable Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 552998,
           "market": 165.63,
-          "low": 164.99,
-          "listings": 40,
+          "low": 159.51,
+          "listings": 42,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/552998_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/552998_200w.jpg",
           "url": "https://www.tcgplayer.com/product/552998/shrouded-fable-pokemon-center-elite-trainer-box-exclusive"
@@ -1258,9 +1258,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Shrouded Fable Elite Trainer Box",
           "productId": 552999,
-          "market": 114.58,
-          "low": 106.9,
-          "listings": 58,
+          "market": 114.25,
+          "low": 69.99,
+          "listings": 60,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/552999_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/552999_200w.jpg",
           "url": "https://www.tcgplayer.com/product/552999/shrouded-fable-elite-trainer-box"
@@ -1270,7 +1270,7 @@
           "blurb": "6 packs",
           "name": "Shrouded Fable Booster Bundle",
           "productId": 553031,
-          "market": 59.24,
+          "market": 58.75,
           "low": 51.5,
           "listings": 43,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/553031_in_1000x1000.jpg",
@@ -1329,7 +1329,7 @@
     },
     "twilight-masquerade": {
       "tcgSet": "SV06: Twilight Masquerade",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1360,9 +1360,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Twilight Masquerade Elite Trainer Box",
           "productId": 543845,
-          "market": 101.43,
+          "market": 101.14,
           "low": 7.99,
-          "listings": 134,
+          "listings": 133,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/543845_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/543845_200w.jpg",
           "url": "https://www.tcgplayer.com/product/543845/twilight-masquerade-elite-trainer-box"
@@ -1373,8 +1373,8 @@
           "name": "Twilight Masquerade Booster Bundle",
           "productId": 543852,
           "market": 73.74,
-          "low": 73.95,
-          "listings": 16,
+          "low": 63.99,
+          "listings": 17,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/543852_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/543852_200w.jpg",
           "url": "https://www.tcgplayer.com/product/543852/twilight-masquerade-booster-bundle"
@@ -1408,9 +1408,9 @@
           "blurb": "One pack",
           "name": "Twilight Masquerade Booster Pack",
           "productId": 543843,
-          "market": 9.12,
-          "low": 8,
-          "listings": 64,
+          "market": 9.19,
+          "low": 2.5,
+          "listings": 66,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/543843_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/543843_200w.jpg",
           "url": "https://www.tcgplayer.com/product/543843/twilight-masquerade-booster-pack"
@@ -1419,7 +1419,7 @@
     },
     "temporal-forces": {
       "tcgSet": "SV05: Temporal Forces",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1452,7 +1452,7 @@
           "productId": 532848,
           "market": 123.42,
           "low": 6.99,
-          "listings": 22,
+          "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/532848_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/532848_200w.jpg",
           "url": "https://www.tcgplayer.com/product/532848/temporal-forces-elite-trainer-box-iron-leaves-ex"
@@ -1475,7 +1475,7 @@
           "name": "Temporal Forces Build & Battle Box",
           "productId": 537411,
           "market": 43.46,
-          "low": 60,
+          "low": 69.99,
           "listings": 3,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/537411_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/537411_200w.jpg",
@@ -1500,7 +1500,7 @@
           "productId": 532841,
           "market": 9.63,
           "low": 3.99,
-          "listings": 40,
+          "listings": 43,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/532841_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/532841_200w.jpg",
           "url": "https://www.tcgplayer.com/product/532841/temporal-forces-booster-pack"
@@ -1509,7 +1509,7 @@
     },
     "paldean-fates": {
       "tcgSet": "SV: Paldean Fates",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Pokemon Center Elite Trainer Box",
@@ -1518,7 +1518,7 @@
           "productId": 528039,
           "market": 582.23,
           "low": 515,
-          "listings": 42,
+          "listings": 41,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/528039_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/528039_200w.jpg",
           "url": "https://www.tcgplayer.com/product/528039/paldean-fates-pokemon-center-elite-trainer-box-exclusive"
@@ -1528,9 +1528,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Paldean Fates Elite Trainer Box",
           "productId": 528040,
-          "market": 441.83,
+          "market": 433.45,
           "low": 59.99,
-          "listings": 49,
+          "listings": 50,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/528040_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/528040_200w.jpg",
           "url": "https://www.tcgplayer.com/product/528040/paldean-fates-elite-trainer-box"
@@ -1540,8 +1540,8 @@
           "blurb": "6 packs",
           "name": "Paldean Fates Booster Bundle",
           "productId": 528771,
-          "market": 170.96,
-          "low": 155,
+          "market": 171.81,
+          "low": 25,
           "listings": 40,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/528771_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/528771_200w.jpg",
@@ -1553,8 +1553,8 @@
           "name": "Paldean Fates Booster Pack",
           "productId": 528038,
           "market": 24.88,
-          "low": 22,
-          "listings": 29,
+          "low": 14.43,
+          "listings": 30,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/528038_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/528038_200w.jpg",
           "url": "https://www.tcgplayer.com/product/528038/paldean-fates-booster-pack"
@@ -1587,7 +1587,7 @@
     },
     "paradox-rift": {
       "tcgSet": "SV04: Paradox Rift",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1596,7 +1596,7 @@
           "productId": 512821,
           "market": 280.58,
           "low": 89.99,
-          "listings": 58,
+          "listings": 59,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/512821_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/512821_200w.jpg",
           "url": "https://www.tcgplayer.com/product/512821/paradox-rift-booster-box"
@@ -1606,8 +1606,8 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Paradox Rift Pokemon Center Elite Trainer Box (Exclusive) [Iron Valiant]",
           "productId": 512801,
-          "market": 190.67,
-          "low": 185,
+          "market": 191.07,
+          "low": 179.99,
           "listings": 30,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/512801_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/512801_200w.jpg",
@@ -1631,7 +1631,7 @@
           "name": "Paradox Rift Booster Bundle",
           "productId": 512820,
           "market": 89.52,
-          "low": 96.97,
+          "low": 69.99,
           "listings": 13,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/512820_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/512820_200w.jpg",
@@ -1642,8 +1642,8 @@
           "blurb": "4 packs plus a 40 card deck",
           "name": "Paradox Rift Build & Battle Box",
           "productId": 514068,
-          "market": 43.19,
-          "low": 15,
+          "market": 43.21,
+          "low": 42.91,
           "listings": 11,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/514068_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/514068_200w.jpg",
@@ -1666,9 +1666,9 @@
           "blurb": "One pack",
           "name": "Paradox Rift Booster Pack",
           "productId": 512822,
-          "market": 8.35,
+          "market": 8.36,
           "low": 3.99,
-          "listings": 58,
+          "listings": 62,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/512822_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/512822_200w.jpg",
           "url": "https://www.tcgplayer.com/product/512822/paradox-rift-booster-pack"
@@ -1677,15 +1677,15 @@
     },
     "obsidian-flames": {
       "tcgSet": "SV03: Obsidian Flames",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Obsidian Flames Booster Box",
           "productId": 501257,
-          "market": 372.17,
-          "low": 40.35,
+          "market": 372.74,
+          "low": 40.33,
           "listings": 65,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501257_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501257_200w.jpg",
@@ -1697,8 +1697,8 @@
           "name": "Obsidian Flames Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 501266,
           "market": 633.75,
-          "low": 650,
-          "listings": 34,
+          "low": 640.75,
+          "listings": 36,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501266_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501266_200w.jpg",
           "url": "https://www.tcgplayer.com/product/501266/obsidian-flames-pokemon-center-elite-trainer-box-exclusive"
@@ -1708,9 +1708,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Obsidian Flames Elite Trainer Box",
           "productId": 501264,
-          "market": 285.82,
+          "market": 276.91,
           "low": 40.99,
-          "listings": 58,
+          "listings": 56,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501264_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501264_200w.jpg",
           "url": "https://www.tcgplayer.com/product/501264/obsidian-flames-elite-trainer-box"
@@ -1720,9 +1720,9 @@
           "blurb": "6 packs",
           "name": "Obsidian Flames Booster Bundle",
           "productId": 501263,
-          "market": 119.94,
-          "low": 119.99,
-          "listings": 17,
+          "market": 120.74,
+          "low": 79,
+          "listings": 19,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501263_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501263_200w.jpg",
           "url": "https://www.tcgplayer.com/product/501263/obsidian-flames-booster-bundle"
@@ -1744,7 +1744,7 @@
           "blurb": "Packs plus a promo card, count not in our data",
           "name": "Obsidian Flames Single Pack Blister [Pawmi]",
           "productId": 501262,
-          "market": 14.34,
+          "market": 14.55,
           "low": 14,
           "listings": 9,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501262_in_1000x1000.jpg",
@@ -1758,7 +1758,7 @@
           "productId": 501256,
           "market": 13.12,
           "low": 4,
-          "listings": 60,
+          "listings": 62,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/501256_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/501256_200w.jpg",
           "url": "https://www.tcgplayer.com/product/501256/obsidian-flames-booster-pack"
@@ -1767,7 +1767,7 @@
     },
     "paldea-evolved": {
       "tcgSet": "SV02: Paldea Evolved",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -1798,9 +1798,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Paldea Evolved Elite Trainer Box",
           "productId": 493974,
-          "market": 217.76,
+          "market": 217.57,
           "low": 99.99,
-          "listings": 47,
+          "listings": 49,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/493974_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/493974_200w.jpg",
           "url": "https://www.tcgplayer.com/product/493974/paldea-evolved-elite-trainer-box"
@@ -1811,8 +1811,8 @@
           "name": "Paldea Evolved Booster Bundle",
           "productId": 496914,
           "market": 128.8,
-          "low": 114.99,
-          "listings": 15,
+          "low": 99,
+          "listings": 16,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/496914_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/496914_200w.jpg",
           "url": "https://www.tcgplayer.com/product/496914/paldea-evolved-booster-bundle"
@@ -1835,8 +1835,8 @@
           "name": "Paldea Evolved Single Pack Blister [Smoliv]",
           "productId": 493999,
           "market": 14.94,
-          "low": 14.74,
-          "listings": 7,
+          "low": 17,
+          "listings": 6,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/493999_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/493999_200w.jpg",
           "url": "https://www.tcgplayer.com/product/493999/paldea-evolved-single-pack-blister-smoliv"
@@ -1846,7 +1846,7 @@
           "blurb": "One pack",
           "name": "Paldea Evolved Booster Pack",
           "productId": 493976,
-          "market": 15.63,
+          "market": 15.55,
           "low": 4.49,
           "listings": 35,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/493976_in_1000x1000.jpg",
@@ -1857,16 +1857,16 @@
     },
     "scarlet-violet": {
       "tcgSet": "SV01: Scarlet & Violet Base Set",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
           "blurb": "36 packs",
           "name": "Scarlet & Violet Booster Box",
           "productId": 476452,
-          "market": 294.8,
+          "market": 295.43,
           "low": 287.01,
-          "listings": 60,
+          "listings": 61,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/476452_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/476452_200w.jpg",
           "url": "https://www.tcgplayer.com/product/476452/scarlet-and-violet-booster-box"
@@ -1888,9 +1888,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Scarlet & Violet Elite Trainer Box [Koraidon]",
           "productId": 478335,
-          "market": 132.56,
+          "market": 131.56,
           "low": 122,
-          "listings": 29,
+          "listings": 28,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/478335_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/478335_200w.jpg",
           "url": "https://www.tcgplayer.com/product/478335/scarlet-and-violet-elite-trainer-box-koraidon"
@@ -1901,8 +1901,8 @@
           "name": "Scarlet & Violet Booster Bundle",
           "productId": 478258,
           "market": 104.72,
-          "low": 99.99,
-          "listings": 11,
+          "low": 49,
+          "listings": 12,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/478258_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/478258_200w.jpg",
           "url": "https://www.tcgplayer.com/product/478258/scarlet-and-violet-booster-bundle"
@@ -1936,9 +1936,9 @@
           "blurb": "One pack",
           "name": "Scarlet & Violet Booster Pack",
           "productId": 476451,
-          "market": 9.11,
+          "market": 9.08,
           "low": 4.99,
-          "listings": 55,
+          "listings": 58,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/476451_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/476451_200w.jpg",
           "url": "https://www.tcgplayer.com/product/476451/scarlet-and-violet-booster-pack"
@@ -1947,7 +1947,7 @@
     },
     "pokemon-go": {
       "tcgSet": "Pokemon GO",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Elite Trainer Box",
@@ -1956,7 +1956,7 @@
           "productId": 270708,
           "market": 171.07,
           "low": 160,
-          "listings": 26,
+          "listings": 29,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/270708_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/270708_200w.jpg",
           "url": "https://www.tcgplayer.com/product/270708/pokemon-go-elite-trainer-box"
@@ -1966,7 +1966,7 @@
           "blurb": "One pack",
           "name": "Pokemon GO Booster Pack",
           "productId": 274421,
-          "market": 14.24,
+          "market": 14.28,
           "low": 11.77,
           "listings": 22,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/274421_in_1000x1000.jpg",
@@ -1980,7 +1980,7 @@
           "productId": 270729,
           "market": 27.83,
           "low": 27.83,
-          "listings": 5,
+          "listings": 4,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/270729_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/270729_200w.jpg",
           "url": "https://www.tcgplayer.com/product/270729/pokemon-go-mini-tin-blissey"
@@ -1992,7 +1992,7 @@
           "productId": 275825,
           "market": 51.92,
           "low": 61,
-          "listings": 11,
+          "listings": 12,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/275825_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/275825_200w.jpg",
           "url": "https://www.tcgplayer.com/product/275825/pokemon-go-pin-collection-bulbasaur"
@@ -2001,14 +2001,14 @@
     },
     "crown-zenith": {
       "tcgSet": "SWSH: Crown Zenith",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Elite Trainer Box",
           "blurb": "9 packs plus sleeves and dice",
           "name": "Crown Zenith Elite Trainer Box",
           "productId": 453470,
-          "market": 311.84,
+          "market": 309.52,
           "low": 293,
           "listings": 77,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/453470_in_1000x1000.jpg",
@@ -2022,7 +2022,7 @@
           "productId": 527562,
           "market": 219.75,
           "low": 100,
-          "listings": 20,
+          "listings": 21,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/527562_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/527562_200w.jpg",
           "url": "https://www.tcgplayer.com/product/527562/crown-zenith-booster-bundle"
@@ -2032,7 +2032,7 @@
           "blurb": "One pack",
           "name": "Crown Zenith Booster Pack",
           "productId": 453466,
-          "market": 25.1,
+          "market": 25.52,
           "low": 18.99,
           "listings": 62,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/453466_in_1000x1000.jpg",
@@ -2045,8 +2045,8 @@
           "name": "Crown Zenith Mini Tin [Hop & Wooloo]",
           "productId": 453490,
           "market": 52.5,
-          "low": 99,
-          "listings": 5,
+          "low": 90,
+          "listings": 6,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/453490_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/453490_200w.jpg",
           "url": "https://www.tcgplayer.com/product/453490/crown-zenith-mini-tin-hop-and-wooloo"
@@ -2054,20 +2054,20 @@
         {
           "kind": "Collection Box",
           "blurb": "Packs plus promos, count not in our data",
-          "name": "Crown Zenith Pin Collection [Cinderace]",
-          "productId": 475617,
-          "market": 85,
-          "low": 85.01,
-          "listings": 9,
-          "image": "https://tcgplayer-cdn.tcgplayer.com/product/475617_in_1000x1000.jpg",
-          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/475617_200w.jpg",
-          "url": "https://www.tcgplayer.com/product/475617/crown-zenith-pin-collection-cinderace"
+          "name": "Crown Zenith Pin Collection [Inteleon]",
+          "productId": 475618,
+          "market": 85.24,
+          "low": 92,
+          "listings": 11,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/475618_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/475618_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/475618/crown-zenith-pin-collection-inteleon"
         }
       ]
     },
     "celebrations": {
       "tcgSet": "Celebrations",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Ultra-Premium Collection",
@@ -2075,8 +2075,8 @@
           "name": "Celebrations Ultra-Premium Collection",
           "productId": 245140,
           "market": 1236.93,
-          "low": 1200,
-          "listings": 53,
+          "low": 25,
+          "listings": 55,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/245140_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/245140_200w.jpg",
           "url": "https://www.tcgplayer.com/product/245140/celebrations-ultra-premium-collection"
@@ -2088,7 +2088,7 @@
           "productId": 251199,
           "market": 537.9,
           "low": 485.99,
-          "listings": 43,
+          "listings": 46,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/251199_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/251199_200w.jpg",
           "url": "https://www.tcgplayer.com/product/251199/celebrations-pokemon-center-elite-trainer-box-exclusive"
@@ -2098,9 +2098,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Celebrations Elite Trainer Box",
           "productId": 242811,
-          "market": 365.61,
-          "low": 352,
-          "listings": 80,
+          "market": 359.35,
+          "low": 350,
+          "listings": 81,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/242811_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/242811_200w.jpg",
           "url": "https://www.tcgplayer.com/product/242811/celebrations-elite-trainer-box"
@@ -2111,8 +2111,8 @@
           "name": "Celebrations Booster Pack",
           "productId": 248577,
           "market": 34.58,
-          "low": 28.96,
-          "listings": 37,
+          "low": 28.95,
+          "listings": 38,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/248577_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/248577_200w.jpg",
           "url": "https://www.tcgplayer.com/product/248577/celebrations-booster-pack"
@@ -2145,7 +2145,7 @@
     },
     "chilling-reign": {
       "tcgSet": "SWSH06: Chilling Reign",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -2154,7 +2154,7 @@
           "productId": 236258,
           "market": 479.51,
           "low": 449.99,
-          "listings": 72,
+          "listings": 75,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/236258_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236258_200w.jpg",
           "url": "https://www.tcgplayer.com/product/236258/chilling-reign-booster-box"
@@ -2165,8 +2165,8 @@
           "name": "Chilling Reign Pokemon Center Elite Trainer Box [Shadow Rider Calyrex] (Exclusive)",
           "productId": 247282,
           "market": 192.17,
-          "low": 182,
-          "listings": 25,
+          "low": 150,
+          "listings": 26,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/247282_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/247282_200w.jpg",
           "url": "https://www.tcgplayer.com/product/247282/chilling-reign-pokemon-center-elite-trainer-box-shadow-rider-calyrex-exclusive"
@@ -2176,9 +2176,9 @@
           "blurb": "9 packs plus sleeves and dice",
           "name": "Chilling Reign Elite Trainer Box [Ice Rider Calyrex]",
           "productId": 236260,
-          "market": 143.97,
+          "market": 144.01,
           "low": 122.99,
-          "listings": 20,
+          "listings": 19,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/236260_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236260_200w.jpg",
           "url": "https://www.tcgplayer.com/product/236260/chilling-reign-elite-trainer-box-ice-rider-calyrex"
@@ -2190,7 +2190,7 @@
           "productId": 236265,
           "market": 58.78,
           "low": 57.61,
-          "listings": 10,
+          "listings": 11,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/236265_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/236265_200w.jpg",
           "url": "https://www.tcgplayer.com/product/236265/chilling-reign-build-and-battle-box"
@@ -2223,16 +2223,16 @@
     },
     "shining-fates": {
       "tcgSet": "Shining Fates",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Elite Trainer Box",
           "blurb": "9 packs plus sleeves and dice",
           "name": "Shining Fates Elite Trainer Box",
           "productId": 228821,
-          "market": 146.38,
+          "market": 145.93,
           "low": 124.99,
-          "listings": 78,
+          "listings": 79,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/228821_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/228821_200w.jpg",
           "url": "https://www.tcgplayer.com/product/228821/shining-fates-elite-trainer-box"
@@ -2244,7 +2244,7 @@
           "productId": 232636,
           "market": 16.23,
           "low": 14.99,
-          "listings": 21,
+          "listings": 22,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/232636_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/232636_200w.jpg",
           "url": "https://www.tcgplayer.com/product/232636/shining-fates-booster-pack"
@@ -2256,7 +2256,7 @@
           "productId": 230959,
           "market": 29.08,
           "low": 29.97,
-          "listings": 8,
+          "listings": 9,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/230959_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/230959_200w.jpg",
           "url": "https://www.tcgplayer.com/product/230959/shining-fates-mini-tin-manaphy"
@@ -2266,7 +2266,7 @@
           "blurb": "Packs plus promos, count not in our data",
           "name": "Shining Fates Mad Party Pin Collection [Bunnelby]",
           "productId": 228826,
-          "market": 49.81,
+          "market": 51.61,
           "low": 55,
           "listings": 10,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/228826_in_1000x1000.jpg",
@@ -2277,7 +2277,7 @@
     },
     "rebel-clash": {
       "tcgSet": "SWSH02: Rebel Clash",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -2286,7 +2286,7 @@
           "productId": 210561,
           "market": 483.63,
           "low": 474.98,
-          "listings": 20,
+          "listings": 21,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/210561_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/210561_200w.jpg",
           "url": "https://www.tcgplayer.com/product/210561/rebel-clash-booster-box"
@@ -2310,7 +2310,7 @@
           "productId": 212821,
           "market": 74.97,
           "low": 80,
-          "listings": 5,
+          "listings": 6,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/212821_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/212821_200w.jpg",
           "url": "https://www.tcgplayer.com/product/212821/rebel-clash-build-and-battle-box"
@@ -2344,7 +2344,7 @@
           "blurb": "Packs plus a promo, count not in our data",
           "name": "Legends of Galar Tin [Zacian V]",
           "productId": 214230,
-          "market": 63.15,
+          "market": 63.63,
           "low": 200,
           "listings": 3,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/214230_in_1000x1000.jpg",
@@ -2367,7 +2367,7 @@
     },
     "silver-tempest": {
       "tcgSet": "SWSH12: Silver Tempest",
-      "checked": "2026-09-21",
+      "checked": "2026-09-22",
       "products": [
         {
           "kind": "Booster Box",
@@ -2386,7 +2386,7 @@
           "blurb": "11 packs plus 2 promo cards",
           "name": "Silver Tempest Pokemon Center Elite Trainer Box (Exclusive)",
           "productId": 285860,
-          "market": 407.9,
+          "market": 401.77,
           "low": 359.99,
           "listings": 28,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/285860_in_1000x1000.jpg",
@@ -2400,7 +2400,7 @@
           "productId": 283401,
           "market": 162.77,
           "low": 158.99,
-          "listings": 43,
+          "listings": 44,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/283401_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/283401_200w.jpg",
           "url": "https://www.tcgplayer.com/product/283401/silver-tempest-elite-trainer-box"
@@ -2412,7 +2412,7 @@
           "productId": 283396,
           "market": 113.98,
           "low": 95,
-          "listings": 22,
+          "listings": 23,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/283396_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/283396_200w.jpg",
           "url": "https://www.tcgplayer.com/product/283396/silver-tempest-booster-bundle"
