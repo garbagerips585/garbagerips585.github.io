@@ -532,7 +532,13 @@ const pocket = (c, i, slot) => {
         ${pictureFor(c.name, { shot: c.shot, n: c.n, row, section: c.section })}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
         ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
-        ${c.got ? `<span class="t30-got">${esc(longDate(c.got))}</span>` : ""}
+        ${/* NO DATE ON THE CARD. The owner, 22 September 2026: "remove the dates
+             overalyed on top of the cards in the binder". It was printed over
+             the artwork on the 29 pockets that have a `got`, which is a minority
+             of the 75 -- so it also read as a property of those cards rather
+             than of the binder. THE DATA IS NOT DELETED: `got` stays in
+             data/30th-binder.json and still drives the "Last added" line above
+             the binder, which is the one place a date belongs on this page. */""}
       </li>`;
   }
   if (HAVE_SCANS && slot) {
@@ -995,7 +1001,7 @@ const style = `
 .t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 .t30-pk.has .t30-pn{opacity:1;color:var(--ink-2)}
 .t30-nm{font:700 var(--t-sm)/1.2 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
-.t30-got{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+/* .t30-got is gone with the date overlay it styled, 22 September 2026. */
 .t30-more{color:var(--ink-2);font-size:var(--t-sm);margin-top:var(--s3)}
 .t30-wave{margin-top:var(--s4)}
 .t30-wave h3{margin:0 0 var(--s3);font:400 var(--t-l)/1.15 var(--display)}
