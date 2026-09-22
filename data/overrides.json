@@ -2806,5 +2806,9 @@
   "Qe4h_y9NaQ8": {
     "packNumber": 6,
     "packNumberWhy": "The owner, 21 September 2026: \"Single Booster Pack, Pack #6 , hit yes, Trainer - Mega Signal - Double Silver Start - Ultra Rare, Mega Evolution\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #6\" and that is still not a source. NO OTHER OVERRIDE NEEDED: the playlist already derives mega-evolution and single-pack, both of which are what he typed. No hasHit either, because a hit is answered by its data/hits.json row."
+  },
+  "pRN-3vPPVq8": {
+    "packNumber": 1,
+    "packNumberWhy": "The owner, 22 September 2026: \"30th Celebration Greninja ex Tin, Pack #1, Hit yes, Hisuian Zorua - Single Gole Star - Illustration Rare, 30th Celebration\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. NOTHING ELSE NEEDED AN OVERRIDE, WHICH IS NEW FOR A 30th RIP. The three blister packs all had to be forced to `blister` because he wrote \"Tech Sticker Collection\" and the taxonomy reads \"Collection\" as collection-box; this one he called a TIN and the taxonomy derived `tin` on its own, so the derived tag and his words already agree. No hasHit either: a hit is answered by its data/hits.json row."
   }
 }

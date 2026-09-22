@@ -15,7 +15,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 236,
+      "views": 265,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "tin"
       ],
       "pulls": [],
-      "label": "30th Celebration Tin"
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Tin - Pack 1"
     },
     {
       "id": "Qe4h_y9NaQ8",
@@ -55,7 +57,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1010,
+      "views": 1013,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2251,7 +2253,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 643,
+      "views": 644,
       "vertical": true,
       "short": true,
       "sets": [

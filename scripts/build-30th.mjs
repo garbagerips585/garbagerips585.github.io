@@ -1195,13 +1195,27 @@ const setHits = (() => {
          the same card at $1,075 with its scan. Classic keeps its exact-string
          key because that subset reuses numerators. */
       const numKey = String(n).split("/")[0].replace(/^0+/, "") || "0";
-      const row = CHECKLIST.get(clKey("classic", n)) ||
-        [...CHECKLIST.values()].find(
+      /* THE NAME HAS TO AGREE TOO, AND IT DID NOT. This matched on the NUMBER
+         alone, so any hit whose number belongs to a different card in this set
+         borrowed that card's picture and price under its own name. It is not
+         hypothetical: the Greninja ex Black Star Promo is numbered 099 and 099
+         in the main set is HYDREIGON, so adding that promo rendered a Greninja
+         ex row wearing Hydreigon's scan and Hydreigon's figure. A number is not
+         a key across a set that has promos beside it, and a row that fails to
+         match should fall through to name-only -- which this band already
+         handles -- rather than match the wrong thing confidently. */
+      const nm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+      const sameName = (c) => nm(c.name) === nm(h.card);
+      const row = (() => {
+        const cl = CHECKLIST.get(clKey("classic", n));
+        if (cl && sameName(cl)) return cl;
+        return [...CHECKLIST.values()].find(
           (c) =>
             c.section !== "classic" &&
-            (String(c.n).split("/")[0].replace(/^0+/, "") || "0") === numKey
-        ) ||
-        null;
+            (String(c.n).split("/")[0].replace(/^0+/, "") || "0") === numKey &&
+            sameName(c)
+        ) || null;
+      })();
       const pr = row ? priceOf(row) : null;
       rows.push({ h, v, row, pr, section: row ? row.section : null });
     }

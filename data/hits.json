@@ -2415,6 +2415,27 @@
         "hallOfFame": false,
         "handNote": "The owner, 21 September 2026: \"Single Booster Pack, Pack #6 , hit yes, Trainer - Mega Signal - Double Silver Start - Ultra Rare, Mega Evolution\". Mega Evolution prints Mega Signal TWICE and BOTH ARE THE SAME TRAINER CARD -- 121 Uncommon at $0.31 and 171 Ultra Rare at $1.33 -- so nothing in the card text separates them and the rarity is the only thing that can choose. Two silver stars IS the Ultra Rare symbol, so the symbol he read and the tier he named agree, and that agreement is the check. \"Double Silver Start\" is a typo for Star in his message and not a fourth kind of symbol. HE NAMED THE CARD TYPE HIMSELF, \"Trainer -\", and the checklist agrees: both printings carry cat \"Trainer\". THE DEAREST-PRINTING RULE WOULD HAVE AGREED TODAY, which is worth saying so the row does not read as evidence for the rarity-first rule: the Ultra Rare is also the pricier of the two, so it agrees by coincidence, the way Wigglytuff did on the 19th and Mega Skarmory ex on the 16th, and not the way Mega Absol ex and Team Rocket's Nidoking ex did on the 12th and 13th, where the dearest printing was 28x and 46x wrong. He named the set and it matches the video's own tag and title. Written \"Ultra Rare\" to match this checklist's own casing, because the renderers key off that string. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "pRN-3vPPVq8": [
+      {
+        "card": "Hisuian Zorua",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Illustration Rare",
+        "number": "145",
+        "hallOfFame": false,
+        "handNote": "The owner, 22 September 2026: \"30th Celebration Greninja ex Tin, Pack #1, Hit yes, Hisuian Zorua - Single Gole Star - Illustration Rare, 30th Celebration\". The 30th prints Hisuian Zorua TWICE -- 122/128 Common and 145/128 Illustration Rare -- with identical card text, HP 60 and Scratch (20), so nothing readable separates them and the rarity is the only thing that can choose. One gold star IS the Illustration Rare symbol, so this is 145. \"Gole\" is a typo for Gold and not a fourth kind of star. NOT the Zorua at 095, which is the ordinary Kantonian one and a different Pokemon. CORROBORATED INDEPENDENTLY OF TODAY'S MESSAGE: data/30th-binder.json has held Hisuian Zorua 145 since 16 September, entered off a close-up photograph of three cards together, and its note reaches the same printing by the same symbol. Same physical card, video released six days later, which is the pattern every 30th rip has followed -- he opened these around the 16th and is publishing them one a day. Nothing is added to the binder here. HIS TITLE SAYS \"NEW Moonbreon Card?!\" AND THAT IS NOT THE HIT. Moonbreon is the hobby's name for the Umbreon VMAX alt art out of Evolving Skies; the 30th does print Umbreon ex, in the Battle Deck and the night Ultra Premium Collection. The title is his own question about the set rather than a second card out of this pack, and the hit is what he typed. NO PRICE YET: PriceCharting holds no row for 145, so the card renders without one rather than borrowing the Common's. Written \"Illustration Rare\" with a capital R to match this set's own checklist casing. Hand kept until the My Hits tab carries it."
+      },
+      {
+        "card": "Greninja ex",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "number": "099",
+        "rarity": "Black Star Promo",
+        "promo": true,
+        "hallOfFame": false,
+        "handNote": "The owner, 22 September 2026: \"you can also add for a hit from the 30th Celebration set card 099 Black Star Promo Greninja ex\". The second card out of the same rip -- the promo that comes in the 30th Celebration Greninja ex Tin, alongside the Hisuian Zorua pulled from its Pack #1. THE NUMBER 099 BELONGS TO A DIFFERENT CARD IN THIS SET AND THAT NEARLY SHIPPED. A Black Star Promo is numbered in its own run, so this 099 is not the main set's 099, which is HYDREIGON. The 30th page's hits band matched a hit to the checklist ON THE NUMBER ALONE, so adding this row rendered a Greninja ex wearing Hydreigon's scan and Hydreigon's price. The band requires the NAME to agree as well now, and this row correctly matches nothing: it is a promo and the 199 card checklist does not contain it. The two Greninja ex that ARE in the set, 021 Double Rare and 148 Special Illustration Rare, are different cards and neither is this one. NO PRICE, AND NONE IS BORROWED. PriceCharting carries no row for this promo -- searched 22 September 2026 and its Greninja results are the XY and Mega Greninja promos, nothing numbered 099 -- which is what a six day old card looks like. The card publishes its name and nothing else rather than inheriting a figure from a card that merely shares a number. ALREADY IN THE BINDER as a promo since 16 September, with its number corrected from a photo-derived 035 to the typed 099 on the 21st. Promos sit outside the 199 there and this row does not change that."
+      }
     ]
   }
 }
