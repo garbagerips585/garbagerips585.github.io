@@ -365,7 +365,10 @@ const cardImg = (localId, name) => {
     `<img class="t30-card" src="${url}" ` +
     `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
     `sizes="(max-width:544px) 30vw, 163px" ` +
-    `alt="${esc(name)}" loading="lazy" decoding="async"${d ? " " + d : ""} onerror="this.remove()">`;
+    /* alt="" ON PURPOSE -- see the note above pictureFor. The pocket carries the
+       card name as its own accessible name and 62 of them print it visibly as
+       well, so an alt here made a screen reader say it two or three times. */
+    `alt="" loading="lazy" decoding="async"${d ? " " + d : ""} onerror="this.remove()">`;
   return avifPicture(img);
 };
 
@@ -431,6 +434,14 @@ const dexLocalId = (section, n) => {
   return m ? m[1].padStart(3, "0") : null;
 };
 
+/* THE PICTURE IS DECORATIVE AND ITS alt IS EMPTY, which is a change from
+   passing the card name in. The POCKET names itself -- every one carries
+   title="<card name>", which is the listitem's accessible name -- and 62 of the
+   75 filled pockets ALSO print the name visibly beside the image. So the name
+   was being announced two or three times in a row: "Pikachu, image Pikachu,
+   Pikachu". An image that repeats the text next to it is decorative by
+   definition. The name is still passed in because tcgpImg/shotImg build their
+   own alt and a future caller may need it; only the card scan goes silent. */
 const pictureFor = (name, { shot, n, row, section }) => {
   const dex = dexLocalId(section ?? row?.section, n);
   if (dex) return cardImg(dex, name);
@@ -511,7 +522,13 @@ const pocketNum = (section, n) =>
 const pocket = (c, i, slot) => {
   if (c) {
     const row = CHECKLIST.get(clKey(c.section, c.n || ""));
+    /* "Collected" IS SAID OUT LOUD, because before this it was communicated
+       only by ABSENCE: the 124 uncollected pockets each carry a visually hidden
+       "Not collected yet" and the filled ones carried no counterpart, so a
+       screen reader user could only infer the good news from a missing phrase.
+       46 of the 75 have no date either, so absence was the ONLY signal on those. */
     return `<li class="t30-pk has" title="${esc(c.name)}">
+        <span class="t30-sr">Collected</span>
         ${pictureFor(c.name, { shot: c.shot, n: c.n, row, section: c.section })}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
         ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
@@ -673,7 +690,12 @@ const leafHtml = (l) => {
      empty part of a physical page, not cards that exist. */
   const pad = Array.from({ length: Math.max(0, POCKETS - l.cells.length) },
     () => `            <li class="t30-pk pad" aria-hidden="true"></li>`).join("\n");
-  return `        <article class="t30-leaf" id="bl${l.no}" aria-label="${esc(l.label)}, page ${l.page} of ${l.pages}">
+  /* THE LABEL LEADS WITH THE ABSOLUTE PAGE NUMBER, which is what the visible
+     header says and what the reader is looking at. It used to carry the
+     WITHIN-SECTION number only, so leaf 20 announced "Classic Collection, page 1
+     of 4" while its own header read "Page 20 of 26". Both numbers are useful, so
+     it says both in the order the eye meets them. */
+  return `        <article class="t30-leaf" id="bl${l.no}" aria-label="Page ${l.no} of ${LEAF_N}, ${esc(l.label)}${l.pages > 1 ? `, ${l.page} of ${l.pages} in this section` : ""}">
           <div class="t30-leaf-h">
             <b>${esc(l.label)}</b>
             <span>Page ${l.no} of ${LEAF_N}${l.pages > 1 ? ` &middot; ${esc(l.label)} ${l.page}/${l.pages}` : ""}</span>
@@ -903,8 +925,13 @@ const style = `
 /* THE RINGS. Three of them down the left edge, drawn rather than pictured:
    a repeating-linear-gradient costs nothing, scales with the leaf and cannot
    404. They sit in the leaf's own left padding so no pocket overlaps them. */
+/* THE BOTTOM PADDING IS WHAT KEEPS THE CORNERS OFF THE CARDS, and it was 6px
+   short. The two 44px turn controls sit at the foot of the leaf and were
+   overlapping the bottom row of pockets by 4px -- measured, not guessed. The
+   controls move down into the padding rather than the grid moving up, so the
+   pockets keep their size. */
 .t30-leaf{scroll-snap-align:center;scroll-snap-stop:always;position:relative;
-  padding:var(--s4) var(--s5) calc(var(--s5) + var(--s4)) calc(var(--s5) + 10px);
+  padding:var(--s4) var(--s5) calc(var(--s5) + var(--s4) + 14px) calc(var(--s5) + 10px);
   min-width:0}
 .t30-leaf::before{content:"";position:absolute;left:10px;top:12%;bottom:12%;width:12px;
   background:repeating-linear-gradient(to bottom,
@@ -918,7 +945,7 @@ const style = `
 /* THE PAGE CORNERS. 44px targets, which is the tap-target floor qa-sweep checks
    and well over its 24px minimum, sitting in the padding the leaf reserved at
    the bottom so they never cover a pocket. */
-.t30-turn{position:absolute;bottom:0;width:44px;height:44px;display:grid;
+.t30-turn{position:absolute;bottom:6px;width:44px;height:44px;display:grid;
   place-items:center;text-decoration:none;color:var(--ink-2);
   font:400 var(--t-l)/1 var(--display);background:var(--card);
   border:1px solid var(--keyline)}
@@ -1406,7 +1433,8 @@ ${sectionSummary}
       <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them. Scroll sideways or use the page corners.">
 ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>
-      <figcaption>${haveTotal} of ${TOTAL} in the binder, across ${LEAF_N} pages of nine pockets.
+      <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
+      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
         Turn a page with either corner, or jump to one below. A grey card is one still to find.</figcaption>
     </figure>
 
@@ -1529,9 +1557,10 @@ ${APP_JS_NO_PACKPLAYER}
   var t = document.getElementById("binder");
   if (!t || !t.scrollIntoView) return;
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  function show(el) {
+  function show(el, focusIt) {
     if (!el) return;
     el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+    if (focusIt) setTimeout(function () { mark(); }, reduce ? 0 : 260);
   }
   document.addEventListener("click", function (e) {
     var a = e.target.closest && e.target.closest('a[href^="#bl"]');
@@ -1557,7 +1586,68 @@ ${APP_JS_NO_PACKPLAYER}
     var c = current(), step = e.key === "ArrowRight" ? 1 : -1;
     var n = (c.i + step + c.leaves.length) % c.leaves.length;
     e.preventDefault();
-    show(c.leaves[n]);
+    show(c.leaves[n], true);
+  });
+
+  /* WHICH PAGE AM I ON. The rail is 26 numbers and none of them said. There was
+     no aria-current anywhere in the component and no :target rule, so the only
+     anchor was the leaf header you happened to be able to read -- and the rail
+     restarts its numbering inside each section, so "Main set 3" and "Page 7 of
+     26" are the same page and neither number appears in the other place.
+     This marks the live one in both senses at once: aria-current="page" for a
+     screen reader, and a class the stylesheet can paint. */
+  var rail = document.querySelectorAll('.t30-rail a[href^="#bl"]');
+  var live = document.getElementById("binder-live");
+  var lastAnnounced = -1;
+  function mark() {
+    var c = current(), id = c.leaves[c.i] && c.leaves[c.i].id;
+    if (!id) return;
+    for (var i = 0; i < rail.length; i++) {
+      var on = rail[i].getAttribute("href") === "#" + id;
+      if (on) { rail[i].setAttribute("aria-current", "page"); rail[i].classList.add("is-here"); }
+      else { rail[i].removeAttribute("aria-current"); rail[i].classList.remove("is-here"); }
+    }
+    /* ANNOUNCE IT, ONCE IT HAS SETTLED. A page turn swapped the contents of a
+       container the reader is not focused in and said nothing at all, so
+       pressing Enter produced no evidence anything had happened. The live region
+       is polite and fires on the leaf CHANGING rather than on every scroll
+       frame, so a swipe does not machine-gun it. */
+    if (live && c.i !== lastAnnounced) {
+      lastAnnounced = c.i;
+      /* The leaf's own label ALREADY reads "Page 2 of 26, <section>", so the
+         section is what gets kept and the count is not appended a second time.
+         The first cut announced "Page 2 of 26 of 26". */
+      live.textContent = c.leaves[c.i].getAttribute("aria-label") || "";
+    }
+  }
+  var tick;
+  t.addEventListener("scroll", function () {
+    clearTimeout(tick);
+    tick = setTimeout(mark, 120);
+  }, { passive: true });
+  mark();
+
+  /* FOCUS FOLLOWS THE TURN, which is the one that made the keyboard unusable.
+     Activating a corner moved the track and left focus on the control you just
+     left -- now off-screen -- and that control still pointed at the page you
+     were already on, so a second Enter did nothing and you had to Tab twice to
+     turn twice. Focus now lands on the same corner of the leaf you arrived at,
+     so Enter, Enter, Enter pages through. It is only done for a REAL activation,
+     never for a scroll or a swipe, because moving focus at somebody who is
+     swiping is its own bug. */
+  function follow(el, fwd) {
+    if (!el) return;
+    var target = el.querySelector(fwd ? ".t30-turn.fwd" : ".t30-turn.back");
+    if (target && typeof target.focus === "function") target.focus({ preventScroll: true });
+  }
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    var a = e.target.closest && e.target.closest('.t30-turn[href^="#bl"]');
+    if (!a) return;
+    var el = document.getElementById(a.getAttribute("href").slice(1));
+    if (!el || !t.contains(el)) return;
+    var fwd = a.classList.contains("fwd");
+    setTimeout(function () { follow(el, fwd); mark(); }, reduce ? 0 : 260);
   });
 })();
 </script>
