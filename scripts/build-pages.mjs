@@ -2844,6 +2844,10 @@ const urls = [
   // at all. Monthly rather than weekly because a restaurant's hours move and
   // its history does not, and almost all of the page is the history.
   { loc: `${SITE}/garbage-plate.html`, freq: "monthly", pri: "0.9" },
+  // Jumbo cards. Same pair and the same argument: a reference page whose
+  // subject barely moves, on a question nobody else answers honestly. Monthly
+  // rather than weekly because only the prices change, and they change slowly.
+  { loc: `${SITE}/jumbo-cards.html`, freq: "monthly", pri: "0.8" },
   // Only once they have entries. Both render an honest empty state and go
   // noindex while the list is empty, so listing them in the sitemap before
   // then would contradict the page and fail check-build's noindex rule.

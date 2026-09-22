@@ -92,6 +92,9 @@ PAGES = {
     # than the superlative, exactly as top-graded does above, because two price
     # guide columns read on one day is what it holds.
     "topps": ("NOT POKEMON TCG CARDS", "Topps made Pokemon cards too", "Eleven sets, 1999 to 2004, and some are worth thousands"),
+    # The kicker is the fact, not the superlative: the size question is the one
+    # every reader arrives with and the one nobody answers.
+    "jumbo-cards": ("NO OFFICIAL SIZE EXISTS", "Pokemon jumbo cards", "How you get one, why you cannot play it, what it is worth"),
     "topps-card-values": ("PRICE GUIDE, NOT HAMMER PRICE", "Topps card values", "Two top 100s, raw and PSA 10, every figure read twice"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 priciest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),

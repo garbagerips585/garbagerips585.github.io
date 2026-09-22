@@ -206,6 +206,7 @@ const PAGES = [
   // valuable", the same discipline the top-graded line above keeps: it ranks two
   // price guide columns read on one day and the blurb must not upgrade that.
   ["/topps.html", "Topps Pokemon cards", "The trading cards Topps made from 1999 to 2004, every set, and how to tell one from a real TCG card"],
+  ["/jumbo-cards.html", "Jumbo cards", "Oversize Pokemon cards: how big they are, which products include one, why they cannot be played, and what they are worth"],
   ["/topps-card-values.html", "Topps card values", "Two top 100s of Topps Pokemon cards, ranked raw and by PSA 10 from PriceCharting's guide, dated"],
   ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 most expensive sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],

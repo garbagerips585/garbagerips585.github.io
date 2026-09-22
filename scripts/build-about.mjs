@@ -335,6 +335,7 @@ const GUIDES = [
       ["/most-expensive-sealed.html", "The 100 most expensive sealed products", "Boxes and collections rather than cards."],
       ["/base-set.html", "1st Edition, Shadowless or Unlimited", "Which 1999 Base Set print run a card in your hand came from, and why it matters to the price."],
       ["/topps.html", "Topps Pokemon cards", "The Pokemon cards that are not TCG cards at all. Most collectors have never knowingly held one and several are worth real money."],
+      ["/jumbo-cards.html", "Jumbo cards", "The Pokemon Company calls them oversize and will not tell you how big they are. What they are, how you get one, and why almost every valuable one is really a box topper."],
       ["/complete-a-set.html", "What it costs to complete a set", "Priced nightly, and the argument for buying singles instead of opening packs."],
     ],
   ],

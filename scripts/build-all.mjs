@@ -95,6 +95,7 @@ const STEPS = [
   // AFTER build-proto.mjs, because it takes its <head>, bar, menu and footer by
   // slicing public/index.html, exactly as the four other pages that do that.
   "node scripts/build-garbage-plate.mjs",
+"node scripts/build-jumbo.mjs",
   // The front door to the five local pages, and it sits with them for the same
   // reason the line above gives: same reader, the one who came for the Rochester
   // angle. It reads data/shows.json, data/shops.json, data/vendors.json,

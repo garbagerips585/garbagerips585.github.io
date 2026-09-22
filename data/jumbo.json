@@ -1,0 +1,350 @@
+{
+  "_readme": [
+    "THE JUMBO / OVERSIZE CARD REFERENCE PAGE. Drives /jumbo-cards.html via",
+    "scripts/build-jumbo.mjs. Hand maintained; the CATALOGUE half comes from",
+    "data/jumbo-catalogue.json, written by scripts/sync-jumbo.mjs.",
+    "",
+    "EVERY CLAIM ON THIS PAGE CARRIES A SOURCE AND A READ DATE, because almost",
+    "nothing about jumbo cards is published by The Pokemon Company. The two things",
+    "a reader most wants -- how big is one, and how many exist -- have NO official",
+    "answer at all, and the page says so in those words rather than picking a",
+    "number off a content farm. See `unsourced` below for the full list of what was",
+    "looked for and not found.",
+    "",
+    "THE PRICES WERE READ TWICE, which is shared/graded-gate.mjs's rule applied by",
+    "hand: a research pass read every figure off PriceCharting on 21 September 2026",
+    "and a second independent pass re-read all ten the same day through",
+    "shared/pricecharting.mjs's own parser. All ten agreed to the cent. A figure",
+    "read once is not published here."
+  ],
+  "checked": "2026-09-21",
+  "naming": {
+    "official": "oversize",
+    "hobby": "jumbo",
+    "japan": "ジャンボカード",
+    "note": "TPCi's own retail copy says oversize -- pokemon.com product listings read \"1 foil oversize card\" and Pokemon Center runs an Oversize Card Sets category. The hobby says jumbo, and so does Bulbapedia, whose article is titled Jumbo cards and calls oversize the occasional alternative. Japan's official site uses ジャンボカード in product names. Both words are correct; they map to company usage and community usage, and this page uses jumbo because that is what a reader searches for."
+  },
+  "size": {
+    "standard": "63 x 88 mm (2.5 x 3.5 in)",
+    "standardNote": "Widely agreed and not officially published by TPC anywhere we could find.",
+    "official": null,
+    "officialNote": "THE POKEMON COMPANY PUBLISHES NO DIMENSIONS FOR OVERSIZE CARDS. Not on pokemon.com, not on Pokemon Center, not in the tournament rules. Official Pokemon Center Japan listings give the PACKAGE size only. Everything below is somebody measuring their own cards.",
+    "measurements": [
+      {
+        "era": "pre-2020 international",
+        "mm": "145 x 200",
+        "src": "wargamer.com",
+        "note": "author's own ruler, photographed"
+      },
+      {
+        "era": "2020 onward international",
+        "mm": "136 x 187",
+        "src": "wargamer.com",
+        "note": "author's own ruler, photographed"
+      },
+      {
+        "era": "2020 onward international",
+        "mm": "132 x 187",
+        "src": "pokelog.tokyo",
+        "note": "a second hobbyist measurement, agrees on height and not on width"
+      },
+      {
+        "era": "Japanese",
+        "mm": "145 x 220",
+        "src": "pokelog.tokyo",
+        "note": "if right, Japanese jumbos are their own larger size. No official confirmation."
+      }
+    ],
+    "eras": "There are at least two international sizes and the change is sourced even though the numbers are not: Bulbapedia records that jumbos got smaller starting with the Meowth VMAX jumbo in the Sword & Shield era, and TPC then shipped its first official oversize card binder, sized for the new smaller cards and first given away through a GameStop campaign the week of 26 April 2020."
+  },
+  "boxToppers": {
+    "headline": "A box topper is not a jumbo, and almost every expensive one is a box topper",
+    "body": "The marketplaces file them together and it hides the most useful fact on this page. A modern jumbo is roughly 136 x 187 mm. A Wizards-era BOX TOPPER -- the oversized card that sat on top of a booster box in Legendary Collection, Aquapolis and Skyridge -- is about 90 x 126 mm, oversized but nowhere near jumbo size. Nine of the ten most valuable cards in the category are box toppers. If you came here for the most valuable JUMBO, it is Shadow Lugia, and everything above it on the list is a different format."
+  },
+  "legality": {
+    "answer": "No. Jumbo cards cannot be used in sanctioned play.",
+    "ruling": "The Pokemon Rulings Compendium carries a ruling attributed to the TPCi Rules Team, dated 4 August 2022: a deck of uniformly sized jumbo cards is not usable in a sanctioned tournament, because only cards released for play at standard size are legal, and a jumbo is an artistic representation of the legal card.",
+    "twist": "THE OFFICIAL HANDBOOK ITSELF SAYS NOTHING ABOUT SIZE. The current Play! Pokemon TCG Tournament Handbook, revised 1 September 2026, never uses the words jumbo or oversize and specifies no card dimensions. Its legality section asks only that cards be genuine, format legal, in the right language and unmarked.",
+    "story": "Which is how, at the 2022 North America International Championships, a player entered a legal 60 card deck built entirely out of jumbo cards and the judges ruled it playable on the spot -- there was no size rule to break. The Compendium ruling is dated after that tournament.",
+    "dateNote": "Bulbapedia's footnote dates the ruling 8 April 2022 and the Compendium's own page says 4 August 2022. The Compendium's date is used here: it is the primary source and it is the one that fits, because NAIC 2022 was in late June."
+  },
+  "howYouGetThem": {
+    "do": [
+      "Premium Collections",
+      "Named boxes, e.g. the Darkrai Premium Box or an ex Box",
+      "Figure Collections",
+      "Case Files",
+      "Special Collections",
+      "Retailer exclusive boxes, e.g. the Walmart Galar Partners boxes",
+      "Magazine inserts, chiefly Japan's CoroCoro",
+      "Event giveaways and Pokemon Center promotions",
+      "Organized play prizes, in the Wizards era"
+    ],
+    "dont": [
+      "Elite Trainer Boxes",
+      "Tins and mini tins",
+      "Blisters",
+      "Build & Battle Boxes",
+      "Battle Academy"
+    ],
+    "dontNote": "THIS IS A SOURCED NEGATIVE, NOT AN ASSUMPTION. Searching all 395 entries of Bulbapedia's international jumbo list returns zero hits for Elite Trainer Box, tin, mini tin, blister or Build & Battle Box, and Bulbapedia's own ETB article lists the contents as boosters, sleeves, dividers, dice, a code card and a REGULAR SIZE promo. It is a statement about that list rather than an audit of every SKU ever made, so read it as \"do not normally\" rather than \"never\".",
+    "europe": "One quirk worth knowing: during the XY and Sun & Moon eras TPCi could not ship figures inside TCG products to Europe, so European versions of those products swapped the figure for a jumbo card. Sometimes a different jumbo than the North American release had."
+  },
+  "history": [
+    {
+      "when": "June 1997",
+      "what": "The earliest jumbo we can source: a Pikachu, Jigglypuff and Clefairy insert in the July 1997 issue of CoroCoro Comic, Japan, out 15 June 1997."
+    },
+    {
+      "when": "1997 to 2005",
+      "what": "The magazine and prize era. CoroCoro inserts run steadily; the first international jumbo we can source is a Base Set Pikachu in Top Deck Magazine, February 2000. Wizards of the Coast hands out Best of Game winner jumbos through BattleZone (2002-03) and e-League (2003-04)."
+    },
+    {
+      "when": "around 2007",
+      "what": "Distribution moves decisively into sealed boxed product, starting in the Diamond & Pearl era with the Darkrai Premium Box and the Dialga and Palkia Premium Boxes."
+    },
+    {
+      "when": "2020",
+      "what": "Jumbos shrink, from the Meowth VMAX jumbo onward, and TPC ships its first official oversize card binder."
+    }
+  ],
+  "historyNote": "A retailer blog dates the first jumbo to a 2000 Base Set Pikachu. That is wrong, and it is wrong in an interesting way: it misses three years of Japanese CoroCoro inserts because it is only looking at English releases.",
+  "counts": {
+    "official": null,
+    "note": "NOBODY PUBLISHES A TOTAL. Not TPC, not TPCi. The three biggest public counts all measure different things and none is authoritative: Bulbapedia's chronological list of INTERNATIONAL jumbos holds 395 entries and explicitly excludes Japanese magazine jumbos; its Category:Jumbo cards returns 409 members including Japanese ones; and TCGplayer's Jumbo Cards group holds 345 products, filed its own way. About 89% of Bulbapedia's names appear in TCGplayer's group, and NEITHER LIST CONTAINS THE OTHER."
+  },
+  "images": {
+    "note": "THE CARD PICTURES ON THIS PAGE HAVE OVERSIZE CARD STAMPED ACROSS THEM AND THAT IS NOT OUR DOING. TCGplayer watermarks its oversize scans, and it is the only host with jumbo specific images at any scale -- 328 of the 345 products in its group return an image, and roughly 96% of those carry the diagonal band. TCGdex, which supplies every other card scan on this site, declares a Jumbo cards set of 160 and serves zero cards for it. So the choice was a stamped picture or no picture, and a stamped picture still shows you which card it is."
+  },
+  "unsourced": [
+    "Any official dimensions for an oversize card, from TPC or TPCi.",
+    "Any official announcement or explanation of the 2020 size change.",
+    "Why oversize cards were created in the first place.",
+    "Whether Japanese and international jumbos are officially different sizes. One hobbyist measurement says yes.",
+    "An authoritative count of how many exist.",
+    "Per card release dates. TCGplayer stamps every product in its jumbo group with the group's own publish date, 1 April 2015, including cards from 1999, so that field is a set level constant and is not printed here.",
+    "PSA population figures. psacard.com answers a Cloudflare challenge, so no population number is stated on this page."
+  ],
+  "sources": [
+    {
+      "name": "pokemon.com product gallery",
+      "url": "https://www.pokemon.com/us/pokemon-tcg/product-gallery/combined-powers-premium-collection",
+      "read": "2026-09-21",
+      "for": "TPCi's own wording, \"1 foil oversize card\""
+    },
+    {
+      "name": "Bulbapedia, Jumbo cards (TCG)",
+      "url": "https://bulbapedia.bulbagarden.net/wiki/Jumbo_cards_(TCG)",
+      "read": "2026-09-21",
+      "for": "the 395 entry international list, the size change, product types"
+    },
+    {
+      "name": "Pokemon Rulings Compendium",
+      "url": "https://compendium.pokegym.net/ruling/1740/",
+      "read": "2026-09-21",
+      "for": "the TPCi Rules Team ruling of 4 August 2022"
+    },
+    {
+      "name": "Play! Pokemon TCG Tournament Handbook",
+      "url": "https://www.pokemon.com/static-assets/content-assets/cms2/pdf/play-pokemon/rules/play-pokemon-tcg-tournament-handbook-en.pdf",
+      "read": "2026-09-21",
+      "for": "the absence of any size rule, revision of 1 September 2026"
+    },
+    {
+      "name": "Inven Global on NAIC 2022",
+      "url": "https://www.invenglobal.com/articles/17540/pokemon-tcg-player-competes-with-jumbo-cards-at-naic-2022",
+      "read": "2026-09-21",
+      "for": "the jumbo deck at the 2022 International Championships"
+    },
+    {
+      "name": "PriceCharting",
+      "url": "https://www.pricecharting.com/",
+      "read": "2026-09-21",
+      "for": "every price on this page"
+    },
+    {
+      "name": "tcgcsv.com",
+      "url": "https://tcgcsv.com/tcgplayer/3/1528/products",
+      "read": "2026-09-21",
+      "for": "the 345 card catalogue and TCGplayer market prices"
+    },
+    {
+      "name": "wargamer.com on card sizes",
+      "url": "https://www.wargamer.com/pokemon-card-size",
+      "read": "2026-09-21",
+      "for": "measured dimensions, non official"
+    },
+    {
+      "name": "pokelog.tokyo",
+      "url": "https://pokelog.tokyo/world-jumbo-card/",
+      "read": "2026-09-21",
+      "for": "a second measurement, and the Japanese size"
+    }
+  ],
+  "value": [
+    {
+      "rank": 1,
+      "name": "Charizard",
+      "sub": "Box Topper #S1",
+      "set": "Legendary Collection",
+      "year": 2002,
+      "format": "topper",
+      "pid": 210841,
+      "raw": 901.66,
+      "g9": 4505.5,
+      "psa10": 23272.22,
+      "pc": "pokemon-legendary-collection/charizard-box-topper-s1",
+      "why": "One oversized reverse holo topper sat on top of each booster box, so supply is capped at one per box ever opened. PSA's own set registry article notes toppers are prone to edge and surface damage, which is why high grades are scarce."
+    },
+    {
+      "rank": 2,
+      "name": "Charizard",
+      "sub": "Box Topper #9",
+      "set": "Skyridge",
+      "year": 2003,
+      "format": "topper",
+      "pid": 210851,
+      "raw": 767.5,
+      "g9": 1878.64,
+      "psa10": 8200.0,
+      "pc": "pokemon-skyridge/charizard-box-topper-9",
+      "why": "A Crystal Transparent box topper, one per booster box, out of a set with a famously small print run."
+    },
+    {
+      "rank": 3,
+      "name": "Shadow Lugia",
+      "sub": "Jumbo",
+      "set": "English promo",
+      "year": 2005,
+      "format": "jumbo",
+      "pid": 127168,
+      "raw": 442.88,
+      "g9": null,
+      "psa10": null,
+      "why": "THE MOST VALUABLE ACTUAL JUMBO ON THIS LIST. Tied to the launch of Pokemon XD: Gale of Darkness, and the only jumbo of a Shadow Pokemon. PriceCharting records no Grade 9 or PSA 10 sales at all.",
+      "pc": "pokemon-promo/shadow-lugia-jumbo"
+    },
+    {
+      "rank": 4,
+      "name": "Mewtwo",
+      "sub": "Box Topper #S4",
+      "set": "Legendary Collection",
+      "year": 2002,
+      "format": "topper",
+      "pid": 210844,
+      "raw": 399.99,
+      "g9": 1170.14,
+      "psa10": 4382.66,
+      "pc": "pokemon-legendary-collection/mewtwo-box-topper-s4",
+      "why": "One of the four Legendary Collection toppers, same one per box supply."
+    },
+    {
+      "rank": 5,
+      "name": "Dark Blastoise",
+      "sub": "Box Topper #S2",
+      "set": "Legendary Collection",
+      "year": 2002,
+      "format": "topper",
+      "pid": 210842,
+      "raw": 398.06,
+      "g9": 1125.5,
+      "psa10": 6100.02,
+      "pc": "pokemon-legendary-collection/dark-blastoise-box-topper-s2",
+      "why": "The dearest card in TCGplayer's own jumbo group, where the Charizard toppers carry no market price at all."
+    },
+    {
+      "rank": 6,
+      "name": "Ho-oh",
+      "sub": "Box Topper #11",
+      "set": "Skyridge",
+      "year": 2003,
+      "format": "topper",
+      "pid": 210853,
+      "raw": 358.45,
+      "g9": 649.0,
+      "psa10": 2499.99,
+      "pc": "pokemon-skyridge/ho-oh-box-topper-11",
+      "why": "The second Skyridge Crystal Transparent topper."
+    },
+    {
+      "rank": 7,
+      "name": "Dark Raichu",
+      "sub": "Box Topper #S3",
+      "set": "Legendary Collection",
+      "year": 2002,
+      "format": "topper",
+      "pid": 210843,
+      "raw": 306.52,
+      "g9": 845.36,
+      "psa10": 3830.0,
+      "pc": "pokemon-legendary-collection/dark-raichu-box-topper-s3",
+      "why": "The fourth Legendary Collection topper."
+    },
+    {
+      "rank": 8,
+      "name": "Charizard",
+      "sub": "CoroCoro Comics #4",
+      "set": "Japanese promo",
+      "year": 1999,
+      "format": "jumbo",
+      "pid": 179079,
+      "raw": 264.9,
+      "g9": 2695.0,
+      "psa10": null,
+      "pc": "pokemon-japanese-promo/charizard-corocoro-comics-4",
+      "why": "A magazine insert rather than a short print. This one is expensive because it is Charizard and it is old, not because it is scarce."
+    },
+    {
+      "rank": 9,
+      "name": "Mew ex",
+      "sub": "Jumbo #205",
+      "set": "Scarlet & Violet 151, Portuguese",
+      "year": 2023,
+      "format": "jumbo",
+      "pid": null,
+      "raw": 159.0,
+      "g9": 254.7,
+      "psa10": 696.72,
+      "pc": "pokemon-scarlet-violet-151/mew-ex-jumbo-205",
+      "why": "Region lock, not age. It was exclusive to the Brazilian 151 Mew ex and Mewtwo Special Collection; every other region got a different box."
+    }
+  ],
+  "valueNote": "Ranked on PriceCharting's ungraded figure, read 21 September 2026 and re-read the same day through a second parser. NINE OF THE TEN ARE BOX TOPPERS OR MAGAZINE INSERTS rather than modern jumbos, which is the point the section above makes.",
+  "excluded": [
+    {
+      "what": "Marshtomp [Jumbo] #11, an e-League prize at $299.99",
+      "why": "It belongs on the list on price and is left off because PriceCharting dates it 1 January 2025, which is a placeholder for a 2003 card, and we could not source a real one. The price is real; the record around it is not clean enough to print."
+    },
+    {
+      "what": "Any BGS 10 Black figure, including $151,270 on the Legendary Collection Charizard",
+      "why": "Sparse grade tiers on PriceCharting are algorithmic estimates rather than observed sales."
+    },
+    {
+      "what": "Celebrations Pikachu [Jumbo] #58 at $4,293.55 in a PSA 10",
+      "why": "Its raw price is $6.76, so the PSA 10 figure is 635 times the ungraded one on a mass produced 2021 promo. Verified on the page and deliberately not published as a value."
+    }
+  ],
+  "baseline": {
+    "headline": "Most jumbo cards are worth a few dollars",
+    "body": "A ranked list is misleading on its own, because the typical jumbo is not rare and was never meant to be. Anything that came in a collection box or a premium box from roughly 2016 onward generally sells raw for a few dollars.",
+    "examples": [
+      {
+        "name": "Charizard ex [Jumbo] #196",
+        "raw": 4.51
+      },
+      {
+        "name": "Pikachu VMAX [Jumbo] #SWSH286",
+        "raw": 5.82
+      },
+      {
+        "name": "Pikachu [Jumbo] #58, Celebrations",
+        "raw": 6.76
+      },
+      {
+        "name": "Pikachu V-Union [Jumbo]",
+        "raw": 13.56
+      }
+    ],
+    "averages": "Two trackers put the average across the category at $21 and $34. DO NOT READ THOSE AS TYPICAL: they are means, dragged up by a handful of $300 to $900 cards. There is no published median, which is why this section says \"a few dollars\" rather than putting a figure on it."
+  }
+}
