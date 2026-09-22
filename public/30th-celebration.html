@@ -52,6 +52,14 @@
 .t30-bar{height:6px;border-radius:999px;background:var(--paper);border:1px solid var(--keyline);overflow:hidden;margin-bottom:var(--s4)}
 .t30-bar span{display:block;height:100%;background:var(--hl)}
 .t30-binder{margin:var(--s4) 0 0;max-width:560px}
+.t30-cover{background:var(--chrome-bg);border:1px solid var(--keyline);border-bottom:0;
+  border-radius:var(--r) var(--r) 0 0;padding:var(--s4) var(--s4) var(--s3);
+  text-align:center;display:grid;justify-items:center;gap:6px}
+.t30-cover img{max-width:180px;height:auto;display:block}
+.t30-cover-t{margin:0;font:400 var(--t-l)/1.1 var(--display);color:var(--ink)}
+.t30-cover-s{margin:0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+.t30-binder .t30-track{border-radius:0 0 var(--r) var(--r)}
 .t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
   overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
   scrollbar-width:none;border-radius:var(--r);background:var(--paper);
@@ -103,10 +111,10 @@
 @media(prefers-reduced-motion:no-preference){
   .t30-track{scroll-behavior:smooth}
 }
-.t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);
+.t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-3,var(--ink-2));opacity:.55}
-.t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:var(--lift)}
+.t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 .t30-pk.has .t30-pn{opacity:1;color:var(--ink-2)}
 .t30-nm{font:700 var(--t-sm)/1.2 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
 .t30-got{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
@@ -2035,6 +2043,16 @@
     </ul>
 
     <figure class="t30-binder">
+      
+      <div class="t30-cover">
+        <picture>
+          <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
+          <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
+               width="180" height="84" decoding="async" onerror="this.remove()">
+        </picture>
+        <p class="t30-cover-t">Master Set Binder</p>
+        <p class="t30-cover-s">72 of 199 pockets filled &middot; 36% complete</p>
+      </div>
       <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, 26 of them. Scroll sideways or use the page corners.">
         <article class="t30-leaf" id="bl1" aria-label="The 30 Pikachu, page 1 of 4">
           <div class="t30-leaf-h">

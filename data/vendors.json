@@ -28,7 +28,7 @@
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
     "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026 and Skull & Bones Collectibles on 8 September 2026, which is what appending is supposed to do. ON 8 SEPTEMBER 2026 HE MOVED RocPokeCon TO LAST -- \"make roc pokemon the last vendor on this page\" -- so the order is now TOAK Pulls, Legends Card Shop, Pok.eJoe, Skull & Bones, RocPokeCon. The rule is still that the order here IS the page, and that it is his to set: do not re-sort this list by name, by date added, or by how many shows a vendor is confirmed at."
   ],
-  "updated": "2026-09-14",
+  "updated": "2026-09-22",
   "vendors": [
     {
       "name": "TOAK Pulls",
@@ -125,6 +125,24 @@
       "flyerW": 440,
       "flyerH": 550,
       "flyerNote": "Their RocPokéTour save-the-dates, posted by @rocpokecon on Instagram and sent to the channel by the owner on 13 September 2026. THIS IS THE CLEAN COPY OF IT: the first one that arrived was a screenshot of the post with the platform's own like, comment and share controls burned over the artwork, and this one is the flyer itself, full bleed, with all fourteen rows legible. DATE AND VENUE ONLY IS ALL IT CARRIES -- it ends \"More information coming soon!\", so there are no times, no admission and no table counts on it, and none are published anywhere else either: rocpokecon.com was checked on 13 September and its home page still advertised June 13th 2026. December is not a missing row, it reads HAPPY HOLIDAYS instead of a venue."
+    },
+    {
+      "name": "ROC_TCG",
+      "area": "Rochester, NY and Western New York",
+      "sells": "Slabs, raw cards and sealed, in person at shows",
+      "vouched": false,
+      "blurb": "A local Rochester, NY Pokemon vendor who travels the Western New York circuit. Buying, selling and trading slabs, raw cards and sealed. In their own words: come say hello, make some deals, and talk Pokemon.",
+      "shows": "Shows around Rochester, NY, Batavia and Niagara Falls",
+      "instagram": "roc_tcg585",
+      "logo": "roc-tcg",
+      "logoNote": "Sent by them for this use, relayed by the owner 22 September 2026.",
+      "logoW": 500,
+      "logoH": 500,
+      "sourceNote": "THE BLURB IS THEIR OWN WORDS, lightly cut. They sent: \"ROC_TCG is a local Rochester NY Pokemon card vendor that travels throughout the Western NY area. Come say hello, make some deals, and talk Pokemon with me!\" and the line \"Buy/Sell/Trade Slabs, Raw Cards, And Sealed\", which is what `sells` carries. NOT VOUCHED, and that is not a judgement: `vouched` on this site means the OWNER has said outright that he buys from them, and he has not said it about this vendor. It is a fact about him, not about them, and it is left false until he says otherwise.",
+      "flyer": "roc-tcg-shows.jpg",
+      "flyerW": 440,
+      "flyerH": 660,
+      "flyerNote": "Their own upcoming-shows flyer, sent 22 September 2026. It is the source for all eight ROC_TCG rows in data/shows.json and for the two shows that flyer ADDED to the calendar: the Roc City Card Show on 4 October and the FRIDAY half of the 23-24 October Extreme Pokemon Show, which was on file as a Saturday only."
     }
   ]
 }

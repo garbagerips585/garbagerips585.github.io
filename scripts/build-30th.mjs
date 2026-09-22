@@ -879,6 +879,21 @@ const style = `
  * overflow-x HERE AND NOWHERE ELSE: the site's rule is that the body never
  * scrolls sideways and only a contained object may, which this is. */
 .t30-binder{margin:var(--s4) 0 0;max-width:560px}
+/* THE COVER, AND WHY IT IS NOT JUST A HEADING. It is the binder's front board:
+   it shares the track's left, right and top border, sits flush on it with no
+   gap and no margin, and carries the only rounded corners at the top so the
+   two elements read as one bound object rather than a title above a widget.
+   The darker fill is --chrome-bg, the page's own darkest surface, because a
+   binder board is darker than the sheet inside it and that is the whole cue. */
+.t30-cover{background:var(--chrome-bg);border:1px solid var(--keyline);border-bottom:0;
+  border-radius:var(--r) var(--r) 0 0;padding:var(--s4) var(--s4) var(--s3);
+  text-align:center;display:grid;justify-items:center;gap:6px}
+.t30-cover img{max-width:180px;height:auto;display:block}
+.t30-cover-t{margin:0;font:400 var(--t-l)/1.1 var(--display);color:var(--ink)}
+.t30-cover-s{margin:0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+/* The track loses its own top rounding so the seam with the cover disappears. */
+.t30-binder .t30-track{border-radius:0 0 var(--r) var(--r)}
 .t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
   overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
   scrollbar-width:none;border-radius:var(--r);background:var(--paper);
@@ -944,10 +959,13 @@ const style = `
 @media(prefers-reduced-motion:no-preference){
   .t30-track{scroll-behavior:smooth}
 }
-.t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);
+/* A POCKET IS A SLEEVE, NOT A BOX. The inset shadow is the only thing that
+   says 'the card is behind plastic' and it costs nothing; the filled ones
+   keep their outer lift so an owned card still sits proud of the page. */
+.t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-3,var(--ink-2));opacity:.55}
-.t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:var(--lift)}
+.t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 .t30-pk.has .t30-pn{opacity:1;color:var(--ink-2)}
 .t30-nm{font:700 var(--t-sm)/1.2 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
 .t30-got{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
@@ -1363,6 +1381,28 @@ ${sectionSummary}
     </ul>
 
     <figure class="t30-binder">
+      ${/* THE COVER. The owner asked for it in these words: "give it a 30th Celebration
+           logo at the top of the binder and then under the 30th logo it says Master
+           Set Binder". It is the front board of the binder rather than a heading
+           floating above one, which is why it shares the track's border and has no
+           gap under it -- the two read as one object, and the rings below run past
+           both.
+
+           THE LOGO IS THE SET'S OWN and is already on this page's hero, so it is a
+           cache hit rather than a second download. It is DECORATIVE here: the
+           accessible name of this component lives on the track's aria-label and the
+           words "Master Set Binder" are real text underneath, so alt="" is correct
+           and an alt of "30th Celebration" would make a screen reader say the set
+           name twice in a row. */""}
+      <div class="t30-cover">
+        <picture>
+          <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
+          <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
+               width="180" height="84" decoding="async" onerror="this.remove()">
+        </picture>
+        <p class="t30-cover-t">Master Set Binder</p>
+        <p class="t30-cover-s">${haveTotal} of ${TOTAL} pockets filled &middot; ${pct}% complete</p>
+      </div>
       <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them. Scroll sideways or use the page corners.">
 ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>

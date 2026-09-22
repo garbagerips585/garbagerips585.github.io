@@ -642,6 +642,10 @@
         {
           "name": "Jake's Place",
           "confirmed": "Jake's Place to the channel via the owner, 8 September 2026, listing their September shows: \"September 13 arch angel, September 20 roccity, September 26 batavia pokemon only show\". He wrote it as \"batavia pokemon only show\"; this is the only Batavia show on that date and it is the all-Pokemon one, so the match is unambiguous."
+        },
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
         }
       ],
       "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
@@ -788,7 +792,13 @@
       "flyer": "batavia-scts-monthly.jpg",
       "flyerW": 440,
       "flyerH": 503,
-      "phone": "585-353-0834"
+      "phone": "585-353-0834",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
     },
     {
       "id": "millcreek-mall-2026-10-03",
@@ -883,7 +893,13 @@
       "organiser": "Buffalo Prime Time Sport Card Show",
       "organiserUrl": "https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/",
       "phone": "716-465-7736",
-      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door."
+      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door.",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
     },
     {
       "id": "bpt-fall-2026-10-11",
@@ -903,7 +919,13 @@
       "organiser": "Buffalo Prime Time Sport Card Show",
       "organiserUrl": "https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/",
       "phone": "716-465-7736",
-      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door."
+      "sourceNote": "THE PROMOTER WAS FINDABLE ALL ALONG AND THIS ROW HAD NO ORGANISER. Buffalo Prime Time Sport Card Show, page read 8 September 2026, publishing (716) 465-7736 and Buffaloprimetimesportscards@gmail.com as their contact. They run the M Hotel show and the Niagara University one, which is why those rows now share an organiser.\nNOT THE SYRACUSE \"PRIME TIME TRADING CARD SHOW\", which is a different promoter with a similar name: that one is @primetimetcgshow on Instagram, billing itself \"Syracuse's Newest Premier TCG Show\" at the Venue at Lakeside. The two are deliberately not merged.\nThe Pokemon mark used to rest on the word TCG in a calendar's title. It rests on the promoter's own description now.\nADMISSION IS STILL THE CALENDAR'S ALONE: $5 with under 12 free is Shake & Break 716's line, and the promoter's own event page states no price. Left as it is rather than removed, because a reader who brings $5 to a free show has lost nothing and the reverse loses them the door.",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
     },
     {
       "id": "pokefest-syracuse-2026-10-11",
@@ -1207,7 +1229,13 @@
       "admission": "Free",
       "source": "wnycardshows (Shake & Break 716)",
       "blurb": "An all Pokemon show at the Batavia Quality Inn, free in, with food on site.",
-      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com."
+      "sourceNote": "NO PROMOTER FOR THIS SHOW EXISTS ANYWHERE WE CAN REACH, and that was searched properly on 8 September 2026 rather than assumed: no Instagram account, no Facebook page, no Facebook event, no website, no contact. It is an established recurring show -- earlier instances ran on 26 July and 2 August 2026 with the same hours -- with no public identity behind it.\nTHE FOUR SOURCES FOR THIS SHOW ARE ONE SOURCE. Shake & Break 716's Western New York calendar at sites.google.com/view/wnycardshows is the upstream, and TCDb, Treasure Hunter and tcgshowsnearme are all re-publishing it -- TCDb's own entry names that calendar as the show's web address, and tcgshowsnearme credits the show to \"WNY Card Shows\", which is the calendar rather than a promoter. So their agreement is NOT corroboration and must not be read as any. Checked 8 September 2026.\nIT IS NOT THE OTHER TWO BATAVIA SHOWS AT THE SAME HOTEL, and that was checked because it is the obvious wrong guess. The Batavia Sports Card, Toys & Collectible Show is JC's Cards and Collectibles, whose own Facebook page runs a separately branded \"Pokemon only\" show at 10am-3pm and has never used the word \"Extreme\"; the Wednesday 4pm-9pm show is 585Cardz. Neither is this.\nIf it ever needs confirming, the route is Shake & Break 716 themselves, who take the submissions: shakeandbreak716@gmail.com.",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
     },
     {
       "id": "wny-expo-38-2026-10-24",
@@ -1305,6 +1333,10 @@
         {
           "name": "Pok.eJoe Trading Cards",
           "confirmed": "The owner, 4 September 2026, listing where they are booked: \"Flower city comic con 18-19-20th, Collector fest monthly 27th, Collector fest monthly oct 18th, Roc pokecon oct 31st, Collector fest November 22 Dec 13th\"."
+        },
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
         }
       ],
       "flyer": "rocpokecon-2026-10-31.jpg",
@@ -2450,6 +2482,48 @@
       "flyerH": 623,
       "source": "the show's own flyer, relayed by Legends Card Shop to the channel 21 September 2026",
       "sourceNote": "NO ADMISSION PRICE IS PUBLISHED and none is guessed: `admission` is null, so the card reads \"Check the listing\" rather than inventing a figure. The flyer says BUY / SELL / TRADE, names the venue, the street address, the date and the hours, and says nothing about a door charge in either direction. THE DATE CARRIES NO YEAR on the flyer, which reads only \"OCTOBER 10TH\"; 2026 is taken from the batch it arrived in, all six of which are 2026 shows, and 10 October 2026 is a Saturday, which a card show date should be. The two sponsors are printed together at the foot, \"BROUGHT TO YOU BY ywca Westfield, NY & 716 TCG & Collectables\"; `organiser` names the second because it is the card business running the floor, and the YWCA is in the blurb."
+    },
+    {
+      "id": "roc-city-2026-10-04",
+      "name": "Roc City Card Show",
+      "date": "2026-10-04",
+      "venue": "Basketball Plus",
+      "address": "465 W Commercial St, East Rochester, NY 14445",
+      "city": "East Rochester",
+      "region": "roc",
+      "admission": null,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "ROC_TCG is vending it and they sell Pokemon exclusively, which is what the `vendors` entry on this row says. The show itself bills as a card show rather than a Pokemon show.",
+      "blurb": "The Roc City Card Show back at Basketball Plus in East Rochester.",
+      "source": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026",
+      "sourceNote": "ADDED FROM A VENDOR'S FLYER, WHICH SOURCES LESS THAN AN ORGANISER'S LISTING DOES. It gives the date, the venue and the street address, all of which match the Roc City Card Show already on file for 20 September at the same address. It does NOT give times or an admission price, so this row carries neither and the card reads \"Check the listing\" rather than inheriting the September row's hours -- a series can move its hours and copying them across would be inventing a fact from a pattern.",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
+    },
+    {
+      "id": "extreme-pokemon-batavia-2026-10-23",
+      "name": "Extreme Pokemon Show",
+      "date": "2026-10-23",
+      "venue": "Quality Inn",
+      "address": "8250 Park Rd, Batavia, NY 14020",
+      "city": "Batavia",
+      "region": "roc",
+      "admission": null,
+      "pokemon": true,
+      "blurb": "The Friday half of a two day Extreme Pokemon Show in Batavia.",
+      "source": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026",
+      "sourceNote": "THE SATURDAY WAS ALREADY ON FILE AND THE FRIDAY WAS NOT. ROC_TCG's flyer lists this one as \"FRIDAY, SATURDAY OCT 23RD & 24TH\", and extreme-pokemon-batavia-2026-10-24 has been on the calendar as a single Saturday. So the show is a two day event and this page was carrying half of it. 23 October 2026 is a Friday, which the flyer's own weekday agrees with. NO TIMES: the other four Extreme Pokemon rows all run 10:00 to 17:00, and a FRIDAY session of a two day show is exactly the case where copying the Saturday hours would be a guess wearing a fact's clothes.",
+      "vendors": [
+        {
+          "name": "ROC_TCG",
+          "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        }
+      ]
     }
   ],
   "_towns": {
