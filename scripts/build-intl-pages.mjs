@@ -759,7 +759,8 @@ const ART_CSS = `
 /* The borrowed English chase grid. The heading has to sit apart from the native
    grid above it or the two read as one list of cards, which is the single thing
    this block must not do. */
-.intl-enh{margin-top:var(--s6);font-size:var(--t-h3)}
+/* --t-h3 never existed; this heading was rendering at its inherited size on all 13 intl guides. */
+.intl-enh{margin-top:var(--s6);font-size:var(--t-m)}
 .intl-ensay{max-width:42em;margin-top:6px;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
 /* .chase-card is a <button> in ui.css and these are anchors, so the two type
    rules a button does not inherit are restated. Nothing else changes. */

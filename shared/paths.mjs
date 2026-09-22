@@ -23,3 +23,17 @@ export function ripPath(video) {
   const slug = slugify(video.title || "");
   return `rip/${slug ? slug + "-" : ""}${video.id}.html`;
 }
+
+/* WHERE A SET'S GUIDE LIVES. Almost every guide is /sets/<slug>.html, and one is
+   not: the 30th Celebration's guide is /30th-celebration.html, and the file at
+   /sets/30th-celebration.html is a noindex redirect stub kept only so an old link
+   does not 404. Three pages were linking the STUB -- /most-expensive-sealed.html
+   four times, and /openings/blister.html and /openings/tin.html once each --
+   because two builders each wrote `/sets/${slug}.html` by hand, so every one of
+   those links cost a reader a redirect and pointed a crawler at a noindex page.
+   Found by a full-site link audit on 23 September 2026. One helper, so a set that
+   later moves off /sets/ is a one-line change here rather than a hunt. */
+const GUIDE_AT_ROOT = new Set(["30th-celebration"]);
+export function setGuideHref(slug) {
+  return GUIDE_AT_ROOT.has(slug) ? `/${slug}.html` : `/sets/${slug}.html`;
+}

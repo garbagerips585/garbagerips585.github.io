@@ -365,8 +365,18 @@ function row(c, i, key) {
   // the reader reaches the price, 200 times down the page. The no-scan branch
   // below keeps its .sr-only sentence, because THAT one says something the
   // visible text does not.
+  /* AN onerror AS WELL AS THE VERIFICATION, and the two do different jobs. The
+     verify step HEADs every /240.jpg and a row whose scan is already known to be
+     missing still emits no <img> at all, so no reader spends that round trip --
+     that part of the design stands. What it cannot catch is a scan that was
+     present when it was verified and vanished afterwards, because the verify step
+     is a network script outside build-all and runs only when somebody runs it.
+     That is exactly what happened: Cubone [Tekno] #104 verified fine and was
+     404ing on 23 September 2026, with no onerror, so the page painted a broken
+     image glyph where every other image on this site removes itself. The handler
+     only ever fires for a scan that has gone missing since the last check. */
   const img = src
-    ? `<img class="tp-scan" src="${esc(src)}" alt="" loading="lazy" decoding="async">`
+    ? `<img class="tp-scan" src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">`
     : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
 
   // The ranked figure is the big one and the other two ride under it. Which one

@@ -1288,7 +1288,9 @@ const STYLE = `
 .wtb-pick{display:flex;flex-wrap:wrap;gap:var(--s2);margin:var(--s4) 0 var(--s5)}
 .wtb-pick a{display:inline-flex;align-items:center;min-height:44px;
   padding:6px var(--s3);border:2px solid var(--keyline);border-radius:999px;
-  background:var(--card);box-shadow:var(--hard);
+  /* box-shadow:var(--hard) removed: --hard never existed (only --hard-lg does), so these pills
+     have always rendered with no shadow. Removing the dead reference keeps that look exactly. */
+  background:var(--card);
   font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.04em;
   text-transform:uppercase;color:var(--sky-deep);text-decoration:none}
 /* HOVER LIGHTENED THE GROUND AND LEFT THE TEXT, 4.50:1 -> 3.60:1 at 11px.

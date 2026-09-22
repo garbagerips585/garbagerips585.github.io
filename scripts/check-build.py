@@ -1488,6 +1488,53 @@ if _dirty_css:
     )
 
 
+# A CSS VARIABLE THAT IS USED MUST EXIST.
+#
+# ADDED 23 September 2026 after a QA sweep found `--hl` in use on the 30th
+# Celebration page and defined NOWHERE. `background:var(--hl)` does not error:
+# it computes to transparent. So the six "how close to 100%" progress bars the
+# owner asked for had rendered as EMPTY TRACKS since the day they shipped, the
+# fact bullets were invisible, and an owned pocket's border fell back to the ink
+# colour. Measured on the live page: fill rgba(0,0,0,0). The same sweep then
+# found three more of the same shape site-wide -- `--t-s` on /jumbo-cards.html,
+# `--t-h3` on thirteen international set guides, `--hard` on /what-to-buy.html.
+#
+# qa-sweep could not see any of it. It measures TEXT contrast, and a transparent
+# fill, a missing border and a heading that silently inherits its parent's font
+# are not text. Nothing else in this file looked either. It is an exact check:
+# a var() with NO fallback whose name is set nowhere -- not in ui.css, not in any
+# inline <style>, not in a style="" attribute, not in any stylesheet or script
+# under public/assets (which is where setProperty() lives). A var() WITH a
+# fallback is deliberate and is left alone.
+_css_def = _re.compile(r"(--[A-Za-z0-9_-]+)\s*:")
+_css_use = _re.compile(r"var\(\s*(--[A-Za-z0-9_-]+)\s*\)")
+_defined, _used = set(), {}
+for _a in glob.glob("public/assets/*.css") + glob.glob("public/assets/*.js"):
+    try:
+        _t = open(_a, encoding="utf-8", errors="ignore").read()
+    except OSError:
+        continue
+    _defined |= set(_css_def.findall(_t))
+    _defined |= set(_re.findall(r"setProperty\(\s*['\"](--[\w-]+)", _t))
+    if _a.endswith(".css"):
+        for _v in _css_use.findall(_t):
+            _used.setdefault(_v, set()).add(_a.replace("public/", ""))
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = _read_page(_f)
+    for _chunk in _re.findall(r"(?s)<style[^>]*>(.*?)</style>", _s) + _re.findall(r'style="([^"]*)"', _s):
+        _defined |= set(_css_def.findall(_chunk))
+        for _v in _css_use.findall(_chunk):
+            _used.setdefault(_v, set()).add(_f.replace("public/", ""))
+_undef = {k: v for k, v in _used.items() if k not in _defined}
+if _undef:
+    _shout(
+        f"{len(_undef)} CSS variable(s) are used with no fallback and defined nowhere, so every rule "
+        "using them silently paints nothing (a transparent fill, a missing border, an inherited font): "
+        + "; ".join(f"{k} on {len(v)} file(s), e.g. {sorted(v)[0]}" for k, v in sorted(_undef.items()))
+        + ". Use a token that exists in assets-source/ui.css :root."
+    )
+
+
 # A DATE THE SITE SAYS IT READ SOMETHING ON CANNOT BE IN THE FUTURE.
 #
 # Thirty-eight scripts computed "today" as `new Date().toISOString().slice(0,10)`,

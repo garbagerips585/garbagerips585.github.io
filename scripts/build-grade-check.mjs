@@ -1730,7 +1730,9 @@ const style = `
 .gc-def dt{font-weight:700;margin-top:var(--s4);line-height:1.3}
 .gc-def dd{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.55}
 .gc-aka{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em}
-.ga-h{font:700 var(--t-h3)/1.15 var(--display);margin:var(--s5) 0 var(--s4)}
+/* --t-h3 never existed, so this whole font shorthand was invalid and the heading inherited its
+   parent's font instead of the display face. --t-m is the size the site's display h3 uses. */
+.ga-h{font:700 var(--t-m)/1.15 var(--display);margin:var(--s5) 0 var(--s4)}
 .ga-mk{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.06em;margin-bottom:var(--s3)}
 .ga-meta{margin-top:var(--s3);line-height:1.5}
 .ga-links{margin-top:var(--s3);display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}

@@ -500,8 +500,8 @@ ${/* THE PAGE'S FIRST AND ONLY FLEURON, and it is the existing one-per-page rule
           where to look rather than what you will find. If you would rather buy without the hunt, the
           <a href="/shops.html">Rochester, NY shops</a> and the <a href="/card-shows.html">card shows</a> have
           cards on a table right now, and <a href="/pack-prices.html">pack prices</a> shows what a pack
-          actually costs before you pay a scalper for one. Several of the rows above are First
-          Partner collection boxes, and there is a
+          actually costs before you pay a scalper for one. If you are after a First Partner
+          collection box, there is a
           <a href="/first-partner-illustration-collection.html">full guide to those</a> with all 27
           cards, what is in the box and what it should cost.</p>
       </div>

@@ -198,8 +198,8 @@ ${valueRows}
   </section>
 
   <section class="wrap jb-sec">
-    <h2>The catalogue</h2>
-    <p>The ${SHOW} dearest of the ${cat.counts.priced} cards that carry a market price, out of the
+    <h2>The catalog</h2>
+    <p>The ${SHOW} most valuable of the ${cat.counts.priced} cards that carry a market price, out of the
       ${cat.counts.cards} in TCGplayer's jumbo group, read ${dt(cat.checked)}. This is
       <b>not every jumbo card</b>: it is how one marketplace files them. The 25th Anniversary First
       Partner jumbos sit in another set and Japanese jumbos are absent entirely.</p>
@@ -215,7 +215,7 @@ ${catRows}
     <ul class="jb-src">
 ${srcList}
     </ul>
-    <p class="jb-note">Prices read ${dt(doc.checked)} and read twice. Catalogue read ${dt(cat.checked)}.</p>
+    <p class="jb-note">Prices read ${dt(doc.checked)} and checked twice. Catalog read ${dt(cat.checked)}.</p>
   </section>
 </main>`;
 
@@ -240,15 +240,15 @@ const CSS = `<style>
 .jb-hero{padding-top:var(--s5)}
 .jb-lede{max-width:46em}
 .jb-facts{list-style:none;padding:0;margin:var(--s4) 0 0;display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}
-.jb-facts li{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center;font:400 var(--t-s)/1.3 var(--body);color:var(--ink-2)}
+.jb-facts li{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center;font:400 var(--t-sm)/1.3 var(--body);color:var(--ink-2)}
 .jb-facts b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ink);margin-bottom:4px}
 .jb-sec{padding-top:var(--s5)}
 .jb-sec h2{margin:0 0 var(--s3)}
 .jb-sec p{max-width:46em}
-.jb-warn{border-left:3px solid var(--hl);padding-left:var(--s3)}
-.jb-note{font:400 var(--t-s)/1.5 var(--body);color:var(--ink-2)}
+.jb-warn{border-left:3px solid var(--ketchup);padding-left:var(--s3)}
+.jb-note{font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-2)}
 .jb-answer{font:400 var(--t-l)/1.2 var(--display);color:var(--ink)}
-.jb-tbl{width:100%;border-collapse:collapse;margin:var(--s3) 0;font:400 var(--t-s)/1.4 var(--body);table-layout:fixed}
+.jb-tbl{width:100%;border-collapse:collapse;margin:var(--s3) 0;font:400 var(--t-sm)/1.4 var(--body);table-layout:fixed}
 .jb-tbl th,.jb-tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--keyline);vertical-align:top;overflow-wrap:anywhere;min-width:0}
 .jb-tbl th{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2)}
 .jb-n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
@@ -265,16 +265,16 @@ const CSS = `<style>
 .jb-art{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .jb-vb{min-width:0}
 .jb-vb h3{margin:0 0 2px}
-.jb-sub{margin:0 0 6px;font:400 var(--t-s)/1.3 var(--body);color:var(--ink-2)}
+.jb-sub{margin:0 0 6px;font:400 var(--t-sm)/1.3 var(--body);color:var(--ink-2)}
 .jb-prices{margin:0 0 6px;display:flex;flex-wrap:wrap;gap:10px}
-.jb-prices span{font:400 var(--t-s)/1.3 var(--body);color:var(--ink);white-space:nowrap}
+.jb-prices span{font:400 var(--t-sm)/1.3 var(--body);color:var(--ink);white-space:nowrap}
 .jb-prices i{font-style:normal;font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;color:var(--ink-2);margin-right:3px}
-.jb-why{margin:0;font:400 var(--t-s)/1.5 var(--body);color:var(--ink-2)}
+.jb-why{margin:0;font:400 var(--t-sm)/1.5 var(--body);color:var(--ink-2)}
 .jb-tag{display:inline-block;font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.04em;padding:3px 6px;border-radius:999px;border:1px solid var(--keyline);color:var(--ink-2);vertical-align:.18em;margin-left:6px}
-.jb-tag--t{border-color:var(--hl);color:var(--ink)}
-.jb-excl li,.jb-unk li,.jb-src li{margin:var(--s2) 0;max-width:46em;font:400 var(--t-s)/1.5 var(--body)}
+.jb-tag--t{border-color:var(--ketchup);color:var(--ink)}
+.jb-excl li,.jb-unk li,.jb-src li{margin:var(--s2) 0;max-width:46em;font:400 var(--t-sm)/1.5 var(--body)}
 .jb-ex{list-style:none;padding:0;margin:var(--s3) 0;display:grid;gap:6px;max-width:34em}
-.jb-ex li{display:flex;justify-content:space-between;gap:var(--s3);padding:6px 0;border-bottom:1px solid var(--keyline);font:400 var(--t-s)/1.3 var(--body)}
+.jb-ex li{display:flex;justify-content:space-between;gap:var(--s3);padding:6px 0;border-bottom:1px solid var(--keyline);font:400 var(--t-sm)/1.3 var(--body)}
 .jb-cat{margin-top:var(--s3)}
 @media (max-width:544px){
   .jb-v{grid-template-columns:auto 96px minmax(0,1fr)}

@@ -242,6 +242,21 @@ for (const entry of Object.values(doc.sets)) {
 // Only when something actually changed. Stamping unconditionally rewrote the
 // file every night on a run that reported nothing updated.
 if (touched || stripped) doc.checked = today;
+/* REFUSES TO SHRINK, the guard sync-30th-tcgplayer.mjs and sync-jumbo.mjs already
+   carry and this nightly step did not. mp-search-api can answer 200 with ZERO
+   results, and this script accepted that as the truth and wrote it -- so one bad
+   answer during the nightly would empty every buy link across every set, and nothing
+   downstream checks this file. A real change moves a few entries; losing half of
+   them in one night is an upstream failure, not the market. Found by a pipeline
+   audit on 23 September 2026. */
+{
+  const countLinks = (d) => Object.values(d?.sets || {}).reduce((n, e) => n + Object.keys(e?.links || {}).length, 0);
+  let before = 0;
+  try { before = countLinks(JSON.parse(await readFile(outPath, "utf8"))); } catch {}
+  const after = countLinks(doc);
+  if (before > 200 && after < before * 0.5)
+    throw new Error(`only ${after} buy links against ${before} on file -- refusing to shrink data/chase-tcg.json. TCGplayer likely answered empty; re-run later.`);
+}
 await writeFile(outPath, JSON.stringify(doc, null, 2) + "\n");
 
 const covered = Object.values(doc.sets).filter((e) => Object.keys(e.links || {}).length).length;

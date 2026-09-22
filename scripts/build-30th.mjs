@@ -884,10 +884,10 @@ const style = `
 .t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
 .t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0}
 .t30-facts li{padding-left:1.15em;position:relative;line-height:1.45}
-.t30-facts li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--hl)}
+.t30-facts li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--ketchup)}
 .t30-tag{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;
   padding:4px 7px;border-radius:999px;border:1px solid var(--keyline);color:var(--ink-2);background:var(--paper);margin-right:6px;vertical-align:.12em}
-.t30-tag.off{color:var(--ink);border-color:var(--hl)}
+.t30-tag.off{color:var(--ink);border-color:var(--ketchup)}
 .t30-sum{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin:var(--s4) 0 0}
 .t30-sum div{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
 .t30-sum b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink)}
@@ -895,10 +895,19 @@ const style = `
 .t30-bs{margin-top:var(--s5)}
 .t30-bs h3{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin:0}
 .t30-cnt{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--keyline);border-radius:999px;padding:4px 8px}
-.t30-cnt.done{color:var(--ink);border-color:var(--hl)}
+.t30-cnt.done{color:var(--ink);border-color:var(--ketchup)}
 .t30-bn{color:var(--ink-2);margin:6px 0 var(--s3)}
 .t30-bar{height:6px;border-radius:999px;background:var(--paper);border:1px solid var(--keyline);overflow:hidden;margin-bottom:var(--s4)}
-.t30-bar span{display:block;height:100%;background:var(--hl)}
+/* --hl NEVER EXISTED, and every rule on this page that used it painted nothing.
+   Measured on the live page 23 September 2026: the progress-bar fill computed to
+   rgba(0,0,0,0), so all six bars -- the "how close to 100%" the owner asked for --
+   have shown an empty track since the day they shipped, the fact bullets were
+   invisible, and an owned pocket's border fell back to the ink colour. qa-sweep
+   could not see it: it measures TEXT contrast and a transparent decorative fill
+   is not text. Each use is now a real token by the accent rule -- these are all
+   marks that go nowhere, so they are the pink, --ketchup, which clears 3:1 on
+   the card for non-text UI. */
+.t30-bar span{display:block;height:100%;background:var(--ketchup)}
 /* ---------------------------------------------------------- the binder ---
  * A HORIZONTAL SNAP TRACK, WHICH IS WHY THIS NEEDS NO SCRIPT. Each leaf is one
  * full-width column of the track and a snap point, so a browser turns the page
@@ -984,7 +993,7 @@ const style = `
   padding:0 6px;text-decoration:none;border-radius:var(--r-sm);
   background:var(--paper);border:1px solid var(--keyline);
   font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
-.t30-railg a.filled{border-color:var(--hl);color:var(--ink)}
+.t30-railg a.filled{border-color:var(--ketchup);color:var(--ink)}
 .t30-railg a:hover,.t30-railg a:focus-visible{border-color:var(--sky);color:var(--sky)}
 /* SMOOTH ONLY WHERE MOTION IS WELCOME. Three other places on this site honour
    this and a page that slides sideways is exactly the kind a reader who asked
@@ -998,7 +1007,7 @@ const style = `
 .t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-3,var(--ink-2));opacity:.55}
-.t30-pk.has{border-style:solid;border-color:var(--hl);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
+.t30-pk.has{border-style:solid;border-color:var(--ketchup);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 .t30-pk.has .t30-pn{opacity:1;color:var(--ink-2)}
 .t30-nm{font:700 var(--t-sm)/1.2 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
 /* .t30-got is gone with the date overlay it styled, 22 September 2026. */
@@ -1076,7 +1085,7 @@ const valueBand = !pricedCards.length ? "" : `
   <div class="wrap">
     <p class="sec-label">The ones you want</p>
     <h2>Most valuable <span class="hl">30th Celebration</span> cards</h2>
-    <p class="lede" style="max-width:44em">Dearest first, by what an ungraded copy is worth. ${
+    <p class="lede" style="max-width:44em">Most valuable first, by what an ungraded copy is worth. ${
       pricedCards.length
     } of the ${TOTAL} cards have a price so far${
       prices.counts && prices.counts.psa10
@@ -1148,7 +1157,8 @@ const checklistBand = !(checklist.cards || []).length ? "" : `
     <p class="lede" style="max-width:44em">${
       (checklist.cards || []).length
     } of the ${TOTAL} are listed and pictured. What is missing is missing at the source: the eight foil
-      basic Energy are numbered in a different set entirely and nobody lists them yet${
+      basic Energy are numbered in a separate MEE set that no checklist we can read carries &mdash; the binder
+      below lists all eight, read off the cards themselves${
         US.count ? `, and ${US.count} secret rares are the Mew RGB cards The Pokemon Company still has not acknowledged` : ""
       }.</p>
 ${SECTIONS.map(([key, label]) => {
@@ -1380,9 +1390,8 @@ ${waveBlocks}
     <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> ${esc(
       doc.structure.japan.note
     )} It is here because Japan's set is a different set, not an early look at this one, and the
-      numbering does not line up card for card &mdash; the English checklist above is the list for words anywhere:
-      the English card images have been revealed but their names have not been published, so an English
-      checklist would have to be guessed from Japanese numbers that demonstrably do not line up.</p>
+      numbering does not line up card for card &mdash; so for anything English, use the English checklist
+      above. A Japanese number is not a guide to an English one.</p>
     <p class="price-note">${esc(doc.structure.derived)}</p>
     <div class="t30-scroll">
       <table class="t30-tbl">
@@ -1448,7 +1457,7 @@ ${sectionSummary}
                width="180" height="84" decoding="async" onerror="this.remove()">
         </picture>
         <p class="t30-cover-t">Master Set Binder</p>
-        <p class="t30-cover-s">${haveTotal} of ${TOTAL} pockets filled &middot; ${pct}% complete</p>
+        <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
       </div>
       <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them. Scroll sideways or use the page corners.">
 ${BINDER_LEAVES.map(leafHtml).join("\n")}
@@ -1482,7 +1491,7 @@ ${
         NO_PICS > 0
           ? ` The remaining ${NO_PICS} have no picture anywhere this site may use: ${
             E.energy - (SRC_TALLY.own || 0)
-          } of the eight foil Energy, which are numbered in a different set and listed by nobody, and
+          } of the eight foil Energy, which are numbered in a separate MEE set that no card database carries, and
       the ${US.count || 0} Mew RGB secret rares, which were revealed but which The Pokemon Company
       still has not acknowledged.`
           : ""

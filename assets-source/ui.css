@@ -7146,7 +7146,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 /* THE RAIL'S CURRENT PAGE. Set by the binder script as aria-current="page" plus
    .is-here, so the marking exists for a screen reader even where this rule does
    not paint. Both are set together and neither is decorative on its own. */
-.t30-railg a.is-here,.t30-railg a[aria-current="page"]{border-color:var(--hl);color:var(--ink);
+.t30-railg a.is-here,.t30-railg a[aria-current="page"]{border-color:var(--sky);color:var(--ink);
   background:var(--paper-3,var(--paper));font-weight:700}
 /* The corner-overlap fix lives in build-30th.mjs's own <style>, NOT here: that
    block sets .t30-leaf's padding shorthand and loads after this file, so a

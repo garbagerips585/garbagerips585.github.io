@@ -43,6 +43,7 @@
 // A page for them would be a price table with the unique half missing, which
 // is the thin category stub this is trying not to build.
 
+import { setGuideHref } from "../shared/paths.mjs";
 import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -943,7 +944,7 @@ async function setBand(e) {
     rows.push(
       `        <li class="op-sr${logo ? "" : " op-sr-nologo"}">${
         setPages.has(r.sid)
-          ? `<a href="/sets/${esc(r.sid)}.html">
+          ? `<a href="${esc(setGuideHref(r.sid))}">
           ${inner}
         </a>`
           : `<div>

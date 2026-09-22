@@ -22,6 +22,27 @@ import { RARITY_KEY } from "../shared/rarity.mjs";
 
 import { localDay } from "../shared/today.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/* A FILE THAT WILL NOT PARSE IS NOT A FIRST RUN, and every read below used to
+   treat it as one. Each wrapped JSON.parse in a try whose catch meant "first run",
+   so a MISSING file and a BROKEN one took the same path: start from nothing and
+   write the result back out. For data/hits.json that path is a wipe -- one stray
+   comma in a hand edit, and the next import rewrites the file from the sheet
+   alone and drops every hand-kept row, including every 30th Celebration hit,
+   which live nowhere else. Nothing downstream can tell a wiped file from a
+   quiet week. Found by a pipeline audit on 23 September 2026.
+   So: a file that does not exist is a first run and gets the fallback; a file
+   that exists and will not parse STOPS the import, names the file and says why. */
+async function readJsonOrFirstRun(rel, fallback) {
+  let raw;
+  try { raw = await readFile(join(ROOT, rel), "utf8"); }
+  catch (e) { if (e && e.code === "ENOENT") return fallback; throw e; }
+  try { return JSON.parse(raw); }
+  catch (e) {
+    throw new Error(`${rel} exists but is not valid JSON (${e.message}). Refusing to treat it as a ` +
+      `first run: that would rewrite it from the sheet alone and drop every hand-kept row. Fix the file and re-run.`);
+  }
+}
 let csvPath = process.argv[2];
 
 // TAKE THE .xlsx DIRECTLY. Asking for a CSV meant exporting from Google Sheets
@@ -664,10 +685,7 @@ if (col("Card") !== -1 && col("Raw NM USD") !== -1) {
   //
   // The existing file is merged into rather than replaced, so importing a
   // partly filled My Hits tab cannot delete cards that are already logged.
-  let existing = {};
-  try {
-    existing = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8"));
-  } catch { /* first run */ }
+  let existing = await readJsonOrFirstRun("data/hits.json", {});
   // MERGE ONTO THE CARD, DO NOT REPLACE IT. The tab has nine columns and a hit
   // record has more fields than that, so a wholesale replace deleted everything
   // the sheet has no column for. Measured over two round trips: `setName` went
@@ -860,8 +878,7 @@ const idx = {
 const get = (r, i) => (i >= 0 && r[i] != null ? String(r[i]).replace(/ /g, " ").trim() : "");
 const isYes = (s) => /^y(es)?$/i.test(s);
 
-let overrides = {};
-try { overrides = JSON.parse(await readFile(join(ROOT, "data/overrides.json"), "utf8")); } catch {}
+let overrides = await readJsonOrFirstRun("data/overrides.json", {});
 // THE FILE CARRIES ITS OWN WARNING, because JSON cannot carry a comment and the
 // 244 `packs` values in it are the most dangerous data in this repo: they are
 // PREFILL, not answers, and the only thing keeping them off the site is nine
@@ -922,12 +939,7 @@ const MANUAL_WARNING = [
 // any row the sheet no longer answers. This is a floor, not a merge: anything
 // the sheet DOES say still wins outright, and a value only survives while its
 // video does.
-let priorManual = {};
-try {
-  priorManual = JSON.parse(await readFile(join(ROOT, "data/manual.json"), "utf8"));
-} catch {
-  priorManual = {};
-}
+let priorManual = await readJsonOrFirstRun("data/manual.json", {});
 const CARRY_FORWARD = ["boxNumber"];
 
 const manual = { _WARNING: MANUAL_WARNING };
@@ -2263,8 +2275,7 @@ for (const [n, r] of rows.slice(1).entries()) {
 //   3. Anything dropped is printed. A retirement is never silent.
 const PARSER_FIELDS = new Set(["card", "set", "setName", "rarity", "printing"]);
 if (logHits.length) {
-  let hf = { videos: {} };
-  try { hf = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")); } catch { /* first run */ }
+  let hf = await readJsonOrFirstRun("data/hits.json", { videos: {} });
   const byVid = { ...(hf.videos || {}) };
   let added = 0, updated = 0;
   const folded = [], retired = [], deferred = [];

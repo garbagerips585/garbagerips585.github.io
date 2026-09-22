@@ -355,6 +355,7 @@
 // No single image is over 200KB, which is a site-wide invariant: the largest on
 // either page is 24.4KB.
 
+import { setGuideHref } from "../shared/paths.mjs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -552,7 +553,7 @@ function internalLink(item, kind) {
     kind === "cards"
       ? PC_GUIDE[decodeURIComponent(pcConsoleOf(item.url))]
       : GUIDE[item.setName];
-  if (guide) return { href: `/sets/${guide}.html`, why: "our guide to this set" };
+  if (guide) return { href: setGuideHref(guide), why: "our guide to this set" };
   if (kind === "sealed") {
     return { href: "/how-many-packs.html", why: "what is inside a sealed product" };
   }

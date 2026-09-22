@@ -200,7 +200,15 @@ if (!hall.length) {
       // the Costco UPC. They would rank second and third. The page meanwhile
       // says "this is the whole list of what was pulled on camera", so it was
       // claiming completeness while hiding the top of its own ranking.
-      if (!h.set) {
+      /* h.promo AS WELL AS !h.set, which is the test build-pages.mjs:580 has
+         always used and this file did not. The 30th Celebration Greninja ex Black
+         Star Promo carries a set -- the owner filed it under the 30th on purpose --
+         so `!h.set` sent it past this branch and into a NAME match against the
+         set's checklist, which found Greninja ex #021 Double Rare. Measured live
+         23 September 2026: plaque #3, "#021 Double Rare, $49.99 raw, $280 PSA 10",
+         #021's scan, and ranked third on the whole page on a price that belongs
+         to a different card. The promo has no price; it belongs near the foot. */
+      if (h.promo || !h.set) {
         // THE FIRST PARTNER PROMOS BELONG HERE AND THE GATE BELOW WAS KEEPING
         // THEM OUT, WHICH IS A JUDGEMENT AND IS ARGUED RATHER THAN MADE
         // QUIETLY. Three of them, Rowlet MEP 043, Litten MEP 044 and Popplio
@@ -342,6 +350,24 @@ if (!hall.length) {
       let guide = null;
       try {
         cards = JSON.parse(await readFile(join(ROOT, `public/data/cards/${h.set}.json`), "utf8")).cards;
+        /* THE 30th CELEBRATION'S CLASSIC COLLECTION IS NOT IN THAT FILE. TCGdex files
+           those thirty cards as a separate set with no images, so
+           public/data/cards/30th-celebration.json holds the 158 numbered cards and
+           none of the Classic Collection -- and Erika's Jigglypuff 69/132, pulled
+           on camera on 18 September, was DROPPED as "not on the 30th-celebration
+           checklist", while the page's own ledger printed "1 carrying a name no
+           catalog we hold can match". It is in data/30th-checklist.json and the
+           30th page has shown it with a picture all along. Those rows join here,
+           carrying no image and no price: the picture comes from
+           data/card-shots.json through pinnedShot() below, where all thirty are
+           pinned, and the Classic Collection is deliberately never priced. */
+        if (h.set === "30th-celebration") {
+          try {
+            const ck = JSON.parse(await readFile(join(ROOT, "data/30th-checklist.json"), "utf8")).cards || [];
+            cards = cards.concat(ck.filter((r) => r.section === "classic")
+              .map((r) => ({ n: r.n, name: r.name, rarity: r.rarity })));
+          } catch {}
+        }
       } catch {
         const g = (guide = intlGuides[h.set]);
         // `hasCards` is false and `cards` is empty for the Korean and Chinese
@@ -686,7 +712,14 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
         // use, and sets.json is English only, so resolve() would otherwise
         // print the slug. The sheet's own words are the right label: "Abyss Eye
         // (JP)" says both which set and which printing.
-        _setName: source === "intl" ? h.setName || null : null,
+        /* h.setName FOR ENGLISH SETS TOO. This was intl-only on the reasoning
+           that English sets take their name from sets.json -- which still wins,
+           first in the chain in resolve(). But sets.json comes from
+           pokemontcg.io and has no 30th Celebration, so every 30th plaque fell
+           through to c.set and printed the SLUG, "30th-celebration", in the
+           visible text and in the image alt. The sheet's own name is the right
+           fallback for the same reason it is for the intl guides. */
+        _setName: h.setName || null,
       });
     }
   }
@@ -1263,7 +1296,14 @@ const scopeSentence = (() => {
   // instead of showing you the cards. Every number in it is still computed.
   const parts = [];
   if (L.repeats) parts.push(`${L.repeats} of them a printing already on this page, pulled again`);
-  if (heldBack) parts.push(`${heldBack} carrying a name no catalog we hold can match`);
+  /* TWO DIFFERENT REASONS, AND THIS SENTENCE USED TO GIVE BOTH THE SAME ONE.
+     `unmatched` is a name no catalog we hold can find. `unplaceable` is a promo
+     that matched fine and has no price anywhere yet -- the gate above wants
+     something beyond a name. Summing them into "carrying a name no catalog we
+     hold can match" told a reader the 30th Celebration Greninja ex promo was an
+     unrecognised card, when it is a recognised one that has not been priced. */
+  if (L.unmatched.length) parts.push(`${L.unmatched.length} carrying a name no catalog we hold can match`);
+  if (L.unplaceable.length) parts.push(`${L.unplaceable.length} promo${L.unplaceable.length === 1 ? "" : "s"} with no price published yet, which get${L.unplaceable.length === 1 ? "s" : ""} a plaque once ${L.unplaceable.length === 1 ? "it has" : "they have"} one`);
   if (!parts.length) return ` Nothing here was hand picked: all ${L.rowsRead} cards the rip log records are below.`;
   return " Nothing here was hand picked, and it is one plaque per printing:" +
     ` the rip log records ${L.rowsRead} cards, ${parts.join(", and ")}, which leaves the ${ranked.length} on this page.`;
@@ -2192,7 +2232,7 @@ if (hitsLedger) {
   // read = plaques + repeats + held back, so if that ever stops holding the
   // page falls back to a shorter sentence and this line says why.
   for (const x of l.unplaceable) {
-    console.log(`  DROPPED ${x.card}${x.rarity ? ` (${x.rarity})` : ""} on ${x.vid}: the rip log gives it no set, no number and no price, so there is nothing to put on a plaque but the name. Fill the Set cell in the My Hits tab and re-import.`);
+    console.log(`  DROPPED ${x.card}${x.rarity ? ` (${x.rarity})` : ""} on ${x.vid}: it is a promo with no price in any feed, so there is nothing to put on a plaque but the name. A promo row only reaches here once it carries a price, a PSA 10 or a Raw NM -- it does NOT mean the set or number is missing, which is what this line used to say even for a row that had both. Fill Raw NM in the My Hits tab, or it appears on its own once PriceCharting prices it.`);
   }
   if (l.rowsRead !== l.inducted + l.repeats + l.unmatched.length + l.unplaceable.length) {
     console.log(`  LEDGER DOES NOT RECONCILE: ${l.rowsRead} read against ${l.inducted} + ${l.repeats} + ${l.unmatched.length} + ${l.unplaceable.length}. The lede has fallen back to naming only what is on the page.`);

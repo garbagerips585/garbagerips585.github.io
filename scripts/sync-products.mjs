@@ -521,6 +521,21 @@ for (const [id, pin] of Object.entries(TCG_SET_INTL)) {
 // than any of the data underneath it.
 doc.checked = Object.values(doc.sets).map((x) => x.checked).sort().pop() || today;
 doc.source = "TCGplayer";
+/* REFUSES TO SHRINK, the guard sync-30th-tcgplayer.mjs and sync-jumbo.mjs already
+   carry and this nightly step did not. mp-search-api can answer 200 with ZERO
+   results, and this script accepted that as the truth and wrote it -- so one bad
+   answer during the nightly would empty every sealed price across every set, and nothing
+   downstream checks this file. A real change moves a few entries; losing half of
+   them in one night is an upstream failure, not the market. Found by a pipeline
+   audit on 23 September 2026. */
+{
+  const countProducts = (d) => Object.values(d?.sets || {}).reduce((n, e) => n + (Array.isArray(e) ? e.length : (e?.products?.length || 0)), 0);
+  let before = 0;
+  try { before = countProducts(JSON.parse(await readFile(outPath, "utf8"))); } catch {}
+  const after = countProducts(doc);
+  if (before > 20 && after < before * 0.5)
+    throw new Error(`only ${after} sealed products against ${before} on file -- refusing to shrink ${outPath}. TCGplayer likely answered empty; re-run later.`);
+}
 await writeFile(outPath, JSON.stringify(doc, null, 2) + "\n");
 
 // The non-English corpus, its own file and its own date. See the note over the

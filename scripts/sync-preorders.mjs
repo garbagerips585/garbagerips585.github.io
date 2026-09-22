@@ -98,7 +98,13 @@ async function search(setName, productType, size = 50) {
     }
     await sleep(attempt * 2000);
   }
-  return [];
+  /* null, NOT []. Four failed attempts used to return the same empty array as a
+     genuine "nothing listed yet", and the caller cannot tell the two apart -- so
+     one TCGplayer outage during the nightly deleted every preorder set from
+     /upcoming.html, and the file was then stamped with today's date, which is
+     exactly what check-freshness looks at, so the emptied page read as fresh.
+     null means "we do not know" and the caller keeps what it had. */
+  return null;
 }
 
 const slug = (s) =>
@@ -175,6 +181,12 @@ for (const [name, tcgName] of Object.entries(TCG_UPCOMING)) {
     await sleep(700);
     cards = await search(tcgName, "Cards");
     readOn = today;
+    // A FAILED FETCH KEEPS THE PREVIOUS LISTING rather than deleting it, and is
+    // not cached, so the next run tries again instead of reading the failure back.
+    if (sealed === null || cards === null) {
+      console.log(`  ${name.padEnd(30)} TCGplayer did not answer -- keeping the previous listing`);
+      continue;
+    }
     await writeFile(cacheFile, JSON.stringify({ fetched: today, sealed, cards }));
     await sleep(700);
   }
