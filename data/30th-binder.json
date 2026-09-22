@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-09-21",
+  "checked": "2026-09-22",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -694,6 +694,136 @@
       "rarity": "Classic Collection",
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"these were the hits from the packs I ripped today\", with a photograph of ten. IDENTIFIED BY CARD TEXT, NOT BY READING THE COLLECTOR NUMBER, for the reason the Pikachu rows record: a number read off a photograph is a digit away from putting the wrong card in the binder. The only Erika's Jigglypuff in the set. A 30th Celebration card in the Classic Collection, carrying 69/132 from the set it originally appeared in. Group Therapy and Pulled Punch (40-) on the card match its listed text. No `shot`: sourced scans are preferred over his own photographs. The owner, 17 September 2026: \"this is from the 30th Celebration set though, the 30th Celebration set is reprinting some of the most iconic cards in the series so to mark it for the correct set would be to mark it for the 30th Celebration Set\". He is right and the card proves it: TCGplayer reports setCode 30C for every card in the Classic Collection, the SAME code as the 128 main set, checked across both set names on 17 September. So these are 30th Celebration cards that carry an INHERITED NUMBER, not visitors from another set. THE POCKETS WERE MISLEADING BEFORE THIS. Sneasel rendered as \"#25/111\" and Erika's Jigglypuff as \"#69/132\" with no set marker at all, so the only thing a reader saw was another set's numbering; N had 30C only because it was added later. All three now carry it and every classic pocket reads \"#<number> 30C\". THE ENERGY IS THE ONLY REAL OUTLIER IN THIS FILE: those eight print MEE, a genuinely different set code, which is why they are the one section whose cards nobody lists."
+    },
+    {
+      "name": "Exeggcute",
+      "n": "001",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Wishiwashi",
+      "n": "022",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Zekrom",
+      "n": "056",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Mewtwo",
+      "n": "063",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Mewtwo ex",
+      "n": "064",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Espeon ex",
+      "n": "070",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Alolan Meowth",
+      "n": "089",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Umbreon",
+      "n": "091",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Maushold",
+      "n": "125",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Lapras",
+      "n": "131",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Lycanroc",
+      "n": "138",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Maushold",
+      "n": "146",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
+    },
+    {
+      "name": "Darkrai & Cresselia Legend (Top)",
+      "n": "99/102",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026, in the list he sent back as \"the updated list of cards from todays hits\". Dated today on those words rather than invented."
     }
   ],
   "_shotNote": [
@@ -740,6 +870,38 @@
       "setCode": "MEP",
       "from": "Black Star Promo",
       "note": "The owner, 21 September 2026: \"Lucario - 095 - black star promo\". New to the binder with the 21 September rebuild."
+    },
+    {
+      "name": "Sylveon ex",
+      "n": "100",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026. He typed \"100 Sylveon\". Written Sylveon ex because this is the ex Tin and ex Box promo, which TPCi describes as a \"Sylveon ex or Greninja ex promo\", and his own jumbo line names the same card \"100 Sylveon ex\"."
+    },
+    {
+      "name": "Articuno",
+      "n": "097",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026. He typed \"097 Articulo\", a typo: the Poster Collection's three foil promos are Articuno, Zapdos and Moltres, and 097 sits between his 096 Moltres and 098 Zapdos."
+    },
+    {
+      "name": "Moltres",
+      "n": "096",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos."
+    },
+    {
+      "name": "Zapdos",
+      "n": "098",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos. NOT the Zapdos at 133, which is the Illustration Rare in the set itself and a different card."
     }
   ],
   "_jumboNote": [
@@ -767,7 +929,16 @@
       "kind": "Jumbo",
       "from": "Black Star Promo",
       "got": "2026-09-21",
-      "note": "The owner, 21 September 2026: \"I got my first Jumbo card its the Greninja ex black star promo card jumbo card.\" HIS FIRST JUMBO. No collector number was given and none is inferred: the standard-size Greninja ex promo he owns is 099 and a jumbo commonly shares its twin's promo number, but this file stopped holding derived numbers on 21 September and will not start again here."
+      "note": "The owner, 21 September 2026: \"I got my first Jumbo card its the Greninja ex black star promo card jumbo card.\" HIS FIRST JUMBO. No collector number was given and none is inferred: the standard-size Greninja ex promo he owns is 099 and a jumbo commonly shares its twin's promo number, but this file stopped holding derived numbers on 21 September and will not start again here. NUMBER SUPPLIED 22 September 2026: he typed \"099 Greninja ex\" under the jumbo heading, so the jumbo shares its standard-size twin's promo number, which this file had declined to assume.",
+      "n": "099"
+    },
+    {
+      "name": "Sylveon ex",
+      "n": "100",
+      "kind": "Jumbo",
+      "from": "Black Star Promo",
+      "got": "2026-09-22",
+      "note": "The owner, 22 September 2026: \"100 Sylveon ex\" under the jumbo heading. His second jumbo, and like the Greninja ex it carries its standard-size twin's promo number."
     }
   ]
 }
