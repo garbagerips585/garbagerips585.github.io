@@ -30,6 +30,7 @@ import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { readSpan } from "../shared/card-prices.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
 import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
@@ -240,7 +241,7 @@ if (!hall.length) {
         // shared/first-partner.mjs, which enforces that file's own rule about
         // publishing nothing whose two reads disagreed. See that module for why
         // the join is on `printing` rather than on the card name.
-        const fp = firstPartner.priceForHit(h);
+        const fp = firstPartner.priceForHit(h) || thirtiethPrice(h);
         // AND THIS WAS THE FOURTH SILENT DROP, FOUND ON 21 AUGUST 2026 BY THE
         // ARITHMETIC THE LEDE NOW PRINTS. The three above were fixed and
         // ledgered; this one was never counted, so 183 rows came out as
@@ -360,7 +361,8 @@ if (!hall.length) {
            30th page has shown it with a picture all along. Those rows join here,
            carrying no image and no price: the picture comes from
            data/card-shots.json through pinnedShot() below, where all thirty are
-           pinned, and the Classic Collection is deliberately never priced. */
+           pinned, and the price from shared/thirtieth-prices.mjs, since
+           PriceCharting started pricing the subset on 23 September 2026. */
         if (h.set === "30th-celebration") {
           try {
             const ck = JSON.parse(await readFile(join(ROOT, "data/30th-checklist.json"), "utf8")).cards || [];
@@ -699,7 +701,17 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
         // and Korean hit on this page reaches here with `m.price` null. The
         // sheet's Raw NM column is the only figure those cards will ever have.
         _raw: typeof m.price === "number" ? m.price
-          : typeof h.rawNm === "number" ? h.rawNm : null,
+          : thirtiethPrice(h)?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+        /* A 30th CLASSIC COLLECTION CARD is joined in from the checklist above
+           with no money on it, and the graded resolver is keyed on the numbered
+           set, so its PSA 10 arrives this way or not at all. Same four fields
+           the promo branch writes; `_psa10` is last in psaChain below. */
+        ...(thirtiethPrice(h) ? {
+          _psa10: thirtiethPrice(h).psa10,
+          _psa10AsOf: thirtiethPrice(h).asOf,
+          _psa10Source: "pricecharting.com",
+          _psa10Url: thirtiethPrice(h).url,
+        } : {}),
         // THE JAPANESE RUNG FIRST WHERE THE CHECKLIST CARRIES ONE. Same
         // precedence as _img above -- the file this row resolved out of wins --
         // but m.rarity is TCGdex's anglicized word, so on a Japanese set it

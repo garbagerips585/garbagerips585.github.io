@@ -575,7 +575,7 @@ const cardTile = (c, { showPrice = true } = {}) => {
   return `        <li class="t30-ct${pic ? "" : " nopic"}">
           ${pic}
           <p class="t30-ct-n">${esc(c.name)}</p>
-          <p class="t30-ct-m">#${esc(String(c.n).split("/")[0])}${
+          <p class="t30-ct-m">#${esc(pocketNum(c.section, c.n))}${
             c.rarity ? ` &bull; ${esc(c.rarity)}` : ""
           }</p>${
             showPrice
@@ -1103,9 +1103,8 @@ ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
     <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
       longDate(prices.checked || doc.checked)
     )}. A guide value is computed across the sales PriceCharting tracks, which is wider than any one
-      marketplace. The Classic Collection is not priced here at all: its 30 cards are reprints that keep
-      their original numbering, so there is no key that joins them to a price without guessing. We do not
-      sell cards.</p>
+      marketplace. The Classic Collection is priced too: its 30 cards are reprints that keep their original
+      numbering, so each is matched on its name and that number together. We do not sell cards.</p>
   </div>
 </section>`;
 
@@ -1237,7 +1236,11 @@ const setHits = (() => {
       const promoPid = !row && h.promo
         ? (promos.find((o) => sameName(o) && (String(o.n).replace(/^0+/, "") || "0") === numKey)?.pid ?? null)
         : null;
-      rows.push({ h, v, row, pr, promoPid, section: row ? row.section : null });
+      /* AND ITS PRICE, once PriceCharting has one, from the same file every
+         other price on this page comes from. Keyed promo|<number> and held to
+         the same name check, so it cannot borrow Hydreigon's 099 either. */
+      const promoPr = !row && h.promo ? (prices.promos || {})[`promo|${String(n).padStart(3, "0")}`] : null;
+      rows.push({ h, v, row, pr: pr || (promoPr && sameName(promoPr) ? promoPr : null), promoPid, section: row ? row.section : null });
     }
   }
   rows.sort((a, b) => String(b.v.publishedAt ?? "").localeCompare(String(a.v.publishedAt ?? "")));

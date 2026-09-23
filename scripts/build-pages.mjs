@@ -45,6 +45,7 @@ import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { loadGradedPrices } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
 import { norm } from "../shared/intl-printing.mjs";
 // THE RULE IS intl-printing.mjs AND IT IS UNCHANGED. This asks it in the rip
 // log's own vocabulary and hands back the guide's own row; see that file.
@@ -593,7 +594,7 @@ async function resolveHits(vid) {
       // in the whole tree. The scan resolved the whole time; only the money was
       // missing. See shared/first-partner.mjs for why the join is on `printing`
       // and not on the card name.
-      const fp = firstPartner.priceForHit(h);
+      const fp = firstPartner.priceForHit(h) || thirtiethPrice(h);
       out.push({
         // THE SET NAME COMES BACK FROM THE SAME RECORD AS THE NUMBER, and until
         // 21 August 2026 it did not, which is why one hit card on the site
@@ -834,13 +835,16 @@ async function resolveHits(vid) {
       imgLarge: pin?.image || null,
       price: m && typeof m.price === "number" ? m.price
         : sub && typeof sub.price === "number" ? sub.price
+        : /* A 30th Classic Collection card is in no cards file (see
+           shared/thirtieth-prices.mjs), so `m` never answers for one. */
+          !m && thirtiethPrice(h) ? thirtiethPrice(h).price
         : typeof h.rawNm === "number" ? h.rawNm
         : null,
       // NO GRADED LOOKUP ON AN INTL ROW. shared/graded-price.mjs is keyed on an
       // English set id and a PriceCharting console, and neither exists for a
       // Japanese or Korean set, so asking is at best a miss and at worst a hit
       // on an English printing that shares the collector number.
-      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : null,
+      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : !m ? thirtiethPrice(h)?.psa10 ?? null : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
       unresolved: !m && !sub,

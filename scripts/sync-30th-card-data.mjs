@@ -40,6 +40,7 @@
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/data/cards/30th-celebration.json");
@@ -135,7 +136,13 @@ await writeFile(OUT, JSON.stringify({
   set: SLUG,
   name: doc.set.name.replace(/^Pokemon TCG:\s*/, ""),
   source: "tcgdex 30th for cards and art, pricecharting for money",
-  checked: new Date().toISOString().slice(0, 10),
+  /* localDay(), not the UTC date: a run after 8pm Eastern stamped tomorrow. */
+  checked: localDay(),
+  /* WHEN THE MONEY WAS READ, which is not when this file was written. Every
+     other cards file carries it and shared/graded-price.mjs dates a PSA 10 by
+     it; without it the Hall fell back to data/graded.json's own date and
+     labelled 30th PSA 10 figures read on 23 September "Aug 23, 2026". */
+  pricesChecked: prices.checked || null,
   cards,
 }, null, 2) + "\n");
 

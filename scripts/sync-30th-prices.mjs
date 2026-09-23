@@ -41,7 +41,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { CONSOLE_HEADERS, parsePage } from "../shared/pricecharting.mjs";
+import { CONSOLE_HEADERS, parsePage, productColumns } from "../shared/pricecharting.mjs";
 import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -82,6 +82,29 @@ const norm = (s) =>
     .replace(/\s+[FM\u2640\u2642]$/, "")
     .toLowerCase()
     .replace(/[^a-z0-9]/g, "");
+
+/* THE CLASSIC COLLECTION JOINS ON NAME AND NUMBER TOGETHER, added 23 September
+   2026. On the 16th PriceCharting titled those reprints with a bracket and no
+   price ("Charizard [Holo] #4") and they were skipped wholesale. A week later
+   the bracket is gone and all 30 are priced, titled by name and the ORIGINAL
+   set's number: "Charizard #4", "Lugia #149", "Magikarp #203". The numerator
+   alone still cannot key them -- 4 is Illumise in the main set, and the
+   section itself holds two 11s and three 106s -- but name plus numerator is
+   unique across all 30 (checked below, and the run refuses if it is not), so a
+   row whose number matches a main set card and whose NAME does not is tried
+   here before it is called a mismatch. */
+/* The checklist tells five of them apart with a parenthetical PriceCharting does
+   not print -- "Metagross (Delta Species)", "Gengar (Prime)", "Darkrai &
+   Cresselia Legend (Top)" -- so it is dropped before the compare. The number
+   still separates the Top and Bottom halves (99 and 100) and the two 11s. */
+const classicKey = (name, num) => `${norm(String(name).replace(/\s*\([^)]*\)\s*$/, ""))}#${String(num).split("/")[0].replace(/^0+/, "") || "0"}`;
+const classic = new Map();
+for (const c of checklist.cards || []) {
+  if (c.section !== "classic") continue;
+  const k = classicKey(c.name, c.n);
+  if (classic.has(k)) { console.error(`classic key collides: ${k}`); process.exit(1); }
+  classic.set(k, c);
+}
 
 const rows = [];
 let cursor = 0;
@@ -137,9 +160,13 @@ for (const r of rows) {
   if (!m) { sealed += 1; continue; }
   const [, rawName, num] = m;
   const key = String(num).split("/")[0].replace(/^0+/, "") || "0";
-  const card = byNum.get(key);
-  if (!card) { unmatched.push(r.name); continue; }
-  if (norm(rawName) !== norm(card.name)) { nameMismatch.push(`${r.name} vs ${card.name} ${card.n}`); continue; }
+  const main = byNum.get(key);
+  const card = main && norm(rawName) === norm(main.name) ? main : classic.get(classicKey(rawName, num));
+  if (!card) {
+    if (main) nameMismatch.push(`${r.name} vs ${main.name} ${main.n}`);
+    else unmatched.push(r.name);
+    continue;
+  }
   if (r.ungraded == null && r.psa10 == null) { noPrice += 1; continue; }
   priced[`${card.section}|${card.n}`] = {
     n: card.n, name: card.name, section: card.section,
@@ -172,6 +199,51 @@ if (nameMismatch.length > 5) {
   process.exit(1);
 }
 
+/* THE PROMOS AND JUMBOS, added 23 September 2026. They are in no console this
+   script reads: PriceCharting files every English promo in one "Pokemon Promo"
+   console of thousands, so each is read off its own product page instead, one
+   request apiece at the same pacing. The list is the binder's own promos and
+   jumbos, so a promo the owner adds is priced on the next run.
+
+   THE SLUG IS BUILT, SO THE PAGE IS CHECKED BEFORE ITS PRICE IS TRUSTED. The
+   title has to name the card and the number, and the page has to mention the
+   30th at least once, because that console also holds older promos and a built
+   slug could land on one. All six promos and both jumbos were also checked by
+   eye against PriceCharting's own scan on the day this went in: each carries
+   the 30th Celebration logo.
+
+   ARTICUNO 097 IS LEFT UNPRICED ON PURPOSE. Its page read $12.02 against $1.99
+   to $3.99 for the five other promos, and its recent sales are all three-card
+   lots of the Poster Collection's Zapdos, Articuno and Moltres, so that figure
+   is the price of three cards filed against one. A wrong number is worse than
+   none; re-check it when single sales appear. */
+const NOT_YET = { "promo|097": "recent sales are three-card Poster Collection lots, not the single card" };
+const binder = JSON.parse(await readFile(join(ROOT, "data/30th-binder.json"), "utf8"));
+const pslug = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+const promoPrices = {};
+for (const [kind, list] of [["promo", binder.promos || []], ["jumbo", binder.jumbos || []]]) {
+  for (const o of list) {
+    const num = Number(o.n);
+    const key = `${kind}|${String(o.n).padStart(3, "0")}`;
+    if (NOT_YET[key]) { console.log(`  ${key.padEnd(10)} ${o.name}: skipped, ${NOT_YET[key]}`); continue; }
+    const path = `/game/pokemon-promo/${pslug(o.name)}${kind === "jumbo" ? "-jumbo" : ""}-${num}`;
+    await sleep(1100);
+    const res = await fetch(`https://www.pricecharting.com${path}`, { headers: { "user-agent": UA, accept: "text/html" } });
+    if (!res.ok) { console.log(`  ${key.padEnd(10)} ${o.name}: HTTP ${res.status}, left unpriced`); continue; }
+    const html = await res.text();
+    const title = (/<title>([^<]*)/.exec(html) || [])[1] || "";
+    if (!norm(title).startsWith(norm(o.name)) || !new RegExp(`#${num}\\b`).test(title) || !/30th/i.test(html)) {
+      console.log(`  ${key.padEnd(10)} ${o.name}: page "${title.trim()}" is not this card, left unpriced`);
+      continue;
+    }
+    const { cols } = productColumns(html);
+    const raw = cols?.Ungraded ?? null;
+    if (raw == null) { console.log(`  ${key.padEnd(10)} ${o.name}: no ungraded price yet`); continue; }
+    promoPrices[key] = { n: o.n, name: o.name, kind, raw, g9: cols["Grade 9"] ?? null, psa10: cols["PSA 10"] ?? null, pc: path };
+    console.log(`  ${key.padEnd(10)} ${o.name}: $${raw}${cols["PSA 10"] != null ? `, PSA 10 $${cols["PSA 10"]}` : ""}`);
+  }
+}
+
 await writeFile(OUT, JSON.stringify({
   _readme: [
     "PRICECHARTING PRICES FOR 30th Celebration, joined onto data/30th-checklist",
@@ -184,10 +256,11 @@ await writeFile(OUT, JSON.stringify({
     "PriceCharting's Ungraded guide value, the same figure other set pages call",
     "raw NM. `g9` and `psa10` are its graded columns.",
     "",
-    "THE CLASSIC COLLECTION IS NOT IN HERE AND CANNOT BE. Its 30 cards are",
-    "reprints that keep their ORIGINAL numbering, so the section holds two cards",
-    "numbered 11 and three numbered 106, and PriceCharting numbers its rows by",
-    "the 30th's own sequence. There is no key that joins them without guessing.",
+    "THE CLASSIC COLLECTION JOINS ON NAME AND NUMBER TOGETHER. Its 30 cards",
+    "are reprints that keep their ORIGINAL numbering, so the section holds two",
+    "cards numbered 11 and three numbered 106, and 4 is also Illumise in the",
+    "main set. PriceCharting titles them by name and that original number, and",
+    "the pair is unique across all 30, so the pair is the key.",
     "",
     "A CARD MISSING FROM HERE IS UNPRICED, NOT WORTHLESS. The set came out on 16",
     "September 2026 and PriceCharting prices a card once it has sales to compute",
@@ -199,5 +272,6 @@ await writeFile(OUT, JSON.stringify({
   checked: localDay(),
   counts: { rows: rows.length, priced: list.length, psa10: list.filter((c) => c.psa10 != null).length },
   cards: priced,
+  promos: promoPrices,
 }, null, 2) + "\n");
 console.log(`\nWrote data/30th-prices.json  ${list.length} priced cards`);
