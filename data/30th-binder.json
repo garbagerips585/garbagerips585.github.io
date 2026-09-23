@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-09-22",
+  "checked": "2026-09-23",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -876,6 +876,241 @@
       "pikachuNo": 22,
       "got": "2026-09-22",
       "note": "The owner, 22 September 2026: \"i gave you the number out of 30 pikacus number not the card numbers, here are the updated card numbers for Pikachus\" -- 026, 028, 035, 032, 031, 024, 044. His first list gave each as its place in the run of thirty, which is why none fell in 023-052, and the card number is that place plus 22."
+    },
+    {
+      "name": "Pikachu",
+      "n": "038",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder.",
+      "pikachuNo": 16
+    },
+    {
+      "name": "Pikachu",
+      "n": "042",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder.",
+      "pikachuNo": 20
+    },
+    {
+      "name": "Pikachu",
+      "n": "048",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder.",
+      "pikachuNo": 26
+    },
+    {
+      "name": "Pikachu",
+      "n": "049",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder.",
+      "pikachuNo": 27
+    },
+    {
+      "name": "Pikachu",
+      "n": "050",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder.",
+      "pikachuNo": 28
+    },
+    {
+      "name": "Volbeat",
+      "n": "003",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Moltres",
+      "n": "011",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Victini",
+      "n": "013",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Kyogre",
+      "n": "019",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Toxtricity",
+      "n": "060",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Espeon",
+      "n": "069",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Comfey",
+      "n": "077",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Cosmog",
+      "n": "078",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Lycanroc",
+      "n": "085",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Dialga",
+      "n": "103",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Solgaleo",
+      "n": "105",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Salamence ex",
+      "n": "109",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Snorlax",
+      "n": "119",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Lugia",
+      "n": "121",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Meowth",
+      "n": "144",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Pikachu",
+      "n": "58/102",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Misty",
+      "n": "18/132",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
+    },
+    {
+      "name": "Dark Tyranitar",
+      "n": "19/109",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-23",
+      "note": "The owner, 23 September 2026, in the full updated list he sent for the master set binder."
     }
   ],
   "_shotNote": [
@@ -960,6 +1195,15 @@
       "got": "2026-09-22",
       "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos. NOT the Zapdos at 133, which is the Illustration Rare in the set itself and a different card.",
       "pid": 713266
+    },
+    {
+      "name": "Alolan Exeggutor",
+      "n": "094",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-09-23",
+      "pid": 713262,
+      "note": "The owner, 23 September 2026: \"094 Aolan Exeggutor\" (a typo for Alolan). The Tech Sticker Collection's other promo, beside the Lucario 095 already in the binder. TCGplayer id read off its ME: Mega Evolution Promo listing, scan checked."
     }
   ],
   "_jumboNote": [

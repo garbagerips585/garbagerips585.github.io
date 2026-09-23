@@ -77,6 +77,17 @@ const owned = binder.owned || [];
    that is what the set is, and a promo is in none of them, so counting one
    would make the percentage in the hero wrong. */
 const promos = binder.promos || [];
+const PROMO_CELLS = (() => {
+  const mine = new Map(promos.map((o) => [Number(o.n), o]));
+  const nums = new Set([...mine.keys(), ...((doc.promosToFind || {}).rows || []).map((r) => Number(r.n))]);
+  return [...nums].sort((a, b) => a - b).map((n) => {
+    const o = mine.get(n);
+    if (o) return { has: true, owned: o, slot: null, promo: true };
+    const r = doc.promosToFind.rows.find((x) => Number(x.n) === n);
+    return { has: false, owned: null, promo: true,
+      slot: { name: r.name, n: String(r.n).padStart(3, "0"), section: "promo", setCode: "MEP", pid: r.pid || null } };
+  });
+})();
 /* JUMBOS ARE A THIRD LIST AND NOT A SIXTH SECTION, same reason as the promos and
    spelled out in `_jumboNote`: the five sections add to 199 because that is the
    SET, and an oversized card is in none of them. It is also deliberately not
@@ -584,11 +595,12 @@ const pocket = (c, i, slot) => {
   }
   if (HAVE_SCANS && slot) {
     const pic = pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
+    const lab = pocketLabel(slot.section, slot.n, slot.setCode);
     return `<li class="t30-pk need" title="${esc(slot.name)}">
         <span class="t30-sr">Not collected yet</span>
-        ${phOf(slot.name, pocketLabel(slot.section, slot.n))}
+        ${phOf(slot.name, lab)}
         ${pic}
-        <span class="t30-pn">${esc(pocketLabel(slot.section, slot.n))}</span>
+        <span class="t30-pn">${esc(lab)}</span>
       </li>`;
   }
   return `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
@@ -721,11 +733,17 @@ const BINDER_LEAVES = (() => {
         key, label, total, page: p + 1, pages, of: cards.length,
       }));
   }
-  if (promos.length) {
-    const pages = Math.max(1, Math.ceil(promos.length / POCKETS));
+  /* EVERY KNOWN 30th PROMO GETS A POCKET, 23 September 2026. The owner, asked
+     whether the promos he does not have should show as pockets to fill: "yes".
+     The pages held only the promos he owned; they now hold every MEP number in
+     the set's run (his, plus data/30th.json's promosToFind), in number order,
+     his in colour and the rest grey, pictured from the TCGplayer id each row
+     carries. */
+  if (PROMO_CELLS.length) {
+    const pages = Math.max(1, Math.ceil(PROMO_CELLS.length / POCKETS));
     for (let p = 0; p < pages; p++)
-      out.push(leafOf(promos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
-        { key: "promo", label: "Promos", total: promos.length, page: p + 1, pages, of: promos.length }));
+      out.push(leafOf(PROMO_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
+        { key: "promo", label: "Promos", total: PROMO_CELLS.length, page: p + 1, pages, of: PROMO_CELLS.length }));
   }
   if (jumbos.length) {
     const pages = Math.max(1, Math.ceil(jumbos.length / POCKETS));
@@ -824,7 +842,7 @@ const railHtml = (() => {
    survive as a compact summary above the binder rather than being lost with the
    headings they used to live on. */
 const sectionSummary = [...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
-  ...(promos.length ? [{ key: "promo", label: "Promos", total: null, have: promos.length }] : []),
+  ...(PROMO_CELLS.length ? [{ key: "promo", label: "Promos", total: PROMO_CELLS.length, have: promos.length }] : []),
   ...(jumbos.length ? [{ key: "jumbo", label: "Jumbo cards", total: null, have: jumbos.length }] : [])]
   .map(({ label, total, have }) => {
     const pcLocal = total ? Math.round((have / total) * 100) : 0;
@@ -2064,8 +2082,12 @@ ${APP_JS_NO_PACKPLAYER}
   function layout() {
     two = !!(twoMQ && twoMQ.matches);
     fig.setAttribute("data-mode", two ? "two" : "one");
-    if (endLeaf) endLeaf.hidden = !two;
-    seq = all.filter(function (l) { return two || l !== endLeaf; });
+    /* THE INSIDE BACK COVER ONLY WHEN THE LAST SPREAD NEEDS A RIGHT PAGE. With
+       an even number of pages it filled the gap; the promo page that took the
+       binder to 27 sheets left it alone on a spread of its own, facing nothing. */
+    seq = all.filter(function (l) { return l !== endLeaf; });
+    if (two && endLeaf && seq.length % 2) seq.push(endLeaf);
+    if (endLeaf) endLeaf.hidden = seq.indexOf(endLeaf) < 0;
   }
   function slots(p) { return two ? [seq[2 * p], seq[2 * p + 1]] : [seq[p]]; }
   function last() { return two ? Math.ceil(seq.length / 2) - 1 : seq.length - 1; }

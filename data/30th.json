@@ -1188,62 +1188,73 @@
   },
   "englishRatesSource": "https://www.pokebeach.com/2026/09/30th-celebration-pull-rates-and-most-valuable-cards-worldwide-friendliest-pull-rates-of-the-modern-era",
   "promosToFind": {
-    "_note": "MEP numbers are printed on the cards and read off TCGplayer's catalog on September 23, 2026; which product each comes in is from Bulbapedia's MEP list, secondary sourcing, said so on the page.",
+    "_note": "MEP numbers are printed on the cards and read off TCGplayer's catalog on September 23, 2026; which product each comes in is from Bulbapedia's MEP list, secondary sourcing, said so on the page. Corrected the same evening: TCGplayer lists 108 as Espeon ex and 109 as Pikachu ex; this table had them the other way round. Each row carries the TCGplayer id its picture comes from.",
     "rows": [
       {
         "n": "094",
         "name": "Alolan Exeggutor",
-        "from": "Tech Sticker Collection"
+        "from": "Tech Sticker Collection",
+        "pid": 713262
       },
       {
         "n": "101",
         "name": "Nidorina",
-        "from": "Elite Trainer Box (a Pokemon Center stamped version in the Pokemon Center ETB)"
+        "from": "Elite Trainer Box (a Pokemon Center stamped version in the Pokemon Center ETB)",
+        "pid": 713260
       },
       {
         "n": "102",
         "name": "Victini",
-        "from": "Battle Deck, October 30"
+        "from": "Battle Deck, October 30",
+        "pid": 713286
       },
       {
         "n": "103",
         "name": "Zeraora",
-        "from": "Battle Deck, October 30"
+        "from": "Battle Deck, October 30",
+        "pid": 713285
       },
       {
         "n": "104",
         "name": "Mewtwo",
-        "from": "Figure Collection, November 6"
+        "from": "Figure Collection, November 6",
+        "pid": 713289
       },
       {
         "n": "105",
         "name": "Mew",
-        "from": "Figure Collection, November 6"
+        "from": "Figure Collection, November 6",
+        "pid": 713288
       },
       {
         "n": "106",
         "name": "Ditto",
-        "from": "Ditto Premium Collection, November 6"
+        "from": "Ditto Premium Collection, November 6",
+        "pid": 713287
       },
       {
         "n": "107",
         "name": "Pikachu ex",
-        "from": "Ultra Premium Collection, November 6"
+        "from": "Ultra Premium Collection, November 6",
+        "pid": 713257
       },
       {
         "n": "108",
-        "name": "Pikachu ex",
-        "from": "Ultra Premium Collection, November 6"
+        "name": "Espeon ex",
+        "from": "Ultra Premium Collection, November 6",
+        "pid": 713258
       },
       {
         "n": "109",
-        "name": "Espeon ex",
-        "from": "Ultra Premium Collection, November 6"
+        "name": "Pikachu ex",
+        "from": "Ultra Premium Collection, November 6",
+        "pid": 713256
       },
       {
         "n": "110",
         "name": "Umbreon ex",
-        "from": "Ultra Premium Collection, November 6"
+        "from": "Ultra Premium Collection, November 6",
+        "pid": 713259
       }
     ],
     "sources": [
