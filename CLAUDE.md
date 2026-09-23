@@ -658,6 +658,16 @@ on its own:
     license to link to.
   - NOTHING ELSE. No affiliate code, no directory, no aggregator.
 
+**SPLIT ON 23 SEPTEMBER 2026, SAME FOUR KINDS, MORE OF THE FIRST.** The list went
+from 11 restaurants to 52 and moved to its own page,
+/where-to-get-a-garbage-plate.html, so the restaurant links (site, menu, map,
+and the business's own hours page) live there now, one set per card, at the END
+of each card and aria-labelled like every other one. The guide keeps the
+sources and the photo credits, and its sources now sit under each claim as a
+short label (`short` on each source) with the full name in the aria-label and in
+the list at the foot. The test is unchanged and so is the shape: a directory
+whose job is to send you to dinner is useless without the menu and the address.
+
 THE SHAPE IS MET AND WAS MEASURED, not asserted: all 67 carry an aria-label
 saying they leave the site, and the page's own large tap targets are internal.
 THE IMAGE CREDITS ARE THE ONE PLACE THIS PAGE PUTS A LINK INSIDE A SENTENCE, and
@@ -1467,6 +1477,51 @@ longer selector before rewriting the markup.
 
 ## The Garbage Plate page
 
+**IT IS TWO PAGES SINCE 23 SEPTEMBER 2026, BOTH FROM ONE BUILDER AND ONE DATA
+FILE.** The owner: "I want it to the Ultimate Garbage Plate 101 guide, and also
+the go to destination for garbage plate directory, everywhere in the greater
+rochester area that you can get some type of garbage plate ... something that
+comes up anytime some one searches what is a garbage plate and also where can i
+get a garbage plate". Two questions, two pages:
+
+- **/garbage-plate.html, the 101.** Definition first (the query is "what is a
+  garbage plate", so the answer is the first sentence under the h1), a 30 second
+  box, a jump bar, the diagram, how to order, a "where to get one" preview that
+  hands off to the directory, then the sauce, the history, the variations, a
+  price history of the original read off its own archived menus, making one at
+  home, and an FAQ (FAQPage schema). `guide`, `thirty` and `faq` in the data;
+  every item carries source ids and the builder throws on an unknown one.
+- **/where-to-get-a-garbage-plate.html, the directory.** 52 places in six areas
+  (`groups`), alphabetical inside each area with Nick Tahou Hots first. Areas
+  are ANCHORS, not filters, so the page works with no script. Four filters are
+  radio chips plus `:has()` (late night, meatless, bar or brewery, breakfast
+  plate); "Open now" is the one that needs a clock and is the one that needs
+  JS, and it reads the time in America/New_York whatever the reader's zone.
+
+**HOURS ARE A SPEC NOW, NOT A SENTENCE.** `hoursSpec` ("mon-sat 11:00-22:00;
+sun 12:00-22:00", a close before its open runs past midnight, an unnamed day is
+UNKNOWN rather than closed) generates BOTH the printed sentence and the data-h
+attribute the open-now script reads, so the two cannot disagree. "Late night" is
+COMPUTED from it (past 11pm on any night), never typed. A free-text `hours` fails
+the build, and the old rule stands: no hoursSrc, no hours. Hours from an
+ORDERING page (Toast, DoorDash) are not published, because those are when the
+kitchen takes online orders, not when the door is open.
+
+**THE LIST RULE WIDENED BY ONE CLAUSE:** a place qualifies if its own site, its
+own menu, OR AN ORDERING PAGE IT RUNS says it serves a plate. Tom Wahl's and
+Mark's Texas Hots came OFF the left-off list that way (a readable ordering menu,
+and the business's own Facebook page). Facebook-only places with no menu stay in
+`leads`, printed on the page. The research behind the 41 additions, including
+the dead ends, is summarized in `checkedAndLeftOut` and `leads`.
+
+**THE FOUNDER QUESTION IS SETTLED AND THE PAGE SAYS SO.** Eater 2017 and the
+Democrat and Chronicle 2020 became readable (the D&C through archive.org), and
+with the 1995 Rochester Business Journal interview of Nick himself, every
+first-hand family source names Nick's father, Alexander, as the founder. WHO
+INVENTED THE PLATE is still split and stays printed as open. The hot sauce's
+origin moved out of `notSourced`: it is the family's own account, first hand
+from Alex Tahou twice, and is printed as theirs.
+
 `/garbage-plate.html`, added 20 August 2026 on the owner's ask, built by
 `scripts/build-garbage-plate.mjs` from `data/garbage-plate.json`. One builder,
 one data file, no sync step and no network: everything on the page was read by a
@@ -1495,7 +1550,7 @@ printable fax order form is the business listing every component of its own
 plate as boxes you tick, which is where the diagram's six layers come from.
 **Do not replace either with a secondary retelling.**
 
-**THE FOUNDER IS GENUINELY DISPUTED AND THE PAGE SAYS SO** rather than picking a
+**THE FOUNDER WAS GENUINELY DISPUTED AND THE PAGE SAID SO (SUPERSEDED 23 SEPTEMBER 2026: see the top of this section)** rather than picking a
 winner. Nick Tahou Hots' own site quotes Wikipedia saying Nick Tahou founded it;
 Wikipedia's article today says Alexander Tahou founded it and named it for his
 son Nick. Eater's 2017 feature and the Democrat and Chronicle's 2020 piece are

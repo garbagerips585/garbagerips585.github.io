@@ -1,713 +1,2204 @@
 {
- "_readme": [
-  "The Garbage Plate, for /garbage-plate.html. The channel is named after this",
-  "dish and there was no page about it.",
-  "",
-  "WHY THIS FILE IS MOSTLY SOURCES. The owner asked for this page because the",
-  "existing coverage of the dish is thin: listicles, and a paragraph of",
-  "half-remembered origin story repeated from site to site. The way to beat",
-  "that is not to write it better, it is to write it CHECKABLE, which is the",
-  "same thing /first-partner-illustration-collection.html and every price page",
-  "on this site do. So every historical claim below carries the source it came",
-  "from and the date that source was read, and the page prints all of it.",
-  "",
-  "NOTHING GOES IN HERE FROM MEMORY. The dish has a real documented origin, a",
-  "real family business behind it and a real federal trademark, so there is no",
-  "excuse for a recalled fact. If a claim cannot be sourced it is left out, and",
-  "several were: see `notSourced` below, which exists so nobody re-researches",
-  "them and so the page can say plainly what it does not know.",
-  "",
-  "THE PRIMARY SOURCES ARE THE GOOD ONES AND THEY ARE NAMED FIRST. The United",
-  "States Patent and Trademark Office publishes the whole trademark file, which",
-  "settles the date question the food writing keeps getting slightly wrong, and",
-  "Nick Tahou Hots' own fax order form is the business itself listing every",
-  "component of its own plate. Those two carry most of the page's weight.",
-  "",
-  "ROCHESTER NY ONLY, and its ring, exactly as data/shops.json says: ours are",
-  "146xx. Rochester MINNESOTA and Rochester MICHIGAN both exist and both",
-  "outrank us in a national search. Check the zip on every entry.",
-  "",
-  "HOURS ARE NOT PUBLISHED UNLESS THEY ARE CONFIRMED, same rule as shops.json,",
-  "and the cost of being wrong is the same: somebody drives across town to a",
-  "locked door. A confirmed hour is one the BUSINESS states about ITSELF on its",
-  "own site or its own ordering page. Yelp, Google, TripAdvisor and the",
-  "directories are not evidence and are not used here even once. Where the",
-  "hours are not confirmed the entry carries `hoursUnknown` and the page says",
-  "so in as many words rather than leaving a quiet blank.",
-  "",
-  "THE LIST IS A LIST AND NOT A RANKING, and `listNote` says how it was chosen.",
-  "Ordering somebody else's restaurants by quality is not a claim this site can",
-  "source, and it is not one the owner asked for either. Nick Tahou Hots is first",
-  "because it is the originator and holds the trademark, which is a fact rather",
-  "than a verdict; everything after it is alphabetical.",
-  "",
-  "THERE ARE PHOTOGRAPHS NOW, AND THE PARAGRAPH THAT USED TO SIT HERE IS WORTH",
-  "reading before you write another one like it. It said: \"This site has no",
-  "license for a photograph of a building or of a plate of food. A picture of a",
-  "restaurant is somebody's copyright, and Street View imagery is licensed in a",
-  "way a static site with no keys in it cannot meet.\" Every sentence of that is",
-  "still true. The CONCLUSION was not, and the failure is the one this file",
-  "warns about everywhere else: a true statement about the candidates somebody",
-  "had looked at got written as a statement about the subject. Restaurant sites,",
-  "food blogs and Street View had been looked at. Wikimedia Commons had not, and",
-  "it holds eleven photographs of this dish and of the restaurant it comes from,",
-  "ten of them CC BY, CC BY-SA or public domain.",
-  "",
-  "SO `photos` BELOW HOLDS TEN, added August 20, 2026, and every one was verified",
-  "by loading that file's OWN description page on Commons rather than trusting a",
-  "search result that claimed a license. The photographer, the license, the",
-  "license url, the file page and the date it was read sit beside every one, in",
-  "the same shape as `sources`, and scripts/sync-plate-photos.py re-reads all of",
-  "it from Commons on every run and refuses to write anything whose license,",
-  "author or license url has moved since. `photosRejected` says what was checked",
-  "and left out, and why, exactly as `checkedAndLeftOut` does for restaurants.",
-  "",
-  "CREDIT IS A CONDITION OF THE LICENCE AND IT IS PRINTED UNDER THE PICTURE.",
-  "CC BY and CC BY-SA both require the photographer's name, the license and a",
-  "LINK to that license. A photo record naming an attribution license with no",
-  "`licenseUrl` fails the build rather than rendering, because a credit we",
-  "cannot complete is a license we cannot meet.",
-  "",
-  "NOTHING IS CROPPED. Resizing and re-encoding for delivery is not an adapted",
-  "work under any of these licenses; cropping is, and four of the ten are",
-  "ShareAlike. Where the layout wants a 4:3 shape it gets it with object-fit,",
-  "which changes what is displayed and not what is distributed.",
-  "",
-  "THE OWNER'S OWN PHOTOGRAPHS ARE STILL THE BEST ANSWER for the eight restaurants",
-  "that have none. He photographs things for a living and lives here, and a",
-  "picture of Chili Hots or Fairport Hots does not exist under a free license",
-  "anywhere. The schema and the card layout take one the day it exists: add it",
-  "to `photos` with `where` set to \"place:<the name on the card>\".",
-  "",
-  "TWO DATES AND THEY ARE NOT INTERCHANGEABLE. `published` is the day this",
-  "page first went out, August 20, 2026, and it does not move again; `updated`",
-  "is the day the research was last re-read and it moves whenever anything in",
-  "here does. The Article node in scripts/build-garbage-plate.mjs spends the",
-  "first as datePublished and the second as dateModified, which is the pair",
-  "every other Article on the site carries. Do not point both at `updated`: a",
-  "page that claims it was written today every time somebody corrects a phone",
-  "number is telling a search engine it has no history."
- ],
- "published": "2026-08-20",
- "updated": "2026-08-20",
- "read": "2026-08-20",
- "sources": [
-  {
-   "id": "uspto",
-   "kind": "primary",
-   "name": "United States Patent and Trademark Office, TSDR record for serial 74189085",
-   "url": "https://tsdr.uspto.gov/statusview/sn74189085",
-   "read": "2026-08-20",
-   "note": "The federal trademark file for GARBAGE PLATE. This is the government's own record and it is the only source on the page that cannot be a retelling of another source."
-  },
-  {
-   "id": "nt-site",
-   "kind": "primary",
-   "name": "Nick Tahou Hots, garbageplate.com",
-   "url": "https://garbageplate.com/",
-   "read": "2026-08-20",
-   "note": "The restaurant's own site. Small, and it quotes Wikipedia for its own history, which is worth knowing before treating it as the last word on the founder."
-  },
-  {
-   "id": "nt-order",
-   "kind": "primary",
-   "name": "Nick Tahou Hots, printable fax order form",
-   "url": "https://garbageplate.com/images/orderform_mainstreet.pdf",
-   "read": "2026-08-20",
-   "note": "The business listing every component of its own Garbage Plate, in its own words, as boxes you tick. It is the best single source on the page for what is actually on one."
-  },
-  {
-   "id": "rgvrrm",
-   "kind": "local history",
-   "name": "Rochester & Genesee Valley Railroad Museum, \"Nick Tahou and the BR&P Connection\", Otto M. Vondrak, March 4, 2021",
-   "url": "https://rgvrrm.org/nick-tahou-and-the-brp-connection/",
-   "read": "2026-08-20",
-   "note": "A railroad museum on the building, which is the half of the story the food writing skips."
-  },
-  {
-   "id": "tasting-table",
-   "kind": "interview",
-   "name": "Tasting Table, \"The Rochester Garbage Plate Is A Delicious Hot Mess\", Robyn Song, March 9, 2024",
-   "url": "https://www.tastingtable.com/1533662/rochester-garbage-plate-explained/",
-   "read": "2026-08-20",
-   "note": "On the record with Alex Tahou, the founder's grandson. Every quote attributed to the family on this page comes from here."
-  },
-  {
-   "id": "wham-plates",
-   "kind": "news",
-   "name": "13WHAM, \"Rochester Red Wings to become the Rochester Plates to honor the Garbage Plate\", July 4, 2017",
-   "url": "https://13wham.com/news/local/rochester-red-wings-to-become-the-rochester-plates-to-honor-the-garbage-plate",
-   "read": "2026-08-20",
-   "note": "Local television on the ANNOUNCEMENT: it is dated July 4, 2017, five weeks before the game, so it is the source for the plan and for Dan Mason's words and not for the game having happened."
-  },
-  {
-   "id": "ny1-plates",
-   "kind": "news",
-   "name": "Spectrum News NY1, \"Red Wings serve up history as Rochester Plates\", August 10, 2017",
-   "url": "https://ny1.com/nyc/queens/news/2017/08/10/rochester-red-wings-garbage-plates",
-   "read": "2026-08-20",
-   "note": "Filed at 11:26pm on the night of the game itself, which is what makes it the source for the game having actually been played rather than only announced."
-  },
-  {
-   "id": "visit-roc",
-   "kind": "tourism board",
-   "name": "Visit Rochester, \"What is That? A Guide to The Rochester Garbage Plate\"",
-   "url": "https://www.visitrochester.com/blog/post/rochester-garbage-plate/",
-   "read": "2026-08-20",
-   "note": "Monroe County's own tourism board. Useful for what a plate is generally understood to be around here, and for which restaurants it names."
-  },
-  {
-   "id": "dogtown-menu",
-   "kind": "primary",
-   "name": "dogTown Hots, its own menu",
-   "url": "https://dogtownhots.com/meaty-menu/",
-   "read": "2026-08-20",
-   "note": "The Monroe Avenue shop listing its own plates, under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. It is the only business on this page that files the dish under that word."
-  },
-  {
-   "id": "steve-t",
-   "kind": "primary",
-   "name": "Steve T. Hots & Potatoes, stevethots.com",
-   "url": "https://stevethots.com/",
-   "read": "2026-08-20",
-   "note": "The other Tahou counter, on Lyell Avenue, and the second business on this page to publish its own plate build. Its menu states the rule in one line: two sides, and the hot sauce, mustard and onions come as standard."
-  },
-  {
-   "id": "bill-grays-gf",
-   "kind": "primary",
-   "name": "Bill Gray's, gluten free menu (PDF on their own site)",
-   "url": "https://www.billgrays.com/images_content/site1/files/menu/BG_Gluten_Free_Menu_2025.pdf",
-   "read": "2026-08-20",
-   "note": "A third independent statement of the same build, from a chain with thirteen locations: GREAT PLATES, described as a cheeseburger or hot dog served over 2 side orders."
-  }
- ],
- "history": [
-  {
-   "year": "1918",
-   "head": "A hot dog stand on West Main Street",
-   "body": "Nick Tahou Hots dates itself to 1918, and it is the restaurant itself saying so: the front page of its own site carries the line \"A Rochester tradition since 1918!\" and not much else. The shop was called West Main Texas Hots before it was called anything else.",
-   "src": [
-    "nt-site"
-   ]
-  },
-  {
-   "year": "Who founded it",
-   "head": "The one fact the sources disagree about",
-   "body": "Nick Tahou Hots' own site quotes Wikipedia saying the restaurant \"was founded by its namesake, Nick Tahou, who died in 1997 after running the establishment for over 50 years\". Wikipedia's article today says something different: that Alexander Tahou, a Greek immigrant, founded it in 1918 and named it for his son Nick. Both cannot be right, and a business quoting an encyclopedia about its own founder is not the same as a business stating it. This page prints the disagreement rather than picking a winner.",
-   "src": [
-    "nt-site"
-   ]
-  },
-  {
-   "year": "The original",
-   "head": "It was hots and potatoes, and the beans were cold",
-   "body": "The dish did not start as a Garbage Plate and did not start with most of what is on one now. Alex Tahou, the founder's grandson, described the original to Tasting Table in 2024.",
-   "src": [
-    "tasting-table"
-   ],
-   "quote": "The original plate was hot dogs called hots and potatoes. It was hot dogs, home fries, cold beans, not hot, and two pieces of Italian bread and butter",
-   "quoteSrc": "tasting-table",
-   "quoteWho": "Alex Tahou"
-  },
-  {
-   "year": "1963 and 1968",
-   "head": "The restaurant moved into a railroad station",
-   "body": "The building at 320 West Main Street was never built to be a restaurant. The Rochester & Genesee Valley Railroad Museum records that its oldest part went up in 1877 as offices for the Pitkin Building and Monumental Steam Stone Works, that the railroad bought it in 1881 and expanded it into a passenger terminal, and that the Buffalo, Rochester & Pittsburgh became part of the Baltimore & Ohio system in 1932. Tahou bought the station in September 1963 for $43,000, and the move down the block waited until the original shop was demolished in 1968.",
-   "src": [
-    "rgvrrm"
-   ]
-  },
-  {
-   "year": "The name",
-   "head": "College kids named it, and the family fought it",
-   "body": "Nobody at the restaurant chose the word. Students coming out of the bars would point at somebody else's dinner and order it by description, and the description stuck hard enough that the family gave up and put it on the sign.",
-   "src": [
-    "tasting-table"
-   ],
-   "quote": "Guys would come in after drinking, and they'd see somebody that had a plate, have no idea what it was, and just say, give me a plate with all that garbage on it",
-   "quoteSrc": "tasting-table",
-   "quoteWho": "Alex Tahou"
-  },
-  {
-   "year": "1991 to 1992",
-   "head": "GARBAGE PLATE became a federal trademark",
-   "body": "This is the part of the story that is written down in a government file rather than retold, and the dates in that file are worth having exactly right. Nick Tahou Hots, Inc. of 320 West Main Street filed for the mark GARBAGE PLATE on July 29, 1991. It registered on August 18, 1992 as registration number 1,708,448 on the Principal Register, in class 029, and it is still live: the record shows the registration has been renewed.",
-   "src": [
-    "uspto"
-   ],
-   "quote": "prepared entrees consisting primarily of one of the following, hot dogs without buns, hamburgers without buns, steak, pork chops, sausage, ham, fish or eggs and processed potatoes and processed beans",
-   "quoteSrc": "uspto",
-   "quoteWho": "the registration's own description of the goods"
-  },
-  {
-   "year": "Ever since",
-   "head": "Which is why everybody else sells a trash plate",
-   "body": "One restaurant owns the name, so every other kitchen in Rochester, NY serving the same idea calls it something else. Trash plate, Rochester plate, sloppy plate, junkyard plate at dogTown, and at the vegan place, a compost plate. The dish is nobody's property and the two words are, which is the whole reason the menus around here read like a thesaurus. Alex Tahou put the position plainly in 2024.",
-   "src": [
-    "tasting-table",
-    "uspto",
-    "dogtown-menu"
-   ],
-   "quote": "We're trademarked, and we're still the only garbage plate",
-   "quoteSrc": "tasting-table",
-   "quoteWho": "Alex Tahou"
-  },
-  {
-   "year": "2017",
-   "head": "The baseball team renamed itself after it",
-   "body": "For one home game on August 10, 2017 the Rochester Red Wings played as the Rochester Plates, in caps and jerseys with a Garbage Plate on them. 13WHAM carried the announcement five weeks out and Spectrum News NY1 filed from the ballpark on the night, which is how this page knows the game was played and not just planned. Their general manager Dan Mason told 13WHAM why, and it is as good a one line summary of the dish's standing in this city as anybody has managed.",
-   "src": [
-    "wham-plates",
-    "ny1-plates"
-   ],
-   "quote": "There is nothing more Rochester than the Garbage Plate. There isn't another food item that Rochesterians are more proud of or that is more celebrated in our city than the Garbage Plate and we can't wait to take the field as the Plates!",
-   "quoteSrc": "wham-plates",
-   "quoteWho": "Dan Mason, Red Wings general manager"
-  }
- ],
- "notSourced": [
-  "WHEN THE FIRST GARBAGE PLATE WAS SERVED. Not the restaurant, the dish. Nothing reachable states a date for it, the accounts that give one give a decade, and the trademark file records when the NAME was filed rather than when the food was first sold. So this page dates the restaurant and the trademark and says openly that the dish's own start date is not documented.",
-  "THAT THE PLATE IS 100 YEARS OLD. 13WHAM's 2017 story says the Garbage Plate marked its 100th anniversary that year, which would put it at 1917, while the restaurant dates ITSELF to 1918 and the dish was called something else for most of a century. An anniversary of the shop is not an anniversary of the dish and this page does not merge them.",
-  "THE HOT SAUCE RECIPE, AND WHERE IT CAME FROM. Several retellings say the meat sauce came from a Mexican friend's family recipe. Every version of that traces back to the same handful of articles rather than to the family, none of the sources reachable here states it first hand, and a recipe's origin is exactly the kind of claim that hardens by repetition. Left out.",
-  "CALORIE COUNTS. Numbers between 1,000 and 3,000 are quoted all over the internet for a plate. No restaurant publishes one, the plate is built to order out of four possible sides and ten possible meats, so there is no single dish to count, and this site does not print a number it cannot source.",
-  "EATER'S 2017 FEATURE AND THE DEMOCRAT AND CHRONICLE'S 2020 PIECE. Both are cited by Wikipedia as the source for several of the claims above and neither could be fetched on August 20, 2026, so nothing on this page rests on either. If a later editor can read them, the founder question in the history above is the thing to settle."
- ],
- "anatomy": {
-  "intro": "There is no fixed recipe, which is the first thing to understand about it. A plate is assembled to order out of a short list of parts, and the list below is Nick Tahou Hots' own: every item on it is a box you tick on the order form the restaurant publishes for phone and fax orders.",
-  "srcNote": "Read off Nick Tahou Hots' own printable order form on August 20, 2026, plus Visit Rochester's description of what a traditional plate is.",
-  "layers": [
-   {
-    "n": 1,
-    "name": "Two sides, on the bottom",
-    "what": "Macaroni salad, home fries, french fries or baked beans. Those four are the whole list on Nick Tahou Hots' order form and you tick the ones you want. Two is the number, and two Rochester, NY kitchens say so in writing: Steve T. Hots & Potatoes prints \"Choice of 2 with plates\", and Bill Gray's describes its plates as served over 2 side orders. Macaroni salad and home fries is the pair most people mean when they say a plate.",
-    "src": [
-     "nt-order",
-     "steve-t",
-     "bill-grays-gf"
+  "_readme": [
+    "The Garbage Plate, for /garbage-plate.html. The channel is named after this",
+    "dish and there was no page about it.",
+    "",
+    "WHY THIS FILE IS MOSTLY SOURCES. The owner asked for this page because the",
+    "existing coverage of the dish is thin: listicles, and a paragraph of",
+    "half-remembered origin story repeated from site to site. The way to beat",
+    "that is not to write it better, it is to write it CHECKABLE, which is the",
+    "same thing /first-partner-illustration-collection.html and every price page",
+    "on this site do. So every historical claim below carries the source it came",
+    "from and the date that source was read, and the page prints all of it.",
+    "",
+    "NOTHING GOES IN HERE FROM MEMORY. The dish has a real documented origin, a",
+    "real family business behind it and a real federal trademark, so there is no",
+    "excuse for a recalled fact. If a claim cannot be sourced it is left out, and",
+    "several were: see `notSourced` below, which exists so nobody re-researches",
+    "them and so the page can say plainly what it does not know.",
+    "",
+    "THE PRIMARY SOURCES ARE THE GOOD ONES AND THEY ARE NAMED FIRST. The United",
+    "States Patent and Trademark Office publishes the whole trademark file, which",
+    "settles the date question the food writing keeps getting slightly wrong, and",
+    "Nick Tahou Hots' own fax order form is the business itself listing every",
+    "component of its own plate. Those two carry most of the page's weight.",
+    "",
+    "ROCHESTER NY ONLY, and its ring, exactly as data/shops.json says: ours are",
+    "146xx. Rochester MINNESOTA and Rochester MICHIGAN both exist and both",
+    "outrank us in a national search. Check the zip on every entry.",
+    "",
+    "HOURS ARE NOT PUBLISHED UNLESS THEY ARE CONFIRMED, same rule as shops.json,",
+    "and the cost of being wrong is the same: somebody drives across town to a",
+    "locked door. A confirmed hour is one the BUSINESS states about ITSELF on its",
+    "own site or its own ordering page. Yelp, Google, TripAdvisor and the",
+    "directories are not evidence and are not used here even once. Where the",
+    "hours are not confirmed the entry carries `hoursUnknown` and the page says",
+    "so in as many words rather than leaving a quiet blank.",
+    "",
+    "THE LIST IS A LIST AND NOT A RANKING, and `listNote` says how it was chosen.",
+    "Ordering somebody else's restaurants by quality is not a claim this site can",
+    "source, and it is not one the owner asked for either. Nick Tahou Hots is first",
+    "because it is the originator and holds the trademark, which is a fact rather",
+    "than a verdict; everything after it is alphabetical.",
+    "",
+    "THERE ARE PHOTOGRAPHS NOW, AND THE PARAGRAPH THAT USED TO SIT HERE IS WORTH",
+    "reading before you write another one like it. It said: \"This site has no",
+    "license for a photograph of a building or of a plate of food. A picture of a",
+    "restaurant is somebody's copyright, and Street View imagery is licensed in a",
+    "way a static site with no keys in it cannot meet.\" Every sentence of that is",
+    "still true. The CONCLUSION was not, and the failure is the one this file",
+    "warns about everywhere else: a true statement about the candidates somebody",
+    "had looked at got written as a statement about the subject. Restaurant sites,",
+    "food blogs and Street View had been looked at. Wikimedia Commons had not, and",
+    "it holds eleven photographs of this dish and of the restaurant it comes from,",
+    "ten of them CC BY, CC BY-SA or public domain.",
+    "",
+    "SO `photos` BELOW HOLDS TEN, added August 20, 2026, and every one was verified",
+    "by loading that file's OWN description page on Commons rather than trusting a",
+    "search result that claimed a license. The photographer, the license, the",
+    "license url, the file page and the date it was read sit beside every one, in",
+    "the same shape as `sources`, and scripts/sync-plate-photos.py re-reads all of",
+    "it from Commons on every run and refuses to write anything whose license,",
+    "author or license url has moved since. `photosRejected` says what was checked",
+    "and left out, and why, exactly as `checkedAndLeftOut` does for restaurants.",
+    "",
+    "CREDIT IS A CONDITION OF THE LICENCE AND IT IS PRINTED UNDER THE PICTURE.",
+    "CC BY and CC BY-SA both require the photographer's name, the license and a",
+    "LINK to that license. A photo record naming an attribution license with no",
+    "`licenseUrl` fails the build rather than rendering, because a credit we",
+    "cannot complete is a license we cannot meet.",
+    "",
+    "NOTHING IS CROPPED. Resizing and re-encoding for delivery is not an adapted",
+    "work under any of these licenses; cropping is, and four of the ten are",
+    "ShareAlike. Where the layout wants a 4:3 shape it gets it with object-fit,",
+    "which changes what is displayed and not what is distributed.",
+    "",
+    "THE OWNER'S OWN PHOTOGRAPHS ARE STILL THE BEST ANSWER for the eight restaurants",
+    "that have none. He photographs things for a living and lives here, and a",
+    "picture of Chili Hots or Fairport Hots does not exist under a free license",
+    "anywhere. The schema and the card layout take one the day it exists: add it",
+    "to `photos` with `where` set to \"place:<the name on the card>\".",
+    "",
+    "TWO DATES AND THEY ARE NOT INTERCHANGEABLE. `published` is the day this",
+    "page first went out, August 20, 2026, and it does not move again; `updated`",
+    "is the day the research was last re-read and it moves whenever anything in",
+    "here does. The Article node in scripts/build-garbage-plate.mjs spends the",
+    "first as datePublished and the second as dateModified, which is the pair",
+    "every other Article on the site carries. Do not point both at `updated`: a",
+    "page that claims it was written today every time somebody corrects a phone",
+    "number is telling a search engine it has no history."
+  ],
+  "published": "2026-08-20",
+  "updated": "2026-09-23",
+  "read": "2026-08-20",
+  "sources": [
+    {
+      "id": "uspto",
+      "kind": "primary",
+      "name": "United States Patent and Trademark Office, TSDR record for serial 74189085",
+      "url": "https://tsdr.uspto.gov/statusview/sn74189085",
+      "read": "2026-08-20",
+      "note": "The federal trademark file for GARBAGE PLATE. This is the government's own record and it is the only source on the page that cannot be a retelling of another source.",
+      "short": "USPTO trademark record"
+    },
+    {
+      "id": "nt-site",
+      "kind": "primary",
+      "name": "Nick Tahou Hots, garbageplate.com",
+      "url": "https://garbageplate.com/",
+      "read": "2026-08-20",
+      "note": "The restaurant's own site. Small, and it quotes Wikipedia for its own history, which is worth knowing before treating it as the last word on the founder.",
+      "short": "garbageplate.com"
+    },
+    {
+      "id": "nt-order",
+      "kind": "primary",
+      "name": "Nick Tahou Hots, printable fax order form",
+      "url": "https://garbageplate.com/images/orderform_mainstreet.pdf",
+      "read": "2026-08-20",
+      "note": "The business listing every component of its own Garbage Plate, in its own words, as boxes you tick. It is the best single source on the page for what is actually on one.",
+      "short": "Nick Tahou order form"
+    },
+    {
+      "id": "rgvrrm",
+      "kind": "local history",
+      "name": "Rochester & Genesee Valley Railroad Museum, \"Nick Tahou and the BR&P Connection\", Otto M. Vondrak, March 4, 2021",
+      "url": "https://rgvrrm.org/nick-tahou-and-the-brp-connection/",
+      "read": "2026-08-20",
+      "note": "A railroad museum on the building, which is the half of the story the food writing skips.",
+      "short": "Railroad museum, 2021"
+    },
+    {
+      "id": "tasting-table",
+      "kind": "interview",
+      "name": "Tasting Table, \"The Rochester Garbage Plate Is A Delicious Hot Mess\", Robyn Song, March 9, 2024",
+      "url": "https://www.tastingtable.com/1533662/rochester-garbage-plate-explained/",
+      "read": "2026-08-20",
+      "note": "On the record with Alex Tahou, the founder's grandson. Most of the family's quotes on this page come from here.",
+      "short": "Tasting Table, 2024"
+    },
+    {
+      "id": "wham-plates",
+      "kind": "news",
+      "name": "13WHAM, \"Rochester Red Wings to become the Rochester Plates to honor the Garbage Plate\", July 4, 2017",
+      "url": "https://13wham.com/news/local/rochester-red-wings-to-become-the-rochester-plates-to-honor-the-garbage-plate",
+      "read": "2026-08-20",
+      "note": "Local television on the ANNOUNCEMENT: it is dated July 4, 2017, five weeks before the game, so it is the source for the plan and for Dan Mason's words and not for the game having happened.",
+      "short": "13WHAM, 2017"
+    },
+    {
+      "id": "ny1-plates",
+      "kind": "news",
+      "name": "Spectrum News NY1, \"Red Wings serve up history as Rochester Plates\", August 10, 2017",
+      "url": "https://ny1.com/nyc/queens/news/2017/08/10/rochester-red-wings-garbage-plates",
+      "read": "2026-08-20",
+      "note": "Filed at 11:26pm on the night of the game itself, which is what makes it the source for the game having actually been played rather than only announced.",
+      "short": "Spectrum News, 2017"
+    },
+    {
+      "id": "visit-roc",
+      "kind": "tourism board",
+      "name": "Visit Rochester, \"What is That? A Guide to The Rochester Garbage Plate\"",
+      "url": "https://www.visitrochester.com/blog/post/rochester-garbage-plate/",
+      "read": "2026-08-20",
+      "note": "Monroe County's own tourism board. Useful for what a plate is generally understood to be around here, and for which restaurants it names.",
+      "short": "Visit Rochester"
+    },
+    {
+      "id": "dogtown-menu",
+      "kind": "primary",
+      "name": "dogTown Hots, its own menu",
+      "url": "https://dogtownhots.com/meaty-menu/",
+      "read": "2026-08-20",
+      "note": "The Monroe Avenue shop listing its own plates, under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. It is the only business on this page that files the dish under that word.",
+      "short": "dogTown menu"
+    },
+    {
+      "id": "steve-t",
+      "kind": "primary",
+      "name": "Steve T. Hots & Potatoes, stevethots.com",
+      "url": "https://stevethots.com/",
+      "read": "2026-08-20",
+      "note": "The other Tahou counter, on Lyell Avenue, and the second business on this page to publish its own plate build. Its menu states the rule in one line: two sides, and the hot sauce, mustard and onions come as standard.",
+      "short": "Steve T. menu"
+    },
+    {
+      "id": "bill-grays-gf",
+      "kind": "primary",
+      "name": "Bill Gray's, gluten free menu (PDF on their own site)",
+      "url": "https://www.billgrays.com/images_content/site1/files/menu/BG_Gluten_Free_Menu_2025.pdf",
+      "read": "2026-08-20",
+      "note": "A third independent statement of the same build, from a chain with thirteen locations: GREAT PLATES, described as a cheeseburger or hot dog served over 2 side orders.",
+      "short": "Bill Gray's menu"
+    },
+    {
+      "id": "nt-menu-2007",
+      "name": "Nick Tahou Hots, menu page on garbageplate.com, archived April 30, 2007",
+      "url": "https://web.archive.org/web/20070430233547/http://www.garbageplate.com:80/menu.html",
+      "note": "The restaurant's own menu from 2007, read through the Internet Archive. It describes the plate in the business's own words and prices every plate on it.",
+      "short": "Nick Tahou menu, 2007"
+    },
+    {
+      "id": "nt-menu-2009",
+      "name": "Nick Tahou Hots, menu page on garbageplate.com, archived February 25 and April 18, 2009",
+      "url": "https://web.archive.org/web/20090418152445/http://www.garbageplate.com:80/menu.html",
+      "note": "The same page two years on. The price rise sits between these two snapshots, which is how this page can date it.",
+      "short": "Nick Tahou menu, 2009"
+    },
+    {
+      "id": "nt-home-2007",
+      "name": "Nick Tahou Hots, home page on garbageplate.com, archived April 30, 2007",
+      "url": "https://web.archive.org/web/20070430233622/http://www.garbageplate.com:80/home.html",
+      "note": "The restaurant's own hours in 2007. Historical only.",
+      "short": "garbageplate.com, 2007"
+    },
+    {
+      "id": "rbj-1995",
+      "name": "Rochester Business Journal, \"Nick Tahou Hots adds link to chain\", Will Astor, September 29, 1995",
+      "url": "https://rbj.net/1995/09/29/nick-tahou-hots-adds-link-to-chain/",
+      "note": "The earliest piece found, and the only one with Nick Tahou himself interviewed.",
+      "short": "Rochester Business Journal, 1995"
+    },
+    {
+      "id": "saveur-2012",
+      "name": "Saveur, \"Glorious Mess: Rochester's Garbage Plates\", Brent Cox, March 23, 2012 (archived)",
+      "url": "https://web.archive.org/web/20120327160101/http://www.saveur.com:80/article/Travels/Rochester-NY-Garbage-Plate",
+      "note": "Read through the Internet Archive. Alex Tahou on the record about the founder and the sauce.",
+      "short": "Saveur, 2012"
+    },
+    {
+      "id": "milb-2017",
+      "name": "Rochester Red Wings on MiLB.com, \"Red Wings to become the Plates on August 10\", 2017",
+      "url": "https://www.milb.com/rochester/news/red-wings-to-become-the-plates-on-august-10-240398526",
+      "note": "The team's own release, quoting Alex Tahou about his grandfather and the shop's first name.",
+      "short": "Red Wings, 2017"
+    },
+    {
+      "id": "eater-2017",
+      "name": "Eater, \"How the Garbage Plate Became a Western New York Icon\", Meghan O'Dea, October 2, 2017",
+      "url": "https://www.eater.com/2017/10/2/16381302/rochester-garbage-plate",
+      "note": "Could not be fetched on August 20, 2026 and could on September 23. Fact-checked, and credited as such.",
+      "short": "Eater, 2017"
+    },
+    {
+      "id": "dc-2019",
+      "name": "Democrat and Chronicle, Red Wings Plates Thursdays and the mascot Mac, Will Cleveland, March 29, 2019 (archived)",
+      "url": "https://web.archive.org/web/20240422022419/https://www.democratandchronicle.com/story/news/2019/03/29/rochester-red-wings-garbage-plates-new-mascot-mac-frontier-field-thursdays-aaa-milb/3316306002/",
+      "note": "Read through the Internet Archive.",
+      "short": "Democrat and Chronicle, 2019"
+    },
+    {
+      "id": "dc-2020",
+      "name": "Democrat and Chronicle, \"How the Garbage Plate surpassed Kodak as Rochester's signature thing\", Jim Memmott, January 23, 2020 (archived)",
+      "url": "https://web.archive.org/web/20240421225215/https://www.democratandchronicle.com/story/news/2020/01/23/garbage-plate-rochester-ny-signature-dish-gets-props-jim-gaffigan-conan-obrien-nick-tahou-hots/4540227002/",
+      "note": "Read through the Internet Archive on September 23, 2026. It could not be fetched on August 20.",
+      "short": "Democrat and Chronicle, 2020"
+    },
+    {
+      "id": "dc-2021",
+      "name": "Democrat and Chronicle, the Today show segment and Nick Tahou Hots, Marcia Greenwood, November 11, 2021 (archived)",
+      "url": "https://web.archive.org/web/20240422022429/https://www.democratandchronicle.com/story/news/2021/11/11/nick-tahou-rochester-ny-today-show-segment-garbage-plate-andrew-rea-binging-with-babish/6385710001/",
+      "note": "Read through the Internet Archive.",
+      "short": "Democrat and Chronicle, 2021"
+    },
+    {
+      "id": "dc-2021-gallery",
+      "name": "Democrat and Chronicle, garbage plate variations gallery, March 17, 2021 (archived)",
+      "url": "https://web.archive.org/web/20240422022418/https://www.democratandchronicle.com/picture-gallery/lifestyle/rocflavors/2021/03/17/garbage-plate-variations/6953758002/",
+      "note": "A 2021 snapshot of the riffs around town. None of them was re-checked with the business.",
+      "short": "Democrat and Chronicle gallery, 2021"
+    },
+    {
+      "id": "dc-2010",
+      "name": "Democrat and Chronicle, Nick Tahou Hots opens in Henrietta, August 3, 2010 (archived)",
+      "url": "https://web.archive.org/web/20140222161124/http://www.democratandchronicle.com/article/20100803/BUSINESS/8030311",
+      "note": "Read through the Internet Archive.",
+      "short": "Democrat and Chronicle, 2010"
+    },
+    {
+      "id": "spectrum-2020",
+      "name": "Spectrum News 1, Jim Gaffigan's first garbage plate, January 14, 2020",
+      "url": "https://spectrumlocalnews.com/nys/rochester/community/2020/01/14/the-best-garbage-plate-in-rochester--comedian-jim-gaffigan-opted-for-the-original-",
+      "note": "What one famous first-timer actually ordered.",
+      "short": "Spectrum News, 2020"
+    },
+    {
+      "id": "fox-2023",
+      "name": "Fox News Digital, \"Garbage Plates: the story behind a favorite late-night dish\", Perri Blumberg, September 19, 2023 (archived)",
+      "url": "https://web.archive.org/web/20240218124611/https://www.foxnews.com/lifestyle/garbage-plates-story-behind-favorite-late-night-dish-college-students-how-make-version",
+      "note": "Quotes Visit Rochester and a Rochester, NY bar owner on the sauce.",
+      "short": "Fox News, 2023"
+    },
+    {
+      "id": "scripps-2023",
+      "name": "Scripps News, \"Got a hangover? Why this Garbage Plate may be the cure\", August 4, 2023 (archived)",
+      "url": "https://web.archive.org/web/20240422023419/https://scrippsnews.com/stories/got-a-hangover-why-this-garbage-plate-may-be-the-cure/",
+      "note": "A press price for the original, since the restaurant publishes none.",
+      "short": "Scripps News, 2023"
+    },
+    {
+      "id": "health-2010",
+      "name": "Health.com, \"50 Fattiest Foods in the States\", archived July 2, 2010",
+      "url": "https://web.archive.org/web/20100702145418/http://www.health.com/health/gallery/0,,20393387_33,00.html",
+      "note": "The only calorie source found, and it says there is no official analysis.",
+      "short": "Health.com, 2010"
+    },
+    {
+      "id": "zweigles-faq",
+      "name": "Zweigle's, frequently asked questions",
+      "url": "https://zweigles.com/about/faqs/",
+      "note": "The Rochester, NY sausage maker whose red and white hots most plate kitchens name on their menus.",
+      "short": "Zweigle's FAQ"
+    },
+    {
+      "id": "zweigles-white",
+      "name": "Zweigle's, \"This is everything you need to know about white hots\"",
+      "url": "https://zweigles.com/this-is-everything-you-need-to-know-about-white-hots/",
+      "note": "Zweigle's on how a white hot is dressed in Rochester, NY.",
+      "short": "Zweigle's on white hots"
+    },
+    {
+      "id": "zweigles-history",
+      "name": "Zweigle's, company history",
+      "url": "https://zweigles.com/about/history/",
+      "note": "Founded 1880, in its own words.",
+      "short": "Zweigle's history"
+    },
+    {
+      "id": "rpl-white-hot",
+      "name": "Rochester Public Library Local History, \"The Missing Link: the origins and evolution of the white hot\", August 26, 2021",
+      "url": "https://rochistory.wordpress.com/2021/08/26/the-missing-link-the-origins-and-evolution-of-the-white-hot/",
+      "note": "The library's own local history division, and the reason this page will not say who invented the white hot.",
+      "short": "Rochester Public Library, 2021"
+    },
+    {
+      "id": "dogtown-veggie",
+      "name": "dogTown Hots, its own veggie menu",
+      "url": "https://dogtownhots.com/veggie-menu/",
+      "note": "The veggie plates, and what 'everything' means on them.",
+      "short": "dogTown veggie menu"
+    },
+    {
+      "id": "empire-menu",
+      "name": "Empire Hots, its own menu",
+      "url": "https://empirehots.com/webster-empire-hots-food-menu",
+      "note": "Trash plates, a meatless plate, and a build-your-own catering kit.",
+      "short": "Empire Hots menu"
+    },
+    {
+      "id": "fairport-menu",
+      "name": "Fairport Hots, its own menu",
+      "url": "https://fairporthots.com/restaurant-menu/",
+      "note": "Plates, eggs on any plate, and their hot sauce by the quart.",
+      "short": "Fairport Hots menu"
+    },
+    {
+      "id": "pgh-2024",
+      "name": "Pittsburgh Magazine, \"A Pittsburgh restaurant is now serving garbage-plate-style dishes\", February 12, 2024",
+      "url": "https://www.pittsburghmagazine.com/a-pittsburgh-restaurant-is-now-serving-garbage-plate-style-dishes/",
+      "note": "A press report, not re-checked with the business.",
+      "short": "Pittsburgh Magazine, 2024"
+    },
+    {
+      "id": "westword-2024",
+      "name": "Denver Westword, \"ShaWING is dishing up garbage plates in Denver\", March 4, 2024",
+      "url": "https://www.westword.com/restaurants/shawing-food-truck-garbage-plate-17211629",
+      "note": "A press report, not re-checked with the business.",
+      "short": "Westword, 2024"
+    }
+  ],
+  "history": [
+    {
+      "year": "1918",
+      "head": "A hot dog stand on West Main Street",
+      "body": "Nick Tahou Hots dates itself to 1918, and it is the restaurant itself saying so: the front page of its own site carries the line \"A Rochester tradition since 1918!\" and not much else. The first shop stood a block away, at 296 West Main Street, and the family says it began as a pushcart. What it was called first is reported two ways: West Main Texas Hots in most accounts, and Hots and Potatoes in the Democrat and Chronicle's 2020 piece. Alex Tahou's own 2017 words use Hots and Potatoes, but it is not clear from them whether he meant the shop or the dish.",
+      "src": [
+        "nt-site",
+        "rbj-1995",
+        "tasting-table",
+        "dc-2020",
+        "milb-2017"
+      ]
+    },
+    {
+      "year": "Who founded it",
+      "head": "Nick's father founded it, and who invented the plate is still open",
+      "body": "This page used to print this as a coin toss. It is not one anymore. Nick Tahou Hots' own site quotes Wikipedia saying the restaurant \"was founded by its namesake, Nick Tahou\", but every first-hand family source this page could read says otherwise. Nick told the Rochester Business Journal in 1995 that his father came from Greece shortly after 1900, started the business with a pushcart and died in 1942, which is when Nick took over and put his own name on it. Saveur in 2012, Eater in 2017, the Democrat and Chronicle in 2020 and Tasting Table in 2024 all name that father as Alexander, or Alex, Tahou. So the founder was Alexander, and the site's line is best read as a garbled account of Nick's decades running it. WHO INVENTED THE PLATE is the part that stays open: the 1995 piece credits Nick, and Nick's son Alex credits his grandfather Alexander with what became it. The dish grew over decades, so it probably does not have a single inventor to find.",
+      "src": [
+        "nt-site",
+        "rbj-1995",
+        "saveur-2012",
+        "eater-2017",
+        "dc-2020",
+        "tasting-table"
+      ]
+    },
+    {
+      "year": "1942",
+      "head": "Nick takes over and his name goes on the sign",
+      "body": "Nick Tahou followed his father from Greece in the 1930s and took the business over when his father died in 1942. The shop went from West Main Texas Hots to Nick Tahou's Texas Hots, and by the late 1970s to Nick Tahou Hots, Inc. Nick retired around 1990 and handed the counter to his son, also Alex, who still runs it.",
+      "src": [
+        "rbj-1995",
+        "tasting-table"
+      ]
+    },
+    {
+      "year": "The original",
+      "head": "It was hots and potatoes, and the beans were cold",
+      "body": "The dish did not start as a Garbage Plate and did not start with most of what is on one now. Alex Tahou, the founder's grandson, described the original to Tasting Table in 2024.",
+      "src": [
+        "tasting-table"
+      ],
+      "quote": "The original plate was hot dogs called hots and potatoes. It was hot dogs, home fries, cold beans, not hot, and two pieces of Italian bread and butter",
+      "quoteSrc": "tasting-table",
+      "quoteWho": "Alex Tahou"
+    },
+    {
+      "year": "1963 and 1968",
+      "head": "The restaurant moved into a railroad station",
+      "body": "The building at 320 West Main Street was never built to be a restaurant. The Rochester & Genesee Valley Railroad Museum records that its oldest part went up in 1877 as offices for the Pitkin Building and Monumental Steam Stone Works, that the railroad bought it in 1881 and expanded it into a passenger terminal, and that the Buffalo, Rochester & Pittsburgh became part of the Baltimore & Ohio system in 1932. Tahou bought the station in September 1963 for $43,000, and the move down the block waited until the original shop was demolished in 1968.",
+      "src": [
+        "rgvrrm"
+      ]
+    },
+    {
+      "year": "1979 to 2014",
+      "head": "The other Nick Tahou's",
+      "body": "West Main Street was not always the only one. A Nick Tahou Hots II opened on Lyell Avenue in 1979 and became Steve T. Hots & Potatoes in 2007, run by Nick's nephew, which is why that counter still sells the dish under its first name. A third shop opened next to SUNY Oswego in September 1995. And a Henrietta branch at 3070 West Henrietta Road opened on August 3, 2010 and closed in 2014. Today the restaurant's own site lists West Main Street and nothing else.",
+      "src": [
+        "rbj-1995",
+        "eater-2017",
+        "dc-2010",
+        "nt-site"
+      ]
+    },
+    {
+      "year": "The name",
+      "head": "College kids named it, and the family fought it",
+      "body": "Nobody at the restaurant chose the word. Students coming out of the bars would point at somebody else's dinner and order it by description, and the description stuck hard enough that the family gave up and put it on the sign. Eater and Alex Tahou himself date that to the 1980s; Tasting Table says the 1970s or 80s. The family did not like it at first, and told the Democrat and Chronicle so in six words: \"It's food; it doesn't sound good.\"",
+      "src": [
+        "tasting-table",
+        "eater-2017",
+        "milb-2017",
+        "dc-2020"
+      ],
+      "quote": "Guys would come in after drinking, and they'd see somebody that had a plate, have no idea what it was, and just say, give me a plate with all that garbage on it",
+      "quoteSrc": "tasting-table",
+      "quoteWho": "Alex Tahou"
+    },
+    {
+      "year": "1991 to 1992",
+      "head": "GARBAGE PLATE became a federal trademark",
+      "body": "This is the part of the story that is written down in a government file rather than retold, and the dates in that file are worth having exactly right. Nick Tahou Hots, Inc. of 320 West Main Street filed for the mark GARBAGE PLATE on July 29, 1991. It registered on August 18, 1992 as registration number 1,708,448 on the Principal Register, in class 29, and it is still live, renewed in 2002, in 2012 and most recently on May 9, 2022. The owner on file is still Nick Tahou Hots, Inc. of 320 West Main Street. One detail the food writing never mentions: the mark covers the prepared dish, in trademark class 29, and not restaurant services.",
+      "src": [
+        "uspto"
+      ],
+      "quote": "prepared entrees consisting primarily of one of the following, hot dogs without buns, hamburgers without buns, steak, pork chops, sausage, ham, fish or eggs and processed potatoes and processed beans",
+      "quoteSrc": "uspto",
+      "quoteWho": "the registration's own description of the goods"
+    },
+    {
+      "year": "Ever since",
+      "head": "Which is why everybody else sells a trash plate",
+      "body": "One restaurant owns the name, so every other kitchen in Rochester, NY serving the same idea calls it something else. Trash plate, Rochester plate, sloppy plate, junkyard plate at dogTown, and at the vegan place, a compost plate. The dish is nobody's property and the two words are, which is the whole reason the menus around here read like a thesaurus. Alex Tahou put the position plainly in 2024.",
+      "src": [
+        "tasting-table",
+        "uspto",
+        "dogtown-menu"
+      ],
+      "quote": "We're trademarked, and we're still the only garbage plate",
+      "quoteSrc": "tasting-table",
+      "quoteWho": "Alex Tahou"
+    },
+    {
+      "year": "2017",
+      "head": "The baseball team renamed itself after it",
+      "body": "For one home game on August 10, 2017 the Rochester Red Wings played as the Rochester Plates, in caps and jerseys with a Garbage Plate on them. 13WHAM carried the announcement five weeks out and Spectrum News NY1 filed from the ballpark on the night, which is how this page knows the game was played and not just planned. Their general manager Dan Mason told 13WHAM why, and it is as good a one-line summary of the dish's standing in this city as anybody has managed. It did not stay a one-off. The Plates became every Thursday home game in 2018, and in 2019 the team added a mascot, a garbage can named Mac.",
+      "src": [
+        "wham-plates",
+        "ny1-plates",
+        "milb-2017",
+        "dc-2019"
+      ],
+      "quote": "There is nothing more Rochester than the Garbage Plate. There isn't another food item that Rochesterians are more proud of or that is more celebrated in our city than the Garbage Plate and we can't wait to take the field as the Plates!",
+      "quoteSrc": "wham-plates",
+      "quoteWho": "Dan Mason, Red Wings general manager"
+    },
+    {
+      "year": "2021",
+      "head": "The time television said it was closed",
+      "body": "On November 11, 2021 a Today show segment by Andrew Rea, who makes Binging with Babish, said Nick Tahou Hots was closed. It was not. The restaurant said so loudly, called the segment trademark infringement and said the only Garbage Plate is one from its own kitchen. Rea apologized and donated to the restaurant's fundraiser. In 2024 Alex Tahou told Tasting Table he does not object to other kitchens selling their own version, and that the family was trying to license the name to somebody.",
+      "src": [
+        "dc-2021",
+        "tasting-table"
+      ]
+    }
+  ],
+  "notSourced": [
+    "WHEN THE FIRST GARBAGE PLATE WAS SERVED. Not the restaurant, the dish. Nothing reachable states a date for it, the accounts that give one give a decade, and the trademark file records when the NAME was filed rather than when the food was first sold. So this page dates the restaurant and the trademark and says openly that the dish's own start date is not documented.",
+    "THAT THE PLATE IS 100 YEARS OLD. 13WHAM's 2017 story says the Garbage Plate marked its 100th anniversary that year, which would put it at 1917, while the restaurant dates ITSELF to 1918 and the dish was called something else for most of a century. An anniversary of the shop is not an anniversary of the dish and this page does not merge them.",
+    "CALORIE COUNTS. Numbers between 1,000 and 3,000 are quoted all over the internet for a plate. No restaurant publishes one, and the only source that tried, Health.com in 2010, says in so many words that there is no official dietary analysis and then quotes outside guesses of 93 to 203 grams of fat. The plate is built to order out of four sides and ten meats, so there is no single dish to count, and this site does not print a number it cannot source.",
+    "WHO INVENTED THE WHITE HOT. Zweigle's is the name on most plate menus, and a Red Wings release in 2025 says Zweigle's first made one in 1925. The Rochester Public Library's local history division says the first white hots came from the Ottman Brothers on Front Street and were already popular by 1921, and Zweigle's own site says only that the white hot began in the 1920s and that it was one of the first to make them commercially. This page does not pick one.",
+    "HOW MANY PLACES SELL ONE. The Democrat and Chronicle says scores, Tasting Table says dozens, Visit Rochester says the list is long, and nobody gives a number. The directory on this site is the closest thing to a count, and it only counts places whose own menus say so."
+  ],
+  "anatomy": {
+    "intro": "There is no fixed recipe, which is the first thing to understand about it. A plate is assembled to order out of a short list of parts, and the list below is Nick Tahou Hots' own: every item on it is a box you tick on the order form the restaurant publishes for phone and fax orders.",
+    "srcNote": "Read off Nick Tahou Hots' own printable order form on August 20, 2026, plus Visit Rochester's description of what a traditional plate is.",
+    "layers": [
+      {
+        "n": 1,
+        "name": "Sides, on the bottom",
+        "what": "Macaroni salad, home fries, french fries or baked beans. Those four are the whole list on Nick Tahou Hots' order form and you tick the ones you want. Their own 2007 menu said \"any combination\" of them, and in 1995 it was any two or three. Everywhere else two is the number: Steve T. Hots & Potatoes prints \"Choice of 2 with plates\", and Bill Gray's serves its plates over 2 side orders. Macaroni salad and home fries is the pair most people mean when they say a plate.",
+        "src": [
+          "nt-order",
+          "nt-menu-2007",
+          "rbj-1995",
+          "steve-t",
+          "bill-grays-gf"
+        ]
+      },
+      {
+        "n": 2,
+        "name": "The meat, on top of the sides",
+        "what": "Cheeseburger, hamburger, red hot dog, white hot dog, Italian sausage, chicken tender, fried ham, fish fry, grilled cheese, or the veggie plate. Ten choices on the order form, and the red and white hots are a Rochester, NY distinction rather than a typo: a white hot is a pale pork, beef and veal dog that is a local thing in its own right.",
+        "src": [
+          "nt-order",
+          "visit-roc"
+        ]
+      },
+      {
+        "n": 3,
+        "name": "Hot sauce, poured over the lot",
+        "what": "The order form calls it Nick's Hot Sauce and it is the thing that makes the plate a plate rather than a tray of sides. It is a loose spiced ground meat sauce, and it goes over the whole plate rather than on one part of it. Fairport Hots is famous, in its own words, for its \"Homemade Meat Hot Sauce\", which tells you where the argument is around here.",
+        "src": [
+          "nt-order"
+        ]
+      },
+      {
+        "n": 4,
+        "name": "Chopped raw onions",
+        "what": "A tick box on Nick Tahou Hots' order form, and standard unless you say otherwise. Steve T. Hots & Potatoes puts it beyond doubt on its own menu: \"On plates, everything includes: Hot Sauce, Mustard, Onions\".",
+        "src": [
+          "nt-order",
+          "steve-t"
+        ]
+      },
+      {
+        "n": 5,
+        "name": "Mustard",
+        "what": "The other tick box, and the other third of that same Steve T. line. Nick Tahou's own menu calls it spicy mustard, striped over the top.",
+        "src": [
+          "nt-order",
+          "nt-menu-2007",
+          "steve-t"
+        ]
+      },
+      {
+        "n": 6,
+        "name": "Bread and butter, on the side",
+        "what": "Italian bread, buttered. Steve T. Hots & Potatoes says its plates are \"Served with Italian Bread or Rolls\", and Visit Rochester says a plate is usually served with a side of buttered bread. Alex Tahou's account of the original hots and potatoes has two pieces of Italian bread and butter on it as well, so this is the part of the dish that never changed.",
+        "src": [
+          "tasting-table",
+          "visit-roc",
+          "steve-t"
+        ]
+      }
     ]
-   },
-   {
-    "n": 2,
-    "name": "The meat, on top of the sides",
-    "what": "Cheeseburger, hamburger, red hot dog, white hot dog, italian sausage, chicken tender, fried ham, fish fry, grilled cheese, or the veggie plate. Ten choices on the order form, and the red and white hots are a Rochester, NY distinction rather than a typo: a white hot is a pale pork, beef and veal dog that is a local thing in its own right.",
-    "src": [
-     "nt-order",
-     "visit-roc"
+  },
+  "listNote": "This is a directory, not a ranking. Nick Tahou Hots is first because it is where the dish comes from and it holds the trademark, which is a matter of record rather than an opinion about dinner. Everything else is in alphabetical order inside its area. Nobody paid to be on it and there are no affiliate links on this site.",
+  "listRule": "A place goes on this list only if its OWN site, its OWN online menu or an ordering page it runs says it serves a plate. A food blog or a directory saying so is not evidence that a kitchen still makes one.",
+  "places": [
+    {
+      "origin": true,
+      "name": "Nick Tahou Hots",
+      "area": "West Main Street, downtown",
+      "plateName": "Garbage Plate",
+      "blurb": "Where it comes from and the only kitchen on earth entitled to those two words. It is in the old Buffalo, Rochester & Pittsburgh railroad terminal, a block from Frontier Field, and it has been on this street since 1918.",
+      "address": "320 W. Main St., Rochester, NY 14608",
+      "phone": "585-436-0184",
+      "hoursUnknown": "Their own site publishes none, and it has not been updated since 2021.",
+      "url": "https://garbageplate.com/",
+      "menuUrl": "https://garbageplate.com/images/orderform_mainstreet.pdf",
+      "menuLabel": "Order form",
+      "note": "The Henrietta branch opened on August 3, 2010 and closed in 2014, and the Lyell Avenue shop became Steve T. in 2007. Their own site lists West Main and nothing else.",
+      "group": "city",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Bill Gray's",
+      "area": "Thirteen locations",
+      "plateName": "Great Plates",
+      "platePrice": "$15.99",
+      "blurb": "A local chain with thirteen shops across the county. Its ordering menu lists fifteen Great Plates at $15.99 each, all served with a choice of two sides and toppings, including an Impossible Burger plate, a veggie burger plate and a grilled cheese plate.",
+      "phone": "",
+      "hoursUnknown": "Their locations page lists thirteen addresses and no hours for any of them.",
+      "url": "https://www.billgrays.com/",
+      "menuUrl": "https://billgrays.orderexperience.net/billgrays/menu",
+      "menuLabel": "Menu",
+      "note": "No single address here on purpose: it is thirteen shops and picking one would send you past two others.",
+      "group": "chain",
+      "tags": [
+        "veg"
+      ],
+      "locations": [
+        "Brockport",
+        "Chili, 3240 Chili Ave",
+        "Gates, 2987 Buffalo Rd",
+        "Latta Road, 2050 Latta Rd",
+        "North Greece Road, 1177 N Greece Rd",
+        "Henrietta, 1225 Jefferson Rd",
+        "Irondequoit, 869 E Ridge Rd",
+        "Ontario",
+        "Penfield, 1650 Penfield Rd",
+        "Port of Rochester, 1000 N River St",
+        "Seabreeze, 4870 Culver Rd",
+        "Strong Museum, 1 Manhattan Sq",
+        "Webster, 964 Ridge Rd"
+      ],
+      "locationsUrl": "https://www.billgrays.com/index.cfm?Page=Locations",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Chili Hots",
+      "area": "Chili Avenue, Chili",
+      "plateName": "Cheeseburger Plate and twelve more",
+      "platePrice": "$10.00 to $18.50",
+      "blurb": "A fully priced menu of thirteen plates, from a $10 Jr Plate up to an $18.50 Shaved Steak Plate, counting a meatless plate, a half plate and a split plate for anyone who has been sensibly warned.",
+      "address": "3774 Chili Ave, Rochester, NY 14624",
+      "phone": "(585) 534-8649",
+      "hoursSrc": "https://chilihots.com/",
+      "url": "https://chilihots.com/",
+      "menuUrl": "https://chilihots.com/menu",
+      "group": "west",
+      "tags": [
+        "veg"
+      ],
+      "hoursSpec": "mon-sat 11:00-22:00; sun 12:00-22:00",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "dogTown Hots",
+      "area": "Monroe Avenue",
+      "plateName": "Dog Plate, Cheeseburger Plate, Split Plate",
+      "blurb": "The Monroe Avenue hot dog shop, and a hot dog shop with a whole veggie menu, three-bean chili and all, that people order from on purpose. Their own site says \"Best Rochester Plate 10+ Years Winner!\"",
+      "address": "691 Monroe Ave, Rochester, NY 14607",
+      "phone": "585-271-6620",
+      "hoursUnknown": "Their own site reads \"Open 11AM to 10:45pm Daily Closed Sundays\", which cannot be both, so this page will not pick one for you.",
+      "url": "https://dogtownhots.com/",
+      "menuUrl": "https://dogtownhots.com/meaty-menu/",
+      "note": "Their own menu files the dish under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. The individual plates on those lists are named for the meat, and they publish no prices.",
+      "group": "city",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Empire Hots",
+      "area": "Empire Boulevard, Webster",
+      "plateName": "Trash Plate",
+      "platePrice": "$13.39 to $17.79",
+      "blurb": "Calls itself Home of the Trash Plate on its own front page, and backs it with twelve of them on the menu. It is a clear example of what the trademark actually does to a menu: same dish, different two words.",
+      "address": "2209 Empire Boulevard, Webster, NY 14580",
+      "phone": "(585) 787-2110",
+      "hoursSrc": "https://empirehots.com/",
+      "url": "https://empirehots.com/",
+      "menuUrl": "https://empirehots.com/webster-empire-hots-food-menu",
+      "group": "east",
+      "tags": [
+        "veg"
+      ],
+      "hoursSpec": "sun-thu 11:00-22:00; fri-sat 11:00-24:00",
+      "note": "Also sells a build-your-own plate kit for 25 people or more at $12 a head.",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Fairport Hots",
+      "area": "Fairport Road, Fairport",
+      "plateName": "Godfather Plate, Varsity Plate, Jr. Varsity",
+      "platePrice": "$12.99 to $19.79",
+      "blurb": "East side, open late, and it sizes its plates like a football roster. So does Farmington Hots. The Godfather is four hots or burgers. In its own words it is \"Famous for our Hot Plates, Fish Fry's, and Homemade Meat Hot Sauce.\"",
+      "address": "1226 Fairport Rd, Fairport, NY 14450",
+      "phone": "(585) 586-4540",
+      "hoursSrc": "https://fairporthots.com/",
+      "url": "https://fairporthots.com/",
+      "menuUrl": "https://fairporthots.com/restaurant-menu/",
+      "group": "east",
+      "tags": [
+        "veg",
+        "breakfast"
+      ],
+      "hoursSpec": "sun-wed 10:30-23:30; thu 10:30-24:00; fri-sat 10:30-01:00",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Henrietta Hots",
+      "area": "West Henrietta Road, Henrietta",
+      "plateName": "Plates",
+      "blurb": "The one nearest RIT, which is most of the explanation. Zweigle's hots, a Friday fish fry, and plates their own site calls signature without naming or pricing them. A Hots food truck is available for catering.",
+      "address": "4018 West Henrietta Road, Rochester, NY 14623",
+      "phone": "(585) 424-4687",
+      "hoursSrc": "https://henriettahots.com/",
+      "url": "https://henriettahots.com/",
+      "menuUrl": "https://www.clover.com/online-ordering/henrietta-hots-rochester-3",
+      "menuLabel": "Order online",
+      "group": "south",
+      "hoursSpec": "mon-tue 11:00-23:00; wed-sat 11:00-24:00; sun 11:00-22:00",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Jeremiah's Tavern",
+      "area": "Monroe Avenue, plus Henrietta, Greece and Penfield",
+      "plateName": "The 1104 Plate",
+      "platePrice": "$17.50",
+      "blurb": "A tavern rather than a hots counter, so you can sit down with a beer. The plate is named after the address: two cheeseburgers, macaroni salad and french fries under burger hot sauce, mustard and onions.",
+      "address": "1104 Monroe Ave, Rochester, NY 14620",
+      "phone": "585-461-1313",
+      "hoursSrc": "https://jeremiahstavern.com/locations/",
+      "url": "https://jeremiahstavern.com/",
+      "menuUrl": "https://jeremiahstavern.com/menu/",
+      "group": "city",
+      "tags": [
+        "bar"
+      ],
+      "hoursSpec": "sun-wed 11:00-23:00; thu-sat 11:00-24:00",
+      "hoursNote": "Monroe Avenue's hours; the kitchen closes at 10pm Sunday to Wednesday and 11pm Thursday to Saturday.",
+      "locations": [
+        "Monroe Avenue, 1104 Monroe Ave",
+        "Penfield, 2164 Fairport Nine Mile Point Road, Fairport",
+        "Henrietta, 1175 Jefferson Rd",
+        "Greece, 300 Paddy Creek Cir"
+      ],
+      "locationsUrl": "https://jeremiahstavern.com/locations/",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "The Red Fern",
+      "area": "Oxford Street, off Park Avenue",
+      "plateName": "Compost Plate",
+      "blurb": "A hundred percent vegan restaurant whose own site has described the Compost Plate as its healthy version of the Rochester, NY original. It is the best named plate in the city, and the only one on this list where the whole kitchen is vegan rather than one line of the menu.",
+      "address": "283 Oxford Street, Rochester, NY 14607",
+      "phone": "585-563-7633",
+      "hoursSrc": "https://redfernrochester.com/contact/",
+      "url": "https://redfernrochester.com/",
+      "menuUrl": "https://redfernrochester.com/menu/",
+      "note": "Last seating is fifteen minutes before close, which their own contact page says and which is easy to lose an evening to.",
+      "group": "city",
+      "tags": [
+        "veg"
+      ],
+      "hoursSpec": "tue-thu 11:00-21:00; fri-sat 11:00-21:30; sun-mon closed",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Rohrbach Brewing Company",
+      "area": "Buffalo Road brewpub, Gates",
+      "plateName": "Rohrbach Classic Plate",
+      "platePrice": "$16.00",
+      "blurb": "A brewery that put a plate on the menu, which around here counts as civic duty. There is a Bourbon Fried Chicken Plate at $17 and a Das German Plate at $22 beside it.",
+      "address": "3859 Buffalo Road, Rochester, NY 14624",
+      "phone": "585-594-9800",
+      "hoursSrc": "https://www.rohrbachs.com/buffalo-rd-brewpub",
+      "url": "https://www.rohrbachs.com/buffalo-rd-brewpub",
+      "menuUrl": "https://www.rohrbachs.com/buffalo-rd-brewpub",
+      "note": "The Buffalo Road brewpub only. Their Railroad Street beer hall is a different menu with no plate on it, and the kitchen closes an hour before the bar does.",
+      "group": "west",
+      "tags": [
+        "bar"
+      ],
+      "hoursSpec": "mon 11:00-21:00; tue-thu 11:00-23:00; fri 11:00-24:00; sat 11:30-24:00; sun 12:00-21:00",
+      "hoursNote": "The kitchen closes an hour before the bar.",
+      "read": "2026-09-23"
+    },
+    {
+      "name": "Steve T. Hots & Potatoes",
+      "area": "Lyell Avenue, Gates",
+      "plateName": "Hots and Potatoes, and thirteen more",
+      "platePrice": "$11.50 to $16.50",
+      "blurb": "The other Tahou counter, and the one still selling the dish under its original name: Hots and Potatoes, $15.00. Fourteen plates in all, from an $11.50 meatless one to a pizza log plate, and open until 3:30am on a Friday, which is the hour this whole dish was invented for.",
+      "address": "2260 Lyell Ave, Rochester, NY 14606",
+      "phone": "585-429-6388",
+      "hoursSrc": "https://stevethots.com/",
+      "url": "https://stevethots.com/",
+      "menuUrl": "https://stevethots.com/",
+      "note": "Their own site says the dining room stops seating at 1am on Friday and Saturday nights, so past that it is a counter and a car.",
+      "group": "west",
+      "tags": [
+        "veg",
+        "breakfast"
+      ],
+      "hoursSpec": "sun-thu 10:00-24:00; fri-sat 10:00-03:30",
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Vasko's on Park",
+      "area": "Park Avenue",
+      "plateName": "Plates, fifteen of them",
+      "blurb": "\"Rochester's trash plate tradition\", in their words, built on a family meat sauce recipe. Fifteen plates including a veggie dog, a veggie burger and a meatless one, and open until 2:30am on Friday and Saturday.",
+      "address": "266 Park Ave, Rochester, NY 14607",
+      "phone": "(585) 340-6733",
+      "hoursSpec": "tue-thu 16:00-24:00; fri 16:00-02:30; sat 12:00-02:30; sun 12:00-20:00; mon closed",
+      "hoursSrc": "https://vaskosonpark.com/",
+      "url": "https://vaskosonpark.com/",
+      "menuUrl": "https://vaskosonpark.com/menu",
+      "tags": [
+        "veg"
+      ],
+      "note": "Their menu prints no prices and points at the delivery apps instead. The owner's parents ran Taci's Irondequoit Hots.",
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Culver Hots",
+      "area": "Culver Road, at the Irondequoit line",
+      "plateName": "Culver Plates",
+      "platePrice": "$11.50, half plate $8.25",
+      "blurb": "Culver Plates of cheeseburgers, hots, chicken fingers, shrimp or a mixed burger and dog, a half plate, and a Sunday plate special for pick-up.",
+      "address": "2286 Culver Rd, Rochester, NY 14609",
+      "phone": "(585) 342-4687",
+      "hoursUnknown": "Their ordering site publishes no hours.",
+      "url": "http://www.culverhots.net/",
+      "menuUrl": "http://www.culverhots.net/menu",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Marshall Street Bar & Grill",
+      "area": "Marshall Street, East End",
+      "plateName": "Volcano Plates",
+      "platePrice": "$15.00 to $20.00",
+      "blurb": "A bar that turned the plate into a volcano: fries, mac salad, jalapeno queso and hot meat, from the one-meat Vesuvius to the Kilauea with two meats, chicken fingers and a sloppy joe. There is a veggie sloppy joe.",
+      "address": "81 Marshall St, Rochester, NY 14607",
+      "phone": "(585) 325-2191",
+      "hoursSpec": "mon 16:00-01:00; tue-sat 11:00-01:00; sun 12:00-01:00",
+      "hoursSrc": "https://marshallstreetbarandgrill.com/",
+      "url": "https://marshallstreetbarandgrill.com/",
+      "menuUrl": "https://marshallstreetbarandgrill.com/rochester-monroe-ave-marshall-street-bar-and-grill-food-menu",
+      "tags": [
+        "bar",
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "The Gate House",
+      "area": "North Goodman Street, Village Gate",
+      "plateName": "The Gate Plate",
+      "platePrice": "$22.00, Veggie Gate Plate $20.00",
+      "blurb": "The dressed-up one: a half-pound burger over mac salad and garlic rosemary fries, with meat hot sauce, onion rings and cheddar on top.",
+      "address": "274 North Goodman Street, Rochester, NY 14607",
+      "phone": "(585) 473-2090",
+      "hoursSpec": "mon closed; tue-thu 11:30-22:00; fri 11:30-23:00; sat 11:00-23:00; sun 11:00-21:00",
+      "hoursSrc": "https://thegatehousecafe.com/",
+      "url": "https://thegatehousecafe.com/",
+      "menuUrl": "https://thegatehousecafe.com/food-menu",
+      "tags": [
+        "bar",
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Genesee Brew House",
+      "area": "Cataract Street, High Falls",
+      "plateName": "Genny Plates",
+      "platePrice": "$18 to $21",
+      "blurb": "The brewery's own, filed under Genny Plates: two Zweigle's hots, red, white or one of each, under Brew House meat hot sauce and onions over mac salad and fries, with the falls out the window.",
+      "address": "25 Cataract St, Rochester, NY 14605",
+      "phone": "(585) 263-9200",
+      "hoursSpec": "sun-thu 11:00-22:00; fri-sat 11:00-23:00",
+      "hoursSrc": "https://www.geneseebeer.com/brewhouse/",
+      "url": "https://www.geneseebeer.com/brewhouse/",
+      "menuUrl": "https://www.geneseebeer.com/pdf/GBH-Menu.pdf",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "The Old Stone Tavern",
+      "area": "South Avenue, South Wedge",
+      "plateName": "Big Plates",
+      "platePrice": "$12.50 to $17.95",
+      "blurb": "Their take on the Rochester, NY classic, in their words: tots or fries, homemade mac salad, their meat hot sauce, mustard and onion, with nine choices that run to a Beyond Burger and cauliflower bites.",
+      "address": "758 South Ave, Rochester, NY 14620",
+      "phone": "(585) 448-1148",
+      "hoursUnknown": "Their site and their menus print no hours.",
+      "url": "https://www.theoldstonetavern.com/",
+      "menuUrl": "https://www.theoldstonetavern.com/s/main_menu.pdf",
+      "tags": [
+        "bar",
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "The Angry Goat Pub",
+      "area": "South Clinton Avenue, South Wedge",
+      "plateName": "The Goat Plate",
+      "platePrice": "$15.99",
+      "blurb": "The Goat Plate, and a kitchen open until 1am every night. The menu prints the name and the price and nothing else, so ask what is on it.",
+      "address": "938 S Clinton Ave, Rochester, NY 14620",
+      "phone": "(585) 413-1125",
+      "hoursSpec": "mon-wed 16:00-02:00; thu-fri 15:00-02:00; sat-sun 12:00-02:00",
+      "hoursSrc": "https://theangrygoatpub.com/menu/",
+      "hoursNote": "The kitchen is open until 1am.",
+      "url": "https://theangrygoatpub.com/",
+      "menuUrl": "https://theangrygoatpub.com/menu/",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Moo'd Burger Bar",
+      "area": "University Avenue",
+      "plateName": "Moo'd Plate",
+      "platePrice": "$16.00",
+      "blurb": "Two meats out of a smash patty with cheese, one without, and a red hot, then two sides, under meat sauce, ketchup and mustard.",
+      "address": "1344 University Ave, Suite 110, Rochester, NY 14607",
+      "phone": "(585) 287-5368",
+      "hoursUnknown": "Their ordering page is the only menu they publish, and it gives ordering hours rather than opening hours.",
+      "url": "https://order.toasttab.com/online/moo-d-burger-bar",
+      "menuLabel": "Order page",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Mark's Texas Hots",
+      "area": "Monroe Avenue",
+      "plateName": "Sloppy Plate",
+      "blurb": "The all-night Monroe Avenue counter, and it calls its version the Sloppy Plate. It was on this page's left-off list until the business started a Facebook page of its own, which is the only thing it publishes.",
+      "address": "487 Monroe Ave, Rochester, NY 14607",
+      "phone": "(585) 473-1563",
+      "hoursSpec": "mon-sun 24h",
+      "hoursSrc": "https://www.facebook.com/markstxhots/",
+      "hoursNote": "Their page says always open, with the dining room open until 10pm.",
+      "url": "https://www.facebook.com/markstxhots/",
+      "menuLabel": "Their page",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Spotted Octopus Brewing",
+      "area": "South Union Street",
+      "plateName": "Trash Plate",
+      "platePrice": "$9 half, $13 full",
+      "blurb": "The brewery kitchen's Trash Plate: garlic Parmesan home fries and dill mac salad under meat hot sauce, white onion and a gold BBQ sauce, by the half or the whole.",
+      "address": "56 South Union Street, Rochester, NY 14607",
+      "phone": "(585) 270-5927",
+      "hoursUnknown": "Their site shows today's hours in a live widget and no weekly schedule.",
+      "url": "https://octopusbrew.com/rochester",
+      "menuUrl": "https://img1.wsimg.com/blobby/go/3e2e64f7-e21a-495d-be46-ea06cfe79a65/2026%20Fall%20Flow%20Menu%20Pg1.pdf",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Highland Park Diner",
+      "area": "South Clinton Avenue, Swillburg",
+      "plateName": "Diner Plate",
+      "platePrice": "$15.99",
+      "blurb": "A Diner Plate, and then a Diner Plate Benedict: poached eggs over two hots or two burgers with meat hot sauce and hollandaise, home fries and mac salad beside it. Breakfast and lunch only.",
+      "address": "960 South Clinton Avenue, Rochester, NY 14620",
+      "phone": "(585) 461-5040",
+      "hoursSpec": "mon-sun 08:00-15:00",
+      "hoursSrc": "https://highlandparkdinerny.com/",
+      "url": "https://highlandparkdinerny.com/",
+      "menuUrl": "https://highlandparkdinerny.com/food-menu",
+      "tags": [
+        "breakfast"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Blu Wolf Bistro",
+      "area": "Park Avenue",
+      "plateName": "Gastro Plate",
+      "platePrice": "$22.00",
+      "blurb": "Swaps the mac salad for mac and cheese: bent arm fries, a cheeseburger, a homemade cheese and meat sauce, and scallions.",
+      "address": "657 Park Ave, Rochester, NY 14607",
+      "hoursSpec": "mon-tue 11:00-21:00; wed 11:00-24:00; thu 11:00-21:00; fri 11:00-24:00; sat 09:00-24:00; sun 09:00-22:00",
+      "hoursSrc": "https://bluwolfbistro.com/",
+      "url": "https://bluwolfbistro.com/",
+      "menuUrl": "https://bluwolfbistro.com/rochester-park-ave-neighborhood-blu-wolf-bistro-food-menu",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "city",
+      "name": "Elmwood Inn",
+      "area": "Mt. Hope Avenue",
+      "plateName": "Elmwood Inn's Not a Garbage Plate",
+      "platePrice": "$19.99",
+      "blurb": "The name on their own menu is the trademark story in six words.",
+      "address": "1256 Mt Hope Ave, Rochester, NY 14620",
+      "phone": "(585) 271-5195",
+      "hoursSpec": "mon-thu 11:00-15:00,17:00-21:00; fri 11:00-22:00; sat 12:00-22:00; sun 12:00-21:00",
+      "hoursSrc": "https://elmwoodinn.net/",
+      "url": "https://elmwoodinn.net/",
+      "menuUrl": "https://elmwoodinn.net/menu",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Romig's Tavern",
+      "area": "Bennington Drive, Greece",
+      "plateName": "Romigs Plates",
+      "platePrice": "$13.95",
+      "blurb": "A Greece tavern that opens at 8am with plates at $13.95 all day, a deep fried Trash Wrap, and a $5 charge to share a plate, which is fair.",
+      "address": "18 Bennington Drive, Rochester, NY 14616",
+      "phone": "585-663-1518",
+      "hoursSpec": "mon-sat 08:00-23:00; sun 10:00-22:00",
+      "hoursSrc": "https://romigstavern.com/",
+      "hoursNote": "Sundays run later in football season.",
+      "url": "https://romigstavern.com/",
+      "menuUrl": "https://romigstavern.com/menu/",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Wimpy's Burger Basket",
+      "area": "Buffalo Road, Gates",
+      "plateName": "Plates, twenty-odd of them",
+      "platePrice": "$9.99 to $18.49",
+      "blurb": "Everything over mac salad and home fries, from a $9.99 meatless plate to a 2x6 at $18.49, with a breakfast plate of three sunny-side-up eggs and a Hell Plate upgrade. Open 8am to midnight every day.",
+      "address": "2160 Buffalo Road, Rochester, NY 14624",
+      "phone": "(585) 247-3160",
+      "hoursSpec": "mon-sun 08:00-24:00",
+      "hoursSrc": "https://wimpysbb.com/",
+      "url": "https://wimpysbb.com/",
+      "menuUrl": "https://wimpysbb.com/rochester-gates-wimpy-s-burger-basket-food-menu",
+      "tags": [
+        "veg",
+        "breakfast"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Tony's Birdland & Pizzeria",
+      "area": "Dewey Avenue, Greece",
+      "plateName": "Tony's Plates",
+      "platePrice": "$15.00 to $16.00",
+      "blurb": "Cheeseburger, hamburger, Zweigle's hot dog, chicken finger, grilled chicken or shaved steak, over two of the classic four sides.",
+      "address": "3860 Dewey Avenue, Rochester, NY 14616",
+      "phone": "585-621-3277",
+      "hoursSpec": "mon-thu 11:00-20:00; fri-sat 11:00-21:00; sun 12:00-20:00",
+      "hoursSrc": "https://tonysbirdland.com/",
+      "url": "https://tonysbirdland.com/",
+      "menuUrl": "https://tonysbirdland.com/menu/",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "BTB Wood Fired Pizza Bar & Grill",
+      "area": "Greece Ridge Center, Greece",
+      "plateName": "BTB Plate",
+      "platePrice": "$16.99, half plate $12.99",
+      "blurb": "Two meats and two sides covered in meat hot and diced onion, plus a plate pizza, and their meat hot sauce for sale to take home.",
+      "address": "134 Greece Ridge Center Drive, Greece, NY 14626",
+      "phone": "(585) 865-6510",
+      "hoursSpec": "mon-thu 11:00-23:00; fri-sat 11:00-24:00; sun 10:00-23:00",
+      "hoursSrc": "https://btbroc.com/",
+      "url": "https://btbroc.com/",
+      "menuUrl": "https://btbroc.com/greece-btb-wood-fired-pizza-bar-and-grill-food-menu",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Sal's Birdland",
+      "area": "Air Park Drive, Chili",
+      "plateName": "Sal's Plates",
+      "platePrice": "$13.80 to $15.97",
+      "blurb": "The wing shop's plates come with Sal's Seasoned Potato Wedges as a side and Sal's Sassy Sauce as an alternative to the meat sauce.",
+      "address": "400 Air Park Dr, Rochester, NY 14624",
+      "phone": "(585) 328-1620",
+      "hoursUnknown": "Their location page says to call ahead to confirm the day's hours.",
+      "url": "https://salsbirdland.com/locations/rochester-ridge-road",
+      "menuUrl": "https://salsbirdland.com/menus",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Spencerport Hots",
+      "area": "South Union Street, Spencerport",
+      "plateName": "Plates",
+      "platePrice": "$9.99 to $16.99",
+      "blurb": "Zweigle's skinless hots, half plates, a ribeye plate, and a Plate Burger, Plate Dog and Plate Wrap for when a whole plate is too much.",
+      "address": "500 South Union Street, Spencerport, NY 14559",
+      "phone": "585-349-4687",
+      "hoursSpec": "mon-thu 11:00-21:00; fri-sat 11:00-22:00; sun closed",
+      "hoursSrc": "https://www.spencerporthots.com/",
+      "url": "https://www.spencerporthots.com/",
+      "menuUrl": "https://www.clover.com/online-ordering/spencerport-hots-spencerport",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "58 Main BBQ & Brew",
+      "area": "North Main Street, Brockport",
+      "plateName": "58 Main Plate",
+      "platePrice": "$15",
+      "blurb": "Two Certified Angus burgers, cheeseburgers, hots or a combo over home fries and mac salad with meat hot sauce and bread and butter, plus a wrap their own menu calls the Garbage Plate Wrap.",
+      "address": "58 North Main Street, Brockport, NY 14420",
+      "phone": "(585) 637-2383",
+      "hoursSpec": "mon 11:00-21:00; tue-thu 11:00-22:00; fri-sat 11:00-24:00; sun 11:00-21:00",
+      "hoursSrc": "https://www.58main.com/menu",
+      "hoursNote": "The kitchen closes 30 to 60 minutes earlier.",
+      "url": "https://www.58main.com/",
+      "menuUrl": "https://www.58main.com/menus/regular-menu?location=brockport",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "The Hot Spot",
+      "area": "Main Street, Brockport",
+      "plateName": "Muckplate",
+      "platePrice": "$16.50, half $12.10",
+      "blurb": "Brockport's Muckplate, full or half, and a Muckbowl, with the Muck Sauce sold on the side. The ordering page names and prices them and does not say what is on them.",
+      "address": "27 Main Street, Brockport, NY 14420",
+      "phone": "(585) 391-3535",
+      "hoursUnknown": "Their page and their ordering page give only the day's ordering hours.",
+      "url": "https://order.online/business/the-hot-spot-13742219",
+      "menuLabel": "Order page",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "west",
+      "name": "Churchville Grill",
+      "area": "South Main Street, Churchville",
+      "plateName": "The Grill Plate",
+      "platePrice": "$15.50",
+      "blurb": "Two American cheese burgers or red hots over mac salad and fries or tots, under meat hot sauce, onions and mustard.",
+      "address": "42 South Main Street, Churchville, NY 14428",
+      "phone": "(585) 299-7058",
+      "hoursSpec": "tue 11:00-20:00; wed-sat 11:00-21:00; sun 15:00-20:00",
+      "hoursSrc": "https://churchvillegrill.com/",
+      "hoursNote": "Monday is not listed.",
+      "url": "https://churchvillegrill.com/",
+      "menuUrl": "https://churchvillegrill.com/food-menu",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "Cordello's Pizzeria",
+      "area": "Pattonwood Drive, Irondequoit",
+      "plateName": "Plates",
+      "platePrice": "$12.95",
+      "blurb": "Seven plates at $12.95 and the longest side list on this page: home, waffle, battered or french fries, tots, mac salad, potato salad, onion rings or baked beans.",
+      "address": "117 Pattonwood Drive, Rochester, NY 14617",
+      "phone": "(585) 266-6620",
+      "hoursSpec": "mon-sun 11:00-21:00",
+      "hoursSrc": "https://cordellospizza.com/",
+      "url": "https://cordellospizza.com/",
+      "menuUrl": "https://cordellospizza.com/rochester-cordello-s-pizzeria-food-menu",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "Murph's Irondequoit Pub",
+      "area": "Pattonwood Drive, Irondequoit",
+      "plateName": "Cheeseburger Plate",
+      "platePrice": "$17.99",
+      "blurb": "Fries or tots and mac salad under a hand-cut cheeseburger, house made meat hot sauce and onions.",
+      "address": "155 Pattonwood Dr., Rochester, NY 14617",
+      "phone": "(585) 342-6780",
+      "hoursSpec": "tue-sat 16:00-24:00",
+      "hoursSrc": "https://www.murphsirondequoitpub.com/",
+      "url": "https://www.murphsirondequoitpub.com/",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "Don's Original",
+      "area": "Culver Road, Seabreeze",
+      "plateName": "Don's Big Plate and Lil Plate",
+      "platePrice": "$14.99 Big, $10.99 Lil",
+      "blurb": "The Seabreeze stand: ground round or hots piled on two sides, with Don's Hot Sauce as the topping. Breakfast Friday to Sunday from 7am.",
+      "address": "4900 Culver Rd, Rochester, NY 14622",
+      "phone": "585-323-1177",
+      "hoursSpec": "mon-thu 11:00-21:00; fri-sun 07:00-21:00",
+      "hoursSrc": "https://www.donsoriginal.com/",
+      "url": "https://www.donsoriginal.com/",
+      "menuUrl": "https://www.donsoriginal.com/menu",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "Webster Hots",
+      "area": "East Main Street, Webster",
+      "plateName": "Plates",
+      "platePrice": "$6.49 to $17.99",
+      "blurb": "Every plate comes with up to three sides, one more than most, from a meatless plate to a Triple Plate of three burgers and a Zinger Plate of shaved steak and buffalo chicken.",
+      "address": "55 E Main Street, Webster, NY 14580",
+      "phone": "(585) 265-0824",
+      "hoursUnknown": "The only hours they publish are on their ordering page, and those may be ordering hours rather than when the door is open.",
+      "url": "https://www.toasttab.com/local/order/webster-hots-55-e-main-street",
+      "menuLabel": "Order page",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "The Penfield Pub",
+      "area": "Fairport Nine Mile Point Road, Penfield",
+      "plateName": "The BIG Plate",
+      "platePrice": "$17.95, Not So Big $15.95",
+      "blurb": "Two hot dogs, ground rounds or cheeseburgers on homemade mac salad and home fries, or the Not So Big Plate with one. Their menu calls it Don's BIG Plate.",
+      "address": "2055 Fairport Nine Mile Point Road, Penfield, NY 14526",
+      "phone": "585-377-1040",
+      "hoursSpec": "mon-thu 11:00-22:00; fri-sat 11:00-23:00; sun 11:00-21:00",
+      "hoursSrc": "https://penfieldpub.com/menu/",
+      "hoursNote": "Those are the pub's hours; the take-out counter closes at 9pm, 8pm on Sunday.",
+      "url": "https://penfieldpub.com/",
+      "menuUrl": "https://penfieldpub.com/menu/",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "east",
+      "name": "The Penfield Pour House",
+      "area": "Penfield Road, west Penfield",
+      "plateName": "Pour House Plate",
+      "platePrice": "$15.95",
+      "blurb": "Two burgers or two Zweigle's red hots over tater tots and mac salad with red onions, under what they call their 2017 award winning meat hot sauce.",
+      "address": "1665 Penfield Road, Rochester, NY 14625",
+      "phone": "(585) 264-1665",
+      "hoursSpec": "sun-wed 16:00-20:00; thu-sat 11:30-21:00",
+      "hoursSrc": "https://thepenfieldpourhouse.com/menu/",
+      "hoursNote": "Those are kitchen hours; the bar stays open an hour later.",
+      "url": "https://thepenfieldpourhouse.com/",
+      "menuUrl": "https://thepenfieldpourhouse.com/menu/",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "south",
+      "name": "Hungry's Grill",
+      "area": "State Street, Pittsford village",
+      "plateName": "Hungrys' Plates",
+      "platePrice": "$11.11 to $15.96",
+      "blurb": "Calls itself the Home of the Plate Wrap: a burger, mac salad, home fries, mustard, onions and hot sauce rolled up for $9.63. The plates come single, double or triple.",
+      "address": "10 State Street, Pittsford, NY 14534",
+      "phone": "(585) 385-4031",
+      "hoursSpec": "sun 12:00-18:00; mon closed; tue-thu 10:45-21:00; fri 10:45-24:00; sat 12:00-24:00",
+      "hoursSrc": "https://www.hungrys-grill.com/",
+      "url": "https://www.hungrys-grill.com/",
+      "menuUrl": "https://www.hungrys-grill.com/menu-1",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "south",
+      "name": "Ken's Pizza Corner",
+      "area": "West Henrietta Road, West Henrietta",
+      "plateName": "Corner Plates",
+      "platePrice": "$15.95 to $17.95",
+      "blurb": "Pick two of eight sides, crinkle, battered and sweet potato fries among them, and everything means mustard, onions and hot meat sauce.",
+      "address": "5665 West Henrietta Rd, West Henrietta, NY 14586",
+      "phone": "585-334-0090",
+      "hoursSpec": "mon-thu 11:00-22:00; fri-sat 11:00-23:00; sun 11:00-21:00",
+      "hoursSrc": "https://kenspizzacorner.com/",
+      "url": "https://kenspizzacorner.com/",
+      "menuUrl": "https://kenspizzacorner.com/henrietta-menu/",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "south",
+      "name": "Pittsford Pub & Grille",
+      "area": "North Main Street, Pittsford village",
+      "plateName": "Pub Plate",
+      "platePrice": "$180 for 10 to 15 people",
+      "blurb": "Catering only: a pan of cheeseburgers or Zweigle's hots, spicy meat hot and raw onions over house-made mac salad and fries. It is not on the dine-in menu.",
+      "address": "60 North Main Street, Pittsford, NY 14534",
+      "phone": "(585) 586-4650",
+      "hoursUnknown": "Their two websites print different hours, so this page prints neither.",
+      "url": "https://pittsfordpub.com/",
+      "menuUrl": "https://pittsfordpub.com/food-menu",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "outer",
+      "name": "Thirsty Turtle Sports Bar & Grill",
+      "area": "Pittsford-Victor Road, Victor",
+      "plateName": "The Turtle Plate",
+      "platePrice": "$17.50",
+      "blurb": "Two cheeseburgers, hamburgers or Zweigle's red hots over any two of five sides, under hot meat sauce and diced onions. Also as a wrap and as catering.",
+      "address": "7422 Pittsford Victor Road, Victor, NY 14564",
+      "phone": "(585) 924-4010",
+      "hoursSpec": "mon 15:00-23:00; tue-thu 11:00-23:00; fri-sat 11:00-01:00; sun 10:00-22:00",
+      "hoursSrc": "https://thirstyturtlevictor.com/",
+      "url": "https://thirstyturtlevictor.com/",
+      "menuUrl": "https://thirstyturtlevictor.com/food-menu",
+      "tags": [
+        "bar"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "outer",
+      "name": "Farmington Hots & Ice Cream",
+      "area": "Commercial Drive, Farmington",
+      "plateName": "Plates",
+      "platePrice": "$9.99 to $21.99",
+      "blurb": "From a $9.99 meatless plate up to the four-meat Godfather at $21.99, with ice cream after. The catering menu calls them trash plates.",
+      "address": "1270 Commercial Drive, Farmington, NY 14425",
+      "phone": "(585) 398-7109",
+      "hoursSpec": "mon-sun 11:00-21:00",
+      "hoursSrc": "https://farmingtonhots.com/",
+      "url": "https://farmingtonhots.com/",
+      "menuUrl": "https://farmingtonhots.com/food-menu",
+      "tags": [
+        "veg"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "outer",
+      "name": "University Hots",
+      "area": "Main Street, Geneseo",
+      "plateName": "College Plates",
+      "platePrice": "$11.69 to $16.69",
+      "blurb": "Geneseo's plate, in three steps: one, two or three meats including a veggie burger and a breakfast option, then two sides, then unlimited toppings.",
+      "address": "114 Main St, Geneseo, NY 14454",
+      "phone": "(585) 243-4687",
+      "hoursUnknown": "Neither their site nor their ordering page gives hours.",
+      "url": "https://www.universityhots.com/",
+      "menuUrl": "https://www.universityhots.com/menu/",
+      "tags": [
+        "veg",
+        "breakfast"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "outer",
+      "name": "Settler's Family Restaurant",
+      "area": "West Main Street, Batavia",
+      "plateName": "Breakfast Garbage Plate",
+      "platePrice": "$15",
+      "blurb": "A breakfast take rather than a hots plate: three eggs, bacon, sausage and home fries scrambled together under cheddar and homemade meat sauce, with toast. The name on the menu is theirs, not ours.",
+      "address": "353 West Main St, Batavia, NY 14020",
+      "phone": "(585) 343-7443",
+      "hoursSpec": "mon 06:00-20:00; tue 06:00-14:00; wed-sat 06:00-20:00; sun 06:00-14:00",
+      "hoursSrc": "https://www.settlersrestaurant.com/menu",
+      "url": "https://www.settlersrestaurant.com/",
+      "menuUrl": "https://www.settlersrestaurant.com/menu",
+      "tags": [
+        "breakfast"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "outer",
+      "name": "Rudy's Diner",
+      "area": "West Center Street, Medina",
+      "plateName": "Rudy's Plate",
+      "platePrice": "$18.99",
+      "blurb": "The diner's plate, now with its own meat sauce and macaroni salad, and Plate Fries: waffle fries under mac salad, meat sauce, mustard and onion.",
+      "address": "118 W Center St, Medina, NY 14103",
+      "phone": "(585) 798-5166",
+      "hoursUnknown": "Their hours block reads oddly for Monday, so it is not printed here.",
+      "url": "https://rudysmedinadiner.com/",
+      "menuUrl": "https://rudysmedinadiner.com/order",
+      "tags": [],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "chain",
+      "name": "Salvatore's Old Fashioned Pizzeria",
+      "area": "33 stores",
+      "plateName": "Salvie Plates",
+      "platePrice": "$16.95, half $11.95",
+      "blurb": "Plates at a pizza chain: hots, burgers, sausage, chicken, shaved steak or grilled veggie over two sides, under diced onions and what they call Salvie Plate famous hot sauce. Their menu warns that not every item is at every store.",
+      "hoursUnknown": "Hours are per store.",
+      "url": "https://salvatores.com/",
+      "menuUrl": "https://salvatores.com/menu/burgers",
+      "tags": [
+        "veg"
+      ],
+      "locationsUrl": "https://salvatores.com/",
+      "locations": [
+        "Avon Village, 243 East Main St, Avon",
+        "Batavia, 4169 W Main Street Rd, Batavia",
+        "Brighton / Pittsford, 240 W. Commercial St, East Rochester",
+        "Brockport Village, 39 North Main St, Brockport",
+        "Bushnell's Basin, 751 Pittsford Victor Rd, Pittsford",
+        "Byron Bergen, 48 South Main St, Churchville",
+        "Canandaigua, 540 N Main St, Canandaigua",
+        "Charlotte / Greece, 4000 Lake Avenue, Rochester",
+        "Chili / Gates, 4165 Buffalo Rd, Rochester",
+        "Donuts Delite, 1700 Culver Road, Rochester",
+        "East/West Henrietta, 352 Jefferson Rd, Henrietta",
+        "Eastside / Downtown, 1985 East Main St, Rochester",
+        "Fairport / Perinton, 55 South Main Street, Fairport",
+        "Gates / Westside, 433 Mt. Read Blvd, Rochester",
+        "Geneva, 812 Canandaigua Rd, Geneva",
+        "Greece / Latta, 2044 Latta Rd, Rochester",
+        "Greece / Mall Area, 2496 West Ridge Road, Rochester",
+        "Greece / Westside, 1324 Dewey Avenue, Rochester",
+        "Hilton, 75 Lake Ave, Hilton",
+        "Honeoye Falls / Lima, 31 West Main Street, Honeoye Falls",
+        "Irondequoit East, 2055 East Ridge Rd, Rochester",
+        "Irondequoit West, 149 East Ridge Road, Rochester",
+        "Macedon, 91 W Main St, Macedon",
+        "Newark, 205 S. Main St, Newark",
+        "Ontario / 104 Area, 6200 County Line Rd, Ontario",
+        "Penfield, 2160 Penfield Road, Penfield",
+        "Scottsville, 11 Main St, Scottsville",
+        "South Wedge / Swillburg, 1018 South Clinton Ave, Rochester",
+        "Spencerport, 47 Slayton Ave, Spencerport",
+        "Victor / Farmington, 165 West Main Street, Victor",
+        "Walworth / Marion, 3719 Walworth-Palmyra Rd, Walworth",
+        "Webster Village, 195 North Ave, Webster",
+        "West Webster, 1217 Bay Road, Webster"
+      ],
+      "read": "2026-09-23"
+    },
+    {
+      "group": "chain",
+      "name": "Tom Wahl's",
+      "area": "Seven locations",
+      "plateName": "Junker Plates",
+      "platePrice": "$15.89 to $16.39",
+      "blurb": "Two 3oz burgers or Zweigle's hots over two sides, with a vegetarian burger version and a chicken tender one. It was on this page's left-off list until its ordering menu could be read.",
+      "hoursUnknown": "Their store pages show only the day's hours.",
+      "url": "https://www.tomwahls.com/",
+      "menuUrl": "https://tomwahls.orderexperience.net/tomwahls/menu",
+      "tags": [
+        "veg"
+      ],
+      "locations": [
+        "Greece, 671 Maiden Lane",
+        "Brighton, 2545 Monroe Ave",
+        "Bushnell's Basin, 643 Pittsford-Victor Rd, Pittsford",
+        "Avon, 283 E. Main St",
+        "Canandaigua, 2510 Rochester Rd",
+        "Fairport, 1333 Fairport Rd",
+        "Newark, 585 West Union St"
+      ],
+      "locationsUrl": "https://www.tomwahls.com/stores.cfm",
+      "read": "2026-09-23"
+    },
+    {
+      "group": "chain",
+      "name": "Mac's Philly Steaks",
+      "area": "Downtown, Fairport and Canandaigua",
+      "plateName": "Mac's Plates",
+      "platePrice": "$10.77 to $16.79 downtown",
+      "blurb": "A cheesesteak shop that does plates properly: mac salad and fries under half a pound of meat, onions, ketchup, mustard and meat hot sauce with an Amoroso roll, plus a Philly Plate with the steak on top.",
+      "hoursUnknown": "Hours differ by shop and are listed with each one.",
+      "url": "https://www.macsphillysteaks.com/",
+      "menuUrl": "https://www.macsphillysteaks.com/menu/",
+      "tags": [
+        "veg"
+      ],
+      "locations": [
+        "Downtown, 298 Exchange Blvd, Mon to Fri 11am to 8:30pm",
+        "Fairport, 71 North Main St, daily 11am to 8pm",
+        "Canandaigua, 76 South Main St, daily 11am to 8pm"
+      ],
+      "locationsUrl": "https://www.macsphillysteaks.com/",
+      "read": "2026-09-23"
+    },
+    {
+      "group": "chain",
+      "name": "Charlie Riedel's",
+      "area": "Webster, Ontario and Canandaigua",
+      "plateName": "Charlie Plates",
+      "platePrice": "$14.29 to $17.99, half from $12.99",
+      "blurb": "Plates over mac salad and home fries with their own plate sauce, and an Impossible Charlie Plate with vegan macaroni salad and an Impossible plate sauce, so the meatless one is meatless all the way down.",
+      "hoursUnknown": "Only Webster's hours are consistent across their own sites.",
+      "url": "https://www.charlieswebster.com/",
+      "menuUrl": "https://order.toasttab.com/online/charlie-riedels-restaurant-webster",
+      "tags": [
+        "veg"
+      ],
+      "locations": [
+        "Webster, 1843 Empire Blvd, daily 11am to 9pm",
+        "Ontario, 552 Route 104",
+        "Canandaigua, 3140 County Road 10"
+      ],
+      "locationsUrl": "https://www.charlieswebster.com/",
+      "read": "2026-09-23"
+    },
+    {
+      "group": "chain",
+      "name": "Marvin Mozzeroni's",
+      "area": "Irondequoit, Greece and Gates",
+      "plateName": "Sloppy Plates",
+      "platePrice": "$16.99",
+      "blurb": "A pizzeria with Sloppy Plates at all three shops, under hamburger hot sauce, ketchup, mustard and onions with bread and butter. There is a Sloppy Plate pizza as well.",
+      "hoursUnknown": "Their site prints one set of hours under all three addresses, so it may not be right for any one of them.",
+      "url": "https://mozzeronis.com/",
+      "menuUrl": "https://mozzeronis.com/rochester-irondequoit-marvin-mozzeroni-s-pizza-and-pasta-irondequoit-food-menu-irondequoit",
+      "tags": [],
+      "locations": [
+        "Irondequoit, 2590 Culver Rd",
+        "Greece, 2680 W Ridge Rd",
+        "Gates, 3585 Buffalo Rd"
+      ],
+      "locationsUrl": "https://mozzeronis.com/",
+      "read": "2026-09-23"
+    }
+  ],
+  "checkedAndLeftOut": [
+    "Schaller's. Their own menu was read in full on August 20, 2026, and again on September 23, and the word plate does not appear on it once: the headings are burgers and sandwiches, extras, drinks and souvenirs. Blogs and directories say they serve a plate. Their menu does not, and a listicle is not evidence a kitchen still makes something.",
+    "Sticky Lips BBQ. Their own site has been reduced to a placeholder reading that it will be available soon, and the page that used to hold the Sticky Icky Plate redirects to it. That is exactly the shape of a closure and this page will not send anybody there on a guess.",
+    "John's Tex Mex. Their menu page answered 403, so nothing about it could be confirmed from the business.",
+    "Hot Shots on Chili Avenue. There is no such restaurant. The Chili Avenue plate shop is Chili Hots and it is on the list above.",
+    "Closed, per the business itself or a successor at the same address: JT's Pizza and Plates in East Rochester (its own Facebook page calls it a pause), Taci's Irondequoit Hots, Park's Plates & Shakes (Vasko's on Park is at 266 Park Ave now), Roc Brewing Co. (Spotted Octopus is at 56 South Union), Roc Style Chicken & Burger, and Hot's Point in Sodus Point, which has closed for the season and is up for sale.",
+    "Gone, as far as anything the business runs can show: ER Hots, Greece Hots, Irondequoit Hots, JB Quimby's, McCann's Local Meats, Penfield Hots, Superfly DMC, 585 Rockin Burger Bar, Happy Days On The Go, Bunga Burger Bar, Exchange Sports Bar, Gitsis Texas Hots, Jimmy Z's Plates & Shakes, Smokin' Hots, Joe's Hots and Hilton Hotz. Every one has a dead site or none at all, and directories that mark it closed. A directory saying closed is not proof, which is why they are here rather than simply dropped.",
+    "Open, but with no plate on the menu they publish today: Swiftwater Brewing, The Frog Pond on Park, The Distillery and Effortlessly Healthy. Somebody wrote about a plate at each of them once.",
+    "Gates Hots at 485 Spencerport Road. A different restaurant is at that address now.",
+    "Daughter of Seitan's vegan garbage plate is a recipe, not a place you can order one."
+  ],
+  "photos": [
+    {
+      "slug": "nick-tahou-plate-2025",
+      "file": "File:The Garbage Plate, Nick Tahou Hots 2025.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:The_Garbage_Plate,_Nick_Tahou_Hots_2025.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Paul Lowry",
+      "by": "Paul Lowry",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "June 28, 2025",
+      "read": "2026-08-20",
+      "maxw": 1200,
+      "w": 3502,
+      "h": 2584,
+      "where": "hero",
+      "alt": "A Garbage Plate at Nick Tahou Hots: two split white hot dogs lying across home fries and macaroni salad, buried under a layer of crumbled brown meat sauce with chopped raw onion and a line of yellow mustard through it. Two slices of white Italian bread lie on the rim of the plate and a fork rests on the right.",
+      "caption": "This is the thing itself, photographed at Nick Tahou Hots on June 28, 2025. Two white hots on home fries and macaroni salad, hot sauce poured over the lot, raw onion and mustard on top, bread and butter on the side."
+    },
+    {
+      "slug": "nick-tahou-plate-2007",
+      "file": "File:Garbage plate.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Garbage_plate.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Eugene Peretz from Northampton, MA, USA",
+      "by": "Eugene Peretz",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "taken": "October 20, 2007",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 2816,
+      "h": 2112,
+      "where": "anatomy",
+      "alt": "A Garbage Plate seen from above on a plate whose blue rim reads NICK TAHOU and, along the bottom, HOME OF THE GARBAGE PLATE. Baked beans, macaroni salad and chunky home fries are arranged around the edge; a mound of crumbled meat sauce and chopped onion sits in the middle over a split red hot dog.",
+      "caption": "Three of the four sides in one frame, photographed in 2007: home fries, macaroni salad and baked beans. The order form lists those three and french fries, and you tick the ones you want."
+    },
+    {
+      "slug": "nick-tahou-plates-tray-2025",
+      "file": "File:Garbage Plates, Nick Tahou Hots 2025.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Garbage_Plates,_Nick_Tahou_Hots_2025.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Paul Lowry",
+      "by": "Paul Lowry",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "June 28, 2025",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 3060,
+      "h": 4080,
+      "where": "anatomy",
+      "alt": "Two Garbage Plates on a red cafeteria tray, one behind the other. The plate at the back carries split red hot dogs under the meat sauce; the one at the front carries pale white hots. Both sit on the same home fries and macaroni salad. A slice of Italian bread on its own plate and a cup of water stand beside them.",
+      "caption": "Two plates on one tray, which is the quickest way to see that the meat is a choice and not part of the recipe: red hots at the back, white hots at the front, everything underneath them the same."
+    },
+    {
+      "slug": "nick-tahou-sign-2007",
+      "file": "File:Nick Tahou Hots.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou_Hots.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Eugene Peretz",
+      "by": "Eugene Peretz",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "taken": "October 20, 2007",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 1024,
+      "h": 768,
+      "where": "history:1918",
+      "alt": "A large painted sign on the brick wall inside Nick Tahou Hots. It reads NICK TAHOU HOTS in blue over a drawing of a steaming plate of hot dogs, beans and bread, then in script \"Home of the Garbage Plate\", then Established 1918 in red. A red LED display on the left reads 5 MILLION.",
+      "caption": "The 1918 date, on the restaurant's own wall in 2007. This page dates the shop and not the dish, and this is one of the two places the business states the shop's date about itself."
+    },
+    {
+      "slug": "nick-tahou-terminal-2008",
+      "file": "File:East end of NY 33.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:East_end_of_NY_33.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Doug Kerr",
+      "by": "Doug Kerr",
+      "license": "CC BY-SA 2.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+      "taken": "December 6, 2008",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 1024,
+      "h": 768,
+      "where": "history:1963 and 1968",
+      "alt": "Looking east along West Main Street in Rochester, NY on an overcast day. On the left stands a long red brick building with steep gables and tall arched windows, a hanging sign on it reading NICK TAHOU. A green railroad bridge crosses the road ahead and downtown towers stand behind it.",
+      "caption": "The building from the street in 2008. The brick block on the left is the old passenger terminal the restaurant moved into, gables and arched windows and all, and the railroad bridge beyond it is the rest of the reason it is there."
+    },
+    {
+      "slug": "nick-tahou-counter-2025",
+      "file": "File:The counter at Nick Tahou Hots' 2025.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:The_counter_at_Nick_Tahou_Hots%27_2025.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Paul Lowry",
+      "by": "Paul Lowry",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "June 28, 2025",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 4080,
+      "h": 2548,
+      "where": "history:The name",
+      "alt": "Inside Nick Tahou Hots in 2025. Two customers stand with their backs to the camera at a long blue counter under strip lighting; a member of staff faces them across it. A yellow menu board hangs overhead and a sign on the left wall reads NICK TAHOU HOTS above a drawing of a plate.",
+      "caption": "The counter, in 2025. Every order here is said out loud across it, which is how a description of somebody else's dinner ended up being the name of the dish."
+    },
+    {
+      "slug": "nick-tahou-plate-2005",
+      "file": "File:Nick Tahou's Garbage Plate.JPG",
+      "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou%27s_Garbage_Plate.JPG",
+      "source": "Wikimedia Commons",
+      "author": "Self",
+      "by": "Wikimedia Commons user Evadb",
+      "license": "Public domain",
+      "licenseUrl": "",
+      "taken": "May 2005",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 1342,
+      "h": 963,
+      "where": "history:1991 to 1992",
+      "alt": "A Garbage Plate held on somebody's lap outdoors on grass. The plate's blue rim reads NICK TAHOU HOTS along the top and, along the bottom, HOME OF THE GARBAGE PLATE. On it are a split red hot dog, home fries, macaroni salad, meat sauce, chopped onion and a heavy pour of ketchup.",
+      "caption": "The mark, printed around the rim of the plate it belongs to, in May 2005. The photographer released this one into the public domain, so it is the only picture on this page that carries no conditions at all."
+    },
+    {
+      "slug": "nick-tahou-exterior-2025",
+      "file": "File:Nick Tahou Hots, Rochester NY 2025.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou_Hots,_Rochester_NY_2025.jpg",
+      "source": "Wikimedia Commons",
+      "author": "Paul Lowry",
+      "by": "Paul Lowry",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "June 28, 2025",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 3801,
+      "h": 2474,
+      "where": "place:Nick Tahou Hots",
+      "alt": "The corner of Nick Tahou Hots' red brick building. A hand-painted board high on the wall carries a Coca-Cola logo and reads NICK TAHOU, PARKING IN REAR OF BUILDING, with a green arrow. Below it a boarded-up window carries a LOTTO sign. A Rochester Heritage Trail marker stands at the curb on the left.",
+      "caption": "320 West Main Street, June 2025."
+    },
+    {
+      "slug": "bill-grays-flagship-2011",
+      "file": "File:Bill Gray's flagship location.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Bill_Gray%27s_flagship_location.jpg",
+      "source": "Wikimedia Commons",
+      "author": "DanielPenfield",
+      "by": "DanielPenfield",
+      "license": "CC BY-SA 3.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+      "taken": "June 19, 2011",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 2576,
+      "h": 1932,
+      "where": "place:Bill Gray's",
+      "alt": "A Bill Gray's restaurant photographed from its own parking lot under a clear blue sky. The building is painted dark green and deep red and has two corner towers, each carrying a raised black steam locomotive with a puff of smoke and a curved BILL GRAY'S sign over the top of it. A long BILL GRAY'S sign in deep red letters runs along the right-hand wall beside a blue script Abbott's Frozen Custard sign, and red panels under the awnings read HOME OF THE WORLD'S GREATEST CHEESEBURGER. Young trees and shrubs stand along the front of the building and the marked spaces of an empty parking lot run across the foreground.",
+      "caption": "Bill Gray's in Henrietta, June 2011, and the only one of the thirteen anybody has photographed under a free license. The photographer's own description on Commons calls it the chain's flagship; their locations page lists thirteen shops and singles out none of them, so that is his word rather than theirs."
+    },
+    {
+      "slug": "dogtown-plate-2024",
+      "file": "File:Junkyard Plate.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Junkyard_Plate.jpg",
+      "source": "Wikimedia Commons",
+      "author": "BanjoZebra",
+      "by": "BanjoZebra",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "April 9, 2024",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 3024,
+      "h": 3276,
+      "where": "place:dogTown Hots",
+      "alt": "A plate on a mosaic table top: two split red hot dogs lying on chunky home fries and macaroni salad, covered with crumbled brown meat sauce, a scatter of diced raw onion and a zigzag of yellow mustard.",
+      "caption": "A plate from dogTown, April 9, 2024.",
+      "placeNote": "The photographer's own description names the restaurant, which is why this is on this card: \"Junkyard Plate with hot dogs, macaroni salad, home fries, meat sauce, diced onions, and mustard, from Dogtown in Rochester, New York\", and the file's camera position, 43.1439 by -77.5898, is Monroe Avenue at that address. The photographer's title matches the menu: dogTown files the dish under Junkyard Plates, and a second section under Junkyard Dog Plates, read on their own site on August 20, 2026. The individual items under those headings are a Dog Plate, a Cheeseburger Plate, a Split Plate and a Sausage Plate, so the word is the section and not the dish name printed on any one line."
+    },
+    {
+      "slug": "red-fern-compost-plate-2024",
+      "file": "File:Compost Plate.jpg",
+      "page": "https://commons.wikimedia.org/wiki/File:Compost_Plate.jpg",
+      "source": "Wikimedia Commons",
+      "author": "BanjoZebra",
+      "by": "BanjoZebra",
+      "license": "CC BY 4.0",
+      "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+      "taken": "July 27, 2024",
+      "read": "2026-08-20",
+      "maxw": 800,
+      "w": 3445,
+      "h": 2772,
+      "where": "place:The Red Fern",
+      "alt": "A Compost Plate on a floral-rimmed china plate: a browned patty under a thick shredded sauce, sitting on a bed of macaroni salad, with a heap of green salad leaves, a slice of bread and a scoop of orange sweet potato around it.",
+      "caption": "A Compost Plate at The Red Fern, July 27, 2024.",
+      "placeNote": "The photographer's own description names the restaurant: \"Compost Plate at The Red Fern in Rochester, New York\", and the file's camera position, 43.1498 by -77.5864, is Oxford Street at that address."
+    }
+  ],
+  "photoNote": "Every photograph on this page is somebody else's work under a free license, checked on that file's own page on Wikimedia Commons on August 20, 2026 and re-checked from Commons on every run of scripts/sync-plate-photos.py. Nothing here is hotlinked, cropped or taken from a restaurant, a review site or a search result. The photographer, the license and a link to the license are printed under every picture.",
+  "photosRejected": [
+    "WHAT SEVEN OF THE FIRST ELEVEN RESTAURANTS LOOK LIKE. Four of them are on this page in freely licensed photographs and the other seven are not. Bill Gray's joined the three on August 20, 2026, on a second search that went wider than Commons. The other seven were searched a SECOND and then a THIRD time the same day, the third by Wikidata P18, by KartaView and by a re-run of Commons and Openverse against fresh geocodes, and they still have nothing publishable. Those cards carry no picture rather than a borrowed one.",
+    "WHERE THE SEARCHES LOOKED, so nobody repeats them. Commons was swept four ways on August 20, 2026: a title search per business, an insource: search of every file description, the local categories (Restaurants in Rochester, Fairport, Henrietta, Chili, Gates, Webster, Monroe County) and a GEOSEARCH of a 1,500m circle around all eight addresses. Commons holds exactly two files naming any of the seven and both are Bill Gray's. Openverse was then swept across roughly forty queries with its license filter set to CC BY, CC BY-SA, CC0 and public domain, which is Flickr and Commons together. Chili Hots, Empire Hots, Fairport Hots, Henrietta Hots, Jeremiah's Tavern and Steve T. Hots return NOTHING under a free license anywhere: what exists of them on Flickr is all NonCommercial or NoDerivatives, and neither is usable here. A THIRD SWEEP THE SAME DAY re-ran all of it against fresh geocodes for the seven addresses and added the queries the first two had not made: insource: on each street NUMBER as well as each name, the category tree under Restaurants in New York (state), and a Commons geosearch at 120m, 600m, 1,500m and 10km around every one of the seven. NOT ONE geotagged Commons file sits within 130m of any of them; the closest is a school 132m from Fairport Hots, and the nearest thing to a restaurant is the takeout-carton photograph already rejected below, 1,255m from Henrietta Hots.",
+    "THE FLICKR SWEEPS HAD A HOLE IN THEM AND IT WAS FOUND AND CLOSED ON AUGUST 20, 2026, and it is the reusable half of this whole exercise. Flickr filters a search by numeric license code, and the codes the first two sweeps passed were 4, 5, 7, 8, 9 and 10. That set OMITS 11 and 12, which are CC BY 4.0 and CC BY-SA 4.0, both free and both in active use, so every earlier \"nothing free exists\" was measured through a filter that could not see two free licenses. All seven names, all seven street names and a 1km geographic search around all seven addresses were re-run with 11 and 12 added. It still comes back empty. The negative holds, and it now holds for the right reason. IF YOU SWEEP FLICKR AGAIN, PASS 4,5,7,8,9,10,11,12.",
+    "AND THE SHARPER VERSION OF THE NEGATIVE, which is worth more than \"nothing exists\" because it says what is actually out there. Photographs of these places DO exist on Flickr and they are not free, read off each result's own license field rather than trusted to a filter: Henrietta Hots was shot by drpep in 2024 and is ALL RIGHTS RESERVED, and Rohrbach has about nine photographs by pearwood, every one of them CC BY-NC-ND. NonCommercial and NoDerivatives both fail here. Three prolific free-license photographers who work this region were identified and cleared one by one: Warren LeMay, who shot Rochester, NY in April 2024 under CC BY-SA 2.0 and photographed downtown landmarks only; Random Retail, who shoots chain retail; and Paul Lowry, whose CC BY 4.0 Rochester, NY food photographs are four of the eleven pictures already on this page and include none of the seven. On Commons the complete upload lists of the region's two most systematic contributors were dumped and searched, 4,529 files by DanielPenfield and 5,000 by Andre Carrotflower, with zero hits. So this is not an absence of searching anymore. These are small suburban businesses that nobody has photographed under a free license.",
+    "MAPILLARY WAS RE-EXAMINED ON AUGUST 20, 2026 AND HALF OF THE FIRST REJECTION'S REASONING WAS WRONG. This note used to say Mapillary states \"no version number anywhere\". That was true of mapillary.com/terms and false as a statement about Mapillary. mapillary.com/osm, under the heading \"Rights for OpenStreetMap\", says in as many words \"Mapillary images are available under an open license (CC BY-SA)\" and links creativecommons.org/licenses/by-sa/4.0/, and Wikimedia Commons' own Template:Mapillary, which is the template a Commons upload of a Mapillary frame is built from, hardcodes {{cc-by-sa-4.0}} and credits the photographer's USERNAME linked to their Mapillary profile rather than a logo. Both were read on August 20, 2026, the second off the template's own wikitext. So the default license is CC BY-SA 4.0, it carries a version, and a page states it. The sentence that claimed otherwise was a report on ONE page written as a statement about the source, which is the third time that shape of error has been found on this page.",
+    "WHAT STILL STOPS MAPILLARY, and both halves were checked this time rather than assumed. Section 3 of the terms grants CC BY-SA \"unless we indicate otherwise\" and names CC BY-NC-SA as a live alternative, and Mapillary's own API documentation lists every field an Image carries (creator, captured_at, geometry, camera_type, the thumb urls and so on) and there is NO license field among them. So the carve-out has nothing per-image to check it against, and that is a gap in what the API publishes rather than a gap in anybody's search. Section 11 then says that an image \"downloaded and served from your own servers\" must be attributed \"by visibly displaying the Mapillary logo and linking back to the Mapillary homepage or corresponding Mapillary image page\", which is a condition on top of naming the photographer rather than instead of it. Read on mapillary.com/terms and the developer documentation on August 20, 2026.",
+    "AND THE PRACTICAL BLOCKER, WHICH IS THE ONE TO FIX FIRST AND IS NOT A LICENSE QUESTION AT ALL. Nothing on Mapillary can be reached from this repo without an API token and this repo holds none: every mapillary.com address answers a generic Meta error page, graph.mapillary.com answers \"Invalid OAuth 2.0 Access Token\", and tiles.mapillary.com answers 403. That means no frame, no photographer's username and no image page, so there is nothing to fetch and nothing to print a credit from. The coverage this note used to quote (70 frames past Bill Gray's, 50 past Fairport Hots, six each past Chili Hots and Empire Hots) could NOT be re-measured on August 20, 2026 and should not be quoted as current. A token is free to register at mapillary.com/developer; put one in .env and this becomes a real lead again rather than an argument.",
+    "KARTAVIEW WAS CHECKED THE SAME DAY BECAUSE MAPILLARY COULD NOT BE, and it is the other open street-level library. Its nearby-photos API needs no token, and it does hold Rochester, NY: 101 frames within 300m of downtown. Around the seven it holds nothing that shows a building. The nearest frame to any of them is 312m from Chili Hots and 415m from Jeremiah's Tavern, and Empire Hots, Fairport Hots, Henrietta Hots, Rohrbach and Steve T. Hots have no frame within 600m at all. A frame 300m up the road is a picture of somebody else's building.",
+    "WIKIDATA P18 WAS THE ROUTE NOBODY HAD RUN, AND IT WAS RUN ON AUGUST 20, 2026. Only three of the eleven restaurants have a Wikidata item at all, which are Nick Tahou Hots, Bill Gray's and Rohrbach Brewing Company, and a geographic query for businesses within 25km of Rochester, NY returns 19 items and none of the other eight. Rohrbach's item carries a P18 nobody here had seen: File:RohrbachBeer1.JPG, PUBLIC DOMAIN, User:Brian Stiehler, shot September 17, 2010, 3000x4000, a red brick block with Rohrbach's own hanging ROHRBACH THE BREWERY banner on it. The license is perfect and it is the WRONG BUILDING, which was settled off the PHOTOGRAPH rather than off its caption: hanging beside the banner is a second sign reading DEEP DISCOUNT STORAGE, 127 RAILROAD ST. This page's Rohrbach card is the Buffalo Road brewpub, 14.5km from Railroad Street. That is now the second Railroad Street photograph rejected here for the same reason. The same uploader's File:RohrbachBeer2.JPG is brewing tanks indoors in 2008 and names no address at all.",
+    "\"55/365 Rohrbach Brewing Company\", CC BY-SA 2.0, RLHyde (Ryan Hyde), July 5, 2014, verified on its own Flickr page. The license is fine and the file was fetched and looked at. It is an interior door, not a storefront, and what is written across the glass is the TASTING ROOM HOURS: Wed to Fri 10am to 5pm, Saturday 9am to 4pm, tours every hour. Those are twelve years stale, this page's one hard rule is that hours come from the business and nothing else, and a card showing a reader an hours board is a card that gets read instead of the line beside it. It also cannot be placed: the card is the Buffalo Road brewpub only, and nothing in the photograph or its description says which of the two Rohrbach sites it is. Left out on the picture rather than on the license.",
+    "\"Rohrbach's on Railroad Street\", CC BY 2.0, bert_m_b. Free and usable, and it is the WRONG BUILDING: this page's Rohrbach card is the Buffalo Road brewpub, and its own note says the Railroad Street beer hall is a different menu with no plate on it. A correctly licensed photograph of the wrong address is still the wrong address.",
+    "File:Rochester Garbage Plate.jpg, CC BY-SA 3.0, Douglas.flowe, November 27, 2013. The license is fine and the file was fetched and looked at. It is a dim phone photograph of a takeout carton and its own description names no restaurant, only \"Variation on garbage plate with salt potatoes and bacon\", so there is no card it belongs on and nothing it shows that a brighter picture on this page does not. Left out on the picture rather than on the license.",
+    "EVERY IMAGE SEARCH RESULT, EVERY RESTAURANT'S OWN SITE AND SOCIAL FEED, EVERY REVIEW SITE, AND STREET VIEW. None of them state a license a static site can meet, and being flattering to a restaurant is not a license from the person who took the photograph. If you want a picture of a place on this list that has none, the two honest routes are to shoot it yourself or to write to the photographer and get it in writing.",
+    "WHAT IS STILL GENUINELY UNCHECKED, said out loud so the next person starts here rather than at the beginning. TWO THINGS. Mapillary, which needs an API token this repo does not have, for the reasons three entries above. And PICRYL, which answered 403 from behind Cloudflare on August 20, 2026 to every attempt; it aggregates the Library of Congress, NARA, the Smithsonian and the NYPL, all of which are historical public-domain collections, so a 1990s suburban hot dog stand is unlikely to be in it, but unlikely is not checked. Everything else named on this page is a verified negative."
+  ],
+  "thirty": [
+    {
+      "k": "What it is",
+      "v": "Two sides, usually macaroni salad and home fries, under two hot dogs or two burgers, with a spiced meat sauce poured over everything, then mustard and raw onions. Buttered Italian bread on the side."
+    },
+    {
+      "k": "Where it is from",
+      "v": "Nick Tahou Hots, 320 West Main Street, Rochester, NY, a business that dates itself to 1918."
+    },
+    {
+      "k": "Why the name",
+      "v": "Customers named it by pointing at a plate with all that garbage on it. The family registered GARBAGE PLATE as a federal trademark on August 18, 1992."
+    },
+    {
+      "k": "Why it has other names",
+      "v": "Because of that trademark. Everywhere else sells a trash plate, a junkyard plate, a sloppy plate, a Genny plate or just a plate."
+    },
+    {
+      "k": "How to order",
+      "v": "Pick a meat and two sides and ask for everything, which means hot sauce, mustard and onions."
+    }
+  ],
+  "guide": {
+    "order": {
+      "intro": "There is no menu language to learn beyond a handful of words, and every one of them is on a real menu somewhere in Rochester, NY. This is what they mean.",
+      "terms": [
+        {
+          "t": "Plate",
+          "d": "The dish, said on its own. Eater calls it the regional abbreviation, and most menus in town file the whole section under Plates.",
+          "src": [
+            "eater-2017"
+          ]
+        },
+        {
+          "t": "Everything",
+          "d": "Hot sauce, mustard and onions. Steve T. prints it on the menu, dogTown defines it twice, and Visit Rochester used the same three words to explain it to Fox News. Nobody in any source says \"all the way\".",
+          "src": [
+            "steve-t",
+            "dogtown-menu",
+            "fox-2023"
+          ]
+        },
+        {
+          "t": "Hots",
+          "d": "Hot dogs. The word is about the dog, not the heat.",
+          "src": [
+            "zweigles-faq"
+          ]
+        },
+        {
+          "t": "Red hot, or Texas hot",
+          "d": "An ordinary pork and beef frankfurter. Zweigle's says outright that its red hots are not spicy and that Texas hots is another name for them. On Nick Tahou's menu, Texas means the red.",
+          "src": [
+            "zweigles-faq",
+            "tasting-table"
+          ]
+        },
+        {
+          "t": "White hot",
+          "d": "Uncured and unsmoked pork, beef and veal, which is why it is pale. It is the Rochester, NY one, and some people here call it a porker.",
+          "src": [
+            "zweigles-faq"
+          ]
+        },
+        {
+          "t": "Hot sauce",
+          "d": "A meat sauce, not a bottle of pepper sauce. Some menus just say meat sauce or meat hot sauce.",
+          "src": [
+            "visit-roc",
+            "tasting-table"
+          ]
+        },
+        {
+          "t": "Half plate, split plate",
+          "d": "One meat instead of two, or one of each. Nick Tahou's 2007 menu sold a half plate for a dollar less, and dogTown sells a split plate of one cheeseburger and one dog.",
+          "src": [
+            "nt-menu-2007",
+            "dogtown-menu"
+          ]
+        },
+        {
+          "t": "On rolls",
+          "d": "Buns on the side instead of bread. Nick Tahou's charged a dollar more for it in 2007.",
+          "src": [
+            "nt-menu-2007"
+          ]
+        }
+      ],
+      "tip": "The owner's own pick, first hand: a cheeseburger plate with all the fixings, because a plain plate misses the point. If you want the part of it you cannot get anywhere else, make it white hots.",
+      "tipSrc": [
+        "tasting-table"
+      ],
+      "orders": "What people actually ordered, on the record: Jim Gaffigan had white hots with meat sauce over macaroni salad and home fries, and held the mustard. A Rochester, NY pizza owner told Scripps he gets red hots over mac and potatoes with mustard, onions and Nick's sauce.",
+      "ordersSrc": [
+        "spectrum-2020",
+        "scripps-2023"
+      ]
+    },
+    "sauce": {
+      "intro": "The hot sauce is the part that makes it a plate, and it is the part nobody publishes a recipe for. Here is what the people who make it say it is.",
+      "items": [
+        {
+          "d": "A Rochester, NY bar owner who makes his own describes the traditional sauce as a bean-less Texas chili with less tomato: ground beef, spices and tomatoes.",
+          "src": [
+            "fox-2023"
+          ]
+        },
+        {
+          "d": "Saveur found paprika and cinnamon in Nick's in 2012, along with plenty of grease and griddle scrapings. Eater placed it somewhere between Tabasco, a briny ragu and Cincinnati's Skyline chili.",
+          "src": [
+            "saveur-2012",
+            "eater-2017"
+          ]
+        },
+        {
+          "d": "Where Nick's came from, in the family's own words: Alex Tahou has told the story twice, to Saveur in 2012 and to Tasting Table in 2024. His grandfather befriended a Mexican man, gave him work and a place to live, and was repaid with the man's family recipe. Alex says his father handed the recipe to him about four days before he died. That is the family's account, printed as theirs.",
+          "src": [
+            "tasting-table",
+            "saveur-2012"
+          ]
+        },
+        {
+          "d": "Nick Tahou's sold it by the cup: four ounces for $1.00 in 2007 and $1.25 in 2009. Other kitchens sell theirs to take home. Steve T. does 16 ounce jars, and Fairport Hots sells a quart.",
+          "src": [
+            "nt-menu-2007",
+            "nt-menu-2009",
+            "steve-t",
+            "fairport-menu"
+          ]
+        },
+        {
+          "d": "It is not only for plates. Zweigle's calls meat hot sauce, mustard and chopped onion the Rochester, NY tradition for a white hot on a bun.",
+          "src": [
+            "zweigles-white"
+          ]
+        }
+      ]
+    },
+    "variations": {
+      "intro": "The plate is a template, and every kitchen in town has bent it. These are the versions you can actually order, with where each one is written down.",
+      "items": [
+        {
+          "h": "Meatless and vegetarian",
+          "d": "Steve T., Empire Hots and Fairport Hots all sell a meatless plate. Ask about the sauce, because hot sauce is a meat sauce and a meatless plate gets it unless you say otherwise. dogTown swaps in a homemade three-bean veggie chili on its veggie plates, and The Red Fern's Compost Plate is vegan from top to bottom.",
+          "src": [
+            "steve-t",
+            "empire-menu",
+            "fairport-menu",
+            "dogtown-veggie"
+          ]
+        },
+        {
+          "h": "Breakfast",
+          "d": "Nick Tahou's sold an egg plate in 2007 and 2009, and opened at 8am when its site still printed hours. Steve T. sells one today, Fairport Hots will put two eggs on any plate, and the directory marks every place with a breakfast plate.",
+          "src": [
+            "nt-menu-2007",
+            "steve-t",
+            "fairport-menu"
+          ]
+        },
+        {
+          "h": "Fish",
+          "d": "Nick Tahou's fish plate is haddock, and Eater points out who it is for: the Friday crowd in Rochester, NY.",
+          "src": [
+            "nt-menu-2007",
+            "eater-2017"
+          ]
+        },
+        {
+          "h": "A plate for 25",
+          "d": "Empire Hots sells a build-your-own plate kit for 25 people or more, burgers or hots, mac salad, home fries, meat sauce, onions, bread and butter, at $12 a head.",
+          "src": [
+            "empire-menu"
+          ]
+        },
+        {
+          "h": "The riffs",
+          "d": "In 2021 the Democrat and Chronicle counted nineteen of them around town: a garbage bowl, a stuffed Trash Can burger, a Scratch Plate dessert, what it called a garbage plate candied apple, a healthy trash plate and a greens and beans version. That is a 2021 snapshot, so treat it as history, not a menu.",
+          "src": [
+            "dc-2021-gallery"
+          ]
+        },
+        {
+          "h": "At the ballpark",
+          "d": "On the first Plates night in 2017 every concession stand at the stadium made its own: a plate calzone, a Philly plate, a mac plate and a dessert Compost Can of ice cream, brownie, cookie and gummy worms.",
+          "src": [
+            "milb-2017"
+          ]
+        },
+        {
+          "h": "Outside Rochester",
+          "d": "It travels, a little. Nick Tahou's itself ran a shop in Oswego from 1995. Pittsburgh Magazine found a Red Hot Pile made with Zweigle's in Oakland in 2024, and Westword found a Rochester, NY native selling what it calls garbage plates from a truck in Denver the same year. Both are press reports.",
+          "src": [
+            "rbj-1995",
+            "pgh-2024",
+            "westword-2024"
+          ]
+        }
+      ]
+    },
+    "prices": {
+      "intro": "Nick Tahou Hots publishes no price today. Its own old menu pages do, and the Internet Archive kept them, so this is the one price history of the original that can be checked.",
+      "rows": [
+        {
+          "when": "April 2007 to February 2009",
+          "hot": "$5.50",
+          "cb": "$6.00",
+          "fish": "$6.50",
+          "src": [
+            "nt-menu-2007"
+          ]
+        },
+        {
+          "when": "April 2009",
+          "hot": "$7.00",
+          "cb": "$7.50",
+          "fish": "$8.50",
+          "src": [
+            "nt-menu-2009"
+          ]
+        },
+        {
+          "when": "August 2023",
+          "hot": "",
+          "cb": "",
+          "fish": "",
+          "all": "$12.50 for the original, tax included, as reported by Scripps News",
+          "src": [
+            "scripps-2023"
+          ]
+        }
+      ],
+      "after": "The rest of town prints its prices, and they are on every card in the directory. As read on September 23, 2026 a full plate runs from $9.99 for a meatless one at Wimpy's, Spencerport Hots or Farmington Hots to $22 for the dressed-up versions, and a half plate is usually a few dollars less."
+    },
+    "home": {
+      "intro": "Nobody publishes Nick's recipe and this page is not going to pretend to. What it can do is give you the build and the two tips that come from the family itself.",
+      "steps": [
+        "Two sides on the plate. Macaroni salad and home fries is the classic pair; french fries or baked beans are the other two.",
+        "The meat on top: two burgers, or two hots split and grilled.",
+        "Meat hot sauce spooned over everything, not beside it.",
+        "Chopped raw onion and a line of mustard.",
+        "Buttered Italian bread on the side."
+      ],
+      "tips": "For the sauce, start from a hot dog chili: finely ground beef, spices and a little tomato, no beans. For the macaroni salad, Alex Tahou's advice is no salt and no vinegar, just elbows, celery, carrot and plenty of mayonnaise, because vinegar fights the sauce. And for the version his grandfather sold, serve the beans cold.",
+      "src": [
+        "tasting-table",
+        "fox-2023"
+      ]
+    },
+    "faq": [
+      {
+        "q": "What is a Garbage Plate?",
+        "a": "A Rochester, NY dish: two sides, usually macaroni salad and home fries, under two hot dogs or burgers, covered in a spiced meat hot sauce, mustard and raw onions, with buttered bread on the side. It comes from Nick Tahou Hots, which dates itself to 1918.",
+        "src": [
+          "nt-order",
+          "nt-site"
+        ]
+      },
+      {
+        "q": "Where can I get a Garbage Plate?",
+        "a": "Only Nick Tahou Hots at 320 West Main Street can call it a Garbage Plate, because it owns the trademark. Almost every hots shop, diner and bar in the area sells its own version under another name, and the directory on this site lists the ones confirmed from their own menus.",
+        "src": [
+          "uspto"
+        ]
+      },
+      {
+        "q": "Is a Garbage Plate spicy?",
+        "a": "Not very, usually. Hot names the dog and the sauce rather than the heat, and Zweigle's says its red hots are not spicy. The sauce is a spiced ground meat sauce, so expect warm spice rather than a pepper burn. Saveur called Nick's mild.",
+        "src": [
+          "zweigles-faq",
+          "saveur-2012"
+        ]
+      },
+      {
+        "q": "Is there a vegetarian Garbage Plate?",
+        "a": "Yes: Nick Tahou's own order form lists a Veggie Plate. Ask about the sauce, because the hot sauce is a meat sauce. Elsewhere, dogTown uses a three-bean veggie chili on its veggie plates and The Red Fern's Compost Plate is fully vegan. The directory has a filter for meatless plates.",
+        "src": [
+          "dogtown-veggie",
+          "nt-order"
+        ]
+      },
+      {
+        "q": "Why is it called a Garbage Plate?",
+        "a": "Customers named it. Students who did not know what the dish was called would ask for a plate with all that garbage on it. The family did not like the name, then registered it as a trademark in 1992.",
+        "src": [
+          "tasting-table",
+          "dc-2020",
+          "uspto"
+        ]
+      },
+      {
+        "q": "When was the Garbage Plate invented?",
+        "a": "No source dates the dish itself. The restaurant dates itself to 1918, the name dates to the 1970s or 1980s, and the trademark was registered on August 18, 1992. The dish kept changing for decades: there were no hamburgers on it until the 1950s.",
+        "src": [
+          "nt-site",
+          "tasting-table",
+          "uspto"
+        ]
+      },
+      {
+        "q": "Who invented the Garbage Plate?",
+        "a": "It is still argued. Nick Tahou Hots was founded by Alexander Tahou, and his son Nick took it over in 1942. A 1995 interview credits Nick with the plate, and Nick's son Alex credits Alexander with what became it.",
+        "src": [
+          "rbj-1995",
+          "tasting-table"
+        ]
+      },
+      {
+        "q": "Why does nobody else call it a Garbage Plate?",
+        "a": "Nick Tahou Hots, Inc. owns GARBAGE PLATE as a federal trademark, registration 1,708,448, renewed most recently on May 9, 2022. So other kitchens sell trash plates, junkyard plates, sloppy plates and so on.",
+        "src": [
+          "uspto"
+        ]
+      },
+      {
+        "q": "What does 'everything' mean on a plate?",
+        "a": "Hot sauce, mustard and onions. Some places add ketchup if you ask.",
+        "src": [
+          "steve-t",
+          "dogtown-menu",
+          "visit-roc"
+        ]
+      },
+      {
+        "q": "What is a white hot?",
+        "a": "A pale Rochester, NY hot dog of uncured, unsmoked pork, beef and veal. Zweigle's is the best known maker. A red hot is an ordinary frankfurter, and on Nick Tahou's menu Texas means the red.",
+        "src": [
+          "zweigles-faq",
+          "tasting-table"
+        ]
+      },
+      {
+        "q": "How much does a Garbage Plate cost?",
+        "a": "Nick Tahou's publishes no price today. Its own menu said $5.50 for a hot plate in 2007 and $7.00 in 2009, and Scripps reported $12.50 with tax in 2023. Elsewhere, a full plate runs from $9.99 to $22 on the menus read for this site.",
+        "src": [
+          "nt-menu-2007",
+          "nt-menu-2009",
+          "scripps-2023"
+        ]
+      },
+      {
+        "q": "How many calories are in a Garbage Plate?",
+        "a": "Nobody has published a real number. No restaurant prints nutrition for one, and Health.com said in 2010 that there is no official analysis before quoting outside guesses of 93 to 203 grams of fat.",
+        "src": [
+          "health-2010"
+        ]
+      },
+      {
+        "q": "Is Nick Tahou's open late?",
+        "a": "It used to be open all night. Its own site publishes no hours now, so call 585-436-0184 before you go. The directory's Open late filter shows the places that print their hours and stay open past 11pm.",
+        "src": [
+          "rbj-1995",
+          "nt-site"
+        ]
+      },
+      {
+        "q": "Can I buy the hot sauce?",
+        "a": "From some kitchens. Steve T. sells 16 ounce jars and Fairport Hots sells it by the quart.",
+        "src": [
+          "steve-t",
+          "fairport-menu"
+        ]
+      }
     ]
-   },
-   {
-    "n": 3,
-    "name": "Hot sauce, poured over the lot",
-    "what": "The order form calls it Nick's Hot Sauce and it is the thing that makes the plate a plate rather than a tray of sides. It is a loose spiced ground meat sauce, and it goes over the whole plate rather than on one part of it. Fairport Hots is famous, in its own words, for its \"Homemade Meat Hot Sauce\", which tells you where the argument is around here.",
-    "src": [
-     "nt-order"
-    ]
-   },
-   {
-    "n": 4,
-    "name": "Chopped raw onions",
-    "what": "A tick box on Nick Tahou Hots' order form, and standard unless you say otherwise. Steve T. Hots & Potatoes puts it beyond doubt on its own menu: \"On plates, everything includes: Hot Sauce, Mustard, Onions\".",
-    "src": [
-     "nt-order",
-     "steve-t"
-    ]
-   },
-   {
-    "n": 5,
-    "name": "Mustard",
-    "what": "The other tick box, and the other third of that same Steve T. line. Yellow mustard, striped over the top.",
-    "src": [
-     "nt-order",
-     "steve-t"
-    ]
-   },
-   {
-    "n": 6,
-    "name": "Bread and butter, on the side",
-    "what": "Italian bread, buttered. Steve T. Hots & Potatoes says its plates are \"Served with Italian Bread or Rolls\", and Visit Rochester says a plate is usually served with a side of buttered bread. Alex Tahou's account of the original hots and potatoes has two pieces of Italian bread and butter on it as well, so this is the part of the dish that never changed.",
-    "src": [
-     "tasting-table",
-     "visit-roc",
-     "steve-t"
-    ]
-   }
+  },
+  "groups": [
+    {
+      "id": "city",
+      "name": "Rochester, NY",
+      "short": "City",
+      "blurb": "Downtown, the neighborhoods and the city line, starting with the original."
+    },
+    {
+      "id": "west",
+      "name": "West side",
+      "short": "West",
+      "blurb": "Greece, Gates, Chili and out along the canal to Spencerport, Churchville and Brockport."
+    },
+    {
+      "id": "east",
+      "name": "East side",
+      "short": "East",
+      "blurb": "Irondequoit, Seabreeze, Webster, Penfield and Fairport."
+    },
+    {
+      "id": "south",
+      "name": "South",
+      "short": "South",
+      "blurb": "Henrietta and Pittsford."
+    },
+    {
+      "id": "outer",
+      "name": "Further out",
+      "short": "Further out",
+      "blurb": "Victor, Farmington, Geneseo, Batavia and Medina, for the drive."
+    },
+    {
+      "id": "chain",
+      "name": "Chains and places with several locations",
+      "short": "Chains",
+      "blurb": "One card each, with every location listed on it."
+    }
+  ],
+  "leads": [
+    "Patty Shack in Henrietta, which its own Facebook page says serves Rochester Plates, and publishes no menu.",
+    "South Wedge Hots & Subs, Brighton Hots, Westridge Hots, Jay's Diner, American Cheeseburger and Hotstown HOTS, all of which have plates on delivery apps or old posts and nothing current from the business.",
+    "Finger Lakes Plates in Canandaigua and Straight Plates of the FLX in Geneva, whose only presence is a Facebook page with no menu.",
+    "Lovin' Cup Bistro & Brews in Henrietta, whose own menu lists Trash Talk, the plate in burger form on a Kaiser roll, so a burger rather than a plate.",
+    "Skylark Lounge, whose menu page renders empty, and Flaherty's Macedon, whose plates appear on an ordering page its own site does not link.",
+    "My Scottsville Hots, Top Shelf Pizza in Honeoye, Simply Jimmy's in Seneca Falls and Everybody Eats in Batavia.",
+    "The Red Wings. Plates night is every Thursday home game, but the team's own ballpark pages did not say what the stands are selling this season."
   ]
- },
- "listNote": "This is a list and not a ranking. Nick Tahou Hots is first because it is where the dish comes from and it holds the trademark, which is a matter of record rather than an opinion about dinner; everything after it is in alphabetical order. Nobody here paid to be on it and there are no affiliate links on this site.",
- "listRule": "A place goes on this list only if its OWN site or its OWN online menu says it serves a plate. Being called great on a food blog is not evidence that a kitchen still makes one, and a listing site saying so is worth even less.",
- "places": [
-  {
-   "origin": true,
-   "name": "Nick Tahou Hots",
-   "area": "West Main Street, downtown",
-   "plateName": "Garbage Plate",
-   "blurb": "Where it comes from and the only kitchen on earth entitled to those two words. It is in the old Buffalo, Rochester & Pittsburgh railroad terminal, a block from Frontier Field, and it has been on this street since 1918.",
-   "address": "320 W. Main St., Rochester, NY 14608",
-   "phone": "585-436-0184",
-   "hoursUnknown": "Their own site publishes none, and it has not been updated since 2021.",
-   "url": "https://garbageplate.com/",
-   "menuUrl": "https://garbageplate.com/images/orderform_mainstreet.pdf",
-   "menuLabel": "Order form",
-   "note": "The second location on West Henrietta Road is gone. Their own site lists West Main and nothing else."
-  },
-  {
-   "name": "Bill Gray's",
-   "area": "Thirteen locations around Monroe County",
-   "plateName": "Great Plate",
-   "platePrice": "price not published",
-   "blurb": "The local chain, and the one you can get to from anywhere in the county. Their own gluten free menu describes a Great Plate as a cheeseburger or hot dog served over 2 side orders, which is the plate build in nine words.",
-   "phone": "",
-   "hoursUnknown": "Their locations page lists thirteen addresses and no hours for any of them.",
-   "url": "https://www.billgrays.com/",
-   "menuUrl": "https://www.billgrays.com/index.cfm?Page=Locations",
-   "menuLabel": "All locations",
-   "note": "No single address here on purpose: it is thirteen shops and picking one would send you past two others."
-  },
-  {
-   "name": "Chili Hots",
-   "area": "Chili Avenue",
-   "plateName": "Cheeseburger Plate and twelve more",
-   "platePrice": "$10.00 to $18.50",
-   "blurb": "The most complete priced plate menu anybody in this city publishes: thirteen of them, from a $10 Jr Plate up to an $18.50 Shaved Steak Plate, counting a meatless plate, a half plate and a split plate for anyone who has been sensibly warned.",
-   "address": "3774 Chili Ave, Rochester, NY 14624",
-   "phone": "(585) 534-8649",
-   "hours": "Mon to Sat 11am to 10pm, Sun noon to 10pm",
-   "hoursSrc": "https://chilihots.com/",
-   "url": "https://chilihots.com/",
-   "menuUrl": "https://chilihots.com/menu"
-  },
-  {
-   "name": "dogTown Hots",
-   "area": "Monroe Avenue",
-   "plateName": "Dog Plate, Cheeseburger Plate, Split Plate",
-   "blurb": "The Monroe Avenue hot dog shop, and the one with a vegetarian and vegan plate that people order on purpose rather than as a compromise. Their own site claims a Best Rochester Plate run of more than ten years.",
-   "address": "691 Monroe Ave, Rochester, NY 14607",
-   "phone": "585-271-6620",
-   "hoursUnknown": "Their own site reads \"Open 11AM to 10:45pm Daily Closed Sundays\", which cannot be both, so this page will not pick one for you.",
-   "url": "https://dogtownhots.com/",
-   "menuUrl": "https://dogtownhots.com/meaty-menu/",
-   "note": "Their own menu files the dish under two headings that both say Junkyard: Junkyard Plates and Junkyard Dog Plates. The individual plates on those lists are named for the meat, and they publish no prices."
-  },
-  {
-   "name": "Empire Hots",
-   "area": "Empire Boulevard, Webster",
-   "plateName": "Trash Plate",
-   "platePrice": "$13.39 to $17.79",
-   "blurb": "Calls itself Home of the Trash Plate on its own front page, and backs it with eleven of them on the menu. This is the clearest example anywhere of what the trademark actually does to a menu: same dish, different two words.",
-   "address": "2209 Empire Boulevard, Webster, NY 14580",
-   "phone": "(585) 787-2110",
-   "hours": "Sun to Thu 11am to 10pm, Fri and Sat 11am to midnight",
-   "hoursSrc": "https://empirehots.com/",
-   "url": "https://empirehots.com/",
-   "menuUrl": "https://empirehots.com/webster-empire-hots-food-menu"
-  },
-  {
-   "name": "Fairport Hots",
-   "area": "Fairport Road, Fairport",
-   "plateName": "Godfather Plate, Varsity Plate, Jr. Varsity",
-   "platePrice": "$12.99 to $19.79",
-   "blurb": "East side, open late, and the only place on this list that sizes its plates like a football roster. The Godfather is four hots or burgers. Their own words are famous for our Hot Plates, Fish Fry's, and Homemade Meat Hot Sauce.",
-   "address": "1226 Fairport Rd, Fairport, NY 14450",
-   "phone": "(585) 586-4540",
-   "hours": "Sun to Wed 10:30am to 11:30pm, Thu 10:30am to midnight, Fri and Sat 10:30am to 1am",
-   "hoursSrc": "https://fairporthots.com/",
-   "url": "https://fairporthots.com/",
-   "menuUrl": "https://fairporthots.com/restaurant-menu/"
-  },
-  {
-   "name": "Henrietta Hots",
-   "area": "West Henrietta Road, Henrietta",
-   "plateName": "Cheeseburger plate, and the Junker",
-   "blurb": "The one nearest RIT, which is most of the explanation. Zweigle's hots, a Friday fish fry, and a plate their own site names but does not price.",
-   "address": "4018 West Henrietta Road, Rochester, NY 14623",
-   "phone": "(585) 424-4687",
-   "hours": "Mon and Tue 11am to 11pm, Wed to Sat 11am to midnight, Sun 11am to 10pm",
-   "hoursSrc": "https://henriettahots.com/",
-   "url": "https://henriettahots.com/",
-   "menuUrl": "https://www.clover.com/online-ordering/henrietta-hots-rochester-3",
-   "menuLabel": "Order online"
-  },
-  {
-   "name": "Jeremiah's Tavern",
-   "area": "Monroe Avenue, plus Henrietta, Greece and Penfield",
-   "plateName": "The 1104 Plate",
-   "platePrice": "$17.50",
-   "blurb": "A tavern rather than a hots counter, so this is the version you can sit down and have a beer with. The plate is named after the address: two cheeseburgers, macaroni salad and french fries under burger hot sauce, mustard and onions.",
-   "address": "1104 Monroe Ave, Rochester, NY 14620",
-   "phone": "585-461-1313",
-   "hours": "Sun to Wed 11am to 11pm, Thu to Sat 11am to midnight",
-   "hoursSrc": "https://jeremiahstavern.com/locations/",
-   "url": "https://jeremiahstavern.com/",
-   "menuUrl": "https://jeremiahstavern.com/menu/",
-   "note": "Three more at 1175 Jefferson Road, 300 Paddy Creek Circle and 2164 Fairport Nine Mile Road, all with their own hours on the locations page. The hours above are Monroe Avenue's."
-  },
-  {
-   "name": "The Red Fern",
-   "area": "Oxford Street, Park Avenue",
-   "plateName": "Compost Plate",
-   "blurb": "A hundred percent vegan restaurant whose own site calls the Compost Plate their healthy version of Rochester's infamous Garbage Plate. It is the best named plate in the city, and the only one on this list where the whole kitchen is vegan rather than one line of the menu.",
-   "address": "283 Oxford Street, Rochester, NY 14607",
-   "phone": "585-563-7633",
-   "hours": "Tue to Thu 11am to 9pm, Fri and Sat 11am to 9:30pm, closed Sun and Mon",
-   "hoursSrc": "https://redfernrochester.com/contact/",
-   "url": "https://redfernrochester.com/",
-   "menuUrl": "https://redfernrochester.com/menu/",
-   "note": "Last seating is fifteen minutes before close, which their own contact page says and which is easy to lose an evening to."
-  },
-  {
-   "name": "Rohrbach Brewing Company",
-   "area": "Buffalo Road brewpub",
-   "plateName": "Rohrbach Classic Plate",
-   "platePrice": "$16.00",
-   "blurb": "A brewery that put a plate on the menu, which around here counts as civic duty. There is a Bourbon Fried Chicken Plate at $17 and a Das German Plate at $22 beside it.",
-   "address": "3859 Buffalo Road, Rochester, NY 14624",
-   "phone": "585-594-9800",
-   "hours": "Mon 11am to 9pm, Tue to Thu 11am to 11pm, Fri 11am to midnight, Sat 11:30am to midnight, Sun noon to 9pm",
-   "hoursSrc": "https://www.rohrbachs.com/buffalo-rd-brewpub",
-   "url": "https://www.rohrbachs.com/buffalo-rd-brewpub",
-   "menuUrl": "https://www.rohrbachs.com/buffalo-rd-brewpub",
-   "note": "The Buffalo Road brewpub only. Their Railroad Street beer hall is a different menu with no plate on it, and the kitchen closes an hour before the bar does."
-  },
-  {
-   "name": "Steve T. Hots & Potatoes",
-   "area": "Lyell Avenue",
-   "plateName": "Hots and Potatoes, and twelve more",
-   "platePrice": "$11.50 to $16.50",
-   "blurb": "The other Tahou counter, and the one still selling the dish under its original name: Hots and Potatoes, $15.00. Open until 3:30am on a Friday, which is the hour this whole dish was invented for.",
-   "address": "2260 Lyell Ave, Rochester, NY 14606",
-   "phone": "585-429-6388",
-   "hours": "Sun to Thu 10am to midnight, Fri and Sat 10am to 3:30am",
-   "hoursSrc": "https://stevethots.com/",
-   "url": "https://stevethots.com/",
-   "menuUrl": "https://stevethots.com/",
-   "note": "Their own site says the dining room stops seating at 1am every night, so past that it is a counter and a car."
-  }
- ],
- "checkedAndLeftOut": [
-  "Schaller's. Their own menu was read in full on August 20, 2026 and the word plate does not appear on it once: the headings are burgers and sandwiches, extras, drinks and souvenirs. Blogs and directories say they serve a plate. Their menu does not, and a listicle is not evidence a kitchen still makes something.",
-  "Mark's Texas Hots. markstexashots.com does not resolve at all, so there is no business-owned source for an address, an hour or a menu. Every listing for it is a directory repeating another directory. Somebody should call them.",
-  "Sticky Lips BBQ. Their own site has been reduced to a placeholder reading that it will be available soon, and the page that used to hold the Sticky Icky Plate redirects to it. That is exactly the shape of a closure and this page will not send anybody there on a guess.",
-  "Tom Wahl's. Their homepage names no plate, and their menu is served from an ordering platform that returned nothing readable. The Junker plate is widely reported by other people and by nobody at Tom Wahl's.",
-  "John's Tex Mex. Their menu page answered 403, so nothing about it could be confirmed from the business.",
-  "Hot Shots on Chili Avenue. There is no such restaurant. The Chili Avenue plate shop is Chili Hots and it is on the list above."
- ],
- "photos": [
-  {
-   "slug": "nick-tahou-plate-2025",
-   "file": "File:The Garbage Plate, Nick Tahou Hots 2025.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:The_Garbage_Plate,_Nick_Tahou_Hots_2025.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Paul Lowry",
-   "by": "Paul Lowry",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "June 28, 2025",
-   "read": "2026-08-20",
-   "maxw": 1200,
-   "w": 3502,
-   "h": 2584,
-   "where": "hero",
-   "alt": "A Garbage Plate at Nick Tahou Hots: two split white hot dogs lying across home fries and macaroni salad, buried under a layer of crumbled brown meat sauce with chopped raw onion and a line of yellow mustard through it. Two slices of white Italian bread lie on the rim of the plate and a fork rests on the right.",
-   "caption": "This is the thing itself, photographed at Nick Tahou Hots on June 28, 2025. Two white hots on home fries and macaroni salad, hot sauce poured over the lot, raw onion and mustard on top, bread and butter on the side."
-  },
-  {
-   "slug": "nick-tahou-plate-2007",
-   "file": "File:Garbage plate.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Garbage_plate.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Eugene Peretz from Northampton, MA, USA",
-   "by": "Eugene Peretz",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-   "taken": "October 20, 2007",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 2816,
-   "h": 2112,
-   "where": "anatomy",
-   "alt": "A Garbage Plate seen from above on a plate whose blue rim reads NICK TAHOU and, along the bottom, HOME OF THE GARBAGE PLATE. Baked beans, macaroni salad and chunky home fries are arranged around the edge; a mound of crumbled meat sauce and chopped onion sits in the middle over a split red hot dog.",
-   "caption": "Three of the four sides in one frame, photographed in 2007: home fries, macaroni salad and baked beans. The order form lists those three and french fries, and you tick two."
-  },
-  {
-   "slug": "nick-tahou-plates-tray-2025",
-   "file": "File:Garbage Plates, Nick Tahou Hots 2025.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Garbage_Plates,_Nick_Tahou_Hots_2025.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Paul Lowry",
-   "by": "Paul Lowry",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "June 28, 2025",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 3060,
-   "h": 4080,
-   "where": "anatomy",
-   "alt": "Two Garbage Plates on a red cafeteria tray, one behind the other. The plate at the back carries split red hot dogs under the meat sauce; the one at the front carries pale white hots. Both sit on the same home fries and macaroni salad. A slice of Italian bread on its own plate and a cup of water stand beside them.",
-   "caption": "Two plates on one tray, which is the quickest way to see that the meat is a choice and not part of the recipe: red hots at the back, white hots at the front, everything underneath them the same."
-  },
-  {
-   "slug": "nick-tahou-sign-2007",
-   "file": "File:Nick Tahou Hots.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou_Hots.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Eugene Peretz",
-   "by": "Eugene Peretz",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-   "taken": "October 20, 2007",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 1024,
-   "h": 768,
-   "where": "history:1918",
-   "alt": "A large painted sign on the brick wall inside Nick Tahou Hots. It reads NICK TAHOU HOTS in blue over a drawing of a steaming plate of hot dogs, beans and bread, then in script \"Home of the Garbage Plate\", then Established 1918 in red. A red LED display on the left reads 5 MILLION.",
-   "caption": "The 1918 date, on the restaurant's own wall in 2007. This page dates the shop and not the dish, and this is one of the two places the business states the shop's date about itself."
-  },
-  {
-   "slug": "nick-tahou-terminal-2008",
-   "file": "File:East end of NY 33.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:East_end_of_NY_33.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Doug Kerr",
-   "by": "Doug Kerr",
-   "license": "CC BY-SA 2.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
-   "taken": "December 6, 2008",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 1024,
-   "h": 768,
-   "where": "history:1963 and 1968",
-   "alt": "Looking east along West Main Street in Rochester, NY on an overcast day. On the left stands a long red brick building with steep gables and tall arched windows, a hanging sign on it reading NICK TAHOU. A green railroad bridge crosses the road ahead and downtown towers stand behind it.",
-   "caption": "The building from the street in 2008. The brick block on the left is the old passenger terminal the restaurant moved into, gables and arched windows and all, and the railroad bridge beyond it is the rest of the reason it is there."
-  },
-  {
-   "slug": "nick-tahou-counter-2025",
-   "file": "File:The counter at Nick Tahou Hots' 2025.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:The_counter_at_Nick_Tahou_Hots%27_2025.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Paul Lowry",
-   "by": "Paul Lowry",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "June 28, 2025",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 4080,
-   "h": 2548,
-   "where": "history:The name",
-   "alt": "Inside Nick Tahou Hots in 2025. Two customers stand with their backs to the camera at a long blue counter under strip lighting; a member of staff faces them across it. A yellow menu board hangs overhead and a sign on the left wall reads NICK TAHOU HOTS above a drawing of a plate.",
-   "caption": "The counter, in 2025. Every order here is said out loud across it, which is how a description of somebody else's dinner ended up being the name of the dish."
-  },
-  {
-   "slug": "nick-tahou-plate-2005",
-   "file": "File:Nick Tahou's Garbage Plate.JPG",
-   "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou%27s_Garbage_Plate.JPG",
-   "source": "Wikimedia Commons",
-   "author": "Self",
-   "by": "Wikimedia Commons user Evadb",
-   "license": "Public domain",
-   "licenseUrl": "",
-   "taken": "May 2005",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 1342,
-   "h": 963,
-   "where": "history:1991 to 1992",
-   "alt": "A Garbage Plate held on somebody's lap outdoors on grass. The plate's blue rim reads NICK TAHOU HOTS along the top and, along the bottom, HOME OF THE GARBAGE PLATE. On it are a split red hot dog, home fries, macaroni salad, meat sauce, chopped onion and a heavy pour of ketchup.",
-   "caption": "The mark, printed around the rim of the plate it belongs to, in May 2005. The photographer released this one into the public domain, so it is the only picture on this page that carries no conditions at all."
-  },
-  {
-   "slug": "nick-tahou-exterior-2025",
-   "file": "File:Nick Tahou Hots, Rochester NY 2025.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Nick_Tahou_Hots,_Rochester_NY_2025.jpg",
-   "source": "Wikimedia Commons",
-   "author": "Paul Lowry",
-   "by": "Paul Lowry",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "June 28, 2025",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 3801,
-   "h": 2474,
-   "where": "place:Nick Tahou Hots",
-   "alt": "The corner of Nick Tahou Hots' red brick building. A hand-painted board high on the wall carries a Coca-Cola logo and reads NICK TAHOU, PARKING IN REAR OF BUILDING, with a green arrow. Below it a boarded-up window carries a LOTTO sign. A Rochester Heritage Trail marker stands at the curb on the left.",
-   "caption": "320 West Main Street, June 2025."
-  },
-  {
-   "slug": "bill-grays-flagship-2011",
-   "file": "File:Bill Gray's flagship location.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Bill_Gray%27s_flagship_location.jpg",
-   "source": "Wikimedia Commons",
-   "author": "DanielPenfield",
-   "by": "DanielPenfield",
-   "license": "CC BY-SA 3.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
-   "taken": "June 19, 2011",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 2576,
-   "h": 1932,
-   "where": "place:Bill Gray's",
-   "alt": "A Bill Gray's restaurant photographed from its own parking lot under a clear blue sky. The building is painted dark green and deep red and has two corner towers, each carrying a raised black steam locomotive with a puff of smoke and a curved BILL GRAY'S sign over the top of it. A long BILL GRAY'S sign in deep red letters runs along the right-hand wall beside a blue script Abbott's Frozen Custard sign, and red panels under the awnings read HOME OF THE WORLD'S GREATEST CHEESEBURGER. Young trees and shrubs stand along the front of the building and the marked spaces of an empty parking lot run across the foreground.",
-   "caption": "Bill Gray's in Henrietta, June 2011, and the only one of the thirteen anybody has photographed under a free license. The photographer's own description on Commons calls it the chain's flagship; their locations page lists thirteen shops and singles out none of them, so that is his word rather than theirs."
-  },
-  {
-   "slug": "dogtown-plate-2024",
-   "file": "File:Junkyard Plate.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Junkyard_Plate.jpg",
-   "source": "Wikimedia Commons",
-   "author": "BanjoZebra",
-   "by": "BanjoZebra",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "April 9, 2024",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 3024,
-   "h": 3276,
-   "where": "place:dogTown Hots",
-   "alt": "A plate on a mosaic table top: two split red hot dogs lying on chunky home fries and macaroni salad, covered with crumbled brown meat sauce, a scatter of diced raw onion and a zigzag of yellow mustard.",
-   "caption": "A plate from dogTown, April 9, 2024.",
-   "placeNote": "The photographer's own description names the restaurant, which is why this is on this card: \"Junkyard Plate with hot dogs, macaroni salad, home fries, meat sauce, diced onions, and mustard, from Dogtown in Rochester, New York\", and the file's camera position, 43.1439 by -77.5898, is Monroe Avenue at that address. The photographer's title matches the menu: dogTown files the dish under Junkyard Plates, and a second section under Junkyard Dog Plates, read on their own site on August 20, 2026. The individual items under those headings are a Dog Plate, a Cheeseburger Plate, a Split Plate and a Sausage Plate, so the word is the section and not the dish name printed on any one line."
-  },
-  {
-   "slug": "red-fern-compost-plate-2024",
-   "file": "File:Compost Plate.jpg",
-   "page": "https://commons.wikimedia.org/wiki/File:Compost_Plate.jpg",
-   "source": "Wikimedia Commons",
-   "author": "BanjoZebra",
-   "by": "BanjoZebra",
-   "license": "CC BY 4.0",
-   "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
-   "taken": "July 27, 2024",
-   "read": "2026-08-20",
-   "maxw": 800,
-   "w": 3445,
-   "h": 2772,
-   "where": "place:The Red Fern",
-   "alt": "A Compost Plate on a floral-rimmed china plate: a browned patty under a thick shredded sauce, sitting on a bed of macaroni salad, with a heap of green salad leaves, a slice of bread and a scoop of orange sweet potato around it.",
-   "caption": "A Compost Plate at The Red Fern, July 27, 2024.",
-   "placeNote": "The photographer's own description names the restaurant: \"Compost Plate at The Red Fern in Rochester, New York\", and the file's camera position, 43.1498 by -77.5864, is Oxford Street at that address."
-  }
- ],
- "photoNote": "Every photograph on this page is somebody else's work under a free license, checked on that file's own page on Wikimedia Commons on August 20, 2026 and re-checked from Commons on every run of scripts/sync-plate-photos.py. Nothing here is hotlinked, cropped or taken from a restaurant, a review site or a search result. The photographer, the license and a link to the license are printed under every picture.",
- "photosRejected": [
-  "WHAT SEVEN OF THE ELEVEN RESTAURANTS LOOK LIKE. Four of them are on this page in freely licensed photographs and the other seven are not. Bill Gray's joined the three on August 20, 2026, on a second search that went wider than Commons. The other seven were searched a SECOND and then a THIRD time the same day, the third by Wikidata P18, by KartaView and by a re-run of Commons and Openverse against fresh geocodes, and they still have nothing publishable. Those cards carry no picture rather than a borrowed one.",
-  "WHERE THE SEARCHES LOOKED, so nobody repeats them. Commons was swept four ways on August 20, 2026: a title search per business, an insource: search of every file description, the local categories (Restaurants in Rochester, Fairport, Henrietta, Chili, Gates, Webster, Monroe County) and a GEOSEARCH of a 1,500m circle around all eight addresses. Commons holds exactly two files naming any of the seven and both are Bill Gray's. Openverse was then swept across roughly forty queries with its license filter set to CC BY, CC BY-SA, CC0 and public domain, which is Flickr and Commons together. Chili Hots, Empire Hots, Fairport Hots, Henrietta Hots, Jeremiah's Tavern and Steve T. Hots return NOTHING under a free license anywhere: what exists of them on Flickr is all NonCommercial or NoDerivatives, and neither is usable here. A THIRD SWEEP THE SAME DAY re-ran all of it against fresh geocodes for the seven addresses and added the queries the first two had not made: insource: on each street NUMBER as well as each name, the category tree under Restaurants in New York (state), and a Commons geosearch at 120m, 600m, 1,500m and 10km around every one of the seven. NOT ONE geotagged Commons file sits within 130m of any of them; the closest is a school 132m from Fairport Hots, and the nearest thing to a restaurant is the takeout-carton photograph already rejected below, 1,255m from Henrietta Hots.",
-  "THE FLICKR SWEEPS HAD A HOLE IN THEM AND IT WAS FOUND AND CLOSED ON 20 AUGUST 2026, and it is the reusable half of this whole exercise. Flickr filters a search by numeric license code, and the codes the first two sweeps passed were 4, 5, 7, 8, 9 and 10. That set OMITS 11 and 12, which are CC BY 4.0 and CC BY-SA 4.0, both free and both in active use, so every earlier \"nothing free exists\" was measured through a filter that could not see two free licenses. All seven names, all seven street names and a 1km geographic search around all seven addresses were re-run with 11 and 12 added. It still comes back empty. The negative holds, and it now holds for the right reason. IF YOU SWEEP FLICKR AGAIN, PASS 4,5,7,8,9,10,11,12.",
-  "AND THE SHARPER VERSION OF THE NEGATIVE, which is worth more than \"nothing exists\" because it says what is actually out there. Photographs of these places DO exist on Flickr and they are not free, read off each result's own license field rather than trusted to a filter: Henrietta Hots was shot by drpep in 2024 and is ALL RIGHTS RESERVED, and Rohrbach has about nine photographs by pearwood, every one of them CC BY-NC-ND. NonCommercial and NoDerivatives both fail here. Three prolific free-license photographers who work this region were identified and cleared one by one: Warren LeMay, who shot Rochester, NY in April 2024 under CC BY-SA 2.0 and photographed downtown landmarks only; Random Retail, who shoots chain retail; and Paul Lowry, whose CC BY 4.0 Rochester, NY food photographs are four of the eleven pictures already on this page and include none of the seven. On Commons the complete upload lists of the region's two most systematic contributors were dumped and searched, 4,529 files by DanielPenfield and 5,000 by Andre Carrotflower, with zero hits. So this is not an absence of searching any more. These are small suburban businesses that nobody has photographed under a free license.",
-  "MAPILLARY WAS RE-EXAMINED ON 20 AUGUST 2026 AND HALF OF THE FIRST REJECTION'S REASONING WAS WRONG. This note used to say Mapillary states \"no version number anywhere\". That was true of mapillary.com/terms and false as a statement about Mapillary. mapillary.com/osm, under the heading \"Rights for OpenStreetMap\", says in as many words \"Mapillary images are available under an open license (CC BY-SA)\" and links creativecommons.org/licenses/by-sa/4.0/, and Wikimedia Commons' own Template:Mapillary, which is the template a Commons upload of a Mapillary frame is built from, hardcodes {{cc-by-sa-4.0}} and credits the photographer's USERNAME linked to their Mapillary profile rather than a logo. Both were read on August 20, 2026, the second off the template's own wikitext. So the default license is CC BY-SA 4.0, it carries a version, and a page states it. The sentence that claimed otherwise was a report on ONE page written as a statement about the source, which is the third time that shape of error has been found on this page.",
-  "WHAT STILL STOPS MAPILLARY, and both halves were checked this time rather than assumed. Section 3 of the terms grants CC BY-SA \"unless we indicate otherwise\" and names CC BY-NC-SA as a live alternative, and Mapillary's own API documentation lists every field an Image carries (creator, captured_at, geometry, camera_type, the thumb urls and so on) and there is NO license field among them. So the carve-out has nothing per-image to check it against, and that is a gap in what the API publishes rather than a gap in anybody's search. Section 11 then says that an image \"downloaded and served from your own servers\" must be attributed \"by visibly displaying the Mapillary logo and linking back to the Mapillary homepage or corresponding Mapillary image page\", which is a condition on top of naming the photographer rather than instead of it. Read on mapillary.com/terms and the developer documentation on August 20, 2026.",
-  "AND THE PRACTICAL BLOCKER, WHICH IS THE ONE TO FIX FIRST AND IS NOT A LICENSE QUESTION AT ALL. Nothing on Mapillary can be reached from this repo without an API token and this repo holds none: every mapillary.com address answers a generic Meta error page, graph.mapillary.com answers \"Invalid OAuth 2.0 Access Token\", and tiles.mapillary.com answers 403. That means no frame, no photographer's username and no image page, so there is nothing to fetch and nothing to print a credit from. The coverage this note used to quote (70 frames past Bill Gray's, 50 past Fairport Hots, six each past Chili Hots and Empire Hots) could NOT be re-measured on August 20, 2026 and should not be quoted as current. A token is free to register at mapillary.com/developer; put one in .env and this becomes a real lead again rather than an argument.",
-  "KARTAVIEW WAS CHECKED THE SAME DAY BECAUSE MAPILLARY COULD NOT BE, and it is the other open street-level library. Its nearby-photos API needs no token, and it does hold Rochester, NY: 101 frames within 300m of downtown. Around the seven it holds nothing that shows a building. The nearest frame to any of them is 312m from Chili Hots and 415m from Jeremiah's Tavern, and Empire Hots, Fairport Hots, Henrietta Hots, Rohrbach and Steve T. Hots have no frame within 600m at all. A frame 300m up the road is a picture of somebody else's building.",
-  "WIKIDATA P18 WAS THE ROUTE NOBODY HAD RUN, AND IT WAS RUN ON 20 AUGUST 2026. Only three of the eleven restaurants have a Wikidata item at all, which are Nick Tahou Hots, Bill Gray's and Rohrbach Brewing Company, and a geographic query for businesses within 25km of Rochester, NY returns 19 items and none of the other eight. Rohrbach's item carries a P18 nobody here had seen: File:RohrbachBeer1.JPG, PUBLIC DOMAIN, User:Brian Stiehler, shot September 17, 2010, 3000x4000, a red brick block with Rohrbach's own hanging ROHRBACH THE BREWERY banner on it. The license is perfect and it is the WRONG BUILDING, which was settled off the PHOTOGRAPH rather than off its caption: hanging beside the banner is a second sign reading DEEP DISCOUNT STORAGE, 127 RAILROAD ST. This page's Rohrbach card is the Buffalo Road brewpub, 14.5km from Railroad Street. That is now the second Railroad Street photograph rejected here for the same reason. The same uploader's File:RohrbachBeer2.JPG is brewing tanks indoors in 2008 and names no address at all.",
-  "\"55/365 Rohrbach Brewing Company\", CC BY-SA 2.0, RLHyde (Ryan Hyde), July 5, 2014, verified on its own Flickr page. The license is fine and the file was fetched and looked at. It is an interior door, not a storefront, and what is written across the glass is the TASTING ROOM HOURS: Wed to Fri 10am to 5pm, Saturday 9am to 4pm, tours every hour. Those are twelve years stale, this page's one hard rule is that hours come from the business and nothing else, and a card showing a reader an hours board is a card that gets read instead of the line beside it. It also cannot be placed: the card is the Buffalo Road brewpub only, and nothing in the photograph or its description says which of the two Rohrbach sites it is. Left out on the picture rather than on the license.",
-  "\"Rohrbach's on Railroad Street\", CC BY 2.0, bert_m_b. Free and usable, and it is the WRONG BUILDING: this page's Rohrbach card is the Buffalo Road brewpub, and its own note says the Railroad Street beer hall is a different menu with no plate on it. A correctly licensed photograph of the wrong address is still the wrong address.",
-  "File:Rochester Garbage Plate.jpg, CC BY-SA 3.0, Douglas.flowe, November 27, 2013. The license is fine and the file was fetched and looked at. It is a dim phone photograph of a takeout carton and its own description names no restaurant, only \"Variation on garbage plate with salt potatoes and bacon\", so there is no card it belongs on and nothing it shows that a brighter picture on this page does not. Left out on the picture rather than on the license.",
-  "EVERY IMAGE SEARCH RESULT, EVERY RESTAURANT'S OWN SITE AND SOCIAL FEED, EVERY REVIEW SITE, AND STREET VIEW. None of them state a license a static site can meet, and being flattering to a restaurant is not a license from the person who took the photograph. If you want a picture of a place on this list that has none, the two honest routes are to shoot it yourself or to write to the photographer and get it in writing.",
-  "WHAT IS STILL GENUINELY UNCHECKED, said out loud so the next person starts here rather than at the beginning. TWO THINGS. Mapillary, which needs an API token this repo does not have, for the reasons three entries above. And PICRYL, which answered 403 from behind Cloudflare on August 20, 2026 to every attempt; it aggregates the Library of Congress, NARA, the Smithsonian and the NYPL, all of which are historical public-domain collections, so a 1990s suburban hot dog stand is unlikely to be in it, but unlikely is not checked. Everything else named on this page is a verified negative."
- ]
 }

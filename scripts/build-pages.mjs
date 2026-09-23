@@ -2858,6 +2858,10 @@ const urls = [
   // at all. Monthly rather than weekly because a restaurant's hours move and
   // its history does not, and almost all of the page is the history.
   { loc: `${SITE}/garbage-plate.html`, freq: "monthly", pri: "0.9" },
+  // The plate directory. WEEKLY where the guide is monthly, because this page is
+  // nothing but the part that moves: hours, prices and which kitchens still
+  // make one. Same priority, because it answers the other half of the search.
+  { loc: `${SITE}/where-to-get-a-garbage-plate.html`, freq: "weekly", pri: "0.9" },
   // Jumbo cards. Same pair and the same argument: a reference page whose
   // subject barely moves, on a question nobody else answers honestly. Monthly
   // rather than weekly because only the prices change, and they change slowly.

@@ -857,6 +857,7 @@ ${earlyNote(rows, kind)}`
         slug === "vendors.html" ? "Local creators" : "Local vendors"
       }</a>
       <a href="/garbage-plate.html">Garbage Plate</a>
+      <a href="/where-to-get-a-garbage-plate.html">Where to get a plate</a>
     </nav>
   </div>
 </section>

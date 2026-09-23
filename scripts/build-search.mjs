@@ -254,7 +254,10 @@ const PAGES = [
   // The blurb leads with the trademark date rather than with "the Rochester
   // dish", because the date is the surprising checkable fact and every other
   // page about this dish opens with the summary.
-  ["/garbage-plate.html", "Garbage Plate", "The dish this channel is named after, sourced, with a diagram and where to eat one"],
+  ["/garbage-plate.html", "Garbage Plate", "What is a Garbage Plate: the dish this channel is named after, sourced, with a diagram and how to order one"],
+  // The directory, split off the guide on 23 September 2026 when the list went
+  // from 11 places to 52. Its own row because "where can I get one" is its own search.
+  ["/where-to-get-a-garbage-plate.html", "Where to get a Garbage Plate", "Every place around Rochester, NY that serves a plate, by area, with hours and an open now filter"],
   ["/vendors.html", "Local vendors", "Who sells cards around Rochester, NY"],
   // Indexable, so build-search.mjs requires it here: the check exists because
   // four pages once shipped invisible to the site's own search.

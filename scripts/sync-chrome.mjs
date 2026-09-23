@@ -57,6 +57,9 @@ const PAGES = [
   // them on the built page rather than by looking at it. A builder that slices
   // index.html belongs on this list in the same commit that creates it.
   "public/privacy.html",
+  // 23 September 2026: build-garbage-plate.mjs writes a second page now, the
+  // plate directory, and it slices the same bar out of index.html.
+  "public/where-to-get-a-garbage-plate.html",
 ];
 
 const BLOCKS = [

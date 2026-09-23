@@ -76,6 +76,7 @@ ${L("card-show-101.html", "Card show 101", "what happens at a card show, what to
 ${L("shops.html", "Card shops in Rochester, NY", `${(shops.shops || shops).length} shops with hours taken only from each shop's own site, plus where you can sit down and play`)}
 ${L("rochester.html", "Rochester Pokemon scene", "the hub tying the shows, the shops and the local pages together")}
 ${L("garbage-plate.html", "What is a Garbage Plate", "the Rochester, NY dish the channel is named after, sourced to the USPTO trademark record and the originating restaurant's own menu, with the things that could not be sourced listed as such")}
+${L("where-to-get-a-garbage-plate.html", "Where to get a Garbage Plate", "every place around Rochester, NY whose own menu says it serves a plate, by area, with prices, the hours each business posts, and the places checked and left off")}
 
 ## Reference and data
 

@@ -310,6 +310,8 @@ export const NAV = [
     //     a love letter to Rochester, so it belongs with Rochester. The reading
     //     order above is unchanged and still describes what is here.
     ["/garbage-plate.html", "Garbage Plate"],
+    // The directory, 23 September 2026: the list outgrew the guide at 52 places.
+    ["/where-to-get-a-garbage-plate.html", "Where to get a plate"],
     ["/about.html", "About"],
   ]],
 

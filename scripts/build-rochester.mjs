@@ -397,6 +397,7 @@ const ld = [
       ["Local vendors", "/vendors.html"],
       ["Local creators", "/creators.html"],
       ["Garbage Plate", "/garbage-plate.html"],
+      ["Where to get a Garbage Plate", "/where-to-get-a-garbage-plate.html"],
     ].map(([name, url], i) => ({
       "@type": "ListItem",
       position: i + 1,
@@ -663,6 +664,7 @@ ${shops.map(shopRow).join("\n")}
           } things nobody could source rather than guessing at them.</p>
         <p class="btn-row" style="margin-top:var(--s4)">
           <a class="btn btn-sky btn-sm" href="/garbage-plate.html">What is a Garbage Plate?</a>
+          <a class="btn btn-sky btn-sm" href="/where-to-get-a-garbage-plate.html">Where to get one</a>
         </p>
       </div>
       ${plateFigure(hero)}
@@ -737,8 +739,10 @@ ${/* THE GROUNDS ALTERNATE ALL THE WAY DOWN AND THIS ONE HAD TO GIVE ITS BAND UP
         far, and the page says how to be the next one.</span></a></li>
       <li><a href="/creators.html"><b>Local creators</b><span>Other people around here making Pokemon content.
         ${nCreators} so far, in no particular order and never ranked.</span></a></li>
-      <li><a href="/garbage-plate.html"><b>Garbage Plate</b><span>The dish, its history, and the ${nPlates} places
-        that serve one. Every claim on it carries a source.</span></a></li>
+      <li><a href="/garbage-plate.html"><b>Garbage Plate</b><span>The dish, how to order it and where it came
+        from. Every claim on it carries a source.</span></a></li>
+      <li><a href="/where-to-get-a-garbage-plate.html"><b>Where to get a plate</b><span>All ${nPlates} places around
+        Rochester, NY that serve one, by area, with the hours they post.</span></a></li>
       <li><a href="/videos.html"><b>The rips</b><span>The channel itself: packs opened in Rochester, NY, mostly ending
         in garbage. That is the name.</span></a></li>
     </ul>

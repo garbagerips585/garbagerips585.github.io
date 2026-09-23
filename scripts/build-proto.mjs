@@ -2926,7 +2926,7 @@ const rocTile = (big, label, href) =>
 const rocTiles = [
   rocShows ? rocTile(num(rocShows), rocShows === 1 ? "card show coming up" : "card shows coming up", "/card-shows.html") : "",
   rocShops ? rocTile(num(rocShops), rocShops === 1 ? "card shop" : "card shops", "/shops.html") : "",
-  rocPlates ? rocTile(num(rocPlates), rocPlates === 1 ? "place serves a plate" : "places serve a plate", "/garbage-plate.html") : "",
+  rocPlates ? rocTile(num(rocPlates), rocPlates === 1 ? "place serves a plate" : "places serve a plate", "/where-to-get-a-garbage-plate.html") : "",
 ].filter(Boolean);
 
 /* THE SENTENCE IS THE HUB'S OWN FIRST LINE, not a new one written for this

@@ -402,7 +402,8 @@ const GUIDES = [
     "roc",
     "Rochester, New York",
     [
-      ["/garbage-plate.html", "The Garbage Plate", `What is on one, where it came from with a source on every claim, and ${num(plateSpots)} places around Rochester, NY that serve it.`],
+      ["/garbage-plate.html", "The Garbage Plate", "What is on one, how to order it, and where it came from with a source on every claim."],
+      ["/where-to-get-a-garbage-plate.html", "Where to get a Garbage Plate", `All ${num(plateSpots)} places around Rochester, NY that serve one, by area, with the hours they post.`],
       ["/shops.html", "Card shops and where to play", "Addresses, hours and what each one is good for."],
       ["/card-shows.html", "Shows around the region", "Rochester, NY out to Buffalo and Syracuse."],
       ["/creators.html", "Other people doing this locally", "Rochester, NY, Buffalo and Syracuse."],
@@ -476,7 +477,7 @@ const FAQ = [
   ],
   [
     "What is a Garbage Plate?",
-    `Two sides on the bottom, meat on top of them, a spiced meat sauce poured over the lot, then raw onions and mustard, with bread and butter on the side. It comes from one restaurant in Rochester, New York, and the name is a federal trademark, which is why everywhere else in the city sells you a trash plate instead. <a href="/garbage-plate.html">The full guide</a> sources the history and lists ${num(plateSpots)} places to eat one.`,
+    `Two sides on the bottom, meat on top of them, a spiced meat sauce poured over the lot, then raw onions and mustard, with bread and butter on the side. It comes from one restaurant in Rochester, New York, and the name is a federal trademark, which is why everywhere else in the city sells you a trash plate instead. <a href="/garbage-plate.html">The full guide</a> sources the history, and <a href="/where-to-get-a-garbage-plate.html">the directory</a> lists ${num(plateSpots)} places to eat one.`,
   ],
   [
     "Do you publish Pokemon pull rates?",

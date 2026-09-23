@@ -98,6 +98,11 @@ PAGES = {
     # 23 September 2026: the 30th page shared with the generic banner, and so did
     # its four rip pages through ogCard's fallback. The kicker is TPCi's own
     # confirmed fact about the set, the one that makes it unlike any other.
+    # 23 September 2026: the plate guide shared as the generic banner, and the
+    # directory split off it had no card at all. The guide's kicker is its most
+    # surprising checkable fact; the directory's is the rule every card meets.
+    "garbage-plate": ("TRADEMARKED SINCE 1992", "What is a Garbage Plate?", "What is on one, how to order it, where it came from"),
+    "where-to-get-a-garbage-plate": ("EVERY MENU CHECKED", "Where to get a Garbage Plate", "Every plate in Rochester, NY, by area, with hours"),
     "30th-celebration": ("EVERY CARD IS FOIL", "Pokemon 30th Celebration", "Every product, every date and the full card list"),
     "topps-card-values": ("PRICE GUIDE, NOT HAMMER PRICE", "Topps card values", "Two top 100s, raw and PSA 10, every figure read twice"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 priciest sealed", "Boxes, cases and 1999 packs, dated"),
