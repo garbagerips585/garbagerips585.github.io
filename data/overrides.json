@@ -2810,5 +2810,11 @@
   "pRN-3vPPVq8": {
     "packNumber": 1,
     "packNumberWhy": "The owner, 22 September 2026: \"30th Celebration Greninja ex Tin, Pack #1, Hit yes, Hisuian Zorua - Single Gole Star - Illustration Rare, 30th Celebration\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. NOTHING ELSE NEEDED AN OVERRIDE, WHICH IS NEW FOR A 30th RIP. The three blister packs all had to be forced to `blister` because he wrote \"Tech Sticker Collection\" and the taxonomy reads \"Collection\" as collection-box; this one he called a TIN and the taxonomy derived `tin` on its own, so the derived tag and his words already agree. No hasHit either: a hit is answered by its data/hits.json row."
+  },
+  "v6i7wZBVCYg": {
+    "packNumber": 15,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 23 September 2026: \"Single Booster Pack, Pack #15, Hit no, Destined Rivals\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #15\" and that is still not a source. The set and the product came through the sync already (destined-rivals, single-pack), so nothing else needed an override.",
+    "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
   }
 }

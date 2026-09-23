@@ -15,7 +15,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 347,
+      "views": 513,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packNumber": 15,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 15"
     },
     {
       "id": "pRN-3vPPVq8",
@@ -34,7 +37,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 500,
+      "views": 519,
       "vertical": true,
       "short": true,
       "sets": [
@@ -55,7 +58,7 @@
       "published": "2026-09-21",
       "publishedAt": "2026-09-21T10:06:22Z",
       "duration": 23,
-      "views": 415,
+      "views": 422,
       "vertical": true,
       "short": true,
       "sets": [
@@ -76,7 +79,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1058,
+      "views": 1068,
       "vertical": true,
       "short": true,
       "sets": [
@@ -97,7 +100,7 @@
       "published": "2026-09-19",
       "publishedAt": "2026-09-19T10:35:14Z",
       "duration": 26,
-      "views": 916,
+      "views": 917,
       "vertical": true,
       "short": true,
       "sets": [
@@ -118,7 +121,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 922,
+      "views": 923,
       "vertical": true,
       "short": true,
       "sets": [
@@ -139,7 +142,7 @@
       "published": "2026-09-17",
       "publishedAt": "2026-09-17T12:10:38Z",
       "duration": 23,
-      "views": 943,
+      "views": 944,
       "vertical": true,
       "short": true,
       "sets": [
@@ -160,7 +163,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1275,
+      "views": 1276,
       "vertical": true,
       "short": true,
       "sets": [
