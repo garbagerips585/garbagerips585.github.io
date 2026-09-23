@@ -529,7 +529,10 @@ const pocket = (c, i, slot) => {
        46 of the 75 have no date either, so absence was the ONLY signal on those. */
     return `<li class="t30-pk has" title="${esc(c.name)}">
         <span class="t30-sr">Collected</span>
-        ${pictureFor(c.name, { shot: c.shot, n: c.n, row, section: c.section })}
+        ${/* A promo or jumbo is in no checklist row, so `row` is null for all
+             eight and they drew no picture at all. Each carries its own `pid`
+             in data/30th-binder.json instead; see `_pidNote` there. */
+          pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })}
         <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
         ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
         ${/* NO DATE ON THE CARD. The owner, 22 September 2026: "remove the dates
@@ -1227,7 +1230,14 @@ const setHits = (() => {
         ) || null;
       })();
       const pr = row ? priceOf(row) : null;
-      rows.push({ h, v, row, pr, section: row ? row.section : null });
+      /* A PROMO HAS NO CHECKLIST ROW AND DREW AN EMPTY FRAME HERE, the Greninja
+         ex Black Star Promo first. The binder's own promo list carries the
+         TCGplayer product id, matched on name AND number for the same reason
+         as above. It lends the PICTURE only, never a price: `pr` stays null. */
+      const promoPid = !row && h.promo
+        ? (promos.find((o) => sameName(o) && (String(o.n).replace(/^0+/, "") || "0") === numKey)?.pid ?? null)
+        : null;
+      rows.push({ h, v, row, pr, promoPid, section: row ? row.section : null });
     }
   }
   rows.sort((a, b) => String(b.v.publishedAt ?? "").localeCompare(String(a.v.publishedAt ?? "")));
@@ -1245,10 +1255,10 @@ const hitsBand = !setHits.length ? "" : `
       card owned however it got there, and this is only what came out on camera.</p>
     <ol class="t30-cts">
 ${setHits
-  .map(({ h, v, row, pr }) => {
+  .map(({ h, v, row, pr, promoPid }) => {
     /* No normalising here any more: dexLocalId() inside pictureFor() takes the
        number in either shape, which is the whole point of moving it there. */
-    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row, section: row ? row.section : null });
+    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row: row || (promoPid ? { pid: promoPid } : null), section: row ? row.section : null });
     return `        <li class="t30-ct${pic ? "" : " nopic"}">
           <a href="/${esc(v.path)}">
             ${pic}

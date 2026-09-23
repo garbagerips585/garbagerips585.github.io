@@ -906,14 +906,16 @@
       "rarity": "Double rare",
       "from": "Black Star Promo",
       "got": "2026-09-16",
-      "note": "The owner, 21 September 2026, typed it as \"Greninja ex - 099 - black star promo\". THAT NUMBER REPLACES A PHOTO-DERIVED 035 and the correction runs in the right direction: the 035 was read off his photograph of the card on 16 September, this is him reading the card itself. Same physical promo, out of the 30th Celebration Greninja ex Tin, which is how it was described when it first went in."
+      "note": "The owner, 21 September 2026, typed it as \"Greninja ex - 099 - black star promo\". THAT NUMBER REPLACES A PHOTO-DERIVED 035 and the correction runs in the right direction: the 035 was read off his photograph of the card on 16 September, this is him reading the card itself. Same physical promo, out of the 30th Celebration Greninja ex Tin, which is how it was described when it first went in.",
+      "pid": 713268
     },
     {
       "name": "Lucario",
       "n": "095",
       "setCode": "MEP",
       "from": "Black Star Promo",
-      "note": "The owner, 21 September 2026: \"Lucario - 095 - black star promo\". New to the binder with the 21 September rebuild."
+      "note": "The owner, 21 September 2026: \"Lucario - 095 - black star promo\". New to the binder with the 21 September rebuild.",
+      "pid": 713263
     },
     {
       "name": "Sylveon ex",
@@ -921,7 +923,8 @@
       "setCode": "MEP",
       "from": "Black Star Promo",
       "got": "2026-09-22",
-      "note": "The owner, 22 September 2026. He typed \"100 Sylveon\". Written Sylveon ex because this is the ex Tin and ex Box promo, which TPCi describes as a \"Sylveon ex or Greninja ex promo\", and his own jumbo line names the same card \"100 Sylveon ex\"."
+      "note": "The owner, 22 September 2026. He typed \"100 Sylveon\". Written Sylveon ex because this is the ex Tin and ex Box promo, which TPCi describes as a \"Sylveon ex or Greninja ex promo\", and his own jumbo line names the same card \"100 Sylveon ex\".",
+      "pid": 713267
     },
     {
       "name": "Articuno",
@@ -929,7 +932,8 @@
       "setCode": "MEP",
       "from": "Black Star Promo",
       "got": "2026-09-22",
-      "note": "The owner, 22 September 2026. He typed \"097 Articulo\", a typo: the Poster Collection's three foil promos are Articuno, Zapdos and Moltres, and 097 sits between his 096 Moltres and 098 Zapdos."
+      "note": "The owner, 22 September 2026. He typed \"097 Articulo\", a typo: the Poster Collection's three foil promos are Articuno, Zapdos and Moltres, and 097 sits between his 096 Moltres and 098 Zapdos.",
+      "pid": 713265
     },
     {
       "name": "Moltres",
@@ -937,7 +941,8 @@
       "setCode": "MEP",
       "from": "Black Star Promo",
       "got": "2026-09-22",
-      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos."
+      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos.",
+      "pid": 713264
     },
     {
       "name": "Zapdos",
@@ -945,7 +950,8 @@
       "setCode": "MEP",
       "from": "Black Star Promo",
       "got": "2026-09-22",
-      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos. NOT the Zapdos at 133, which is the Illustration Rare in the set itself and a different card."
+      "note": "The owner, 22 September 2026. One of the Poster Collection's three foil promos. NOT the Zapdos at 133, which is the Illustration Rare in the set itself and a different card.",
+      "pid": 713266
     }
   ],
   "_jumboNote": [
@@ -974,7 +980,8 @@
       "from": "Black Star Promo",
       "got": "2026-09-21",
       "note": "The owner, 21 September 2026: \"I got my first Jumbo card its the Greninja ex black star promo card jumbo card.\" HIS FIRST JUMBO. No collector number was given and none is inferred: the standard-size Greninja ex promo he owns is 099 and a jumbo commonly shares its twin's promo number, but this file stopped holding derived numbers on 21 September and will not start again here. NUMBER SUPPLIED 22 September 2026: he typed \"099 Greninja ex\" under the jumbo heading, so the jumbo shares its standard-size twin's promo number, which this file had declined to assume.",
-      "n": "099"
+      "n": "099",
+      "pid": 713269
     },
     {
       "name": "Sylveon ex",
@@ -982,7 +989,9 @@
       "kind": "Jumbo",
       "from": "Black Star Promo",
       "got": "2026-09-22",
-      "note": "The owner, 22 September 2026: \"100 Sylveon ex\" under the jumbo heading. His second jumbo, and like the Greninja ex it carries its standard-size twin's promo number."
+      "note": "The owner, 22 September 2026: \"100 Sylveon ex\" under the jumbo heading. His second jumbo, and like the Greninja ex it carries its standard-size twin's promo number.",
+      "pid": 713270
     }
-  ]
+  ],
+  "_pidNote": "`pid` on a promo or jumbo is its TCGplayer product id, read 22 September 2026 off TCGplayer's own listing: set 'ME: Mega Evolution Promo' for the six promos and 'Jumbo Cards' for the two jumbos, each titled '<name> - <number> (30th Celebration)'. Every _200w.jpg answered 200 image/jpeg before it went in. It is the only picture source these have: TCGdex holds no MEP promos and the binder checklist does not list them."
 }
