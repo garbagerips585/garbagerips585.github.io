@@ -706,7 +706,10 @@ const leafHtml = (l) => {
      it says both in the order the eye meets them. */
   return `        <article class="t30-leaf" id="bl${l.no}" aria-label="Page ${l.no} of ${LEAF_N}, ${esc(l.label)}${l.pages > 1 ? `, ${l.page} of ${l.pages} in this section` : ""}">
           <div class="t30-leaf-h">
-            <b>${esc(l.label)}</b>
+            <b>${/* THE JUMBO LEAF NAMES ITS GUIDE. /jumbo-cards.html is what these
+                   eight-inch cards are and what they are worth, and this leaf is
+                   the one place on the page a reader is looking at one. */
+              l.key === "jumbo" ? `<a href="/jumbo-cards.html">${esc(l.label)}</a>` : esc(l.label)}</b>
             <span>Page ${l.no} of ${LEAF_N}${l.pages > 1 ? ` &middot; ${esc(l.label)} ${l.page}/${l.pages}` : ""}</span>
           </div>
           <ol class="t30-pkts">
@@ -958,6 +961,15 @@ const style = `
 .t30-leaf-h{display:flex;align-items:baseline;justify-content:space-between;
   gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
 .t30-leaf-h b{font:400 var(--t-m)/1.1 var(--display);color:var(--ink)}
+/* The jumbo leaf's header and the binder caption link to /jumbo-cards.html,
+   and ui.css's in-text underline is scoped to \`main p a\`, so neither got it:
+   measured, both rendered as plain off-white text with no underline, a link
+   nobody could see was one. Same treatment as that rule, copied here. */
+.t30-leaf-h b a,.t30-binder figcaption a{color:inherit;text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:2px;
+  text-decoration-color:color-mix(in srgb,currentColor 45%,transparent)}
+.t30-leaf-h b a:hover,.t30-leaf-h b a:focus-visible,
+.t30-binder figcaption a:hover,.t30-binder figcaption a:focus-visible{text-decoration-color:currentColor}
 .t30-leaf-h span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em}
 /* THE PAGE CORNERS. 44px targets, which is the tap-target floor qa-sweep checks
@@ -1477,7 +1489,9 @@ ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>
       <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
       <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
-        Turn a page with either corner, or jump to one below. A grey card is one still to find.</figcaption>
+        Turn a page with either corner, or jump to one below. A grey card is one still to find.${
+          jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
+        }</figcaption>
     </figure>
 
     <nav class="t30-rail" aria-label="Jump to a binder page">

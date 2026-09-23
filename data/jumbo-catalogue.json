@@ -26,7 +26,7 @@
     "name": "Jumbo Cards",
     "modifiedOn": "2026-08-26T17:04:21.797"
   },
-  "checked": "2026-09-21",
+  "checked": "2026-09-23",
   "counts": {
     "cards": 345,
     "priced": 280
@@ -163,7 +163,7 @@
       "name": "______'s Snivy",
       "n": "N/A",
       "rarity": "Promo",
-      "market": 47.99,
+      "market": 48.98,
       "low": 46,
       "sub": "Reverse Holofoil"
     },
@@ -343,7 +343,7 @@
       "name": "Mimikyu (Delta Species) - SWSH136",
       "n": "SWSH136",
       "rarity": "Promo",
-      "market": 28.13,
+      "market": 28.63,
       "low": 27.18,
       "sub": "Holofoil"
     },
@@ -461,7 +461,7 @@
       "n": "SM230",
       "rarity": "Promo",
       "market": 21.3,
-      "low": 14.99,
+      "low": 6.74,
       "sub": "Holofoil"
     },
     {
@@ -498,6 +498,15 @@
       "rarity": "Promo",
       "market": 20,
       "low": 17,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 153074,
+      "name": "Hoopa EX - 36/98 (Ancient Origins)",
+      "n": "036/098",
+      "rarity": "Promo",
+      "market": 19.99,
+      "low": 15,
       "sub": "Holofoil"
     },
     {
@@ -685,7 +694,7 @@
       "name": "Charizard EX - XY17 (XY Black Star Promos)",
       "n": "XY17",
       "rarity": "Promo",
-      "market": 15.62,
+      "market": 15.54,
       "low": 11.98,
       "sub": "Holofoil"
     },
@@ -753,6 +762,15 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 147234,
+      "name": "Ho-Oh BREAK - XY154 (XY Black Star Promo)",
+      "n": "XY154",
+      "rarity": "Promo",
+      "market": 14.77,
+      "low": 7.5,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 179036,
       "name": "Reshiram, Zekrom & Kyurem",
       "n": null,
@@ -768,15 +786,6 @@
       "rarity": "Promo",
       "market": 13.99,
       "low": 49.95,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 147234,
-      "name": "Ho-Oh BREAK - XY154 (XY Black Star Promo)",
-      "n": "XY154",
-      "rarity": "Promo",
-      "market": 13.86,
-      "low": 7.5,
       "sub": "Holofoil"
     },
     {
@@ -798,21 +807,21 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 251100,
-      "name": "Pikachu V-UNION",
-      "n": null,
-      "rarity": "Promo",
-      "market": 13.54,
-      "low": 7.99,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 284277,
       "name": "Arceus VSTAR - 123/172",
       "n": "123/172",
       "rarity": "Promo",
       "market": 13.53,
       "low": 11,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 251100,
+      "name": "Pikachu V-UNION",
+      "n": null,
+      "rarity": "Promo",
+      "market": 13.5,
+      "low": 7.99,
       "sub": "Holofoil"
     },
     {
@@ -906,15 +915,6 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 211458,
-      "name": "Krookodile EX - XY25",
-      "n": "XY25",
-      "rarity": "Promo",
-      "market": 11.23,
-      "low": 7,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 185251,
       "name": "Greninja GX - SM197 (SM Black Star Promo)",
       "n": "SM197",
@@ -948,15 +948,6 @@
       "rarity": "Promo",
       "market": 11,
       "low": 8.09,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 153074,
-      "name": "Hoopa EX - 36/98 (Ancient Origins)",
-      "n": "036/098",
-      "rarity": "Promo",
-      "market": 10.99,
-      "low": 15,
       "sub": "Holofoil"
     },
     {
@@ -996,6 +987,15 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 198532,
+      "name": "Porygon-Z GX - SM216 (SM Black Star Promo)",
+      "n": "SM216",
+      "rarity": "Promo",
+      "market": 10.1,
+      "low": 3.37,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 147231,
       "name": "Empoleon BREAK - XY134 (XY Black Star Promos)",
       "n": "XY134",
@@ -1020,6 +1020,15 @@
       "rarity": "Promo",
       "market": 9.98,
       "low": 6.5,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 211458,
+      "name": "Krookodile EX - XY25",
+      "n": "XY25",
+      "rarity": "Promo",
+      "market": 9.97,
+      "low": 7,
       "sub": "Holofoil"
     },
     {
@@ -1050,12 +1059,12 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 198532,
-      "name": "Porygon-Z GX - SM216 (SM Black Star Promo)",
-      "n": "SM216",
+      "pid": 250252,
+      "name": "Mewtwo V-UNION",
+      "n": null,
       "rarity": "Promo",
       "market": 9.71,
-      "low": 3.37,
+      "low": 8.48,
       "sub": "Holofoil"
     },
     {
@@ -1065,15 +1074,6 @@
       "rarity": "Promo",
       "market": 9.7,
       "low": 5,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 250252,
-      "name": "Mewtwo V-UNION",
-      "n": null,
-      "rarity": "Promo",
-      "market": 9.51,
-      "low": 8.48,
       "sub": "Holofoil"
     },
     {
@@ -1189,7 +1189,7 @@
       "name": "Cinderace V - SWSH015",
       "n": "SWSH015",
       "rarity": "Promo",
-      "market": 8.07,
+      "market": 8.19,
       "low": 5.5,
       "sub": "Holofoil"
     },
@@ -1262,7 +1262,7 @@
       "n": "SWSH138",
       "rarity": "Promo",
       "market": 6.92,
-      "low": 6.84,
+      "low": 6.92,
       "sub": "Normal"
     },
     {
@@ -1275,6 +1275,15 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 205168,
+      "name": "Raichu GX - SM213",
+      "n": "SM213",
+      "rarity": "Promo",
+      "market": 6.74,
+      "low": 2.99,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 257780,
       "name": "Pikachu - 58/102 (25th Anniversary)",
       "n": "58/102",
@@ -1282,15 +1291,6 @@
       "market": 6.72,
       "low": 4.95,
       "sub": "Normal"
-    },
-    {
-      "pid": 205168,
-      "name": "Raichu GX - SM213",
-      "n": "SM213",
-      "rarity": "Promo",
-      "market": 6.68,
-      "low": 2.99,
-      "sub": "Holofoil"
     },
     {
       "pid": 152605,
@@ -1316,7 +1316,7 @@
       "n": "088a/147",
       "rarity": "Promo",
       "market": 6.43,
-      "low": 3,
+      "low": 3.99,
       "sub": "Holofoil"
     },
     {
@@ -1360,7 +1360,7 @@
       "name": "Lugia ex (Prismatic Evolutions Stamped)",
       "n": "082/131",
       "rarity": "Double Rare",
-      "market": 6.15,
+      "market": 6.16,
       "low": 2,
       "sub": "Holofoil"
     },
@@ -1371,15 +1371,6 @@
       "rarity": "Promo",
       "market": 6.09,
       "low": 2.69,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 713269,
-      "name": "Greninja ex - 099 (30th Celebration)",
-      "n": "099",
-      "rarity": "Promo",
-      "market": 6.02,
-      "low": 4,
       "sub": "Holofoil"
     },
     {
@@ -1428,6 +1419,15 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 713269,
+      "name": "Greninja ex - 099 (30th Celebration)",
+      "n": "099",
+      "rarity": "Promo",
+      "market": 5.83,
+      "low": 3.99,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 250253,
       "name": "Zacian V-UNION",
       "n": null,
@@ -1441,7 +1441,7 @@
       "name": "Meowth VMAX - SWSH005",
       "n": "SWSH005",
       "rarity": "Promo",
-      "market": 5.76,
+      "market": 5.68,
       "low": 1.4,
       "sub": "Holofoil"
     },
@@ -1451,7 +1451,7 @@
       "n": "100",
       "rarity": "Promo",
       "market": 5.68,
-      "low": 4.84,
+      "low": 0.01,
       "sub": "Normal"
     },
     {
@@ -1491,21 +1491,21 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 477069,
+      "name": "Morpeko V-Union (SWSH287-290)",
+      "n": "SWSH290",
+      "rarity": "Promo",
+      "market": 5.37,
+      "low": 1.58,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 214236,
       "name": "Polteageist V - SWSH021",
       "n": "SWSH021",
       "rarity": "Promo",
       "market": 5.3,
       "low": 3,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 477069,
-      "name": "Morpeko V-Union (SWSH287-290)",
-      "n": "SWSH290",
-      "rarity": "Promo",
-      "market": 5.28,
-      "low": 1.62,
       "sub": "Holofoil"
     },
     {
@@ -1523,7 +1523,7 @@
       "n": "SM37",
       "rarity": "Promo",
       "market": 5.16,
-      "low": 3.6,
+      "low": 2.52,
       "sub": "Holofoil"
     },
     {
@@ -1613,7 +1613,7 @@
       "n": "SM50",
       "rarity": "Promo",
       "market": 4.76,
-      "low": 3.48,
+      "low": 2.57,
       "sub": "Holofoil"
     },
     {
@@ -1657,7 +1657,7 @@
       "name": "Dark Sylveon V - SWSH134",
       "n": "SWSH134",
       "rarity": "Promo",
-      "market": 4.49,
+      "market": 4.5,
       "low": 1.95,
       "sub": "Holofoil"
     },
@@ -1666,7 +1666,7 @@
       "name": "Team Rocket's Mewtwo ex",
       "n": "205",
       "rarity": "Promo",
-      "market": 4.4,
+      "market": 4.43,
       "low": 1.5,
       "sub": "Holofoil"
     },
@@ -1734,21 +1734,21 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 251104,
+      "name": "Lance's Charizard V - SWSH133",
+      "n": "SWSH133",
+      "rarity": "Promo",
+      "market": 4.23,
+      "low": 0.01,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 663406,
       "name": "Snorlax ex (Prismatic Evolution Stamped)",
       "n": "076/131",
       "rarity": "Double Rare",
       "market": 4.17,
       "low": 2.82,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 251104,
-      "name": "Lance's Charizard V - SWSH133",
-      "n": "SWSH133",
-      "rarity": "Promo",
-      "market": 4.12,
-      "low": 0.01,
       "sub": "Holofoil"
     },
     {
@@ -1761,21 +1761,21 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 252817,
-      "name": "Dragapult (Prime) - SWSH132",
-      "n": "SWSH132",
-      "rarity": "Promo",
-      "market": 4.08,
-      "low": 2.03,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 131866,
       "name": "Lycanroc GX - SM14",
       "n": "SM14",
       "rarity": "Promo",
       "market": 4.05,
       "low": 0.99,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 252817,
+      "name": "Dragapult (Prime) - SWSH132",
+      "n": "SWSH132",
+      "rarity": "Promo",
+      "market": 4.04,
+      "low": 2.03,
       "sub": "Holofoil"
     },
     {
@@ -1842,11 +1842,20 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 232609,
+      "name": "Dragapult VMAX - SWSH097",
+      "n": "SWSH097",
+      "rarity": "Promo",
+      "market": 3.58,
+      "low": 1.34,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 646170,
       "name": "Victini - 208",
       "n": "208",
       "rarity": "Promo",
-      "market": 3.58,
+      "market": 3.56,
       "low": 0.99,
       "sub": "Holofoil"
     },
@@ -1896,15 +1905,6 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 232609,
-      "name": "Dragapult VMAX - SWSH097",
-      "n": "SWSH097",
-      "rarity": "Promo",
-      "market": 3.48,
-      "low": 1.34,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 584511,
       "name": "Jirachi V - 299",
       "n": "SWSH299",
@@ -1932,21 +1932,21 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 232443,
-      "name": "Pikachu V - SWSH061",
-      "n": "SWSH061",
-      "rarity": "Promo",
-      "market": 3.18,
-      "low": 0.98,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 245869,
       "name": "Shadow Rider Calyrex V - SWSH131",
       "n": "SWSH131",
       "rarity": "Promo",
-      "market": 3.14,
+      "market": 3.12,
       "low": 2.19,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 232443,
+      "name": "Pikachu V - SWSH061",
+      "n": "SWSH061",
+      "rarity": "Promo",
+      "market": 3.11,
+      "low": 0.98,
       "sub": "Holofoil"
     },
     {
@@ -1954,7 +1954,7 @@
       "name": "Pikachu V - SWSH198",
       "n": "SWSH198",
       "rarity": "Promo",
-      "market": 3.06,
+      "market": 3.1,
       "low": 0.95,
       "sub": "Holofoil"
     },
@@ -1995,21 +1995,21 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 663178,
+      "name": "Mega Lucario ex - 012",
+      "n": "012",
+      "rarity": "Promo",
+      "market": 2.77,
+      "low": 0.99,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 450109,
       "name": "Shaymin VSTAR - 014/172",
       "n": "014/172",
       "rarity": "Promo",
       "market": 2.77,
       "low": 1,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 663178,
-      "name": "Mega Lucario ex - 012",
-      "n": "012",
-      "rarity": "Promo",
-      "market": 2.74,
-      "low": 0.99,
       "sub": "Holofoil"
     },
     {
@@ -2053,7 +2053,7 @@
       "name": "Alakazam V - SWSH083",
       "n": "SWSH083",
       "rarity": "Promo",
-      "market": 2.58,
+      "market": 2.59,
       "low": 0.5,
       "sub": "Holofoil"
     },
@@ -2076,21 +2076,21 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 268449,
+      "name": "Morpeko V-UNION (SWSH215-218)",
+      "n": null,
+      "rarity": "Promo",
+      "market": 2.44,
+      "low": 0.09,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 529857,
       "name": "Roaring Moon ex - 067",
       "n": "067",
       "rarity": "Promo",
       "market": 2.42,
       "low": 1.5,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 268449,
-      "name": "Morpeko V-UNION (SWSH215-218)",
-      "n": null,
-      "rarity": "Promo",
-      "market": 2.41,
-      "low": 0.09,
       "sub": "Holofoil"
     },
     {
@@ -2134,7 +2134,7 @@
       "name": "Rayquaza V 100/159",
       "n": "100/159",
       "rarity": "Ultra Rare",
-      "market": 2.21,
+      "market": 2.2,
       "low": 0.65,
       "sub": "Normal"
     },
@@ -2143,7 +2143,16 @@
       "name": "Blastoise ex - 009/165",
       "n": "009/165",
       "rarity": "Double Rare",
-      "market": 2.11,
+      "market": 2.14,
+      "low": 1,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 648459,
+      "name": "Hearthflame Mask Ogerpon ex (Twilight Masquerade Stamp)",
+      "n": "040/167",
+      "rarity": "Double Rare",
+      "market": 2.02,
       "low": 1,
       "sub": "Holofoil"
     },
@@ -2154,15 +2163,6 @@
       "rarity": "Promo",
       "market": 2.02,
       "low": 1.09,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 648459,
-      "name": "Hearthflame Mask Ogerpon ex (Twilight Masquerade Stamp)",
-      "n": "040/167",
-      "rarity": "Double Rare",
-      "market": 2.01,
-      "low": 1,
       "sub": "Holofoil"
     },
     {
@@ -2180,7 +2180,7 @@
       "n": "086",
       "rarity": "Promo",
       "market": 1.95,
-      "low": 0.69,
+      "low": 0.68,
       "sub": "Holofoil"
     },
     {
@@ -2188,7 +2188,7 @@
       "name": "Boltund V - SWSH085",
       "n": "SWSH085",
       "rarity": "Promo",
-      "market": 1.92,
+      "market": 1.93,
       "low": 0.95,
       "sub": "Holofoil"
     },
@@ -2197,7 +2197,7 @@
       "name": "Great Tusk ex - 072 (Paldean Fates Stamped)",
       "n": "072",
       "rarity": "Promo",
-      "market": 1.88,
+      "market": 1.89,
       "low": 0.99,
       "sub": "Holofoil"
     },
@@ -2224,7 +2224,7 @@
       "name": "Greninja ex (Stellar Crown Stamped)",
       "n": "041/142",
       "rarity": "Double Rare",
-      "market": 1.81,
+      "market": 1.82,
       "low": 0.01,
       "sub": "Holofoil"
     },
@@ -2233,7 +2233,7 @@
       "name": "Mega Venusaur ex - 013",
       "n": "013",
       "rarity": "Promo",
-      "market": 1.76,
+      "market": 1.81,
       "low": 0.01,
       "sub": "Holofoil"
     },
@@ -2242,17 +2242,8 @@
       "name": "Reshiram ex (Journey Together Stamped)",
       "n": "030/159",
       "rarity": "Double Rare",
-      "market": 1.68,
+      "market": 1.69,
       "low": 0.99,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 520722,
-      "name": "Zapdos ex - 049",
-      "n": "049",
-      "rarity": "Promo",
-      "market": 1.66,
-      "low": 0.5,
       "sub": "Holofoil"
     },
     {
@@ -2265,6 +2256,15 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 520722,
+      "name": "Zapdos ex - 049",
+      "n": "049",
+      "rarity": "Promo",
+      "market": 1.65,
+      "low": 0.5,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 253420,
       "name": "Hoopa V - SWSH176",
       "n": "SWSH176",
@@ -2274,29 +2274,29 @@
       "sub": "Holofoil"
     },
     {
+      "pid": 654780,
+      "name": "Lucario ex (Prismatic Evolutions Stamp)",
+      "n": "051/131",
+      "rarity": "Promo",
+      "market": 1.58,
+      "low": 0.53,
+      "sub": "Holofoil"
+    },
+    {
       "pid": 251623,
       "name": "Eldegoss V - SWSH084",
       "n": "SWSH084",
       "rarity": "Promo",
       "market": 1.57,
-      "low": 1,
+      "low": 0.8,
       "sub": "Normal"
-    },
-    {
-      "pid": 654780,
-      "name": "Lucario ex (Prismatic Evolutions Stamp)",
-      "n": "051/131",
-      "rarity": "Promo",
-      "market": 1.54,
-      "low": 0.53,
-      "sub": "Holofoil"
     },
     {
       "pid": 545663,
       "name": "Lugia ex - 017/034",
       "n": "017/034",
       "rarity": "Classic Collection",
-      "market": 1.48,
+      "market": 1.5,
       "low": 0.59,
       "sub": "Holofoil"
     },
@@ -2341,7 +2341,7 @@
       "name": "Salamence ex - 114/159",
       "n": "114/159",
       "rarity": "Double Rare",
-      "market": 1.36,
+      "market": 1.37,
       "low": 0.75,
       "sub": "Holofoil"
     },
@@ -2350,7 +2350,7 @@
       "name": "Mega Kangaskhan ex - 025",
       "n": "025",
       "rarity": "Promo",
-      "market": 1.35,
+      "market": 1.36,
       "low": 0.49,
       "sub": "Holofoil"
     },
@@ -2391,20 +2391,11 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 692117,
-      "name": "Mega Feraligatr ex",
-      "n": "036",
-      "rarity": "Promo",
-      "market": 1.29,
-      "low": 0.8,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 276051,
       "name": "Boltund V - SWSH219",
       "n": "SWSH219",
       "rarity": "Promo",
-      "market": 1.28,
+      "market": 1.29,
       "low": 0.75,
       "sub": "Holofoil"
     },
@@ -2413,8 +2404,17 @@
       "name": "Houndstone ex - 162",
       "n": "162",
       "rarity": "Promo",
-      "market": 1.28,
+      "market": 1.27,
       "low": 0.49,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 692117,
+      "name": "Mega Feraligatr ex",
+      "n": "036",
+      "rarity": "Promo",
+      "market": 1.25,
+      "low": 0.8,
       "sub": "Holofoil"
     },
     {
@@ -2422,7 +2422,7 @@
       "name": "Mega Meganium ex",
       "n": "034",
       "rarity": "Promo",
-      "market": 1.23,
+      "market": 1.21,
       "low": 0.99,
       "sub": "Holofoil"
     },
@@ -2431,8 +2431,17 @@
       "name": "Mega Zygarde ex",
       "n": "047/088",
       "rarity": "Double Rare",
-      "market": 1.16,
+      "market": 1.17,
       "low": 0.81,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 657847,
+      "name": "Mega Latias ex - 011",
+      "n": "011",
+      "rarity": "Promo",
+      "market": 1.14,
+      "low": 0.01,
       "sub": "Holofoil"
     },
     {
@@ -2445,30 +2454,21 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 664142,
-      "name": "Black Kyurem ex (Surging Sparks Stamped)",
-      "n": "048/191",
-      "rarity": "Double Rare",
-      "market": 1.12,
-      "low": 0.87,
-      "sub": "Holofoil"
-    },
-    {
-      "pid": 657847,
-      "name": "Mega Latias ex - 011",
-      "n": "011",
-      "rarity": "Promo",
-      "market": 1.12,
-      "low": 0.01,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 497721,
       "name": "Cyclizar ex",
       "n": "018",
       "rarity": "Promo",
-      "market": 1.09,
-      "low": 0.2,
+      "market": 1.11,
+      "low": 0.5,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 664142,
+      "name": "Black Kyurem ex (Surging Sparks Stamped)",
+      "n": "048/191",
+      "rarity": "Double Rare",
+      "market": 1.1,
+      "low": 0.87,
       "sub": "Holofoil"
     },
     {
@@ -2508,21 +2508,21 @@
       "sub": "Holofoil"
     },
     {
-      "pid": 537592,
-      "name": "Lucario V - 078/189",
-      "n": "078/189",
-      "rarity": "Ultra Rare",
-      "market": 0.86,
-      "low": 0.59,
-      "sub": "Holofoil"
-    },
-    {
       "pid": 479879,
       "name": "Regieleki V - SWSH280",
       "n": "SWSH280",
       "rarity": "Promo",
       "market": 0.86,
       "low": 0.5,
+      "sub": "Holofoil"
+    },
+    {
+      "pid": 537592,
+      "name": "Lucario V - 078/189",
+      "n": "078/189",
+      "rarity": "Ultra Rare",
+      "market": 0.85,
+      "low": 0.59,
       "sub": "Holofoil"
     },
     {
@@ -2548,7 +2548,7 @@
       "name": "Hop's Zacian ex - SVP193",
       "n": "SVP193",
       "rarity": "Double Rare",
-      "market": 0.76,
+      "market": 0.75,
       "low": 0.09,
       "sub": "Holofoil"
     },
@@ -3062,8 +3062,8 @@
       "n": "003/012",
       "rarity": "Promo",
       "market": null,
-      "low": 129.99,
-      "sub": "Reverse Holofoil"
+      "low": null,
+      "sub": null
     },
     {
       "pid": 211485,

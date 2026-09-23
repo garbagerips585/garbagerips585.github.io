@@ -455,6 +455,12 @@ export const NAV = [
     // 14 characters, inside the 16 the menu column measures.
     ["/first-partner-illustration-collection.html", "First Partners"],
     ["/30th-celebration.html", "30th Celebration"],
+    // A GUIDE TO ONE PRODUCT FORMAT, the same kind of page as the three above,
+    // which is why it sits here and not in Prices. Built 21 September 2026 and
+    // linked only from /about.html for two days; the owner: "not seeing it
+    // linked anywhere". The footer's Sets column is built from this list, so
+    // this one line is both links.
+    ["/jumbo-cards.html", "Jumbo cards"],
   ]],
 
   // What a thing costs and what it is worth. Recomputed from the nightly price

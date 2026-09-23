@@ -17,7 +17,7 @@
     "shared/pricecharting.mjs's own parser. All ten agreed to the cent. A figure",
     "read once is not published here."
   ],
-  "checked": "2026-09-21",
+  "checked": "2026-09-23",
   "naming": {
     "official": "oversize",
     "hobby": "jumbo",
@@ -159,13 +159,13 @@
     {
       "name": "PriceCharting",
       "url": "https://www.pricecharting.com/",
-      "read": "2026-09-21",
+      "read": "2026-09-23",
       "for": "the ranked list and every graded price"
     },
     {
       "name": "tcgcsv.com",
       "url": "https://tcgcsv.com/tcgplayer/3/1528/products",
-      "read": "2026-09-21",
+      "read": "2026-09-23",
       "for": "the catalog, and its TCGplayer market prices"
     },
     {
@@ -204,9 +204,9 @@
       "year": 2003,
       "format": "topper",
       "pid": 210851,
-      "raw": 767.5,
-      "g9": 1878.64,
-      "psa10": 8200.0,
+      "raw": 735,
+      "g9": 1850,
+      "psa10": 8350,
       "pc": "pokemon-skyridge/charizard-box-topper-9",
       "why": "A Crystal Transparent box topper, one per booster box, out of a set with a famously small print run."
     },
