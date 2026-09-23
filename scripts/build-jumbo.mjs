@@ -181,7 +181,7 @@ const body = `<main id="main">
 
   <section class="wrap jb-sec">
     <h2>The most valuable ones</h2>
-    <p>${esc(doc.valueNote)}</p>
+    <p>${/* {checked} and not a typed date: the note said "read September 21" two days after the prices under it were re-read. */ esc(doc.valueNote).replace("{checked}", dt(doc.checked))}</p>
     <p class="jb-note">${esc(doc.images.note)}</p>
     <ol class="jb-vlist">
 ${valueRows}
