@@ -7132,7 +7132,22 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-msjump a:hover span,.t30-msjump a:focus-visible span{color:var(--sky)}
 .t30-logo{display:block;height:clamp(56px,17vw,110px);width:auto;margin:0 0 var(--s3)}
 .t30-pk{position:relative;overflow:hidden}
-.t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;z-index:1}
+/* THE CARD BACK UNDER EVERY PICTURE, 23 September 2026 (build-30th.mjs phOf()).
+   The pop-in the owner kept reporting was never a failed image: it was a grey
+   pocket, mid-load, drawn as a dashed empty slot. This is a card of its own,
+   the number big and the name under it, sitting UNDER .t30-card, so a picture
+   that is late covers it when it lands and one that fails leaves it showing.
+   Ink over a --paper-3 to --card gradient: 5.35:1 at the lightest point and
+   6.7:1 at the darkest, computed from the two token values, so AA at any size. */
+.t30-ph{position:absolute;inset:5px;display:grid;place-content:center;gap:6px;
+  padding:6px;text-align:center;border-radius:calc(var(--r-sm) - 2px);
+  background:radial-gradient(120% 90% at 50% 40%,var(--paper-3),var(--card));
+  border:1px solid var(--keyline)}
+.t30-pk.ld .t30-ph{visibility:hidden}
+.t30-ph b{font:400 var(--t-m)/1 var(--display);color:var(--ink)}
+.t30-ph i{font:700 var(--t-micro)/1.25 var(--body,inherit);font-style:normal;color:var(--ink);
+  overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 /* A CARD YOU DO NOT OWN IS STILL A CARD, AND THIS RULE HAD IT AT 1.82:1.
    Measured on the live page: a FULLY LOADED need card sat at a median 1.82:1
    against the empty pocket behind it and 1.5:1 at its faintest (Greninja ex,
@@ -7153,22 +7168,25 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    padding-bottom written here loses the cascade to it. Checked by measuring --
    the rule was here first and the overlap stayed at 4px. */
 .t30-pk.has .t30-card{filter:none;opacity:1}
-/* The number sits over the artwork, so it needs its own ground to stay legible
-   against whatever the card happens to be. */
-/* THE NAME AND THE DATE WERE PAINTED UNDER THE CARD, on every owned pocket that
-   has a picture. .t30-card is position:absolute;inset:0, and only .t30-pn was
-   ever lifted above it -- so .t30-nm and .t30-got rendered, occupied their flex
-   height, and were completely invisible behind the artwork. 21 of the 27 owned
-   pockets were affected, which is every one the owner can actually see a card
-   in, and the date a card entered the binder is a thing he asked for by name.
-   Same z-index treatment as the number, same chip ground so it stays legible
-   over whatever the card happens to be. */
-.t30-pk .t30-card ~ .t30-nm,.t30-pk picture + .t30-nm,
-.t30-pk .t30-card ~ .t30-got,.t30-pk picture ~ .t30-got{position:relative;z-index:1;
-  background:var(--chrome-bg);border-radius:999px;padding:1px 6px;max-width:100%}
-.t30-pk .t30-card ~ .t30-pn,.t30-pk picture + .t30-pn{position:relative;z-index:1;
-  background:var(--chrome-bg);color:var(--ink);border-radius:999px;padding:2px 6px}
-.t30-pk.need .t30-card ~ .t30-pn{opacity:.9}
+/* OWNED WITHOUT COLOUR. Greyscale the page and the only difference left between
+   a card he has and one he needs was a 1px solid border against a dashed one.
+   An owned pocket carries a check in its corner: a --ketchup disc (a mark that
+   goes nowhere) with the tick cut in --chrome-bg. */
+.t30-pk.has::before{content:"";position:absolute;top:5px;right:5px;z-index:3;width:20px;height:20px;
+  border-radius:50%;background:var(--ketchup);box-shadow:0 0 0 2px var(--chrome-bg)}
+.t30-pk.has::after{content:"";position:absolute;top:9px;right:12px;z-index:4;width:5px;height:9px;
+  border:solid var(--chrome-bg);border-width:0 2px 2px 0;transform:rotate(45deg)}
+/* THE NUMBER IS A STRIP AT THE FOOT OF THE POCKET, NOT A CHIP ACROSS THE MIDDLE.
+   It sat centred on the card, over the Pokemon, on every pocket with a picture.
+   The name is not printed over a picture at all any more: it is on the card back
+   underneath, which is the only time a reader needs it spelled out. (.t30-nm and
+   the rules that lifted it over the artwork are gone with it.) Where there is no
+   picture the card back already says the number, so the strip steps aside. */
+.t30-pk .t30-pn{position:absolute;left:50%;bottom:5px;transform:translateX(-50%);z-index:2;
+  background:var(--chrome-bg);color:var(--ink);border-radius:999px;padding:2px 7px;
+  white-space:nowrap;max-width:calc(100% - 10px);overflow:hidden;text-overflow:ellipsis;opacity:1}
+.t30-pk:not(:has(.t30-card)) .t30-pn{display:none}
+.t30-pk.pad .t30-pn{display:none}
 /* Screen reader only: a needed pocket says so in words, because the visual
    difference is a filter and a filter has no accessible name. */
 .t30-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;

@@ -312,7 +312,7 @@ const shotImg = (stem, name) => {
     `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}-md.webp 380w, ` +
     `/assets/30th-cards/${stem}.webp 600w" ` +
     `sizes="(max-width:544px) 30vw, 163px" ` +
-    `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async" onerror="this.remove()"` +
+    `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async" onload="t30l(this)" onerror="t30e(this)"` +
     (d ? ` width="${d[0]}" height="${d[1]}"` : "") +
     `>`;
   return avifPicture(img);
@@ -339,10 +339,13 @@ const shotImg = (stem, name) => {
  * about its _in_ renditions: every _200w sampled across all four sections is
  * exactly 200x279, a ratio of 0.717 against a real card's 0.714. */
 const tcgpBase = (pid) => `https://tcgplayer-cdn.tcgplayer.com/product/${pid}`;
-const tcgpImg = (pid, name) =>
+const tcgpImg = (pid, name, low = false) =>
   `<img class="t30-card" src="${tcgpBase(pid)}_200w.jpg" ` +
-  `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
-  `sizes="(max-width:544px) 30vw, 163px" ` +
+  /* A GREY POCKET TAKES THE SMALL FILE ONLY (\`low\`), 23 September 2026. It is
+     drawn greyscaled at 78% opacity, so the 400w file bought nothing a reader
+     can see, and at DPR 3 it was 470KB per Classic page turn on a phone. */
+  (low ? "" : `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
+  `sizes="(max-width:544px) 30vw, 163px" `) +
   /* WIDTH AND HEIGHT, WHICH THIS USED TO OMIT ON PURPOSE AND SHOULD NOT HAVE.
      The reasoning was imgDims()'s rule that tcgplayer-cdn pads to a fixed
      canvas -- true of its _in_ renditions, NOT of _200w, which is exactly
@@ -356,19 +359,21 @@ const tcgpImg = (pid, name) =>
      withdrawn image removes itself instead of painting a broken glyph. This
      page had 393 images and one onerror, on the logo. */
   `alt="${esc(name)}" loading="lazy" decoding="async" width="200" height="279" ` +
-  `onerror="this.remove()">`;
+  `onload="t30l(this)" onerror="t30e(this)">`;
 
-const cardImg = (localId, name) => {
+const cardImg = (localId, name, low = false) => {
   const url = `${scanBase(localId)}/low.webp`;
   const d = imgDims(url);
   const img =
     `<img class="t30-card" src="${url}" ` +
-    `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
-    `sizes="(max-width:544px) 30vw, 163px" ` +
+    /* 245w only on a grey pocket, same reason as tcgpImg's \`low\`: about 94%
+       of what a DPR 3 pocket asks for, drawn greyscale, at under half the bytes. */
+    (low ? "" : `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
+    `sizes="(max-width:544px) 30vw, 163px" `) +
     /* alt="" ON PURPOSE -- see the note above pictureFor. The pocket carries the
        card name as its own accessible name and 62 of them print it visibly as
        well, so an alt here made a screen reader say it two or three times. */
-    `alt="" loading="lazy" decoding="async"${d ? " " + d : ""} onerror="this.remove()">`;
+    `alt="" loading="lazy" decoding="async"${d ? " " + d : ""} onload="t30l(this)" onerror="t30e(this)">`;
   return avifPicture(img);
 };
 
@@ -442,14 +447,14 @@ const dexLocalId = (section, n) => {
    Pikachu". An image that repeats the text next to it is decorative by
    definition. The name is still passed in because tcgpImg/shotImg build their
    own alt and a future caller may need it; only the card scan goes silent. */
-const pictureFor = (name, { shot, n, row, section }) => {
+const pictureFor = (name, { shot, n, row, section, low = false }) => {
   const dex = dexLocalId(section ?? row?.section, n);
-  if (dex) return cardImg(dex, name);
+  if (dex) return cardImg(dex, name, low);
   /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
      no-op dressed as an optimisation. TCGplayer publishes no AVIF. */
-  if (row && row.pid) return tcgpImg(row.pid, name);
+  if (row && row.pid) return tcgpImg(row.pid, name, low);
   if (shot) return shotImg(shot, name);
   return "";
 };
@@ -478,7 +483,7 @@ const ALL_CARDS = (() => {
   const seen = new Set(out.map((c) => clKey(c.section, c.n)));
   for (const o of owned) {
     const k = clKey(o.section, o.n || "");
-    if (!seen.has(k)) { out.push({ section: o.section, n: o.n, pid: null }); seen.add(k); }
+    if (!seen.has(k)) { out.push({ section: o.section, n: o.n, pid: o.pid || null }); seen.add(k); }
   }
   return out;
 })();
@@ -519,6 +524,25 @@ const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
 const pocketNum = (section, n) =>
   section === "classic" ? String(n) : String(n).split("/")[0];
 
+/* THE LABEL ON THE STRIP AT THE FOOT OF A POCKET. The set code is dropped where
+   it says nothing -- "30C" was on 97 pockets of a binder that is entirely 30th
+   Celebration -- and kept where it tells two runs apart: MEE on the Energy, MEP
+   on the promos, whose numbers collide with the main set's. */
+const pocketLabel = (section, n, setCode) =>
+  (n ? "#" + pocketNum(section, n) : "") + (setCode && setCode !== "30C" ? " " + setCode : "");
+
+/* THE CARD BACK BEHIND EVERY PICTURE, 23 September 2026. The owner, twice:
+   the grey cards go missing when he flips. They never failed to load -- 711
+   candidate urls answered 200 and no image was ever removed, in Chrome and in
+   real WebKit -- but a grey pocket WHILE ITS PICTURE WAS ON THE WAY was a dashed
+   empty slot with a faint number in it, and on a phone flipping every second or
+   two over cellular that lasted a second or more per page. So every pocket now
+   draws a card of its own underneath the picture: the number large and the
+   name under it. A picture that is late, or that fails twice and is removed by
+   t30e(), leaves a card that still says what goes there, never a hole. */
+const phOf = (name, label) =>
+  `<span class="t30-ph" aria-hidden="true"><b>${esc(label)}</b><i>${esc(name)}</i></span>`;
+
 const pocket = (c, i, slot) => {
   if (c) {
     const row = CHECKLIST.get(clKey(c.section, c.n || ""));
@@ -529,12 +553,12 @@ const pocket = (c, i, slot) => {
        46 of the 75 have no date either, so absence was the ONLY signal on those. */
     return `<li class="t30-pk has" title="${esc(c.name)}">
         <span class="t30-sr">Collected</span>
+        ${phOf(c.name, pocketLabel(c.section, c.n, c.setCode))}
         ${/* A promo or jumbo is in no checklist row, so `row` is null for all
              eight and they drew no picture at all. Each carries its own `pid`
              in data/30th-binder.json instead; see `_pidNote` there. */
           pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })}
-        <span class="t30-pn">${esc(c.n ? "#" + c.n : "")}${c.setCode ? " " + esc(c.setCode) : ""}</span>
-        ${c.shot ? "" : `<span class="t30-nm">${esc(c.name)}</span>`}
+        <span class="t30-pn">${esc(pocketLabel(c.section, c.n, c.setCode))}</span>
         ${/* NO DATE ON THE CARD. The owner, 22 September 2026: "remove the dates
              overalyed on top of the cards in the binder". It was printed over
              the artwork on the 29 pockets that have a `got`, which is a minority
@@ -545,12 +569,12 @@ const pocket = (c, i, slot) => {
       </li>`;
   }
   if (HAVE_SCANS && slot) {
-    const pic = pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section });
+    const pic = pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
     return `<li class="t30-pk need" title="${esc(slot.name)}">
         <span class="t30-sr">Not collected yet</span>
+        ${phOf(slot.name, pocketLabel(slot.section, slot.n))}
         ${pic}
-        <span class="t30-pn">${esc("#" + pocketNum(slot.section, slot.n))}</span>
-        ${pic ? "" : `<span class="t30-nm">${esc(slot.name)}</span>`}
+        <span class="t30-pn">${esc(pocketLabel(slot.section, slot.n))}</span>
       </li>`;
   }
   return `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
@@ -564,6 +588,33 @@ const pocket = (c, i, slot) => {
 // wrong picture in the wrong pocket, which looks right and is the worst kind of
 // wrong. Empty until there is an English checklist to read.
 const slotsFor = (key) => (checklist.cards || []).filter((c) => c.section === key);
+
+/* WHAT HE STILL NEEDS, AT A GLANCE, 23 September 2026. The binder answers "what
+   is on page 12"; nobody wants to flip 26 pages to answer "which Pikachu am I
+   missing". One closed list per section, computed from the same checklist and
+   the same owned list the pockets are, so the two cannot disagree. A <details>
+   so it costs no height until it is opened, and no script at all. */
+const needList = (() => {
+  const rows = SECTIONS.map(([key, label]) => {
+    const have = new Set(ownedIn(key).map((c) => clKey(c.section, c.n || "")));
+    const miss = slotsFor(key).filter((c) => !have.has(clKey(c.section, c.n)));
+    if (!miss.length) return "";
+    return `      <details class="t30-need">
+        <summary><b>${esc(label)}</b> <span>${miss.length} still to find</span></summary>
+        <ul>
+${miss.map((c) => `          <li><span>${esc("#" + pocketNum(c.section, c.n))}</span> ${esc(c.name)}${
+  /* The owner counts his Pikachu by their place in the thirty, "x/30", which
+     is the number the card itself prints (023 is 1/30). "Pikachu Rare" on all
+     fourteen rows said nothing; the position is what he looks them up by. */
+  key === "pikachu" ? ` <i>${Number(String(c.n).split("/")[0]) - 22} of 30</i>` : c.rarity ? ` <i>${esc(c.rarity)}</i>` : ""}</li>`).join("\n")}
+        </ul>
+      </details>`;
+  }).filter(Boolean);
+  return rows.length ? `    <div class="t30-needs">
+      <h3>Still to find</h3>
+${rows.join("\n")}
+    </div>` : "";
+})();
 
 /* ONE TILE, USED BY THE VALUE BAND AND THE CHECKLIST, so a card cannot look
    like two different things on one page. The picture comes from the same
@@ -710,7 +761,12 @@ const leafHtml = (l) => {
                    eight-inch cards are and what they are worth, and this leaf is
                    the one place on the page a reader is looking at one. */
               l.key === "jumbo" ? `<a href="/jumbo-cards.html">${esc(l.label)}</a>` : esc(l.label)}</b>
-            <span>Page ${l.no} of ${LEAF_N}${l.pages > 1 ? ` &middot; ${esc(l.label)} ${l.page}/${l.pages}` : ""}</span>
+            <span>${/* THE SECTION IS NOT SAID TWICE. The header read "PAGE 5 OF 26 ·
+                     MAIN SET 1/11" beside a heading that already says Main set,
+                     and at 390 it wrapped to two lines on some leaves and not
+                     others, so the pocket grid jumped 27px between pages as you
+                     flipped. The within-section count stays in the aria-label. */
+              `Page ${l.no} of ${LEAF_N}`}</span>
           </div>
           <ol class="t30-pkts">
 ${cellHtml}${pad ? "\n" + pad : ""}
@@ -958,8 +1014,11 @@ const style = `
   background:repeating-linear-gradient(to bottom,
     var(--keyline) 0 18px, transparent 18px 34%);
   border-radius:999px;opacity:.85}
+/* ONE LINE ON EVERY LEAF, so the pocket grid starts at the same height on all
+   26 and does not jump as the pages turn (it moved 27px between leaves). */
 .t30-leaf-h{display:flex;align-items:baseline;justify-content:space-between;
-  gap:var(--s3);flex-wrap:wrap;margin:0 0 var(--s3)}
+  gap:var(--s3);flex-wrap:nowrap;margin:0 0 var(--s3);min-height:1.6em}
+.t30-leaf-h b{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .t30-leaf-h b{font:400 var(--t-m)/1.1 var(--display);color:var(--ink)}
 /* The jumbo leaf's header and the binder caption link to /jumbo-cards.html,
    and ui.css's in-text underline is scoped to \`main p a\`, so neither got it:
@@ -971,7 +1030,7 @@ const style = `
 .t30-leaf-h b a:hover,.t30-leaf-h b a:focus-visible,
 .t30-binder figcaption a:hover,.t30-binder figcaption a:focus-visible{text-decoration-color:currentColor}
 .t30-leaf-h span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
-  text-transform:uppercase;letter-spacing:.04em}
+  text-transform:uppercase;letter-spacing:.04em;white-space:nowrap;flex:none}
 /* THE PAGE CORNERS. 44px targets, which is the tap-target floor qa-sweep checks
    and well over its 24px minimum, sitting in the padding the leaf reserved at
    the bottom so they never cover a pocket. */
@@ -996,7 +1055,23 @@ const style = `
 .t30-secsum b i{font-style:normal;font-size:var(--t-sm);color:var(--ink-2)}
 .t30-secsum span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
-.t30-secsum .t30-bar{margin:6px 0 0;height:4px}
+.t30-secsum .t30-bar{margin:6px 0 0;height:8px}
+.t30-needs{margin:var(--s5) 0 0;max-width:560px}
+.t30-needs h3{margin:0 0 var(--s3);font:400 var(--t-l)/1.15 var(--display);color:var(--ink)}
+.t30-need{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);margin:0 0 var(--s2)}
+.t30-need summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  min-height:44px;padding:0 var(--s3);cursor:pointer;list-style:none}
+.t30-need summary::-webkit-details-marker{display:none}
+.t30-need summary b{font:700 var(--t-body)/1.2 var(--body,inherit);color:var(--ink)}
+.t30-need summary span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.t30-need summary:hover span,.t30-need summary:focus-visible span{color:var(--sky)}
+.t30-need summary::after{content:"+";font:700 var(--t-m)/1 var(--mono);color:var(--ink-2)}
+.t30-need[open] summary::after{content:"\u2212"}
+.t30-need ul{list-style:none;margin:0;padding:0 var(--s3) var(--s3);display:grid;gap:6px;
+  grid-template-columns:repeat(auto-fill,minmax(15em,1fr))}
+.t30-need li{font-size:var(--t-sm);color:var(--ink);line-height:1.35}
+.t30-need li span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);margin-right:4px}
+.t30-need li i{font-style:normal;color:var(--ink-2);font-size:var(--t-micro)}
 /* The page rail. Grouped by section, because "page 14" means nothing and
    "main set 6" does. */
 .t30-rail{margin:var(--s4) 0 0;display:grid;gap:var(--s3)}
@@ -1004,12 +1079,19 @@ const style = `
 .t30-railg>span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em;min-width:9rem}
 .t30-railg p{display:flex;gap:6px;flex-wrap:wrap;margin:0}
-.t30-railg a{display:grid;place-items:center;min-width:30px;min-height:30px;
+.t30-railg a{display:grid;place-items:center;min-width:44px;min-height:44px;
   padding:0 6px;text-decoration:none;border-radius:var(--r-sm);
   background:var(--paper);border:1px solid var(--keyline);
   font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
-.t30-railg a.filled{border-color:var(--ketchup);color:var(--ink)}
+/* A PAGE WITH CARDS ON IT IS SOLID, AN EMPTY ONE DASHED, and neither is pink.
+   This was a pink border on 24 of the 26 and, loading after ui.css at equal
+   specificity, it beat the teal current-page rule, so "you are here" was pink:
+   a route painted in the colour this site keeps for marks that go nowhere. */
+.t30-railg a:not(.filled){border-style:dashed}
+.t30-railg a.filled{color:var(--ink)}
 .t30-railg a:hover,.t30-railg a:focus-visible{border-color:var(--sky);color:var(--sky)}
+.t30-railg a.is-here,.t30-railg a[aria-current="page"]{border:2px solid var(--sky);
+  color:var(--ink);background:var(--paper-3);font-weight:700}
 /* SMOOTH ONLY WHERE MOTION IS WELCOME. Three other places on this site honour
    this and a page that slides sideways is exactly the kind a reader who asked
    for less motion does not want. */
@@ -1021,10 +1103,8 @@ const style = `
    keep their outer lift so an owned card still sits proud of the page. */
 .t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
-.t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-3,var(--ink-2));opacity:.55}
+.t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono)}
 .t30-pk.has{border-style:solid;border-color:var(--ketchup);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
-.t30-pk.has .t30-pn{opacity:1;color:var(--ink-2)}
-.t30-nm{font:700 var(--t-sm)/1.2 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
 /* .t30-got is gone with the date overlay it styled, 22 September 2026. */
 .t30-more{color:var(--ink-2);font-size:var(--t-sm);margin-top:var(--s3)}
 .t30-wave{margin-top:var(--s4)}
@@ -1171,8 +1251,8 @@ const checklistBand = !(checklist.cards || []).length ? "" : `
     <p class="lede" style="max-width:44em">${
       (checklist.cards || []).length
     } of the ${TOTAL} are listed and pictured. What is missing is missing at the source: the eight foil
-      basic Energy are numbered in a separate MEE set that no checklist we can read carries &mdash; the binder
-      below lists all eight, read off the cards themselves${
+      basic Energy are numbered in a separate MEE set that the card checklists leave out, so the binder
+      below adds all eight by hand, read off the cards themselves${
         US.count ? `, and ${US.count} secret rares are the Mew RGB cards The Pokemon Company still has not acknowledged` : ""
       }.</p>
 ${SECTIONS.map(([key, label]) => {
@@ -1303,6 +1383,24 @@ ${setHits
 </section>`;
 
 const body = `<main id="main">
+<script>
+/* ONE RETRY, THEN THE CARD BACK. Every card picture on this page carried
+   onerror="this.remove()", so a single dropped request -- a tunnel, a wifi to
+   LTE handoff -- blanked that pocket until a reload. First failure: drop the
+   AVIF source and the srcset and ask for the small file again after 1.5s.
+   Second failure: remove the picture, and the .t30-ph card behind it shows the
+   number and the name. Defined here, before the first image, so an early error
+   has a handler to call. */
+function t30e(i){var p=i.parentNode,box=p&&p.tagName==="PICTURE"?p:i;
+if(i.getAttribute("data-r")){box.remove();return}
+i.setAttribute("data-r","1");
+if(box!==i){var s=p.querySelectorAll("source");for(var k=0;k<s.length;k++)s[k].remove()}
+var u=i.getAttribute("src")||"";i.removeAttribute("srcset");i.removeAttribute("sizes");
+setTimeout(function(){i.src=u+(u.indexOf("?")<0?"?r=1":"&r=1")},1500)}
+/* AND THE CARD BACK STEPS OUT ONCE THE PICTURE IS IN. A grey card is drawn at
+   78% opacity, so the name on the card back underneath showed through it. */
+function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld")}
+</script>
 
 <header class="band-sky tight">
   <div class="wrap">
@@ -1328,7 +1426,7 @@ const body = `<main id="main">
       <div><b>${packTotal}</b><span>Packs across them all</span></div>
     </div>
     <p class="t30-msjump"><a href="#masterset"><b>${pct}% of the set collected</b>
-      <span>${haveTotal} of ${TOTAL} cards &mdash; see the master set binder &rarr;</span></a></p>
+      <span>${haveTotal} of ${TOTAL} cards &middot; see the master set binder &rarr;</span></a></p>
   </div>
 </header>
 ${valueBand}
@@ -1415,7 +1513,7 @@ ${waveBlocks}
     <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> ${esc(
       doc.structure.japan.note
     )} It is here because Japan's set is a different set, not an early look at this one, and the
-      numbering does not line up card for card &mdash; so for anything English, use the English checklist
+      numbering does not line up card for card, so for anything English, use the English checklist
       above. A Japanese number is not a guide to an English one.</p>
     <p class="price-note">${esc(doc.structure.derived)}</p>
     <div class="t30-scroll">
@@ -1497,6 +1595,7 @@ ${BINDER_LEAVES.map(leafHtml).join("\n")}
     <nav class="t30-rail" aria-label="Jump to a binder page">
 ${railHtml}
     </nav>
+${needList}
 
     <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
@@ -1511,14 +1610,13 @@ ${
     ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
       ${DEX_PICS} of the ${TOTAL} come from TCGdex, which is where the rest of this site's card
       scans come from; it took this set two days after release. ${REMOTE_PICS} are hotlinked from
-      TCGplayer instead &mdash; the whole Classic Collection, because TCGdex holds those as a separate
-      set with no images at all. ${OWN_PICS} ${OWN_PICS === 1 ? "is" : "are"} the owner's own
-      ${OWN_PICS === 1 ? "photograph" : "photographs"} of a card in his hand. Nothing here is rehosted
-      or resized.${
+      TCGplayer instead: the whole Classic Collection, because TCGdex holds those as a separate set with
+      no images at all, and the eight foil Energy, which TCGplayer files under its own MEE set rather than
+      under either 30th Celebration name.${OWN_PICS > 0 ? ` ${OWN_PICS} ${OWN_PICS === 1 ? "is" : "are"} the
+      owner's own ${OWN_PICS === 1 ? "photograph" : "photographs"} of a card in his hand.` : ""} Nothing here is
+      rehosted or resized.${
         NO_PICS > 0
-          ? ` The remaining ${NO_PICS} have no picture anywhere this site may use: ${
-            E.energy - (SRC_TALLY.own || 0)
-          } of the eight foil Energy, which are numbered in a separate MEE set that no card database carries, and
+          ? ` The remaining ${NO_PICS} ${NO_PICS === 1 ? "has" : "have"} no picture anywhere this site may use:
       the ${US.count || 0} Mew RGB secret rares, which were revealed but which The Pokemon Company
       still has not acknowledged.`
           : ""
@@ -1613,9 +1711,34 @@ ${APP_JS_NO_PACKPLAYER}
   var t = document.getElementById("binder");
   if (!t || !t.scrollIntoView) return;
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  /* LOAD AHEAD OF THE READER. Every picture is loading="lazy", and WebKit starts
+     a lazy image in a sideways scroller only about one leaf ahead, so flipping
+     every second or two on cellular outran it: measured in real WebKit at
+     1.6Mbps, leaves arrived showing 0 to 4 of their 9 cards and took 1 to 1.5s to
+     fill. warm() flips the current leaf, the one behind and the two ahead to
+     eager, which starts them now. The HTML stays lazy so the first load is
+     unchanged and a reader with no script still gets every picture. */
+  function warm(i) {
+    var leaves = t.querySelectorAll(".t30-leaf");
+    for (var k = i - 1; k <= i + 2; k++) {
+      var lf = leaves[(k + leaves.length) % leaves.length];
+      if (!lf || lf.getAttribute("data-warm")) continue;
+      lf.setAttribute("data-warm", "1");
+      var im = lf.querySelectorAll('img[loading="lazy"]');
+      for (var j = 0; j < im.length; j++) im[j].loading = "eager";
+    }
+  }
   function show(el, focusIt) {
     if (!el) return;
-    el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce ? "auto" : "smooth" });
+    /* A JUMP IS NOT A PAGE TURN. The rail's smooth scroll from page 1 to page 14
+       travelled past every leaf between and queued about 117 images ahead of the
+       one asked for, which then sat at 0 of 9 for over a second and a half. More
+       than one leaf away, the destination is warmed first and the track goes
+       straight there. */
+    var leaves = t.querySelectorAll(".t30-leaf"), to = Array.prototype.indexOf.call(leaves, el), from = current().i;
+    if (to >= 0) warm(to);
+    var far = to >= 0 && Math.abs(to - from) > 1;
+    el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce || far ? "auto" : "smooth" });
     if (focusIt) setTimeout(function () { mark(); }, reduce ? 0 : 260);
   }
   document.addEventListener("click", function (e) {
@@ -1658,6 +1781,14 @@ ${APP_JS_NO_PACKPLAYER}
   function mark() {
     var c = current(), id = c.leaves[c.i] && c.leaves[c.i].id;
     if (!id) return;
+    warm(c.i);
+    /* ONE PAGE IN THE TAB ORDER, NOT 26. Each leaf carries two turn corners, so
+       the binder alone was 52 tab stops, 50 of them on pages nobody could see.
+       Leaves off screen are inert; the scroll and the swipe are unaffected. */
+    for (var q = 0; q < c.leaves.length; q++) {
+      if (q === c.i) c.leaves[q].removeAttribute("inert");
+      else c.leaves[q].setAttribute("inert", "");
+    }
     for (var i = 0; i < rail.length; i++) {
       var on = rail[i].getAttribute("href") === "#" + id;
       if (on) { rail[i].setAttribute("aria-current", "page"); rail[i].classList.add("is-here"); }
@@ -1693,6 +1824,9 @@ ${APP_JS_NO_PACKPLAYER}
      swiping is its own bug. */
   function follow(el, fwd) {
     if (!el) return;
+    /* mark() makes off-screen leaves inert and an inert corner cannot take
+       focus, so the arriving leaf is released before focus is sent to it. */
+    el.removeAttribute("inert");
     var target = el.querySelector(fwd ? ".t30-turn.fwd" : ".t30-turn.back");
     if (target && typeof target.focus === "function") target.focus({ preventScroll: true });
   }
