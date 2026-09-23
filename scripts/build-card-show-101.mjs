@@ -39,6 +39,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, clipMeta } from "../shared/format.mjs";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const shows = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
@@ -46,7 +47,7 @@ const shows = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 /* THE SAME TEST THE CALENDAR'S OWN COUNTER TILE USES, so the two numbers on two
    pages about the same shows cannot disagree. This site has published a figure
    that contradicted another page often enough to have a rule about it. */
-const TODAY = new Date().toISOString().slice(0, 10);
+const TODAY = localDay(); // Eastern, not UTC, so its counts match /card-shows.html after 8pm
 const upcoming = (shows.shows || []).filter((s) => s.date >= TODAY);
 const nFree = upcoming.filter((s) => String(s.admission || "").trim().toLowerCase() === "free").length;
 const nPokemon = upcoming.filter((s) => s.pokemon).length;

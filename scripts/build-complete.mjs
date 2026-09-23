@@ -643,11 +643,11 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Two different prices</p>
     <h2>The cards are nearly free. The <span class="hl">postage</span> is not.</h2>
-    <p class="lede w40">Every figure above is market price, meaning what copies have actually been
-      selling for. There is a second number worth knowing: the cheapest copy listed right now. On the cards that make
+    <p class="lede w40">Every figure above is a PriceCharting guide value, worked out from what copies have
+      actually been selling for. There is a second number worth knowing: the cheapest copy listed right now. On the cards that make
       up a base set those two are miles apart, and on the cards that make up a master set they are almost the same.</p>
     <div class="facts">
-      <div class="fact"><div class="n">${baseSpread.toFixed(1)}x</div><div class="l">Typical set: market above cheapest listings, base set</div></div>
+      <div class="fact"><div class="n">${baseSpread.toFixed(1)}x</div><div class="l">Typical set: guide value above cheapest listings, base set</div></div>
       <div class="fact"><div class="n">${masterSpread.toFixed(1)}x</div><div class="l">Typical set: the same comparison, master set</div></div>
       <div class="fact wide"><div class="n">${moneyRound(totalBaseFloor / rows.length)}</div><div class="l">Average base set at cheapest listings, before postage</div></div>
     </div>

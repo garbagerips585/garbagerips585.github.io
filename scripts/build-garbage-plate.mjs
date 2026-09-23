@@ -710,7 +710,9 @@ const schema = {
       author: { "@type": "Organization", name: "Garbage Rips 585" },
       publisher: {
         "@type": "Organization",
+        "@id": SITE + "/#org",
         name: "Garbage Rips 585",
+        url: SITE + "/",
         logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
       },
       mainEntityOfPage: `${SITE}/garbage-plate.html`,

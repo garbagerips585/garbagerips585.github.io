@@ -107,9 +107,12 @@ const srcList = doc.sources.map((s) =>
   `<li><a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(s.name)}, opens on ${esc(new URL(s.url).host)}">${esc(s.name)}</a> &mdash; ${esc(s.for)}, read ${dt(s.read)}</li>`
 ).join("\n");
 
-const DESC = `The Pokemon Company calls them oversize cards and never publishes how big they are. ` +
-  `What a jumbo card is, how you get one, why almost every valuable one is really a box topper, ` +
-  `and what ${cat.counts.priced} of them are worth, each price read twice on ${dt(doc.checked)}.`;
+/* UNDER 158 CHARACTERS SO IT RENDERS WHOLE, and only what is true of all of
+   it: the old one was clipped mid-sentence at "why almost every valuable
+   one..." and ended by saying every one of the catalog's prices was read
+   twice, which is true of the nine ranked cards and not of the 280. */
+const DESC = `What a Pokemon jumbo card is, how you get one, why the valuable ones are box toppers, ` +
+  `and what ${cat.counts.priced} of them are worth, read ${dt(cat.checked)}.`;
 // 580px IS THE CUT GOOGLE RENDERS AT and the first draft of this title was
 // 684px, losing "and What They Are Worth" -- the half a searcher is looking
 // for. Shortened to fit rather than left to be truncated, which is the standing
@@ -229,7 +232,7 @@ const LD = {
   dateModified: doc.checked,
   author: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
   publisher: {
-    "@type": "Organization", name: "Garbage Rips 585",
+    "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/",
     logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
   },
   mainEntityOfPage: `${SITE}/jumbo-cards.html`,

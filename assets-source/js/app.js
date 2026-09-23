@@ -99,7 +99,10 @@
     var href = v.path ? "/" + v.path : "/videos.html";
     var art = el("a", "art");
     art.href = href;
-    art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    /* "Play" leads because the tile PLAYS in place rather than navigating, and
+       it was announced as a plain link to the rip. packplayer.js strips a
+       leading "Play " when it names the iframe. */
+    art.setAttribute("aria-label", "Play " + (v.siteTitle || v.title));  // full title stays the accessible name
     // The end card's runtime backup timer reads this. Without it a filtered
     // grid's tiles are the one place on the site with no duration at all.
     art.setAttribute("data-dur", v.duration || 0);

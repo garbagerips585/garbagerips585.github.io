@@ -16,11 +16,11 @@
 <meta property="og:title" content="Pokemon 30th Celebration: products, dates and card list">
 <meta property="og:description" content="Every product with its date and price, what is really in a pack, and Japan's full card list.">
 <meta property="og:url" content="https://garbagerips.com/30th-celebration.html">
-<meta property="og:image" content="https://garbagerips.com/assets/og-image.jpg?v=c1eb6b4c">
+<meta property="og:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=24f207ef">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://garbagerips.com/assets/og-image.jpg?v=c1eb6b4c">
+<meta name="twitter:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=24f207ef">
 <!-- PRECONNECT, WHICH 1,039 OTHER PAGES HAVE AND THE HEAVIEST TCGDEX PAGE ON
      THE SITE DID NOT. This page draws 158 distinct cards from assets.tcgdex.net
      and 30 from tcgplayer-cdn, and every one is loading="lazy" -- so the
@@ -28,11 +28,11 @@
      issued at layout, paying DNS + TCP + TLS from cold at the moment a reader
      starts scrolling. build-pokemon.mjs and build-intl-pages.mjs already do
      this; this builder simply never got the line. -->
-<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
+<link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=588af57a">
+<link rel="stylesheet" href="/assets/ui.css?v=432af41c">
 <style>.t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
 .t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0}
 .t30-facts li{padding-left:1.15em;position:relative;line-height:1.45}
@@ -119,6 +119,8 @@
     var(--rs) calc(var(--rs) + 2px) 0 -1px var(--paper),var(--rs) calc(var(--rs) + 2px) 0 0 var(--keyline),var(--lift)}
 .is-book .t30-leaf{grid-area:1/1;visibility:hidden;background:var(--paper);scroll-snap-align:none}
 .is-book .t30-leaf.is-on{visibility:visible}
+.is-book .t30-leaf:not(.is-on) .t30-pk picture,
+.is-book .t30-leaf:not(.is-on) .t30-pk > img{display:none}
 .is-book[data-mode="one"] .t30-leaf{padding-right:var(--s4);padding-left:calc(var(--s4) + 14px)}
 .is-book .t30-leaf{padding-bottom:44px}
 .is-book[data-mode="one"] .t30-leaf{padding-bottom:54px}
@@ -241,7 +243,7 @@
 .t30-tbl tr:last-child td{border-bottom:0}
 .t30-src{list-style:none;margin:var(--s4) 0 0;display:grid;gap:8px}
 .t30-src li{overflow-wrap:anywhere;font-size:var(--t-sm)}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Pokemon 30th Celebration: Products, Dates and Card List","description":"Every 30th Celebration product with its date and price, what is actually in a pack, Japan's full 173 card list, and a master set tracked pocket by pocket.","url":"https://garbagerips.com/30th-celebration.html","dateModified":"2026-09-23","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","name":"Garbage Rips 585"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Pokemon 30th Celebration: Products, Dates and Card List","description":"Every 30th Celebration product with its date and price, what is actually in a pack, Japan's full 173 card list, and a master set tracked pocket by pocket.","url":"https://garbagerips.com/30th-celebration.html","dateModified":"2026-09-23","author":{"@type":"Organization","name":"Garbage Rips 585"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Sets","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"30th Celebration","item":"https://garbagerips.com/30th-celebration.html"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -384,7 +386,10 @@
    number and the name. Defined here, before the first image, so an early error
    has a handler to call. */
 function t30e(i){var p=i.parentNode,box=p&&p.tagName==="PICTURE"?p:i;
-if(i.getAttribute("data-r")){box.remove();return}
+/* Outside a binder pocket (a checklist or value tile) there is no card back
+   under the picture, and removing it collapsed the tile: CLS 2.51 on a run
+   where TCGdex was failing. There it is hidden and keeps its space. */
+if(i.getAttribute("data-r")){if(i.closest&&!i.closest(".t30-pk")){box.style.visibility="hidden";return}box.remove();return}
 i.setAttribute("data-r","1");
 if(box!==i){var s=p.querySelectorAll("source");for(var k=0;k<s.length;k++)s[k].remove()}
 var u=i.getAttribute("src")||"";i.removeAttribute("srcset");i.removeAttribute("sizes");
@@ -580,7 +585,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
       <li><span class="t30-tag off">Official</span>Five foil cards, one foil basic Energy and one Pokemon TCG Live code card.</li>
       <li><span class="t30-tag off">Official</span>Every card in the set is foil, basic Energy included. Official.</li>
       <li><span class="t30-tag off">Official</span>the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull.</li>
-      <li><span class="t30-tag off">Official</span>Playable in Pokemon TCG Live from 15 September 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses.</li>
+      <li><span class="t30-tag off">Official</span>Playable in Pokemon TCG Live from September 15, 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses.</li>
       <li><span class="t30-tag">No box</span>There is no booster box and no loose packs. Every pack comes inside one of the products below, so this set has no per pack retail price and a shop selling single packs is selling something else.</li>
     </ul>
     <h3>What the cards themselves settled</h3>
@@ -595,17 +600,17 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
     <h3>What every pack guarantees</h3>
     <p style="max-width:42em">THESE ARE CERTAINTIES AND NOT ODDS, which is why they lead. A guaranteed Pikachu in every single pack of a sealed run is worth more to somebody master setting this than any probability, because it is the one part of the set you cannot miss by being unlucky.</p>
     <ul class="t30-facts">
-      <li><span class="t30-tag off">Official</span>Five foil cards, one foil basic Energy and one Pokemon TCG Live code card in every pack. <span class="t30-src-i">TPCi press release, 1 June 2026, footnote 2</span></li>
-      <li><span class="t30-tag off">Official</span>One of the 30 Pikachu in every single pack, each by a different illustrator. <span class="t30-src-i">TPCi press release, 1 June 2026, and the pokemon.com product showcase</span></li>
-      <li><span class="t30-tag off">Official</span>Every card in the set is foil, basic Energy included. <span class="t30-src-i">TPCi press releases, 1 and 30 June 2026</span></li>
-      <li><span class="t30-tag">PokeBeach</span>The Ultra-Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs. <span class="t30-src-i">PokeBeach's English product guide, 10 September 2026</span></li>
+      <li><span class="t30-tag off">Official</span>Five foil cards, one foil basic Energy and one Pokemon TCG Live code card in every pack. <span class="t30-src-i">TPCi press release, June 1, 2026, footnote 2</span></li>
+      <li><span class="t30-tag off">Official</span>One of the 30 Pikachu in every single pack, each by a different illustrator. <span class="t30-src-i">TPCi press release, June 1, 2026, and the pokemon.com product showcase</span></li>
+      <li><span class="t30-tag off">Official</span>Every card in the set is foil, basic Energy included. <span class="t30-src-i">TPCi press releases, 1 and June 30, 2026</span></li>
+      <li><span class="t30-tag">PokeBeach</span>The Ultra-Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs. <span class="t30-src-i">PokeBeach's English product guide, September 10, 2026</span></li>
     </ul>
 
     <h3>One Japanese box, opened once</h3>
     <p style="max-width:42em"><span class="t30-tag">One box, not a rate</span>This is a SAMPLE OF TWENTY PACKS, not a pull rate, and it is a JAPANESE box. Japanese packs hold six cards where English packs hold five, and the two sets are different sizes (176 against 199), so it does not convert into an English expectation. It is on the page because it is the only opened-box data that exists for this set and because one opening of a known size is a fact about that opening. Do not restate it as a rate.</p>
     <div class="t30-scroll" style="max-width:32em">
       <table class="t30-tbl">
-        <caption class="t30-cap">What came out of one 20 pack Japanese box. PokeBeach, 9 September 2026, describing one official Japanese box opening.</caption>
+        <caption class="t30-cap">What came out of one 20 pack Japanese box. PokeBeach, September 9, 2026, describing one official Japanese box opening.</caption>
         <thead><tr><th scope="col">Card</th><th scope="col">In that box</th></tr></thead>
         <tbody>
             <tr><td>Pikachu</td><td>20, one per pack, no duplicates</td></tr>
@@ -618,7 +623,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
     </div>
 
     <h3>English pull rates</h3>
-    <p style="max-width:42em"><span class="t30-tag">Not published</span>NOT PUBLISHED YET, re-checked on the set's own release day. 16 September 2026: PokeBeach's English set guide still reads &quot;We will have this information closer to the set's release next week&quot; under its Booster Pack Pull Rates heading, word for word what it said on the 11th, and TPCi has published nothing. Read in a browser rather than by fetch, because pokebeach.com answers 403 to a plain request.
+    <p style="max-width:42em"><span class="t30-tag">Not published</span>NOT PUBLISHED YET, re-checked on the set's own release day. September 16, 2026: PokeBeach's English set guide still reads &quot;We will have this information closer to the set's release next week&quot; under its Booster Pack Pull Rates heading, word for word what it said on the 11th, and TPCi has published nothing. Read in a browser rather than by fetch, because pokebeach.com answers 403 to a plain request.
       They will be added here when the publisher or PokeBeach states them. A number worked out from somebody's
       early box is not one of those, and this page will not carry it as one.</p>
     <p style="max-width:42em">What the channel has actually opened is counted separately and labeled as
@@ -2094,7 +2099,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
 <section class="band tight">
   <div class="wrap">
     <h2>Japan's card list, all 173 revealed</h2>
-    <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> PokeBeach, 9 September 2026. The 30 Pikachu are part of the 103 main set cards. Japan's list and the English one are NOT the same set and the numbering does not line up: English has 128 main set cards to Japan's 103, because it folds in cards from Japan's Espeon ex and Umbreon ex 30th Celebration Premium Deck Set. It is here because Japan's set is a different set, not an early look at this one, and the
+    <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> PokeBeach, September 9, 2026. The 30 Pikachu are part of the 103 main set cards. Japan's list and the English one are NOT the same set and the numbering does not line up: English has 128 main set cards to Japan's 103, because it folds in cards from Japan's Espeon ex and Umbreon ex 30th Celebration Premium Deck Set. It is here because Japan's set is a different set, not an early look at this one, and the
       numbering does not line up card for card, so for anything English, use the English checklist
       above. A Japanese number is not a guide to an English one.</p>
     <p class="price-note">DERIVED, NOT REPORTED: Japan's revealed numbering runs #001-165 plus 8 Energy, which is 173 of the stated 176. Main is #001-103, then #104-135 is 32 secret rares, then #136-165 is the 30 Classic Collection. PokeBeach states 35 secret rares, so three are unrevealed. That is arithmetic on their own figures and is not a claim any source made.</p>
@@ -4247,7 +4252,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
     </div>
 
     <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
-      128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, 10 September 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen. The Pokemon Company has never published a card count for this set, so these bars run
+      128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen. The Pokemon Company has never published a card count for this set, so these bars run
       against PokeBeach's count and may move when the last secret rares are shown.</p>
     <p class="price-note"><strong>Where the card pictures come from.</strong>
       158 of the 199 come from TCGdex, which is where the rest of this site's card
@@ -4396,7 +4401,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
     Page last checked September 23, 2026. Set facts read September 11, 2026 from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=035f2bda" defer></script>
+<script src="/assets/app.js?v=25824a04" defer></script>
 <script>
 /* THE BINDER AS A BINDER, 23 September 2026. The owner: "Want it to look as much
    like a real card binder as possible, page turn animations, anything to make it
@@ -4446,7 +4451,21 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
 
   /* LOAD AHEAD, as the scroll version did: the open page or pages and the ones
      either side go eager, so a turn lands on pictures that are already in. */
+  /* NOT UNTIL THE BINDER IS NEAR. paint() runs at load and warm() flipped the
+     cover's neighbours to eager right then, so 18 card pictures, 446KB, came
+     down for a binder 52,000px below the reader. An IntersectionObserver with
+     Chrome's own lazy margin (1250px) says when the reader is close; until then
+     nothing is warmed. No IntersectionObserver: warm as before. */
+  var near = !("IntersectionObserver" in window);
+  if (!near) {
+    var io = new IntersectionObserver(function (es) {
+      if (!es.some(function (e) { return e.isIntersecting; })) return;
+      near = true; io.disconnect(); warm(pos);
+    }, { rootMargin: "1250px 0px" });
+    io.observe(fig);
+  }
   function warm(p) {
+    if (!near) return;
     for (var k = p - 1; k <= p + 2; k++) {
       if (k < 0 || k > last()) continue;
       slots(k).forEach(function (lf) {

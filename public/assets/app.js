@@ -56,7 +56,7 @@
     var href = v.path ? "/" + v.path : "/videos.html";
     var art = el("a", "art");
     art.href = href;
-    art.setAttribute("aria-label", v.siteTitle || v.title);  // full title stays the accessible name
+    art.setAttribute("aria-label", "Play " + (v.siteTitle || v.title));  // full title stays the accessible name
     art.setAttribute("data-dur", v.duration || 0);
     art.setAttribute("data-views", v.views || 0);
     if (v.vertical === false) art.setAttribute("data-wide", "");

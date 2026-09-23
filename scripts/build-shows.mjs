@@ -1205,7 +1205,7 @@ ${next ? `
   <div class="wrap">
     <div class="rail">
       <div class="rail-in" role="group" aria-label="Filter by area">
-        ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true"' : ""}>${esc(r.label)}</button>`).join("\n        ")}
+        ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true" aria-pressed="true"' : ' aria-pressed="false"'}>${esc(r.label)}</button>`).join("\n        ")}
       </div>
     </div>
 
@@ -1279,7 +1279,7 @@ ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
         Which of the three a table carries varies table to table.</li>
       <li><b>Every vendor is different, so ask them.</b> Walk up and ask what they have and what they are after. That
         is the whole etiquette, and it is how you find the person holding the thing you want.</li>
-      <li><b>${nFree} of the ${upcoming.length} coming up are free to walk into.</b> Where a show has not published a
+      <li><b><span data-all="free">${nFree}</span> of the <span data-all="shows">${upcoming.length}</span> coming up are free to walk into.</b> Where a show has not published a
         price we say so rather than guess, so check the listing before you head out.</li>
     </ul>
     <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
@@ -1416,6 +1416,17 @@ ${CLIENT_DAY_JS}
   document.querySelectorAll('.show-month').forEach(function(m){
     if (!m.querySelector('.show')) m.remove();
   });
+  /* THE SENTENCE IN "WHAT ACTUALLY HAPPENS" COUNTS WITH THE LIST TOO. The tiles
+     were recounted here and "42 of the 78 coming up are free" was not, so on a
+     stale deploy the two disagreed on the same screen. It counts every show
+     still ahead, whatever area chip is pressed, because the sentence is about
+     all of them. */
+  (function(){
+    var all = document.querySelectorAll('.show');
+    var free = 0; all.forEach(function(el){ if (el.dataset.free === '1') free++; });
+    document.querySelectorAll('[data-all="shows"]').forEach(function(el){ el.textContent = all.length; });
+    document.querySelectorAll('[data-all="free"]').forEach(function(el){ el.textContent = free; });
+  })();
   // The "next one up" slab is neither a .show nor a .show-month, so the sweep
   // above walked straight past the single most prominent thing on the page. A
   // stale deploy showed a date that had already been and gone, in the biggest
@@ -1555,8 +1566,11 @@ ${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
   }
   document.querySelectorAll('.chip.filt').forEach(function(b){
     b.addEventListener('click', function(){
-      document.querySelectorAll('.chip.filt').forEach(function(o){ o.removeAttribute('aria-current'); });
-      b.setAttribute('aria-current','true');
+      /* aria-pressed is the state a toggle button announces; aria-current on a
+         button exposes none in Chrome's tree. aria-current stays because the
+         shared .chip[aria-current] style is what paints the chosen chip. */
+      document.querySelectorAll('.chip.filt').forEach(function(o){ o.removeAttribute('aria-current'); o.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-current','true'); b.setAttribute('aria-pressed','true');
       apply(b.dataset.region);
     });
   });

@@ -43,6 +43,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "data/30th-checklist.json");
@@ -267,7 +268,7 @@ const doc = {
   ],
   source: "tcgplayer.com marketplace search, product ids for tcgplayer-cdn",
   sets: { main: MAIN_SET, classic: CLASSIC_SET },
-  checked: new Date().toISOString().slice(0, 10),
+  checked: localDay(),
   counts: bySection,
   cards,
 };

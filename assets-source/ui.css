@@ -411,6 +411,12 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .wrap{max-width:1500px;margin:0 auto;padding:0 var(--gut)}
 :focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
   box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+/* TWO RINGS THAT WERE CLIPPED, 23 September 2026. A /videos.html title link sits
+   in an h3 that is overflow:hidden for its two-line clamp, so the ring outside
+   the box was cut to a pink underline; and a Most wanted card sits in a
+   scrolling .mw-shelf, which clips anything above its top edge. Both draw the
+   ring INSIDE the element instead. */
+.v h3 a:focus-visible,.mw-shelf .mw:focus-visible{outline-offset:-3px;box-shadow:none}
 
 /* --------------------------------------------------------------------------
    Bar. Everything the old hero was doing, compressed into 58px: who this is,

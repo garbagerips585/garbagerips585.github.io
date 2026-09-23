@@ -378,7 +378,7 @@
     var slide = nx.closest(".vcar-slide");
     playInTile(nx, m[1]);
     if (slide && slide.scrollIntoView) {
-      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }
+      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" }); }
       catch (err) { slide.scrollIntoView(); }
     }
   }
@@ -473,6 +473,9 @@
     var ph=pl.clientHeight||0, pw=pl.clientWidth||0;
     if(ph<340||pw<200) card.className+=' rip-end--tiny';
     else if(ph<520) card.className+=' rip-end--tight';
+    var ae=document.activeElement;
+    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
+    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     pl.appendChild(card);
     armPackArt(card);
     showFrame(pl,false);
@@ -493,9 +496,6 @@
     if(nx&&typeof d.onNext==='function') nx.addEventListener('click',function(e){
       d.onNext(e);
     });
-    var ae=document.activeElement;
-    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
-    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     if(inside){
       var first=card.querySelector('.rip-end-next,.rip-end-again');
       if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
@@ -701,7 +701,8 @@
     var slide = track.querySelector(".vcar-slide");
     var step = slide ? slide.getBoundingClientRect().width + 16 : track.clientWidth;
     hydrateSlides(car, step);
-    track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step, behavior: "smooth" });
+    track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step,
+      behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" });
   }
   function hydrateSlides(car, lead) {
     var track = car.querySelector(".vcar-track");

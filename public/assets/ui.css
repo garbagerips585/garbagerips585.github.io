@@ -64,6 +64,7 @@ main p a:not([class]):hover,main p a:not([class]):focus-visible{
 .wrap{max-width:1500px;margin:0 auto;padding:0 var(--gut)}
 :focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:2px;
   box-shadow:0 0 0 5px rgba(255,255,255,.95)}
+.v h3 a:focus-visible,.mw-shelf .mw:focus-visible{outline-offset:-3px;box-shadow:none}
 .bar{position:sticky;top:0;z-index:60;background:var(--chrome-bg);color:var(--chrome-ink)}
 .bar-in{display:flex;align-items:center;gap:var(--s4);max-width:1500px;margin:0 auto;
   padding:var(--s2) var(--gut);min-height:var(--bar-h)}

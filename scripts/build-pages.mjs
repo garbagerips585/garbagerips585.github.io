@@ -653,7 +653,12 @@ async function resolveHits(vid) {
         // chain, because it is frozen and the two above it are not.
         price: typeof h.price === "number" ? h.price
           : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
-        psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
+        /* THE SHARED GRADED CHAIN FIRST, as /hall.html does: data/graded.json
+           holds PriceCharting reads for twelve promos, newer than the figures
+           typed onto the hit rows, and the rip page never asked it. A frozen
+           number should lose to a fresh one and win against nothing. */
+        psa10: psaFor(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null)
+          ?? (typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null),
         priceSource: h.priceSource || (fp && (fp.price != null || fp.psa10 != null) ? fp.source : null),
         priceAsOf: h.priceAsOf || (fp && (fp.price != null || fp.psa10 != null) ? fp.asOf : null),
         promo: true, unresolved: !pm && !fp,
@@ -844,7 +849,12 @@ async function resolveHits(vid) {
       // English set id and a PriceCharting console, and neither exists for a
       // Japanese or Korean set, so asking is at best a miss and at worst a hit
       // on an English printing that shares the collector number.
-      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName) : !m ? thirtiethPrice(h)?.psa10 ?? null : null,
+      /* No checklist row (Victini SVP #208, Galarian Perrserker V LOR #129):
+         the shared chain can still answer on the hit's own number and name,
+         and /hall.html already printed its figure while this page printed none. */
+      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName)
+        : !m && !intl ? (thirtiethPrice(h)?.psa10 ?? (h.number ? psaFor(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName) : null))
+        : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
       unresolved: !m && !sub,
@@ -2398,7 +2408,7 @@ ${sameBox.length ? `<section class="band tight">
       for anyone not reading the heading.
     */ ""}<div class="vid-grid">
       ${sameBox.map((r) => `<article class="vid">
-        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.label || r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
+        <a class="vid-shell" href="/${pathFor(r)}" aria-label="Play ${esc(r.label || r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
           <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art">${packTileImg(tileSet(r))}</span>
@@ -2457,7 +2467,7 @@ ${related.length ? `<section class="band tight">
     </div>
     <div class="vid-grid">
       ${related.map((r) => `<article class="vid">
-        <a class="vid-shell" href="/${pathFor(r)}" aria-label="${esc(r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
+        <a class="vid-shell" href="/${pathFor(r)}" aria-label="Play ${esc(r.title)}" data-dur="${r.duration || 0}" data-views="${r.views || 0}">
           <span class="pack pack--tile pack--${tileSet(r)} pack--img" aria-hidden="true">
             <span class="pack-face pack-l">
               <span class="pack-art">${packTileImg(tileSet(r))}</span>
@@ -3047,11 +3057,14 @@ const urls = [
       loc: `${SITE}${p.path}`, freq: "monthly", pri: "0.7",
     })))
     .catch(() => [])),
-  // The two ranked price lists. DAILY, because the whole page is a price read
-  // on one date and a stale one is the failure mode these pages are built to
-  // avoid; the nightly re-runs sync-top100.mjs and both pages change.
-  { loc: `${SITE}/most-valuable-cards.html`, freq: "daily", pri: "0.8" },
-  { loc: `${SITE}/most-expensive-sealed.html`, freq: "daily", pri: "0.8" },
+  // The two ranked price lists.
+  /* WEEKLY AND DATED FROM THEIR OWN DATA. These said "daily" because the
+     nightly was going to re-run their syncs; it never has, and both are
+     refreshed by hand (sync-top100, sync-raw-top, verify-raw-top). */
+  { loc: `${SITE}/most-valuable-cards.html`, freq: "weekly", pri: "0.8",
+    mod: (() => { try { return JSON.parse(readFileSync(join(ROOT, "data/top-raw.json"), "utf8")).checked || null; } catch { return null; } })() },
+  { loc: `${SITE}/most-expensive-sealed.html`, freq: "weekly", pri: "0.8",
+    mod: (() => { try { return JSON.parse(readFileSync(join(ROOT, "data/top100.json"), "utf8")).checked || null; } catch { return null; } })() },
   // How many packs are in each sealed product. Monthly, not daily: unlike the
   // two lines above it, nothing on it is recomputed from a price feed. It moves
   // when a human re-reads the product pages, which is when a new product line
@@ -3100,7 +3113,13 @@ await writeFile(
     urls
       .map(
         (u) =>
-          `  <url>\n    <loc>${u.loc}</loc>\n    <lastmod>${u.mod || today}</lastmod>\n` +
+          /* NO lastmod WHERE WE DO NOT KNOW ONE. This wrote the build date for
+             every url with no real modified date: 119 pages, lore and the games
+             among them, told Google they changed every night, and the two
+             top-100 pages said "today" while their own copy read a month old.
+             Google stops trusting lastmod site-wide once it proves unreliable,
+             so a missing one is better than a false one. */
+          `  <url>\n    <loc>${u.loc}</loc>\n${u.mod ? `    <lastmod>${u.mod}</lastmod>\n` : ""}` +
           `    <changefreq>${u.freq}</changefreq>\n    <priority>${u.pri}</priority>\n  </url>`
       )
       .join("\n") +

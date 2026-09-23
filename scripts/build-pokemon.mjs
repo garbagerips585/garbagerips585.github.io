@@ -826,7 +826,7 @@ ${noindex ? `<meta name="robots" content="noindex,follow">\n` : ""}<link rel="ca
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
-<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
+<link rel="preconnect" href="https://assets.tcgdex.net">
 ${FONTS}
 ${STYLES}
 ${CSS}
@@ -1737,7 +1737,7 @@ ${watchBand}
 ${elsewhereBand}
 ${effBand}
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
     <img id="lbImg" src="" alt="">

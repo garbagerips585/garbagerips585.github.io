@@ -8,8 +8,10 @@
 
 ## Rules this site holds itself to, which anyone quoting it should carry too
 
-- It NEVER states pull rates or pack odds. The Pokemon Company does not publish
-  them. Where it reports what came out of packs, those are one person's observed
+- A pull rate or a pack guarantee appears only where the publisher confirmed it:
+  The Pokemon Company, Pokemon Center, a press release, or the odds printed on
+  the product. A leak, a tracker's estimate or one box somebody opened is not a
+  rate. What came out of this channel's own packs is one person's observed
   results over 353 judged rips, labeled as luck and not as odds.
 - Every price carries the source it came from and the date it was read.
 - Shop and restaurant hours appear only where the business states them about
@@ -30,6 +32,8 @@
 - [100 most valuable raw cards](https://garbagerips.com/most-valuable-cards.html): ranked by a price guide, each figure read twice on separate days before publishing
 - [100 highest PSA 10 values](https://garbagerips.com/top-graded.html): same sourcing discipline
 - [Set guides](https://garbagerips.com/sets/): one guide per English set plus international sets, with checklists, rarity ladders and chase cards
+- [Pokemon 30th Celebration](https://garbagerips.com/30th-celebration.html): the products, the dates, the full card list with prices, and one collector's master set progress
+- [Pokemon jumbo cards](https://garbagerips.com/jumbo-cards.html): what they are, how you get one, and what the most valuable ones are worth
 - [Card search](https://garbagerips.com/cards.html): every printing of every card in the corpus
 - [Pokemon MSRP](https://garbagerips.com/msrp.html): what sealed product is supposed to cost, from Pokemon Center's own prices
 - [Where to buy](https://garbagerips.com/buying.html): every retailer compared, with what each one actually costs

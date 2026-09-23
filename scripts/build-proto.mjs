@@ -1120,7 +1120,7 @@ function heroTile(v, opts) {
           // the same thing the badge does. clock() is the function that drew
           // the badge, so the two cannot drift apart.
           ""
-        } aria-label="${esc(v.siteTitle || v.title)}${v.duration ? `, ${clock(v.duration)}` : ""}">
+        } aria-label="Play ${esc(v.siteTitle || v.title)}${v.duration ? `, ${clock(v.duration)}` : ""}">
           ${face}${RIP_BANNER}${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
         </a>
         <div class="hero-body">
@@ -1198,7 +1198,7 @@ ${list
         .join("\n")}
       </div>
       ${list.length > 1 ? `<div class="vcar-bar">
-        <button class="vcar-nav" type="button" data-vcar-prev aria-label="Previous rip">&larr;</button>
+        <button class="vcar-nav" type="button" data-vcar-prev aria-label="Previous rip${o.band ? ` in ${esc(o.band)}` : ""}">&larr;</button>
         ${/* aria-atomic BECAUSE ONLY THE SPAN CHANGES. The live region is the
               whole paragraph, "1 / 5", but the carousel rewrites only the
               number inside the span. With aria-atomic defaulting to false a
@@ -1207,7 +1207,7 @@ ${list
               2 counts. Confirmed by logging the mutations: the only one is
               childList on the span, new value "2". */ ""}
         <p class="vcar-count" aria-live="polite" aria-atomic="true"><span data-vcar-i>1</span> / ${list.length}</p>
-        <button class="vcar-nav" type="button" data-vcar-next aria-label="Next rip">&rarr;</button>
+        <button class="vcar-nav" type="button" data-vcar-next aria-label="Next rip${o.band ? ` in ${esc(o.band)}` : ""}">&rarr;</button>
       </div>` : ""}
     </div>`;
 }
@@ -1249,8 +1249,10 @@ const latestList = (() => {
   }
   return out;
 })();
-const latestHtml = carousel(latestList, { dated: true });
-const hallHtml = carousel(hallList.slice(0, 5), { showSet: true });
+/* `band` names the carousel in its buttons: both said "Previous rip" and "Next
+   rip", and a screen reader had no way to tell Greatest Hits from Latest rips. */
+const latestHtml = carousel(latestList, { dated: true, band: "Latest rips" });
+const hallHtml = carousel(hallList.slice(0, 5), { showSet: true, band: "Greatest Hits" });
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
 /* THE 30th CELEBRATION TILE, AND IT HAS TO BE HAND BUILT.
@@ -1684,7 +1686,7 @@ function libCard(v) {
   if (prod) bits.push(labelOf("products", prod).toUpperCase());
   if (v.views) bits.push(fmtViews(v.views).toUpperCase());
   else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
-  return `<article class="v"><a class="art" href="${esc(href)}" aria-label="${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}">` +
+  return `<article class="v"><a class="art" href="${esc(href)}" aria-label="Play ${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}">` +
     packFacade(set) +
     (pull ? `<span class="hit">${esc(labelOf("pulls", pull))}</span>` : "") +
     (v.duration ? `<span class="dur">${clock(v.duration)}</span>` : "") +

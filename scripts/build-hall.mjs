@@ -885,8 +885,12 @@ function resolve(c) {
      know about, for the reason written under it: TCGdex carries no TCGplayer
      pricing for promo sets, so hits.json is the only copy of those two numbers
      and nothing in a nightly can regenerate them. */
-  const shared = c.set && c.number
-    ? gradedResolve(c.set, c.number, { name: c.name, setName })
+  /* c.number, NOT c.set && c.number: a promo is pushed with set: null, so the
+     five promos with a PSA 10 in data/graded.json printed "No PSA 10 price for
+     this printing" -- the fix setsAgree() made for them never ran. The join for
+     a promo is on name, set name and number, none of which needs a set id. */
+  const shared = c.number
+    ? gradedResolve(c.set || null, c.number, { name: c.name, setName })
     : null;
 
   const psaChain = [

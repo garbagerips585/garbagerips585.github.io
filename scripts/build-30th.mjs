@@ -1096,6 +1096,15 @@ const style = `
     var(--rs) calc(var(--rs) + 2px) 0 -1px var(--paper),var(--rs) calc(var(--rs) + 2px) 0 0 var(--keyline),var(--lift)}
 .is-book .t30-leaf{grid-area:1/1;visibility:hidden;background:var(--paper);scroll-snap-align:none}
 .is-book .t30-leaf.is-on{visibility:visible}
+/* A PAGE NOBODY HAS TURNED TO DOES NOT DOWNLOAD ITS CARDS. visibility:hidden
+   keeps a leaf in the layout, and a lazy image in the layout loads when it is
+   near the viewport, so all 26 stacked pages fetched their pictures: 122 images
+   and 2.19MB never seen. display:none on the PICTURE (not the pocket, whose
+   aspect-ratio keeps every page the same height) stops the lazy load; warm()
+   still flips the pages either side of the open one to eager, and an eager image
+   loads even under display:none, so a turn still lands on pictures that are in. */
+.is-book .t30-leaf:not(.is-on) .t30-pk picture,
+.is-book .t30-leaf:not(.is-on) .t30-pk > img{display:none}
 /* On a phone every pixel of width is pocket width: the page's right margin
    drops to --s4 and its left keeps just enough to clear the rings. */
 .is-book[data-mode="one"] .t30-leaf{padding-right:var(--s4);padding-left:calc(var(--s4) + 14px)}
@@ -1273,7 +1282,7 @@ const ld = [
     url: SITE + PATH,
     dateModified: PAGE_CHECKED,
     author: { "@type": "Organization", name: "Garbage Rips 585" },
-    publisher: { "@type": "Organization", name: "Garbage Rips 585" },
+    publisher: { "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/" },
   },
   {
     "@context": "https://schema.org",
@@ -1521,7 +1530,10 @@ const body = `<main id="main">
    number and the name. Defined here, before the first image, so an early error
    has a handler to call. */
 function t30e(i){var p=i.parentNode,box=p&&p.tagName==="PICTURE"?p:i;
-if(i.getAttribute("data-r")){box.remove();return}
+/* Outside a binder pocket (a checklist or value tile) there is no card back
+   under the picture, and removing it collapsed the tile: CLS 2.51 on a run
+   where TCGdex was failing. There it is hidden and keeps its space. */
+if(i.getAttribute("data-r")){if(i.closest&&!i.closest(".t30-pk")){box.style.visibility="hidden";return}box.remove();return}
 i.setAttribute("data-r","1");
 if(box!==i){var s=p.querySelectorAll("source");for(var k=0;k<s.length;k++)s[k].remove()}
 var u=i.getAttribute("src")||"";i.removeAttribute("srcset");i.removeAttribute("sizes");
@@ -1811,11 +1823,11 @@ const html = `<!DOCTYPE html>
 <meta property="og:title" content="Pokemon 30th Celebration: products, dates and card list">
 <meta property="og:description" content="Every product with its date and price, what is really in a pack, and Japan's full card list.">
 <meta property="og:url" content="${SITE}${PATH}">
-<meta property="og:image" content="${SITE}/assets/og-image.jpg">
+<meta property="og:image" content="${SITE}/assets/og-30th-celebration.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="${SITE}/assets/og-image.jpg">
+<meta name="twitter:image" content="${SITE}/assets/og-30th-celebration.jpg">
 <!-- PRECONNECT, WHICH 1,039 OTHER PAGES HAVE AND THE HEAVIEST TCGDEX PAGE ON
      THE SITE DID NOT. This page draws 158 distinct cards from assets.tcgdex.net
      and 30 from tcgplayer-cdn, and every one is loading="lazy" -- so the
@@ -1823,7 +1835,7 @@ const html = `<!DOCTYPE html>
      issued at layout, paying DNS + TCP + TLS from cold at the moment a reader
      starts scrolling. build-pokemon.mjs and build-intl-pages.mjs already do
      this; this builder simply never got the line. -->
-<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
+<link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
 ${FONTS}
 ${STYLES_NO_PACKS_CSS}
@@ -1891,7 +1903,21 @@ ${APP_JS_NO_PACKPLAYER}
 
   /* LOAD AHEAD, as the scroll version did: the open page or pages and the ones
      either side go eager, so a turn lands on pictures that are already in. */
+  /* NOT UNTIL THE BINDER IS NEAR. paint() runs at load and warm() flipped the
+     cover's neighbours to eager right then, so 18 card pictures, 446KB, came
+     down for a binder 52,000px below the reader. An IntersectionObserver with
+     Chrome's own lazy margin (1250px) says when the reader is close; until then
+     nothing is warmed. No IntersectionObserver: warm as before. */
+  var near = !("IntersectionObserver" in window);
+  if (!near) {
+    var io = new IntersectionObserver(function (es) {
+      if (!es.some(function (e) { return e.isIntersecting; })) return;
+      near = true; io.disconnect(); warm(pos);
+    }, { rootMargin: "1250px 0px" });
+    io.observe(fig);
+  }
   function warm(p) {
+    if (!near) return;
     for (var k = p - 1; k <= p + 2; k++) {
       if (k < 0 || k > last()) continue;
       slots(k).forEach(function (lf) {

@@ -277,6 +277,17 @@ export async function loadGradedPrices() {
     }
 
     const hit = name && setName ? pricecharting(name, setName, number) : null;
+    /* THE NEWER OF THE TWO PRICECHARTING READS WINS, 23 September 2026. Tier 2
+       is data/graded.json, one hand-run crawl stamped August 23; tier 3 is the
+       nightly checklist read of the SAME product pages. Tier 2 always won, so
+       104 of the Hall's 151 PSA 10s were a month old while tonight's figure sat
+       one tier down (Mienshao $155 against $305, Rampardos ex $37.41 against
+       $14). Same source, so the fresher read is simply the better one; tier 2
+       still answers wherever the nightly has no row, which is every promo. */
+    const pccEarly = at(pcCards, setId, number);
+    if (hit && pccEarly && typeof pccEarly.psa10 === "number" && pccEarly.asOf && pc.checked && pccEarly.asOf > pc.checked) {
+      return { price: pccEarly.psa10, from: "pricecharting", source: pccEarly.source, asOf: pccEarly.asOf, url: pccEarly.url, sales: null };
+    }
     if (hit) {
       return {
         price: hit.psa10,

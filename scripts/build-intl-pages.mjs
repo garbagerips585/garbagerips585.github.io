@@ -679,7 +679,7 @@ function hitsBand(g, cls) {
               template literal ends the literal), and rebuild and read the page
               before believing it. */ ""}
         <p class="mine-r">${[esc(rarityLabel(wrapRarity(h.m) || h.rarity) || ""), h.m.n ? `#${esc(h.m.n)}` : ""].filter(Boolean).join(" &bull; ")}</p>
-        ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
+        ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}" aria-label="Watch the rip that pulled ${esc(h.m.name)}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
         )
         .join("\n      ")}
@@ -923,7 +923,7 @@ const head = ({ title, desc, canonical, image, ld, noindex = false, css = "" }) 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
-<link rel="preconnect" href="https://assets.tcgdex.net" crossorigin>
+<link rel="preconnect" href="https://assets.tcgdex.net">
 ${FONTS}
 ${STYLES}${css ? `\n<style>${miniCSS(css)}</style>` : ""}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
@@ -2041,7 +2041,7 @@ function guidePage(g) {
 ${body}
 
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
     <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>

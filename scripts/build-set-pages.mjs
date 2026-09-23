@@ -2710,10 +2710,12 @@ function setPage(s) {
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
       datePublished: syncedAt,
       dateModified: syncedAt,
-      author: { "@type": "Organization", name: "Garbage Rips 585", url: SITE + "/" },
+      author: { "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/" },
       publisher: {
         "@type": "Organization",
+        "@id": SITE + "/#org",
         name: "Garbage Rips 585",
+        url: SITE + "/",
         logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
       },
     },
@@ -3194,7 +3196,10 @@ ${rows}
               number is the point. */ ""}<p class="mine-p">${typeof h.price === "number" ? moneyCompact(h.price) : "No price"}${
             typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyCompact(h.psa10)} in a 10</span>` : ""
           }</p>
-        ${h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}">Watch the rip &rarr;</a>`).join("\n        ")}
+        ${/* THE CARD IS IN THE LINK'S NAME. Pitch Black printed ten "Watch the rip"
+             links to ten different rips; out of context, which is how a screen
+             reader's link list reads them, they were ten identical links. */
+          h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}" aria-label="Watch the rip that pulled ${/* h.name is already escaped markup; strip tags, do not escape twice */ String(h.name).replace(/<[^>]*>/g, "").replace(/"/g, "&quot;")}">Watch the rip &rarr;</a>`).join("\n        ")}
       </li>`
         )
         .join("\n      ")}
@@ -3380,7 +3385,10 @@ ${rows}
       stars is Ultra Rare and two black stars is Double Rare. Tiers with no stars are not on that page, so this
       site does not draw one for them. <a href="/rarity.html">The whole rarity key</a>.</p>` : ""}${rarPr.size ? `
     <p class="price-note">Prices worked out from the ${esc(s.name)} checklist below, read ${esc(
-      longDate(checklists[s.id]?.checked) || checklists[s.id]?.checked || ""
+      /* priceRead(), not .checked: the checklist is re-read nightly for its CARDS
+         and the money has its own stamp, pricesChecked. This line said the
+         prices were read on the checklist's date, a day to three days early. */
+      longDate(priceRead(checklists[s.id])) || priceRead(checklists[s.id]) || ""
     )}. A rarity only gets a figure where every card at that rarity has a price and the checklist agrees with the set's
       own count, so a few tiers show a count and no money rather than a number covering a different set of cards than
       the one beside it.</p>` : ""}` : `<p class="lede">Card list not available for this set yet.</p>`}
@@ -3592,7 +3600,7 @@ ${symbolFor(s) ? `
 
 ${body}
 
-<div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Card image">
+<div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
   <div class="lb-inner">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
     <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>

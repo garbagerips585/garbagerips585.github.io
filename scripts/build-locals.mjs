@@ -84,6 +84,7 @@ import { avifSource } from "../shared/logo-srcset.mjs";
 // blocking like the stylesheet is. stamp-assets.mjs would strip it last anyway,
 // but running it here means what this builder writes is what ships.
 import { strip as miniCSS } from "./build-css.mjs";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const vendors = JSON.parse(await readFile(join(ROOT, "data/vendors.json"), "utf8"));
@@ -105,13 +106,20 @@ const SHOW_ROWS = (() => {
   const raw = JSON.parse(readFileSync(join(ROOT, "data/shows.json"), "utf8"));
   return Array.isArray(raw) ? raw : raw.shows || [];
 })();
-const TODAY_ISO = new Date().toISOString().slice(0, 10);
+const TODAY_ISO = localDay(); // Eastern, not UTC: a build after 8pm dropped tonight's shows
 const confirmedFor = (name) =>
   SHOW_ROWS.filter((s) => s.date >= TODAY_ISO && (s.vendors || []).some((v) => v && v.name === name))
     .sort((a, b) => a.date.localeCompare(b.date));
+/* THE YEAR APPEARS ONCE THE LIST CROSSES INTO THE NEXT ONE. RocPokeTour's run
+   read "Oct 31, ... Aug 21, Sep 26, Oct 30": that Sep 26 is 2027 and sat on the
+   same page as the Extreme Pokemon Show's Sep 26, which is this Saturday. A date
+   in the current year stays short; any later one carries its year. */
 const showDay = (iso) => {
   const d = new Date(iso + "T12:00:00");
-  return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  const sameYear = iso.slice(0, 4) === TODAY_ISO.slice(0, 4);
+  return d.toLocaleDateString("en-US", sameYear
+    ? { month: "short", day: "numeric" }
+    : { month: "short", day: "numeric", year: "numeric" });
 };
 
 /* THE HUB THESE TWO PAGES NOW HANG UNDER. /rochester.html, built by

@@ -35,13 +35,13 @@
     "name": "Pokemon TCG: 30th Celebration",
     "slug": "30th-celebration",
     "release": "2026-09-16",
-    "releaseNote": "The first Pokemon TCG expansion to launch on the same day worldwide in participating markets. TPCi notes the exact time on launch day varies by country. Official, 1 June 2026 press release.",
-    "tcgLive": "Playable in Pokemon TCG Live from 15 September 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses. TPCi, 30 June 2026 press release.",
+    "releaseNote": "The first Pokemon TCG expansion to launch on the same day worldwide in participating markets. TPCi notes the exact time on launch day varies by country. Official, June 1, 2026 press release.",
+    "tcgLive": "Playable in Pokemon TCG Live from September 15, 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses. TPCi, June 30, 2026 press release.",
     "theme": "Day and night: Pokemon shown in daytime and nighttime moments. Official.",
     "allFoil": "Every card in the set is foil, basic Energy included. Official.",
     "noBox": "There is no booster box and no loose packs. Every pack comes inside one of the products below, so this set has no per pack retail price and a shop selling single packs is selling something else.",
-    "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. STATED BY TPCi in the 1 June 2026 press release, footnote 2, not inferred from a pack render. There is no booster box and no single packs: every pack comes inside one of this set's products.",
-    "classicLegality": "TPCi, 1 June 2026 press release, footnote 3: the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull."
+    "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. STATED BY TPCi in the June 1, 2026 press release, footnote 2, not inferred from a pack render. There is no booster box and no single packs: every pack comes inside one of this set's products.",
+    "classicLegality": "TPCi, June 1, 2026 press release, footnote 3: the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull."
   },
   "structure": {
     "english": {
@@ -52,7 +52,7 @@
       "classic": 30,
       "energy": 8,
       "source": "reported",
-      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, 10 September 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
+      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
     },
     "japan": {
       "count": 176,
@@ -62,7 +62,7 @@
       "classic": 30,
       "energy": 8,
       "source": "reported",
-      "note": "PokeBeach, 9 September 2026. The 30 Pikachu are part of the 103 main set cards. Japan's list and the English one are NOT the same set and the numbering does not line up: English has 128 main set cards to Japan's 103, because it folds in cards from Japan's Espeon ex and Umbreon ex 30th Celebration Premium Deck Set."
+      "note": "PokeBeach, September 9, 2026. The 30 Pikachu are part of the 103 main set cards. Japan's list and the English one are NOT the same set and the numbering does not line up: English has 128 main set cards to Japan's 103, because it folds in cards from Japan's Espeon ex and Umbreon ex 30th Celebration Premium Deck Set."
     },
     "derived": "DERIVED, NOT REPORTED: Japan's revealed numbering runs #001-165 plus 8 Energy, which is 173 of the stated 176. Main is #001-103, then #104-135 is 32 secret rares, then #136-165 is the 30 Classic Collection. PokeBeach states 35 secret rares, so three are unrevealed. That is arithmetic on their own figures and is not a claim any source made."
   },
@@ -1052,22 +1052,22 @@
     {
       "claim": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card in every pack.",
       "source": "official",
-      "where": "TPCi press release, 1 June 2026, footnote 2"
+      "where": "TPCi press release, June 1, 2026, footnote 2"
     },
     {
       "claim": "One of the 30 Pikachu in every single pack, each by a different illustrator.",
       "source": "official",
-      "where": "TPCi press release, 1 June 2026, and the pokemon.com product showcase"
+      "where": "TPCi press release, June 1, 2026, and the pokemon.com product showcase"
     },
     {
       "claim": "Every card in the set is foil, basic Energy included.",
       "source": "official",
-      "where": "TPCi press releases, 1 and 30 June 2026"
+      "where": "TPCi press releases, 1 and June 30, 2026"
     },
     {
       "claim": "The Ultra-Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs.",
       "source": "reported",
-      "where": "PokeBeach's English product guide, 10 September 2026"
+      "where": "PokeBeach's English product guide, September 10, 2026"
     }
   ],
   "guaranteesNote": "THESE ARE CERTAINTIES AND NOT ODDS, which is why they lead. A guaranteed Pikachu in every single pack of a sealed run is worth more to somebody master setting this than any probability, because it is the one part of the set you cannot miss by being unlucky.",
@@ -1098,9 +1098,9 @@
     ],
     "caveat": "This is a SAMPLE OF TWENTY PACKS, not a pull rate, and it is a JAPANESE box. Japanese packs hold six cards where English packs hold five, and the two sets are different sizes (176 against 199), so it does not convert into an English expectation. It is on the page because it is the only opened-box data that exists for this set and because one opening of a known size is a fact about that opening. Do not restate it as a rate.",
     "source": "reported",
-    "where": "PokeBeach, 9 September 2026, describing one official Japanese box opening"
+    "where": "PokeBeach, September 9, 2026, describing one official Japanese box opening"
   },
-  "englishRates": "NOT PUBLISHED YET, re-checked on the set's own release day. 16 September 2026: PokeBeach's English set guide still reads \"We will have this information closer to the set's release next week\" under its Booster Pack Pull Rates heading, word for word what it said on the 11th, and TPCi has published nothing. Read in a browser rather than by fetch, because pokebeach.com answers 403 to a plain request. ADD THEM HERE WHEN THEY LAND, and they clear the confirmed bar the moment the publisher or PokeBeach states them rather than a streamer estimating from a box. THE RELEASE DATE IS NO LONGER A REASON TO WAIT and this note used to end by giving one -- \"The set releases 16 September\" -- which was true when it was written on the 11th and became wrong on the day it named, while printed on the live page.",
+  "englishRates": "NOT PUBLISHED YET, re-checked on the set's own release day. September 16, 2026: PokeBeach's English set guide still reads \"We will have this information closer to the set's release next week\" under its Booster Pack Pull Rates heading, word for word what it said on the 11th, and TPCi has published nothing. Read in a browser rather than by fetch, because pokebeach.com answers 403 to a plain request. ADD THEM HERE WHEN THEY LAND, and they clear the confirmed bar the moment the publisher or PokeBeach states them rather than a streamer estimating from a box. THE RELEASE DATE IS NO LONGER A REASON TO WAIT and this note used to end by giving one -- \"The set releases 16 September\" -- which was true when it was written on the 11th and became wrong on the day it named, while printed on the live page.",
   "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty.",
   "tcgdex": {
     "_note": "THE CARD PICTURES FOR THE THREE NUMBERED SECTIONS COME FROM HERE, and as of 18 September 2026 they finally can. TCGdex took the set two days after release as TWO sets: `30th`, 158 cards, every one carrying an image, under the `me` (Mega Evolution) series; and `30th-c`, the 30 Classic Collection cards. The url shape is https://assets.tcgdex.net/{lang}/{series}/{set}/{localId}/{quality}.webp, the same shape the other 59,758 card images on this site use, and localId is 3-digit zero padded exactly like the numbers in data/30th-binder.json.\n\n`30th-c` IS DELIBERATELY NOT WIRED UP. It carries 30 cards and ZERO images -- every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked card by card -- and it renumbers those reprints 001 to 030 rather than keeping the original numbering the cards actually print. So the Classic Collection stays on its TCGplayer product ids, which do have pictures.\n\nAND THE ENERGY MUST NEVER READ FROM HERE. Those eight are numbered in the MEE set: Basic Metal Energy is MEE 016, and localId 016 in THIS set is Slowpoke. build-30th.mjs gates TCGdex to the pikachu, main and secret sections for exactly that reason; without the gate all seven Energy he owns would have drawn somebody else's card and looked entirely correct doing it.",

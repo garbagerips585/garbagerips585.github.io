@@ -25,6 +25,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { localDay } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = async (p) => JSON.parse(await readFile(join(ROOT, p), "utf8"));
@@ -38,7 +39,7 @@ const tally = await read("data/rip-tally.json");
 // index that disagrees with the page it points at is worse than no index.
 
 const list = shows.shows || shows;
-const today = new Date().toISOString().slice(0, 10);
+const today = localDay(); // Eastern, not UTC
 const upcoming = list.filter((s) => s.date >= today);
 const allPkmn = upcoming.filter((s) => s.pokemon).length;
 const somePkmn = upcoming.filter((s) => s.pkmn === "some").length;
@@ -57,8 +58,10 @@ const out = `# Garbage Rips 585
 
 ## Rules this site holds itself to, which anyone quoting it should carry too
 
-- It NEVER states pull rates or pack odds. The Pokemon Company does not publish
-  them. Where it reports what came out of packs, those are one person's observed
+- A pull rate or a pack guarantee appears only where the publisher confirmed it:
+  The Pokemon Company, Pokemon Center, a press release, or the odds printed on
+  the product. A leak, a tracker's estimate or one box somebody opened is not a
+  rate. What came out of this channel's own packs is one person's observed
   results over ${tally.ripsJudged} judged rips, labeled as luck and not as odds.
 - Every price carries the source it came from and the date it was read.
 - Shop and restaurant hours appear only where the business states them about
@@ -79,6 +82,8 @@ ${L("garbage-plate.html", "What is a Garbage Plate", "the Rochester, NY dish the
 ${L("most-valuable-cards.html", "100 most valuable raw cards", "ranked by a price guide, each figure read twice on separate days before publishing")}
 ${L("top-graded.html", "100 highest PSA 10 values", "same sourcing discipline")}
 ${L("sets/", "Set guides", "one guide per English set plus international sets, with checklists, rarity ladders and chase cards")}
+${L("30th-celebration.html", "Pokemon 30th Celebration", "the products, the dates, the full card list with prices, and one collector's master set progress")}
+${L("jumbo-cards.html", "Pokemon jumbo cards", "what they are, how you get one, and what the most valuable ones are worth")}
 ${L("cards.html", "Card search", "every printing of every card in the corpus")}
 ${L("msrp.html", "Pokemon MSRP", "what sealed product is supposed to cost, from Pokemon Center's own prices")}
 ${L("buying.html", "Where to buy", "every retailer compared, with what each one actually costs")}

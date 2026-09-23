@@ -95,6 +95,10 @@ PAGES = {
     # The kicker is the fact, not the superlative: the size question is the one
     # every reader arrives with and the one nobody answers.
     "jumbo-cards": ("NO OFFICIAL SIZE EXISTS", "Pokemon jumbo cards", "How you get one, why you cannot play it, what it is worth"),
+    # 23 September 2026: the 30th page shared with the generic banner, and so did
+    # its four rip pages through ogCard's fallback. The kicker is TPCi's own
+    # confirmed fact about the set, the one that makes it unlike any other.
+    "30th-celebration": ("EVERY CARD IS FOIL", "Pokemon 30th Celebration", "Every product, every date and the full card list"),
     "topps-card-values": ("PRICE GUIDE, NOT HAMMER PRICE", "Topps card values", "Two top 100s, raw and PSA 10, every figure read twice"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 priciest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),

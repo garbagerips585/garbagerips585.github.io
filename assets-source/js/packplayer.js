@@ -791,7 +791,7 @@
        counted as visible and the rip played out of sight with its audio running.
        Nothing may come between the click and the iframe, so this runs last. */
     if (slide && slide.scrollIntoView) {
-      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" }); }
+      try { slide.scrollIntoView({ block: "nearest", inline: "center", behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" }); }
       catch (err) { slide.scrollIntoView(); }
     }
   }
@@ -974,6 +974,14 @@
     if(ph<340||pw<200) card.className+=' rip-end--tiny';
     else if(ph<520) card.className+=' rip-end--tight';
 
+    /* READ WHERE FOCUS IS BEFORE THE PLAYER IS HIDDEN. showFrame(pl,false) hides
+       the iframe the keyboard is in, the browser drops focus to <body> at that
+       moment, and the "was the reader watching?" test further down then read
+       <body> and never handed NEXT PACK the keyboard -- on the home tile, both
+       rip-page players and the /videos.html overlay alike. */
+    var ae=document.activeElement;
+    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
+    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     pl.appendChild(card);
     armPackArt(card);
     showFrame(pl,false);
@@ -1014,9 +1022,6 @@
        is yes while focus sits on the dialog's own close button -- which is not
        inside the host, so this never fired in the context the feature was built
        for. The lightbox counts as watching. */
-    var ae=document.activeElement;
-    var lbOpen=lb&&!lb.hidden&&lb.contains(host);
-    var inside=ae&&(ae===host||host.contains(ae)||(lbOpen&&lb.contains(ae)));
     if(inside){
       var first=card.querySelector('.rip-end-next,.rip-end-again');
       if(first) try{ first.focus({preventScroll:true}); }catch(err){ first.focus(); }
@@ -1340,7 +1345,10 @@
     // Ask for the artwork BEFORE the scroll starts, not when the slide lands.
     // The scroll is smooth and takes a few hundred ms, which is the head start.
     hydrateSlides(car, step);
-    track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step, behavior: "smooth" });
+    /* No slide under reduced motion: one press scrolled through 22 in-between
+       positions in 700ms for a reader who asked for none. */
+    track.scrollBy({ left: btn.hasAttribute("data-vcar-next") ? step : -step,
+      behavior: (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "auto" : "smooth" });
   }
 
   /* ---------------------------------------------------------------------
