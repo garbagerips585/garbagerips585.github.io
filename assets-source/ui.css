@@ -7132,7 +7132,7 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-msjump a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
   text-decoration:none;background:var(--card);border:1px solid var(--line);
   border-radius:var(--r);padding:var(--s3) var(--s4)}
-.t30-msjump b{color:var(--ketchup-deep);font-family:var(--display);font-size:var(--t-m);line-height:1}
+.t30-msjump b{color:var(--sky-deep);font-family:var(--display);font-size:var(--t-m);line-height:1}
 .t30-msjump span{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em}
 .t30-msjump a:hover span,.t30-msjump a:focus-visible span{color:var(--sky)}

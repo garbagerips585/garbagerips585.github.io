@@ -30,18 +30,19 @@
     "two must agree: change upcoming.json first, then re-run",
     "scripts/make-30th-data.mjs, which is how this key was written."
   ],
-  "checked": "2026-09-11",
+  "checked": "2026-09-23",
   "set": {
     "name": "Pokemon TCG: 30th Celebration",
     "slug": "30th-celebration",
     "release": "2026-09-16",
     "releaseNote": "The first Pokemon TCG expansion to launch on the same day worldwide in participating markets. TPCi notes the exact time on launch day varies by country. Official, June 1, 2026 press release.",
-    "tcgLive": "Playable in Pokemon TCG Live from September 15, 2026, 10am PDT, one day before the physical release, on iOS, Android, macOS and Windows, with login bonuses. TPCi, June 30, 2026 press release.",
+    "tcgLive": "Playable in Pokemon TCG Live since September 15, 2026, a day before the cards hit shelves. Logging in gets you a Mew ex Battle Pass deck, a Sylveon ex deck can be unlocked, and there are Missions for collecting all 30 Pikachu and all 30 Classic Collection cards (pokemon.com).",
     "theme": "Day and night: Pokemon shown in daytime and nighttime moments. Official.",
-    "allFoil": "Every card in the set is foil, basic Energy included. Official.",
+    "allFoil": "Every card in the set is foil, basic Energy included.",
     "noBox": "There is no booster box and no loose packs. Every pack comes inside one of the products below, so this set has no per pack retail price and a shop selling single packs is selling something else.",
-    "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. STATED BY TPCi in the June 1, 2026 press release, footnote 2, not inferred from a pack render. There is no booster box and no single packs: every pack comes inside one of this set's products.",
-    "classicLegality": "TPCi, June 1, 2026 press release, footnote 3: the classic cards in 30th Celebration packs are NOT legal in Standard, but are eligible in formats that allow the original prints of those cards. Worth knowing before anyone builds around a Classic Collection pull."
+    "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. Stated by TPCi in the June 1, 2026 press release.",
+    "classicLegality": "The Classic Collection reprints are not legal in Standard, though they are allowed in formats that permit the original printings (TPCi, June 1, 2026 press release).",
+    "legalDate": "Legal in Play! Pokemon Standard tournaments from September 25, 2026, except the Classic Collection (pokemon.com, September 16, 2026)."
   },
   "structure": {
     "english": {
@@ -52,7 +53,8 @@
       "classic": 30,
       "energy": 8,
       "source": "reported",
-      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen."
+      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen.",
+      "tpciCount": "TPCi's own launch article says only \"over 150 cards\" (pokemon.com, September 16, 2026)."
     },
     "japan": {
       "count": 176,
@@ -78,7 +80,8 @@
       "name": "Pokemon Center Elite Trainer Box",
       "date": "2026-09-16",
       "packs": 11,
-      "note": "Pokemon Center exclusive, two Nidorina promos"
+      "note": "Pokemon Center exclusive, two Nidorina promos",
+      "price": "$59.99"
     },
     {
       "name": "ex Box, Sylveon ex and Greninja ex",
@@ -91,7 +94,7 @@
       "date": "2026-09-16",
       "packs": 3,
       "price": "$14.99",
-      "note": "Articuno, Zapdos and Moltres foil promos, plus a full size two sided poster. TPCi describes the poster as showing over 160 cards from the set, which is the only number it has published about this set and is NOT a set size."
+      "note": "Articuno, Zapdos and Moltres foil promos, plus a full size two sided poster."
     },
     {
       "name": "Tech Sticker Collection",
@@ -124,14 +127,14 @@
       "name": "Binder Collection",
       "date": "2026-12-04",
       "packs": 5,
-      "note": "A nine pocket binder in the anniversary design. DELAYED: this was 2 October and TPCi moved it to 4 December in the United States, confirmed without announcement on pokemon.com and on retailer pages including Best Buy. No reason was given. It was also the one 30th product being opened on stream months early, which is how much of the set leaked, though nothing ties that to the delay.",
+      "note": "A nine pocket binder in the anniversary design. Delayed from October 2 to December 4 in the US (pokemon.com, Best Buy). No reason given.",
       "price": "$31.99"
     },
     {
       "name": "Mini Tins",
       "date": "2026-10-02",
       "packs": 2,
-      "note": "Day and Night Mini Tins. Each comes with a sticker sheet and an art card matching the tin, and the Unown across the set of them spell out ANNIVERSARY when the artwork is combined.",
+      "note": "Ten designs: Day Pikachu, Night Pikachu, Espeon, Umbreon, Greninja, Lapras, Mew, Mewtwo, Moltres and Zapdos. Each comes with a sticker sheet and an art card matching the tin.",
       "price": "$9.99"
     },
     {
@@ -166,10 +169,10 @@
       "packs": 4,
       "price": "$21.99",
       "confidence": "confirmed",
-      "note": "Sylveon ex or Greninja ex promo. Dated by TPCi's English product guide, so this is no longer an expected lineup entry."
+      "note": "A Sylveon ex or Greninja ex promo."
     }
   ],
-  "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's.",
+  "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's, from October 2, 2026 while supplies last (pokemon.com, September 10, 2026).",
   "cutCards": "The Illustration Rares of Nidorina and Ditto are in the Japanese set and are NOT in the English one. Both were turned into English promos instead, which is why a Nidorina promo is the Elite Trainer Box's card.",
   "accessories": "The Pokemon Center releases matching accessories on 16 September, the same day as the set: deck boxes, playmats, card sleeves, card displays, a card storage box and tote bags.",
   "japanList": [
@@ -1070,7 +1073,7 @@
       "where": "PokeBeach's English product guide, September 10, 2026"
     }
   ],
-  "guaranteesNote": "THESE ARE CERTAINTIES AND NOT ODDS, which is why they lead. A guaranteed Pikachu in every single pack of a sealed run is worth more to somebody master setting this than any probability, because it is the one part of the set you cannot miss by being unlucky.",
+  "guaranteesNote": "No odds needed for these: every pack guarantees them.",
   "japanBoxOpening": {
     "label": "One Japanese box, opened once",
     "packs": 20,
@@ -1096,11 +1099,11 @@
         "1"
       ]
     ],
-    "caveat": "This is a SAMPLE OF TWENTY PACKS, not a pull rate, and it is a JAPANESE box. Japanese packs hold six cards where English packs hold five, and the two sets are different sizes (176 against 199), so it does not convert into an English expectation. It is on the page because it is the only opened-box data that exists for this set and because one opening of a known size is a fact about that opening. Do not restate it as a rate.",
+    "caveat": "One Japanese box of 20 six-card packs, opened once. It is one opening, not a pull rate, and it does not carry over to English packs, which hold five cards from a bigger set.",
     "source": "reported",
     "where": "PokeBeach, September 9, 2026, describing one official Japanese box opening"
   },
-  "englishRates": "NOT PUBLISHED YET, re-checked on the set's own release day. September 16, 2026: PokeBeach's English set guide still reads \"We will have this information closer to the set's release next week\" under its Booster Pack Pull Rates heading, word for word what it said on the 11th, and TPCi has published nothing. Read in a browser rather than by fetch, because pokebeach.com answers 403 to a plain request. ADD THEM HERE WHEN THEY LAND, and they clear the confirmed bar the moment the publisher or PokeBeach states them rather than a streamer estimating from a box. THE RELEASE DATE IS NO LONGER A REASON TO WAIT and this note used to end by giving one -- \"The set releases 16 September\" -- which was true when it was written on the 11th and became wrong on the day it named, while printed on the live page.",
+  "englishRates": "The Pokemon Company has not published English pull rates (checked September 23, 2026). PokeBeach reports what TCGplayer found opening 3,000 English packs: about 1 in 21 packs held a Special Illustration Rare, 1 in 5 an Illustration Rare, 1 in 10 a Classic Collection card and 1 in 120 the Mew or Mewtwo Futuristic Rare. That is a large opening sample, not official odds, and it could not measure the RGB Mews.",
   "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty.",
   "tcgdex": {
     "_note": "THE CARD PICTURES FOR THE THREE NUMBERED SECTIONS COME FROM HERE, and as of 18 September 2026 they finally can. TCGdex took the set two days after release as TWO sets: `30th`, 158 cards, every one carrying an image, under the `me` (Mega Evolution) series; and `30th-c`, the 30 Classic Collection cards. The url shape is https://assets.tcgdex.net/{lang}/{series}/{set}/{localId}/{quality}.webp, the same shape the other 59,758 card images on this site use, and localId is 3-digit zero padded exactly like the numbers in data/30th-binder.json.\n\n`30th-c` IS DELIBERATELY NOT WIRED UP. It carries 30 cards and ZERO images -- every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked card by card -- and it renumbers those reprints 001 to 030 rather than keeping the original numbering the cards actually print. So the Classic Collection stays on its TCGplayer product ids, which do have pictures.\n\nAND THE ENERGY MUST NEVER READ FROM HERE. Those eight are numbered in the MEE set: Basic Metal Energy is MEE 016, and localId 016 in THIS set is Slowpoke. build-30th.mjs gates TCGdex to the pikachu, main and secret sections for exactly that reason; without the gate all seven Energy he owns would have drawn somebody else's card and looked entirely correct doing it.",
@@ -1111,10 +1114,10 @@
   },
   "fromTheCards": {
     "_note": "READ OFF THREE CARDS THE OWNER GOT EARLY, 11 September 2026, photographed on his own desk. This is PRIMARY evidence and it outranks every other source on this page: it is the publisher's own printing rather than a statement about it.",
-    "setCode": "30C, printed on both Pokemon cards next to the regulation mark J.",
-    "mainSetSize": "128. Both Pokemon read x/128 (Hydreigon 099/128, Igglybuff 120/128), which CONFIRMS PokeBeach's figure of 128 main set cards from the printing itself rather than from a count of revealed images.",
-    "energyNumbering": "The basic Energy is NOT numbered in the main set. It reads MEE 016, in the MEE Energy sheet, while carrying the rainbow 30th Pikachu stamp and YOSHIROTTEN's illustrator credit. So the eight foil Energy sit outside the 128.",
-    "japanMismatchProved": "Igglybuff is #096 in Japan and 120/128 in English, and Hydreigon is in the English set and NOWHERE in Japan's 176 card list. The two sets are genuinely different and their numbers do not correspond, which is why this page does not map one onto the other."
+    "setCode": "30C, printed on the Pokemon cards next to the regulation mark J.",
+    "mainSetSize": "128. The cards print x/128 (Hydreigon 099/128, Igglybuff 120/128), which confirms the main set size from the cards themselves.",
+    "energyNumbering": "The foil basic Energy are numbered in the separate MEE set (MEE 009 to 016), not in the main 128, though they carry the 30th Pikachu stamp.",
+    "japanMismatchProved": "Igglybuff is #096 in Japan and 120/128 in English, and Hydreigon is not in Japan's set at all. The two lists do not line up."
   },
   "unlistedSecrets": {
     "_note": [
@@ -1145,7 +1148,7 @@
       "found by the checklist sync: it classifies a secret rare as anything numbered",
       "above the set's 128, and these carry no number in that series at all."
     ],
-    "checked": "2026-09-16",
+    "checked": "2026-09-23",
     "count": 3,
     "illustrator": "YOSHIROTTEN",
     "cards": [
@@ -1155,7 +1158,8 @@
         "variants": [
           "R/RGB",
           "R/RGB (French)"
-        ]
+        ],
+        "pid": 717607
       },
       {
         "n": "G/RGB",
@@ -1163,7 +1167,8 @@
         "variants": [
           "G/RGB",
           "G/RGB (French)"
-        ]
+        ],
+        "pid": 717608
       },
       {
         "n": "B/RGB",
@@ -1171,12 +1176,79 @@
         "variants": [
           "B/RGB",
           "B/RGB (Japanese)"
-        ]
+        ],
+        "pid": 717609
       }
     ],
-    "blurb": "Three Mew, one red, one green and one blue, for the original Red, Green and Blue games, illustrated by YOSHIROTTEN, who also designed the set's foil Energy. They are numbered out of RGB rather than out of 128, so they sit outside the main set's numbering entirely. The Pokemon Company has still not publicly acknowledged them and left them out of the Elite Trainer Box's card list booklet, which PokeBeach reads as deliberate: Mew was the schoolyard rumour of the original games and these are meant to be the same kind of rumour.",
+    "blurb": "Three Mew, one red, one green and one blue, for the original Red, Green and Blue games, illustrated by YOSHIROTTEN. They are numbered out of RGB rather than out of 128, and The Pokemon Company still has not acknowledged them: they are not in its official card gallery or the Elite Trainer Box's card list. TCGplayer lists all three now, and on September 23, 2026 PriceCharting put each at about $3,700 to $4,000 ungraded, from a handful of sales and still moving from one read to the next.",
     "sources": [
-      "https://www.pokebeach.com/2026/09/mew-rgb-secret-rares-pulled-from-30th-celebration"
+      "https://www.pokebeach.com/2026/09/mew-rgb-secret-rares-pulled-from-30th-celebration",
+      "https://www.tcgplayer.com/product/717607"
+    ]
+  },
+  "englishRatesSource": "https://www.pokebeach.com/2026/09/30th-celebration-pull-rates-and-most-valuable-cards-worldwide-friendliest-pull-rates-of-the-modern-era",
+  "promosToFind": {
+    "_note": "MEP numbers are printed on the cards and read off TCGplayer's catalog on September 23, 2026; which product each comes in is from Bulbapedia's MEP list, secondary sourcing, said so on the page.",
+    "rows": [
+      {
+        "n": "094",
+        "name": "Alolan Exeggutor",
+        "from": "Tech Sticker Collection"
+      },
+      {
+        "n": "101",
+        "name": "Nidorina",
+        "from": "Elite Trainer Box (a Pokemon Center stamped version in the Pokemon Center ETB)"
+      },
+      {
+        "n": "102",
+        "name": "Victini",
+        "from": "Battle Deck, October 30"
+      },
+      {
+        "n": "103",
+        "name": "Zeraora",
+        "from": "Battle Deck, October 30"
+      },
+      {
+        "n": "104",
+        "name": "Mewtwo",
+        "from": "Figure Collection, November 6"
+      },
+      {
+        "n": "105",
+        "name": "Mew",
+        "from": "Figure Collection, November 6"
+      },
+      {
+        "n": "106",
+        "name": "Ditto",
+        "from": "Ditto Premium Collection, November 6"
+      },
+      {
+        "n": "107",
+        "name": "Pikachu ex",
+        "from": "Ultra Premium Collection, November 6"
+      },
+      {
+        "n": "108",
+        "name": "Pikachu ex",
+        "from": "Ultra Premium Collection, November 6"
+      },
+      {
+        "n": "109",
+        "name": "Espeon ex",
+        "from": "Ultra Premium Collection, November 6"
+      },
+      {
+        "n": "110",
+        "name": "Umbreon ex",
+        "from": "Ultra Premium Collection, November 6"
+      }
+    ],
+    "sources": [
+      "https://www.tcgplayer.com/search/pokemon/me-mega-evolution-promo",
+      "https://bulbapedia.bulbagarden.net/wiki/MEP_Black_Star_Promos_(TCG)"
     ]
   }
 }

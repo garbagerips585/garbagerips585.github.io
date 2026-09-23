@@ -46,6 +46,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { localDay } from "../shared/today.mjs";
 import {
   BAR,
   MENU,
@@ -158,6 +159,18 @@ const E = doc.structure.english;
    are simply unacknowledged by TPCi and listed by nobody, so there is no product
    id to draw a picture from. */
 const US = doc.unlistedSecrets || {};
+/* THEY HAVE A POCKET NOW, 23 September 2026. TCGplayer lists all three (ids
+   717607-717609, each scan opened and checked: red, green and blue Mew with the
+   RGB number), so they join the checklist here, once, and the binder, the
+   checklist band and the "still to find" lists all take them from the same
+   rows. No price is attached: PriceCharting's figures moved between two reads
+   the same afternoon, which is not publishable on this site (see the blurb). */
+for (const c of US.cards || []) {
+  if (!c.pid) continue;
+  if ((checklist.cards || []).some((r) => r.section === "secret" && r.n === c.n)) continue;
+  (checklist.cards ||= []).push({ section: "secret", n: c.n, name: c.name, rarity: "Secret Rare (RGB)", pid: c.pid });
+}
+const US_POCKETED = (US.cards || []).every((c) => c.pid);
 /* PRICECHARTING'S GUIDE VALUES, written by scripts/sync-30th-prices.mjs. The
    same source every other set guide on this site prints, which is the whole
    reason that script exists: the normal chain is keyed on TCGdex sets and
@@ -192,9 +205,9 @@ const SECTIONS = [
   ["pikachu", "The 30 Pikachu", E.pikachu, "One in every pack, each by a different illustrator. Japan's first is Ken Sugimori redrawing his own Jungle Pikachu."],
   ["main", "Main set", E.main - E.pikachu, "Everything else in the numbered main set."],
   ["secret", "Secret rares", E.secret, `Illustration rares, special illustration rares, and the two Futuristic rares.${
-    US.count
+    US.count && !US_POCKETED
       ? ` ${US.count} of them have no pocket here: ${US.blurb}`
-      : ""
+      : US.count ? ` The last ${US.count} are the RGB Mews. ${US.blurb}` : ""
   }`],
   ["classic", "Classic Collection", E.classic, "Reprints on gold bordered sparkle foil, numbered outside the main set. Not Standard legal."],
   ["energy", "Basic Energy", E.energy, "All eight are foil and all eight count. One comes in every pack."],
@@ -522,7 +535,7 @@ const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
 // ambiguous while the OWNED classic pockets beside them printed the whole
 // number from data/30th-binder.json -- the same card, two labels, one row apart.
 const pocketNum = (section, n) =>
-  section === "classic" ? String(n) : String(n).split("/")[0];
+  section === "classic" || /RGB/.test(String(n)) ? String(n) : String(n).split("/")[0];
 
 /* THE LABEL ON THE STRIP AT THE FOOT OF A POCKET. The set code is dropped where
    it says nothing -- "30C" was on 97 pockets of a binder that is entirely 30th
@@ -900,6 +913,39 @@ ${cells.join("\n")}
 // ---------------------------------------------------------------------------
 // PRODUCTS, GROUPED BY RELEASE WAVE
 // ---------------------------------------------------------------------------
+/* A SOURCE READS AS WHAT IT IS, not as its url. The list printed bare urls, some
+   cut off mid-word ("...30th-Celebra"); these name the publisher and the page. */
+const SRC_HOST = {
+  "press.pokemon.com": "The Pokemon Company press release",
+  "www.pokemon.com": "pokemon.com",
+  "pokemon.com": "pokemon.com",
+  "tcg.pokemon.com": "pokemon.com card gallery",
+  "www.pokebeach.com": "PokeBeach",
+  "pokebeach.com": "PokeBeach",
+  "www.tcgplayer.com": "TCGplayer",
+  "bulbapedia.bulbagarden.net": "Bulbapedia",
+  "www.pokemoncenter.com": "Pokemon Center",
+};
+const srcLabel = (u) => {
+  let url; try { url = new URL(u); } catch { return u; }
+  const who = SRC_HOST[url.hostname] || url.hostname.replace(/^www\./, "");
+  const tail = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "")
+    .replace(/\.(html?|php)$/, "").replace(/^\d{4}\/\d{2}\//, "").replace(/[-_]+/g, " ").replace(/\s+/g, " ").trim();
+  if (!tail || /^\d+$/.test(tail)) return who;
+  const words = tail.split(" ").slice(0, 9).join(" ");
+  return `${who}: ${words.charAt(0).toUpperCase()}${words.slice(1)}${tail.split(" ").length > 9 ? "..." : ""}`;
+};
+/* WHICH OPENING GUIDE A PRODUCT IS, so each product links to what opening one
+   is like. Only kinds that have a guide on this site. */
+const OPENING_FOR = (name) =>
+  /Pokemon Center Elite Trainer/i.test(name) || /Elite Trainer/i.test(name) ? "etb"
+  : /Booster Bundle/i.test(name) ? "bundle"
+  : /Mini Tin|ex Tin|\bTin\b/i.test(name) ? "tin"
+  : /Blister|Tech Sticker/i.test(name) ? "blister"
+  : /Knock Out/i.test(name) ? "knock-out"
+  : /Ultra Premium/i.test(name) ? "upc"
+  : /Collection|ex Box/i.test(name) ? "collection-box"
+  : null;
 const waves = new Map();
 for (const p of doc.products) {
   const d = p.date || doc.set.release;
@@ -910,12 +956,16 @@ const waveBlocks = [...waves.entries()]
   .sort((a, b) => a[0].localeCompare(b[0]))
   .map(
     ([date, items]) => `        <section class="t30-wave">
-          <h3>${esc(longDate(date))}</h3>
+          <h3>${esc(longDate(date))} ${date <= localDay()
+            ? `<span class="t30-tag off">Out now</span>`
+            : `<span class="t30-tag">Coming</span>`}</h3>
           <ul>
 ${items
   .map(
     (p) => `            <li>
-              <span class="t30-p">${esc(p.name)}</span>
+              <span class="t30-p">${OPENING_FOR(p.name)
+                ? `<a href="/openings/${OPENING_FOR(p.name)}.html">${esc(p.name)}</a>`
+                : esc(p.name)}</span>
               <span class="t30-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null]
                 .filter(Boolean)
                 .map(esc)
@@ -949,6 +999,10 @@ const jpRows = doc.japanList
   )
   .join("\n");
 
+/* Defined before the stylesheet, which interpolates clCss. */
+const clSections = SECTIONS.filter(([key]) => (checklist.cards || []).some((c) => c.section === key));
+const clCss = clSections.map(([key]) =>
+  `#checklist:has(#cls-${key}:checked) .t30-cl>li:not([data-s="${key}"]){display:none}`).join("\n");
 const style = `
 .t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
 .t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0}
@@ -958,6 +1012,78 @@ const style = `
   padding:4px 7px;border-radius:999px;border:1px solid var(--keyline);color:var(--ink-2);background:var(--paper);margin-right:6px;vertical-align:.12em}
 .t30-tag.off{color:var(--ink);border-color:var(--ketchup)}
 .t30-sum{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin:var(--s4) 0 0}
+/* HEADINGS INSIDE A SECTION HAD NO SPACE ABOVE THEM: all eleven body h3s measured
+   margin-top 0, so each sat against the list before it. */
+.wrap>h3,.t30-more-d h3{margin-top:var(--s5)}
+/* ON THIS PAGE: routes, so teal; 44px chips. */
+.t30-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s4) 0 0}
+.t30-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+  font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none}
+.t30-jump a:hover,.t30-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+/* PRODUCTS: two release dates side by side on a wide screen, where each product
+   was a 1,392px bar holding one line. */
+.t30-waves{display:grid;gap:var(--s4)}
+@media(min-width:900px){.t30-waves{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+.t30-wave h3 .t30-tag{vertical-align:.2em;margin-left:6px}
+/* THE DETAILS A COLLECTOR MOSTLY SKIPS, one tap away rather than on the page. */
+.t30-more-d{margin-top:var(--s5);border:1px solid var(--keyline);border-radius:var(--r-sm);background:var(--card);padding:0 var(--s4)}
+.t30-more-d>summary{min-height:44px;display:flex;align-items:center;cursor:pointer;
+  font:700 var(--t-body)/1.3 var(--body,inherit);color:var(--sky-deep)}
+.t30-more-d[open]{padding-bottom:var(--s4)}
+/* A TABLE THAT FITS ITS BOX: min-width 24em pushed the Japanese box table to
+   446px inside a 348px scroller and cut its caption off. */
+.t30-tbl--fit{min-width:0}
+.t30-tbl--fit th,.t30-tbl--fit td{white-space:normal}
+/* JAPAN'S LIST, closed by default: 7,068px of a different set at 390. */
+.t30-jp>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3);min-height:44px}
+.t30-jp>summary::-webkit-details-marker{display:none}
+.t30-jp>summary h2{margin:0}
+.t30-jp>summary span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--sky-deep);text-transform:uppercase;letter-spacing:.06em}
+.t30-jp[open]>summary span{display:none}
+.t30-jpl{list-style:none;margin:var(--s4) 0 0;padding:0;font-size:var(--t-sm);line-height:1.6}
+.t30-jpl span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
+.t30-jpl i{font-style:normal;color:var(--ink-2);font-size:var(--t-micro)}
+@media(min-width:768px){.t30-jpl{columns:3;column-gap:var(--s5)}}
+.t30-faq{margin:var(--s4) 0 0;max-width:46em}
+.t30-faq dt{font:700 var(--t-body)/1.3 var(--body,inherit);color:var(--ink);margin-top:var(--s4)}
+.t30-faq dd{margin:6px 0 0;line-height:1.55}
+/* THE CHECKLIST LIST. Rows, not tiles; see checklistBand. The filter chips are
+   labels for visually hidden inputs, 44px tall, teal when checked because a
+   checked filter is a current state. */
+.t30-clf{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:var(--s4) 0 var(--s3)}
+.t30-clf fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.t30-clf legend{float:left;margin-right:8px;font:700 var(--t-micro)/44px var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+.t30-clf input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.t30-clf label{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;cursor:pointer;
+  background:var(--paper);border:1px solid var(--keyline);font:700 var(--t-sm)/1 var(--body,inherit);color:var(--ink)}
+.t30-clf input:checked+label{border:2px solid var(--sky);background:var(--paper-3)}
+.t30-clf input:focus-visible+label{outline:3px solid var(--sky);outline-offset:2px}
+.t30-cl{list-style:none;margin:0;padding:0}
+.t30-clh{font:400 var(--t-m)/1.2 var(--display);color:var(--ink);padding:var(--s4) 0 var(--s2);
+  break-after:avoid;display:flex;align-items:center;gap:8px}
+.t30-row{display:grid;grid-template-columns:3.6em 40px minmax(0,1fr) auto;align-items:center;gap:10px;
+  padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--keyline) 40%,transparent);break-inside:avoid;position:relative}
+.t30-rn{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);overflow-wrap:anywhere}
+.t30-rt{position:relative;width:40px;aspect-ratio:5/7;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.t30-row .t30-rt .t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.t30-rm{min-width:0;display:grid;gap:2px}
+.t30-rm b{font:700 var(--t-sm)/1.25 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
+.t30-rm i,.t30-rp i{font:400 var(--t-micro)/1.2 var(--body,inherit);font-style:normal;color:var(--ink-2)}
+.t30-rp{display:grid;justify-items:end;gap:2px;text-align:right;white-space:nowrap}
+.t30-rp b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
+/* In the binder: a small --ketchup check before the number, a mark that goes nowhere. */
+.t30-row.is-have .t30-rn::before{content:"\\2713\\00a0";color:var(--ketchup-deep)}
+@media(min-width:1000px){.t30-cl{columns:2;column-gap:var(--s6,48px)}}
+/* THE FILTERS. Sections: generated per section below. Still need hides rows in
+   the binder. Price sort turns the list into a flex column ordered by rank and
+   drops the section headings, which mean nothing in price order. */
+#checklist:has(#cln:checked) .t30-row[data-have="1"]{display:none}
+#checklist:has(#clo-price:checked) .t30-cl{display:flex;flex-direction:column;columns:auto}
+#checklist:has(#clo-price:checked) .t30-row{order:var(--rank)}
+#checklist:has(#clo-price:checked) .t30-clh{display:none}
+${clCss}
 .t30-sum div{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
 .t30-sum b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink)}
 .t30-sum span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
@@ -1250,6 +1376,8 @@ const style = `
 .t30-wave ul{list-style:none;display:grid;gap:var(--s3);margin:0}
 .t30-wave li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);padding:var(--s3);display:grid;gap:4px}
 .t30-p{font-weight:700;color:var(--ink)}
+.t30-p a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-color:color-mix(in srgb,currentColor 45%,transparent)}
+.t30-p a:hover,.t30-p a:focus-visible{text-decoration-color:currentColor}
 .t30-meta{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .t30-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .t30-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--keyline);border-radius:var(--r-sm);margin-top:var(--s4)}
@@ -1262,10 +1390,13 @@ const style = `
 .t30-src li{overflow-wrap:anywhere;font-size:var(--t-sm)}
 `;
 
-const TITLE = "Pokemon 30th Celebration: Products, Dates and Card List";
+/* LED BY WHAT PEOPLE SEARCH FOR, 23 September 2026: "30th celebration card
+   list", "checklist", "most valuable", "release dates". The old title led with
+   products, and the description never said checklist or most valuable. */
+const TITLE = "Pokemon 30th Celebration Card List, Values and Release Dates";
 const DESC =
-  "Every 30th Celebration product with its date and price, what is actually in a pack, " +
-  `Japan's full ${doc.japanList.length} card list, and a master set tracked pocket by pocket.`;
+  `The full 30th Celebration checklist with every card's price, the most valuable cards, ` +
+  `every product and release date, and what is in a pack.`;
 /* COMPUTED, BECAUSE THE TYPED VERSION SAID 176 WHILE THE PAGE SAID 173. Japan's
    set is 176 cards and 173 of them are revealed; japanList holds the revealed
    ones, and the H2 has always printed its length. The meta description and the
@@ -1312,21 +1443,17 @@ const ld = [
  * mostly unpriced -- 51 of 199 -- and a "most valuable" list that does not say
  * so invites a reader to think the other 148 are worthless. They are unpriced.
  */
-const TOP_N = 12;
+/* TEN, so it fills two rows of five at desktop width; twelve wrapped nine and three. */
+const TOP_N = 10;
 const valueBand = !pricedCards.length ? "" : `
-<section class="band tight">
+<section class="band tight" id="values">
   <div class="wrap">
     <p class="sec-label">The ones you want</p>
     <h2>Most valuable <span class="hl">30th Celebration</span> cards</h2>
-    <p class="lede" style="max-width:44em">Most valuable first, by what an ungraded copy is worth. ${
-      pricedCards.length
-    } of the ${TOTAL} cards have a price so far${
-      prices.counts && prices.counts.psa10
-        ? `, and ${prices.counts.psa10} of those already have a PSA 10 figure`
-        : ""
-    }. The rest are not cheap, they are <strong>unpriced</strong>: the set came out ${esc(
-      shortDate(doc.set.release)
-    )} and a guide value needs sales to compute from.</p>
+    <p class="lede" style="max-width:44em">The top ${Math.min(TOP_N, pricedCards.length)} by what an ungraded copy is worth.
+      ${pricedCards.length} of the ${TOTAL} cards have a price, ${prices.counts && prices.counts.psa10 ? `${prices.counts.psa10} with a PSA 10 figure; ` : ""}the
+      rest have not sold enough yet for a guide value. Every price is in the <a href="#checklist">checklist</a>,
+      which sorts by price too.</p>
     <ol class="t30-cts">
 ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
     </ol>
@@ -1381,26 +1508,65 @@ ${rarityRows
  * guide that shows twelve cards and calls itself a checklist is the thing a
  * reader came here to avoid.
  */
+/* THE CHECKLIST IS A LIST, 23 September 2026. It was 188 picture tiles two to
+   a row, 32,647px at 390 -- 57% of the whole page. A row per card (number, a
+   small picture, name, rarity, raw and PSA 10) says the same in about a third
+   of the height, and a checklist is read down a column anyway.
+
+   FILTERS WITH NO SCRIPT. Section, "still need" and a price sort are radio and
+   checkbox inputs inside the section, and CSS :has() hides or reorders rows. A
+   browser without :has() shows every row in number order, which is the page
+   this replaced, so nothing is lost where it is not supported. The price sort
+   is flex `order` from --rank, each row's place in pricedCards; unpriced rows
+   sort last. "Still need" reads the binder's own owned list, the same join the
+   "Still to find" lists use, so the two cannot disagree. */
+const clRank = new Map(pricedCards.map((c, i) => [clKey(c.section, c.n), i + 1]));
+const clOwned = new Set(owned.map((c) => clKey(c.section, c.n || "")));
+const clRow = (c) => {
+  const k = clKey(c.section, c.n), pr = priceOf(c), have = clOwned.has(k);
+  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true });
+  return `      <li class="t30-row${have ? " is-have" : ""}" data-s="${esc(c.section)}"${have ? ' data-have="1"' : ""} style="--rank:${clRank.get(k) || 9999}">
+        <span class="t30-rn">#${esc(pocketNum(c.section, c.n))}</span>
+        <span class="t30-rt">${pic}</span>
+        <span class="t30-rm"><b>${esc(c.name)}</b><i>${esc(c.rarity || "")}</i></span>
+        <span class="t30-rp">${pr && typeof pr.raw === "number"
+          ? `<b>${moneyExact(pr.raw)}</b>${typeof pr.psa10 === "number" ? `<i>${moneyRound(pr.psa10)} PSA 10</i>` : ""}`
+          : `<i>No price yet</i>`}</span>
+        ${have ? `<span class="t30-rh" title="In the binder"><span class="t30-sr">In the binder</span></span>` : ""}
+      </li>`;
+};
 const checklistBand = !(checklist.cards || []).length ? "" : `
-<section class="band tight">
+<section class="band tight" id="checklist">
   <div class="wrap">
     <p class="sec-label">Every card</p>
-    <h2>Full ${TOTAL} card <span class="hl">checklist</span></h2>
-    <p class="lede" style="max-width:44em">${
-      (checklist.cards || []).length
-    } of the ${TOTAL} are listed and pictured. What is missing is missing at the source: the eight foil
-      basic Energy are numbered in a separate MEE set that the card checklists leave out, so the binder
-      below adds all eight by hand, read off the cards themselves${
-        US.count ? `, and ${US.count} secret rares are the Mew RGB cards The Pokemon Company still has not acknowledged` : ""
-      }.</p>
-${SECTIONS.map(([key, label]) => {
+    <h2>30th Celebration checklist: <span class="hl">all ${TOTAL} cards</span></h2>
+    <p class="lede" style="max-width:44em">${(checklist.cards || []).length} of the ${TOTAL} with their raw and
+      PSA 10 prices. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
+      live in the binder below. Filter by section, sort by price, or show only the cards still missing from the
+      binder.</p>
+    <form class="t30-clf" onsubmit="return false" aria-label="Filter the checklist">
+      <fieldset><legend>Show</legend>
+        <input type="radio" name="cls" id="cls-all" checked><label for="cls-all">All</label>
+${clSections.map(([key, label]) => `        <input type="radio" name="cls" id="cls-${key}"><label for="cls-${key}">${esc(label.replace(/^The /, ""))}</label>`).join("\n")}
+      </fieldset>
+      <fieldset><legend>Sort</legend>
+        <input type="radio" name="clo" id="clo-num" checked><label for="clo-num">Number</label>
+        <input type="radio" name="clo" id="clo-price"><label for="clo-price">Price</label>
+      </fieldset>
+      <fieldset><legend>Binder</legend>
+        <input type="checkbox" id="cln"><label for="cln">Still need</label>
+      </fieldset>
+    </form>
+    <ol class="t30-cl">
+${clSections.map(([key, label]) => {
   const rows = (checklist.cards || []).filter((c) => c.section === key);
-  if (!rows.length) return "";
-  return `    <h3>${esc(label)} <span class="t30-cnt">${rows.length}</span></h3>
-    <ol class="t30-cts">
-${rows.map((c) => cardTile(c)).join("\n")}
-    </ol>`;
-}).filter(Boolean).join("\n")}
+  return `      <li class="t30-clh" data-s="${key}">${esc(label)} <span class="t30-cnt">${rows.length}</span></li>
+${rows.map(clRow).join("\n")}`;
+}).join("\n")}
+    </ol>
+    <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
+      longDate(prices.checked || doc.checked)
+    )}. A tick marks a card already in the binder.</p>
   </div>
 </section>`;
 
@@ -1547,54 +1713,61 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Sets</a> / 30th Celebration</nav>
     ${heroLogo()}
-    <h1>Pokemon 30th Celebration</h1>
-    <p class="lede" style="max-width:42em">${esc(doc.set.releaseNote.split(".")[0])}. It is all foil, there is
-      no booster box, and every pack comes inside one of ${doc.products.length} products. This page is what is
-      known about it, what is not, and how far along one master set is.</p>
+    <h1>Pokemon 30th Celebration card list and set guide</h1>
+    <p class="lede" style="max-width:42em">${esc(doc.set.releaseNote.split(".")[0])}, on ${esc(longDate(doc.set.release))}.
+      Every card is foil, there is no booster box, and every pack comes inside one of ${doc.products.length}
+      products. Here is the full checklist with prices, every product and its date, and one collector's master set.</p>
     <div class="t30-sum">
-      <!-- shortDate, NOT longDate, AND THE DIFFERENCE IS 53px OF CLIPPED TEXT.
-       These cells are 44px Titan One in a 209px box, which is roomy for the
-       other three values -- they are 199, 15 and 93 -- and far too narrow for
-       a month name: "September" alone measures 262px and was being cut off
-       mid-word, so the page's most prominent fact read "Septembe". Measured in
-       the browser against the real computed font rather than eyeballed, and
-       "Sep 16, 2026" has a longest word of 115px and wraps to two lines that
-       both fit. Any value that can be a word rather than a number needs this
-       check; the box does not grow. -->
+      <!-- shortDate, NOT longDate: "September" alone is 262px of Titan One in a 209px box. -->
       <div><b>${esc(shortDate(doc.set.release))}</b><span>Release, worldwide</span></div>
-      <div><b>${E.count}</b><span>Cards in English, per PokeBeach</span></div>
-      <div><b>${doc.products.length}</b><span>Products, ${waves.size} wave${waves.size === 1 ? "" : "s"}</span></div>
-      <div><b>${packTotal}</b><span>Packs across them all</span></div>
+      <div><b>${E.count}</b><span>Cards in English</span></div>
+      <div><b>${doc.products.length}</b><span>Products, ${waves.size} release dates</span></div>
+      ${pricedCards[0] ? `<div><b>${esc(moneyRound(pricedCards[0].pr.raw))}</b><span>Top card, ${esc(pricedCards[0].name)}</span></div>` : ""}
     </div>
+    ${/* ON THIS PAGE. Not sticky: a pinned bar costs a phone a slice of every
+         screen for a page read mostly top to bottom. Teal, because these are
+         routes. */""}<nav class="t30-jump" aria-label="On this page">
+      <a href="#checklist">Checklist</a>
+      <a href="#values">Most valuable</a>
+      <a href="#products">Products and dates</a>
+      <a href="#in-a-pack">In a pack</a>
+      <a href="#masterset">Master set binder</a>
+      <a href="#faq">FAQ</a>
+    </nav>
     <p class="t30-msjump"><a href="#masterset"><b>${pct}% of the set collected</b>
       <span>${haveTotal} of ${TOTAL} cards &middot; see the master set binder &rarr;</span></a></p>
   </div>
 </header>
 ${valueBand}
-${hitsBand}
-
-<section class="band tight">
+${checklistBand}
+<section class="tight" id="products">
   <div class="wrap">
-    <h2>What is actually in a pack</h2>
-    <ul class="t30-facts">
-      <li><span class="t30-tag off">Official</span>${esc(doc.set.packContents.split(".")[0])}.</li>
-      <li><span class="t30-tag off">Official</span>${esc(doc.set.allFoil)}</li>
-      <li><span class="t30-tag off">Official</span>${esc(doc.set.classicLegality.split(": ")[1] || doc.set.classicLegality)}</li>
-      <li><span class="t30-tag off">Official</span>${esc(doc.set.tcgLive.split(".")[0])}.</li>
-      <li><span class="t30-tag">No box</span>${esc(doc.set.noBox)}</li>
-    </ul>
-    <h3>What the cards themselves settled</h3>
-    <p style="max-width:42em"><span class="t30-tag off">From the printing</span>${esc(
-      doc.fromTheCards._note
-    )}</p>
-    <ul class="t30-facts">
-      <li><span class="t30-tag off">Set code</span>${esc(doc.fromTheCards.setCode)}</li>
-      <li><span class="t30-tag off">128 confirmed</span>${esc(doc.fromTheCards.mainSetSize)}</li>
-      <li><span class="t30-tag off">Energy</span>${esc(doc.fromTheCards.energyNumbering)}</li>
-      <li><span class="t30-tag off">Japan differs</span>${esc(doc.fromTheCards.japanMismatchProved)}</li>
-    </ul>
-
-    <h3>What every pack guarantees</h3>
+    <h2>30th Celebration products and release dates</h2>
+    <div class="t30-waves">
+${waveBlocks}
+    </div>
+    <h3>Free promo at the counter</h3>
+    <p style="max-width:42em">${esc(doc.storePromo)}</p>
+${(doc.promosToFind && doc.promosToFind.rows || []).length ? `    <h3>The other 30th Celebration promos</h3>
+    <p style="max-width:42em">Black Star promos numbered in the MEP run, and the product each one comes in. The numbers
+      are printed on the cards; which product carries which is from Bulbapedia's promo list.</p>
+    <div class="t30-scroll" style="max-width:40em">
+      <table class="t30-tbl t30-tbl--fit">
+        <thead><tr><th scope="col">No.</th><th scope="col">Card</th><th scope="col">Comes in</th></tr></thead>
+        <tbody>
+${doc.promosToFind.rows.map((r) => `          <tr><td>MEP ${esc(r.n)}</td><td>${esc(r.name)}${promos.some((o) => Number(o.n) === Number(r.n)) ? " <span class=\"t30-tag off\">In the binder</span>" : ""}</td><td>${esc(r.from)}</td></tr>`).join("\n")}
+        </tbody>
+      </table>
+    </div>` : ""}
+    <h3>Cards the English set does not have</h3>
+    <p style="max-width:42em">${esc(doc.cutCards)}</p>
+    <h3>Accessories</h3>
+    <p style="max-width:42em">${esc(doc.accessories)}</p>
+  </div>
+</section>
+<section class="band tight" id="in-a-pack">
+  <div class="wrap">
+    <h2>What is in a 30th Celebration pack</h2>
     <p style="max-width:42em">${esc(doc.guaranteesNote)}</p>
     <ul class="t30-facts">
 ${doc.guarantees
@@ -1605,69 +1778,39 @@ ${doc.guarantees
       }</span>${esc(g.claim)} <span class="t30-src-i">${esc(g.where)}</span></li>`
   )
   .join("\n")}
+      <li><span class="t30-tag">No box</span>${esc(doc.set.noBox)}</li>
+      <li><span class="t30-tag off">Official</span>${esc(doc.set.classicLegality)}</li>
+      ${doc.set.legalDate ? `<li><span class="t30-tag off">Official</span>${esc(doc.set.legalDate)}</li>` : ""}
+      <li><span class="t30-tag off">Official</span>${esc(doc.set.tcgLive)} <a href="/tcg-live.html">How TCG Live works</a>.</li>
     </ul>
-
-    <h3>${esc(doc.japanBoxOpening.label)}</h3>
-    <p style="max-width:42em"><span class="t30-tag">One box, not a rate</span>${esc(doc.japanBoxOpening.caveat)}</p>
-    <div class="t30-scroll" style="max-width:32em">
-      <table class="t30-tbl">
-        <caption class="t30-cap">What came out of one ${doc.japanBoxOpening.packs} pack Japanese box. ${esc(
-          doc.japanBoxOpening.where
-        )}.</caption>
-        <thead><tr><th scope="col">Card</th><th scope="col">In that box</th></tr></thead>
-        <tbody>
-${doc.japanBoxOpening.rows
-  .map((r) => `            <tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`)
-  .join("\n")}
-        </tbody>
-      </table>
-    </div>
-
-    <h3>English pull rates</h3>
-    <p style="max-width:42em"><span class="t30-tag">Not published</span>${esc(doc.englishRates.split(". ADD THEM")[0])}.
-      They will be added here when the publisher or PokeBeach states them. A number worked out from somebody's
-      early box is not one of those, and this page will not carry it as one.</p>
-    <p style="max-width:42em">What the channel has actually opened is counted separately and labeled as
-      observed results rather than as odds. <a href="/luck.html">See those numbers</a>.</p>
+    <h3>Pull rates</h3>
+    <p style="max-width:42em"><span class="t30-tag">Not official</span>${esc(doc.englishRates)}</p>
+    <p style="max-width:42em">What this channel has opened is counted separately and labeled as observed results,
+      not odds. <a href="/luck.html">See those numbers</a>.</p>
+    <details class="t30-more-d">
+      <summary>What the cards themselves settled, and one Japanese box</summary>
+      <p style="max-width:42em">Three cards we got early, on September 11, settle these straight from the printing.</p>
+      <ul class="t30-facts">
+        <li><span class="t30-tag off">Set code</span>${esc(doc.fromTheCards.setCode)}</li>
+        <li><span class="t30-tag off">128 confirmed</span>${esc(doc.fromTheCards.mainSetSize)}</li>
+        <li><span class="t30-tag off">Energy</span>${esc(doc.fromTheCards.energyNumbering)}</li>
+        <li><span class="t30-tag off">Japan differs</span>${esc(doc.fromTheCards.japanMismatchProved)}</li>
+      </ul>
+      <p style="max-width:42em"><span class="t30-tag">One box, not a rate</span>${esc(doc.japanBoxOpening.caveat)}</p>
+      <div class="t30-scroll" style="max-width:32em">
+        <table class="t30-tbl t30-tbl--fit">
+          <caption class="t30-cap">What came out of one ${doc.japanBoxOpening.packs} pack Japanese box. ${esc(doc.japanBoxOpening.where)}.</caption>
+          <thead><tr><th scope="col">Card</th><th scope="col">In that box</th></tr></thead>
+          <tbody>
+${doc.japanBoxOpening.rows.map((r) => `            <tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td></tr>`).join("\n")}
+          </tbody>
+        </table>
+      </div>
+    </details>
   </div>
 </section>
-
 ${rarityBand}
-${checklistBand}
-
-<section class="tight">
-  <div class="wrap">
-    <h2>Every product, by release wave</h2>
-${waveBlocks}
-    <h3>Free promo at the counter</h3>
-    <p style="max-width:42em">${esc(doc.storePromo)}</p>
-    <h3>Cards the English set does not have</h3>
-    <p style="max-width:42em">${esc(doc.cutCards)}</p>
-    <h3>Accessories</h3>
-    <p style="max-width:42em">${esc(doc.accessories)}</p>
-  </div>
-</section>
-
-<section class="band tight">
-  <div class="wrap">
-    <h2>Japan's card list, all ${doc.japanList.length} revealed</h2>
-    <p style="max-width:42em"><strong>This is Japan's set and not the English one.</strong> ${esc(
-      doc.structure.japan.note
-    )} It is here because Japan's set is a different set, not an early look at this one, and the
-      numbering does not line up card for card, so for anything English, use the English checklist
-      above. A Japanese number is not a guide to an English one.</p>
-    <p class="price-note">${esc(doc.structure.derived)}</p>
-    <div class="t30-scroll">
-      <table class="t30-tbl">
-        <thead><tr><th scope="col">No.</th><th scope="col">Card</th><th scope="col">Part of</th></tr></thead>
-        <tbody>
-${jpRows}
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
+${hitsBand}
 <section class="tight" id="masterset">
   <div class="wrap">
     <p class="sec-label">One collector's copy</p>
@@ -1755,7 +1898,59 @@ ${railHtml}
     </nav>
 ${needList}
 
-    <p class="price-note" style="margin-top:var(--s5)"><strong>199 is not an official number.</strong>
+  </div>
+</section>
+<section class="band tight" id="japan">
+  <div class="wrap">
+    <details class="t30-jp">
+      <summary><h2>Japan's card list, all ${doc.japanList.length} revealed</h2><span>A different set: open the list</span></summary>
+      <p style="max-width:42em">Japan's set is a different set: ${esc(doc.structure.japan.note)} For English cards, use the
+        <a href="#checklist">checklist above</a>.</p>
+      <ol class="t30-jpl">
+${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padStart(3, "0") : "--")}</span> ${esc(c.name)} <i>${esc(JP_LABEL[c.section] || c.section)}</i></li>`).join("\n")}
+      </ol>
+    </details>
+  </div>
+</section>
+<section class="tight" id="faq">
+  <div class="wrap">
+    <h2>30th Celebration questions</h2>
+    <dl class="t30-faq">
+      <dt>When did 30th Celebration come out?</dt>
+      <dd>${esc(longDate(doc.set.release))}, on the same day worldwide in participating markets, the first Pokemon TCG set to do that.</dd>
+      <dt>How many cards are in 30th Celebration?</dt>
+      <dd>${E.count} by PokeBeach's count: ${E.main} in the main set (${E.pikachu} of them Pikachu), ${E.secret} secret rares
+        including the ${US.count || 3} RGB Mews, ${E.classic} Classic Collection reprints and ${E.energy} foil basic Energy.
+        The cards themselves confirm the ${E.main}. The Pokemon Company itself only says "over 150 cards".</dd>
+      <dt>Is there a booster box?</dt>
+      <dd>No. There are no booster boxes and no loose packs: every pack comes inside one of the ${doc.products.length}
+        products, from the ${esc(longDate(doc.set.release))} Elite Trainer Box to the December tins.</dd>
+      <dt>What comes in a pack?</dt>
+      <dd>${esc(doc.set.packContents.split(".")[0])}. Every pack also has one of the 30 Pikachu.</dd>
+      ${pricedCards[0] ? `<dt>What is the most valuable 30th Celebration card?</dt>
+      <dd>${esc(pricedCards[0].name)} (#${esc(pocketNum(pricedCards[0].section, pricedCards[0].n))}), at ${esc(moneyExact(pricedCards[0].pr.raw))}
+        raw on PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}, among the cards with a published price.
+        The RGB Mews are selling higher but have no settled price yet. <a href="#values">The top ten</a>.</dd>` : ""}
+      <dt>Can you play the Classic Collection cards in tournaments?</dt>
+      <dd>${esc(doc.set.classicLegality)}</dd>
+      <dt>Are there official pull rates?</dt>
+      <dd>Not from The Pokemon Company yet. The best figures so far come from TCGplayer opening 3,000 packs,
+        which is a sample rather than official odds. <a href="#in-a-pack">More on that</a>.</dd>
+    </dl>
+  </div>
+</section>
+<section class="tight">
+  <div class="wrap">
+    <h2>Sources</h2>
+    <p style="max-width:42em">Anything marked <span class="t30-tag off">Official</span> is The Pokemon Company's
+      own words. Everything else names its source in the sentence that uses it. Nothing on this page comes
+      from a leak, a comment thread or a set tracker's guess.</p>
+    <ul class="t30-src">
+${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || []), ...(doc.englishRatesSource ? [doc.englishRatesSource] : []), ...((doc.promosToFind || {}).sources || [])]
+  .filter((u, i, a) => a.indexOf(u) === i)
+  .map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank" aria-label="${esc(srcLabel(u))}, opens on ${esc(new URL(u).hostname.replace(/^www\\./, ""))}">${esc(srcLabel(u))}</a></li>`).join("\n")}
+    </ul>
+    <p class="price-note"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
       against PokeBeach's count and may move when the last secret rares are shown.</p>
 ${
@@ -1781,25 +1976,6 @@ ${
       }</p>`
     : ""
 }
-  </div>
-</section>
-
-<section class="tight">
-  <div class="wrap">
-    <h2>Where all this came from</h2>
-    <p style="max-width:42em">Anything marked <span class="t30-tag off">Official</span> is The Pokemon Company's
-      own words. Everything else is PokeBeach, named in the sentence that uses it. Nothing on this page comes
-      from a leak, a comment thread or a set tracker's extrapolation.</p>
-    <ul class="t30-src">
-${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || [])]
-  /* THE MEW RGB SOURCE WAS MISSING AND IT IS THE ONE CLAIM THAT MOST NEEDS IT.
-     This section promises "everything else is PokeBeach, named in the sentence
-     that uses it", and the sentence about three cards TPCi has never
-     acknowledged cited nobody. unlistedSecrets carries its source; it just was
-     not in the rendered list. */
-  .filter((u, i, a) => a.indexOf(u) === i)
-  .map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank">${esc(u.replace(/^https?:\/\//, ""))}</a></li>`).join("\n")}
-    </ul>
   </div>
 </section>
 
