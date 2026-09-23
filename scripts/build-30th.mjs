@@ -553,6 +553,7 @@ const pocket = (c, i, slot) => {
        46 of the 75 have no date either, so absence was the ONLY signal on those. */
     return `<li class="t30-pk has" title="${esc(c.name)}">
         <span class="t30-sr">Collected</span>
+        <span class="t30-ok" aria-hidden="true"></span>
         ${phOf(c.name, pocketLabel(c.section, c.n, c.setCode))}
         ${/* A promo or jumbo is in no checklist row, so `row` is null for all
              eight and they drew no picture at all. Each carries its own `pid`
@@ -771,8 +772,14 @@ const leafHtml = (l) => {
           <ol class="t30-pkts">
 ${cellHtml}${pad ? "\n" + pad : ""}
           </ol>
-          <a class="t30-turn back" href="#bl${prev.no}" aria-label="Turn back to page ${prev.no}, ${esc(prev.label)}"><span aria-hidden="true">&lsaquo;</span></a>
-          <a class="t30-turn fwd" href="#bl${next.no}" aria-label="Turn to page ${next.no}, ${esc(next.label)}"><span aria-hidden="true">&rsaquo;</span></a>
+          ${/* THE COVER IS PAGE 0 NOW, so page 1 turns back to it and the last page
+               turns on to it rather than wrapping round to page 1. */
+            l.no === 1
+              ? `<a class="t30-turn back" href="#bl0" aria-label="Close to the cover"><span aria-hidden="true">&lsaquo;</span></a>`
+              : `<a class="t30-turn back" href="#bl${prev.no}" aria-label="Turn back to page ${prev.no}, ${esc(prev.label)}"><span aria-hidden="true">&lsaquo;</span></a>`}
+          ${l.no === LEAF_N
+              ? `<a class="t30-turn fwd" href="#bl0" aria-label="Back to the cover"><span aria-hidden="true">&rsaquo;</span></a>`
+              : `<a class="t30-turn fwd" href="#bl${next.no}" aria-label="Turn to page ${next.no}, ${esc(next.label)}"><span aria-hidden="true">&rsaquo;</span></a>`}
         </article>`;
 };
 
@@ -978,21 +985,23 @@ const style = `
  * overflow-x HERE AND NOWHERE ELSE: the site's rule is that the body never
  * scrolls sideways and only a contained object may, which this is. */
 .t30-binder{margin:var(--s4) 0 0;max-width:560px}
-/* THE COVER, AND WHY IT IS NOT JUST A HEADING. It is the binder's front board:
-   it shares the track's left, right and top border, sits flush on it with no
-   gap and no margin, and carries the only rounded corners at the top so the
-   two elements read as one bound object rather than a title above a widget.
-   The darker fill is --chrome-bg, the page's own darkest surface, because a
-   binder board is darker than the sheet inside it and that is the whole cue. */
-.t30-cover{background:var(--chrome-bg);border:1px solid var(--keyline);border-bottom:0;
-  border-radius:var(--r) var(--r) 0 0;padding:var(--s4) var(--s4) var(--s3);
-  text-align:center;display:grid;justify-items:center;gap:6px}
-.t30-cover img{max-width:180px;height:auto;display:block}
+/* THE COVER IS PAGE 0 AND IT IS A BOARD, NOT A SHEET: --chrome-bg, the page's
+   darkest surface, with a stitched inset line, because a binder's cover is
+   darker and stiffer than the plastic pages inside it. The inside back cover
+   (.t30-leaf-end) is the same board. */
+.t30-leaf-cover,.t30-leaf-end{background:var(--chrome-bg)}
+.t30-board{height:100%;min-height:22rem;display:grid;align-content:center;justify-items:center;
+  gap:10px;text-align:center;padding:var(--s5) var(--s4);border-radius:var(--r-sm);
+  box-shadow:inset 0 0 0 1px var(--keyline);outline:1px dashed color-mix(in srgb,var(--keyline) 60%,transparent);
+  outline-offset:-9px}
+.t30-board img{width:min(240px,70%);height:auto;display:block}
 .t30-cover-t{margin:0;font:400 var(--t-l)/1.1 var(--display);color:var(--ink)}
 .t30-cover-s{margin:0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.06em}
-/* The track loses its own top rounding so the seam with the cover disappears. */
-.t30-binder .t30-track{border-radius:0 0 var(--r) var(--r)}
+.t30-board .t30-bar{width:min(220px,70%);margin:4px 0 0}
+.t30-cover-o{margin:var(--s3) 0 0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.08em}
+.t30-rings{display:none}
 .t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
   overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
   scrollbar-width:none;border-radius:var(--r);background:var(--paper);
@@ -1041,6 +1050,126 @@ const style = `
 .t30-turn.back{left:0;border-radius:0 var(--r) 0 var(--r)}
 .t30-turn.fwd{right:0;border-radius:var(--r) 0 var(--r) 0}
 .t30-turn:hover,.t30-turn:focus-visible{color:var(--sky);border-color:var(--sky)}
+
+/* ================================================================ BOOK MODE
+   23 September 2026. The owner: "Want it to look as much like a real card
+   binder as possible, page turn animations, anything to make it look and feel
+   like a real binder", with pages side by side on desktop and tablet.
+
+   EVERYTHING BELOW IS BEHIND .is-book, WHICH ONLY THE BINDER SCRIPT SETS. With
+   no script the binder is the swipe track above and every control an anchor,
+   exactly as before. With it, the leaves stop being a scroller: they are stacked
+   in one grid cell (so the binder is always as tall as its tallest page and
+   never jumps), only the open page or pages are visible, and a turn is a sheet
+   that rotates about the spine in 3D.
+   data-mode="one": a phone. One page, rings down the left edge.
+   data-mode="two": 760px and up, so a tablet held either way gets the open
+   binder too. Rings down the middle.                                          */
+/* THE BOARDS: the binder's own cover, dark, behind and around the pages. Only
+   the pages and the rings sit on it; the caption stays outside, under it. */
+.t30-binder.is-book{max-width:560px;scroll-margin-top:84px}
+.t30-binder.is-book[data-mode="two"]{max-width:1120px}
+.is-book .t30-book{position:relative;background:var(--chrome-bg);border:1px solid var(--keyline);
+  border-radius:calc(var(--r) + 6px);padding:8px 10px 12px 14px;box-shadow:var(--lift)}
+.is-book[data-mode="two"] .t30-book{padding:14px 18px 18px}
+/* THE TURNING PAGE STAYS INSIDE THE BINDER. Perspective makes its free edge grow
+   as it lifts, and it ran above the binder and over the caption under it. */
+.is-book .t30-book{overflow:hidden}
+.is-book .t30-track{overflow:visible;scroll-snap-type:none;display:grid;grid-auto-flow:row;
+  grid-template-columns:minmax(0,1fr);perspective:3000px;touch-action:pan-y;position:relative;
+  border-radius:3px var(--r) var(--r) 3px;background:transparent;
+  /* THE PAGES STILL TO TURN, as sheet edges peeking out below and right. --rs
+     is set by the script from how far through the binder you are, so the stack
+     is thick at the cover and thin at the last page, like the real thing. */
+  --rs:6px;--ls:2px;
+  box-shadow:calc(var(--rs) * .5) calc(var(--rs) * .5 + 1px) 0 -1px var(--paper),
+    calc(var(--rs) * .5) calc(var(--rs) * .5 + 1px) 0 0 var(--keyline),
+    var(--rs) calc(var(--rs) + 2px) 0 -1px var(--paper),var(--rs) calc(var(--rs) + 2px) 0 0 var(--keyline),var(--lift)}
+/* Open, the turned pages stack on the left (--ls) and the rest on the right. */
+.is-book[data-mode="two"] .t30-track{grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  border-radius:var(--r);perspective:3600px;
+  box-shadow:calc(var(--ls) * -.5) calc(var(--ls) * .5 + 1px) 0 -1px var(--paper),
+    calc(var(--ls) * -.5) calc(var(--ls) * .5 + 1px) 0 0 var(--keyline),
+    calc(var(--ls) * -1) calc(var(--ls) + 2px) 0 -1px var(--paper),calc(var(--ls) * -1) calc(var(--ls) + 2px) 0 0 var(--keyline),
+    calc(var(--rs) * .5) calc(var(--rs) * .5 + 1px) 0 -1px var(--paper),
+    calc(var(--rs) * .5) calc(var(--rs) * .5 + 1px) 0 0 var(--keyline),
+    var(--rs) calc(var(--rs) + 2px) 0 -1px var(--paper),var(--rs) calc(var(--rs) + 2px) 0 0 var(--keyline),var(--lift)}
+.is-book .t30-leaf{grid-area:1/1;visibility:hidden;background:var(--paper);scroll-snap-align:none}
+.is-book .t30-leaf.is-on{visibility:visible}
+/* On a phone every pixel of width is pocket width: the page's right margin
+   drops to --s4 and its left keeps just enough to clear the rings. */
+.is-book[data-mode="one"] .t30-leaf{padding-right:var(--s4);padding-left:calc(var(--s4) + 14px)}
+/* The folded corners need far less room than the old buttons did: the pocket
+   grid ends just outside the fold's diagonal, measured, not a margin to spare. */
+.is-book .t30-leaf{padding-bottom:44px}
+.is-book[data-mode="one"] .t30-leaf{padding-bottom:54px}
+.is-book[data-mode="two"] .t30-leaf.is-r{grid-area:1/2}
+.is-book .t30-leaf::before{display:none}
+/* THE CURVE INTO THE SPINE. A page does not lie flat where it meets the rings:
+   it darkens as it bends away. Drawn as a gradient on the spine side only. */
+.is-book .t30-leaf.is-on:not(.t30-leaf-cover):not(.t30-leaf-end),
+.is-book .t30-face .t30-leaf:not(.t30-leaf-cover):not(.t30-leaf-end){
+  background:linear-gradient(to right,rgb(0 0 0 / .30),rgb(0 0 0 / .08) 5%,transparent 11%),var(--paper)}
+.is-book[data-mode="two"] .t30-leaf.is-l:not(.t30-leaf-cover):not(.t30-leaf-end){
+  background:linear-gradient(to left,rgb(0 0 0 / .30),rgb(0 0 0 / .08) 5%,transparent 11%),var(--paper);
+  padding-left:var(--s5);padding-right:calc(var(--s5) + 18px);border-radius:var(--r) 0 0 var(--r)}
+.is-book[data-mode="two"] .t30-leaf.is-r{padding-left:calc(var(--s5) + 18px);border-radius:0 var(--r) var(--r) 0}
+.is-book[data-mode="two"] .t30-leaf.is-l.t30-leaf-cover{border-radius:var(--r) 0 0 var(--r)}
+/* THE RINGS, drawn over everything including a turning page, because the page
+   hangs on them. Three chrome bars across the spine, shaded top to bottom so
+   they read as round. Token colours only: --ink-2 highlight to --card shadow. */
+.is-book .t30-rings{display:flex;flex-direction:column;justify-content:space-between;
+  position:absolute;z-index:40;top:14%;bottom:14%;left:2px;width:28px;pointer-events:none}
+.is-book[data-mode="two"] .t30-rings{left:calc(50% - 17px);top:12%;bottom:12%}
+.t30-rings i{display:block;height:16px;border-radius:999px;
+  background:linear-gradient(to bottom,var(--ink-2),var(--keyline) 45%,var(--card) 100%);
+  box-shadow:0 2px 3px rgb(0 0 0 / .45),inset 0 1px 0 rgb(255 255 255 / .35)}
+.is-book[data-mode="two"] .t30-rings{width:34px}
+.is-book[data-mode="two"] .t30-rings i{height:18px}
+/* THE PAGE CORNERS BECOME DOG-EARS: a folded corner you pull, still a 48px
+   target, teal when pointed at or focused. Two-page view keeps back on the left
+   page and forward on the right, like a real book; neither shows past the ends. */
+.is-book .t30-turn{width:52px;height:52px;bottom:0;border:0;border-radius:0;background:none;
+  display:grid;place-items:end;padding:0 9px 5px;color:var(--ink-2);font-size:var(--t-m);z-index:6}
+.is-book .t30-turn.fwd{right:0;justify-items:end;
+  background:linear-gradient(to top left,var(--chrome-bg) 0 48%,var(--keyline) 49% 51%,var(--paper-3) 52%);
+  border-radius:0 0 var(--r) 0}
+.is-book .t30-turn.back{left:0;justify-items:start;
+  background:linear-gradient(to top right,var(--chrome-bg) 0 48%,var(--keyline) 49% 51%,var(--paper-3) 52%);
+  border-radius:0 0 0 var(--r)}
+.is-book .t30-turn span{display:block;transform:translateY(-14px)}
+.is-book .t30-turn.fwd span{transform:translate(-2px,-14px)}
+.is-book .t30-turn.back span{transform:translate(2px,-14px)}
+.is-book .t30-turn:hover,.is-book .t30-turn:focus-visible{color:var(--chrome-bg);outline:none}
+.is-book .t30-turn.fwd:hover,.is-book .t30-turn.fwd:focus-visible{
+  background:linear-gradient(to top left,var(--chrome-bg) 0 48%,var(--sky) 49%)}
+.is-book .t30-turn.back:hover,.is-book .t30-turn.back:focus-visible{
+  background:linear-gradient(to top right,var(--chrome-bg) 0 48%,var(--sky) 49%)}
+.is-book[data-mode="two"] .t30-leaf.is-l .t30-turn.fwd,
+.is-book[data-mode="two"] .t30-leaf.is-r .t30-turn.back,
+.is-book.at-first .t30-leaf.is-on .t30-turn.back,
+.is-book.at-last .t30-leaf.is-on .t30-turn.fwd{display:none}
+/* THE TURNING SHEET. Built by the script from copies of the pages on its two
+   faces, rotated about the spine: the left edge on a phone and when turning
+   forward, the right edge of the left page when turning back. */
+.t30-sheet{position:absolute;top:0;bottom:0;left:0;width:100%;z-index:30;pointer-events:none;
+  transform-style:preserve-3d;-webkit-transform-style:preserve-3d;transform-origin:left center}
+.is-book[data-mode="two"] .t30-sheet.fwd{left:50%;width:50%}
+.is-book[data-mode="two"] .t30-sheet.back{left:0;width:50%;transform-origin:right center}
+.t30-face{position:absolute;inset:0;display:grid;overflow:hidden;
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  box-shadow:0 6px 18px rgb(0 0 0 / .35)}
+.t30-face.b{transform:rotateY(180deg)}
+.t30-face > .t30-leaf{grid-area:1/1;visibility:visible;height:100%}
+.t30-shade{position:absolute;inset:0;pointer-events:none;opacity:0;z-index:9;
+  background:linear-gradient(to right,rgb(0 0 0 / .55),rgb(0 0 0 / .15))}
+.t30-face.b .t30-shade{background:linear-gradient(to left,rgb(0 0 0 / .55),rgb(0 0 0 / .15))}
+/* THE BACK OF A SHEET on a phone, where the page turning away shows its reverse:
+   the same nine pockets, empty, as a real sheet's back looks from behind. */
+.t30-sheetback{padding:var(--s4) var(--s5) calc(var(--s5) + var(--s4) + 14px);background:var(--paper)}
+.t30-sheetback .t30-leaf-h{visibility:hidden}
+.is-book .t30-track.is-dragging{cursor:grabbing}
+.is-book .t30-track:focus-visible{outline:2px solid var(--sky);outline-offset:4px}
 .t30-pkts{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s3);margin:0}
 /* An empty pocket that only exists to keep the page nine pockets tall. Hatched
    rather than blank so it reads as page, not as a missing card. */
@@ -1562,10 +1691,10 @@ ${sectionSummary}
     <figure class="t30-binder">
       ${/* THE COVER. The owner asked for it in these words: "give it a 30th Celebration
            logo at the top of the binder and then under the 30th logo it says Master
-           Set Binder". It is the front board of the binder rather than a heading
-           floating above one, which is why it shares the track's border and has no
-           gap under it -- the two read as one object, and the rings below run past
-           both.
+           Set Binder". Since 23 September 2026 it is PAGE 0 of the binder, the front
+           board you open, rather than a strip above the pages: "make it look as
+           much like a real card binder as possible". On a phone that also gave the
+           first sheet the whole screen, where cover plus sheet did not fit.
 
            THE LOGO IS THE SET'S OWN and is already on this page's hero, so it is a
            cache hit rather than a second download. It is DECORATIVE here: the
@@ -1573,17 +1702,34 @@ ${sectionSummary}
            words "Master Set Binder" are real text underneath, so alt="" is correct
            and an alt of "30th Celebration" would make a screen reader say the set
            name twice in a row. */""}
-      <div class="t30-cover">
-        <picture>
-          <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
-          <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
-               width="180" height="84" decoding="async" onerror="this.remove()">
-        </picture>
-        <p class="t30-cover-t">Master Set Binder</p>
-        <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
-      </div>
-      <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them. Scroll sideways or use the page corners.">
+      <div class="t30-book">
+      <span class="t30-rings" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them and a cover. Turn with the page corners, the arrow keys, or a swipe.">
+        <article class="t30-leaf t30-leaf-cover" id="bl0" aria-label="Cover">
+          <div class="t30-board">
+            <picture>
+              <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
+              <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
+                   width="180" height="84" decoding="async" onerror="this.remove()">
+            </picture>
+            <p class="t30-cover-t">Master Set Binder</p>
+            <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
+            <span class="t30-bar" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></span>
+            <p class="t30-cover-o">Open the binder</p>
+          </div>
+          <a class="t30-turn fwd" href="#bl1" aria-label="Open the binder to page 1, ${esc(BINDER_LEAVES[0].label)}"><span aria-hidden="true">&rsaquo;</span></a>
+        </article>
 ${BINDER_LEAVES.map(leafHtml).join("\n")}
+        ${/* THE INSIDE BACK COVER. Only the two-page desktop spread uses it, as the
+             right-hand page opposite the last sheet, so it is hidden until the
+             binder script opens that view. */""}<article class="t30-leaf t30-leaf-end" id="bl${LEAF_N + 1}" aria-label="Inside back cover" hidden>
+          <div class="t30-board">
+            <p class="t30-cover-t">That is the binder</p>
+            <p class="t30-cover-s">${haveTotal} of ${TOTAL} so far &middot; ${TOTAL - haveTotal} still to find</p>
+          </div>
+          <a class="t30-turn back" href="#bl${LEAF_N}" aria-label="Turn back to page ${LEAF_N}"><span aria-hidden="true">&lsaquo;</span></a>
+        </article>
+      </div>
       </div>
       <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
       <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
@@ -1697,148 +1843,353 @@ ${footer(
 )}
 ${APP_JS_NO_PACKPLAYER}
 <script>
-/* THE BINDER WORKS WITHOUT THIS. Every control is an anchor to a leaf id and the
-   track is a scroll-snap container, so a browser turns the page on its own. What
-   this adds is that the WINDOW stays put while the track scrolls: following a
-   plain #bl7 also scrolls the document to bring the track into view, which on a
-   page this tall means the binder jumps under your thumb every turn.
-   scrollIntoView with inline:"center" and block:"nearest" moves the track and
-   leaves the document alone.
-   It also restores the two things an anchor cannot do: left and right arrow keys
-   once the track has focus, and keeping the address bar free of 25 #bl hashes as
-   you flip. */
-(function () {
-  var t = document.getElementById("binder");
-  if (!t || !t.scrollIntoView) return;
-  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  /* LOAD AHEAD OF THE READER. Every picture is loading="lazy", and WebKit starts
-     a lazy image in a sideways scroller only about one leaf ahead, so flipping
-     every second or two on cellular outran it: measured in real WebKit at
-     1.6Mbps, leaves arrived showing 0 to 4 of their 9 cards and took 1 to 1.5s to
-     fill. warm() flips the current leaf, the one behind and the two ahead to
-     eager, which starts them now. The HTML stays lazy so the first load is
-     unchanged and a reader with no script still gets every picture. */
-  function warm(i) {
-    var leaves = t.querySelectorAll(".t30-leaf");
-    for (var k = i - 1; k <= i + 2; k++) {
-      var lf = leaves[(k + leaves.length) % leaves.length];
-      if (!lf || lf.getAttribute("data-warm")) continue;
-      lf.setAttribute("data-warm", "1");
-      var im = lf.querySelectorAll('img[loading="lazy"]');
-      for (var j = 0; j < im.length; j++) im[j].loading = "eager";
-    }
-  }
-  function show(el, focusIt) {
-    if (!el) return;
-    /* A JUMP IS NOT A PAGE TURN. The rail's smooth scroll from page 1 to page 14
-       travelled past every leaf between and queued about 117 images ahead of the
-       one asked for, which then sat at 0 of 9 for over a second and a half. More
-       than one leaf away, the destination is warmed first and the track goes
-       straight there. */
-    var leaves = t.querySelectorAll(".t30-leaf"), to = Array.prototype.indexOf.call(leaves, el), from = current().i;
-    if (to >= 0) warm(to);
-    var far = to >= 0 && Math.abs(to - from) > 1;
-    el.scrollIntoView({ inline: "center", block: "nearest", behavior: reduce || far ? "auto" : "smooth" });
-    if (focusIt) setTimeout(function () { mark(); }, reduce ? 0 : 260);
-  }
-  document.addEventListener("click", function (e) {
-    var a = e.target.closest && e.target.closest('a[href^="#bl"]');
-    if (!a) return;
-    var el = document.getElementById(a.getAttribute("href").slice(1));
-    if (!el || !t.contains(el)) return;
-    e.preventDefault();
-    show(el);
-  });
-  /* WHICH LEAF IS NEAREST THE MIDDLE, not whichever the last click named: a
-     swipe changes the page without any click at all, so the arrow keys have to
-     read the track rather than remember. */
-  function current() {
-    var leaves = t.querySelectorAll(".t30-leaf"), mid = t.scrollLeft + t.clientWidth / 2, best = 0, d = Infinity;
-    for (var i = 0; i < leaves.length; i++) {
-      var c = leaves[i].offsetLeft + leaves[i].offsetWidth / 2, x = Math.abs(c - mid);
-      if (x < d) { d = x; best = i; }
-    }
-    return { leaves: leaves, i: best };
-  }
-  t.addEventListener("keydown", function (e) {
-    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
-    var c = current(), step = e.key === "ArrowRight" ? 1 : -1;
-    var n = (c.i + step + c.leaves.length) % c.leaves.length;
-    e.preventDefault();
-    show(c.leaves[n], true);
-  });
+/* THE BINDER AS A BINDER, 23 September 2026. The owner: "Want it to look as much
+   like a real card binder as possible, page turn animations, anything to make it
+   look and feel like a real binder", with two pages side by side on desktop and
+   tablet.
 
-  /* WHICH PAGE AM I ON. The rail is 26 numbers and none of them said. There was
-     no aria-current anywhere in the component and no :target rule, so the only
-     anchor was the leaf header you happened to be able to read -- and the rail
-     restarts its numbering inside each section, so "Main set 3" and "Page 7 of
-     26" are the same page and neither number appears in the other place.
-     This marks the live one in both senses at once: aria-current="page" for a
-     screen reader, and a class the stylesheet can paint. */
+   THE BINDER STILL WORKS WITHOUT THIS. Every control is an anchor to a leaf id
+   and the track is a scroll-snap row, so with no script a reader swipes and taps
+   exactly as before. This script turns that row into a book: it stacks the
+   leaves (CSS, under .is-book), shows the open page or pages, and turns a page
+   as a sheet rotating about the spine, with copies of the real pages on its two
+   faces. A drag on the page turns it under your finger; the corners, the arrow
+   keys and every #blN link on the page turn it too.
+
+   PREFERS-REDUCED-MOTION GETS THE BOOK WITHOUT THE ANIMATION: the page simply
+   changes. A turn is the motion a reader who asked for less would not want. */
+(function () {
+  var fig = document.querySelector(".t30-binder"), t = document.getElementById("binder");
+  if (!fig || !t || !window.requestAnimationFrame || !t.classList) return;
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var twoMQ = window.matchMedia ? matchMedia("(min-width: 760px)") : null;
+  var all = Array.prototype.slice.call(t.querySelectorAll(".t30-leaf"));
+  var endLeaf = t.querySelector(".t30-leaf-end");
   var rail = document.querySelectorAll('.t30-rail a[href^="#bl"]');
   var live = document.getElementById("binder-live");
-  var lastAnnounced = -1;
-  function mark() {
-    var c = current(), id = c.leaves[c.i] && c.leaves[c.i].id;
-    if (!id) return;
-    warm(c.i);
-    /* ONE PAGE IN THE TAB ORDER, NOT 26. Each leaf carries two turn corners, so
-       the binder alone was 52 tab stops, 50 of them on pages nobody could see.
-       Leaves off screen are inert; the scroll and the swipe are unaffected. */
-    for (var q = 0; q < c.leaves.length; q++) {
-      if (q === c.i) c.leaves[q].removeAttribute("inert");
-      else c.leaves[q].setAttribute("inert", "");
-    }
-    for (var i = 0; i < rail.length; i++) {
-      var on = rail[i].getAttribute("href") === "#" + id;
-      if (on) { rail[i].setAttribute("aria-current", "page"); rail[i].classList.add("is-here"); }
-      else { rail[i].removeAttribute("aria-current"); rail[i].classList.remove("is-here"); }
-    }
-    /* ANNOUNCE IT, ONCE IT HAS SETTLED. A page turn swapped the contents of a
-       container the reader is not focused in and said nothing at all, so
-       pressing Enter produced no evidence anything had happened. The live region
-       is polite and fires on the leaf CHANGING rather than on every scroll
-       frame, so a swipe does not machine-gun it. */
-    if (live && c.i !== lastAnnounced) {
-      lastAnnounced = c.i;
-      /* The leaf's own label ALREADY reads "Page 2 of 26, <section>", so the
-         section is what gets kept and the count is not appended a second time.
-         The first cut announced "Page 2 of 26 of 26". */
-      live.textContent = c.leaves[c.i].getAttribute("aria-label") || "";
-    }
-  }
-  var tick;
-  t.addEventListener("scroll", function () {
-    clearTimeout(tick);
-    tick = setTimeout(mark, 120);
-  }, { passive: true });
-  mark();
+  var two = false, seq = [], pos = 0, busy = null, announced = null;
+  var queued = null, relayout = false, asked = null;
 
-  /* FOCUS FOLLOWS THE TURN, which is the one that made the keyboard unusable.
-     Activating a corner moved the track and left focus on the control you just
-     left -- now off-screen -- and that control still pointed at the page you
-     were already on, so a second Enter did nothing and you had to Tab twice to
-     turn twice. Focus now lands on the same corner of the leaf you arrived at,
-     so Enter, Enter, Enter pages through. It is only done for a REAL activation,
-     never for a scroll or a swipe, because moving focus at somebody who is
-     swiping is its own bug. */
-  function follow(el, fwd) {
-    if (!el) return;
-    /* mark() makes off-screen leaves inert and an inert corner cannot take
-       focus, so the arriving leaf is released before focus is sent to it. */
-    el.removeAttribute("inert");
-    var target = el.querySelector(fwd ? ".t30-turn.fwd" : ".t30-turn.back");
-    if (target && typeof target.focus === "function") target.focus({ preventScroll: true });
+  fig.classList.add("is-book");
+  t.scrollLeft = 0;
+
+  function layout() {
+    two = !!(twoMQ && twoMQ.matches);
+    fig.setAttribute("data-mode", two ? "two" : "one");
+    if (endLeaf) endLeaf.hidden = !two;
+    seq = all.filter(function (l) { return two || l !== endLeaf; });
   }
-  document.addEventListener("keydown", function (e) {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    var a = e.target.closest && e.target.closest('.t30-turn[href^="#bl"]');
-    if (!a) return;
+  function slots(p) { return two ? [seq[2 * p], seq[2 * p + 1]] : [seq[p]]; }
+  function last() { return two ? Math.ceil(seq.length / 2) - 1 : seq.length - 1; }
+  function posOf(leaf) {
+    var i = seq.indexOf(leaf);
+    if (i < 0) return leaf === endLeaf ? last() : 0;
+    return two ? Math.floor(i / 2) : i;
+  }
+  function clearSlots() { all.forEach(function (l) { l.classList.remove("is-on", "is-l", "is-r"); }); }
+  function put(leaf, side) { if (leaf) leaf.classList.add("is-on", side || "is-s"); }
+
+  /* LOAD AHEAD, as the scroll version did: the open page or pages and the ones
+     either side go eager, so a turn lands on pictures that are already in. */
+  function warm(p) {
+    for (var k = p - 1; k <= p + 2; k++) {
+      if (k < 0 || k > last()) continue;
+      slots(k).forEach(function (lf) {
+        if (!lf || lf.getAttribute("data-warm")) return;
+        lf.setAttribute("data-warm", "1");
+        var im = lf.querySelectorAll('img[loading="lazy"]');
+        for (var j = 0; j < im.length; j++) im[j].loading = "eager";
+      });
+    }
+  }
+
+  /* WHICH PAGE AM I ON, for the rail (aria-current plus a class the stylesheet
+     paints teal) and for a screen reader, told once per turn. */
+  function mark() {
+    var open = slots(pos).filter(Boolean), ids = open.map(function (l) { return "#" + l.id; });
+    /* aria-current goes on the page that was ASKED FOR when it is open (rail 13
+       opens 12 and 13 as a spread; 13 is the one that should read as current),
+       and otherwise on the first open page that has a rail link. */
+    var cur = asked && open.indexOf(asked) >= 0 ? "#" + asked.id : null;
+    for (var i = 0; i < rail.length; i++) {
+      var on = ids.indexOf(rail[i].getAttribute("href")) >= 0;
+      rail[i].classList.toggle("is-here", on);
+      if (on && !cur) cur = rail[i].getAttribute("href");
+    }
+    for (var j = 0; j < rail.length; j++) {
+      if (rail[j].getAttribute("href") === cur) rail[j].setAttribute("aria-current", "page");
+      else rail[j].removeAttribute("aria-current");
+    }
+    var say = open.map(function (l) { return l.getAttribute("aria-label") || ""; }).join(", and ");
+    if (live && announced !== null && say !== announced) live.textContent = say;
+    announced = say;
+  }
+
+  function paint(p) {
+    pos = Math.max(0, Math.min(p, last()));
+    clearSlots();
+    var s = slots(pos);
+    if (two) { put(s[0], "is-l"); put(s[1], "is-r"); } else put(s[0]);
+    fig.classList.toggle("at-first", pos === 0);
+    fig.classList.toggle("at-last", pos === last());
+    var k = last() ? pos / last() : 0;
+    t.style.setProperty("--ls", Math.round(2 + 6 * k) + "px");
+    t.style.setProperty("--rs", Math.round(2 + 6 * (1 - k)) + "px");
+    warm(pos);
+    mark();
+  }
+
+  /* A FACE OF THE TURNING SHEET: a copy of a real page, stripped of ids and
+     hidden from assistive tech (the real page underneath is the one it reads). */
+  function face(leaf, side, slot) {
+    var f = document.createElement("div");
+    f.className = "t30-face " + side;
+    var c;
+    if (leaf) {
+      c = leaf.cloneNode(true);
+      c.removeAttribute("id");
+      c.hidden = false;
+      c.classList.remove("is-l", "is-r");
+      c.classList.add("is-on");
+      if (slot) c.classList.add(slot);
+      var ids = c.querySelectorAll("[id]");
+      for (var i = 0; i < ids.length; i++) ids[i].removeAttribute("id");
+    } else {
+      c = document.createElement("div");
+      c.className = "t30-sheetback";
+      var hd = document.createElement("div"); hd.className = "t30-leaf-h"; hd.innerHTML = "<b>&nbsp;</b>";
+      var ol = document.createElement("ol"); ol.className = "t30-pkts";
+      for (var k = 0; k < 9; k++) { var li = document.createElement("li"); li.className = "t30-pk pad"; ol.appendChild(li); }
+      c.appendChild(hd); c.appendChild(ol);
+    }
+    c.setAttribute("aria-hidden", "true");
+    c.setAttribute("inert", "");
+    f.appendChild(c);
+    var sh = document.createElement("span"); sh.className = "t30-shade"; f.appendChild(sh);
+    return f;
+  }
+
+  /* START A TURN from the open position to the page asked for. Returns a controller whose
+     angle can be driven by a finger (set) and then finished or abandoned. The
+     pages that end up visible are laid out underneath first, so the sheet only
+     ever uncovers what is really there. */
+  function begin(to) {
+    if (busy || reduce || to === pos || to < 0 || to > last()) return null;
+    var fwd = to > pos, from = slots(pos), dest = slots(to);
+    /* FOCUS MUST NOT SIT ON A PAGE THAT IS ABOUT TO HIDE: it fell to <body> for
+       the length of the turn and a screen reader lost its place. The track holds
+       it until the turn lands and focusCorner() places it on the new page. */
+    var ae = document.activeElement;
+    if (ae && ae !== t && t.contains(ae)) t.focus({ preventScroll: true });
+    var sheet = document.createElement("div");
+    sheet.className = "t30-sheet " + (fwd ? "fwd" : "back");
+    sheet.setAttribute("aria-hidden", "true");
+    var front, back, a0, a1;
+    if (two) {
+      if (fwd) { front = face(from[1], "f", "is-r"); back = face(dest[0], "b", "is-l"); a0 = 0; a1 = -180; }
+      else { front = face(from[0], "f", "is-l"); back = face(dest[1], "b", "is-r"); a0 = 0; a1 = 180; }
+    } else {
+      if (fwd) { front = face(from[0], "f"); back = face(null, "b"); a0 = 0; a1 = -180; }
+      else { front = face(dest[0], "f"); back = face(null, "b"); a0 = -180; a1 = 0; }
+    }
+    sheet.appendChild(front); sheet.appendChild(back);
+    clearSlots();
+    if (two) {
+      if (fwd) { put(from[0], "is-l"); put(dest[1], "is-r"); }
+      else { put(dest[0], "is-l"); put(from[1], "is-r"); }
+    } else put(fwd ? dest[0] : from[0]);
+    t.appendChild(sheet);
+    warm(to);
+    var fs = front.lastChild, bs = back.lastChild, cur = a0;
+    function set(a) {
+      cur = a;
+      sheet.style.transform = "rotateY(" + a + "deg)";
+      var q = Math.abs(a - a0) / 180; // 0 at rest, 1 fully turned
+      fs.style.opacity = String(Math.min(1, q * 2) * 0.45);
+      bs.style.opacity = String(Math.max(0, 1 - (q - 0.5) * 2) * 0.45);
+      /* On a phone the page turning away leaves the binder altogether, so it
+         fades over its last quarter rather than hanging off the edge. */
+      if (!two) sheet.style.opacity = String(fwd ? Math.min(1, (1 - q) * 4) : Math.min(1, q * 4));
+    }
+    set(a0);
+    busy = {
+      set: function (p) { set(a0 + (a1 - a0) * Math.max(0, Math.min(1, p))); },
+      progress: function () { return Math.abs(cur - a0) / 180; },
+      end: function (complete, done) {
+        var goal = complete ? a1 : a0, start = cur, span = Math.abs(goal - start) / 180;
+        var ms = reduce ? 0 : Math.max(120, 700 * span), t0 = null;
+        var over = false;
+        function fin() {
+          if (over) return;
+          over = true;
+          sheet.remove(); busy = null;
+          paint(complete ? to : pos);
+          if (done) done(complete);
+          /* A width change during the turn was held back (the sheet was built
+             for the old layout); apply it now. Then any jump asked for mid-turn. */
+          if (relayout) { relayout = false; onMode(); }
+          if (queued !== null) { var q = queued; queued = null; turnTo(q.to, q.done); }
+        }
+        if (!ms) return fin();
+        function step(ts) {
+          if (t0 === null) t0 = ts;
+          var k = Math.min(1, (ts - t0) / ms);
+          var e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2; // ease in-out
+          set(start + (goal - start) * e);
+          if (over) return;
+          if (k < 1) requestAnimationFrame(step); else fin();
+        }
+        requestAnimationFrame(step);
+        /* A BACKGROUND TAB STOPS ANIMATION FRAMES, and a turn waiting on them
+           would leave the binder mid-flip with every control ignored. The timer
+           finishes it regardless; fin() only ever runs once. */
+        setTimeout(fin, ms + 400);
+      }
+    };
+    return busy;
+  }
+
+  function turnTo(to, done) {
+    to = Math.max(0, Math.min(to, last()));
+    /* ASKED MID-TURN: remember the latest request and run it when this turn
+       lands, rather than dropping it (a rail jump during a turn used to scroll
+       the reader to the binder and leave the wrong page open). */
+    if (busy) { queued = { to: to, done: done }; return; }
+    if (to === pos) { if (done) done(false); return; }
+    if (reduce) { paint(to); if (done) done(true); return; }
+    var c = begin(to);
+    if (c) c.end(true, done);
+  }
+
+  /* KEEP THE BINDER ON SCREEN FOR THE TURN. The rail and the section tiles sit
+     below it, so a jump from there brings it into view first, then turns. */
+  function inView() {
+    var r = fig.getBoundingClientRect();
+    return r.top >= -40 && r.top < (window.innerHeight || 800) * 0.5;
+  }
+  function focusCorner(fwd) {
+    var open = slots(pos).filter(Boolean);
+    for (var i = open.length - 1; i >= 0; i--) {
+      var c = open[i].querySelector(fwd ? ".t30-turn.fwd" : ".t30-turn.back");
+      if (c && c.offsetParent) { c.focus({ preventScroll: true }); return; }
+    }
+    t.focus({ preventScroll: true });
+  }
+
+  var swallowClick = false;
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#bl"]');
+    if (!a || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;
     var el = document.getElementById(a.getAttribute("href").slice(1));
     if (!el || !t.contains(el)) return;
-    var fwd = a.classList.contains("fwd");
-    setTimeout(function () { follow(el, fwd); mark(); }, reduce ? 0 : 260);
+    e.preventDefault();
+    if (swallowClick) { swallowClick = false; return; }
+    var to = posOf(el), corner = a.classList.contains("t30-turn");
+    if (!corner) asked = el;
+    var fromKeys = e.detail === 0;
+    function go() {
+      turnTo(to, function () { if (corner && fromKeys) focusCorner(to > pos || a.classList.contains("fwd")); });
+    }
+    if (!corner && !inView()) {
+      fig.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+      setTimeout(go, reduce ? 0 : 420);
+    } else go();
   });
+
+  t.addEventListener("keydown", function (e) {
+    if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    e.preventDefault();
+    var onCorner = e.target.closest && e.target.closest(".t30-turn"), fwd = e.key === "ArrowRight";
+    turnTo(pos + (fwd ? 1 : -1), function () {
+      /* Keep the keyboard in the binder: a second arrow press did nothing
+         because focus had fallen to <body> with the page it was on. */
+      if (onCorner) focusCorner(fwd);
+      else if (!t.contains(document.activeElement)) t.focus({ preventScroll: true });
+    });
+  });
+  /* NO NATIVE DRAG OF A CARD PICTURE OR A CORNER: the browser's own drag-and-drop
+     took the pointer away mid-turn (pointercancel) and left the page to finish
+     turning on its own with the mouse button still down. */
+  t.addEventListener("dragstart", function (e) { e.preventDefault(); });
+
+  /* THE PAGE UNDER YOUR FINGER. A sideways drag lifts the page and turns it as
+     far as you have pulled; let go past a third of the way (or with a flick)
+     and it finishes, short of that and it falls back. Vertical drags are left to
+     the browser (touch-action: pan-y), so the page still scrolls. */
+  var d = null;
+  t.addEventListener("pointerdown", function (e) {
+    if (busy || (e.pointerType === "mouse" && e.button !== 0)) return;
+    d = { x: e.clientX, y: e.clientY, id: e.pointerId, c: null, t: Date.now(), lx: e.clientX, lt: Date.now(), v: 0,
+      link: !!(e.target.closest && e.target.closest('a[href^="#bl"]')), mouse: e.pointerType === "mouse", dx: 0 };
+  });
+  t.addEventListener("pointermove", function (e) {
+    if (!d || e.pointerId !== d.id) return;
+    /* A mouse released outside the binder never sent us its pointerup, and the
+       page then followed the bare cursor. No button held means no drag. */
+    if (d.mouse && !e.buttons) { release(null); return; }
+    var dx = e.clientX - d.x, dy = e.clientY - d.y;
+    d.dx = dx;
+    if (!d.c) {
+      if (Math.abs(dx) < 12 || Math.abs(dx) < Math.abs(dy) * 1.2) return;
+      /* Reduced motion: no sheet follows the finger; release() just turns. */
+      if (reduce) { d.flat = true; return; }
+      d.c = begin(pos + (dx < 0 ? 1 : -1));
+      if (!d.c) { d = null; return; }
+      d.fwd = dx < 0;
+      try { t.setPointerCapture(e.pointerId); } catch (_) {}
+      t.classList.add("is-dragging");
+    }
+    var w = two ? t.clientWidth / 2 : t.clientWidth;
+    var now = Date.now();
+    d.v = (e.clientX - d.lx) / Math.max(1, now - d.lt); d.lx = e.clientX; d.lt = now;
+    d.c.set((d.fwd ? -dx : dx) / (w * 0.9));
+    e.preventDefault();
+  });
+  function release(e) {
+    if (!d || (e && e.pointerId !== d.id)) return;
+    var c = d.c, fwd = d.fwd, link = d.link, flat = d.flat, ddx = d.dx;
+    /* A flick is speed AT the release: a drag that paused before letting go
+       still carried its old speed and turned the page on a stall. */
+    var v = Date.now() - d.lt > 80 ? 0 : d.v;
+    d = null;
+    t.classList.remove("is-dragging");
+    if (flat) {
+      var w0 = two ? t.clientWidth / 2 : t.clientWidth;
+      if (Math.abs(ddx) > w0 * 0.25) turnTo(pos + (ddx < 0 ? 1 : -1));
+      return;
+    }
+    if (!c) return;
+    /* The click that can follow a drag only lands on a link the drag began on;
+       swallowing on every drag ate the NEXT real tap on a corner. */
+    if (link) {
+      swallowClick = true;
+      setTimeout(function () { swallowClick = false; }, 400);
+    }
+    var flick = fwd ? v < -0.5 : v > 0.5;
+    c.end(c.progress() > 0.33 || flick);
+  }
+  t.addEventListener("pointerup", release);
+  t.addEventListener("pointercancel", release);
+  document.addEventListener("pointerup", release);
+
+  /* A LINK TO A PAGE OPENS THE BINDER AT THAT PAGE, and a change of width
+     (a tablet turned round, a desktop window narrowed) keeps the same page open
+     while the binder switches between one page and two. */
+  layout();
+  var start = location.hash && /^#bl\\d+$/.test(location.hash) ? document.getElementById(location.hash.slice(1)) : null;
+  if (start && t.contains(start)) asked = start;
+  paint(start && t.contains(start) ? posOf(start) : 0);
+  if (start && t.contains(start)) fig.scrollIntoView({ block: "start" });
+  function onMode() {
+      if (busy) { relayout = true; return; }
+      var open = slots(pos).filter(Boolean), keep = open[open.length > 1 && open[0].classList.contains("t30-leaf-cover") ? 1 : 0];
+      layout();
+      paint(posOf(keep));
+  }
+  if (twoMQ) {
+    if (twoMQ.addEventListener) twoMQ.addEventListener("change", onMode);
+    else if (twoMQ.addListener) twoMQ.addListener(onMode);
+  }
 })();
 </script>
 </body>
