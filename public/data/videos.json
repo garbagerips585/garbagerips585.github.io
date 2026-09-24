@@ -2,7 +2,7 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 300676,
-    "subscribers": 391,
+    "subscribers": 393,
     "videos": 354,
     "readAt": "2026-09-24"
   },
@@ -15,7 +15,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 335,
+      "views": 913,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "tin"
       ],
       "pulls": [],
-      "label": "30th Celebration Tin"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration Tin - Pack 2"
     },
     {
       "id": "v6i7wZBVCYg",
@@ -34,7 +36,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 598,
+      "views": 638,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +58,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 596,
+      "views": 605,
       "vertical": true,
       "short": true,
       "sets": [
@@ -77,7 +79,7 @@
       "published": "2026-09-21",
       "publishedAt": "2026-09-21T10:06:22Z",
       "duration": 23,
-      "views": 433,
+      "views": 435,
       "vertical": true,
       "short": true,
       "sets": [
@@ -98,7 +100,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1077,
+      "views": 1081,
       "vertical": true,
       "short": true,
       "sets": [

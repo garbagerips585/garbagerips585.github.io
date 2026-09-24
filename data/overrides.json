@@ -2816,5 +2816,9 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 23 September 2026: \"Single Booster Pack, Pack #15, Hit no, Destined Rivals\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #15\" and that is still not a source. The set and the product came through the sync already (destined-rivals, single-pack), so nothing else needed an override.",
     "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
+  },
+  "iJHcRxYHa5g": {
+    "packNumber": 2,
+    "packNumberWhy": "The owner, 24 September 2026: \"Pokémon 30th Celebration Greninja ex Tin, Pack #2, Hit yes, Jirachi ex - Double Black Star - Double Rare , 30th Celebration\". Pack 2 of the same Greninja ex Tin he opened Pack #1 of on the 22nd. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Same as Pack #1, he called it a TIN and the taxonomy derives `tin` on its own, so no product override. No hasHit either: a hit is answered by its data/hits.json row."
   }
 }
