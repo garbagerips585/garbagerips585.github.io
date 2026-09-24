@@ -3663,11 +3663,51 @@ ${APP_JS}
 }
 
 // ---------------------------------------------------------------- the index
+/* THE GUIDES THAT DO NOT LIVE UNDER /sets/. The owner, 24 September 2026:
+   "make sure all sets are on the sets page, i dont see 30th set added on that
+   page only on the home page". This index is built from public/data/sets.json,
+   which is api.pokemontcg.io's list, and two set guides were built outside it:
+   /30th-celebration.html (its own builder, its own checklist, and a set the
+   API does not carry yet) and /base-set.html (1999, which the API holds but
+   this site guides by hand as a printings page). Neither was reachable from the
+   page whose job is to list every set guide. They are listed here with facts
+   read out of their own data files, so nothing is typed that can drift. */
+const STANDALONE_GUIDES = await (async () => {
+  const out = [];
+  try {
+    const t = JSON.parse(await readFile(join(ROOT, "data/30th.json"), "utf8"));
+    const cl = JSON.parse(await readFile(join(ROOT, "data/30th-checklist.json"), "utf8"));
+    const pr = JSON.parse(await readFile(join(ROOT, "data/30th-prices.json"), "utf8"));
+    const rows = Object.values(pr.cards || {}).filter((c) => c.raw);
+    const top = rows.sort((a, b) => b.raw - a.raw)[0];
+    out.push({
+      id: "30th-celebration",
+      href: "/30th-celebration.html",
+      name: "30th Celebration",
+      // The same sum /30th-celebration.html prints (main, which holds the 30
+      // Pikachu, plus secret, Classic Collection and Energy: 199), not the
+      // checklist file's length, which leaves out the three RGB Mews and the
+      // eight Energy that build-30th.mjs adds.
+      total: ["main", "secret", "classic", "energy"].reduce((n, k) => n + (t.structure?.english?.[k] || 0), 0) || (cl.cards || []).length,
+      released: t.set?.release || "",
+      top: top ? { raw: top.raw, psa10: top.psa10 || null } : null,
+    });
+  } catch {}
+  out.push({ id: "base", href: "/base-set.html", name: "Base Set (1999)", total: 102, released: "1999-01-09", top: null });
+  return out;
+})();
+
 function indexPage() {
   const url = `${SITE}/sets/`;
+  // Every guide, newest first: the API's sets plus the standalone guides above,
+  // placed by release date rather than bolted onto either end.
+  const indexCards = [
+    ...sets.map((s) => ({ s })),
+    ...STANDALONE_GUIDES.map((g) => ({ g })),
+  ].sort((a, b) => String((b.s || b.g).released || "").localeCompare(String((a.s || a.g).released || "")));
   const desc =
     `Pokemon TCG set guides: card counts, rarity breakdowns and chase card values for ` +
-    `${sets.length + Object.keys(intlGuides).length} sets, from ${sets[sets.length - 1]?.name} to ${sets[0]?.name}.`;
+    `${sets.length + STANDALONE_GUIDES.length + Object.keys(intlGuides).length} sets, from Base Set in 1999 to ${(indexCards[0].s || indexCards[0].g).name}.`;
   const ld = [
     {
       "@context": "https://schema.org",
@@ -3681,11 +3721,11 @@ function indexPage() {
       "@context": "https://schema.org",
       "@type": "ItemList",
       name: "Pokemon TCG set guides",
-      itemListElement: sets.map((s, i) => ({
+      itemListElement: indexCards.map((c, i) => ({
         "@type": "ListItem",
         position: i + 1,
-        name: s.name,
-        url: `${SITE}/sets/${s.id}.html`,
+        name: (c.s || c.g).name,
+        url: c.s ? `${SITE}/sets/${c.s.id}.html` : `${SITE}${c.g.href}`,
       })),
     },
   ];
@@ -3720,7 +3760,13 @@ function indexPage() {
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Set guides</nav>
     <div class="set-index">
-      ${sets.map((s, i) => `<a class="set-card" href="/sets/${s.id}.html">
+      ${indexCards.map(({ s, g }, i) => g ? `<a class="set-card" href="${g.href}">
+        ${setCardLogo(g.id, `${esc(g.name)} logo`, { eager: i < EAGER_SET_CARDS })}
+        <span>
+          <span class="ttl">${esc(g.name)}</span><br>
+          <span class="meta">${g.total} cards${g.released ? ` &bull; ${g.released.slice(0, 4)}` : ""}${ripsBySet[g.id] ? ` &bull; ${ripsBySet[g.id]} rip${ripsBySet[g.id] === 1 ? "" : "s"}` : ""}${g.top?.raw ? ` &bull; top ${moneyCompact(g.top.raw)}${g.top.psa10 ? ` / ${moneyCompact(g.top.psa10)} PSA 10` : ""}` : ""}</span>
+        </span>
+      </a>` : `<a class="set-card" href="/sets/${s.id}.html">
         ${setCardLogo(s.id, `${esc(s.name)} logo`, { eager: i < EAGER_SET_CARDS })}
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
