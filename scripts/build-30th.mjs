@@ -1752,7 +1752,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
       <a href="#masterset">Master set binder</a>
       <a href="#faq">FAQ</a>
     </nav>
-    <p class="t30-msjump"><a href="#masterset"><b>${pct}% of the set collected</b>
+    <p class="t30-msjump"><a class="t30-msjump-a" href="#masterset"><b>${pct}% of the set collected</b>
       <span>${haveTotal} of ${TOTAL} cards &middot; see the master set binder &rarr;</span></a></p>
   </div>
 </header>

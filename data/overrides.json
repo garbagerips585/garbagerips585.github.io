@@ -2821,8 +2821,10 @@
     "packNumber": 2,
     "packNumberWhy": "The owner, 24 September 2026: \"Pokémon 30th Celebration Greninja ex Tin, Pack #2, Hit yes, Jirachi ex - Double Black Star - Double Rare , 30th Celebration\". Pack 2 of the same Greninja ex Tin he opened Pack #1 of on the 22nd. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Same as Pack #1, he called it a TIN and the taxonomy derives `tin` on its own, so no product override. No hasHit either: a hit is answered by its data/hits.json row."
   },
-  "-t8PPmKNYis": {
-    "hide": true,
-    "hideWhy": "The owner, 25 September 2026: this upload is the same rip as ppYiPob4uZk (14 September, Journey Together Pack #2, Amoonguss ex): same 25 second video and the same frame. Asked how to treat it, he answered \"Uploaded by mistake\" and will delete it on YouTube. Hidden so Pack #2 and the Amoonguss ex hit are not counted twice. Safe to delete this entry once the video is gone from the channel."
+  "Tw9MXA8Mh_o": {
+    "packNumber": 3,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 25 September 2026: \"Single Booster Pack, Pack#3, Hit no, Journey Together\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Pack #1 was zwB2JsJN6XA (8 September) and Pack #2 ppYiPob4uZk (14 September); an accidental re-upload of Pack #2 went up earlier the same day as -t8PPmKNYis, was hidden, and was deleted by the owner before this one was posted. The set and the product come through the sync (journey-together, single-pack).",
+    "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
   }
 }

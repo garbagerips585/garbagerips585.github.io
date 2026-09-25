@@ -1,7 +1,7 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 302524,
+    "views": 302813,
     "subscribers": 393,
     "videos": 355,
     "readAt": "2026-09-25"
@@ -9,13 +9,35 @@
   "syncedAt": "2026-09-25",
   "videos": [
     {
+      "id": "Tw9MXA8Mh_o",
+      "title": "Journey Together Pack #3 📉 | The Hit Streak Ends! Bulk Pile 💀",
+      "path": "rip/journey-together-pack-3-the-hit-streak-ends-bulk-pile-Tw9MXA8Mh_o.html",
+      "published": "2026-09-25",
+      "publishedAt": "2026-09-25T16:57:19Z",
+      "duration": 22,
+      "views": 336,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "journey-together"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packNumber": 3,
+      "packs": 1,
+      "label": "Journey Together Pack - Pack 3"
+    },
+    {
       "id": "iJHcRxYHa5g",
       "title": "30th Celebration Tin Pack #2 🔥 | 5 HITS IN A ROW! Jirachi ex! 🌠",
       "path": "rip/30th-celebration-tin-pack-2-5-hits-in-a-row-jirachi-ex-iJHcRxYHa5g.html",
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1119,
+      "views": 1138,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +58,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 892,
+      "views": 908,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +80,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 642,
+      "views": 644,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +101,7 @@
       "published": "2026-09-21",
       "publishedAt": "2026-09-21T10:06:22Z",
       "duration": 23,
-      "views": 437,
+      "views": 438,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7077,7 +7099,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1273,
+      "views": 1275,
       "vertical": true,
       "short": true,
       "sets": [

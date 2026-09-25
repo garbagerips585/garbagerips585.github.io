@@ -7128,7 +7128,20 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 /* The jump from the hero down to the master set. It carries the percentage
    because that is the thing the owner wanted visible: "I want to have a
    percentage shown of how close to 100% we are from completing the set." */
-.t30-msjump{margin:var(--s4) 0 0}
+/* BOTTOM MARGIN, 25 September 2026. The owner, from his phone: "fix padding on
+   mobile for the master set header link section". This is the last thing in
+   the header and the header has no bottom padding of its own, so the card sat
+   flush on the band's bottom rule with its own border touching it. The margin
+   stays inside the header because the header's border-bottom stops it
+   collapsing out. On a phone the card takes the full width so its two lines
+   read as one block rather than a shrink-wrapped chip with a dangling arrow. */
+.t30-msjump{margin:var(--s4) 0 0;padding-bottom:var(--s6)}
+@media(max-width:699px){.t30-msjump a{display:flex}}
+/* PADDING, NOT MARGIN: a bottom margin measured 0px of gap at 390, because it
+   collapsed out through .wrap and the header. And no underline: the band's
+   prose-link rule (main p a:not([class])) underlined both lines of what is
+   drawn as a card. The link carries a class now, which is that rule's own
+   opt-out, rather than a selector written to outrank it. */
 .t30-msjump a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
   text-decoration:none;background:var(--card);border:1px solid var(--line);
   border-radius:var(--r);padding:var(--s3) var(--s4)}
