@@ -647,7 +647,7 @@ ${jpSets.map(japanCard).join("\n")}
     <div class="wrap">
       <h2>Further out, <span class="hl">with no date</span></h2>
       <p class="up-jp-lede">Named, shown, and not scheduled. Pokemon has said these exist and has
-        not said when, so there is no date here to slip &mdash; not a day, not a month, not a
+        not said when, so there is no date here to slip: not a day, not a month, not a
         quarter. They are kept apart from everything above for that reason rather than sorted in
         among it, because a release with no date is a different kind of thing from one with a date
         that might move. Each one says which market it belongs to.</p>

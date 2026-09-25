@@ -741,6 +741,7 @@ _ONE_OFF = {
     "build-foot-banner.py",  # the footer Made in ROC banner, from a master outside the repo
     "build-logos.py",     # set logos
     "build-og.py",        # the site share card
+    "build-og-binder.py", # the 30th binder share card; fetches card scans, so run by hand
     "build-packs.py",     # pack art, from assets-source
     "build-playlist-covers.py",  # playlist covers, from .cache + the set logos
     "build-show-logos.py",  # show organisers' logos and flyers, from assets-source/shows

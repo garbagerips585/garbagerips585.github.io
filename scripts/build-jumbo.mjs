@@ -104,7 +104,7 @@ const catRows = priced.slice(0, SHOW).map((c) =>
 ).join("\n");
 
 const srcList = doc.sources.map((s) =>
-  `<li><a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(s.name)}, opens on ${esc(new URL(s.url).host)}">${esc(s.name)}</a> &mdash; ${esc(s.for)}, read ${dt(s.read)}</li>`
+  `<li><a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${esc(s.name)}, opens on ${esc(new URL(s.url).host)}">${esc(s.name)}</a>: ${esc(s.for)}, read ${dt(s.read)}</li>`
 ).join("\n");
 
 /* UNDER 158 CHARACTERS SO IT RENDERS WHOLE, and only what is true of all of
@@ -142,7 +142,7 @@ const body = `<main id="main">
     <p>A standard Pokemon card is ${esc(doc.size.standard)}. ${esc(doc.size.standardNote)}</p>
     <p class="jb-warn">${esc(doc.size.officialNote)}</p>
     <table class="jb-tbl"><thead><tr><th>Era</th><th>Measured</th><th>Who measured it</th></tr></thead><tbody>
-      ${doc.size.measurements.map((m) => `<tr><td>${esc(m.era)}</td><td class="jb-n">${esc(m.mm)} mm</td><td>${esc(m.src)} &mdash; ${esc(m.note)}</td></tr>`).join("\n      ")}
+      ${doc.size.measurements.map((m) => `<tr><td>${esc(m.era)}</td><td class="jb-n">${esc(m.mm)} mm</td><td>${esc(m.src)}: ${esc(m.note)}</td></tr>`).join("\n      ")}
     </tbody></table>
     <p>${esc(doc.size.eras)}</p>
   </section>
@@ -190,7 +190,7 @@ const body = `<main id="main">
 ${valueRows}
     </ol>
     <h3>Three figures deliberately left off</h3>
-    <ul class="jb-excl">${doc.excluded.map((x) => `<li><b>${esc(x.what)}</b> &mdash; ${esc(x.why)}</li>`).join("\n")}</ul>
+    <ul class="jb-excl">${doc.excluded.map((x) => `<li><b>${esc(x.what)}.</b> ${esc(x.why)}</li>`).join("\n")}</ul>
   </section>
 
   <section class="wrap jb-sec jb-base">

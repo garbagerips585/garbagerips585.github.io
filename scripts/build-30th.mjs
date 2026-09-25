@@ -623,8 +623,10 @@ const pocket = (c, i, slot) => {
       ` data-name="${esc(s.name)}" data-num="${esc(lab)}"` +
       (rar ? ` data-rar="${esc(rar)}"` : "") +
       (big ? ` data-big="${esc(big)}"` : "") +
-      (money(px?.raw) ? ` data-raw="${esc(money(px.raw))}"` : "") +
-      (money(px?.psa10) ? ` data-psa="${esc(money(px.psa10))}"` : "") +
+      /* Raw to the cent and PSA 10 rounded, the same two formats the checklist
+         row beside it prints, so the pop-up never disagrees with the row. */
+      (money(px?.raw) ? ` data-raw="${esc(moneyExact(px.raw))}"` : "") +
+      (money(px?.psa10) ? ` data-psa="${esc(moneyRound(px.psa10))}"` : "") +
       (c ? ` data-own="1"` : "");
     /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
        by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
@@ -1368,6 +1370,11 @@ ${clCss}
 /* An empty pocket that only exists to keep the page nine pockets tall. Hatched
    rather than blank so it reads as page, not as a missing card. */
 .t30-pk.pad{border-style:dashed;opacity:.35;background:var(--chrome-bg)}
+.t30-share{margin:var(--s3) 0 0;display:flex;align-items:center;gap:var(--s3);flex-wrap:wrap}
+.t30-share-a{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);text-decoration:none}
+.t30-share-a:hover,.t30-share-a:focus-visible{border-color:var(--sky);color:var(--sky)}
+.t30-share span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 /* ============================================================ THE ENLARGED CARD
    25 September 2026. The owner: "when you click on them it pop up the card
    larger so you can see it in detail, and give you the market value for the raw
@@ -1657,9 +1664,9 @@ const checklistBand = !(checklist.cards || []).length ? "" : `
 <section class="band tight" id="checklist">
   <div class="wrap">
     <p class="sec-label">Every card</p>
-    <h2>30th Celebration checklist: <span class="hl">all ${TOTAL} cards</span></h2>
-    <p class="lede" style="max-width:44em">${(checklist.cards || []).length} of the ${TOTAL} with their raw and
-      PSA 10 prices. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
+    <h2>30th Celebration checklist: <span class="hl">every numbered card</span></h2>
+    <p class="lede" style="max-width:44em">${(checklist.cards || []).length} of the ${TOTAL} are listed here,
+      ${pricedCards.length} with a raw price${prices.counts && prices.counts.psa10 ? ` and ${prices.counts.psa10} with a PSA 10` : ""}. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
       live in the binder below. Filter by section, sort by price, or show only the cards still missing from the
       binder.</p>
     <form class="t30-clf" onsubmit="return false" aria-label="Filter the checklist">
@@ -1766,9 +1773,9 @@ const hitsBand = !setHits.length ? "" : `
   <div class="wrap">
     <p class="sec-label">Pulled on camera</p>
     <h2>What we have hit from <span class="hl">this set</span></h2>
-    <p class="lede" style="max-width:44em">${setHits.length} card${setHits.length === 1 ? "" : "s"} out of
+    <p class="lede" style="max-width:44em">${setHits.length} hit${setHits.length === 1 ? "" : "s"} from
       ${setHits.length === 1 ? "one rip" : `${new Set(setHits.map((r) => r.v.id)).size} rips`} so far. Every one
-      links to the pack it came out of. This is a different list from the binder below: the binder is every
+      links to the rip it came from. This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
     <ol class="t30-cts">
 ${setHits
@@ -1780,7 +1787,7 @@ ${setHits
           <a href="/${esc(v.path)}">
             ${pic}
             <p class="t30-ct-n">${esc(h.card)}</p>
-            <p class="t30-ct-m">#${esc(
+            <p class="t30-ct-m">${!row && h.promo ? "MEP " : "#"}${esc(
               /* THE FULL NUMBER FOR A CLASSIC COLLECTION CARD, because "69" on
                  its own is not what the card says and is not unique in that
                  section -- it holds two 11s and three 106s. Everything else is
@@ -1901,7 +1908,9 @@ ${doc.guarantees
       ${doc.set.legalDate ? `<li><span class="t30-tag off">Official</span>${esc(doc.set.legalDate)}</li>` : ""}
       <li><span class="t30-tag off">Official</span>${esc(doc.set.tcgLive)} <a href="/tcg-live.html">How TCG Live works</a>.</li>
     </ul>
-    <h3>Pull rates</h3>
+    ${/* A LARGE OPENING, NOT A RATE, and the heading says so rather than leaving
+         it to a tag. CLAUDE.md's pull-rate rule: a non-publisher opening is a
+         sample, however big, and "Pull rates" over it read as odds. */""}<h3>One large opening, not official odds</h3>
     <p style="max-width:42em"><span class="t30-tag">Not official</span>${esc(doc.englishRates)}</p>
     <p style="max-width:42em">What this channel has opened is counted separately and labeled as observed results,
       not odds. <a href="/luck.html">See those numbers</a>.</p>
@@ -1936,7 +1945,7 @@ ${hitsBand}
     <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
       is a card actually in the binder. The empty ones are the job.${
         CHECKLIST.size
-          ? ` Every card is shown: the ones still to find are the grey ones.`
+          ? ` Every card is shown: the ones still to find are the gray ones.`
           : ""
       }</p>
     <div class="t30-hero">
@@ -2006,10 +2015,16 @@ ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>
       <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
       <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
-        Turn a page with either corner, or jump to one below. A grey card is one still to find.${
+        Turn a page with either corner, or jump to one below. A gray card is one still to find.${
           jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
         }</figcaption>
     </figure>
+    ${/* THE BINDER'S OWN SHARE LINK, /30th-binder.html, which previews as the
+         drawn binder (scripts/build-og-binder.py) rather than as the set guide.
+         A plain link that works with no script; the script turns it into the
+         phone's share sheet where there is one, and a copy-to-clipboard where
+         there is not. */""}<p class="t30-share"><a class="t30-share-a" id="t30Share" href="/30th-binder.html">Share this binder</a>
+      <span id="t30ShareMsg" role="status" aria-live="polite"></span></p>
 
     <nav class="t30-rail" aria-label="Jump to a binder page">
 ${railHtml}
@@ -2052,7 +2067,7 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
       <dt>Can you play the Classic Collection cards in tournaments?</dt>
       <dd>${esc(doc.set.classicLegality)}</dd>
       <dt>Are there official pull rates?</dt>
-      <dd>Not from The Pokemon Company yet. The best figures so far come from TCGplayer opening 3,000 packs,
+      <dd>Not from The Pokemon Company yet. The largest count so far is TCGplayer opening 3,000 packs,
         which is a sample rather than official odds. <a href="#in-a-pack">More on that</a>.</dd>
     </dl>
   </div>
@@ -2070,7 +2085,7 @@ ${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || []), ...(doc.engli
     </ul>
     <p class="price-note"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
-      against PokeBeach's count and may move when the last secret rares are shown.</p>
+      against PokeBeach's count. All 33 secret rares have since been identified, the three RGB Mews included.</p>
 ${
   /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
      of every figure it prints and a card scan is no different -- and here it is
@@ -2083,7 +2098,7 @@ ${
       scans come from; it took this set two days after release. ${REMOTE_PICS} are hotlinked from
       TCGplayer instead: the whole Classic Collection, because TCGdex holds those as a separate set with
       no images at all, and the eight foil Energy, which TCGplayer files under its own MEE set rather than
-      under either 30th Celebration name.${OWN_PICS > 0 ? ` ${OWN_PICS} ${OWN_PICS === 1 ? "is" : "are"} the
+      under either 30th Celebration name${US_POCKETED && US.count ? `, and the ${US.count} RGB Mews, which TCGdex does not have` : ""}.${OWN_PICS > 0 ? ` ${OWN_PICS} ${OWN_PICS === 1 ? "is" : "are"} the
       owner's own ${OWN_PICS === 1 ? "photograph" : "photographs"} of a card in his hand.` : ""} Nothing here is
       rehosted or resized.${
         NO_PICS > 0
@@ -2538,6 +2553,23 @@ ${APP_JS_NO_PACKPLAYER}
 })();
 </script>
 <script>
+(function () {
+  var a = document.getElementById("t30Share"), msg = document.getElementById("t30ShareMsg");
+  if (!a) return;
+  var url = location.origin + "/30th-binder.html";
+  a.addEventListener("click", function (e) {
+    if (navigator.share) {
+      e.preventDefault();
+      navigator.share({ title: "Pokemon 30th Celebration Virtual Master Set Binder", url: url }).catch(function () {});
+    } else if (navigator.clipboard && navigator.clipboard.writeText) {
+      e.preventDefault();
+      navigator.clipboard.writeText(url).then(function () { msg.textContent = "Link copied"; },
+        function () { location.href = a.href; });
+    }
+  });
+})();
+</script>
+<script>
 /* THE ENLARGED CARD. Reads the data attributes each pocket was built with and
    fills one <dialog>; nothing is fetched but the large picture. A tap that was
    really the start of a page drag is not a tap: the binder turns pages by
@@ -2663,6 +2695,71 @@ await writeFile(
 `
 );
 console.log(`Wrote public/sets/30th-celebration.html  redirect -> ${REDIRECT_TO}`);
+
+/* --------------------------------------------------------- /30th-binder.html
+ *
+ * THE BINDER'S OWN SHARE LINK. The owner, 25 September 2026: "make a special
+ * link share image for a link that takes you directly to the 30th collection
+ * master set binder, and make the image look like a real card binder with the
+ * 30th logo and have it say Virtual Master Set Binder". A preview is read off a
+ * page's own og tags and the #fragment is dropped before any of them are read,
+ * so the binder can only get a picture of its own from a page of its own. This
+ * is that page: it carries og-30th-binder.jpg (scripts/build-og-binder.py) and
+ * hands a person straight on to the binder.
+ *
+ * THE HAND-OFF IS SCRIPT, NOT A META REFRESH, ON PURPOSE. A link unfurler that
+ * follows a refresh would read the set guide's tags instead of these, which is
+ * the whole problem this page exists to solve; unfurlers do not run script, and
+ * a person's browser does. With script off there is a sentence and a link.
+ *
+ * Same four constraints as the stub above: noindex and out of the sitemap, one
+ * h1, a description inside 70-165, and a canonical of its OWN (not the guide's,
+ * which seo-sweep.py's duplicate-canonical check would flag). og:url is this
+ * page too, because some unfurlers re-fetch og:url and would find the guide. */
+const BINDER_SHARE = "/30th-binder.html";
+const BINDER_TARGET = `${PATH}#masterset`;
+const BINDER_TITLE = "Pokemon 30th Celebration Virtual Master Set Binder";
+const BINDER_DESC =
+  `Flip through a virtual card binder of the whole Pokemon 30th Celebration master set: ` +
+  `${haveTotal} of ${TOTAL} cards collected so far. Tap any card to see it up close.`;
+await writeFile(
+  join(ROOT, "public/30th-binder.html"),
+  `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>${esc(BINDER_TITLE)}</title>
+<meta name="description" content="${esc(BINDER_DESC)}">
+<link rel="canonical" href="${SITE}${BINDER_SHARE}">
+<meta name="theme-color" content="#192D22">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:title" content="${esc(BINDER_TITLE)}">
+<meta property="og:description" content="${esc(BINDER_DESC)}">
+<meta property="og:url" content="${SITE}${BINDER_SHARE}">
+<meta property="og:image" content="${SITE}/assets/og-30th-binder.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An open card binder full of Pokemon 30th Celebration cards beside the 30th Celebration logo and the words Virtual Master Set Binder">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(BINDER_TITLE)}">
+<meta name="twitter:description" content="${esc(BINDER_DESC)}">
+<meta name="twitter:image" content="${SITE}/assets/og-30th-binder.jpg">
+<script>location.replace(${JSON.stringify(BINDER_TARGET)});</script>
+<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#1F382B;color:#E4DCCC;font:18px/1.5 system-ui,sans-serif;text-align:center;padding:24px}a{color:#81BEDE}</style>
+</head>
+<body>
+<main>
+<h1>30th Celebration Virtual Master Set Binder</h1>
+<p><a href="${BINDER_TARGET}">Open the binder</a></p>
+</main>
+</body>
+</html>
+`
+);
+console.log(`Wrote public${BINDER_SHARE}  share page -> ${BINDER_TARGET}`);
 console.log(
   `Wrote public${PATH}  ${haveTotal}/${TOTAL} owned, ${doc.products.length} products, ${doc.japanList.length} Japanese cards`
 );

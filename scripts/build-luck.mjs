@@ -792,7 +792,11 @@ const allPacks = videos.reduce((n, v) => n + (packsIn(v) || 0), 0);
 const tierCount = new Map();
 for (const list of Object.values(hitDoc || {})) {
   for (const c of list) {
-    const r = (c.rarity || "").trim();
+    /* CASE-FOLDED, 25 September 2026. The sheet types "Double rare" on some
+       rows and "Double Rare" on others (TCGdex's casing against the set's own),
+       and an exact-match tally skipped the first kind: 82 Double Rares shown
+       against 86 logged, 44 Illustration Rares against 46. */
+    const r = (c.rarity || "").trim().toLowerCase();
     if (r) tierCount.set(r, (tierCount.get(r) || 0) + 1);
   }
 }
@@ -800,7 +804,7 @@ const WIDGET_TIERS = [
   "Mega Hyper Rare", "Hyper Rare", "Special Illustration Rare",
   "Illustration Rare", "Ultra Rare", "Double Rare",
 ];
-const tierChips = WIDGET_TIERS.map((t) => ({ tier: t, n: tierCount.get(t) || 0 }));
+const tierChips = WIDGET_TIERS.map((t) => ({ tier: t, n: tierCount.get(t.toLowerCase()) || 0 }));
 
 const allPackRips = videos.filter(packsIn).length;
 
@@ -1856,7 +1860,10 @@ const body = `
         <div class="luck-stat"><b>${cardLedger.length}</b><span>hit cards pulled</span></div>
         <div class="luck-stat"><b>${hits.length}</b><span>rips that hit, of ${judged.length}</span></div>
         <div class="luck-stat"><b>${headline}</b><span>hit rate per rip</span></div>
-        <div class="luck-stat"><b>${Math.round((hits.length / allPacks) * 1000) / 10}%</b><span>hit rate per pack</span></div>
+        ${/* PACKS PER HIT CARD, NOT "HIT RATE PER PACK". That tile divided rips
+              that hit by packs, so a 14-hit Costco box counted as one and the
+              percentage meant nothing a reader could use. Cards over packs is
+              the honest per-pack figure, and it reads best the other way up. */""}<div class="luck-stat"><b>${(allPacks / Math.max(1, cardLedger.length)).toFixed(1)}</b><span>packs per hit card</span></div>
       </div>
 
       ${/* THE CHASE DECK. Counts of CARDS, rarest tier first, and the header
@@ -2212,7 +2219,7 @@ ${monthFigure()}
     <p class="luck-note" style="margin-top:var(--s6)">The counts and rates on this page are our own, measured from
       the rip log, and you are welcome to reuse them under
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank"
-        aria-label="Creative Commons Attribution 4.0 International licence, opens on creativecommons.org">CC BY 4.0</a>
+        aria-label="Creative Commons Attribution 4.0 International license, opens on creativecommons.org">CC BY 4.0</a>
       with credit to Garbage Rips 585. That covers the figures we counted, not the card names, prices or set data
       beside them, which come from TCGdex, PriceCharting and the Pokemon TCG API.</p>
 </main>`;

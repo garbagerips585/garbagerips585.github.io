@@ -53,7 +53,7 @@
       "classic": 30,
       "energy": 8,
       "source": "reported",
-      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026 -- 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. Several secret rares were still unrevealed then: PokeBeach's English gallery runs to number 158 with four blanks in it, so part of the 33 is slots rather than cards anyone has seen.",
+      "note": "128 main set cards is CONFIRMED BY THE PRINTING: cards from this set read x/128. The rest of the 199 is PokeBeach's count of the revealed list, September 10, 2026: 33 secret rares, 30 Classic Collection and 8 basic Energy, with the 30 Pikachu part of the 128 and the Energy numbered outside it in the MEE sheet. All 33 secret rares have since been identified, the three RGB Mews included.",
       "tpciCount": "TPCi's own launch article says only \"over 150 cards\" (pokemon.com, September 16, 2026)."
     },
     "japan": {
@@ -80,7 +80,7 @@
       "name": "Pokemon Center Elite Trainer Box",
       "date": "2026-09-16",
       "packs": 11,
-      "note": "Pokemon Center exclusive, two Nidorina promos",
+      "note": "Pokemon Center exclusive, two Nidorina promos.",
       "price": "$59.99"
     },
     {
@@ -101,20 +101,20 @@
       "date": "2026-09-16",
       "packs": 3,
       "price": "$14.99",
-      "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet"
+      "note": "An Alolan Exeggutor or Lucario foil promo and a sticker sheet."
     },
     {
       "name": "Knock Out Collection",
       "date": "2026-09-16",
       "packs": 2,
       "price": "$9.99",
-      "note": "A foil Eevee and a plastic coin"
+      "note": "A foil Eevee and a plastic coin."
     },
     {
       "name": "2 Pack Blister",
       "date": "2026-09-16",
       "packs": 2,
-      "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists. They are two separate products and the showcase describes them the same way.",
+      "note": "A foil Eevee and a plastic coin, the same contents the Knock Out Collection lists.",
       "price": "$9.99"
     },
     {
@@ -154,7 +154,7 @@
       "name": "Ditto Premium Collection",
       "date": "2026-11-06",
       "packs": 8,
-      "note": "A Ditto foil promo and an acrylic display",
+      "note": "A Ditto foil promo and an acrylic display.",
       "price": "$39.99"
     },
     {
@@ -174,7 +174,7 @@
   ],
   "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's, from October 2, 2026 while supplies last (pokemon.com, September 10, 2026).",
   "cutCards": "The Illustration Rares of Nidorina and Ditto are in the Japanese set and are NOT in the English one. Both were turned into English promos instead, which is why a Nidorina promo is the Elite Trainer Box's card.",
-  "accessories": "The Pokemon Center releases matching accessories on 16 September, the same day as the set: deck boxes, playmats, card sleeves, card displays, a card storage box and tote bags.",
+  "accessories": "The Pokemon Center released matching accessories on September 16, the same day as the set: deck boxes, playmats, card sleeves, card displays, a card storage box and tote bags.",
   "japanList": [
     {
       "n": 1,
@@ -1065,10 +1065,10 @@
     {
       "claim": "Every card in the set is foil, basic Energy included.",
       "source": "official",
-      "where": "TPCi press releases, 1 and June 30, 2026"
+      "where": "TPCi press releases, June 1 and June 30, 2026"
     },
     {
-      "claim": "The Ultra-Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs.",
+      "claim": "The Ultra Premium Collection's 30th pack is a Classic Collection pack holding three Classic Collection cards, on top of its 29 normal packs.",
       "source": "reported",
       "where": "PokeBeach's English product guide, September 10, 2026"
     }
@@ -1104,7 +1104,7 @@
     "where": "PokeBeach, September 9, 2026, describing one official Japanese box opening"
   },
   "englishRates": "The Pokemon Company has not published English pull rates (checked September 23, 2026). PokeBeach reports what TCGplayer found opening 3,000 English packs: about 1 in 21 packs held a Special Illustration Rare, 1 in 5 an Illustration Rare, 1 in 10 a Classic Collection card and 1 in 120 the Mew or Mewtwo Futuristic Rare. That is a large opening sample, not official odds, and it could not measure the RGB Mews.",
-  "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates is still empty.",
+  "pullRatesPolicy": "THE SITE-WIDE BAN WAS LIFTED BY THE OWNER ON 11 SEPTEMBER 2026: \"you can post any pull rates or anything thats confirmed.\" CLAUDE.md now carries it as a sourcing rule rather than a ban, under \"Pull rates: a SOURCING rule\". The bar is that the PUBLISHER stated it. A box somebody opened, a leak, a streamer's early case and another region's figure all fail that bar, which is why japanBoxOpening above is labeled as one opening in its own heading and englishRates holds one large opening, labeled as a sample.",
   "tcgdex": {
     "_note": "THE CARD PICTURES FOR THE THREE NUMBERED SECTIONS COME FROM HERE, and as of 18 September 2026 they finally can. TCGdex took the set two days after release as TWO sets: `30th`, 158 cards, every one carrying an image, under the `me` (Mega Evolution) series; and `30th-c`, the 30 Classic Collection cards. The url shape is https://assets.tcgdex.net/{lang}/{series}/{set}/{localId}/{quality}.webp, the same shape the other 59,758 card images on this site use, and localId is 3-digit zero padded exactly like the numbers in data/30th-binder.json.\n\n`30th-c` IS DELIBERATELY NOT WIRED UP. It carries 30 cards and ZERO images -- every assets.tcgdex.net/en/me/30th-c/... url answers 404, checked card by card -- and it renumbers those reprints 001 to 030 rather than keeping the original numbering the cards actually print. So the Classic Collection stays on its TCGplayer product ids, which do have pictures.\n\nAND THE ENERGY MUST NEVER READ FROM HERE. Those eight are numbered in the MEE set: Basic Metal Energy is MEE 016, and localId 016 in THIS set is Slowpoke. build-30th.mjs gates TCGdex to the pikachu, main and secret sections for exactly that reason; without the gate all seven Energy he owns would have drawn somebody else's card and looked entirely correct doing it.",
     "lang": "en",

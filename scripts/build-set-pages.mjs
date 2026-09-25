@@ -1042,8 +1042,8 @@ function valueBand(s, cls) {
       comp ? ` It does not include ${esc(comp.fullName)}, which is ${comp.cards} more cards filed as a separate set and unpriced anywhere in this site's data, so the real cost of one of everything with a ${esc(s.name)} symbol on it is higher than this and we cannot say by how much.` : ""
     }
       ${esc(priceNote(v.priceStamps || {}))} This is what buying one of each card would cost. It is not what a booster
-      box is worth, and it is not the chance of pulling anything: nobody outside The Pokemon Company has pull rates, so
-      you will not find any on this site.</p>
+      box is worth, and it is not the chance of pulling anything. This site only prints a pull rate The Pokemon
+      Company itself has confirmed, and it has not published one for this set.</p>
   </div>
 </section>`;
 }

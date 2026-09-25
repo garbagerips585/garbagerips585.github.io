@@ -130,7 +130,7 @@ ${rows.map((r) => `            <tr><th scope="row">${esc(r.grade)}</th>${CO.map(
 // a sentence; `what` supplies the accessible name instead.
 const src = (url, what) =>
   url
-    ? ` <a class="gc-s" href="${esc(url)}"${what ? ` aria-label="Source: ${esc(what)}"` : ""} rel="noopener" target="_blank">Source</a>`
+    ? ` <a class="gc-s" href="${esc(url)}"${what ? ` aria-label="Source: ${esc(what)}, opens on ${esc(new URL(url).host.replace(/^www\./, ""))}"` : ""} rel="noopener" target="_blank">Source</a>`
     : "";
 
 const c = d.centering;

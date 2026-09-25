@@ -1572,7 +1572,7 @@ export const footer = (extra = "") => `<footer>
     <div class="foot-social">
 ${SOCIALS.map(
   ([cls, label, href]) =>
-    `      <a class="soc ${cls}" href="${href}" aria-label="${label}"><svg aria-hidden="true"><use href="#i-${cls}"/></svg></a>`
+    `      <a class="soc ${cls}" href="${href}" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><svg aria-hidden="true"><use href="#i-${cls}"/></svg></a>`
 ).join("\n")}
     </div>
     <p class="foot-collectr"><a href="${COLLECTR}" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>

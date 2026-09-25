@@ -457,7 +457,7 @@ const FAQ = [
   ],
   [
     "Where is Garbage Rips 585 based?",
-    `Rochester, New York, which is the 585. The channel is named after <a href="/garbage-plate.html">the city's own dish</a>, the pack art has a Rochester plate on the front of it, and the site carries a local section for <a href="/shops.html">card shops</a>, <a href="/card-shows.html">card shows</a> and <a href="/vendors.html">vendors</a> around Monroe County and out to Buffalo and Syracuse.`,
+    `Rochester, New York, which is the 585. The channel is named after <a href="/garbage-plate.html">the city's own dish</a>, the pack art has a Garbage Plate on the front of it, and the site carries a local section for <a href="/shops.html">card shops</a>, <a href="/card-shows.html">card shows</a> and <a href="/vendors.html">vendors</a> around Monroe County and out to Buffalo and Syracuse.`,
   ],
   [
     "Is this site affiliated with Pokemon?",
@@ -481,7 +481,7 @@ const FAQ = [
   ],
   [
     "Do you publish Pokemon pull rates?",
-    `No, and nothing on this site ever states one. The Pokemon Company does not publish the odds for its paper packs, so any number you see quoted for them is somebody's guess. What this site has instead is <a href="/luck.html">a count of what actually came out</a> of the packs opened on camera here, labeled as observed results rather than as odds.`,
+    `Only when The Pokemon Company confirms one, and it rarely does for paper packs, so most numbers you see quoted are somebody's guess or one big opening. Where a large public opening is worth knowing about, this site labels it as a sample and not as odds. What this site has instead is <a href="/luck.html">a count of what actually came out</a> of the packs opened on camera here, labeled as observed results rather than as odds.`,
   ],
 ];
 
@@ -1079,8 +1079,8 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           <li>Nothing gets published off a single read. The ranked price lists are read twice, by
             two different parsers, and a row where the two disagree is held back with the
             disagreement recorded rather than quietly averaged.</li>
-          <li>Pull rates are never stated. The Pokemon Company does not publish them and we are
-            not going to invent them.</li>
+          <li>A pull rate is only printed when The Pokemon Company has confirmed it. We are not
+            going to invent one, and a big opening somebody else did is labeled as a sample.</li>
           <li>Where something could not be sourced, the page says so and lists it. Saying what we
             do not know is the cheapest way to be worth believing about the rest.</li>
           <li>Prices move. If a figure here looks wrong it may well be: check the date printed
@@ -1168,7 +1168,7 @@ ${startHere
           <div class="about-socials">
 ${SOCIALS.map(
   ([cls, label, href]) =>
-    `            <a href="${href}" rel="me"><i style="--pip:${
+    `            <a href="${href}" rel="me" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><i style="--pip:${
       { yt: "#FF0033", ig: "#BC1888", tt: "#FFFFFF", fb: "#1877F2" }[cls]
     }"></i>${label}</a>`
 ).join("\n")}

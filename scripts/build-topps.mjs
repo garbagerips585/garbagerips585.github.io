@@ -1070,8 +1070,8 @@ ${MENU}
       four different finishes of every card, and a coating that makes them stick together in a pack. That is a
       card which was hard to pull out of a pack undamaged in 2000 and is hard to find in a high grade now.</p>
     <p style="max-width:44em">What this page will not tell you is how hard any of them were to pull. Topps
-      published insert odds for some of these sets and we deliberately did not record them. This site never
-      states pull rates for anything.</p>
+      published insert odds for some of these sets, and we have not recorded them: this site only prints odds the
+      publisher itself confirmed, and nobody has checked those printed odds against a wrapper yet.</p>
 
     <h3 style="margin-top:26px">The five most valuable raw, right now</h3>
     ${peek(rawList, "ungraded", "Ungraded")}
