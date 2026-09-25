@@ -567,44 +567,85 @@ const pocketLabel = (section, n, setCode) =>
 const phOf = (name, label) =>
   `<span class="t30-ph" aria-hidden="true"><b>${esc(label)}</b><i>${esc(name)}</i></span>`;
 
-const pocket = (c, i, slot) => {
-  if (c) {
-    const row = CHECKLIST.get(clKey(c.section, c.n || ""));
-    /* "Collected" IS SAID OUT LOUD, because before this it was communicated
-       only by ABSENCE: the 124 uncollected pockets each carry a visually hidden
-       "Not collected yet" and the filled ones carried no counterpart, so a
-       screen reader user could only infer the good news from a missing phrase.
-       46 of the 75 have no date either, so absence was the ONLY signal on those. */
-    return `<li class="t30-pk has" title="${esc(c.name)}">
-        <span class="t30-sr">Collected</span>
-        <span class="t30-ok" aria-hidden="true"></span>
-        ${phOf(c.name, pocketLabel(c.section, c.n, c.setCode))}
-        ${/* A promo or jumbo is in no checklist row, so `row` is null for all
-             eight and they drew no picture at all. Each carries its own `pid`
-             in data/30th-binder.json instead; see `_pidNote` there. */
-          pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })}
-        <span class="t30-pn">${esc(pocketLabel(c.section, c.n, c.setCode))}</span>
-        ${/* NO DATE ON THE CARD. The owner, 22 September 2026: "remove the dates
-             overalyed on top of the cards in the binder". It was printed over
-             the artwork on the 29 pockets that have a `got`, which is a minority
-             of the 75 -- so it also read as a property of those cards rather
-             than of the binder. THE DATA IS NOT DELETED: `got` stays in
-             data/30th-binder.json and still drives the "Last added" line above
-             the binder, which is the one place a date belongs on this page. */""}
-      </li>`;
+/* THE ENLARGED CARD, 25 September 2026. The owner: "make the cards clickable in
+   the master set binder ... when you click on them it pop up the card larger so
+   you can see it in detail, and give you the market value for the raw and psa 10
+   if available ... if those prices aren't available don't show". So each pocket
+   carries what the pop-up needs as data attributes and nothing is fetched:
+     - the LARGE picture, from the same source pictureFor() chose for the pocket
+       (TCGdex high.webp, else TCGplayer's _in_1000x1000, else his own photo), so
+       the enlarged card can never be a different card from the small one
+     - raw and PSA 10 from data/30th-prices.json, the same PriceCharting read the
+       rest of the page prints; a missing figure is simply not written, and the
+       pop-up only draws what it is handed. Promos and jumbos read `promos`
+       there, keyed promo|NNN and jumbo|NNN. */
+const pxOf = (c, slot) => {
+  const s = c || slot || {};
+  if (c && /jumbo/i.test(c.kind || "")) return (prices.promos || {})[`jumbo|${c.n}`] || null;
+  if ((c && c.setCode === "MEP") || s.section === "promo") {
+    return (prices.promos || {})[`promo|${String(s.n || "").padStart(3, "0")}`] || null;
   }
-  if (HAVE_SCANS && slot) {
-    const pic = pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
-    const lab = pocketLabel(slot.section, slot.n, slot.setCode);
-    return `<li class="t30-pk need" title="${esc(slot.name)}">
-        <span class="t30-sr">Not collected yet</span>
-        ${phOf(slot.name, lab)}
-        ${pic}
-        <span class="t30-pn">${esc(lab)}</span>
-      </li>`;
-  }
-  return `<li class="t30-pk" aria-hidden="true"><span class="t30-pn">${i + 1}</span></li>`;
+  const row = CHECKLIST.get(clKey(s.section, s.n || ""));
+  return row ? PRICE.get(`${row.section}|${row.n}`) || null : null;
 };
+const bigOf = (s, row) => {
+  const dex = dexLocalId(s.section ?? row?.section, s.n);
+  if (dex) return `${scanBase(dex)}/high.webp`;
+  const pid = row?.pid || s.pid;
+  if (pid) return `${tcgpBase(pid)}_in_1000x1000.jpg`;
+  if (s.shot) return `/assets/30th-cards/${s.shot}.webp`;
+  return "";
+};
+const money = (v) => (typeof v === "number" && v > 0 ? (v >= 100 ? moneyRound(v) : moneyExact(v)) : "");
+
+/* THE LABEL IS A STRIP UNDER THE CARD, NOT ON IT, 25 September 2026. The owner:
+   "make sure the card number or name that's listed doesn't cover the card
+   artwork at all ... make a space for them that's not on the actual card
+   artwork, keep that looking like an exact replica of the cards". The number
+   used to be a pill laid over the foot of the picture and the owned check sat
+   over its top right corner. Both now live in .t30-pn, BELOW the card frame and
+   inside the pocket, so the card itself is drawn whole and untouched. The card
+   frame is a <button> because it is the control that opens the enlarged card. */
+const pocket = (c, i, slot) => {
+  if (c || (HAVE_SCANS && slot)) {
+    const s = c || slot;
+    const row = CHECKLIST.get(clKey(s.section, s.n || ""));
+    const lab = pocketLabel(s.section, s.n, s.setCode);
+    const pic = c
+      ? /* A promo or jumbo is in no checklist row, so each carries its own `pid`
+           in data/30th-binder.json instead; see `_pidNote` there. */
+        pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })
+      : pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
+    const px = pxOf(c, slot);
+    const big = bigOf(s, row || (s.pid ? { pid: s.pid } : null));
+    const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
+    const attrs =
+      ` data-name="${esc(s.name)}" data-num="${esc(lab)}"` +
+      (rar ? ` data-rar="${esc(rar)}"` : "") +
+      (big ? ` data-big="${esc(big)}"` : "") +
+      (money(px?.raw) ? ` data-raw="${esc(money(px.raw))}"` : "") +
+      (money(px?.psa10) ? ` data-psa="${esc(money(px.psa10))}"` : "") +
+      (c ? ` data-own="1"` : "");
+    /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
+       by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
+       "remove the dates overalyed on top of the cards"); `got` still drives the
+       "Last added" line above the binder. */
+    return `<li class="t30-pk ${c ? "has" : "need"}" title="${esc(s.name)}">
+        <button type="button" class="t30-cf"${attrs} aria-label="${esc(s.name)} ${esc(lab)}, ${c ? "collected" : "not collected yet"}. Show it larger">
+          ${phOf(s.name, lab)}
+          ${pic}
+        </button>
+        <span class="t30-pn">${c ? '<span class="t30-ok" aria-hidden="true"></span>' : ""}${esc(lab)}</span>
+      </li>`;
+  }
+  return `<li class="t30-pk" aria-hidden="true"><span class="t30-cf">${phOf("", String(i + 1))}</span><span class="t30-pn">${i + 1}</span></li>`;
+};
+
+/* A PAD IS A POCKET WITH NOTHING IN IT, and it has to be the same height as a
+   full one now that a pocket is a card frame plus a label strip rather than a
+   single 5:7 box. The same two children, empty. The binder script builds the
+   back of a turning sheet out of these too. */
+const PAD_POCKET = `<li class="t30-pk pad" aria-hidden="true"><span class="t30-cf"></span><span class="t30-pn"></span></li>`;
 
 // WHICH CARDS A SECTION'S EMPTY POCKETS SHOW. Once TCGdex holds the set this
 // reads its checklist; until then it returns nothing and the placeholders draw.
@@ -781,7 +822,7 @@ const leafHtml = (l) => {
      stop being the same height. These extras are aria-hidden: they are the
      empty part of a physical page, not cards that exist. */
   const pad = Array.from({ length: Math.max(0, POCKETS - l.cells.length) },
-    () => `            <li class="t30-pk pad" aria-hidden="true"></li>`).join("\n");
+    () => `            ${PAD_POCKET}`).join("\n");
   /* THE LABEL LEADS WITH THE ABSOLUTE PAGE NUMBER, which is what the visible
      header says and what the reader is looking at. It used to carry the
      WITHIN-SECTION number only, so leaf 20 announced "Classic Collection, page 1
@@ -1248,7 +1289,7 @@ ${clCss}
    still flips the pages either side of the open one to eager, and an eager image
    loads even under display:none, so a turn still lands on pictures that are in. */
 .is-book .t30-leaf:not(.is-on) .t30-pk picture,
-.is-book .t30-leaf:not(.is-on) .t30-pk > img{display:none}
+.is-book .t30-leaf:not(.is-on) .t30-pk img{display:none}
 /* On a phone every pixel of width is pocket width: the page's right margin
    drops to --s4 and its left keeps just enough to clear the rings. */
 .is-book[data-mode="one"] .t30-leaf{padding-right:var(--s4);padding-left:calc(var(--s4) + 14px)}
@@ -1327,6 +1368,52 @@ ${clCss}
 /* An empty pocket that only exists to keep the page nine pockets tall. Hatched
    rather than blank so it reads as page, not as a missing card. */
 .t30-pk.pad{border-style:dashed;opacity:.35;background:var(--chrome-bg)}
+/* ============================================================ THE ENLARGED CARD
+   25 September 2026. The owner: "when you click on them it pop up the card
+   larger so you can see it in detail, and give you the market value for the raw
+   and psa 10 if available ... make sure that info is not covering the cards
+   artwork at all". So the card and the words never share a box: on a phone the
+   card sits above the panel, from 760px beside it, and the close button lives in
+   its own bar above the card rather than on it. A price that is not published is
+   not drawn, not drawn as a dash. */
+.t30-lb{margin:auto;padding:0;border:1px solid var(--keyline);border-radius:var(--r);background:var(--chrome-bg);color:var(--ink);
+  width:min(94vw,900px);max-width:94vw;max-height:94dvh;box-shadow:0 20px 60px rgb(0 0 0 / .6)}
+/* margin:auto IS WHAT CENTRES A MODAL DIALOG, and ui.css's reset zeroes every
+   margin, so without it the card opened pinned to the top left corner. */
+.t30-lb::backdrop{background:rgb(8 14 11 / .82)}
+.t30-lb-in{display:flex;flex-direction:column;max-height:94dvh}
+.t30-lb-top{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  padding:6px 6px 6px var(--s4);border-bottom:1px solid var(--keyline)}
+.t30-lb-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;margin:0}
+.t30-lb-x{appearance:none;border:1px solid var(--keyline);background:var(--card);color:var(--ink);
+  width:44px;height:44px;border-radius:999px;font:400 28px/1 var(--body);cursor:pointer;display:grid;place-items:center}
+.t30-lb-x:hover,.t30-lb-x:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
+.t30-lb-body{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s4);overflow:auto}
+.t30-lb-fig{display:flex;justify-content:center;align-items:center;min-height:0}
+/* THE CARD, WHOLE. Contain, never cover, so no edge of the card is cropped, and
+   capped by the viewport's height so the panel under it is still on screen. */
+.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:min(62dvh,640px);aspect-ratio:63/88;
+  object-fit:contain;border-radius:4.6%/3.3%;background:var(--paper);box-shadow:0 8px 24px rgb(0 0 0 / .45)}
+.t30-lb-info{min-width:0}
+.t30-lb-info h3{font:400 var(--t-l)/1.1 var(--display);margin:0 0 6px}
+.t30-lb-meta{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase;margin:0}
+.t30-lb-meta b{color:var(--ink);font-weight:700}
+.t30-lb-px{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:var(--s3);margin:var(--s4) 0 0}
+.t30-lb-px div{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3)}
+.t30-lb-px dt{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
+.t30-lb-px dd{margin:4px 0 0;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+.t30-lb-src{font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);margin:var(--s2) 0 0}
+.t30-lb-nav{display:flex;gap:var(--s3);margin-top:var(--s4)}
+.t30-lb-go{appearance:none;flex:1;min-height:44px;border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);
+  border-radius:999px;font:700 var(--t-sm)/1 var(--body);cursor:pointer}
+.t30-lb-go:hover,.t30-lb-go:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
+@media(min-width:760px){
+  .t30-lb-body{flex-direction:row;align-items:center;padding:var(--s5)}
+  .t30-lb-fig{flex:0 0 auto}
+  .t30-lb-img{max-height:min(78dvh,620px)}
+  .t30-lb-info{flex:1}
+}
+
 /* The per-section summary that replaced the old stacked headings. */
 .t30-secsum{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
   grid-template-columns:repeat(auto-fit,minmax(min(100%,9rem),1fr))}
@@ -1383,8 +1470,21 @@ ${clCss}
 /* A POCKET IS A SLEEVE, NOT A BOX. The inset shadow is the only thing that
    says 'the card is behind plastic' and it costs nothing; the filled ones
    keep their outer lift so an owned card still sits proud of the page. */
-.t30-pk{aspect-ratio:5/7;border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;text-align:center;min-width:0}
+.t30-pk{border:1px dashed var(--keyline);border-radius:var(--r-sm);background:var(--paper);box-shadow:inset 0 1px 3px rgb(0 0 0 / .22);
+  display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:4px;padding:5px 5px 3px;text-align:center;min-width:0}
+/* THE CARD FRAME, 25 September 2026: the card at a real card's own shape (63 by
+   88mm) with a real card's rounded corners, and NOTHING drawn over it but the
+   sleeve's faint sheen. The label strip is its sibling, underneath. It is the
+   <button> that opens the enlarged card; a pad's frame is a plain span. */
+.t30-cf{appearance:none;-webkit-appearance:none;display:block;position:relative;width:100%;aspect-ratio:63/88;
+  flex:none;padding:0;margin:0;border:0;background:none;color:inherit;font:inherit;text-align:inherit;
+  border-radius:4.6%/3.3%;overflow:hidden}
+button.t30-cf{cursor:zoom-in}
+button.t30-cf:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+@media(prefers-reduced-motion:no-preference){
+  button.t30-cf{transition:transform .15s cubic-bezier(.2,.7,.3,1)}
+  button.t30-cf:hover{transform:translateY(-2px)}
+}
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono)}
 .t30-pk.has{border-style:solid;border-color:var(--ketchup);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 /* .t30-got is gone with the date overlay it styled, 22 September 2026. */
@@ -1996,6 +2096,27 @@ ${
 }
   </div>
 </section>
+<dialog class="t30-lb" id="t30lb" aria-labelledby="t30lbT">
+  <div class="t30-lb-in">
+    <div class="t30-lb-top">
+      <p class="t30-lb-count" id="t30lbN"></p>
+      <button type="button" class="t30-lb-x" id="t30lbX" aria-label="Close">&times;</button>
+    </div>
+    <div class="t30-lb-body">
+      <div class="t30-lb-fig" id="t30lbF"><img class="t30-lb-img" id="t30lbI" alt="" decoding="async"></div>
+      <div class="t30-lb-info">
+        <h3 id="t30lbT"></h3>
+        <p class="t30-lb-meta" id="t30lbM"></p>
+        <dl class="t30-lb-px" id="t30lbP" hidden></dl>
+        <p class="t30-lb-src" id="t30lbS" hidden>Market value from PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}.</p>
+        <div class="t30-lb-nav">
+          <button type="button" class="t30-lb-go" id="t30lbPrev" aria-label="Previous card">&larr; Previous</button>
+          <button type="button" class="t30-lb-go" id="t30lbNext" aria-label="Next card">Next &rarr;</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</dialog>
 
 </main>`;
 
@@ -2183,7 +2304,7 @@ ${APP_JS_NO_PACKPLAYER}
       c.className = "t30-sheetback";
       var hd = document.createElement("div"); hd.className = "t30-leaf-h"; hd.innerHTML = "<b>&nbsp;</b>";
       var ol = document.createElement("ol"); ol.className = "t30-pkts";
-      for (var k = 0; k < 9; k++) { var li = document.createElement("li"); li.className = "t30-pk pad"; ol.appendChild(li); }
+      ol.innerHTML = new Array(10).join(${JSON.stringify(PAD_POCKET)});
       c.appendChild(hd); c.appendChild(ol);
     }
     c.setAttribute("aria-hidden", "true");
@@ -2414,6 +2535,76 @@ ${APP_JS_NO_PACKPLAYER}
     if (twoMQ.addEventListener) twoMQ.addEventListener("change", onMode);
     else if (twoMQ.addListener) twoMQ.addListener(onMode);
   }
+})();
+</script>
+<script>
+/* THE ENLARGED CARD. Reads the data attributes each pocket was built with and
+   fills one <dialog>; nothing is fetched but the large picture. A tap that was
+   really the start of a page drag is not a tap: the binder turns pages by
+   dragging, so a press that moved more than 10px does not open anything. */
+(function () {
+  var dlg = document.getElementById("t30lb");
+  if (!dlg || typeof dlg.showModal !== "function") return;
+  var img = document.getElementById("t30lbI"), T = document.getElementById("t30lbT"),
+      M = document.getElementById("t30lbM"), P = document.getElementById("t30lbP"),
+      S = document.getElementById("t30lbS"), N = document.getElementById("t30lbN");
+  var list = [], at = -1, opener = null, down = null;
+  function all() { return [].slice.call(document.querySelectorAll(".t30-track button.t30-cf")); }
+  function esc(v) { var d = document.createElement("div"); d.textContent = v; return d.innerHTML; }
+  function show(i) {
+    at = (i + list.length) % list.length;
+    var b = list[at], d = b.dataset;
+    var small = b.querySelector("img.t30-card");
+    /* THE THREE RGB MEWS HAVE NO PICTURE ANYWHERE this site may use, so their
+       pop-up is the words alone rather than an empty frame. */
+    document.getElementById("t30lbF").hidden = !(d.big || (small && (small.currentSrc || small.src)));
+    img.removeAttribute("src");
+    img.alt = d.name || "";
+    if (small && (small.currentSrc || small.src)) img.src = small.currentSrc || small.src;
+    if (d.big) {
+      var hi = new Image();
+      hi.onload = function () { if (list[at] === b) img.src = d.big; };
+      hi.src = d.big;
+    }
+    T.textContent = d.name || "";
+    M.innerHTML = [d.num ? "<b>" + esc(d.num) + "</b>" : "", d.rar ? esc(d.rar) : "",
+      d.own ? "In the binder" : "Still to find"].filter(Boolean).join(" &middot; ");
+    var px = "";
+    if (d.raw) px += "<div><dt>Raw, ungraded</dt><dd>" + esc(d.raw) + "</dd></div>";
+    if (d.psa) px += "<div><dt>PSA 10</dt><dd>" + esc(d.psa) + "</dd></div>";
+    P.innerHTML = px; P.hidden = !px; S.hidden = !px;
+    N.textContent = "Card " + (at + 1) + " of " + list.length;
+  }
+  function open(b) {
+    list = all(); opener = b;
+    show(list.indexOf(b));
+    dlg.showModal();
+  }
+  document.addEventListener("pointerdown", function (e) {
+    var b = e.target.closest && e.target.closest("button.t30-cf");
+    down = b ? { x: e.clientX, y: e.clientY } : null;
+  }, true);
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest("button.t30-cf");
+    if (!b || !b.closest(".t30-track")) return;
+    if (down && e.detail !== 0 && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 10) { down = null; return; }
+    down = null;
+    e.preventDefault();
+    open(b);
+  });
+  document.getElementById("t30lbX").addEventListener("click", function () { dlg.close(); });
+  document.getElementById("t30lbPrev").addEventListener("click", function () { show(at - 1); });
+  document.getElementById("t30lbNext").addEventListener("click", function () { show(at + 1); });
+  dlg.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
+  });
+  /* A click on the dimmed backdrop lands on the dialog element itself. */
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", function () {
+    img.removeAttribute("src");
+    if (opener && opener.isConnected && opener.offsetParent) opener.focus({ preventScroll: true });
+  });
 })();
 </script>
 </body>

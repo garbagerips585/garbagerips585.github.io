@@ -1234,6 +1234,127 @@
       "rarity": "Special Illustration Rare",
       "got": "2026-09-25",
       "note": "The owner, 25 September 2026, in an updated master set list. He first typed it under Illustration Rare, then confirmed: \"I put the Special Ilustration rares in the wrong section\". The number is the fact: 151/128 is Mewtwo ex Special Illustration Rare in the checklist."
+    },
+    {
+      "name": "Pikachu",
+      "n": "027",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 5,
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Vivillon",
+      "n": "008",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Ho-Oh",
+      "n": "012",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Zapdos",
+      "n": "055",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Mew ex",
+      "n": "066",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Unown",
+      "n": "072",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Cosmoem",
+      "n": "079",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Murkrow",
+      "n": "093",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Zoroark",
+      "n": "096",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Ultra Ball",
+      "n": "128",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Moltres",
+      "n": "130",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Drifloon",
+      "n": "136",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-09-25",
+      "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
     }
   ],
   "_shotNote": [
