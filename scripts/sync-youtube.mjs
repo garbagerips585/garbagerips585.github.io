@@ -431,7 +431,13 @@ const videos = uploads
       ...(log.box ? { box: log.box } : {}),
       ...(log.notes ? { notes: log.notes } : {}),
       ...(log.feature ? { feature: true } : {}),
-      ...(log.hide ? { hide: true } : {}),
+      // hide FROM overrides.json AS WELL, 25 September 2026. The owner re-uploaded
+      // his 14 September Journey Together Pack #2 rip by mistake (-t8PPmKNYis,
+      // same 25 seconds, same Amoonguss ex) and it had to stay off the site.
+      // Read from the sheet only, a hide typed by hand would be wiped the next
+      // time manual.json is rebuilt from the CSV, which is the same reason
+      // packNumber moved here.
+      ...((manual.hide ?? log.hide) ? { hide: true } : {}),
     };
   })
   // "Hide" on the sheet means keep it off the site entirely: no page, no tile,
@@ -608,6 +614,9 @@ await writeFile(
 //
 // The 42 image files were on disk the whole time. Only the pointer was lost,
 // which is the worst shape of this bug: nothing 404s and nothing looks broken.
+const hiddenIds = new Set(
+  [...Object.entries(overrides), ...Object.entries(manual_)].filter(([, v]) => v && v.hide).map(([k]) => k),
+);
 const prevPlaylistPaths = new Map();
 const prevPlaylistCovers = new Map();
 try {
@@ -624,6 +633,15 @@ await writeFile(
       syncedAt: localDay(),
       playlists: playlists.map((p) => {
         const out = { ...p };
+        // A HIDDEN VIDEO LEAVES THE PLAYLISTS TOO. `hide` drops a rip from
+        // videos.json, but YouTube's playlist still lists it, so its id stayed
+        // in videoIds and in `count`: the duplicate of 25 September 2026 made
+        // Hits Only read one more rip than the site has. Only ids with a page
+        // are kept, and the count follows them.
+        if (out.videoIds.some((id) => hiddenIds.has(id))) {
+          out.videoIds = out.videoIds.filter((id) => !hiddenIds.has(id));
+          out.count = out.videoIds.length;
+        }
         if (prevPlaylistPaths.has(p.id)) out.path = prevPlaylistPaths.get(p.id);
         if (prevPlaylistCovers.has(p.id)) out.cover = prevPlaylistCovers.get(p.id);
         return out;

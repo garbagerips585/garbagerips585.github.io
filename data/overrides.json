@@ -2820,5 +2820,9 @@
   "iJHcRxYHa5g": {
     "packNumber": 2,
     "packNumberWhy": "The owner, 24 September 2026: \"Pokémon 30th Celebration Greninja ex Tin, Pack #2, Hit yes, Jirachi ex - Double Black Star - Double Rare , 30th Celebration\". Pack 2 of the same Greninja ex Tin he opened Pack #1 of on the 22nd. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Same as Pack #1, he called it a TIN and the taxonomy derives `tin` on its own, so no product override. No hasHit either: a hit is answered by its data/hits.json row."
+  },
+  "-t8PPmKNYis": {
+    "hide": true,
+    "hideWhy": "The owner, 25 September 2026: this upload is the same rip as ppYiPob4uZk (14 September, Journey Together Pack #2, Amoonguss ex): same 25 second video and the same frame. Asked how to treat it, he answered \"Uploaded by mistake\" and will delete it on YouTube. Hidden so Pack #2 and the Amoonguss ex hit are not counted twice. Safe to delete this entry once the video is gone from the channel."
   }
 }
