@@ -93,6 +93,9 @@
 .t30-row.is-have .t30-rn::before{content:"\2713\00a0";color:var(--ketchup-deep)}
 @media(min-width:1000px){.t30-cl{columns:2;column-gap:var(--s6,48px)}}
 #checklist:has(#cln:checked) .t30-row[data-have="1"]{display:none}
+.t30-cnt-need{display:none}
+#checklist:has(#cln:checked) .t30-cnt-all{display:none}
+#checklist:has(#cln:checked) .t30-cnt-need{display:inline-block}
 #checklist:has(#clo-price:checked) .t30-cl{display:flex;flex-direction:column;columns:auto}
 #checklist:has(#clo-price:checked) .t30-row{order:var(--rank)}
 #checklist:has(#clo-price:checked) .t30-clh{display:none}
@@ -156,7 +159,7 @@
 .t30-turn.fwd{right:0;border-radius:var(--r) 0 var(--r) 0}
 .t30-turn:hover,.t30-turn:focus-visible{color:var(--sky);border-color:var(--sky)}
 .t30-binder.is-book{max-width:560px;scroll-margin-top:84px}
-.t30-binder.is-book[data-mode="two"]{max-width:1120px}
+.t30-binder.is-book[data-mode="two"]{max-width:min(1120px,calc((100dvh - 110px) * 1.33));margin-inline:auto}
 .is-book .t30-book{position:relative;background:var(--chrome-bg);border:1px solid var(--keyline);
   border-radius:calc(var(--r) + 6px);padding:8px 10px 12px 14px;box-shadow:var(--lift)}
 .is-book[data-mode="two"] .t30-book{padding:14px 18px 18px}
@@ -253,10 +256,12 @@
 .t30-lb-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;margin:0}
 .t30-lb-x{appearance:none;border:1px solid var(--keyline);background:var(--card);color:var(--ink);
   width:44px;height:44px;border-radius:999px;font:400 28px/1 var(--body);cursor:pointer;display:grid;place-items:center}
-.t30-lb-x:hover,.t30-lb-x:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
-.t30-lb-body{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s4);overflow:auto}
-.t30-lb-fig{display:flex;justify-content:center;align-items:center;min-height:0}
-.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:min(62dvh,640px);aspect-ratio:63/88;
+.t30-lb-x:hover{border-color:var(--sky);color:var(--sky)}
+.t30-lb-x:focus-visible,.t30-lb-go:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.t30-lb-body{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s4);overflow:auto;overscroll-behavior:contain}
+html:has(dialog.t30-lb[open]){overflow:hidden}
+.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none}
+.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:max(220px,min(62dvh,640px,calc(94dvh - 360px)));aspect-ratio:63/88;
   object-fit:contain;border-radius:4.6%/3.3%;background:var(--paper);box-shadow:0 8px 24px rgb(0 0 0 / .45)}
 .t30-lb-info{min-width:0}
 .t30-lb-info h3{font:400 var(--t-l)/1.1 var(--display);margin:0 0 6px}
@@ -270,11 +275,11 @@
 .t30-lb-nav{display:flex;gap:var(--s3);margin-top:var(--s4)}
 .t30-lb-go{appearance:none;flex:1;min-height:44px;border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);
   border-radius:999px;font:700 var(--t-sm)/1 var(--body);cursor:pointer}
-.t30-lb-go:hover,.t30-lb-go:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
+.t30-lb-go:hover,.t30-lb-go:focus-visible{border-color:var(--sky);color:var(--sky)}
 @media(min-width:760px){
   .t30-lb-body{flex-direction:row;align-items:center;padding:var(--s5)}
   .t30-lb-fig{flex:0 0 auto}
-  .t30-lb-img{max-height:min(78dvh,620px)}
+  .t30-lb-img{max-height:min(78dvh,620px,calc(94dvh - 120px))}
   .t30-lb-info{flex:1}
 }
 .t30-secsum{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
@@ -644,7 +649,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
       </fieldset>
     </form>
     <ol class="t30-cl">
-      <li class="t30-clh" data-s="pikachu">The 30 Pikachu <span class="t30-cnt">30</span></li>
+      <li class="t30-clh" data-s="pikachu">The 30 Pikachu <span class="t30-cnt t30-cnt-all">30</span><span class="t30-cnt t30-cnt-need">5 to find</span></li>
       <li class="t30-row" data-s="pikachu" style="--rank:70">
         <span class="t30-rn">#023</span>
         <span class="t30-rt"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/30th/023/low.avif"><img class="t30-card" src="https://assets.tcgdex.net/en/me/30th/023/low.webp" alt="" loading="lazy" decoding="async"  width="245" height="337" onload="t30l(this)" onerror="t30e(this)"></picture></span>
@@ -855,7 +860,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
         <span class="t30-rp"><b>$3.00</b><i>$45 PSA 10</i></span>
         <span class="t30-rh" title="In the binder"><span class="t30-sr">In the binder</span></span>
       </li>
-      <li class="t30-clh" data-s="main">Main set <span class="t30-cnt">98</span></li>
+      <li class="t30-clh" data-s="main">Main set <span class="t30-cnt t30-cnt-all">98</span><span class="t30-cnt t30-cnt-need">18 to find</span></li>
       <li class="t30-row is-have" data-s="main" data-have="1" style="--rank:174">
         <span class="t30-rn">#001</span>
         <span class="t30-rt"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/30th/001/low.avif"><img class="t30-card" src="https://assets.tcgdex.net/en/me/30th/001/low.webp" alt="" loading="lazy" decoding="async"  width="245" height="337" onload="t30l(this)" onerror="t30e(this)"></picture></span>
@@ -1542,7 +1547,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
         <span class="t30-rp"><b>$1.00</b><i>$35 PSA 10</i></span>
         <span class="t30-rh" title="In the binder"><span class="t30-sr">In the binder</span></span>
       </li>
-      <li class="t30-clh" data-s="secret">Secret rares <span class="t30-cnt">33</span></li>
+      <li class="t30-clh" data-s="secret">Secret rares <span class="t30-cnt t30-cnt-all">33</span><span class="t30-cnt t30-cnt-need">17 to find</span></li>
       <li class="t30-row is-have" data-s="secret" data-have="1" style="--rank:58">
         <span class="t30-rn">#129</span>
         <span class="t30-rt"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/30th/129/low.avif"><img class="t30-card" src="https://assets.tcgdex.net/en/me/30th/129/low.webp" alt="" loading="lazy" decoding="async"  width="245" height="337" onload="t30l(this)" onerror="t30e(this)"></picture></span>
@@ -1774,7 +1779,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
         <span class="t30-rp"><i>No price yet</i></span>
         
       </li>
-      <li class="t30-clh" data-s="classic">Classic Collection <span class="t30-cnt">30</span></li>
+      <li class="t30-clh" data-s="classic">Classic Collection <span class="t30-cnt t30-cnt-all">30</span><span class="t30-cnt t30-cnt-need">23 to find</span></li>
       <li class="t30-row" data-s="classic" style="--rank:2">
         <span class="t30-rn">#4/102</span>
         <span class="t30-rt"><img class="t30-card" src="https://tcgplayer-cdn.tcgplayer.com/product/714372_200w.jpg" alt="Charizard" loading="lazy" decoding="async" width="200" height="279" onload="t30l(this)" onerror="t30e(this)"></span>
@@ -4133,14 +4138,14 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
           </div>
           <ol class="t30-pkts">
 <li class="t30-pk has" title="Greninja ex">
-        <button type="button" class="t30-cf" data-name="Greninja ex" data-num="#099" data-rar="Jumbo" data-big="https://tcgplayer-cdn.tcgplayer.com/product/713269_in_1000x1000.jpg" data-raw="$5.13" data-psa="$52" data-own="1" aria-label="Greninja ex #099, collected. Show it larger">
+        <button type="button" class="t30-cf" data-name="Greninja ex" data-num="#099" data-rar="Jumbo" data-big="https://tcgplayer-cdn.tcgplayer.com/product/713268_in_1000x1000.jpg" data-raw="$5.13" data-psa="$52" data-own="1" aria-label="Greninja ex #099, collected. Show it larger">
           <span class="t30-ph" aria-hidden="true"><b>#099</b><i>Greninja ex</i></span>
           <img class="t30-card" src="https://tcgplayer-cdn.tcgplayer.com/product/713269_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/713269_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/713269_400w.jpg 400w" sizes="(max-width:544px) 30vw, 163px" alt="Greninja ex" loading="lazy" decoding="async" width="200" height="279" onload="t30l(this)" onerror="t30e(this)">
         </button>
         <span class="t30-pn"><span class="t30-ok" aria-hidden="true"></span>#099</span>
       </li>
 <li class="t30-pk has" title="Sylveon ex">
-        <button type="button" class="t30-cf" data-name="Sylveon ex" data-num="#100" data-rar="Jumbo" data-big="https://tcgplayer-cdn.tcgplayer.com/product/713270_in_1000x1000.jpg" data-raw="$5.50" data-own="1" aria-label="Sylveon ex #100, collected. Show it larger">
+        <button type="button" class="t30-cf" data-name="Sylveon ex" data-num="#100" data-rar="Jumbo" data-big="https://tcgplayer-cdn.tcgplayer.com/product/713267_in_1000x1000.jpg" data-raw="$5.50" data-own="1" aria-label="Sylveon ex #100, collected. Show it larger">
           <span class="t30-ph" aria-hidden="true"><b>#100</b><i>Sylveon ex</i></span>
           <img class="t30-card" src="https://tcgplayer-cdn.tcgplayer.com/product/713270_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/713270_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/713270_400w.jpg 400w" sizes="(max-width:544px) 30vw, 163px" alt="Sylveon ex" loading="lazy" decoding="async" width="200" height="279" onload="t30l(this)" onerror="t30e(this)">
         </button>
@@ -5034,6 +5039,9 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
   function onMode() {
       if (busy) { relayout = true; return; }
       var open = slots(pos).filter(Boolean), keep = open[open.length > 1 && open[0].classList.contains("t30-leaf-cover") ? 1 : 0];
+      /* The page the reader ASKED for wins over the spread's left page, so 9 at
+         a phone width stays 9 after a round trip through two pages. */
+      if (asked && open.indexOf(asked) >= 0) keep = asked;
       layout();
       paint(posOf(keep));
   }

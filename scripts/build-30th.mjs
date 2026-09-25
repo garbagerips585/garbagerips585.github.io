@@ -617,7 +617,11 @@ const pocket = (c, i, slot) => {
         pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })
       : pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
     const px = pxOf(c, slot);
-    const big = bigOf(s, row || (s.pid ? { pid: s.pid } : null));
+    /* A JUMBO'S PRODUCT PHOTO CARRIES TCGPLAYER'S "OVERSIZE CARD" SASH across
+       the art, so the enlarged view uses its standard-size twin's scan: the same
+       artwork, clean. */
+    const twin = c && /jumbo/i.test(c.kind || "") ? promos.find((o) => String(o.n) === String(c.n) && o.pid) : null;
+    const big = bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
     const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
     const attrs =
       ` data-name="${esc(s.name)}" data-num="${esc(lab)}"` +
@@ -1141,6 +1145,9 @@ const style = `
    the binder. Price sort turns the list into a flex column ordered by rank and
    drops the section headings, which mean nothing in price order. */
 #checklist:has(#cln:checked) .t30-row[data-have="1"]{display:none}
+.t30-cnt-need{display:none}
+#checklist:has(#cln:checked) .t30-cnt-all{display:none}
+#checklist:has(#cln:checked) .t30-cnt-need{display:inline-block}
 #checklist:has(#clo-price:checked) .t30-cl{display:flex;flex-direction:column;columns:auto}
 #checklist:has(#clo-price:checked) .t30-row{order:var(--rank)}
 #checklist:has(#clo-price:checked) .t30-clh{display:none}
@@ -1255,7 +1262,7 @@ ${clCss}
 /* THE BOARDS: the binder's own cover, dark, behind and around the pages. Only
    the pages and the rings sit on it; the caption stays outside, under it. */
 .t30-binder.is-book{max-width:560px;scroll-margin-top:84px}
-.t30-binder.is-book[data-mode="two"]{max-width:1120px}
+.t30-binder.is-book[data-mode="two"]{max-width:min(1120px,calc((100dvh - 110px) * 1.33));margin-inline:auto}
 .is-book .t30-book{position:relative;background:var(--chrome-bg);border:1px solid var(--keyline);
   border-radius:calc(var(--r) + 6px);padding:8px 10px 12px 14px;box-shadow:var(--lift)}
 .is-book[data-mode="two"] .t30-book{padding:14px 18px 18px}
@@ -1394,12 +1401,19 @@ ${clCss}
 .t30-lb-count{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;margin:0}
 .t30-lb-x{appearance:none;border:1px solid var(--keyline);background:var(--card);color:var(--ink);
   width:44px;height:44px;border-radius:999px;font:400 28px/1 var(--body);cursor:pointer;display:grid;place-items:center}
-.t30-lb-x:hover,.t30-lb-x:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
-.t30-lb-body{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s4);overflow:auto}
-.t30-lb-fig{display:flex;justify-content:center;align-items:center;min-height:0}
+.t30-lb-x:hover{border-color:var(--sky);color:var(--sky)}
+.t30-lb-x:focus-visible,.t30-lb-go:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.t30-lb-body{display:flex;flex-direction:column;gap:var(--s4);padding:var(--s4);overflow:auto;overscroll-behavior:contain}
+/* THE CARD NEVER SHRINKS INTO THE PANEL. On a 664px tall phone the figure was
+   allowed below the picture's height, so the card spilled up under the top bar
+   and down under its own name. The figure keeps its size, the image is capped to
+   leave the panel room, and the body scrolls if a phone is shorter still. The
+   page behind does not scroll while the card is open. */
+html:has(dialog.t30-lb[open]){overflow:hidden}
+.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none}
 /* THE CARD, WHOLE. Contain, never cover, so no edge of the card is cropped, and
    capped by the viewport's height so the panel under it is still on screen. */
-.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:min(62dvh,640px);aspect-ratio:63/88;
+.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:max(220px,min(62dvh,640px,calc(94dvh - 360px)));aspect-ratio:63/88;
   object-fit:contain;border-radius:4.6%/3.3%;background:var(--paper);box-shadow:0 8px 24px rgb(0 0 0 / .45)}
 .t30-lb-info{min-width:0}
 .t30-lb-info h3{font:400 var(--t-l)/1.1 var(--display);margin:0 0 6px}
@@ -1413,11 +1427,11 @@ ${clCss}
 .t30-lb-nav{display:flex;gap:var(--s3);margin-top:var(--s4)}
 .t30-lb-go{appearance:none;flex:1;min-height:44px;border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);
   border-radius:999px;font:700 var(--t-sm)/1 var(--body);cursor:pointer}
-.t30-lb-go:hover,.t30-lb-go:focus-visible{border-color:var(--sky);color:var(--sky);outline:none}
+.t30-lb-go:hover,.t30-lb-go:focus-visible{border-color:var(--sky);color:var(--sky)}
 @media(min-width:760px){
   .t30-lb-body{flex-direction:row;align-items:center;padding:var(--s5)}
   .t30-lb-fig{flex:0 0 auto}
-  .t30-lb-img{max-height:min(78dvh,620px)}
+  .t30-lb-img{max-height:min(78dvh,620px,calc(94dvh - 120px))}
   .t30-lb-info{flex:1}
 }
 
@@ -1685,7 +1699,10 @@ ${clSections.map(([key, label]) => `        <input type="radio" name="cls" id="c
     <ol class="t30-cl">
 ${clSections.map(([key, label]) => {
   const rows = (checklist.cards || []).filter((c) => c.section === key);
-  return `      <li class="t30-clh" data-s="${key}">${esc(label)} <span class="t30-cnt">${rows.length}</span></li>
+  /* TWO COUNTS, ONE SHOWN. Under "Still need" the heading counted every row
+     while only the missing ones showed: 30 over five Pikachu. */
+  const need = rows.filter((c) => !clOwned.has(clKey(c.section, c.n))).length;
+  return `      <li class="t30-clh" data-s="${key}">${esc(label)} <span class="t30-cnt t30-cnt-all">${rows.length}</span><span class="t30-cnt t30-cnt-need">${need} to find</span></li>
 ${rows.map(clRow).join("\n")}`;
 }).join("\n")}
     </ol>
@@ -2543,6 +2560,9 @@ ${APP_JS_NO_PACKPLAYER}
   function onMode() {
       if (busy) { relayout = true; return; }
       var open = slots(pos).filter(Boolean), keep = open[open.length > 1 && open[0].classList.contains("t30-leaf-cover") ? 1 : 0];
+      /* The page the reader ASKED for wins over the spread's left page, so 9 at
+         a phone width stays 9 after a round trip through two pages. */
+      if (asked && open.indexOf(asked) >= 0) keep = asked;
       layout();
       paint(posOf(keep));
   }
