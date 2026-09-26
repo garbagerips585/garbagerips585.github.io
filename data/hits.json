@@ -2442,6 +2442,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 24 September 2026: \"Pokémon 30th Celebration Greninja ex Tin, Pack #2, Hit yes, Jirachi ex - Double Black Star - Double Rare , 30th Celebration\". The 30th prints Jirachi ex TWICE -- 102/128 Double Rare and 155/128 Special Illustration Rare -- with identical card text, HP 160, Wish Granter and Swift (150), so nothing readable separates them and the rarity is the only thing that can choose. Two black stars IS the Double rare symbol, so this is 102. CORROBORATED INDEPENDENTLY OF TODAY'S MESSAGE: data/30th-binder.json has held Jirachi ex 102 since 16 September, on his own words that it was the double black star, and his video description today says the same (\"Jirachi ex Double Rare (Double Black Star)\"). Same physical card, video released eight days later, the pattern every 30th rip has followed. Nothing is added to the binder here: the binder is what he OWNS and this is what came out of a pack ON CAMERA. Written \"Double Rare\" with a capital R to match this set's own checklist casing. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "5TKvy9CVPww": [
+      {
+        "card": "Sneasel",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Classic Collection",
+        "number": "25/111",
+        "hallOfFame": false,
+        "handNote": "The owner, 26 September 2026: \"30th Celebration Greninja ex Tin,  Pack #3, hit yes, Sneasel - Classic Collection\". THE ONLY SNEASEL IN THE SET: data/30th-checklist.json holds exactly one, the Classic Collection reprint at 25/111, so nothing had to be disambiguated. The number is written whole, 25/111, because Classic Collection reprints keep their original set's numbering and a bare 25 is not unique in that section. His video description today says the same card (\"we pulled the epic Sneasel\"). Nothing is added to the binder here: the binder already holds 25/111 from his own list, and this row is what came out of a pack on camera. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

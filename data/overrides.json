@@ -2826,5 +2826,9 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 25 September 2026: \"Single Booster Pack, Pack#3, Hit no, Journey Together\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Pack #1 was zwB2JsJN6XA (8 September) and Pack #2 ppYiPob4uZk (14 September); an accidental re-upload of Pack #2 went up earlier the same day as -t8PPmKNYis, was hidden, and was deleted by the owner before this one was posted. The set and the product come through the sync (journey-together, single-pack).",
     "hasHitWhy": "A rip WITH a hit is answered by its data/hits.json row; a rip with none has nothing to imply one, so without this it counts as not yet judged rather than as judged and empty, and /luck.html carries it in the shortfall. \"Hit no\" is his own word for it and is the whole source."
+  },
+  "5TKvy9CVPww": {
+    "packNumber": 3,
+    "packNumberWhy": "The owner, 26 September 2026: \"30th Celebration Greninja ex Tin,  Pack #3, hit yes, Sneasel - Classic Collection\". Pack 3 of the same Greninja ex Tin as Pack #1 (22 September) and Pack #2 (iJHcRxYHa5g, 24 September). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. He calls it a TIN and the taxonomy derives `tin` on its own, so no product override. No hasHit: a hit is answered by its data/hits.json row."
   }
 }
