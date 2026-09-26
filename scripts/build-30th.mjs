@@ -71,6 +71,13 @@ let shotDims = {};
 try {
   shotDims = JSON.parse(await readFile(join(ROOT, "data/30th-card-dims.json"), "utf8"));
 } catch {}
+/* WHO DREW EACH CARD, from scripts/sync-30th-illustrators.mjs (TCGdex). Keyed
+   by TCGdex localId, so it answers for the same three sections TCGdex draws
+   pictures for and is silent for the Classic Collection and the Energy. */
+let ILLUS = {};
+try {
+  ILLUS = JSON.parse(await readFile(join(ROOT, "data/30th-illustrators.json"), "utf8")).cards || {};
+} catch {}
 const owned = binder.owned || [];
 /* PROMOS ARE COUNTED SEPARATELY AND NEVER ADDED TO `owned`. See the
    `_promoNote` in data/30th-binder.json: the five sections add to 199 because
@@ -609,7 +616,11 @@ const money = (v) => (typeof v === "number" && v > 0 ? (v >= 100 ? moneyRound(v)
    binder pockets do, built here once so a card cannot pop up with one price in
    the checklist and another in the binder. `rip` is a hit's video, which the
    pop-up offers as a link; nothing else has one. */
-const zoomAttrs = ({ name, num, rar, big, px, own, rip, when }) =>
+const illOf = (section, n) => {
+  const id = dexLocalId(section, n);
+  return id ? ILLUS[id] || "" : "";
+};
+const zoomAttrs = ({ name, num, rar, big, px, own, rip, when, ill }) =>
   ` data-name="${esc(name)}" data-num="${esc(num)}"` +
   (rar ? ` data-rar="${esc(rar)}"` : "") +
   (big ? ` data-big="${esc(big)}"` : "") +
@@ -619,7 +630,8 @@ const zoomAttrs = ({ name, num, rar, big, px, own, rip, when }) =>
   (money(px?.psa10) ? ` data-psa="${esc(moneyRound(px.psa10))}"` : "") +
   (own ? ` data-own="1"` : "") +
   (rip ? ` data-rip="${esc(rip)}"` : "") +
-  (when ? ` data-when="${esc(when)}"` : "");
+  (when ? ` data-when="${esc(when)}"` : "") +
+  (ill ? ` data-ill="${esc(ill)}"` : "");
 /* A checklist card's pop-up, for the value tiles and the checklist rows. The
    owned test is the binder's own join, the one clOwned makes below; it is
    rebuilt here because the value band is written before the checklist is. */
@@ -632,6 +644,7 @@ const zoomOf = (c, extra = {}) =>
     big: bigOf({ section: c.section, n: c.n }, c),
     px: c.pr || priceOf(c),
     own: OWNED_KEYS.has(clKey(c.section, c.n)),
+    ill: illOf(c.section, c.n),
     ...extra,
   });
 
@@ -660,7 +673,7 @@ const pocket = (c, i, slot) => {
     const twin = c && /jumbo/i.test(c.kind || "") ? promos.find((o) => String(o.n) === String(c.n) && o.pid) : null;
     const big = bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
     const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
-    const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c });
+    const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c, ill: illOf(s.section, s.n) });
     /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
        by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
        "remove the dates overalyed on top of the cards"); `got` still drives the
@@ -1064,7 +1077,12 @@ ${items
               <span class="t30-p">${OPENING_FOR(p.name)
                 ? `<a href="/openings/${OPENING_FOR(p.name)}.html">${esc(p.name)}</a>`
                 : esc(p.name)}</span>
-              <span class="t30-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null]
+              <span class="t30-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null,
+                /* WHAT A PACK WORKS OUT TO, which is what a parent standing in
+                   the aisle is comparing: list price over packs, arithmetic
+                   only. Everything else in the box is left out of it, so it is
+                   the price of the packs at most, never of a pack alone. */
+                p.packs && /^\$\d/.test(p.price || "") ? `$${(parseFloat(p.price.slice(1)) / p.packs).toFixed(2)} a pack` : null]
                 .filter(Boolean)
                 .map(esc)
                 .join(" &bull; ")}</span>
@@ -1097,19 +1115,51 @@ const jpRows = doc.japanList
   )
   .join("\n");
 
+/* How many progress tiles sit over the binder, so a desktop can put them all in one row. */
+const sectionSummaryN = (sectionSummary.match(/<li>/g) || []).length;
 /* Defined before the stylesheet, which interpolates clCss. */
 const clSections = SECTIONS.filter(([key]) => (checklist.cards || []).some((c) => c.section === key));
 const clCss = clSections.map(([key]) =>
   `#checklist:has(#cls-${key}:checked) .t30-cl>li:not([data-s="${key}"]){display:none}`).join("\n");
 const style = `
 .t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
-.t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0}
+.t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0;max-width:48em}
 .t30-facts li{padding-left:1.15em;position:relative;line-height:1.45}
 .t30-facts li::before{content:"";position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--ketchup)}
 .t30-tag{display:inline-block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.04em;text-transform:uppercase;
   padding:4px 7px;border-radius:999px;border:1px solid var(--keyline);color:var(--ink-2);background:var(--paper);margin-right:6px;vertical-align:.12em}
 .t30-tag.off{color:var(--ink);border-color:var(--ketchup)}
 .t30-sum{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fit,minmax(140px,1fr));margin:var(--s4) 0 0}
+/* THE HERO. Tighter on a phone, where it was two screens before the first card:
+   a 1.55 line height under a 34px h1, stat numerals that wrapped ("Sep 16,
+   2026" on two lines of display type) and three rows of jump chips. */
+.t30-top h1{line-height:1.12}
+@media(max-width:599px){
+  .t30-sum{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+  .t30-sum div{padding:10px 8px}
+  .t30-sum b{font-size:1.6rem}
+}
+.t30-sum b{white-space:nowrap}
+.t30-fan{display:none}
+@media(min-width:1000px){
+  .t30-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s6,48px);align-items:center}
+  .t30-fan{display:block;padding-bottom:var(--s6)}
+  .t30-fan ol{list-style:none;margin:0;padding:0;display:flex;gap:14px;align-items:flex-end}
+  .t30-fan li{width:clamp(120px,10.5vw,158px)}
+  .t30-fan li:nth-child(1){transform:rotate(-4deg) translateY(6px)}
+  .t30-fan li:nth-child(3){transform:rotate(4deg) translateY(6px)}
+  .t30-fan .t30-zm{display:block;width:100%}
+  /* .t30-card is a binder pocket's absolute fill; put it back in flow here, as
+     ui.css does for .t30-ct. Missed the first time, the three cards collapsed
+     their boxes to 0px and laid themselves over the value band below. */
+  .t30-fan .t30-card{position:static;inset:auto;object-fit:initial;filter:none;opacity:1}
+  .t30-fan img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 14px 30px rgb(0 0 0 / .5);
+    transition:transform .18s ease}
+  .t30-fan .t30-zm:hover img,.t30-fan .t30-zm:focus-visible img{transform:translateY(-6px)}
+  .t30-fan p{margin:var(--s4) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+    text-transform:uppercase;letter-spacing:.06em}
+}
+@media(prefers-reduced-motion:reduce){.t30-fan img{transition:none}}
 /* HEADINGS INSIDE A SECTION HAD NO SPACE ABOVE THEM: all eleven body h3s measured
    margin-top 0, so each sat against the list before it. */
 .wrap>h3,.t30-more-d h3{margin-top:var(--s5)}
@@ -1119,6 +1169,13 @@ const style = `
   border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
   font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none}
 .t30-jump a:hover,.t30-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+/* One row that scrolls sideways on a phone, edge to edge, rather than three rows. */
+@media(max-width:599px){
+  .t30-jump{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut,16px));padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+  .t30-jump::-webkit-scrollbar{display:none}
+  .t30-jump a{flex:none}
+}
 /* PRODUCTS: two release dates side by side on a wide screen, where each product
    was a 1,392px bar holding one line. */
 .t30-waves{display:grid;gap:var(--s4)}
@@ -1132,13 +1189,22 @@ const style = `
 /* A TABLE THAT FITS ITS BOX: min-width 24em pushed the Japanese box table to
    446px inside a 348px scroller and cut its caption off. */
 .t30-tbl--fit{min-width:0}
-.t30-tbl--fit th,.t30-tbl--fit td{white-space:normal}
+/* .t30-tbl.t30-tbl--fit, TWO CLASSES, because ".t30-tbl th{white-space:nowrap}"
+   further down had the same weight and won, so --fit did nothing: the promo
+   table was 849px inside a 348px scroller at 390 with "Comes in" cut mid word. */
+.t30-tbl.t30-tbl--fit th,.t30-tbl.t30-tbl--fit td{white-space:normal}
 /* JAPAN'S LIST, closed by default: 7,068px of a different set at 390. */
 .t30-jp>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3);min-height:44px}
 .t30-jp>summary::-webkit-details-marker{display:none}
 .t30-jp>summary h2{margin:0}
 .t30-jp>summary span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--sky-deep);text-transform:uppercase;letter-spacing:.06em}
 .t30-jp[open]>summary span{display:none}
+/* IT DID NOT LOOK OPENABLE: one line of 11px mono in a 146px band. A plus in a
+   ring, the same mark the "Still to find" rows use for the same job. */
+.t30-jp>summary::after{content:"+";margin-left:auto;display:grid;place-items:center;width:36px;height:36px;border-radius:999px;
+  border:1px solid var(--keyline);color:var(--sky-deep);font:400 24px/1 var(--body,inherit)}
+.t30-jp[open]>summary::after{content:"\\2212"}
+.t30-jp>summary:hover::after{border-color:var(--sky);color:var(--sky)}
 .t30-jpl{list-style:none;margin:var(--s4) 0 0;padding:0;font-size:var(--t-sm);line-height:1.6}
 .t30-jpl span{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 .t30-jpl i{font-style:normal;color:var(--ink-2);font-size:var(--t-micro)}
@@ -1146,10 +1212,35 @@ const style = `
 .t30-faq{margin:var(--s4) 0 0;max-width:46em}
 .t30-faq dt{font:700 var(--t-body)/1.3 var(--body,inherit);color:var(--ink);margin-top:var(--s4)}
 .t30-faq dd{margin:6px 0 0;line-height:1.55}
+/* LINKS OUTSIDE A <p> WERE PLAIN TEXT. ui.css colors prose links only as
+   "main p a:not([class])", so the FAQ's, the pack facts' and all twelve
+   Sources links drew in the body color with no underline: routes that did not
+   look like routes, against the rule that a route is teal. */
+.t30-faq dd a:not([class]),.t30-src a:not([class]),.t30-facts a:not([class]){color:var(--sky-deep);text-decoration:underline;
+  text-underline-offset:.15em;text-decoration-color:color-mix(in srgb,currentColor 45%,transparent)}
+.t30-faq dd a:not([class]):hover,.t30-src a:not([class]):hover,.t30-facts a:not([class]):hover,
+.t30-faq dd a:not([class]):focus-visible,.t30-src a:not([class]):focus-visible,.t30-facts a:not([class]):focus-visible{color:var(--sky);text-decoration-color:currentColor}
+.t30-src a{display:inline-block;padding-block:4px}
 /* THE CHECKLIST LIST. Rows, not tiles; see checklistBand. The filter chips are
    labels for visually hidden inputs, 44px tall, teal when checked because a
    checked filter is a current state. */
 .t30-clf{display:flex;flex-wrap:wrap;gap:var(--s3) var(--s5);margin:var(--s4) 0 var(--s3)}
+/* THE FILTERS STAY ON SCREEN, 25 September 2026. The list is 20 screens on a
+   phone and the chips scrolled away with the first of them, so "Still need" and
+   "Price" were out of reach from anywhere but the top. Sticky inside the
+   section only, so the bar lets go when the checklist ends; the background is
+   the section's own, which alternates, so both are named. On a phone it is one
+   row that scrolls sideways rather than four rows of chips. */
+#checklist .t30-clf{position:sticky;top:var(--bar-h,60px);z-index:5;background:var(--page);
+  margin-inline:-8px;padding:8px;border-bottom:1px solid color-mix(in srgb,var(--keyline) 60%,transparent)}
+section.band#checklist .t30-clf{background:var(--sky-tint)}
+@media(max-width:699px){
+  #checklist .t30-clf{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+    margin-inline:calc(-1 * var(--gut,16px));padding:6px var(--gut,16px);gap:var(--s4)}
+  #checklist .t30-clf::-webkit-scrollbar{display:none}
+  #checklist .t30-clf fieldset{flex-wrap:nowrap;flex:none}
+  #checklist .t30-clf label{flex:none;white-space:nowrap}
+}
 .t30-clf fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .t30-clf legend{float:left;margin-right:8px;font:700 var(--t-micro)/44px var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.06em}
@@ -1158,19 +1249,34 @@ const style = `
   background:var(--paper);border:1px solid var(--keyline);font:700 var(--t-sm)/1 var(--body,inherit);color:var(--ink)}
 .t30-clf input:checked+label{border:2px solid var(--sky);background:var(--paper-3)}
 .t30-clf input:focus-visible+label{outline:3px solid var(--sky);outline-offset:2px}
-.t30-cl{list-style:none;margin:0;padding:0}
-.t30-clh{font:400 var(--t-m)/1.2 var(--display);color:var(--ink);padding:var(--s4) 0 var(--s2);
-  break-after:avoid;display:flex;align-items:center;gap:8px}
+/* A GRID, NOT CSS COLUMNS, 25 September 2026. Three columns of a column
+   layout read down and then across, so column two opened at #064 in the middle
+   of the main set with no heading over it and the first screen showed #023,
+   #064 and #127 side by side. As a grid the rows read across like a binder
+   page, every section starts under its own full width heading, and the price
+   sort is the same grid in a different order. */
+.t30-cl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);column-gap:var(--s5,32px)}
+.t30-clh{grid-column:1/-1;font:400 var(--t-m)/1.2 var(--display);color:var(--ink);padding:var(--s4) 0 var(--s2);
+  display:flex;align-items:center;gap:8px}
+@media(min-width:700px){.t30-cl{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1280px){.t30-cl{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s6,48px)}}
 /* THE THUMBNAIL GROWS WITH THE SCREEN, 25 September 2026. The owner: "make the
    thumbnails larger as they are impossible to see the artwork on desktop". It
    was 40px everywhere, which is a card you can recognise by its colours and
    nothing else. --rt is the one number: the grid column and the picture both
-   read it. Three columns from 1280px keeps the list about as long as it was
-   while the pictures roughly double. */
-.t30-cl{--rt:48px}
-.t30-row{display:grid;grid-template-columns:3.6em var(--rt) minmax(0,1fr) auto;align-items:center;gap:10px;
-  padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--keyline) 40%,transparent);break-inside:avoid;position:relative}
-.t30-rn{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);overflow-wrap:anywhere}
+   read it.
+   THE NUMBER MOVED INTO THE TEXT, out of a 3.6em column of its own that held
+   "#026" and a check and cost the name 60px, so five Classic Collection names
+   wrapped at 360. */
+.t30-cl{--rt:44px}
+.t30-row{display:grid;grid-template-columns:var(--rt) minmax(0,1fr) auto;align-items:center;gap:12px;
+  padding:6px 6px 6px 10px;border-bottom:1px solid color-mix(in srgb,var(--keyline) 40%,transparent);position:relative}
+/* A card in the binder: a pink edge down the row and a check before its
+   number, marks that go nowhere and never touch the card. */
+.t30-row.is-have{box-shadow:inset 3px 0 0 var(--ketchup)}
+.t30-rn{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2)}
+.t30-row.is-have .t30-rn::before{content:"\\2713\\00a0";color:var(--ketchup-deep)}
+.t30-rh{position:absolute}
 .t30-rt{position:relative;width:var(--rt);aspect-ratio:5/7;border-radius:3px;overflow:hidden;background:var(--paper-3)}
 /* A ROW OPENS ITS CARD FROM ANYWHERE ON IT (the script forwards the click to
    the picture, which is the one focusable control), so the whole row answers
@@ -1181,33 +1287,31 @@ const style = `
 @media(min-width:1000px){.t30-cl{--rt:68px}}
 @media(min-width:1280px){.t30-cl{--rt:76px}}
 .t30-row .t30-rt .t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.t30-rm{min-width:0;display:grid;gap:2px}
+.t30-rm{min-width:0;display:grid;gap:3px}
 .t30-rm b{font:700 var(--t-sm)/1.25 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
-.t30-rm i,.t30-rp i{font:400 var(--t-micro)/1.2 var(--body,inherit);font-style:normal;color:var(--ink-2)}
+/* 13px, up from 11: the PSA 10 figure and the credit are information. */
+.t30-rm i,.t30-rp i{font:400 .8125rem/1.25 var(--body,inherit);font-style:normal;color:var(--ink-2)}
+.t30-rm .t30-ri{color:var(--ink-2);opacity:.9}
 .t30-rp{display:grid;justify-items:end;gap:2px;text-align:right;white-space:nowrap}
 .t30-rp b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
-/* In the binder: a small --ketchup check before the number, a mark that goes nowhere. */
-.t30-row.is-have .t30-rn::before{content:"\\2713\\00a0";color:var(--ketchup-deep)}
-@media(min-width:1000px){.t30-cl{columns:2;column-gap:var(--s6,48px)}}
-@media(min-width:1280px){.t30-cl{columns:3}}
 /* THE FILTERS. Sections: generated per section below. Still need hides rows in
-   the binder. Price sort turns the list into a flex column ordered by rank and
-   drops the section headings, which mean nothing in price order. */
+   the binder. Price sort reorders the same grid by rank and drops the section
+   headings, which mean nothing in price order. */
 #checklist:has(#cln:checked) .t30-row[data-have="1"]{display:none}
 .t30-cnt-need{display:none}
 #checklist:has(#cln:checked) .t30-cnt-all{display:none}
 #checklist:has(#cln:checked) .t30-cnt-need{display:inline-block}
-#checklist:has(#clo-price:checked) .t30-cl{display:flex;flex-direction:column;columns:auto}
-/* In price order the list reads across then down on a desktop, so the top of
-   the ranking is not all in one long column. */
-@media(min-width:1000px){#checklist:has(#clo-price:checked) .t30-cl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6,48px)}}
-@media(min-width:1280px){#checklist:has(#clo-price:checked) .t30-cl{grid-template-columns:repeat(3,minmax(0,1fr))}}
 #checklist:has(#clo-price:checked) .t30-row{order:var(--rank)}
 #checklist:has(#clo-price:checked) .t30-clh{display:none}
 ${clCss}
+.t30-sum--set{list-style:none;padding:0;margin:var(--s5) 0 var(--s2)}
+.t30-sum--set li{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
+.t30-sum--set b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+.t30-sum--set span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+@media(max-width:599px){.t30-sum--set{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .t30-sum div{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
 .t30-sum b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink)}
-.t30-sum span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.t30-sum span{display:block;margin-top:4px;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .t30-bs{margin-top:var(--s5)}
 .t30-bs h3{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin:0}
 .t30-cnt{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);background:var(--paper);border:1px solid var(--keyline);border-radius:999px;padding:4px 8px}
@@ -1246,8 +1350,13 @@ ${clCss}
 .t30-cover-s{margin:0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.06em}
 .t30-board .t30-bar{width:min(220px,70%);margin:4px 0 0}
-.t30-cover-o{margin:var(--s3) 0 0;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
-  text-transform:uppercase;letter-spacing:.08em}
+/* A REAL CONTROL NOW. It looked like a button and was words: a tap on the cover
+   did nothing, and only the 52px corner turned the page. */
+.t30-cover-o{margin:var(--s3) 0 0}
+.t30-cover-o a{display:inline-grid;place-items:center;min-height:44px;padding:0 18px;border-radius:999px;
+  border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);text-decoration:none;
+  font:700 var(--t-micro)/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em}
+.t30-cover-o a:hover,.t30-cover-o a:focus-visible{border-color:var(--sky);color:var(--sky)}
 .t30-rings{display:none}
 .t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
   overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
@@ -1310,12 +1419,24 @@ ${clCss}
    never jumps), only the open page or pages are visible, and a turn is a sheet
    that rotates about the spine in 3D.
    data-mode="one": a phone. One page, rings down the left edge.
-   data-mode="two": 760px and up, so a tablet held either way gets the open
-   binder too. Rings down the middle.                                          */
+   data-mode="two": 900px and up, or 760px held sideways. A tablet upright
+   used to get the open binder too, and each pocket came out 71px wide, the
+   same as on a phone; one page at 560px is twice that. Rings down the middle.  */
 /* THE BOARDS: the binder's own cover, dark, behind and around the pages. Only
    the pages and the rings sit on it; the caption stays outside, under it. */
 .t30-binder.is-book{max-width:560px;scroll-margin-top:84px}
-.t30-binder.is-book[data-mode="two"]{max-width:min(1120px,calc((100dvh - 110px) * 1.33));margin-inline:auto}
+/* WIDTH FROM THE SCREEN'S HEIGHT, so the open binder fits under the site bar
+   whole. The ratio is measured, not assumed: an open spread is 1.21 times as
+   wide as it is tall, and the 1.33 this used left it 30px taller than the
+   screen at 1440x900. */
+.t30-binder.is-book[data-mode="two"]{max-width:min(1120px,calc((100dvh - 84px) * 1.2));margin-inline:auto}
+/* The share link, the page jumps and "Still to find" line up under the binder
+   rather than starting at the left edge of the section beside it. */
+#masterset:has(.t30-binder[data-mode="two"]) :is(.t30-share,.t30-rail){
+  max-width:min(1120px,calc((100dvh - 84px) * 1.2));margin-inline:auto}
+#masterset:has(.t30-binder[data-mode="two"]) .t30-needs{
+  margin-left:max(0px,calc((100% - min(1120px,calc((100dvh - 84px) * 1.2))) / 2))}
+@media(min-width:1000px){#masterset .t30-rail{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .is-book .t30-book{position:relative;background:var(--chrome-bg);border:1px solid var(--keyline);
   border-radius:calc(var(--r) + 6px);padding:8px 10px 12px 14px;box-shadow:var(--lift)}
 .is-book[data-mode="two"] .t30-book{padding:14px 18px 18px}
@@ -1441,6 +1562,10 @@ ${clCss}
 .t30-zm{appearance:none;display:block;padding:0;margin:0;border:0;background:none;color:inherit;font:inherit;
   cursor:zoom-in;border-radius:var(--r-sm);-webkit-tap-highlight-color:transparent}
 .t30-ct .t30-zm{width:100%}
+/* ONE SHAPE FOR EVERY TILE'S PICTURE. A TCGplayer scan is 0.717 and a TCGdex
+   one 0.727, so names sat 4px apart from tile to tile. Contain, never cover:
+   the card is drawn whole. */
+.t30-ct .t30-zm img{aspect-ratio:63/88;object-fit:contain}
 .t30-zm:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
 .t30-ct .t30-zm img{transition:transform .18s ease,box-shadow .18s ease}
 @media(hover:hover){.t30-ct .t30-zm:hover img{transform:translateY(-3px);box-shadow:0 10px 22px rgb(0 0 0 / .45)}}
@@ -1481,10 +1606,18 @@ ${clCss}
    leave the panel room, and the body scrolls if a phone is shorter still. The
    page behind does not scroll while the card is open. */
 html:has(dialog.t30-lb[open]){overflow:hidden}
-.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none}
+.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.t30-lb-fig img{-webkit-user-drag:none}
+.t30-lb-nav .t30-lb-close{flex:0 0 auto;padding:0 18px;color:var(--ink)}
 /* THE CARD, WHOLE. Contain, never cover, so no edge of the card is cropped, and
    capped by the viewport's height so the panel under it is still on screen. */
-.t30-lb-img{display:block;width:auto;height:auto;max-width:100%;max-height:max(220px,min(62dvh,640px,calc(94dvh - 360px)));aspect-ratio:63/88;
+/* A HEIGHT, NOT A MAX-HEIGHT: with only a cap the box was 0px tall until the
+   picture arrived, so the panel jumped and a quick second tap on Next landed on
+   whatever had moved under it. */
+/* The second term is the width the panel has on a phone (94vw, less the
+   border and padding) turned into a height, so a narrow phone gets a smaller
+   card rather than a card letterboxed in a taller box. */
+.t30-lb-img{display:block;width:auto;height:min(max(220px,min(62dvh,640px,calc(94dvh - 360px))),calc((94vw - 34px) * 1.397));max-width:100%;aspect-ratio:63/88;
   object-fit:contain;border-radius:4.6%/3.3%;background:var(--paper);box-shadow:0 8px 24px rgb(0 0 0 / .45)}
 .t30-lb-info{min-width:0}
 .t30-lb-info h3{font:400 var(--t-l)/1.1 var(--display);margin:0 0 6px}
@@ -1494,6 +1627,10 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-lb-px div{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3)}
 .t30-lb-px dt{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
 .t30-lb-px dd{margin:4px 0 0;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+/* The hit tile's route to its rip, which the picture no longer is. Teal: a route. */
+.t30-ct-w{margin:6px 0 0;font:700 var(--t-sm)/1.3 var(--body,inherit);color:var(--sky-deep)}
+.t30-ct>a:hover .t30-ct-w,.t30-ct>a:focus-visible .t30-ct-w{color:var(--sky)}
+.t30-lb-ill{margin:6px 0 0;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
 .t30-lb-rip{margin:var(--s3) 0 0;font:700 var(--t-sm)/1.4 var(--body)}
 .t30-lb-rip a{color:var(--sky-deep)}
 .t30-lb-rip a:hover,.t30-lb-rip a:focus-visible{color:var(--sky)}
@@ -1505,7 +1642,7 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 @media(min-width:760px){
   .t30-lb-body{flex-direction:row;align-items:center;padding:var(--s5)}
   .t30-lb-fig{flex:0 0 auto}
-  .t30-lb-img{max-height:min(78dvh,620px,calc(94dvh - 120px))}
+  .t30-lb-img{height:min(78dvh,620px,calc(94dvh - 120px))}
   .t30-lb-info{flex:1}
 }
 
@@ -1520,8 +1657,10 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-secsum span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
 .t30-secsum .t30-bar{margin:6px 0 0;height:8px}
+/* All seven in one row on a desktop; auto-fit drew six and one at 1024. */
+@media(min-width:1000px){.t30-secsum{grid-template-columns:repeat(${sectionSummaryN},minmax(0,1fr))}.t30-secsum span{letter-spacing:0}}
 .t30-needs{margin:var(--s5) 0 0;max-width:560px}
-.t30-needs h3{margin:0 0 var(--s3);font:400 var(--t-l)/1.15 var(--display);color:var(--ink)}
+.t30-needs h3{margin:0 0 var(--s3);font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
 .t30-need{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);margin:0 0 var(--s2)}
 .t30-need summary{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
   min-height:44px;padding:0 var(--s3);cursor:pointer;list-style:none}
@@ -1585,12 +1724,19 @@ button.t30-cf:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 /* .t30-got is gone with the date overlay it styled, 22 September 2026. */
 .t30-more{color:var(--ink-2);font-size:var(--t-sm);margin-top:var(--s3)}
 .t30-wave{margin-top:var(--s4)}
-.t30-wave h3{margin:0 0 var(--s3);font:400 var(--t-l)/1.15 var(--display)}
+/* --t-m, not --t-l: a release date in Titan One at 32px outshouted the section's
+   own 25px heading above it. */
+.t30-wave h3{margin:0 0 var(--s3);font:400 var(--t-m)/1.15 var(--display)}
 .t30-wave ul{list-style:none;display:grid;gap:var(--s3);margin:0}
 .t30-wave li{background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm);padding:var(--s3);display:grid;gap:4px}
 .t30-p{font-weight:700;color:var(--ink)}
 .t30-p a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;text-decoration-color:color-mix(in srgb,currentColor 45%,transparent)}
 .t30-p a:hover,.t30-p a:focus-visible{text-decoration-color:currentColor}
+/* A product with an opening page answers a tap anywhere on its card: the name
+   alone was a 21px tall target. */
+.t30-wave li:has(.t30-p a){position:relative}
+.t30-wave li:has(.t30-p a):hover{border-color:var(--sky)}
+.t30-p a::after{content:"";position:absolute;inset:0}
 .t30-meta{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .t30-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .t30-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--keyline);border-radius:var(--r-sm);margin-top:var(--s4)}
@@ -1599,8 +1745,24 @@ button.t30-cf:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .t30-tbl th{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--ink-2);position:sticky;top:0;background:var(--card)}
 .t30-tbl td:nth-child(1){font-family:var(--mono);color:var(--ink-2)}
 .t30-tbl tr:last-child td{border-bottom:0}
+/* ON A PHONE A --fit TABLE STACKS: each row is the number over its words, with
+   the header kept for screen readers. Nothing is left off to the side. */
+@media(max-width:599px){
+  .t30-tbl.t30-tbl--fit{min-width:0}
+  .t30-tbl--fit,.t30-tbl--fit tbody{display:block}
+  .t30-tbl--fit thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .t30-tbl--fit tr{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;padding:8px 10px;border-bottom:1px solid var(--keyline)}
+  .t30-tbl--fit tr:last-child{border-bottom:0}
+  .t30-tbl.t30-tbl--fit td{border:0;padding:0}
+  .t30-tbl--fit td:nth-child(3){grid-column:2;color:var(--ink-2)}
+  .t30-tbl--fit caption{display:block;padding:8px 10px}
+}
 .t30-src{list-style:none;margin:var(--s4) 0 0;display:grid;gap:8px}
 .t30-src li{overflow-wrap:anywhere;font-size:var(--t-sm)}
+/* A PARAGRAPH IN THE BODY FACE. price-note is mono at .68rem, right for a
+   one line credit under a table and hard going for these two, which run to
+   seventy words each. */
+.price-note.t30-prose{font:400 var(--t-sm)/1.55 var(--body,inherit);max-width:46em}
 `;
 
 /* LED BY WHAT PEOPLE SEARCH FOR, 23 September 2026: "30th celebration card
@@ -1658,6 +1820,20 @@ const ld = [
  */
 /* TEN, so it fills two rows of five at desktop width; twelve wrapped nine and three. */
 const TOP_N = 10;
+/* THE PRODUCTS THAT HOLD PACKS. The Battle Deck is a product of this set with
+   no booster in it, so "every pack comes inside one of 15 products" was one
+   too many. */
+const PACK_PRODUCTS = doc.products.filter((p) => p.packs).length;
+/* WHAT THE SET ADDS UP TO, 25 September 2026, out of the same PriceCharting
+   figures the tiles print: a sum, a median and two counts. Arithmetic only and
+   no expected value, which would need pull rates nobody has published. It
+   answers the question a viewer arrives with from a rip, "is it worth it", the
+   honest way: most cards are worth little and the money is in a few. */
+const RAWS = pricedCards.map((c) => c.pr.raw).sort((a, b) => a - b);
+const SET_SUM = RAWS.reduce((a, v) => a + v, 0);
+const SET_MED = RAWS.length ? (RAWS.length % 2 ? RAWS[(RAWS.length - 1) / 2] : (RAWS[RAWS.length / 2 - 1] + RAWS[RAWS.length / 2]) / 2) : 0;
+const UNDER_1 = RAWS.filter((v) => v < 1).length;
+const OVER_20 = RAWS.filter((v) => v >= 20).length;
 const valueBand = !pricedCards.length ? "" : `
 <section class="band tight" id="values">
   <div class="wrap">
@@ -1670,6 +1846,12 @@ const valueBand = !pricedCards.length ? "" : `
     <ol class="t30-cts t30-cts--top" data-zg="values">
 ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
     </ol>
+    <ul class="t30-sum t30-sum--set" aria-label="The priced cards, added up">
+      <li><b>${esc(moneyRound(SET_SUM))}</b><span>All ${pricedCards.length} priced cards, one of each, raw</span></li>
+      <li><b>${esc(moneyExact(SET_MED))}</b><span>The median card</span></li>
+      <li><b>${UNDER_1}</b><span>Cards under $1</span></li>
+      <li><b>${OVER_20}</b><span>Cards at $20 or more</span></li>
+    </ul>
     <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
       longDate(prices.checked || doc.checked)
     )}. A guide value is computed across the sales PriceCharting tracks, which is wider than any one
@@ -1695,7 +1877,7 @@ const rarityRows = (() => {
   return [...tally.entries()].sort((a, b) => b[1] - a[1]);
 })();
 const rarityBand = !rarityRows.length ? "" : `
-<section class="tight">
+<section class="tight" id="rarity">
   <div class="wrap">
     <p class="sec-label">What is actually rare</p>
     <h2>Rarity breakdown</h2>
@@ -1703,10 +1885,17 @@ const rarityBand = !rarityRows.length ? "" : `
       (checklist.cards || []).length
     } cards on the checklist, not typed in. <strong>Every card in this set is foil</strong>, basic Energy
       included, so a rarity here is about how hard a card is to find rather than whether it shines.</p>
-    <ul class="t30-rar">
+    <ul class="t30-rar" data-zg="rarity">
 ${rarityRows
   .map(
-    ([name, n]) => `      <li><b>${n}</b><span>${esc(name)}</span></li>`
+    ([name, n]) => {
+      /* WHAT THE RARITY LOOKS LIKE, 25 September 2026: nine bare numbers on
+         a page about card art. Each tile shows the dearest card of its rarity
+         (or the first on the checklist where none is priced), and opens it. */
+      const c = pricedCards.find((x) => x.rarity === name) || (checklist.cards || []).find((x) => x.rarity === name);
+      const pic = c ? pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: "(max-width:1099px) 28vw, 130px" }) : "";
+      return `      <li>${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))}, a ${esc(name)}, larger">${pic}</button>` : ""}<b>${n}</b><span>${esc(name)}</span></li>`;
+    }
   )
   .join("\n")}
     </ul>
@@ -1736,12 +1925,15 @@ ${rarityRows
 const clRank = new Map(pricedCards.map((c, i) => [clKey(c.section, c.n), i + 1]));
 const clOwned = new Set(owned.map((c) => clKey(c.section, c.n || "")));
 const clRow = (c) => {
-  const k = clKey(c.section, c.n), pr = priceOf(c), have = clOwned.has(k);
+  const k = clKey(c.section, c.n), pr = priceOf(c), have = clOwned.has(k), ill = illOf(c.section, c.n);
   const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true });
   return `      <li class="t30-row${have ? " is-have" : ""}" data-s="${esc(c.section)}"${have ? ' data-have="1"' : ""} style="--rank:${clRank.get(k) || 9999}">
-        <span class="t30-rn">#${esc(pocketNum(c.section, c.n))}</span>
         ${pic ? `<button type="button" class="t30-rt t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : `<span class="t30-rt"></span>`}
-        <span class="t30-rm"><b>${esc(c.name)}</b><i>${esc(c.rarity || "")}</i></span>
+        <span class="t30-rm"><b>${esc(c.name)}</b><i><span class="t30-rn">#${esc(pocketNum(c.section, c.n))}</span> &middot; ${esc(
+          /* A Pikachu's place in the thirty, which is how the owner counts them
+             ("x/30"), in place of "Pikachu Rare" printed thirty times. */
+          c.section === "pikachu" ? `${Number(String(c.n).split("/")[0]) - 22} of 30` : c.rarity || ""
+        )}</i>${ill ? `<i class="t30-ri">Illus. ${esc(ill)}</i>` : ""}</span>
         <span class="t30-rp">${pr && typeof pr.raw === "number"
           ? `<b>${moneyExact(pr.raw)}</b>${typeof pr.psa10 === "number" ? `<i>${moneyRound(pr.psa10)} PSA 10</i>` : ""}`
           : `<i>No price yet</i>`}</span>
@@ -1755,7 +1947,7 @@ const checklistBand = !(checklist.cards || []).length ? "" : `
     <h2>30th Celebration checklist: <span class="hl">every numbered card</span></h2>
     <p class="lede" style="max-width:44em">${(checklist.cards || []).length} of the ${TOTAL} are listed here,
       ${pricedCards.length} with a raw price${prices.counts && prices.counts.psa10 ? ` and ${prices.counts.psa10} with a PSA 10` : ""}. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
-      live in the binder below. Filter by section, sort by price, or show only the cards still missing from the
+      live in the binder above. Filter by section, sort by price, or show only the cards still missing from the
       binder.</p>
     <form class="t30-clf" onsubmit="return false" aria-label="Filter the checklist">
       <fieldset><legend>Show</legend>
@@ -1860,13 +2052,16 @@ const setHits = (() => {
 })();
 
 const hitsBand = !setHits.length ? "" : `
-<section class="tight">
+<section class="tight" id="hits">
   <div class="wrap">
     <p class="sec-label">Pulled on camera</p>
     <h2>What we have hit from <span class="hl">this set</span></h2>
     <p class="lede" style="max-width:44em">${setHits.length} hit${setHits.length === 1 ? "" : "s"} from
       ${setHits.length === 1 ? "one rip" : `${new Set(setHits.map((r) => r.v.id)).size} rips`} so far. Every one
-      links to the rip it came from. This is a different list from the binder below: the binder is every
+      links to the rip it came from.${(() => {
+        const pn = setHits.filter((r) => !r.row && r.h.promo).length;
+        return pn ? ` The count includes ${pn === 1 ? "one Black Star promo" : `${pn} Black Star promos`}.` : "";
+      })()} This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
     <ol class="t30-cts t30-cts--hits" data-zg="hits">
 ${setHits
@@ -1886,27 +2081,31 @@ ${setHits
     const zoom = zoomAttrs({
       name: h.card,
       num,
-      rar: h.rarity || row?.rarity,
+      rar: row?.rarity || h.rarity,
       big: row ? bigOf({ section: row.section, n: row.n }, row) : promoPid ? bigOf({}, { pid: promoPid }) : "",
       px: pr,
       /* NOT "in the binder": the binder and the hits are separate lists by
          the owner's rule, so a hit's pop-up says when it was pulled instead. */
       when: shortDate(v.published),
       rip: "/" + v.path,
+      ill: row ? illOf(row.section, row.n) : "",
     });
     return `        <li class="t30-ct${pic ? "" : " nopic"}">
           ${pic ? `<button type="button" class="t30-zm"${zoom} aria-label="Show ${esc(h.card)} ${esc(num)} larger">${pic}</button>` : ""}
           <a href="/${esc(v.path)}">
             <p class="t30-ct-n">${esc(h.card)}</p>
             <p class="t30-ct-m">${esc(num)}${
-              h.rarity ? ` &bull; ${esc(h.rarity)}` : ""
+              /* The checklist's spelling of the rarity when the card has a row:
+                 the owner's typed "Double rare" sat beside "Double Rare". */
+              row?.rarity || h.rarity ? ` &bull; ${esc(row?.rarity || h.rarity)}` : ""
             }</p>
             ${
               pr && typeof pr.raw === "number"
                 ? `<p class="t30-ct-p">${moneyExact(pr.raw)}<span>raw NM</span></p>`
                 : `<p class="t30-ct-p none">No price yet</p>`
             }
-            <p class="t30-ct-v">${esc(shortDate(v.published))}</p>
+            <p class="t30-ct-v">Pulled ${esc(shortDate(v.published))}</p>
+            <p class="t30-ct-w">Watch the rip &rarr;</p>
           </a>
         </li>`;
   })
@@ -1939,35 +2138,138 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
 </script>
 
 <header class="band-sky tight">
-  <div class="wrap">
+  <div class="wrap t30-top">
+    <div class="t30-top-l">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/sets/">Sets</a> / 30th Celebration</nav>
     ${heroLogo()}
     <h1>Pokemon 30th Celebration card list and set guide</h1>
     <p class="lede" style="max-width:42em">${esc(doc.set.releaseNote.split(".")[0])}, on ${esc(longDate(doc.set.release))}.
-      Every card is foil, there is no booster box, and every pack comes inside one of ${doc.products.length}
+      Every card is foil, there is no booster box, and every pack comes inside one of ${PACK_PRODUCTS}
       products. Here is the full checklist with prices, every product and its date, and one collector's master set.</p>
     <div class="t30-sum">
       <!-- shortDate, NOT longDate: "September" alone is 262px of Titan One in a 209px box. -->
-      <div><b>${esc(shortDate(doc.set.release))}</b><span>Release, worldwide</span></div>
+      ${/* THE YEAR GOES IN THE CAPTION: "Sep 16, 2026" wrapped onto two lines of
+           display type at 1280 and below, and clipped once it was told not to. */""}<div><b>${esc(shortDate(doc.set.release).replace(/,\s*\d{4}$/, ""))}</b><span>Released ${esc(doc.set.release.slice(0, 4))}, worldwide</span></div>
       <div><b>${E.count}</b><span>Cards in English</span></div>
       <div><b>${doc.products.length}</b><span>Products, ${waves.size} release dates</span></div>
-      ${pricedCards[0] ? `<div><b>${esc(moneyRound(pricedCards[0].pr.raw))}</b><span>Top card, ${esc(pricedCards[0].name)}</span></div>` : ""}
+      ${pricedCards[0] ? `<div><b>${esc(moneyRound(pricedCards[0].pr.raw))}</b><span>Top priced card, ${esc(pricedCards[0].name)}</span></div>` : ""}
     </div>
     ${/* ON THIS PAGE. Not sticky: a pinned bar costs a phone a slice of every
          screen for a page read mostly top to bottom. Teal, because these are
-         routes. */""}<nav class="t30-jump" aria-label="On this page">
-      <a href="#checklist">Checklist</a>
+         routes. IN PAGE ORDER, which it was not: "Checklist" led while the
+         value band came first, and the hits had no chip at all. On a phone the
+         chips are one row that scrolls sideways, not three rows of wrap. */""}<nav class="t30-jump" aria-label="On this page">
       <a href="#values">Most valuable</a>
+      ${setHits.length ? `<a href="#hits">Our hits</a>` : ""}
+      <a href="#masterset">Master set binder</a>
+      <a href="#checklist">Checklist</a>
       <a href="#products">Products and dates</a>
       <a href="#in-a-pack">In a pack</a>
-      <a href="#masterset">Master set binder</a>
       <a href="#faq">FAQ</a>
     </nav>
     <p class="t30-msjump"><a class="t30-msjump-a" href="#masterset"><b>${pct}% of the set collected</b>
-      <span>${haveTotal} of ${TOTAL} cards &middot; see the master set binder &rarr;</span></a></p>
+      <span>${haveTotal} of ${TOTAL} cards &middot; see the master set&nbsp;binder&nbsp;&rarr;</span></a></p>
+    </div>
+    ${/* THE CARDS PEOPLE ARE CHASING, IN THE FIRST SCREEN, 25 September 2026. A
+         design review measured the first card picture at 880px down on a laptop
+         with the right half of the hero empty. The top three by raw price, the
+         same three the value band opens with, each opening the pop-up. Laid
+         side by side and never overlapping, because nothing on this page may
+         cover a card's artwork. Desktop only: on a phone the value band is the
+         next thing on screen anyway. */""}${pricedCards.length >= 3 ? `<div class="t30-fan">
+      <ol data-zg="fan">
+${pricedCards.slice(0, 3).map((c) => `        <li>${`<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: "(max-width:999px) 1px, 150px" })}</button>`}</li>`).join("\n")}
+      </ol>
+      <p>The top three by raw price</p>
+    </div>` : ""}
   </div>
 </header>
 ${valueBand}
+${hitsBand}
+<section class="tight" id="masterset">
+  <div class="wrap">
+    <p class="sec-label">One collector's copy</p>
+    <h2>The master set, pocket by pocket</h2>
+    <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
+      is a card actually in the binder. The empty ones are the job.${
+        CHECKLIST.size
+          ? ` Every card is shown: the ones still to find are the gray ones.`
+          : ""
+      }${
+        /* THE PROGRESS CARD THAT STOOD HERE IS GONE, 25 September 2026: "136 of
+           199" was printed four times between the hero and the first page. The
+           tiles below and the cover carry the count; only the date moved. */
+        haveTotal === 0
+          ? ` Nothing in it yet: cards get added here as they are opened.`
+          : ` Last added ${esc(longDate(owned.map((c) => c.got).filter(Boolean).sort().pop() || binder.checked))}.`
+      }</p>
+    <ul class="t30-secsum">
+${sectionSummary}
+    </ul>
+
+    <figure class="t30-binder">
+      ${/* THE COVER. The owner asked for it in these words: "give it a 30th Celebration
+           logo at the top of the binder and then under the 30th logo it says Master
+           Set Binder". Since 23 September 2026 it is PAGE 0 of the binder, the front
+           board you open, rather than a strip above the pages: "make it look as
+           much like a real card binder as possible". On a phone that also gave the
+           first sheet the whole screen, where cover plus sheet did not fit.
+
+           THE LOGO IS THE SET'S OWN and is already on this page's hero, so it is a
+           cache hit rather than a second download. It is DECORATIVE here: the
+           accessible name of this component lives on the track's aria-label and the
+           words "Master Set Binder" are real text underneath, so alt="" is correct
+           and an alt of "30th Celebration" would make a screen reader say the set
+           name twice in a row. */""}
+      <div class="t30-book">
+      <span class="t30-rings" aria-hidden="true"><i></i><i></i><i></i></span>
+      <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them and a cover. Turn with the page corners, the arrow keys, or a swipe.">
+        <article class="t30-leaf t30-leaf-cover" id="bl0" aria-label="Cover">
+          <div class="t30-board">
+            <picture>
+              <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
+              <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
+                   width="180" height="84" decoding="async" onerror="this.remove()">
+            </picture>
+            <p class="t30-cover-t">Master Set Binder</p>
+            <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
+            <span class="t30-bar" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></span>
+            <p class="t30-cover-o"><a href="#bl1">Open the binder</a></p>
+          </div>
+          <a class="t30-turn fwd" href="#bl1" aria-label="Open the binder to page 1, ${esc(BINDER_LEAVES[0].label)}"><span aria-hidden="true">&rsaquo;</span></a>
+        </article>
+${BINDER_LEAVES.map(leafHtml).join("\n")}
+        ${/* THE INSIDE BACK COVER. Only the two-page desktop spread uses it, as the
+             right-hand page opposite the last sheet, so it is hidden until the
+             binder script opens that view. */""}<article class="t30-leaf t30-leaf-end" id="bl${LEAF_N + 1}" aria-label="Inside back cover" hidden>
+          <div class="t30-board">
+            <p class="t30-cover-t">That is the binder</p>
+            <p class="t30-cover-s">${haveTotal} of ${TOTAL} so far &middot; ${TOTAL - haveTotal} still to find</p>
+          </div>
+          <a class="t30-turn back" href="#bl${LEAF_N}" aria-label="Turn back to page ${LEAF_N}"><span aria-hidden="true">&lsaquo;</span></a>
+        </article>
+      </div>
+      </div>
+      <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
+      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
+        Turn a page with either corner, or jump to one below. A gray card is one still to find.${
+          jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
+        }</figcaption>
+    </figure>
+    ${/* THE BINDER'S OWN SHARE LINK, /30th-binder.html, which previews as the
+         drawn binder (scripts/build-og-binder.py) rather than as the set guide.
+         A plain link that works with no script; the script turns it into the
+         phone's share sheet where there is one, and a copy-to-clipboard where
+         there is not. */""}<p class="t30-share"><a class="t30-share-a" id="t30Share" href="/30th-binder.html">Share this binder</a>
+      <span id="t30ShareMsg" role="status" aria-live="polite"></span></p>
+
+    <nav class="t30-rail" aria-label="Jump to a binder page">
+${railHtml}
+    </nav>
+${needList}
+
+  </div>
+</section>
 ${checklistBand}
 <section class="tight" id="products">
   <div class="wrap">
@@ -1977,7 +2279,7 @@ ${waveBlocks}
     </div>
     <h3>Free promo at the counter</h3>
     <p style="max-width:42em">${esc(doc.storePromo)}</p>
-${(doc.promosToFind && doc.promosToFind.rows || []).length ? `    <h3>The other 30th Celebration promos</h3>
+${(doc.promosToFind && doc.promosToFind.rows || []).length ? `    <h3>Every 30th Celebration promo, by number</h3>
     <p style="max-width:42em">Black Star promos numbered in the MEP run, and the product each one comes in. The numbers
       are printed on the cards; which product carries which is from Bulbapedia's promo list.</p>
     <div class="t30-scroll" style="max-width:40em">
@@ -2041,106 +2343,10 @@ ${doc.japanBoxOpening.rows.map((r) => `            <tr><td>${esc(r[0])}</td><td>
   </div>
 </section>
 ${rarityBand}
-${hitsBand}
-<section class="tight" id="masterset">
-  <div class="wrap">
-    <p class="sec-label">One collector's copy</p>
-    <h2>The master set, pocket by pocket</h2>
-    <p style="max-width:42em">Nine pockets to a page, the same as the set's own Binder Collection. A filled pocket
-      is a card actually in the binder. The empty ones are the job.${
-        CHECKLIST.size
-          ? ` Every card is shown: the ones still to find are the gray ones.`
-          : ""
-      }</p>
-    <div class="t30-hero">
-      <h3 style="margin:0">${haveTotal} of ${TOTAL} cards <span class="t30-cnt">${pct}%</span></h3>
-      <div class="t30-bar" style="margin-top:var(--s3)" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></div>
-      <p class="t30-bn" style="margin-bottom:0">${
-        haveTotal === 0
-          ? `Nothing in it yet, which is correct rather than broken: the set does not release until ${esc(
-              longDate(doc.set.release)
-            )}. Cards get added here as they are opened.`
-          : /* THE NEWEST `got`, NOT THE FILE'S `checked`. This printed the date the
-             binder was last REVIEWED as the date a card was last ADDED, so it
-             claimed a card entered on 17 September when the newest of all 27 is
-             the 16th. One is an event the data contains; the other is when
-             somebody looked at the file. */
-          `Last added ${esc(longDate(
-            owned.map((c) => c.got).filter(Boolean).sort().pop() || binder.checked
-          ))}.`
-      }</p>
-    </div>
-    <ul class="t30-secsum">
-${sectionSummary}
-    </ul>
-
-    <figure class="t30-binder">
-      ${/* THE COVER. The owner asked for it in these words: "give it a 30th Celebration
-           logo at the top of the binder and then under the 30th logo it says Master
-           Set Binder". Since 23 September 2026 it is PAGE 0 of the binder, the front
-           board you open, rather than a strip above the pages: "make it look as
-           much like a real card binder as possible". On a phone that also gave the
-           first sheet the whole screen, where cover plus sheet did not fit.
-
-           THE LOGO IS THE SET'S OWN and is already on this page's hero, so it is a
-           cache hit rather than a second download. It is DECORATIVE here: the
-           accessible name of this component lives on the track's aria-label and the
-           words "Master Set Binder" are real text underneath, so alt="" is correct
-           and an alt of "30th Celebration" would make a screen reader say the set
-           name twice in a row. */""}
-      <div class="t30-book">
-      <span class="t30-rings" aria-hidden="true"><i></i><i></i><i></i></span>
-      <div class="t30-track" id="binder" tabindex="0" role="group" aria-label="Binder pages, ${LEAF_N} of them and a cover. Turn with the page corners, the arrow keys, or a swipe.">
-        <article class="t30-leaf t30-leaf-cover" id="bl0" aria-label="Cover">
-          <div class="t30-board">
-            <picture>
-              <source type="image/avif" srcset="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.avif">
-              <img src="/assets/logos/30th-celebration-pokemon-tcg-set-logo-sm.webp" alt=""
-                   width="180" height="84" decoding="async" onerror="this.remove()">
-            </picture>
-            <p class="t30-cover-t">Master Set Binder</p>
-            <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
-            <span class="t30-bar" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></span>
-            <p class="t30-cover-o">Open the binder</p>
-          </div>
-          <a class="t30-turn fwd" href="#bl1" aria-label="Open the binder to page 1, ${esc(BINDER_LEAVES[0].label)}"><span aria-hidden="true">&rsaquo;</span></a>
-        </article>
-${BINDER_LEAVES.map(leafHtml).join("\n")}
-        ${/* THE INSIDE BACK COVER. Only the two-page desktop spread uses it, as the
-             right-hand page opposite the last sheet, so it is hidden until the
-             binder script opens that view. */""}<article class="t30-leaf t30-leaf-end" id="bl${LEAF_N + 1}" aria-label="Inside back cover" hidden>
-          <div class="t30-board">
-            <p class="t30-cover-t">That is the binder</p>
-            <p class="t30-cover-s">${haveTotal} of ${TOTAL} so far &middot; ${TOTAL - haveTotal} still to find</p>
-          </div>
-          <a class="t30-turn back" href="#bl${LEAF_N}" aria-label="Turn back to page ${LEAF_N}"><span aria-hidden="true">&lsaquo;</span></a>
-        </article>
-      </div>
-      </div>
-      <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
-      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
-        Turn a page with either corner, or jump to one below. A gray card is one still to find.${
-          jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
-        }</figcaption>
-    </figure>
-    ${/* THE BINDER'S OWN SHARE LINK, /30th-binder.html, which previews as the
-         drawn binder (scripts/build-og-binder.py) rather than as the set guide.
-         A plain link that works with no script; the script turns it into the
-         phone's share sheet where there is one, and a copy-to-clipboard where
-         there is not. */""}<p class="t30-share"><a class="t30-share-a" id="t30Share" href="/30th-binder.html">Share this binder</a>
-      <span id="t30ShareMsg" role="status" aria-live="polite"></span></p>
-
-    <nav class="t30-rail" aria-label="Jump to a binder page">
-${railHtml}
-    </nav>
-${needList}
-
-  </div>
-</section>
 <section class="band tight" id="japan">
   <div class="wrap">
     <details class="t30-jp">
-      <summary><h2>Japan's card list, all ${doc.japanList.length} revealed</h2><span>A different set: open the list</span></summary>
+      <summary><h2>Japan's card list, ${doc.japanList.length} of ${doc.structure.japan.count} revealed</h2><span>A different set: open the list</span></summary>
       <p style="max-width:42em">Japan's set is a different set: ${esc(doc.structure.japan.note)} For English cards, use the
         <a href="#checklist">checklist above</a>.</p>
       <ol class="t30-jpl">
@@ -2160,14 +2366,14 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
         including the ${US.count || 3} RGB Mews, ${E.classic} Classic Collection reprints and ${E.energy} foil basic Energy.
         The cards themselves confirm the ${E.main}. The Pokemon Company itself only says "over 150 cards".</dd>
       <dt>Is there a booster box?</dt>
-      <dd>No. There are no booster boxes and no loose packs: every pack comes inside one of the ${doc.products.length}
-        products, from the ${esc(longDate(doc.set.release))} Elite Trainer Box to the December tins.</dd>
+      <dd>No. There are no booster boxes and no loose packs: every pack comes inside one of the ${PACK_PRODUCTS}
+        products that hold them, from the ${esc(longDate(doc.set.release))} Elite Trainer Box to the December tins.</dd>
       <dt>What comes in a pack?</dt>
       <dd>${esc(doc.set.packContents.split(".")[0])}. Every pack also has one of the 30 Pikachu.</dd>
       ${pricedCards[0] ? `<dt>What is the most valuable 30th Celebration card?</dt>
       <dd>${esc(pricedCards[0].name)} (#${esc(pocketNum(pricedCards[0].section, pricedCards[0].n))}), at ${esc(moneyExact(pricedCards[0].pr.raw))}
         raw on PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}, among the cards with a published price.
-        The RGB Mews are selling higher but have no settled price yet. <a href="#values">The top ten</a>.</dd>` : ""}
+        The three RGB Mews sell for far more and are left out of every price list here: the first copies surfaced through a leak before release. <a href="#values">The top ten</a>.</dd>` : ""}
       <dt>Can you play the Classic Collection cards in tournaments?</dt>
       <dd>${esc(doc.set.classicLegality)}</dd>
       <dt>Are there official pull rates?</dt>
@@ -2187,9 +2393,9 @@ ${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || []), ...(doc.engli
   .filter((u, i, a) => a.indexOf(u) === i)
   .map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank" aria-label="${esc(srcLabel(u))}, opens on ${esc(new URL(u).hostname.replace(/^www\\./, ""))}">${esc(srcLabel(u))}</a></li>`).join("\n")}
     </ul>
-    <p class="price-note"><strong>199 is not an official number.</strong>
+    <p class="price-note t30-prose"><strong>199 is not an official number.</strong>
       ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
-      against PokeBeach's count. All 33 secret rares have since been identified, the three RGB Mews included.</p>
+      against PokeBeach's count.</p>
 ${
   /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
      of every figure it prints and a card scan is no different -- and here it is
@@ -2197,7 +2403,7 @@ ${
      images on this site come from. The count is computed, never typed, so it
      cannot drift from the binder above it. */
   CHECKLIST.size
-    ? `    <p class="price-note"><strong>Where the card pictures come from.</strong>
+    ? `    <p class="price-note t30-prose"><strong>Where the card pictures come from.</strong>
       ${DEX_PICS} of the ${TOTAL} come from TCGdex, which is where the rest of this site's card
       scans come from; it took this set two days after release. ${REMOTE_PICS} are hotlinked from
       TCGplayer instead: the whole Classic Collection, because TCGdex holds those as a separate set with
@@ -2226,12 +2432,14 @@ ${
       <div class="t30-lb-info">
         <h3 id="t30lbT"></h3>
         <p class="t30-lb-meta" id="t30lbM"></p>
+        <p class="t30-lb-ill" id="t30lbA" hidden></p>
         <dl class="t30-lb-px" id="t30lbP" hidden></dl>
         <p class="t30-lb-rip" id="t30lbR" hidden><a id="t30lbRa" href="#">Watch the rip it came from</a></p>
         <p class="t30-lb-src" id="t30lbS" hidden>Market value from PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}.</p>
         <div class="t30-lb-nav">
           <button type="button" class="t30-lb-go" id="t30lbPrev" aria-label="Previous card">&larr; Previous</button>
           <button type="button" class="t30-lb-go" id="t30lbNext" aria-label="Next card">Next &rarr;</button>
+          <button type="button" class="t30-lb-go t30-lb-close" id="t30lbC">Close</button>
         </div>
       </div>
     </div>
@@ -2240,6 +2448,12 @@ ${
 
 </main>`;
 
+/* THE BANDS ALTERNATE BY POSITION, NOT BY SECTION. Each section used to carry
+   its own "band" class, which was right only in the order they were typed; the
+   order changed on 25 September 2026 (the hits and the binder moved up, above
+   the checklist), so the shading is dealt out here in page order instead. */
+let bandN = 0;
+const bodyBanded = body.replace(/<section class="(?:band )?tight"/g, () => `<section class="${bandN++ % 2 === 0 ? "band " : ""}tight"`);
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2283,7 +2497,7 @@ ${SPRITE}
 
 ${BAR}
 ${MENU}
-${body}
+${bodyBanded}
 
 ${footer(
   `Page last checked ${longDate(PAGE_CHECKED)}. Set facts read ${longDate(doc.checked)} from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.`
@@ -2309,7 +2523,7 @@ ${APP_JS_NO_PACKPLAYER}
   var fig = document.querySelector(".t30-binder"), t = document.getElementById("binder");
   if (!fig || !t || !window.requestAnimationFrame || !t.classList) return;
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var twoMQ = window.matchMedia ? matchMedia("(min-width: 760px)") : null;
+  var twoMQ = window.matchMedia ? matchMedia("(min-width: 900px), (min-width: 760px) and (orientation: landscape)") : null;
   var all = Array.prototype.slice.call(t.querySelectorAll(".t30-leaf"));
   var endLeaf = t.querySelector(".t30-leaf-end");
   var rail = document.querySelectorAll('.t30-rail a[href^="#bl"]');
@@ -2689,7 +2903,7 @@ ${APP_JS_NO_PACKPLAYER}
       M = document.getElementById("t30lbM"), P = document.getElementById("t30lbP"),
       S = document.getElementById("t30lbS"), N = document.getElementById("t30lbN");
   var list = [], at = -1, opener = null, down = null;
-  var R = document.getElementById("t30lbR"), Ra = document.getElementById("t30lbRa");
+  var R = document.getElementById("t30lbR"), Ra = document.getElementById("t30lbRa"), A = document.getElementById("t30lbA");
   var SEL = "button.t30-cf, button.t30-zm";
   /* PREVIOUS AND NEXT STAY INSIDE THE LIST THE CARD WAS OPENED FROM: the
      binder's pockets, the top ten, the checklist or the hits. In the checklist
@@ -2726,6 +2940,8 @@ ${APP_JS_NO_PACKPLAYER}
     T.textContent = d.name || "";
     M.innerHTML = [d.num ? "<b>" + esc(d.num) + "</b>" : "", d.rar ? esc(d.rar) : "",
       d.when ? "Pulled " + esc(d.when) : d.own ? "In the binder" : "Still to find"].filter(Boolean).join(" &middot; ");
+    A.hidden = !d.ill;
+    A.textContent = d.ill ? "Illustrated by " + d.ill : "";
     R.hidden = !d.rip;
     if (d.rip) Ra.href = d.rip;
     var px = "";
@@ -2762,6 +2978,21 @@ ${APP_JS_NO_PACKPLAYER}
   document.getElementById("t30lbX").addEventListener("click", function () { dlg.close(); });
   document.getElementById("t30lbPrev").addEventListener("click", function () { show(at - 1); });
   document.getElementById("t30lbNext").addEventListener("click", function () { show(at + 1); });
+  document.getElementById("t30lbC").addEventListener("click", function () { dlg.close(); });
+  /* SWIPE THE CARD, 25 September 2026: a phone review found a sideways swipe
+     on the open card did nothing, and the only close control was the X at the
+     top, the hardest place for a thumb. Sideways steps a card, a pull down
+     closes. The figure takes pan-y so the browser leaves the sideways move to
+     this; a vertical scroll of the panel still works. */
+  var fig = document.getElementById("t30lbF"), sw = null;
+  fig.addEventListener("pointerdown", function (e) { sw = { x: e.clientX, y: e.clientY }; });
+  fig.addEventListener("pointercancel", function () { sw = null; });
+  fig.addEventListener("pointerup", function (e) {
+    if (!sw) return;
+    var dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
+    if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) show(at + (dx < 0 ? 1 : -1));
+    else if (dy > 90 && dy > 1.5 * Math.abs(dx)) dlg.close();
+  });
   dlg.addEventListener("keydown", function (e) {
     if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
     else if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }

@@ -39,7 +39,7 @@
     "tcgLive": "Playable in Pokemon TCG Live since September 15, 2026, a day before the cards hit shelves. Logging in gets you a Mew ex Battle Pass deck, a Sylveon ex deck can be unlocked, and there are Missions for collecting all 30 Pikachu and all 30 Classic Collection cards (pokemon.com).",
     "theme": "Day and night: Pokemon shown in daytime and nighttime moments. Official.",
     "allFoil": "Every card in the set is foil, basic Energy included.",
-    "noBox": "There is no booster box and no loose packs. Every pack comes inside one of the products below, so this set has no per pack retail price and a shop selling single packs is selling something else.",
+    "noBox": "There is no booster box and no loose packs. Every pack comes inside one of the products on this page, so this set has no per pack retail price: a loose pack for sale was taken out of one of them.",
     "packContents": "Five foil cards, one foil basic Energy and one Pokemon TCG Live code card. Stated by TPCi in the June 1, 2026 press release.",
     "classicLegality": "The Classic Collection reprints are not legal in Standard, though they are allowed in formats that permit the original printings (TPCi, June 1, 2026 press release).",
     "legalDate": "Legal in Play! Pokemon Standard tournaments from September 25, 2026, except the Classic Collection (pokemon.com, September 16, 2026)."
@@ -1188,13 +1188,49 @@
   },
   "englishRatesSource": "https://www.pokebeach.com/2026/09/30th-celebration-pull-rates-and-most-valuable-cards-worldwide-friendliest-pull-rates-of-the-modern-era",
   "promosToFind": {
-    "_note": "MEP numbers are printed on the cards and read off TCGplayer's catalog on September 23, 2026; which product each comes in is from Bulbapedia's MEP list, secondary sourcing, said so on the page. Corrected the same evening: TCGplayer lists 108 as Espeon ex and 109 as Pikachu ex; this table had them the other way round. Each row carries the TCGplayer id its picture comes from.",
+    "_note": "MEP numbers are printed on the cards and read off TCGplayer's catalog on September 23, 2026; which product each comes in is from Bulbapedia's MEP list, secondary sourcing, said so on the page. Corrected the same evening: TCGplayer lists 108 as Espeon ex and 109 as Pikachu ex; this table had them the other way round. Each row carries the TCGplayer id its picture comes from. 095 to 100 added September 25, 2026 so the table lists the whole run by number; which product each comes in is from this file's own product notes (Tech Sticker, Poster Collection, ex Box and ex Tin).",
     "rows": [
       {
         "n": "094",
         "name": "Alolan Exeggutor",
         "from": "Tech Sticker Collection",
         "pid": 713262
+      },
+      {
+        "n": "095",
+        "name": "Lucario",
+        "from": "Tech Sticker Collection",
+        "pid": 713263
+      },
+      {
+        "n": "096",
+        "name": "Moltres",
+        "from": "Poster Collection",
+        "pid": 713264
+      },
+      {
+        "n": "097",
+        "name": "Articuno",
+        "from": "Poster Collection",
+        "pid": 713265
+      },
+      {
+        "n": "098",
+        "name": "Zapdos",
+        "from": "Poster Collection",
+        "pid": 713266
+      },
+      {
+        "n": "099",
+        "name": "Greninja ex",
+        "from": "ex Box (and the ex Tin, December 4)",
+        "pid": 713268
+      },
+      {
+        "n": "100",
+        "name": "Sylveon ex",
+        "from": "ex Box (and the ex Tin, December 4)",
+        "pid": 713267
       },
       {
         "n": "101",
