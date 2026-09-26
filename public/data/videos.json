@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 302813,
-    "subscribers": 393,
-    "videos": 355,
-    "readAt": "2026-09-25"
+    "views": 302897,
+    "subscribers": 394,
+    "videos": 356,
+    "readAt": "2026-09-26"
   },
-  "syncedAt": "2026-09-25",
+  "syncedAt": "2026-09-26",
   "videos": [
+    {
+      "id": "5TKvy9CVPww",
+      "title": "30th Celebration Tin Pack #3 🔥 | 6 HITS IN A ROW! Gold Glitter Border! 🏆",
+      "path": "rip/30th-celebration-tin-pack-3-6-hits-in-a-row-gold-glitter-bor-5TKvy9CVPww.html",
+      "published": "2026-09-26",
+      "publishedAt": "2026-09-26T11:10:23Z",
+      "duration": 22,
+      "views": 48,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "tin"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Tin"
+    },
     {
       "id": "Tw9MXA8Mh_o",
       "title": "Journey Together Pack #3 📉 | The Hit Streak Ends! Bulk Pile 💀",
@@ -15,7 +34,7 @@
       "published": "2026-09-25",
       "publishedAt": "2026-09-25T16:57:19Z",
       "duration": 22,
-      "views": 336,
+      "views": 884,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1138,
+      "views": 1192,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 908,
+      "views": 969,
       "vertical": true,
       "short": true,
       "sets": [
@@ -80,7 +99,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 644,
+      "views": 649,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +120,7 @@
       "published": "2026-09-21",
       "publishedAt": "2026-09-21T10:06:22Z",
       "duration": 23,
-      "views": 438,
+      "views": 440,
       "vertical": true,
       "short": true,
       "sets": [
@@ -122,7 +141,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1083,
+      "views": 1084,
       "vertical": true,
       "short": true,
       "sets": [
@@ -143,7 +162,7 @@
       "published": "2026-09-19",
       "publishedAt": "2026-09-19T10:35:14Z",
       "duration": 26,
-      "views": 916,
+      "views": 917,
       "vertical": true,
       "short": true,
       "sets": [
@@ -164,7 +183,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 925,
+      "views": 926,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2006,7 +2025,7 @@
       "published": "2026-07-22",
       "publishedAt": "2026-07-22T12:25:38Z",
       "duration": 20,
-      "views": 694,
+      "views": 695,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12123,7 +12142,7 @@
       "published": "2026-02-01",
       "publishedAt": "2026-02-01T01:28:21Z",
       "duration": 416,
-      "views": 93,
+      "views": 94,
       "vertical": false,
       "short": false,
       "sets": [
