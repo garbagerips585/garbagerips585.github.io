@@ -329,13 +329,17 @@ const scanBase = (localId) =>
 // THE OWNER'S OWN PHOTOGRAPH OF A CARD HE OWNS, preferred over a scan wherever
 // there is one. Same two rungs as the TCGdex ladder below so a pocket resolves
 // through identical arithmetic whichever kind of picture it holds.
-const shotImg = (stem, name) => {
+/* THE sizes EVERY CARD PICTURE DEFAULTS TO, a binder pocket's. The value and
+   hit tiles are drawn two to three times larger than a pocket on a desktop and
+   pass their own, or a DPR 1 laptop would stretch the 245w file across 240px. */
+const SIZES = "(max-width:544px) 30vw, 163px";
+const shotImg = (stem, name, sizes = SIZES) => {
   const d = shotDims[`${stem}.webp`];
   const img =
     `<img class="t30-card" src="/assets/30th-cards/${stem}.webp" ` +
     `srcset="/assets/30th-cards/${stem}-sm.webp 245w, /assets/30th-cards/${stem}-md.webp 380w, ` +
     `/assets/30th-cards/${stem}.webp 600w" ` +
-    `sizes="(max-width:544px) 30vw, 163px" ` +
+    `sizes="${sizes}" ` +
     `alt="${esc(name)}, photographed by Garbage Rips 585" loading="lazy" decoding="async" onload="t30l(this)" onerror="t30e(this)"` +
     (d ? ` width="${d[0]}" height="${d[1]}"` : "") +
     `>`;
@@ -363,13 +367,13 @@ const shotImg = (stem, name) => {
  * about its _in_ renditions: every _200w sampled across all four sections is
  * exactly 200x279, a ratio of 0.717 against a real card's 0.714. */
 const tcgpBase = (pid) => `https://tcgplayer-cdn.tcgplayer.com/product/${pid}`;
-const tcgpImg = (pid, name, low = false) =>
+const tcgpImg = (pid, name, low = false, sizes = SIZES) =>
   `<img class="t30-card" src="${tcgpBase(pid)}_200w.jpg" ` +
   /* A GREY POCKET TAKES THE SMALL FILE ONLY (\`low\`), 23 September 2026. It is
      drawn greyscaled at 78% opacity, so the 400w file bought nothing a reader
      can see, and at DPR 3 it was 470KB per Classic page turn on a phone. */
   (low ? "" : `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
-  `sizes="(max-width:544px) 30vw, 163px" `) +
+  `sizes="${sizes}" `) +
   /* WIDTH AND HEIGHT, WHICH THIS USED TO OMIT ON PURPOSE AND SHOULD NOT HAVE.
      The reasoning was imgDims()'s rule that tcgplayer-cdn pads to a fixed
      canvas -- true of its _in_ renditions, NOT of _200w, which is exactly
@@ -385,7 +389,7 @@ const tcgpImg = (pid, name, low = false) =>
   `alt="${esc(name)}" loading="lazy" decoding="async" width="200" height="279" ` +
   `onload="t30l(this)" onerror="t30e(this)">`;
 
-const cardImg = (localId, name, low = false) => {
+const cardImg = (localId, name, low = false, sizes = SIZES) => {
   const url = `${scanBase(localId)}/low.webp`;
   const d = imgDims(url);
   const img =
@@ -393,7 +397,7 @@ const cardImg = (localId, name, low = false) => {
     /* 245w only on a grey pocket, same reason as tcgpImg's \`low\`: about 94%
        of what a DPR 3 pocket asks for, drawn greyscale, at under half the bytes. */
     (low ? "" : `srcset="${scanBase(localId)}/low.webp 245w, ${scanBase(localId)}/high.webp 600w" ` +
-    `sizes="(max-width:544px) 30vw, 163px" `) +
+    `sizes="${sizes}" `) +
     /* alt="" ON PURPOSE -- see the note above pictureFor. The pocket carries the
        card name as its own accessible name and 62 of them print it visibly as
        well, so an alt here made a screen reader say it two or three times. */
@@ -471,15 +475,15 @@ const dexLocalId = (section, n) => {
    Pikachu". An image that repeats the text next to it is decorative by
    definition. The name is still passed in because tcgpImg/shotImg build their
    own alt and a future caller may need it; only the card scan goes silent. */
-const pictureFor = (name, { shot, n, row, section, low = false }) => {
+const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES }) => {
   const dex = dexLocalId(section ?? row?.section, n);
-  if (dex) return cardImg(dex, name, low);
+  if (dex) return cardImg(dex, name, low, sizes);
   /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
      no-op dressed as an optimisation. TCGplayer publishes no AVIF. */
-  if (row && row.pid) return tcgpImg(row.pid, name, low);
-  if (shot) return shotImg(shot, name);
+  if (row && row.pid) return tcgpImg(row.pid, name, low, sizes);
+  if (shot) return shotImg(shot, name, sizes);
   return "";
 };
 
@@ -598,6 +602,39 @@ const bigOf = (s, row) => {
 };
 const money = (v) => (typeof v === "number" && v > 0 ? (v >= 100 ? moneyRound(v) : moneyExact(v)) : "");
 
+/* WHAT THE POP-UP READS, FOR ANY CARD ON THE PAGE, 25 September 2026. The
+   owner, the same day the binder got it: "update the 30th set page so that if
+   you click on a card image it enlarges like on the binder". So the value
+   tiles, every checklist row and the hits all carry the same attributes the
+   binder pockets do, built here once so a card cannot pop up with one price in
+   the checklist and another in the binder. `rip` is a hit's video, which the
+   pop-up offers as a link; nothing else has one. */
+const zoomAttrs = ({ name, num, rar, big, px, own, rip, when }) =>
+  ` data-name="${esc(name)}" data-num="${esc(num)}"` +
+  (rar ? ` data-rar="${esc(rar)}"` : "") +
+  (big ? ` data-big="${esc(big)}"` : "") +
+  /* Raw to the cent and PSA 10 rounded, the same two formats the checklist
+     row prints, so the pop-up never disagrees with the row. */
+  (money(px?.raw) ? ` data-raw="${esc(moneyExact(px.raw))}"` : "") +
+  (money(px?.psa10) ? ` data-psa="${esc(moneyRound(px.psa10))}"` : "") +
+  (own ? ` data-own="1"` : "") +
+  (rip ? ` data-rip="${esc(rip)}"` : "") +
+  (when ? ` data-when="${esc(when)}"` : "");
+/* A checklist card's pop-up, for the value tiles and the checklist rows. The
+   owned test is the binder's own join, the one clOwned makes below; it is
+   rebuilt here because the value band is written before the checklist is. */
+const OWNED_KEYS = new Set(owned.map((c) => clKey(c.section, c.n || "")));
+const zoomOf = (c, extra = {}) =>
+  zoomAttrs({
+    name: c.name,
+    num: pocketLabel(c.section, c.n),
+    rar: c.rarity,
+    big: bigOf({ section: c.section, n: c.n }, c),
+    px: c.pr || priceOf(c),
+    own: OWNED_KEYS.has(clKey(c.section, c.n)),
+    ...extra,
+  });
+
 /* THE LABEL IS A STRIP UNDER THE CARD, NOT ON IT, 25 September 2026. The owner:
    "make sure the card number or name that's listed doesn't cover the card
    artwork at all ... make a space for them that's not on the actual card
@@ -623,15 +660,7 @@ const pocket = (c, i, slot) => {
     const twin = c && /jumbo/i.test(c.kind || "") ? promos.find((o) => String(o.n) === String(c.n) && o.pid) : null;
     const big = bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
     const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
-    const attrs =
-      ` data-name="${esc(s.name)}" data-num="${esc(lab)}"` +
-      (rar ? ` data-rar="${esc(rar)}"` : "") +
-      (big ? ` data-big="${esc(big)}"` : "") +
-      /* Raw to the cent and PSA 10 rounded, the same two formats the checklist
-         row beside it prints, so the pop-up never disagrees with the row. */
-      (money(px?.raw) ? ` data-raw="${esc(moneyExact(px.raw))}"` : "") +
-      (money(px?.psa10) ? ` data-psa="${esc(moneyRound(px.psa10))}"` : "") +
-      (c ? ` data-own="1"` : "");
+    const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c });
     /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
        by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
        "remove the dates overalyed on top of the cards"); `got` still drives the
@@ -693,11 +722,15 @@ ${rows.join("\n")}
    like two different things on one page. The picture comes from the same
    pictureFor() the binder pockets use, which is what keeps the owner's own
    photographs, TCGdex and TCGplayer in one precedence order across the page. */
+/* THE PICTURE IS THE BUTTON THAT ENLARGES IT, and only the picture: the words
+   under it are for reading, and a tile that opened on a tap anywhere would take
+   a scroll that started on the name for a tap. */
+const TILE_SIZES = "(max-width:559px) 44vw, (max-width:899px) 19vw, 250px";
 const cardTile = (c, { showPrice = true } = {}) => {
   const pr = c.pr || priceOf(c);
-  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section });
+  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: TILE_SIZES });
   return `        <li class="t30-ct${pic ? "" : " nopic"}">
-          ${pic}
+          ${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : ""}
           <p class="t30-ct-n">${esc(c.name)}</p>
           <p class="t30-ct-m">#${esc(pocketNum(c.section, c.n))}${
             c.rarity ? ` &bull; ${esc(c.rarity)}` : ""
@@ -1128,10 +1161,25 @@ const style = `
 .t30-cl{list-style:none;margin:0;padding:0}
 .t30-clh{font:400 var(--t-m)/1.2 var(--display);color:var(--ink);padding:var(--s4) 0 var(--s2);
   break-after:avoid;display:flex;align-items:center;gap:8px}
-.t30-row{display:grid;grid-template-columns:3.6em 40px minmax(0,1fr) auto;align-items:center;gap:10px;
+/* THE THUMBNAIL GROWS WITH THE SCREEN, 25 September 2026. The owner: "make the
+   thumbnails larger as they are impossible to see the artwork on desktop". It
+   was 40px everywhere, which is a card you can recognise by its colours and
+   nothing else. --rt is the one number: the grid column and the picture both
+   read it. Three columns from 1280px keeps the list about as long as it was
+   while the pictures roughly double. */
+.t30-cl{--rt:48px}
+.t30-row{display:grid;grid-template-columns:3.6em var(--rt) minmax(0,1fr) auto;align-items:center;gap:10px;
   padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--keyline) 40%,transparent);break-inside:avoid;position:relative}
 .t30-rn{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);overflow-wrap:anywhere}
-.t30-rt{position:relative;width:40px;aspect-ratio:5/7;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.t30-rt{position:relative;width:var(--rt);aspect-ratio:5/7;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+/* A ROW OPENS ITS CARD FROM ANYWHERE ON IT (the script forwards the click to
+   the picture, which is the one focusable control), so the whole row answers
+   the pointer. */
+.t30-row:has(.t30-zm){cursor:zoom-in}
+@media(hover:hover){.t30-row:has(.t30-zm):hover{background:color-mix(in srgb,var(--paper-3) 45%,transparent)}}
+@media(min-width:600px){.t30-cl{--rt:60px}}
+@media(min-width:1000px){.t30-cl{--rt:68px}}
+@media(min-width:1280px){.t30-cl{--rt:76px}}
 .t30-row .t30-rt .t30-card{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .t30-rm{min-width:0;display:grid;gap:2px}
 .t30-rm b{font:700 var(--t-sm)/1.25 var(--body,inherit);color:var(--ink);overflow-wrap:anywhere}
@@ -1141,6 +1189,7 @@ const style = `
 /* In the binder: a small --ketchup check before the number, a mark that goes nowhere. */
 .t30-row.is-have .t30-rn::before{content:"\\2713\\00a0";color:var(--ketchup-deep)}
 @media(min-width:1000px){.t30-cl{columns:2;column-gap:var(--s6,48px)}}
+@media(min-width:1280px){.t30-cl{columns:3}}
 /* THE FILTERS. Sections: generated per section below. Still need hides rows in
    the binder. Price sort turns the list into a flex column ordered by rank and
    drops the section headings, which mean nothing in price order. */
@@ -1149,6 +1198,10 @@ const style = `
 #checklist:has(#cln:checked) .t30-cnt-all{display:none}
 #checklist:has(#cln:checked) .t30-cnt-need{display:inline-block}
 #checklist:has(#clo-price:checked) .t30-cl{display:flex;flex-direction:column;columns:auto}
+/* In price order the list reads across then down on a desktop, so the top of
+   the ranking is not all in one long column. */
+@media(min-width:1000px){#checklist:has(#clo-price:checked) .t30-cl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:var(--s6,48px)}}
+@media(min-width:1280px){#checklist:has(#clo-price:checked) .t30-cl{grid-template-columns:repeat(3,minmax(0,1fr))}}
 #checklist:has(#clo-price:checked) .t30-row{order:var(--rank)}
 #checklist:has(#clo-price:checked) .t30-clh{display:none}
 ${clCss}
@@ -1382,6 +1435,24 @@ ${clCss}
   border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);text-decoration:none}
 .t30-share-a:hover,.t30-share-a:focus-visible{border-color:var(--sky);color:var(--sky)}
 .t30-share span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+/* THE PICTURE THAT OPENS THE POP-UP, on a value tile, a hit or a checklist
+   row. A bare button: no box of its own, so the card looks exactly as it did
+   and only the pointer, a lift on hover and a focus ring say it does more. */
+.t30-zm{appearance:none;display:block;padding:0;margin:0;border:0;background:none;color:inherit;font:inherit;
+  cursor:zoom-in;border-radius:var(--r-sm);-webkit-tap-highlight-color:transparent}
+.t30-ct .t30-zm{width:100%}
+.t30-zm:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+.t30-ct .t30-zm img{transition:transform .18s ease,box-shadow .18s ease}
+@media(hover:hover){.t30-ct .t30-zm:hover img{transform:translateY(-3px);box-shadow:0 10px 22px rgb(0 0 0 / .45)}}
+@media(prefers-reduced-motion:reduce){.t30-ct .t30-zm img{transition:none}}
+/* BIGGER TILES ON A DESKTOP. The top ten is two rows of five, which the note
+   on TOP_N always meant and auto-fill never did: at 1440 it drew nine and one.
+   The hits take the same size. */
+@media(min-width:900px){
+  .t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s4)}
+  .t30-cts--hits{grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:var(--s4)}
+  .t30-cts--top .t30-ct-n,.t30-cts--hits .t30-ct-n{font-size:var(--t-body)}
+}
 /* ============================================================ THE ENLARGED CARD
    25 September 2026. The owner: "when you click on them it pop up the card
    larger so you can see it in detail, and give you the market value for the raw
@@ -1423,6 +1494,9 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-lb-px div{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3)}
 .t30-lb-px dt{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
 .t30-lb-px dd{margin:4px 0 0;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
+.t30-lb-rip{margin:var(--s3) 0 0;font:700 var(--t-sm)/1.4 var(--body)}
+.t30-lb-rip a{color:var(--sky-deep)}
+.t30-lb-rip a:hover,.t30-lb-rip a:focus-visible{color:var(--sky)}
 .t30-lb-src{font:400 var(--t-micro)/1.5 var(--body);color:var(--ink-2);margin:var(--s2) 0 0}
 .t30-lb-nav{display:flex;gap:var(--s3);margin-top:var(--s4)}
 .t30-lb-go{appearance:none;flex:1;min-height:44px;border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);
@@ -1593,7 +1667,7 @@ const valueBand = !pricedCards.length ? "" : `
       ${pricedCards.length} of the ${TOTAL} cards have a price, ${prices.counts && prices.counts.psa10 ? `${prices.counts.psa10} with a PSA 10 figure; ` : ""}the
       rest have not sold enough yet for a guide value. Every price is in the <a href="#checklist">checklist</a>,
       which sorts by price too.</p>
-    <ol class="t30-cts">
+    <ol class="t30-cts t30-cts--top" data-zg="values">
 ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
     </ol>
     <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
@@ -1666,7 +1740,7 @@ const clRow = (c) => {
   const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true });
   return `      <li class="t30-row${have ? " is-have" : ""}" data-s="${esc(c.section)}"${have ? ' data-have="1"' : ""} style="--rank:${clRank.get(k) || 9999}">
         <span class="t30-rn">#${esc(pocketNum(c.section, c.n))}</span>
-        <span class="t30-rt">${pic}</span>
+        ${pic ? `<button type="button" class="t30-rt t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : `<span class="t30-rt"></span>`}
         <span class="t30-rm"><b>${esc(c.name)}</b><i>${esc(c.rarity || "")}</i></span>
         <span class="t30-rp">${pr && typeof pr.raw === "number"
           ? `<b>${moneyExact(pr.raw)}</b>${typeof pr.psa10 === "number" ? `<i>${moneyRound(pr.psa10)} PSA 10</i>` : ""}`
@@ -1696,7 +1770,7 @@ ${clSections.map(([key, label]) => `        <input type="radio" name="cls" id="c
         <input type="checkbox" id="cln"><label for="cln">Still need</label>
       </fieldset>
     </form>
-    <ol class="t30-cl">
+    <ol class="t30-cl" data-zg="checklist">
 ${clSections.map(([key, label]) => {
   const rows = (checklist.cards || []).filter((c) => c.section === key);
   /* TWO COUNTS, ONE SHOWN. Under "Still need" the heading counted every row
@@ -1794,24 +1868,37 @@ const hitsBand = !setHits.length ? "" : `
       ${setHits.length === 1 ? "one rip" : `${new Set(setHits.map((r) => r.v.id)).size} rips`} so far. Every one
       links to the rip it came from. This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
-    <ol class="t30-cts">
+    <ol class="t30-cts t30-cts--hits" data-zg="hits">
 ${setHits
   .map(({ h, v, row, pr, promoPid }) => {
     /* No normalising here any more: dexLocalId() inside pictureFor() takes the
        number in either shape, which is the whole point of moving it there. */
-    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row: row || (promoPid ? { pid: promoPid } : null), section: row ? row.section : null });
+    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row: row || (promoPid ? { pid: promoPid } : null), section: row ? row.section : null, sizes: TILE_SIZES });
+    /* THE FULL NUMBER FOR A CLASSIC COLLECTION CARD, because "69" on its own
+       is not what the card says and is not unique in that section -- it holds
+       two 11s and three 106s. Everything else is numbered in the 30th's own
+       sequence, where the numerator is the whole answer. */
+    const num = (!row && h.promo ? "MEP " : "#") +
+      (row && row.section === "classic" ? String(h.number) : String(h.number).split("/")[0]);
+    /* THE PICTURE ENLARGES AND THE WORDS GO TO THE RIP. They used to be one
+       link, and a button cannot sit inside a link, so the tile is two controls
+       now; the pop-up offers the rip as well, so the picture loses nothing. */
+    const zoom = zoomAttrs({
+      name: h.card,
+      num,
+      rar: h.rarity || row?.rarity,
+      big: row ? bigOf({ section: row.section, n: row.n }, row) : promoPid ? bigOf({}, { pid: promoPid }) : "",
+      px: pr,
+      /* NOT "in the binder": the binder and the hits are separate lists by
+         the owner's rule, so a hit's pop-up says when it was pulled instead. */
+      when: shortDate(v.published),
+      rip: "/" + v.path,
+    });
     return `        <li class="t30-ct${pic ? "" : " nopic"}">
+          ${pic ? `<button type="button" class="t30-zm"${zoom} aria-label="Show ${esc(h.card)} ${esc(num)} larger">${pic}</button>` : ""}
           <a href="/${esc(v.path)}">
-            ${pic}
             <p class="t30-ct-n">${esc(h.card)}</p>
-            <p class="t30-ct-m">${!row && h.promo ? "MEP " : "#"}${esc(
-              /* THE FULL NUMBER FOR A CLASSIC COLLECTION CARD, because "69" on
-                 its own is not what the card says and is not unique in that
-                 section -- it holds two 11s and three 106s. Everything else is
-                 numbered in the 30th's own sequence, where the numerator is the
-                 whole answer. */
-              row && row.section === "classic" ? String(h.number) : String(h.number).split("/")[0]
-            )}${
+            <p class="t30-ct-m">${esc(num)}${
               h.rarity ? ` &bull; ${esc(h.rarity)}` : ""
             }</p>
             ${
@@ -2140,6 +2227,7 @@ ${
         <h3 id="t30lbT"></h3>
         <p class="t30-lb-meta" id="t30lbM"></p>
         <dl class="t30-lb-px" id="t30lbP" hidden></dl>
+        <p class="t30-lb-rip" id="t30lbR" hidden><a id="t30lbRa" href="#">Watch the rip it came from</a></p>
         <p class="t30-lb-src" id="t30lbS" hidden>Market value from PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}.</p>
         <div class="t30-lb-nav">
           <button type="button" class="t30-lb-go" id="t30lbPrev" aria-label="Previous card">&larr; Previous</button>
@@ -2601,7 +2689,24 @@ ${APP_JS_NO_PACKPLAYER}
       M = document.getElementById("t30lbM"), P = document.getElementById("t30lbP"),
       S = document.getElementById("t30lbS"), N = document.getElementById("t30lbN");
   var list = [], at = -1, opener = null, down = null;
-  function all() { return [].slice.call(document.querySelectorAll(".t30-track button.t30-cf")); }
+  var R = document.getElementById("t30lbR"), Ra = document.getElementById("t30lbRa");
+  var SEL = "button.t30-cf, button.t30-zm";
+  /* PREVIOUS AND NEXT STAY INSIDE THE LIST THE CARD WAS OPENED FROM: the
+     binder's pockets, the top ten, the checklist or the hits. In the checklist
+     they follow what is on screen, so a filtered list steps through only the
+     rows showing, and a price sort steps in price order, which is CSS order
+     and not the order of the markup. */
+  function groupOf(b) { return b.closest(".t30-track, [data-zg]"); }
+  function all(b) {
+    var g = groupOf(b);
+    var bs = [].slice.call(g.querySelectorAll(SEL));
+    if (g.getAttribute("data-zg") !== "checklist") return bs;
+    bs = bs.filter(function (x) { return x.offsetParent !== null; });
+    var ord = function (x) { return parseInt(getComputedStyle(x.closest("li")).order, 10) || 0; };
+    return bs.map(function (x, i) { return { x: x, i: i, o: ord(x) }; })
+      .sort(function (p, q) { return p.o - q.o || p.i - q.i; })
+      .map(function (p) { return p.x; });
+  }
   function esc(v) { var d = document.createElement("div"); d.textContent = v; return d.innerHTML; }
   function show(i) {
     at = (i + list.length) % list.length;
@@ -2620,7 +2725,9 @@ ${APP_JS_NO_PACKPLAYER}
     }
     T.textContent = d.name || "";
     M.innerHTML = [d.num ? "<b>" + esc(d.num) + "</b>" : "", d.rar ? esc(d.rar) : "",
-      d.own ? "In the binder" : "Still to find"].filter(Boolean).join(" &middot; ");
+      d.when ? "Pulled " + esc(d.when) : d.own ? "In the binder" : "Still to find"].filter(Boolean).join(" &middot; ");
+    R.hidden = !d.rip;
+    if (d.rip) Ra.href = d.rip;
     var px = "";
     if (d.raw) px += "<div><dt>Raw, ungraded</dt><dd>" + esc(d.raw) + "</dd></div>";
     if (d.psa) px += "<div><dt>PSA 10</dt><dd>" + esc(d.psa) + "</dd></div>";
@@ -2628,17 +2735,25 @@ ${APP_JS_NO_PACKPLAYER}
     N.textContent = "Card " + (at + 1) + " of " + list.length;
   }
   function open(b) {
-    list = all(); opener = b;
+    list = all(b); opener = b;
     show(list.indexOf(b));
     dlg.showModal();
   }
+  /* The control a press lands on: the picture itself, or a checklist row
+     anywhere outside a link, which stands in for its picture. */
+  function hit(t) {
+    if (!t.closest) return null;
+    var b = t.closest(SEL);
+    if (b) return b;
+    var r = t.closest(".t30-row");
+    return r && !t.closest("a") ? r.querySelector(SEL) : null;
+  }
   document.addEventListener("pointerdown", function (e) {
-    var b = e.target.closest && e.target.closest("button.t30-cf");
-    down = b ? { x: e.clientX, y: e.clientY } : null;
+    down = hit(e.target) ? { x: e.clientX, y: e.clientY } : null;
   }, true);
   document.addEventListener("click", function (e) {
-    var b = e.target.closest && e.target.closest("button.t30-cf");
-    if (!b || !b.closest(".t30-track")) return;
+    var b = hit(e.target);
+    if (!b || !groupOf(b)) return;
     if (down && e.detail !== 0 && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 10) { down = null; return; }
     down = null;
     e.preventDefault();
