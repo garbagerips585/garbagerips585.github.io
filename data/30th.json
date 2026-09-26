@@ -165,11 +165,12 @@
     },
     {
       "name": "ex Tin, Sylveon ex or Greninja ex",
-      "date": "2026-12-04",
+      "date": "2026-09-16",
       "packs": 4,
       "price": "$21.99",
-      "confidence": "confirmed",
-      "note": "A Sylveon ex or Greninja ex promo."
+      "confidence": "owner",
+      "note": "A Sylveon ex or Greninja ex promo.",
+      "dateNote": "The owner, 26 September 2026: \"it's the ex Tin, keep it as is, the tins came out on release day Sept 16th\". He bought one and opened Pack #1 to #3 of it on camera on 22, 24 and 26 September. This row said December 4, 2026, which put the product in his own videos as not out yet; his firsthand purchase is the better evidence and the date follows it."
     }
   ],
   "storePromo": "A foil Mewtwo promo with $15 of Pokemon TCG purchases at GameStop, Best Buy, Hot Topic, Barnes & Noble, BoxLunch, Five Below and Macy's, from October 2, 2026 while supplies last (pokemon.com, September 10, 2026).",
@@ -1223,13 +1224,13 @@
       {
         "n": "099",
         "name": "Greninja ex",
-        "from": "ex Box (and the ex Tin, December 4)",
+        "from": "ex Box and ex Tin",
         "pid": 713268
       },
       {
         "n": "100",
         "name": "Sylveon ex",
-        "from": "ex Box (and the ex Tin, December 4)",
+        "from": "ex Box and ex Tin",
         "pid": 713267
       },
       {

@@ -2422,7 +2422,12 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
         The cards themselves confirm the ${E.main}. The Pokemon Company itself only says "over 150 cards".</dd>
       <dt>Is there a booster box?</dt>
       <dd>No. There are no booster boxes and no loose packs: every pack comes inside one of the ${PACK_PRODUCTS}
-        products that hold them, from the ${esc(longDate(doc.set.release))} Elite Trainer Box to the December tins.</dd>
+        products that hold them, from the ${esc(longDate(doc.set.release))} Elite Trainer Box to the ${(() => {
+          /* The last one out, read from the data: this said "the December tins"
+             until the owner put the tins on shelves on release day. */
+          const last = doc.products.filter((x) => x.packs).sort((a, b) => a.date.localeCompare(b.date)).pop();
+          return `${esc(longDate(last.date))} ${esc(last.name.split(",")[0])}`;
+        })()}.</dd>
       <dt>What comes in a pack?</dt>
       <dd>${esc(doc.set.packContents.split(".")[0])}. Every pack also has one of the 30 Pikachu.</dd>
       ${pricedCards[0] ? `<dt>What is the most valuable 30th Celebration card?</dt>
