@@ -7123,7 +7123,9 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-rar{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s3);
   grid-template-columns:repeat(3,minmax(0,1fr))}
 @media(min-width:1100px){.t30-rar{grid-template-columns:repeat(9,minmax(0,1fr))}}
-.t30-rar .t30-zm{display:block;width:100%;margin:0 0 var(--s2)}
+.t30-rar .t30-zm{display:block;width:100%;max-width:150px;margin:0 0 var(--s2)}
+.t30-rar span{overflow-wrap:anywhere}
+@media(max-width:419px){.t30-rar span{letter-spacing:0;font-size:10px}}
 .t30-rar .t30-card{position:static;inset:auto;object-fit:contain;filter:none;opacity:1}
 .t30-rar img{display:block;width:100%;height:auto;aspect-ratio:63/88;border-radius:4.6%/3.3%}
 .t30-rar li{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:var(--s3)}
@@ -7223,6 +7225,19 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-pk .t30-pn{position:static;display:flex;align-items:center;justify-content:center;gap:5px;
   min-height:16px;color:var(--ink-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .t30-pk.has .t30-pn{color:var(--ink)}
+/* A NARROW PHONE CUT THE NUMBER, and a cut number is a different card:
+   "#18/132" drew as "#18/13" at 320 and the check was sliced in half. Smaller
+   and tighter below 420px, so the longest label, a Classic Collection number,
+   fits a 55px pocket whole. */
+@media(max-width:419px){
+  .t30-pk .t30-pn{font-size:9.5px;letter-spacing:-.04em;gap:3px}
+  .t30-pk .t30-ok{width:10px;height:10px}
+  .t30-pk .t30-ok::after{top:1.5px;left:3.5px;width:2.5px;height:5px}
+}
+/* Below 360 a pocket is 49px and even that does not fit a check and a Classic
+   number, so the check steps out: an owned pocket still says so with its solid
+   pink edge and full color, and the number is what must never be cut. */
+@media(max-width:359px){.t30-pk .t30-ok{display:none}}
 /* Screen reader only: a needed pocket says so in words, because the visual
    difference is a filter and a filter has no accessible name. */
 .t30-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;

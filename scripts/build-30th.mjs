@@ -1037,7 +1037,25 @@ const SRC_HOST = {
   "bulbapedia.bulbagarden.net": "Bulbapedia",
   "www.pokemoncenter.com": "Pokemon Center",
 };
+/* NAMED BY HAND WHERE THE URL SLUG READ AS UNFINISHED ("pokemon.com: Pokemon
+   tcg 30th celebration product showcase"). Anything not listed falls back to
+   the slug below. */
+const SRC_TITLE = {
+  "https://press.pokemon.com/en/releases/MEDIA-ALERT-Pokemon-Unveils-New-Pokemon-Trading-Card-Game-30th-Celebra": "The Pokemon Company press release: the set announced",
+  "https://press.pokemon.com/en/releases/MEDIA-ALERT-The-Pokemon-Company-International-Reveals-Product-Lineup-f": "The Pokemon Company press release: the product lineup",
+  "https://www.pokemon.com/us/news/pokemon-tcg-30th-celebration-product-showcase": "pokemon.com: 30th Celebration product showcase",
+  "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": "Pokemon Center: the Pokemon Center Elite Trainer Box",
+  "https://www.pokebeach.com/2026/09/30th-celebration-english-set-guide-full-card-list-products-store-promotions-and-more": "PokeBeach: English set guide, card list and products",
+  "https://www.pokebeach.com/2026/09/30th-celebration-full-set-list-revealed-for-japan-features-176-cards": "PokeBeach: Japan's set list, 176 cards",
+  "https://www.pokebeach.com/2026/09/30th-anniversary-binder-collections-delayed-until-december": "PokeBeach: Binder Collections delayed to December",
+  "https://www.pokebeach.com/2026/09/mew-rgb-secret-rares-pulled-from-30th-celebration": "PokeBeach: the Mew RGB secret rares",
+  "https://www.tcgplayer.com/product/717607": "TCGplayer: Mew R/RGB listing",
+  "https://www.pokebeach.com/2026/09/30th-celebration-pull-rates-and-most-valuable-cards-worldwide-friendliest-pull-rates-of-the-modern-era": "PokeBeach: pull rates and most valuable cards",
+  "https://www.tcgplayer.com/search/pokemon/me-mega-evolution-promo": "TCGplayer: Mega Evolution Black Star promos",
+  "https://bulbapedia.bulbagarden.net/wiki/MEP_Black_Star_Promos_(TCG)": "Bulbapedia: MEP Black Star promos",
+};
 const srcLabel = (u) => {
+  if (SRC_TITLE[u]) return SRC_TITLE[u];
   let url; try { url = new URL(u); } catch { return u; }
   const who = SRC_HOST[url.hostname] || url.hostname.replace(/^www\./, "");
   const tail = decodeURIComponent(url.pathname.split("/").filter(Boolean).pop() || "")
@@ -1077,14 +1095,13 @@ ${items
               <span class="t30-p">${OPENING_FOR(p.name)
                 ? `<a href="/openings/${OPENING_FOR(p.name)}.html">${esc(p.name)}</a>`
                 : esc(p.name)}</span>
-              <span class="t30-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null,
+              <span class="t30-meta">${[p.packs ? esc(`${p.packs} pack${p.packs === 1 ? "" : "s"}`) : null, p.price ? `<span class="t30-px">${esc(p.price)}</span>` : null,
                 /* WHAT A PACK WORKS OUT TO, which is what a parent standing in
                    the aisle is comparing: list price over packs, arithmetic
                    only. Everything else in the box is left out of it, so it is
                    the price of the packs at most, never of a pack alone. */
-                p.packs && /^\$\d/.test(p.price || "") ? `$${(parseFloat(p.price.slice(1)) / p.packs).toFixed(2)} a pack` : null]
+                p.packs && /^\$\d/.test(p.price || "") ? `<span class="t30-px">$${(parseFloat(p.price.slice(1)) / p.packs).toFixed(2)}</span> a pack` : null]
                 .filter(Boolean)
-                .map(esc)
                 .join(" &bull; ")}</span>
               ${p.note ? `<span class="t30-note">${esc(p.note)}</span>` : ""}
             </li>`
@@ -1134,12 +1151,15 @@ const style = `
    a 1.55 line height under a 34px h1, stat numerals that wrapped ("Sep 16,
    2026" on two lines of display type) and three rows of jump chips. */
 .t30-top h1{line-height:1.12}
+main h1,main h2{text-wrap:balance}
 @media(max-width:599px){
   .t30-sum{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
   .t30-sum div{padding:10px 8px}
   .t30-sum b{font-size:1.6rem}
 }
 .t30-sum b{white-space:nowrap}
+@media(min-width:600px){.t30-sum{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .t30-sum b{font-size:clamp(1.7rem,2.6vw,var(--t-xl))}}
 .t30-fan{display:none}
 @media(min-width:1000px){
   .t30-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:var(--s6,48px);align-items:center}
@@ -1179,7 +1199,11 @@ const style = `
 /* PRODUCTS: two release dates side by side on a wide screen, where each product
    was a 1,392px bar holding one line. */
 .t30-waves{display:grid;gap:var(--s4)}
-@media(min-width:900px){.t30-waves{grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}}
+/* COLUMNS, NOT GRID ROWS: a grid row is as tall as its taller date, so seven
+   September products beside two October ones left a 500px hole. Columns
+   balance; the dates still read in order, down and then across. */
+@media(min-width:900px){.t30-waves{display:block;columns:2;column-gap:var(--s5,32px)}
+  .t30-wave{break-inside:avoid;display:inline-block;width:100%;margin:0 0 var(--s4)}}
 .t30-wave h3 .t30-tag{vertical-align:.2em;margin-left:6px}
 /* THE DETAILS A COLLECTOR MOSTLY SKIPS, one tap away rather than on the page. */
 .t30-more-d{margin-top:var(--s5);border:1px solid var(--keyline);border-radius:var(--r-sm);background:var(--card);padding:0 var(--s4)}
@@ -1193,6 +1217,7 @@ const style = `
    further down had the same weight and won, so --fit did nothing: the promo
    table was 849px inside a 348px scroller at 390 with "Comes in" cut mid word. */
 .t30-tbl.t30-tbl--fit th,.t30-tbl.t30-tbl--fit td{white-space:normal}
+.t30-tbl.t30-tbl--fit td:first-child{white-space:nowrap}
 /* JAPAN'S LIST, closed by default: 7,068px of a different set at 390. */
 .t30-jp>summary{list-style:none;cursor:pointer;display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s3);min-height:44px}
 .t30-jp>summary::-webkit-details-marker{display:none}
@@ -1215,11 +1240,11 @@ const style = `
 /* LINKS OUTSIDE A <p> WERE PLAIN TEXT. ui.css colors prose links only as
    "main p a:not([class])", so the FAQ's, the pack facts' and all twelve
    Sources links drew in the body color with no underline: routes that did not
-   look like routes, against the rule that a route is teal. */
-.t30-faq dd a:not([class]),.t30-src a:not([class]),.t30-facts a:not([class]){color:var(--sky-deep);text-decoration:underline;
+   look like links. Now the same underline as every prose link on the site. */
+.t30-faq dd a:not([class]),.t30-src a:not([class]),.t30-facts a:not([class]){text-decoration:underline;
   text-underline-offset:.15em;text-decoration-color:color-mix(in srgb,currentColor 45%,transparent)}
 .t30-faq dd a:not([class]):hover,.t30-src a:not([class]):hover,.t30-facts a:not([class]):hover,
-.t30-faq dd a:not([class]):focus-visible,.t30-src a:not([class]):focus-visible,.t30-facts a:not([class]):focus-visible{color:var(--sky);text-decoration-color:currentColor}
+.t30-faq dd a:not([class]):focus-visible,.t30-src a:not([class]):focus-visible,.t30-facts a:not([class]):focus-visible{text-decoration-color:currentColor}
 .t30-src a{display:inline-block;padding-block:4px}
 /* THE CHECKLIST LIST. Rows, not tiles; see checklistBand. The filter chips are
    labels for visually hidden inputs, 44px tall, teal when checked because a
@@ -1234,7 +1259,12 @@ const style = `
 #checklist .t30-clf{position:sticky;top:var(--bar-h,60px);z-index:5;background:var(--page);
   margin-inline:-8px;padding:8px;border-bottom:1px solid color-mix(in srgb,var(--keyline) 60%,transparent)}
 section.band#checklist .t30-clf{background:var(--sky-tint)}
-@media(max-width:699px){
+/* A FOCUSED ROW CLEARS THE SITE BAR AND THIS ONE. Shift+Tab back up the list
+   parked 24 of 60 cards wholly under the two, because nothing told the browser
+   they were there. The scrolling single row now runs to 1279px, so the bar is
+   one chip tall at every width and one number covers it. */
+#checklist .t30-row .t30-zm{scroll-margin-top:calc(var(--bar-h,60px) + 76px);scroll-margin-bottom:16px}
+@media(max-width:1279px){
   #checklist .t30-clf{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
     margin-inline:calc(-1 * var(--gut,16px));padding:6px var(--gut,16px);gap:var(--s4)}
   #checklist .t30-clf::-webkit-scrollbar{display:none}
@@ -1258,6 +1288,7 @@ section.band#checklist .t30-clf{background:var(--sky-tint)}
 .t30-cl{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:minmax(0,1fr);column-gap:var(--s5,32px)}
 .t30-clh{grid-column:1/-1;font:400 var(--t-m)/1.2 var(--display);color:var(--ink);padding:var(--s4) 0 var(--s2);
   display:flex;align-items:center;gap:8px}
+.t30-clh h3{margin:0;font:inherit;color:inherit}
 @media(min-width:700px){.t30-cl{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(min-width:1280px){.t30-cl{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s6,48px)}}
 /* THE THUMBNAIL GROWS WITH THE SCREEN, 25 September 2026. The owner: "make the
@@ -1306,6 +1337,7 @@ section.band#checklist .t30-clf{background:var(--sky-tint)}
 ${clCss}
 .t30-sum--set{list-style:none;padding:0;margin:var(--s5) 0 var(--s2)}
 .t30-sum--set li{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
+.t30-sum b.t30-px,.t30-sum.t30-sum--set b{color:var(--ketchup-deep)}
 .t30-sum--set b{display:block;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
 .t30-sum--set span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 @media(max-width:599px){.t30-sum--set{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -1357,6 +1389,9 @@ ${clCss}
   border:1px solid var(--keyline);background:var(--card);color:var(--sky-deep);text-decoration:none;
   font:700 var(--t-micro)/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em}
 .t30-cover-o a:hover,.t30-cover-o a:focus-visible{border-color:var(--sky);color:var(--sky)}
+/* In the open spread page 1 is already showing beside the cover, so the pill
+   would turn to where the reader already is and do nothing visible. */
+.is-book[data-mode="two"] .t30-cover-o{display:none}
 .t30-rings{display:none}
 .t30-track{display:grid;grid-auto-flow:column;grid-auto-columns:100%;
   overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;
@@ -1573,9 +1608,14 @@ ${clCss}
 /* BIGGER TILES ON A DESKTOP. The top ten is two rows of five, which the note
    on TOP_N always meant and auto-fill never did: at 1440 it drew nine and one.
    The hits take the same size. */
+/* Fixed counts that divide the lists rather than auto-fill, which left one tile
+   alone on a row at 768, 1024 and 1280: ten is two rows of five from 700px, and
+   the hits run two, three, then six across. */
+@media(min-width:700px){.t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .t30-cts--hits{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(min-width:900px){
   .t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s4)}
-  .t30-cts--hits{grid-template-columns:repeat(auto-fill,minmax(12.5rem,1fr));gap:var(--s4)}
+  .t30-cts--hits{grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s4)}
   .t30-cts--top .t30-ct-n,.t30-cts--hits .t30-ct-n{font-size:var(--t-body)}
 }
 /* ============================================================ THE ENLARGED CARD
@@ -1606,7 +1646,7 @@ ${clCss}
    leave the panel room, and the body scrolls if a phone is shorter still. The
    page behind does not scroll while the card is open. */
 html:has(dialog.t30-lb[open]){overflow:hidden}
-.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none;touch-action:none;user-select:none;-webkit-user-select:none}
 .t30-lb-fig img{-webkit-user-drag:none}
 .t30-lb-nav .t30-lb-close{flex:0 0 auto;padding:0 18px;color:var(--ink)}
 /* THE CARD, WHOLE. Contain, never cover, so no edge of the card is cropped, and
@@ -1628,6 +1668,8 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-lb-px dt{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);letter-spacing:.05em;text-transform:uppercase}
 .t30-lb-px dd{margin:4px 0 0;font:400 var(--t-l)/1 var(--display);color:var(--ketchup-deep)}
 /* The hit tile's route to its rip, which the picture no longer is. Teal: a route. */
+.t30-cts--hits .t30-ct>a{display:flex;flex-direction:column;flex:1}
+.t30-cts--hits .t30-ct-w{margin-top:auto;padding-top:6px}
 .t30-ct-w{margin:6px 0 0;font:700 var(--t-sm)/1.3 var(--body,inherit);color:var(--sky-deep)}
 .t30-ct>a:hover .t30-ct-w,.t30-ct>a:focus-visible .t30-ct-w{color:var(--sky)}
 .t30-lb-ill{margin:6px 0 0;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}
@@ -1657,8 +1699,15 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-secsum span{display:block;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
   text-transform:uppercase;letter-spacing:.04em;margin-top:2px}
 .t30-secsum .t30-bar{margin:6px 0 0;height:8px}
-/* All seven in one row on a desktop; auto-fit drew six and one at 1024. */
-@media(min-width:1000px){.t30-secsum{grid-template-columns:repeat(${sectionSummaryN},minmax(0,1fr))}.t30-secsum span{letter-spacing:0}}
+/* All seven in one row from 700px; two across on a phone with an odd last tile
+   taking the full row. auto-fit drew six and one at 1024, four and three at
+   768 and a lone "2 Jumbo cards" at 390. */
+.t30-secsum{grid-template-columns:repeat(2,minmax(0,1fr))}
+.t30-secsum li:last-child:nth-child(odd){grid-column:1/-1}
+.t30-secsum a{height:100%;box-sizing:border-box}
+@media(min-width:700px){.t30-secsum{grid-template-columns:repeat(${sectionSummaryN},minmax(0,1fr))}
+  .t30-secsum li:last-child:nth-child(odd){grid-column:auto}.t30-secsum span{letter-spacing:0}}
+@media(min-width:700px) and (max-width:999px){.t30-secsum b{font-size:var(--t-m)}.t30-secsum{gap:8px}.t30-secsum a{padding:10px 8px}}
 .t30-needs{margin:var(--s5) 0 0;max-width:560px}
 .t30-needs h3{margin:0 0 var(--s3);font:400 var(--t-m)/1.15 var(--display);color:var(--ink)}
 .t30-need{background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);margin:0 0 var(--s2)}
@@ -1738,6 +1787,7 @@ button.t30-cf:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 .t30-wave li:has(.t30-p a):hover{border-color:var(--sky)}
 .t30-p a::after{content:"";position:absolute;inset:0}
 .t30-meta{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.t30-meta .t30-px{color:var(--ketchup-deep)}
 .t30-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 .t30-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--keyline);border-radius:var(--r-sm);margin-top:var(--s4)}
 .t30-tbl{border-collapse:collapse;width:100%;min-width:24em;font-size:var(--t-sm)}
@@ -1894,7 +1944,7 @@ ${rarityRows
          (or the first on the checklist where none is priced), and opens it. */
       const c = pricedCards.find((x) => x.rarity === name) || (checklist.cards || []).find((x) => x.rarity === name);
       const pic = c ? pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: "(max-width:1099px) 28vw, 130px" }) : "";
-      return `      <li>${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))}, a ${esc(name)}, larger">${pic}</button>` : ""}<b>${n}</b><span>${esc(name)}</span></li>`;
+      return `      <li>${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger (${esc(name)})">${pic}</button>` : ""}<b>${n}</b><span>${esc(name)}</span></li>`;
     }
   )
   .join("\n")}
@@ -1968,13 +2018,15 @@ ${clSections.map(([key, label]) => {
   /* TWO COUNTS, ONE SHOWN. Under "Still need" the heading counted every row
      while only the missing ones showed: 30 over five Pikachu. */
   const need = rows.filter((c) => !clOwned.has(clKey(c.section, c.n))).length;
-  return `      <li class="t30-clh" data-s="${key}">${esc(label)} <span class="t30-cnt t30-cnt-all">${rows.length}</span><span class="t30-cnt t30-cnt-need">${need} to find</span></li>
+  return `      <li class="t30-clh" data-s="${key}" role="presentation"><h3>${esc(label)}</h3> <span class="t30-cnt t30-cnt-all">${rows.length}</span><span class="t30-cnt t30-cnt-need">${need} to find</span></li>
 ${rows.map(clRow).join("\n")}`;
 }).join("\n")}
     </ol>
     <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
       longDate(prices.checked || doc.checked)
-    )}. A tick marks a card already in the binder.</p>
+    )}. A tick and a pink edge mark a card already in the binder. Illustrator credits are TCGdex's, which covers the
+      ${Object.keys(ILLUS).length} cards numbered in this set's own run; the Classic Collection reprints and the RGB Mews print
+      their artists on the cards themselves.</p>
   </div>
 </section>`;
 
@@ -2092,7 +2144,7 @@ ${setHits
     });
     return `        <li class="t30-ct${pic ? "" : " nopic"}">
           ${pic ? `<button type="button" class="t30-zm"${zoom} aria-label="Show ${esc(h.card)} ${esc(num)} larger">${pic}</button>` : ""}
-          <a href="/${esc(v.path)}">
+          <a href="/${esc(v.path)}" aria-label="Watch the rip: ${esc(h.card)}, pulled ${esc(shortDate(v.published))}">
             <p class="t30-ct-n">${esc(h.card)}</p>
             <p class="t30-ct-m">${esc(num)}${
               /* The checklist's spelling of the rarity when the card has a row:
@@ -2151,8 +2203,8 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
       ${/* THE YEAR GOES IN THE CAPTION: "Sep 16, 2026" wrapped onto two lines of
            display type at 1280 and below, and clipped once it was told not to. */""}<div><b>${esc(shortDate(doc.set.release).replace(/,\s*\d{4}$/, ""))}</b><span>Released ${esc(doc.set.release.slice(0, 4))}, worldwide</span></div>
       <div><b>${E.count}</b><span>Cards in English</span></div>
-      <div><b>${doc.products.length}</b><span>Products, ${waves.size} release dates</span></div>
-      ${pricedCards[0] ? `<div><b>${esc(moneyRound(pricedCards[0].pr.raw))}</b><span>Top priced card, ${esc(pricedCards[0].name)}</span></div>` : ""}
+      <div><b>${doc.products.length}</b><span>Products, ${PACK_PRODUCTS} with packs</span></div>
+      ${pricedCards[0] ? `<div><b class="t30-px">${esc(moneyRound(pricedCards[0].pr.raw))}</b><span>Top priced card, ${esc(pricedCards[0].name)}</span></div>` : ""}
     </div>
     ${/* ON THIS PAGE. Not sticky: a pinned bar costs a phone a slice of every
          screen for a page read mostly top to bottom. Teal, because these are
@@ -2161,9 +2213,9 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
          chips are one row that scrolls sideways, not three rows of wrap. */""}<nav class="t30-jump" aria-label="On this page">
       <a href="#values">Most valuable</a>
       ${setHits.length ? `<a href="#hits">Our hits</a>` : ""}
-      <a href="#masterset">Master set binder</a>
+      <a href="#masterset">Binder</a>
       <a href="#checklist">Checklist</a>
-      <a href="#products">Products and dates</a>
+      <a href="#products">Products</a>
       <a href="#in-a-pack">In a pack</a>
       <a href="#faq">FAQ</a>
     </nav>
@@ -2234,7 +2286,7 @@ ${sectionSummary}
             <p class="t30-cover-t">Master Set Binder</p>
             <p class="t30-cover-s">${haveTotal} of ${TOTAL} cards &middot; ${pct}% complete</p>
             <span class="t30-bar" role="img" aria-label="${haveTotal} of ${TOTAL} collected"><span style="width:${pct}%"></span></span>
-            <p class="t30-cover-o"><a href="#bl1">Open the binder</a></p>
+            <p class="t30-cover-o"><a class="t30-cover-a" href="#bl1">Open the binder</a></p>
           </div>
           <a class="t30-turn fwd" href="#bl1" aria-label="Open the binder to page 1, ${esc(BINDER_LEAVES[0].label)}"><span aria-hidden="true">&rsaquo;</span></a>
         </article>
@@ -2273,6 +2325,7 @@ ${needList}
 ${checklistBand}
 <section class="tight" id="products">
   <div class="wrap">
+    <p class="sec-label">What to buy, and when</p>
     <h2>30th Celebration products and release dates</h2>
     <div class="t30-waves">
 ${waveBlocks}
@@ -2298,6 +2351,7 @@ ${doc.promosToFind.rows.map((r) => `          <tr><td>MEP ${esc(r.n)}</td><td>${
 </section>
 <section class="band tight" id="in-a-pack">
   <div class="wrap">
+    <p class="sec-label">Inside every pack</p>
     <h2>What is in a 30th Celebration pack</h2>
     <p style="max-width:42em">${esc(doc.guaranteesNote)}</p>
     <ul class="t30-facts">
@@ -2357,6 +2411,7 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
 </section>
 <section class="tight" id="faq">
   <div class="wrap">
+    <p class="sec-label">Quick answers</p>
     <h2>30th Celebration questions</h2>
     <dl class="t30-faq">
       <dt>When did 30th Celebration come out?</dt>
@@ -2384,6 +2439,7 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
 </section>
 <section class="tight">
   <div class="wrap">
+    <p class="sec-label">Where this comes from</p>
     <h2>Sources</h2>
     <p style="max-width:42em">Anything marked <span class="t30-tag off">Official</span> is The Pokemon Company's
       own words. Everything else names its source in the sentence that uses it. Nothing on this page comes
@@ -2394,7 +2450,7 @@ ${[...doc.sources, ...((doc.unlistedSecrets || {}).sources || []), ...(doc.engli
   .map((u) => `      <li><a href="${esc(u)}" rel="noopener nofollow" target="_blank" aria-label="${esc(srcLabel(u))}, opens on ${esc(new URL(u).hostname.replace(/^www\\./, ""))}">${esc(srcLabel(u))}</a></li>`).join("\n")}
     </ul>
     <p class="price-note t30-prose"><strong>199 is not an official number.</strong>
-      ${esc(E.note)} The Pokemon Company has never published a card count for this set, so these bars run
+      ${esc(E.note)} The Pokemon Company has never published a card count for this set, so the binder's progress bars run
       against PokeBeach's count.</p>
 ${
   /* WHERE THE PICTURES CAME FROM, SAID ON THE PAGE. This site names the source
@@ -2523,7 +2579,10 @@ ${APP_JS_NO_PACKPLAYER}
   var fig = document.querySelector(".t30-binder"), t = document.getElementById("binder");
   if (!fig || !t || !window.requestAnimationFrame || !t.classList) return;
   var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var twoMQ = window.matchMedia ? matchMedia("(min-width: 900px), (min-width: 760px) and (orientation: landscape)") : null;
+  /* AND TALL ENOUGH. A phone on its side is 844 wide and 390 tall, and the open
+     spread sized to that height drew 13px cards; one page it can scroll past is
+     readable. */
+  var twoMQ = window.matchMedia ? matchMedia("(min-width: 900px) and (min-height: 560px), (min-width: 760px) and (orientation: landscape) and (min-height: 560px)") : null;
   var all = Array.prototype.slice.call(t.querySelectorAll(".t30-leaf"));
   var endLeaf = t.querySelector(".t30-leaf-end");
   var rail = document.querySelectorAll('.t30-rail a[href^="#bl"]');
@@ -2892,6 +2951,23 @@ ${APP_JS_NO_PACKPLAYER}
 })();
 </script>
 <script>
+/* A FILTER CHANGED DEEP IN THE LIST KEEPS THE READER IN THE LIST. The filters
+   are CSS, so the list shrank above a reader 3,000px down and left them looking
+   at the products section with the bar scrolled away. When the list's top is
+   above the bar after a change, it is brought back to just under it. */
+(function () {
+  var f = document.querySelector("#checklist .t30-clf"), l = document.querySelector("#checklist .t30-cl");
+  if (!f || !l) return;
+  f.addEventListener("change", function () {
+    /* Aim for where the bar sits when it is pinned, not where it is now: once
+       the list has shrunk the bar has often scrolled away with it. */
+    var pinned = (parseFloat(getComputedStyle(f).top) || 60) + f.offsetHeight + 8;
+    var top = l.getBoundingClientRect().top;
+    if (top < pinned) window.scrollBy({ top: top - pinned, behavior: "instant" });
+  });
+})();
+</script>
+<script>
 /* THE ENLARGED CARD. Reads the data attributes each pocket was built with and
    fills one <dialog>; nothing is fetched but the large picture. A tap that was
    really the start of a page drag is not a tap: the binder turns pages by
@@ -2982,8 +3058,8 @@ ${APP_JS_NO_PACKPLAYER}
   /* SWIPE THE CARD, 25 September 2026: a phone review found a sideways swipe
      on the open card did nothing, and the only close control was the X at the
      top, the hardest place for a thumb. Sideways steps a card, a pull down
-     closes. The figure takes pan-y so the browser leaves the sideways move to
-     this; a vertical scroll of the panel still works. */
+     closes. touch-action:none on the picture, not pan-y: with pan-y the browser
+     took the downward pull, cancelled the pointer, and pointerup never came. */
   var fig = document.getElementById("t30lbF"), sw = null;
   fig.addEventListener("pointerdown", function (e) { sw = { x: e.clientX, y: e.clientY }; });
   fig.addEventListener("pointercancel", function () { sw = null; });
@@ -2997,8 +3073,12 @@ ${APP_JS_NO_PACKPLAYER}
     if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
     else if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
   });
-  /* A click on the dimmed backdrop lands on the dialog element itself. */
-  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+  /* A click on the dimmed backdrop lands on the dialog element itself. So does
+     a press inside the card that is released outside it, a drag, which must not
+     close anything: the press has to start on the backdrop too. */
+  var pressedBackdrop = false;
+  dlg.addEventListener("pointerdown", function (e) { pressedBackdrop = e.target === dlg; });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg && pressedBackdrop) dlg.close(); pressedBackdrop = false; });
   dlg.addEventListener("close", function () {
     img.removeAttribute("src");
     if (opener && opener.isConnected && opener.offsetParent) opener.focus({ preventScroll: true });

@@ -141,7 +141,7 @@ for (let page = 1; page <= 12; page++) {
 if (DRY) process.exit(0);
 
 const priced = {};
-let sealed = 0, bracketed = 0, unmatched = [], nameMismatch = [], noPrice = 0;
+let sealed = 0, bracketed = 0, unmatched = [], nameMismatch = [], noPrice = 0, heldPsa = [];
 for (const r of rows) {
   /* A BRACKETED NAME IS NOT A MAIN SET CARD, AND THIS GUARD IS WHY THE FIRST
      RUN REFUSED TO WRITE. PriceCharting titles the Classic Collection reprints
@@ -168,9 +168,20 @@ for (const r of rows) {
     continue;
   }
   if (r.ungraded == null && r.psa10 == null) { noPrice += 1; continue; }
+  /* A PSA 10 BARELY ABOVE RAW ON A CARD WORTH REAL MONEY IS A THIN SALE, NOT A
+     PRICE. Gengar ex #154 read $165 PSA 10 against $141.24 raw on 23 September
+     2026, 1.17 times, where every other card over $5 ran 3 to 7 times; two days
+     later PriceCharting showed no PSA 10 for it at all. The pop-up and the
+     checklist print both figures side by side, so a graded copy looked barely
+     worth grading. Held back rather than printed, and said so in the log. */
+  let psa10 = r.psa10 ?? null;
+  if (psa10 != null && r.ungraded != null && r.ungraded >= 20 && psa10 < r.ungraded * 1.2) {
+    heldPsa.push(`${card.name} ${card.n}: PSA 10 $${psa10} vs raw $${r.ungraded}`);
+    psa10 = null;
+  }
   priced[`${card.section}|${card.n}`] = {
     n: card.n, name: card.name, section: card.section,
-    raw: r.ungraded ?? null, g9: r.g9 ?? null, psa10: r.psa10 ?? null,
+    raw: r.ungraded ?? null, g9: r.g9 ?? null, psa10,
     pc: r.path || null,
   };
 }
@@ -182,6 +193,7 @@ console.log(`  no number match:          ${unmatched.length}${unmatched.length ?
 console.log(`  number matched, NAME NOT: ${nameMismatch.length}${nameMismatch.length ? "  " + nameMismatch.slice(0,4).join(" | ") : ""}`);
 console.log(`  matched but unpriced:     ${noPrice}`);
 console.log(`  with a PSA 10:            ${list.filter((c) => c.psa10 != null).length}`);
+console.log(`  PSA 10 held back:         ${heldPsa.length}${heldPsa.length ? "  " + heldPsa.join(" | ") : ""}`);
 
 /* NEVER WRITE FEWER PRICES OVER MORE. Same rule as the checklist sync and for
    the same recorded reason: a source that answers thin must not silently
