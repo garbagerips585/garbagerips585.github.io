@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 303884,
+    "views": 304895,
     "subscribers": 394,
-    "videos": 356,
-    "readAt": "2026-09-26"
+    "videos": 357,
+    "readAt": "2026-09-27"
   },
-  "syncedAt": "2026-09-26",
+  "syncedAt": "2026-09-27",
   "videos": [
+    {
+      "id": "_05-vifve-4",
+      "title": "Chaos Rising ETB #3 Final Pack 🤯 | Ending on a Dud BUT We Pulled the #1 CHASE! 🔥",
+      "path": "rip/chaos-rising-etb-3-final-pack-ending-on-a-dud-but-we-pulled-_05-vifve-4.html",
+      "published": "2026-09-27",
+      "publishedAt": "2026-09-27T11:44:28Z",
+      "duration": 21,
+      "views": 178,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "chaos-rising"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Chaos Rising ETB"
+    },
     {
       "id": "5TKvy9CVPww",
       "title": "30th Celebration Tin Pack #3 🔥 | 6 HITS IN A ROW! Gold Glitter Border! 🏆",
@@ -15,7 +34,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 917,
+      "views": 946,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-09-25",
       "publishedAt": "2026-09-25T16:57:19Z",
       "duration": 22,
-      "views": 891,
+      "views": 900,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1207,
+      "views": 1221,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +98,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 996,
+      "views": 1077,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +120,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 656,
+      "views": 659,
       "vertical": true,
       "short": true,
       "sets": [
@@ -671,7 +690,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1109,
+      "views": 1110,
       "vertical": true,
       "short": true,
       "sets": [
@@ -916,7 +935,7 @@
       "published": "2026-08-22",
       "publishedAt": "2026-08-22T11:47:18Z",
       "duration": 20,
-      "views": 1130,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1641,7 +1660,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 943,
+      "views": 944,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2339,7 +2358,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 645,
+      "views": 646,
       "vertical": true,
       "short": true,
       "sets": [
