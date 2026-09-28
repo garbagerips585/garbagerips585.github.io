@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-09-26",
+  "checked": "2026-09-28",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1385,6 +1385,66 @@
       "rarity": "Classic Collection",
       "got": "2026-09-26",
       "note": "The owner, 26 September 2026, in an updated master set list: added in that list and not in the binder before. His list headed the section \"7 of 30\" while listing eight; the eight cards listed are what is recorded."
+    },
+    {
+      "name": "Pikachu",
+      "n": "045",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Vulpix",
+      "n": "009",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Articuno",
+      "n": "018",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Umbreon ex",
+      "n": "092",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Kommo-o",
+      "n": "112",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Darkrai & Cresselia Legend (Bottom)",
+      "n": "100/102",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-09-28",
+      "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before. The bottom half of the LEGEND whose top half, 99/102, was already in the binder, so the pair is now complete."
     }
   ],
   "_shotNote": [
