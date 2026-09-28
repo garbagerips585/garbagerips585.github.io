@@ -374,8 +374,8 @@ const shotImg = (stem, name, sizes = SIZES) => {
  * about its _in_ renditions: every _200w sampled across all four sections is
  * exactly 200x279, a ratio of 0.717 against a real card's 0.714. */
 const tcgpBase = (pid) => `https://tcgplayer-cdn.tcgplayer.com/product/${pid}`;
-const tcgpImg = (pid, name, low = false, sizes = SIZES) =>
-  `<img class="t30-card" src="${tcgpBase(pid)}_200w.jpg" ` +
+const tcgpImg = (pid, name, low = false, sizes = SIZES, side = false) =>
+  `<img class="t30-card${side ? " t30-side" : ""}" src="${tcgpBase(pid)}_200w.jpg" ` +
   /* A GREY POCKET TAKES THE SMALL FILE ONLY (\`low\`), 23 September 2026. It is
      drawn greyscaled at 78% opacity, so the 400w file bought nothing a reader
      can see, and at DPR 3 it was 470KB per Classic page turn on a phone. */
@@ -393,7 +393,7 @@ const tcgpImg = (pid, name, low = false, sizes = SIZES) =>
      .json's readme rests the site's whole graceful-failure story on it: a
      withdrawn image removes itself instead of painting a broken glyph. This
      page had 393 images and one onerror, on the logo. */
-  `alt="${esc(name)}" loading="lazy" decoding="async" width="200" height="279" ` +
+  `alt="${esc(name)}" loading="lazy" decoding="async" ${side ? 'width="200" height="143"' : 'width="200" height="279"'} ` +
   `onload="t30l(this)" onerror="t30e(this)">`;
 
 const cardImg = (localId, name, low = false, sizes = SIZES) => {
@@ -482,6 +482,15 @@ const dexLocalId = (section, n) => {
    Pikachu". An image that repeats the text next to it is decorative by
    definition. The name is still passed in because tcgpImg/shotImg build their
    own alt and a future caller may need it; only the card scan goes silent. */
+/* A LEGEND IS PRINTED SIDEWAYS, 28 September 2026. Darkrai & Cresselia LEGEND
+   is two cards, Top 99/102 and Bottom 100/102, each a normal card with its
+   picture turned a quarter turn, so TCGplayer's scans are landscape (920x660).
+   A pocket filled them with object-fit:cover and showed a portrait slice of
+   each: the owner saw a crop and no join. Marked here so every place a card is
+   drawn in a fixed card-shaped box can turn it back upright, the way it sits in
+   a sleeve; then Top and Bottom in neighboring pockets meet along their long
+   edges and the artwork runs across both, which is the point of a LEGEND. */
+const isSideways = (name) => /\bLEGEND\b.*\((?:Top|Bottom)\)/i.test(String(name || ""));
 const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES }) => {
   const dex = dexLocalId(section ?? row?.section, n);
   if (dex) return cardImg(dex, name, low, sizes);
@@ -489,7 +498,7 @@ const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES })
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
      no-op dressed as an optimisation. TCGplayer publishes no AVIF. */
-  if (row && row.pid) return tcgpImg(row.pid, name, low, sizes);
+  if (row && row.pid) return tcgpImg(row.pid, name, low, sizes, isSideways(name));
   if (shot) return shotImg(shot, name, sizes);
   return "";
 };
@@ -620,6 +629,44 @@ const illOf = (section, n) => {
   const id = dexLocalId(section, n);
   return id ? ILLUS[id] || "" : "";
 };
+/* THE TWO HALVES OF A LEGEND, found on the checklist by name, 28 September
+   2026. The owner: "is there anyway to show the two cards connect better in
+   the binder? also maybe if you click them you can see them connected together".
+   A LEGEND is two cards, "(Top)" and "(Bottom)", whose pictures are one
+   artwork; every place either half is drawn gets the other half's picture,
+   number and prices too, so the pop-up can put them back together. */
+const LEGEND_RE = /^(.*?LEGEND)\s*\((Top|Bottom)\)\s*$/i;
+const LEGENDS = (() => {
+  const m = new Map();
+  for (const c of checklist.cards || []) {
+    const x = LEGEND_RE.exec(c.name || "");
+    if (!x) continue;
+    const base = x[1].replace(/\blegend\b/i, "LEGEND");
+    const e = m.get(base) || {};
+    e[x[2].toLowerCase() === "top" ? "top" : "bottom"] = c;
+    m.set(base, e);
+  }
+  return m;
+})();
+const legendOf = (name) => {
+  const x = LEGEND_RE.exec(String(name || ""));
+  if (!x) return null;
+  const base = x[1].replace(/\blegend\b/i, "LEGEND");
+  const pair = LEGENDS.get(base);
+  if (!pair || !pair.top || !pair.bottom) return null;
+  const half = x[2].toLowerCase() === "top" ? "top" : "bottom";
+  return { base, half, me: pair[half], mate: pair[half === "top" ? "bottom" : "top"] };
+};
+const legendAttrs = (name) => {
+  const L = legendOf(name);
+  if (!L) return "";
+  const m = L.mate, mpx = priceOf(m);
+  return ` data-lg="${L.half === "top" ? "T" : "B"}" data-lgn="${esc(L.base)}"` +
+    ` data-mnum="${esc(pocketLabel(m.section, m.n))}" data-mbig="${esc(bigOf({ section: m.section, n: m.n }, m))}"` +
+    (money(mpx?.raw) ? ` data-mraw="${esc(moneyExact(mpx.raw))}"` : "") +
+    (money(mpx?.psa10) ? ` data-mpsa="${esc(moneyRound(mpx.psa10))}"` : "") +
+    (OWNED_KEYS.has(clKey(m.section, m.n)) ? ` data-mown="1"` : "");
+};
 const zoomAttrs = ({ name, num, rar, big, px, own, rip, when, ill }) =>
   ` data-name="${esc(name)}" data-num="${esc(num)}"` +
   (rar ? ` data-rar="${esc(rar)}"` : "") +
@@ -631,7 +678,8 @@ const zoomAttrs = ({ name, num, rar, big, px, own, rip, when, ill }) =>
   (own ? ` data-own="1"` : "") +
   (rip ? ` data-rip="${esc(rip)}"` : "") +
   (when ? ` data-when="${esc(when)}"` : "") +
-  (ill ? ` data-ill="${esc(ill)}"` : "");
+  (ill ? ` data-ill="${esc(ill)}"` : "") +
+  legendAttrs(name);
 /* A checklist card's pop-up, for the value tiles and the checklist rows. The
    owned test is the binder's own join, the one clOwned makes below; it is
    rebuilt here because the value band is written before the checklist is. */
@@ -656,7 +704,7 @@ const zoomOf = (c, extra = {}) =>
    over its top right corner. Both now live in .t30-pn, BELOW the card frame and
    inside the pocket, so the card itself is drawn whole and untouched. The card
    frame is a <button> because it is the control that opens the enlarged card. */
-const pocket = (c, i, slot) => {
+const pocket = (c, i, slot, lg = "") => {
   if (c || (HAVE_SCANS && slot)) {
     const s = c || slot;
     const row = CHECKLIST.get(clKey(s.section, s.n || ""));
@@ -678,12 +726,17 @@ const pocket = (c, i, slot) => {
        by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
        "remove the dates overalyed on top of the cards"); `got` still drives the
        "Last added" line above the binder. */
-    return `<li class="t30-pk ${c ? "has" : "need"}" title="${esc(s.name)}">
-        <button type="button" class="t30-cf"${attrs} aria-label="${esc(s.name)} ${esc(lab)}, ${c ? "collected" : "not collected yet"}. Show it larger">
+    const L = lg ? legendOf(s.name) : null;
+    return `<li class="t30-pk ${c ? "has" : "need"}${lg ? " " + lg : ""}" title="${esc(s.name)}">
+        <button type="button" class="t30-cf"${attrs} aria-label="${esc(s.name)} ${esc(lab)}, ${c ? "collected" : "not collected yet"}${L ? `, one half of ${esc(L.base)}, joins ${esc(pocketLabel(L.mate.section, L.mate.n))}` : ""}. Show it larger">
           ${phOf(s.name, lab)}
           ${pic}
         </button>
-        <span class="t30-pn">${c ? '<span class="t30-ok" aria-hidden="true"></span>' : ""}${esc(lab)}</span>
+        <span class="t30-pn">${c ? '<span class="t30-ok" aria-hidden="true"></span>' : ""}${esc(lab)}${
+          /* A HALF AWAY FROM ITS PARTNER says which half it is in the strip:
+             two small cards, this one filled. */
+          L && /lg-split/.test(lg) ? `<span class="lg-g" aria-hidden="true"><i${L.half === "top" ? ' class="on"' : ""}></i><i${L.half === "bottom" ? ' class="on"' : ""}></i></span>` : ""
+        }</span>
       </li>`;
   }
   return `<li class="t30-pk" aria-hidden="true"><span class="t30-cf">${phOf("", String(i + 1))}</span><span class="t30-pn">${i + 1}</span></li>`;
@@ -859,12 +912,26 @@ const LEAF_N = BINDER_LEAVES.length;
 const leafHtml = (l) => {
   const prev = BINDER_LEAVES[(l.no - 2 + LEAF_N) % LEAF_N];
   const next = BINDER_LEAVES[l.no % LEAF_N];
+  /* A LEGEND'S TWO HALVES SIDE BY SIDE IN ONE ROW BECOME ONE SLEEVE (lg-l and
+     lg-r): Top on the left, Bottom on the right, which is how the turned-upright
+     scans meet. Apart, across a row or a page, each is marked lg-split and says
+     which half it is. The partner must be a real cell: a Bottom in pocket 0 of
+     a page has nobody at -1 to join. */
+  const nameAt = (i) => { const c = l.cells[i]; return c ? (c.has ? c.owned.name : c.slot ? c.slot.name : "") : ""; };
+  const lgCls = l.cells.map((c, i) => {
+    const L = legendOf(nameAt(i));
+    if (!L) return "";
+    const mateAt = (j) => j >= 0 && j < l.cells.length && legendOf(nameAt(j))?.base === L.base && legendOf(nameAt(j)).half !== L.half;
+    if (L.half === "top" && i % 3 !== 2 && mateAt(i + 1)) return "lg lg-l";
+    if (L.half === "bottom" && i % 3 !== 0 && mateAt(i - 1)) return "lg lg-r";
+    return `lg lg-split ${L.half === "top" ? "lg-top" : "lg-bot"}`;
+  });
   const cellHtml = l.cells
     .map((c, i) =>
       c.has
-        ? pocket(c.owned, i, null)
+        ? pocket(c.owned, i, null, lgCls[i])
         : c.slot
-          ? pocket(undefined, i, c.slot)
+          ? pocket(undefined, i, c.slot, lgCls[i])
           : pocket(undefined, i, undefined)
     )
     .join("\n");
@@ -1649,6 +1716,84 @@ html:has(dialog.t30-lb[open]){overflow:hidden}
 .t30-lb-fig{display:flex;justify-content:center;align-items:center;flex:none;touch-action:none;user-select:none;-webkit-user-select:none}
 .t30-lb-fig img{-webkit-user-drag:none}
 .t30-lb-nav .t30-lb-close{flex:0 0 auto;padding:0 18px;color:var(--ink)}
+/* ============================================== A LEGEND IN THE POP-UP
+   28 September 2026, "together first": either half opens on the joined
+   picture. Ported from the prototype (option A of three). */
+.lgx-fig{flex-direction:column;gap:var(--s3)}
+.lgx-seg{display:inline-flex;padding:3px;border:1px solid var(--keyline);border-radius:999px;background:var(--card)}
+.lgx-seg button{appearance:none;min-height:38px;padding:0 16px;border:1px solid transparent;border-radius:999px;background:none;
+  color:var(--ink-2);font:700 var(--t-sm)/1 var(--body);cursor:pointer}
+.lgx-seg button[aria-pressed="true"]{border-color:var(--sky);color:var(--sky-deep);background:var(--chrome-bg)}
+.lgx-seg button:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+/* THE STAGE. Both halves: upright, Top above Bottom, which is how a LEGEND is
+   played and the only orientation whose words read. 920x660 twice = 23/33,
+   near enough a card's own 63/88 that it drops into the same slot. The gutter
+   either side holds the half labels, so no word is ever on the art. */
+.lgx-stage{--g:18px;--h:min(62dvh,calc(94dvh - 300px),calc((94vw - 34px - 2 * var(--g)) * 33 / 23));
+  position:relative;display:grid;grid-template-columns:var(--g) auto var(--g);align-items:stretch}
+.lgx-pair{grid-column:2;display:grid;grid-template-rows:1fr 1fr;height:var(--h);aspect-ratio:23/33;filter:drop-shadow(0 8px 20px rgb(0 0 0 / .45))}
+.lgx-pair img{width:100%;height:100%;object-fit:cover;border-radius:3.6%/5%;background:var(--paper)}
+.lgx-pair img.need{filter:grayscale(1) contrast(.95);opacity:.78}
+/* half labels, sideways in the left gutter, like the print on the card */
+.lgx-tags{grid-column:1;grid-row:1;display:grid;grid-template-rows:1fr 1fr}
+.lgx-tags span{writing-mode:vertical-rl;transform:rotate(180deg);justify-self:center;align-self:center;white-space:nowrap;
+  font:700 10px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2)}
+.lgx-tags span.cur{color:var(--sky-deep)}
+.lgx-tags span.cur::after{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--sky);margin-top:6px}
+/* registration ticks at the seam, both gutters: where the two cards meet */
+.lgx-tick{grid-row:1;align-self:center;width:0;height:0;border:6px solid transparent}
+.lgx-tick.l{grid-column:1;justify-self:end;border-left-color:var(--ketchup);margin-right:-3px}
+.lgx-tick.r{grid-column:3;justify-self:start;border-right-color:var(--ketchup);margin-left:-3px}
+/* one half on its own: the landscape scan the right way up, width-led */
+.lgx-one{grid-column:1/-1;width:min(100%,calc(94vw - 34px),480px);aspect-ratio:920/660;height:auto;border-radius:3.6%/5%;
+  box-shadow:0 8px 24px rgb(0 0 0 / .45);background:var(--paper)}
+.lgx-one.need{filter:grayscale(1) contrast(.95);opacity:.78}
+@media(min-width:760px){
+  .lgx-stage{--h:min(78dvh,620px,calc(94dvh - 190px))}
+  .lgx-one{width:min(480px,48vw)}
+}
+/* ---- motion ---- */
+@media(prefers-reduced-motion:no-preference){
+  /* on open: the pair arrives the way it sits in the binder, sideways, turns
+     upright, then the halves close on the seam */
+  .lgx-stage.intro .lgx-pair{animation:lgx-turn .62s cubic-bezier(.3,.7,.2,1) both}
+  .lgx-stage.intro .lgx-pair img:first-child{animation:lgx-t .9s cubic-bezier(.3,.7,.2,1) both}
+  .lgx-stage.intro .lgx-pair img:last-child{animation:lgx-b .9s cubic-bezier(.3,.7,.2,1) both}
+  .lgx-stage.slide .lgx-pair img:first-child{animation:lgx-t2 .42s cubic-bezier(.2,.8,.2,1) both}
+  .lgx-stage.slide .lgx-pair img:last-child{animation:lgx-b2 .42s cubic-bezier(.2,.8,.2,1) both}
+  .lgx-stage.intro :is(.lgx-tags,.lgx-tick){animation:lgx-fade .3s .75s ease both}
+  .lgx-stage.slide :is(.lgx-tags,.lgx-tick){animation:lgx-fade .25s .3s ease both}
+  .lgx-one{animation:lgx-fade .25s ease both}
+}
+/* 45% keeps the corners inside a 334px phone panel mid-turn (a 45deg box is
+   its width plus height times .707 wide) */
+@keyframes lgx-turn{0%{transform:rotate(-90deg) scale(.7)}45%{transform:rotate(-45deg) scale(.62)}100%{transform:none}}
+@keyframes lgx-t{0%,55%{transform:translateY(-6%)}100%{transform:none}}
+@keyframes lgx-b{0%,55%{transform:translateY(6%)}100%{transform:none}}
+@keyframes lgx-t2{from{transform:translateY(-14%);opacity:.4}to{transform:none;opacity:1}}
+@keyframes lgx-b2{from{transform:translateY(14%);opacity:.4}to{transform:none;opacity:1}}
+@keyframes lgx-fade{from{opacity:0}to{opacity:1}}
+/* ---- the panel ---- */
+.lgx-what{margin:var(--s2) 0 0;color:var(--ink-2);font-size:var(--t-sm);line-height:1.45;max-width:34em}
+.lgx-halves{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2)}
+.lgx-halves li{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:4px var(--s4);
+  background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:10px var(--s3)}
+.lgx-halves li[aria-current]{border-color:var(--sky);box-shadow:inset 3px 0 0 var(--sky)}
+.lgx-halves b{display:block;font:700 var(--t-sm)/1.2 var(--body);color:var(--ink)}
+.lgx-halves small{display:flex;align-items:center;gap:5px;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
+.lgx-halves .t30-ok{width:11px;height:11px}
+.lgx-halves .t30-ok::after{top:1.5px;left:3.7px;width:2.6px;height:5.4px}
+.lgx-p{text-align:right;white-space:nowrap}
+.lgx-p i{display:block;font:700 var(--t-micro)/1.2 var(--mono);font-style:normal;color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
+.lgx-p span{font:400 1.15rem/1.1 var(--display);color:var(--ketchup-deep)}
+.lgx-halves li.sum{background:none;border-style:dashed}
+.lgx-halves li.sum b{font-weight:400;color:var(--ink-2)}
+.lgx-alt{appearance:none;background:none;border:0;padding:0;margin:var(--s3) 0 0;color:var(--sky-deep);font:700 var(--t-sm)/1.3 var(--body);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;min-height:24px}
+@media(max-width:420px){
+  .lgx-halves li{grid-template-columns:minmax(0,1fr) auto auto;gap:4px 12px;padding:9px 10px}
+  .lgx-p span{font-size:1rem}
+}
 /* THE CARD, WHOLE. Contain, never cover, so no edge of the card is cropped, and
    capped by the viewport's height so the panel under it is still on screen. */
 /* A HEIGHT, NOT A MAX-HEIGHT: with only a cap the box was 0px tall until the
@@ -1766,11 +1911,47 @@ button.t30-cf{cursor:zoom-in}
 button.t30-cf:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 @media(prefers-reduced-motion:no-preference){
   button.t30-cf{transition:transform .15s cubic-bezier(.2,.7,.3,1)}
-  button.t30-cf:hover{transform:translateY(-2px)}
+  .t30-pk:not(.lg-l):not(.lg-r) button.t30-cf:hover{transform:translateY(-2px)}
+  /* A JOINED PAIR LIFTS AS ONE, or the seam tears two pixels apart. */
+  .t30-pkts:has(.lg-l button:hover,.lg-r button:hover) :is(.lg-l,.lg-r) button.t30-cf{transform:translateY(-2px)}
 }
 .t30-pk .t30-pn{font:700 var(--t-micro)/1 var(--mono)}
 .t30-pk.has{border-style:solid;border-color:var(--ketchup);background:var(--card);box-shadow:inset 0 1px 3px rgb(0 0 0 / .18),var(--lift)}
 /* .t30-got is gone with the date overlay it styled, 22 September 2026. */
+/* ================================================== A LEGEND, ONE SLEEVE
+   28 September 2026. Top and Bottom side by side in a row fuse into one
+   sleeve: no gap and no inner border between them, and the card frames slide
+   in to meet at a 2px seam, each frame the same size as every other pocket's
+   so the row stays level. A pink link chip sits on the seam down in the label
+   strip, never on the artwork. Designed as a prototype first (option A of
+   three); the numbers below are that prototype's, measured. */
+.t30-pk.lg-l,.t30-pk.lg-r{overflow:visible;box-shadow:inset 0 4px 3px -3px rgb(0 0 0 / .22)}
+.t30-pk.has:is(.lg-l,.lg-r){box-shadow:inset 0 4px 3px -3px rgb(0 0 0 / .18),var(--lift)}
+.t30-pk.lg-l{margin-right:calc(var(--s3) / -2);border-right:0;border-top-right-radius:0;border-bottom-right-radius:0;
+  padding-left:16px;padding-right:1px}
+/* One pixel of overlap: two antialiased edges meeting on a fractional pixel
+   drew a dark hairline down the whole sleeve. The clip stops this half's outer
+   shadow falling across the other half's artwork. */
+.t30-pk.lg-r{margin-left:calc(var(--s3) / -2 - 1px);border-left:0;border-top-left-radius:0;border-bottom-left-radius:0;
+  padding-right:16px;padding-left:2px;clip-path:inset(-30px -30px -30px 0)}
+/* One sleeve sheen across both, not two that restart at the seam. */
+.t30-pk.lg-l::after,.t30-pk.lg-r::after{background-size:200% 100%}
+.t30-pk.lg-l::after{background-position:0 0}
+.t30-pk.lg-r::after{background-position:100% 0}
+.t30-pk.lg-l::before{content:"";position:absolute;z-index:5;right:-11px;bottom:1px;width:22px;height:18px;border-radius:999px;
+  background:var(--chrome-bg);border:1px solid var(--ketchup);box-shadow:0 0 0 2px var(--paper)}
+.t30-pk.lg-l .t30-pn::after{content:"";position:absolute;z-index:6;right:-6px;bottom:4px;width:12px;height:12px;background:var(--ketchup);
+  -webkit-mask:var(--lg-link) center/contain no-repeat;mask:var(--lg-link) center/contain no-repeat}
+.t30-pkts{--lg-link:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.8' stroke-linecap='round'%3E%3Cpath d='M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1.2 1.2'/%3E%3Cpath d='M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1.2-1.2'/%3E%3C/svg%3E")}
+/* Apart, across a row or a page: a pink tab in the sleeve's own padding on the
+   edge that would join, and the half glyph in the label strip. */
+.t30-pk.lg-split::before{content:"";position:absolute;z-index:4;top:calc(5px + 30%);height:22%;width:3px;border-radius:2px;background:var(--ketchup)}
+.t30-pk.lg-top::before{right:1px}
+.t30-pk.lg-bot::before{left:1px}
+.lg-g{display:inline-flex;gap:1px;flex:none}
+.lg-g i{display:block;width:5px;height:8px;border:1px solid var(--ketchup);border-radius:1px}
+.lg-g i.on{background:var(--ketchup)}
+@media(max-width:419px){.lg-g i{width:4px;height:7px}}
 .t30-more{color:var(--ink-2);font-size:var(--t-sm);margin-top:var(--s3)}
 .t30-wave{margin-top:var(--s4)}
 /* --t-m, not --t-l: a release date in Titan One at 32px outshouted the section's
@@ -2490,11 +2671,15 @@ ${
     </div>
     <div class="t30-lb-body">
       <div class="t30-lb-fig" id="t30lbF"><img class="t30-lb-img" id="t30lbI" alt="" decoding="async"></div>
+      <div class="t30-lb-fig lgx-fig" id="t30lbG" hidden></div>
       <div class="t30-lb-info">
         <h3 id="t30lbT"></h3>
         <p class="t30-lb-meta" id="t30lbM"></p>
+        <p class="lgx-what" id="t30lbW" hidden>Two cards, one picture. A LEGEND is printed sideways across a pair of cards: lay the Top half above the Bottom half and the artwork joins up.</p>
         <p class="t30-lb-ill" id="t30lbA" hidden></p>
         <dl class="t30-lb-px" id="t30lbP" hidden></dl>
+        <ul class="lgx-halves" id="t30lbH" hidden></ul>
+        <button type="button" class="lgx-alt" id="t30lbJ" hidden></button>
         <p class="t30-lb-rip" id="t30lbR" hidden><a id="t30lbRa" href="#">Watch the rip it came from</a></p>
         <p class="t30-lb-src" id="t30lbS" hidden>Market value from PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}.</p>
         <div class="t30-lb-nav">
@@ -3003,13 +3188,77 @@ ${APP_JS_NO_PACKPLAYER}
       .map(function (p) { return p.x; });
   }
   function esc(v) { var d = document.createElement("div"); d.textContent = v; return d.innerHTML; }
-  function show(i) {
+  var G = document.getElementById("t30lbG"), W = document.getElementById("t30lbW"),
+      H = document.getElementById("t30lbH"), J = document.getElementById("t30lbJ"), F = document.getElementById("t30lbF");
+  /* A LEGEND, 28 September 2026: either half opens on the whole picture, Top
+     above Bottom, upright, which is how the pair is played and the only way
+     round its words read. "This half" shows the one card on its own. */
+  var lgv = "both", lgLast = null;
+  function num$(v) { return v ? parseFloat(String(v).replace(/[^0-9.]/g, "")) || 0 : 0; }
+  function fmt$(v, cents) { return "$" + (cents ? v.toFixed(2) : Math.round(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function legend(b, d, anim) {
+    var top = d.lg === "T";
+    var me = { num: d.num, big: d.big, raw: d.raw, psa: d.psa, own: !!d.own, half: top ? "Top" : "Bottom", cur: true };
+    var mate = { num: d.mnum, big: d.mbig, raw: d.mraw, psa: d.mpsa, own: !!d.mown, half: top ? "Bottom" : "Top" };
+    var T0 = top ? me : mate, B0 = top ? mate : me;
+    var n = function (h) { return esc(String(h.num || "").replace(/^#/, "").split("/")[0]); };
+    var html = '<div class="lgx-seg" role="group" aria-label="Show"><button type="button" data-v="both" aria-pressed="' + (lgv === "both") +
+      '">Both halves</button><button type="button" data-v="half" aria-pressed="' + (lgv === "half") + '">This half</button></div>';
+    if (lgv === "both") {
+      html += '<div class="lgx-stage ' + anim + '"><div class="lgx-tags" aria-hidden="true"><span' + (top ? ' class="cur"' : "") + ">Top &middot; " + n(T0) +
+        "</span><span" + (top ? "" : ' class="cur"') + ">Bottom &middot; " + n(B0) + "</span></div>" +
+        '<div class="lgx-pair" role="img" aria-label="' + esc(d.lgn) + ', the Top half above the Bottom half, joined into one picture">' +
+        '<img' + (T0.own ? "" : ' class="need"') + ' src="' + esc(T0.big) + '" alt="" decoding="async">' +
+        '<img' + (B0.own ? "" : ' class="need"') + ' src="' + esc(B0.big) + '" alt="" decoding="async"></div>' +
+        '<span class="lgx-tick l" aria-hidden="true"></span><span class="lgx-tick r" aria-hidden="true"></span></div>';
+    } else {
+      html += '<div class="lgx-stage"><img class="lgx-one' + (me.own ? "" : " need") + '" src="' + esc(me.big) + '" alt="' + esc(d.name || "") + '" decoding="async"></div>';
+    }
+    G.innerHTML = html; G.hidden = false; F.hidden = true;
+    [].forEach.call(G.querySelectorAll("[data-v]"), function (x) {
+      x.addEventListener("click", function () { lgv = x.getAttribute("data-v"); legend(b, d, "slide"); });
+    });
+    T.textContent = d.lgn || d.name || "";
+    M.innerHTML = [d.num ? "<b>" + esc(d.num) + "</b>" : "", me.half + " half", d.rar ? esc(d.rar) : "", d.when ? "Pulled " + esc(d.when) : ""].filter(Boolean).join(" &middot; ");
+    W.hidden = false; P.hidden = true;
+    var row = function (h) {
+      return "<li" + (h.cur ? ' aria-current="true"' : "") + "><span><b>" + h.half + " half</b><small>" + (h.own ? '<span class="t30-ok" aria-hidden="true"></span>' : "") +
+        esc(h.num || "") + (h.own ? " &middot; in the binder" : " &middot; to find") + "</small></span>" +
+        '<span class="lgx-p"><i>Raw</i><span>' + (h.raw ? esc(h.raw) : "&ndash;") + '</span></span><span class="lgx-p"><i>PSA 10</i><span>' + (h.psa ? esc(h.psa) : "&ndash;") + "</span></span></li>";
+    };
+    var rows = lgv === "both" ? row(T0) + row(B0) : row(me);
+    /* The pair added up, only when both halves have both figures: a sum with a
+       missing term would be a smaller number presented as the total. */
+    if (lgv === "both" && T0.raw && B0.raw && T0.psa && B0.psa) {
+      rows += '<li class="sum"><span><b>The pair, added up</b></span><span class="lgx-p"><i>Raw</i><span>' + fmt$(num$(T0.raw) + num$(B0.raw), true) +
+        '</span></span><span class="lgx-p"><i>PSA 10</i><span>' + fmt$(num$(T0.psa) + num$(B0.psa)) + "</span></span></li>";
+    }
+    H.innerHTML = rows; H.hidden = false;
+    S.hidden = !(me.raw || me.psa || mate.raw || mate.psa);
+    J.hidden = lgv === "both";
+    J.textContent = "See it joined with " + (mate.num || "its other half");
+  }
+  J.addEventListener("click", function () { lgv = "both"; var b = list[at]; legend(b, b.dataset, "slide"); });
+  function show(i, anim) {
     at = (i + list.length) % list.length;
     var b = list[at], d = b.dataset;
+    A.hidden = !d.ill;
+    A.textContent = d.ill ? "Illustrated by " + d.ill : "";
+    R.hidden = !d.rip;
+    if (d.rip) Ra.href = d.rip;
+    N.textContent = "Card " + (at + 1) + " of " + list.length;
+    if (d.lg) {
+      if (lgLast !== d.lgn) lgv = "both";
+      lgLast = d.lgn;
+      legend(b, d, anim || "intro");
+      return;
+    }
+    lgLast = null;
+    G.hidden = true; G.innerHTML = ""; W.hidden = true; H.hidden = true; J.hidden = true;
     var small = b.querySelector("img.t30-card");
     /* THE THREE RGB MEWS HAVE NO PICTURE ANYWHERE this site may use, so their
        pop-up is the words alone rather than an empty frame. */
-    document.getElementById("t30lbF").hidden = !(d.big || (small && (small.currentSrc || small.src)));
+    F.hidden = !(d.big || (small && (small.currentSrc || small.src)));
     img.removeAttribute("src");
     img.alt = d.name || "";
     if (small && (small.currentSrc || small.src)) img.src = small.currentSrc || small.src;
@@ -3021,15 +3270,19 @@ ${APP_JS_NO_PACKPLAYER}
     T.textContent = d.name || "";
     M.innerHTML = [d.num ? "<b>" + esc(d.num) + "</b>" : "", d.rar ? esc(d.rar) : "",
       d.when ? "Pulled " + esc(d.when) : d.own ? "In the binder" : "Still to find"].filter(Boolean).join(" &middot; ");
-    A.hidden = !d.ill;
-    A.textContent = d.ill ? "Illustrated by " + d.ill : "";
-    R.hidden = !d.rip;
-    if (d.rip) Ra.href = d.rip;
     var px = "";
     if (d.raw) px += "<div><dt>Raw, ungraded</dt><dd>" + esc(d.raw) + "</dd></div>";
     if (d.psa) px += "<div><dt>PSA 10</dt><dd>" + esc(d.psa) + "</dd></div>";
     P.innerHTML = px; P.hidden = !px; S.hidden = !px;
-    N.textContent = "Card " + (at + 1) + " of " + list.length;
+  }
+  /* STEP, NOT show(at + 1): with a LEGEND open on both halves, the next card in
+     the list is usually its other half, which would open the same picture
+     again. Step over it. */
+  function step(dir) {
+    var cur = list[at].dataset, both = cur.lg && lgv === "both";
+    show(at + dir, "intro");
+    var nd = list[at].dataset;
+    if (both && nd.lg && nd.lgn === cur.lgn && list.length > 2) show(at + dir, "intro");
   }
   function open(b) {
     list = all(b); opener = b;
@@ -3057,26 +3310,29 @@ ${APP_JS_NO_PACKPLAYER}
     open(b);
   });
   document.getElementById("t30lbX").addEventListener("click", function () { dlg.close(); });
-  document.getElementById("t30lbPrev").addEventListener("click", function () { show(at - 1); });
-  document.getElementById("t30lbNext").addEventListener("click", function () { show(at + 1); });
+  document.getElementById("t30lbPrev").addEventListener("click", function () { step(-1); });
+  document.getElementById("t30lbNext").addEventListener("click", function () { step(1); });
   document.getElementById("t30lbC").addEventListener("click", function () { dlg.close(); });
   /* SWIPE THE CARD, 25 September 2026: a phone review found a sideways swipe
      on the open card did nothing, and the only close control was the X at the
      top, the hardest place for a thumb. Sideways steps a card, a pull down
      closes. touch-action:none on the picture, not pan-y: with pan-y the browser
      took the downward pull, cancelled the pointer, and pointerup never came. */
-  var fig = document.getElementById("t30lbF"), sw = null;
-  fig.addEventListener("pointerdown", function (e) { sw = { x: e.clientX, y: e.clientY }; });
-  fig.addEventListener("pointercancel", function () { sw = null; });
-  fig.addEventListener("pointerup", function (e) {
-    if (!sw) return;
-    var dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
-    if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) show(at + (dx < 0 ? 1 : -1));
-    else if (dy > 90 && dy > 1.5 * Math.abs(dx)) dlg.close();
+  var sw = null;
+  /* Both the single card and a LEGEND's joined picture take the swipe. */
+  [F, G].forEach(function (fig) {
+    fig.addEventListener("pointerdown", function (e) { sw = e.target.closest && e.target.closest("button") ? null : { x: e.clientX, y: e.clientY }; });
+    fig.addEventListener("pointercancel", function () { sw = null; });
+    fig.addEventListener("pointerup", function (e) {
+      if (!sw) return;
+      var dx = e.clientX - sw.x, dy = e.clientY - sw.y; sw = null;
+      if (Math.abs(dx) > 50 && Math.abs(dx) > 1.5 * Math.abs(dy)) step(dx < 0 ? 1 : -1);
+      else if (dy > 90 && dy > 1.5 * Math.abs(dx)) dlg.close();
+    });
   });
   dlg.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowLeft") { e.preventDefault(); show(at - 1); }
-    else if (e.key === "ArrowRight") { e.preventDefault(); show(at + 1); }
+    if (e.key === "ArrowLeft") { e.preventDefault(); step(-1); }
+    else if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
   });
   /* A click on the dimmed backdrop lands on the dialog element itself. So does
      a press inside the card that is released outside it, a drag, which must not

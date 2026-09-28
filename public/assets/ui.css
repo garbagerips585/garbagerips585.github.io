@@ -2158,6 +2158,8 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-railg a.is-here,.t30-railg a[aria-current="page"]{border-color:var(--sky);color:var(--ink);
   background:var(--paper-3,var(--paper));font-weight:700}
 .t30-pk.has .t30-card{filter:none;opacity:1}
+.t30-pk .t30-card.t30-side,.t30-rt .t30-card.t30-side{inset:auto;left:50%;top:50%;
+  width:139.683%;height:71.591%;max-width:none;object-fit:cover;transform:translate(-50%,-50%) rotate(-90deg)}
 .t30-ok{position:relative;flex:none;width:13px;height:13px;
   border-radius:50%;background:var(--ketchup)}
 .t30-ok::after{content:"";position:absolute;top:2px;left:4.5px;width:3px;height:6px;

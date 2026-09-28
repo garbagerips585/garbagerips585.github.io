@@ -7195,6 +7195,15 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    padding-bottom written here loses the cascade to it. Checked by measuring --
    the rule was here first and the overlap stayed at 4px. */
 .t30-pk.has .t30-card{filter:none;opacity:1}
+/* A SIDEWAYS CARD TURNED UPRIGHT IN ITS BOX (build-30th.mjs isSideways). The
+   landscape scan is sized to the box turned on its side -- width = the box's
+   height (88/63 of its width), height = the box's width -- centered, then
+   turned a quarter turn counterclockwise, so its top edge is the card's left.
+   Top and Bottom halves of a LEGEND then join across the gap between two
+   neighboring pockets. Only where the box is a fixed card shape: a binder
+   pocket and a checklist thumbnail. */
+.t30-pk .t30-card.t30-side,.t30-rt .t30-card.t30-side{inset:auto;left:50%;top:50%;
+  width:139.683%;height:71.591%;max-width:none;object-fit:cover;transform:translate(-50%,-50%) rotate(-90deg)}
 /* OWNED WITHOUT COLOUR. Greyscale the page and the only difference left between
    a card he has and one he needs was a 1px solid border against a dashed one.
    An owned pocket carries a check in its corner: a --ketchup disc (a mark that
