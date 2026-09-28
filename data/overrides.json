@@ -2837,5 +2837,11 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 27 September 2026: \"Chaos Rising ETB 3, Pack 9, Hit no, Chaos Rising, bought at LingSter Games\". The ninth and last pack of the same Chaos Rising ETB #3 as Pack #7 (38yPPGnA7Vk) and Pack #8 (9TCFBLckSRs). Both numbers typed by him, which is the only way either may be set: riplabel.mjs refuses to read a pack number out of a title. The title says \"ETB #3 Final Pack\" without a pack number, which his message supplies.",
     "hasHitWhy": "\"Hit no\" is his own word and the whole source. The title's \"We Pulled the #1 CHASE!\" is about the box, not this pack: the description says \"we hit the bulk pile to wrap it up. But with the #1 top chase card of the entire set already secured from this box\", which is the Pack #7 Xerneas already logged on 38yPPGnA7Vk. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
+  },
+  "CdwJMIt6br4": {
+    "packNumber": 4,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 28 September 2026: \"30th Celebration Greninja ex Tin , Pack #4, No hit, 30th Celebration\". Pack 4 of the same Greninja ex Tin as Pack #1 (22 September), Pack #2 (iJHcRxYHa5g) and Pack #3 (5TKvy9CVPww). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. He calls it a TIN and the taxonomy derives `tin` on its own; on 26 September he confirmed it is the ex Tin, on shelves September 16.",
+    "hasHitWhy": "\"No hit\" is his own word and the whole source. The description agrees (\"we got our first official Garbage Rip from the set\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
   }
 }
