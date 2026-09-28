@@ -803,6 +803,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     },
@@ -904,6 +908,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     },
@@ -930,6 +938,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     },
@@ -1101,7 +1113,13 @@
       "admission": "Free",
       "source": "cardshows.io",
       "organiser": "Shawn Hughes",
-      "address": "6525 Ward Rd, Sanborn, NY 14132"
+      "address": "6525 Ward Rd, Sanborn, NY 14132",
+      "vendors": [
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        }
+      ]
     },
     {
       "id": "professor-sams-depew-2026-10-17",
@@ -1240,6 +1258,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     },
@@ -1343,6 +1365,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ],
       "flyer": "rocpokecon-2026-10-31.jpg",
@@ -2508,6 +2534,10 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     },
@@ -2528,6 +2558,32 @@
         {
           "name": "ROC_TCG",
           "confirmed": "ROC_TCG's own upcoming-shows flyer, sent to the channel 22 September 2026. That is the vendor speaking about their own circuit, which is the same kind of source as Legends Card Shop's dates flyer of 3 September. Matched to this row by DATE AND VENUE rather than by name alone, because three of the eight dates on that flyer carry another show somewhere else in the region."
+        },
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        }
+      ]
+    },
+    {
+      "id": "roc-city-2026-10-18",
+      "name": "Roc City Card Show",
+      "date": "2026-10-18",
+      "venue": "Basketball Plus",
+      "address": "465 W Commercial St, East Rochester, NY 14445",
+      "city": "East Rochester",
+      "region": "roc",
+      "admission": null,
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "Roscoe's Card Finder is vending it and they sell Pokemon from every era, which is what the `vendors` entry on this row says. The show itself bills as a card show rather than a Pokemon show.",
+      "blurb": "The Roc City Card Show back at Basketball Plus in East Rochester.",
+      "source": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026",
+      "sourceNote": "ADDED FROM A VENDOR'S FLYER, the same way the 4 October row was added from ROC_TCG's. The flyer reads \"Oct. 4th & 18th, Roc City Card Show 9-3pm @ Basketball Plus, Penfield, NY\": the venue matches the series on file, and the address is the promoter's own 465 W Commercial St, East Rochester, not the flyer's \"Penfield\", because a vendor naming a show is good evidence it exists and poor evidence of its details. NO TIMES AND NO ADMISSION on this row, deliberately: the flyer's 9 to 3 matches the promoter's September hours, but hours come from the organizer, and the card reads \"Check the listing\" until the promoter posts October.",
+      "vendors": [
+        {
+          "name": "Roscoe's Card Finder",
+          "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
         }
       ]
     }

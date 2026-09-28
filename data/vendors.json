@@ -143,6 +143,25 @@
       "flyerW": 440,
       "flyerH": 660,
       "flyerNote": "Their own upcoming-shows flyer, sent 22 September 2026. It is the source for all eight ROC_TCG rows in data/shows.json and for the two shows that flyer ADDED to the calendar: the Roc City Card Show on 4 October and the FRIDAY half of the 23-24 October Extreme Pokemon Show, which was on file as a Saturday only."
+    },
+    {
+      "name": "Roscoe's Card Finder",
+      "area": "Rochester, NY and Western New York",
+      "sells": "Pokemon from every era, vintage, mid-era and modern, and now other TCGs. Buy, sell, trade and consignment, in person at shows",
+      "vouched": false,
+      "blurb": "Run by Seth Russo out of Rochester, NY. Roscoe's started out in Pokemon only, carrying every era from vintage and mid-era through to modern, and has begun branching out into other TCGs, making plenty of new friends along the way as it grows.",
+      "blurbNote": "Seth Russo's own bio, sent via the owner 28 September 2026, moved to third person to match the other rows. Nothing added: the eras, the other TCGs and the friendships line are all his. \"Buy, sell, trade and consignment\" in `sells` is off his own flyer's banner (\"BUY, SELL, TRADE, & COSIGNMENT\", the typo corrected). NOT VOUCHED: `vouched` means the owner has said outright that he buys from them, and he has not said it here.",
+      "shows": "Shows around Rochester, NY, Batavia and the Niagara region",
+      "instagram": "roscoes.card.finder",
+      "instagramNote": "The link the owner sent carried tracking parameters (?stkn=...&utm_source=qr); the handle alone is kept, per this file's rule. Checked in a browser 28 September 2026: the profile is live and titled \"Seth Russo (@roscoes.card.finder)\".",
+      "logo": "roscoes-card-finder",
+      "logoNote": "Their logo, relayed by the owner for this listing, 28 September 2026.",
+      "logoW": 1582,
+      "logoH": 1690,
+      "flyer": "roscoes-card-finder-shows.jpg",
+      "flyerW": 440,
+      "flyerH": 491,
+      "flyerNote": "Their own October upcoming-shows flyer, relayed by the owner 28 September 2026. It is the source for all eight Roscoe's rows in data/shows.json and ADDED one show the calendar did not have: the Roc City Card Show on Sunday 18 October."
     }
   ]
 }
