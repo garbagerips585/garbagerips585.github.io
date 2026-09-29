@@ -515,8 +515,11 @@ const style = `
    give it two selectors. */
 .about-body ul{list-style:none;display:flex;flex-direction:column;gap:var(--s2);
   margin:var(--s3) 0 var(--s5)}
-.about-body li{display:flex;gap:var(--s3);align-items:flex-start;color:var(--ink-2)}
-.about-body li::before{content:"";flex:none;width:9px;height:9px;margin-top:.55em;
+/* NOT FLEX, 29 September 2026: a flex li makes every text run and every <b>
+   its own column, and the three "For parents" bullets drew as three ragged
+   columns. The diamond is placed absolutely in the li's own padding. */
+.about-body li{position:relative;padding-left:calc(9px + var(--s3));color:var(--ink-2)}
+.about-body li::before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;
   border-radius:2px;background:var(--mustard);border:1px solid var(--gold-deep);
   transform:rotate(45deg)}
 .about-pull{font:400 var(--t-l)/1.2 var(--display);color:var(--ink);

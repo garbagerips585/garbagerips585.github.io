@@ -386,7 +386,7 @@ const style = `
 .cc-ch-key span{display:inline-flex;align-items:center;gap:6px}
 .cc-ch-key i{width:22px;height:9px;border-radius:2px;flex:none}
 .cc-ch-key i.base{background:var(--ink)}
-.cc-ch-key i.all{background:var(--chip-gold-bg)}
+.cc-ch-key i.all{background:var(--keyline)}
 .cc-chart figcaption{margin-top:var(--s3);font:400 var(--t-micro)/1.6 var(--body);
   color:var(--ink-2)}
 .w34{max-width:34em}

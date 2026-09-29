@@ -11,14 +11,14 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garbagerips.com/hall.html">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="https://garbagerips.com/assets/og-hall.jpg?v=3f441fee">
+<meta property="og:image" content="https://garbagerips.com/assets/og-hall.jpg?v=ea461216">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Trubbish sitting on a Rochester sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Garbage Rips 585 | Pokemon Pack Rips from the 585">
 <meta name="twitter:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
-<meta name="twitter:image" content="https://garbagerips.com/assets/og-hall.jpg?v=3f441fee">
+<meta name="twitter:image" content="https://garbagerips.com/assets/og-hall.jpg?v=ea461216">
 <link rel="icon" href="/favicon.ico?v=b04a29ce" sizes="any">
 <link rel="icon" href="/favicon-32.png?v=07a50754" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5f5f964d">
@@ -32,7 +32,6 @@
      The 321 rip pages keep theirs and must: build-pages.mjs emits it beside a
      real i.ytimg.com poster frame on each one. -->
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
 {
@@ -84,7 +83,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <!-- NO packs.css: 0 of its 98 selectors match anything on this page, verified in a
      browser after JS. videos.html keeps it (11 classes) and every rip page needs it.
      The five pages that slice this head already drop it via dropUnusedPacksCSS. -->
@@ -178,6 +177,7 @@
 .vcar .hero-art,
 .vcar .tile-stage{max-width:440px}
 }
+@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}}
 @media(min-width:900px) and (max-width:999px){
 .vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
 .vcar .hero{max-width:none;margin:0;padding:var(--s4)}
@@ -289,7 +289,7 @@ main{padding-top:0}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
-.chof:hover{border-color:rgba(224,162,31,.55);transform:translateY(-3px)}
+.chof:hover{border-color:rgba(224,162,31,.55)}
 .chof-top{border-color:rgba(224,162,31,.45);background:rgba(224,162,31,.09)}
 .chof-1{box-shadow:0 0 0 1px rgba(224,162,31,.5), 0 14px 34px rgba(0,0,0,.45)}
 .chof-rank{position:absolute;left:-10px;top:-10px;z-index:3;width:34px;height:34px;
@@ -5290,7 +5290,9 @@ main{padding-top:0}
     document.body.style.overflow='';
     if(last) last.focus();                 // send focus back where it came from
   }
-  document.querySelectorAll('.chof-art').forEach(function(b){
+  /* .mvc-art too: the Most valuable card carried the same data and zoom cursor
+     and was never wired. */
+  document.querySelectorAll('.chof-art,.mvc-art').forEach(function(b){
     b.addEventListener('click',function(){open(b)});
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
@@ -5411,6 +5413,6 @@ main{padding-top:0}
   </div>
 </footer>
 
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 </body>
 </html>

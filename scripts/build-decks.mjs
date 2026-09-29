@@ -866,13 +866,24 @@ document.querySelectorAll('.dk-copy').forEach(function (b) {
   b.addEventListener('click', function () {
     var el = document.getElementById(b.dataset.target);
     if (!el) return;
-    navigator.clipboard.writeText(el.textContent).then(function () {
-      var was = b.textContent;
-      b.textContent = 'Copied, now paste it into Live';
-      setTimeout(function () { b.textContent = was; }, 2400);
-    }, function () {
-      b.textContent = 'Press and hold the list to copy';
-    });
+    /* The aria-label is what a screen reader reads, and it named the button
+       while textContent changed underneath, so "Copied" was never heard. Both
+       change, and both come back. */
+    var was = b.textContent, wasLabel = b.getAttribute('aria-label');
+    function say(t) {
+      b.textContent = t; b.setAttribute('aria-label', t);
+      setTimeout(function () { b.textContent = was; b.setAttribute('aria-label', wasLabel); }, 2400);
+    }
+    function fallback() {
+      var r = document.createRange(); r.selectNodeContents(el);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch (e) {}
+      say(ok ? 'Copied, now paste it into Live' : 'Selected: copy it with your keyboard or long press');
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(el.textContent).then(function () { say('Copied, now paste it into Live'); }, fallback);
+    } else fallback();
   });
 });
 </script>

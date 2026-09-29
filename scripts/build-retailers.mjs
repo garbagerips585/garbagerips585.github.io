@@ -863,7 +863,7 @@ const STYLE = `
 /* The sentence every reading on the page shared, said once above them. */
 .rt-once{margin-top:var(--s4)}
 .rt-a,.rt-c dd{overflow-wrap:anywhere}
-.rt-note{font-size:var(--t-sm);line-height:1.55;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
+.rt-note{font-size:var(--t-body);line-height:1.6;color:var(--ink-2);max-width:46em;margin-top:var(--s3);
   overflow-wrap:anywhere}
 .rt-sib{display:flex;flex-wrap:wrap;gap:8px;margin-top:var(--s4)}
 .rt-sib a{display:inline-flex;align-items:center;min-height:44px;padding:0 var(--s3);
@@ -1238,7 +1238,11 @@ ${MENU}
 
       <div class="rt-key">
         <h2>If you cannot see any, <span class="hl">ask anyway</span></h2>
-        <p>${esc(R.askAnEmployee.claim)}</p>
+        <p>${esc(
+          /* The claim opens with the heading's own words; printed under that
+             heading they read twice in a row. */
+          String(R.askAnEmployee.claim).replace(/^If you cannot see any, ask anyway\.\s*/i, "")
+        )}</p>
 ${(R.askAnEmployee.why || []).map((w) => `        <p>${esc(w)}</p>`).join("\n")}
         ${AISLE}
       </div>

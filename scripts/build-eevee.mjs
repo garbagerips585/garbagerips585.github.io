@@ -558,8 +558,11 @@ const style = `
    the failure this page has already had once is a flex row that would not wrap,
    which pushed the document to 964px against a 390px viewport. A grid cannot
    do that, because a track that does not fit becomes a new row. */
-.ee-glance{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--s2);
+.ee-glance{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--s2);
   margin:var(--s4) 0 0;padding:0;list-style:none}
+/* ALWAYS NINE TILES, so three rows of three, and one row of nine from 1100px.
+   auto-fill left 4,4,1 at 768 and 7,2 at 1180. */
+@media(min-width:1100px){.ee-glance{grid-template-columns:repeat(9,minmax(0,1fr))}}
 .ee-gt{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
   min-height:44px;padding:var(--s3) var(--s2);border:1px solid var(--hair);border-radius:10px;
   background:var(--card);color:inherit;text-decoration:none;text-align:center}
@@ -570,7 +573,7 @@ const style = `
 .ee-gt:hover span{color:var(--on-accent)}
 .ee-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
 .ee-t{border:2px solid var(--hair);border-radius:12px;background:var(--card);padding:var(--s4);
-  scroll-margin-top:var(--s5)}
+  scroll-margin-top:calc(var(--bar-h,60px) + var(--s5))}
 .ee-th{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s3)}
 .ee-th h3{font:400 var(--t-m)/1.15 var(--display)}
 .ee-no{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}

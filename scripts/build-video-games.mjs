@@ -443,7 +443,7 @@ function row(g) {
     <p class="vg-chips">${chips}</p>
   </div>
   <details class="vg-more">
-      <summary>Details</summary>
+      <summary>More on ${esc(g.title)}</summary>
       <div class="vg-detail">
         ${paired ? coverArt(paired, g.title, "is-pair") : ""}
         <dl>
@@ -687,14 +687,14 @@ const STYLE = `<style>
 .vg-art img{width:100%;height:100%;object-fit:contain;background:var(--paper-2)}
 .vg-noart{width:100%;height:100%;
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
-.vg-kind{position:absolute;left:0;bottom:0;font:700 9px/1 var(--mono);letter-spacing:.08em;
+.vg-kind{position:absolute;left:0;bottom:0;font:700 10.5px/1 var(--mono);letter-spacing:.08em;
   text-transform:uppercase;background:var(--keyline);color:var(--on-accent);padding:4px 5px;
   border-top-right-radius:5px}
 
 .vg-title{font:600 var(--t-body)/1.25 var(--body);margin:0 0 4px}
 .vg-when{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;margin-bottom:2px}
 .vg-date{font:700 var(--t-micro)/1.3 var(--mono);letter-spacing:.06em}
-.vg-date b{color:var(--gold-deep)}
+.vg-date b{color:var(--ink)}
 .vg-date i,.vg-alt{font:400 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);font-style:normal}
 .vg-undated{color:var(--ink-2);font-style:normal}
 .vg-plat{font:400 var(--t-sm)/1.35 var(--body);color:var(--ink-2)}
@@ -712,7 +712,7 @@ const STYLE = `<style>
    and red scale would be the only place on this site using hue to encode a
    value, in a palette whose entire claim is that the artwork is the only
    colour on the page. */
-.vg-ms i{font-style:normal;font-weight:400;color:var(--gold-deep);text-transform:uppercase}
+.vg-ms i{font-style:normal;font-weight:400;color:var(--ink-2);text-transform:uppercase}
 .vg-no{background:var(--paper-3);color:var(--ink-2);font-weight:400}
 .vg-dex{background:var(--paper-2);font-weight:400}
 .vg-dex i{font-style:normal;color:var(--gold-deep)}
@@ -735,6 +735,13 @@ const STYLE = `<style>
 .vg-more summary{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   cursor:pointer;display:inline-flex;align-items:center;min-height:40px;color:var(--ink-2)}
 .vg-more summary:hover{color:var(--ink)}
+/* IT DID NOT LOOK OPENABLE: 161 bare "Details" lines that read as the label of
+   the next game. It says whose details now, is teal because it opens
+   something, and carries a turning chevron. */
+.vg-more summary{color:var(--sky-deep);gap:8px;list-style:none}
+.vg-more summary::-webkit-details-marker{display:none}
+.vg-more summary::after{content:"";width:7px;height:7px;border:solid currentColor;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-2px);flex:none}
+.vg-more[open] summary::after{transform:rotate(-135deg) translateX(-2px)}
 .vg-detail{border-left:3px solid var(--gold);padding:var(--s3);margin-top:6px;background:var(--paper-2);
   border-radius:var(--r-sm)}
 /* The paired cover STACKS on a phone and only floats once there is room for

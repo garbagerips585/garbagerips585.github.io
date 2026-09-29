@@ -2822,7 +2822,7 @@ function setPage(s) {
               time inside a control that had already named it. Chrome does not
               treat button descendants as presentational, so it really was
               announced. `onerror` removes the node, so no broken image is ever
-              left nameless. */ ""}${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+              left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"` : ""} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
         <div class="pr">${moneyCompact(c.price)}</div>

@@ -683,7 +683,7 @@ const style = `
   .rr-body{grid-column:1/-1}
   .offl li>div:last-child{grid-column:1/-1}
 }
-.rr-chase{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+.rr-chase{font:700 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   background:var(--mustard);border:1px solid var(--gold-deep);color:var(--on-accent);
   padding:4px 7px;border-radius:var(--r-pill);vertical-align:middle}
 /* --on-accent, not --ink, for the same reason .tip carries it: this is a
@@ -765,7 +765,7 @@ const style = `
   border:1px solid var(--hair);background:var(--page)}
 .gone-fig figcaption{font:400 var(--t-micro)/1.45 var(--mono);color:var(--ink-2);margin-top:6px;min-height:2.9em}
 
-.gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:var(--s3)}
+.gloss{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s3)}
 /* Flex column with the figure pushed to the bottom by margin-top:auto. Tiles in
    a row stretch to the tallest, and three terms carry no image at all, so
    without this the pictures sit at whatever height their own text ended at and

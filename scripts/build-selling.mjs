@@ -536,8 +536,8 @@ const takeChart = () => {
 ${rows.join("\n")}
         </ul>
         <figcaption>One $100 card, sold at a fixed price, with no shipping charged to the buyer and no sales tax.
-          The dark part of each bar is the platform's commission and the gold part is what it charges on top:
-          ${CUTS.filter((c) => c.b).map((c) => `${esc(c.name)}'s ${esc(c.layer2)}`).join(", ")}. eBay has no gold layer
+          The pale part of each bar is the platform's commission and the blue part is what it charges on top:
+          ${CUTS.filter((c) => c.b).map((c) => `${esc(c.name)}'s ${esc(c.layer2)}`).join(", ")}. eBay has no blue layer
           for processing because its final value fee already includes it, and Mercari charges a seller none. That is
           why the lowest headline rate is not the cheapest place to sell: Whatnot's ${esc(
             String(CUTS.find((c) => c.id === "whatnot").pct)
@@ -673,7 +673,7 @@ ${SL_BANDS.map(
     String(SL_BANDS[SL_BANDS.length - 1].pct)
   )}%.
           Nothing else on this page works this way, and no other rate on it moves at all.
-          <b>The dashed line is the chart above.</b> It sits at $${esc(
+          <b>The blue line is the chart above.</b> It sits at $${esc(
             SL_WORST.total.toFixed(2)
           )}, which is the most any of those four venues takes out of a $100 sale, including everything they
           charge on top. Every rung here is past it, so the best month a Sportlots seller can have is still
@@ -809,7 +809,7 @@ const style = `
 .se-key p + p{margin-top:var(--s3)}
 .se-grp{margin-top:var(--s6)}
 .se-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-.se-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
+.se-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
 /* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. Every other grid on
    this page and its sibling /buying.html moved to 700 on 20 August 2026 so an
    iPad in portrait stops getting the phone layout. This one did not, because

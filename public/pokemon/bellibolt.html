@@ -11,11 +11,11 @@
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garbagerips.com/pokemon/bellibolt.html">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="https://garbagerips.com/assets/og-pokemon.jpg?v=cbf26c48">
+<meta property="og:image" content="https://garbagerips.com/assets/og-pokemon.jpg?v=fee25a33">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://garbagerips.com/assets/og-pokemon.jpg?v=cbf26c48">
+<meta name="twitter:image" content="https://garbagerips.com/assets/og-pokemon.jpg?v=fee25a33">
 <link rel="icon" href="/favicon.ico?v=b04a29ce" sizes="any">
 <link rel="icon" href="/favicon-32.png?v=07a50754" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5f5f964d">
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <style>.dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
 border:1px solid var(--hair);border-radius:var(--r);padding:4px}
@@ -253,30 +253,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     <h2>Every <span class="hl">Bellibolt</span> we price</h2>
     
     <p class="lede" style="max-width:40em">12 of the 23 printings we can name are in sets we hold prices for. Tap a card to see it full size.</p>
-    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
-         It was "Enlarge <name>" alone, which on a Pokemon with several
-         printings named every button on the page identically: charizard.html
-         had NINE buttons all called "Enlarge Charizard ex", each opening a
-         different card. Tabbing through them sounded like nothing was moving.
-         Worse, aria-label REPLACES the visible text rather than adding to it,
-         so the set and number the button already shows in .rr were thrown away
-         for anyone listening (WCAG 2.5.3 wants the visible label inside the
-         accessible name).
-
-         AND BECAUSE THE BUTTON CARRIES THEM, THE SCAN INSIDE IT NOW CARRIES
-         alt="". It used to repeat the same strings a third time. Read back off
-         Accessibility.getFullAXTree, the tile announced:
-           button "Enlarge Abomasnow, Paldean Fates 101"
-             image "Abomasnow 101, Paldean Fates"   <- this line, deleted
-             text  "Abomasnow" / "Paldean Fates • 101" / "Shiny Rare" / "$2.94"
-         Chrome does NOT mark these descendants presentational, so the image was
-         genuinely reachable and genuinely said the card name a second time, on
-         every tile, on 95% of the 1,026 species pages (measured over 147 of
-         them). The scan is the illustration of a card the tile has already
-         named twice: that is the definition of decorative, so it takes the
-         empty alt. The name stays in the visible .nm below for a sighted
-         reader and for search. The onerror handler removes the node outright, so an
-         empty alt never leaves a nameless broken image behind. -->
+    
     <div class="chase-grid">
       <button class="chase-card" type="button"
         data-img="https://assets.tcgdex.net/en/me/me02.5/279/high.webp"
@@ -284,7 +261,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="279" data-price="$53.99"
         data-set="Ascended Heroes"
         aria-label="Enlarge Iono's Bellibolt ex, Ascended Heroes 279">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/279/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/279/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/279/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/279/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/279/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/279/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/279/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Ascended Heroes &bull; 279</div>
         <div class="rr">Special Illustration Rare</div>
@@ -296,7 +273,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="183" data-price="$33.46"
         data-set="Journey Together"
         aria-label="Enlarge Iono's Bellibolt ex, Journey Together 183">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/183/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/183/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/183/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/183/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv09/183/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/183/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/183/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Journey Together &bull; 183</div>
         <div class="rr">Special Illustration Rare</div>
@@ -308,7 +285,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="188" data-price="$15.00"
         data-set="Journey Together"
         aria-label="Enlarge Iono's Bellibolt ex, Journey Together 188">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/188/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/188/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/188/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/188/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv09/188/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/188/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/188/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Journey Together &bull; 188</div>
         <div class="rr">Hyper Rare</div>
@@ -320,7 +297,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="201" data-price="$5.80"
         data-set="Obsidian Flames"
         aria-label="Enlarge Bellibolt, Obsidian Flames 201">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/201/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/201/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/201/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03/201/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv03/201/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03/201/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03/201/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt</div>
         <div class="rr">Obsidian Flames &bull; 201</div>
         <div class="rr">Illustration Rare</div>
@@ -332,7 +309,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="237" data-price="$3.95"
         data-set="Paldea Evolved"
         aria-label="Enlarge Bellibolt ex, Paldea Evolved 237">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/237/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/237/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/237/low.avif 245w, https://assets.tcgdex.net/en/sv/sv02/237/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv02/237/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv02/237/low.webp 245w, https://assets.tcgdex.net/en/sv/sv02/237/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt ex</div>
         <div class="rr">Paldea Evolved &bull; 237</div>
         <div class="rr">Ultra Rare</div>
@@ -344,7 +321,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="172" data-price="$2.46"
         data-set="Journey Together"
         aria-label="Enlarge Iono's Bellibolt ex, Journey Together 172">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/172/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/172/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/172/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/172/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv09/172/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/172/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/172/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Journey Together &bull; 172</div>
         <div class="rr">Ultra Rare</div>
@@ -356,7 +333,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="079" data-price="$1.39"
         data-set="Paldea Evolved"
         aria-label="Enlarge Bellibolt ex, Paldea Evolved 079">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/079/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv02/079/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/079/low.avif 245w, https://assets.tcgdex.net/en/sv/sv02/079/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv02/079/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv02/079/low.webp 245w, https://assets.tcgdex.net/en/sv/sv02/079/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt ex</div>
         <div class="rr">Paldea Evolved &bull; 079</div>
         <div class="rr">Double Rare</div>
@@ -368,7 +345,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="070" data-price="$1.19"
         data-set="Ascended Heroes"
         aria-label="Enlarge Iono's Bellibolt ex, Ascended Heroes 070">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/070/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/070/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Ascended Heroes &bull; 070</div>
         <div class="rr">Double Rare</div>
@@ -380,7 +357,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="053" data-price="$1.12"
         data-set="Journey Together"
         aria-label="Enlarge Iono's Bellibolt ex, Journey Together 053">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/053/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv09/053/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv09/053/low.avif 245w, https://assets.tcgdex.net/en/sv/sv09/053/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv09/053/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv09/053/low.webp 245w, https://assets.tcgdex.net/en/sv/sv09/053/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Iono's Bellibolt ex</div>
         <div class="rr">Journey Together &bull; 053</div>
         <div class="rr">Double Rare</div>
@@ -392,7 +369,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="078" data-price="$0.45"
         data-set="Obsidian Flames"
         aria-label="Enlarge Bellibolt, Obsidian Flames 078">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/078/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/078/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/078/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03/078/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv03/078/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03/078/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03/078/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt</div>
         <div class="rr">Obsidian Flames &bull; 078</div>
         <div class="rr">Uncommon</div>
@@ -404,7 +381,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="077" data-price="$0.40"
         data-set="Obsidian Flames"
         aria-label="Enlarge Bellibolt, Obsidian Flames 077">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/077/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv03/077/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03/077/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03/077/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv03/077/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03/077/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03/077/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt</div>
         <div class="rr">Obsidian Flames &bull; 077</div>
         <div class="rr">Uncommon</div>
@@ -416,7 +393,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="074" data-price="$0.25"
         data-set="Twilight Masquerade"
         aria-label="Enlarge Bellibolt, Twilight Masquerade 074">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/074/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv06/074/low.webp" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06/074/low.avif 245w, https://assets.tcgdex.net/en/sv/sv06/074/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv06/074/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv06/074/low.webp 245w, https://assets.tcgdex.net/en/sv/sv06/074/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Bellibolt</div>
         <div class="rr">Twilight Masquerade &bull; 074</div>
         <div class="rr">Uncommon</div>
@@ -708,6 +685,6 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
 })();
 </script>
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 </body>
 </html>

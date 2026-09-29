@@ -112,6 +112,11 @@ import { CARD_SETS } from "../shared/taxonomy.mjs";
 // the note above familyOf() for what reading the two files separately cost.
 import { loadEvolutions, walkChain } from "../shared/evolution.mjs";
 
+/* THE CHASE GRID'S REAL BOX, 29 September 2026: two across below 620, three
+   to 899, four from 900 inside the 1452px wrap. The tiles are 272-327px on a
+   desktop and got only the 245px scan, soft even at DPR 1; with the 600w rung
+   a browser picks the file the box needs. Lazy, so only cards scrolled to pay. */
+const CHASE_SIZES = "(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/pokemon");
 
@@ -1206,7 +1211,7 @@ function pokePage(p) {
           rather than swept, because moving it is a diff nobody asked for on
           launch eve, but do not add a third. */ ""}
     <p class="lede" style="max-width:40em">${n(sorted.length)} of the ${n(p.nameable)} printings we can name ${sorted.length === 1 ? "is in a set" : "are in sets"} we hold prices for. Tap a card to see it full size.</p>
-    <!-- THE aria-label CARRIES THE SET AND NUMBER, and it has to.
+    ${/* THE aria-label CARRIES THE SET AND NUMBER, and it has to.
          It was "Enlarge <name>" alone, which on a Pokemon with several
          printings named every button on the page identically: charizard.html
          had NINE buttons all called "Enlarge Charizard ex", each opening a
@@ -1229,7 +1234,7 @@ function pokePage(p) {
          named twice: that is the definition of decorative, so it takes the
          empty alt. The name stays in the visible .nm below for a sighted
          reader and for search. The onerror handler removes the node outright, so an
-         empty alt never leaves a nameless broken image behind. -->
+         empty alt never leaves a nameless broken image behind. */""}
     <div class="chase-grid">
       ${sorted
         .map(
@@ -1239,7 +1244,7 @@ function pokePage(p) {
         data-number="${esc(c.n || "")}" data-price="${esc(moneyCompact(c.price))}"
         data-set="${esc(c.setName)}"
         aria-label="Enlarge ${esc(c.name)}, ${esc(c.setName)}${c.n ? " " + esc(c.n) : ""}">
-        ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" onerror="this.remove()" alt="" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
+        ${c.img ? avifPicture(`<img src="${esc(c.img)}/low.webp" srcset="${esc(c.img)}/low.webp 245w, ${esc(c.img)}/high.webp 600w" sizes="${CHASE_SIZES}" onerror="this.remove()" alt="" loading="lazy"${imgDims(c.img + "/low.webp")}>`) : ""}
         <div class="nm">${nat(c.name, SET_LANG.get(c.setName))}</div>
         <div class="rr">${nat(c.setName, SET_LANG.get(c.setName))} &bull; ${esc(c.n || "")}</div>
         ${rar(c.rarity) ? `<div class="rr">${esc(rar(c.rarity))}</div>` : ""}

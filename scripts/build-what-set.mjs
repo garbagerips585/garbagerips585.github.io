@@ -413,7 +413,7 @@ const style = `
    accent reads 6.24:1 on the page and 4.50:1 on a card, both past AA. */
 .ws-set a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;font-weight:700}
 .ws-yr{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);white-space:nowrap}
-.ws-badge{font-family:var(--mono);font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;
+.ws-badge{font-family:var(--mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;
   background:var(--mustard);color:var(--on-accent);border:1px solid var(--keyline);border-radius:var(--r-pill);
   padding:1px 7px;white-space:nowrap}
 /* THE COLOUR ON THAT LINE IS NOT DECORATION. --mustard is a light teal fill
@@ -738,7 +738,7 @@ ${MENU}
              aria-describedby="wshint wscount">
       <p class="ws-hint" id="wshint">Digits look up the set size. Letters search set and era names, so
         "neo" or "sword" works too. Leave it empty to see the whole index.</p>
-      <p class="ws-count" id="wscount">${totals.length} set sizes, ${main.length} sets</p>
+      <p class="ws-count" id="wscount" role="status" aria-live="polite">${totals.length} set sizes, ${main.length} sets</p>
     </div>
 
     <ol class="ws-list" id="wslist">

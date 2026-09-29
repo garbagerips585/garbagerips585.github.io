@@ -71,7 +71,7 @@ const style = `
 .pv{max-width:44em}
 .pv h2{margin-top:var(--s6)}
 .pv h3{margin-top:var(--s5);font-size:var(--t-m)}
-.pv p,.pv li{font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
+.pv p,.pv li{font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .pv p{margin-top:var(--s3);max-width:44em}
 .pv ul{margin-top:var(--s3);padding-left:1.2em}
 .pv li{margin-top:6px}

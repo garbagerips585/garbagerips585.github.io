@@ -915,7 +915,11 @@ const CSS = `
 /* The header strip only exists in the table layout. */
 .t100-head{display:none}
 
-@media (min-width:760px){
+/* FROM 1000PX, NOT 760, 29 September 2026: at 760-999 the seven columns left
+   about 190px for name and set together, and a tablet held upright showed 81
+   of 100 sealed names and 99 of 100 sets cut off. The phone row, which stacks
+   them, is the better layout until the table has room. */
+@media (min-width:1000px){
   /* Seven columns: rank, picture, name, set, rarity or form, listings, price.
      The name column is twice the set column because it carries the longest
      strings in the data, 51 characters raw and 70 sealed. */

@@ -788,7 +788,7 @@ ${
         three cards from one region is worth more to a collector than three cards at random. Nothing
         below is stitched or edited: these are the publisher's own scans laid edge to edge.</p>
       <div class="fp-trios">
-${REGIONS.map((r, i) => trio(r, { lazy: i > 0 })).join("\n")}
+${/* ALL LAZY, 29 September 2026: the first trio was eager on the assumption it was in the first screen; it is 4,293px down at 390 and 2,187 at 1440, and fetching it during the parse cost 26% of LCP. */""}${REGIONS.map((r) => trio(r, { lazy: true })).join("\n")}
       </div>
       ${
         thumbs

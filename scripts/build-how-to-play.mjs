@@ -368,7 +368,7 @@ const miniCSS = (css) =>
 
 const style = `
 .hp-lede{max-width:44em}
-.hp-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
+.hp-s{margin-top:var(--s6);scroll-margin-top:calc(var(--bar-h,60px) + var(--s5))}
 .hp-s > p{max-width:44em;line-height:1.6}
 .hp-s > p + p{margin-top:var(--s3)}
 .hp-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}

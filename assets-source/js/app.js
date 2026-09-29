@@ -1198,6 +1198,11 @@
         // which would be remembered and one of which would not.
         box.addEventListener("focusin", function (e) {
           if (!isSwipeRail(f)) return;
+          /* Keyboard focus only. On Android a tap focuses the chip between
+             pointerdown and pointerup, and scrolling it into the rail there
+             moved it out from under the finger, so the tap missed and a second
+             was needed. The facet panel below has had this guard all along. */
+          try { if (!e.target.matches(":focus-visible")) return; } catch (err) {}
           var chip = e.target.closest && e.target.closest(".chip");
           if (chip) bringIntoRail(box, chip);
         });
@@ -1493,6 +1498,12 @@
       // were created and never filled, and the page was rendering both as cards
       // reading "0 videos" whose only action was a link to an empty YouTube
       // playlist. They come back on their own the moment a video goes in.
+      /* THE COUNT IS THE VIDEOS THIS SITE CAN SHOW, 29 September 2026, the list
+         the playlist's own page renders; YouTube's item count also counts
+         private and deleted ones, so Hits Only read 74 here and 73 there. */
+      pls.forEach(function (p) {
+        if (Array.isArray(p.videoIds)) p.count = p.videoIds.filter(function (id) { return byId[id]; }).length;
+      });
       pls = pls.filter(function (p) { return (p.count || 0) > 0; });
       if (!pls.length) {
         box.appendChild(emptyState(

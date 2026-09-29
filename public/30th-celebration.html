@@ -16,11 +16,11 @@
 <meta property="og:title" content="Pokemon 30th Celebration: products, dates and card list">
 <meta property="og:description" content="Every product with its date and price, what is really in a pack, and Japan's full card list.">
 <meta property="og:url" content="https://garbagerips.com/30th-celebration.html">
-<meta property="og:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=c298733a">
+<meta property="og:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=24f207ef">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=c298733a">
+<meta name="twitter:image" content="https://garbagerips.com/assets/og-30th-celebration.jpg?v=24f207ef">
 <!-- PRECONNECT, WHICH 1,039 OTHER PAGES HAVE AND THE HEAVIEST TCGDEX PAGE ON
      THE SITE DID NOT. This page draws 158 distinct cards from assets.tcgdex.net
      and 30 from tcgplayer-cdn, and every one is loading="lazy" -- so the
@@ -29,10 +29,10 @@
      starts scrolling. build-pokemon.mjs and build-intl-pages.mjs already do
      this; this builder simply never got the line. -->
 <link rel="preconnect" href="https://assets.tcgdex.net">
-<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
+<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <style>.t30-hero{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);padding:var(--s5);box-shadow:var(--lift)}
 .t30-facts{list-style:none;display:grid;gap:var(--s3);margin:var(--s4) 0 0;max-width:48em}
 .t30-facts li{padding-left:1.15em;position:relative;line-height:1.45}
@@ -175,7 +175,10 @@ section.band#checklist .t30-clf{background:var(--sky-tint)}
 .t30-sum--set span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 @media(max-width:599px){.t30-sum--set{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .t30-sum div{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
-.t30-sum b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink)}
+.t30-sum b{display:block;font-family:var(--display);font-weight:400;line-height:1;color:var(--ink)}
+.t30-sum:not(.t30-sum--set) b{font-size:var(--t-xl)}
+@media(min-width:600px){.t30-sum:not(.t30-sum--set) b{font-size:clamp(1.7rem,2.6vw,var(--t-xl))}}
+@media(max-width:599px){.t30-sum:not(.t30-sum--set) b{font-size:1.6rem}}
 .t30-sum span{display:block;margin-top:4px;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .t30-bs{margin-top:var(--s5)}
 .t30-bs h3{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin:0}
@@ -336,10 +339,10 @@ section.band#checklist .t30-clf{background:var(--sky-tint)}
 @media(hover:hover){.t30-ct .t30-zm:hover img{transform:translateY(-3px);box-shadow:0 10px 22px rgb(0 0 0 / .45)}}
 @media(prefers-reduced-motion:reduce){.t30-ct .t30-zm img{transition:none}}
 @media(min-width:700px){.t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr))}
-  .t30-cts--hits{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .t30-cts--hits{grid-template-columns:repeat(var(--ht,3),minmax(0,1fr))}}
 @media(min-width:900px){
   .t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s4)}
-  .t30-cts--hits{grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s4)}
+  .t30-cts--hits{grid-template-columns:repeat(var(--hd,6),minmax(0,1fr));gap:var(--s4)}
   .t30-cts--top .t30-ct-n,.t30-cts--hits .t30-ct-n{font-size:var(--t-body)}
 }
 .t30-lb{margin:auto;padding:0;border:1px solid var(--keyline);border-radius:var(--r);background:var(--chrome-bg);color:var(--ink);
@@ -859,7 +862,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
       6 rips so far. Every one
       links to the rip it came from. The count includes one Black Star promo. This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
-    <ol class="t30-cts t30-cts--hits" data-zg="hits">
+    <ol class="t30-cts t30-cts--hits" data-zg="hits" style="--hd:7;--ht:4">
         <li class="t30-ct">
           <button type="button" class="t30-zm" data-name="Sneasel" data-num="#25/111" data-rar="Classic Collection" data-big="https://tcgplayer-cdn.tcgplayer.com/product/716161_in_1000x1000.jpg" data-raw="$8.34" data-psa="$71" data-rip="/rip/30th-celebration-tin-pack-3-6-hits-in-a-row-gold-glitter-bor-5TKvy9CVPww.html" data-when="Sep 26, 2026" aria-label="Show Sneasel #25/111 larger"><img class="t30-card" src="https://tcgplayer-cdn.tcgplayer.com/product/716161_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/716161_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/716161_400w.jpg 400w" sizes="(max-width:559px) 44vw, (max-width:899px) 19vw, 250px" alt="Sneasel" loading="lazy" decoding="async" width="200" height="279" onload="t30l(this)" onerror="t30e(this)"></button>
           <a href="/rip/30th-celebration-tin-pack-3-6-hits-in-a-row-gold-glitter-bor-5TKvy9CVPww.html" aria-label="Watch the rip: Sneasel, pulled Sep 26, 2026">
@@ -4736,7 +4739,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
     Page last checked September 28, 2026. Set facts read September 23, 2026 from The Pokemon Company's press releases and product pages, and from PokeBeach where marked. The Pokemon Company has published no card count for this set; totals here are PokeBeach's.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 <script>
 /* THE BINDER AS A BINDER, 23 September 2026. The owner: "Want it to look as much
    like a real card binder as possible, page turn animations, anything to make it
@@ -5136,6 +5139,23 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
 (function () {
   var f = document.querySelector("#checklist .t30-clf"), l = document.querySelector("#checklist .t30-cl");
   if (!f || !l) return;
+  /* THE PRICE SORT MOVES THE ROWS, NOT JUST THEIR PICTURE, 29 September 2026.
+     CSS order alone left Tab, a screen reader and the pop-up's Next in number
+     order while the eye read price order. The CSS rule stays as the no-script
+     fallback; with the rows re-appended the two agree. */
+  var orig = [].slice.call(l.children);
+  var rank = function (li) { return parseInt(li.style.getPropertyValue("--rank"), 10) || 9999; };
+  f.addEventListener("change", function (e) {
+    if (!e.target || e.target.name !== "clo") return;
+    if (document.getElementById("clo-price").checked) {
+      orig.filter(function (li) { return li.classList.contains("t30-row"); })
+        .map(function (li, i) { return { li: li, i: i }; })
+        .sort(function (a, b) { return rank(a.li) - rank(b.li) || a.i - b.i; })
+        .forEach(function (x) { l.appendChild(x.li); });
+    } else {
+      orig.forEach(function (li) { l.appendChild(li); });
+    }
+  });
   f.addEventListener("change", function () {
     /* Aim for where the bar sits when it is pinned, not where it is now: once
        the list has shrunk the bar has often scrolled away with it. */

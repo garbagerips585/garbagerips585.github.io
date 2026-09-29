@@ -265,6 +265,11 @@ const CSS = `<style>
 .jb-v{display:grid;grid-template-columns:auto 132px minmax(0,1fr);gap:var(--s3);align-items:start;background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3)}
 .jb-rank{font:400 var(--t-l)/1 var(--display);color:var(--ink-2);min-width:1.4em}
 .jb-pic{width:132px;height:184px;display:grid;place-items:center;background:var(--page);border-radius:var(--r-sm);overflow:hidden}
+/* A jumbo with no picture (none published, or the file withdrawn) drew a blank
+   dark box: the site's no-picture hatch instead. */
+.jb-pic:not(:has(img)){background:repeating-linear-gradient(135deg,var(--paper) 0 6px,var(--paper-3) 6px 7px)}
+/* The ranked rows ran 1,416px wide with everything in the left 440. */
+.jb-v{max-width:60rem}
 .jb-art{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain}
 .jb-vb{min-width:0}
 .jb-vb h3{margin:0 0 2px}
@@ -310,7 +315,7 @@ const HEAD = `<!DOCTYPE html>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
-<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
+<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com">
 <script type="application/ld+json">${JSON.stringify(LD)}</script>
 ${FONTS}
 ${STYLES}`;

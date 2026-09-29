@@ -32,7 +32,6 @@
      The 321 rip pages keep theirs and must: build-pages.mjs emits it beside a
      real i.ytimg.com poster frame on each one. -->
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="preload" href="/assets/fonts/outfit-UYLknw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <!--
   WebSite + SearchAction, which is what makes Google offer a search box under
@@ -64,7 +63,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <!-- NO packs.css: 0 of its 98 selectors match anything on this page, verified in a
      browser after JS. videos.html keeps it (11 classes) and every rip page needs it.
      The five pages that slice this head already drop it via dropUnusedPacksCSS. -->
@@ -158,6 +157,7 @@
 .vcar .hero-art,
 .vcar .tile-stage{max-width:440px}
 }
+@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}}
 @media(min-width:900px) and (max-width:999px){
 .vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
 .vcar .hero{max-width:none;margin:0;padding:var(--s4)}
@@ -184,7 +184,7 @@ main{padding-top:0}
 <style>.pv{max-width:44em}
 .pv h2{margin-top:var(--s6)}
 .pv h3{margin-top:var(--s5);font-size:var(--t-m)}
-.pv p,.pv li{font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
+.pv p,.pv li{font-size:var(--t-body);line-height:1.6;color:var(--ink-2)}
 .pv p{margin-top:var(--s3);max-width:44em}
 .pv ul{margin-top:var(--s3);padding-left:1.2em}
 .pv li{margin-top:6px}
@@ -615,6 +615,6 @@ main{padding-top:0}
   </div>
 </footer>
 
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 </body>
 </html>

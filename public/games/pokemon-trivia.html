@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <link rel="stylesheet" href="/assets/games.css?v=15befa74">
 <style>.btn-row .btn[aria-pressed="true"]{background:var(--gold);border-color:var(--ink);
   color:var(--on-accent);box-shadow:0 3px 0 var(--ink)}
@@ -439,7 +439,7 @@
     Fan made games. Card data and Pokedex data credited on each page.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 <script src="/assets/games.js?v=45691452" defer></script>
 <script>
 (function(){
@@ -472,10 +472,16 @@
     return q;
   }
   fetch('/data/games/trivia.json').then(function(r){return r.json();}).then(function(d){
+    /* games.js is deferred and this block is not, so the data could land
+       before GR existed: a ReferenceError the catch below reported as a lost
+       connection, on 1 load in 3. Wait for the document, which is after it. */
+    return new Promise(function(ok){if(window.GR)ok(d);else document.addEventListener('DOMContentLoaded',function(){ok(d);});});
+  }).then(function(d){
     qs=d.q;
     GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build,
       preload:function(q){return q._art;}});
-  }).catch(function(){
+  }).catch(function(e){
+    if(window.console)console.error(e);
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the questions. Check your connection and reload.</p>';
   });
 })();

@@ -1380,6 +1380,10 @@ const STYLE = `
 @media(max-width:560px){.op-grid{grid-template-columns:1fr}}
 .op-c{border:3px solid var(--keyline);border-radius:12px;background:var(--card);box-shadow:var(--hard-lg);
   padding:var(--s4);display:block;color:inherit;text-decoration:none}
+/* The whole card is the link, so it answers the pointer like every other
+   whole-card link on the site: a lift and a teal edge. */
+@media(hover:hover){.op-c:hover{border-color:var(--sky)}}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){.op-c{transition:transform .15s ease}.op-c:hover{transform:translateY(-2px)}}
 .op-c h2,.op-c h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .op-c p{font-size:var(--t-sm);line-height:1.5;color:var(--ink-2)}
 .op-c .op-n{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
@@ -1394,7 +1398,7 @@ const STYLE = `
 /* No photograph of this exists that we can publish. Same hatch as .set-noart. */
 .op-cn{background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .op-ex{display:block;margin-top:var(--s3);font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
-.op-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.55;max-width:44em}
+.op-note{color:var(--ink-2);font-size:var(--t-body);line-height:1.6;max-width:42em}
 
 /* THE ETB PROMO ROWS. /openings/etb.html only, so this costs the other
    thirteen pages the bytes of the rules and nothing else.

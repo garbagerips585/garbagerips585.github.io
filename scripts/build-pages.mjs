@@ -65,6 +65,18 @@ import { avifSource } from "../shared/logo-srcset.mjs";
 import { showIndex, boughtAtShow } from "../shared/bought-at.mjs";
 import { socialLinks, GLYPH } from "../shared/socials.mjs";
 
+/* THE CHANNEL'S OWN LINKS IN A DESCRIPTION ARE LINKS HERE TOO, 29 September
+   2026. Descriptions now end with garbagerips.com URLs (the set guide, the card
+   shows, the shops), and on the rip page they printed as dead text that broke
+   mid-path on a phone. Same-site only, relative, so every click stays on the
+   site; anything else stays text. Runs on escaped text, so the only markup it
+   can meet is its own. */
+const linkOwn = (html) =>
+  html.replace(/https?:\/\/(?:www\.)?garbagerips\.com(\/[^\s<"']*)?/g, (m, path = "/") => {
+    const trail = (path.match(/[.,;:!?)]+$/) || [""])[0];
+    const p = trail ? path.slice(0, -trail.length) : path;
+    return `<a href="${p || "/"}">garbagerips.com${p === "/" ? "" : p}</a>${trail}`;
+  });
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const OUT = join(ROOT, "public/rip");
@@ -2215,7 +2227,7 @@ ${MENU}
             return r ? `<p class="hit-rarity">${esc(rarityLabel(r))}</p>` : "";
           })()}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
-        ${desc ? `<div class="rip-desc">${esc(desc)}</div>` : ""}
+        ${desc ? `<div class="rip-desc">${linkOwn(esc(desc))}</div>` : ""}
         <div class="rip-nav">
         ${/* .btn-sub, not .btn-yt. This is the fourth of the four Subscribe
              controls on the site and it has to match the bar pill, the menu

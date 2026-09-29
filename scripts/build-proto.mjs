@@ -94,6 +94,12 @@ const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), 
 const rawVideos = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 const descriptions = plainDashesAll(JSON.parse(await readFile(join(ROOT, "data/descriptions.json"), "utf8").catch(() => "{}")));
 const videos = rawVideos.videos || rawVideos;
+/* A PLAYLIST'S COUNT IS THE VIDEOS THIS SITE CAN SHOW, 29 September 2026, the
+   same list build-playlists.mjs renders. YouTube's own item count includes
+   videos that are private or gone, so Hits Only read 74 here and 73 on its own
+   page. Falls back to YouTube's number only for a playlist with no id list. */
+const VIDEO_IDS = new Set(videos.map((v) => v.id));
+const plCount = (p) => (Array.isArray(p.videoIds) ? p.videoIds.filter((id) => VIDEO_IDS.has(id)).length : p.count);
 
 // THE SET NAMES THIS PAGE PRINTS, AND sets.json IS NOT ALL OF THEM.
 //
@@ -844,8 +850,16 @@ async function logoAttrs(id, dispH) {
     // be on a 1x screen, where the small file is already the right pick.
     if (!small?.w || !dispH) return `${attrs} src="${base}.webp"`;
     const boxW = Math.round(dispH * (size.w / size.h));
+    /* AND THE MIDDLE RENDITION, 29 September 2026: build-logos.py writes a -md
+       beside -sm and the master, and without it a DPR 3 phone jumped straight
+       to the master (chaos-rising 1051w, 70KB) for a 133px box. */
+    let mid = null;
+    try {
+      mid = webpSize(await readFile(join(ROOT, `public/${base}-md.webp`)));
+    } catch {}
+    const cands = [[`${base}-sm.webp`, small.w], ...(mid?.w && mid.w > small.w && mid.w < size.w ? [[`${base}-md.webp`, mid.w]] : []), [`${base}.webp`, size.w]];
     return `${attrs} src="${base}-sm.webp"` +
-      ` srcset="${base}-sm.webp ${small.w}w, ${base}.webp ${size.w}w" sizes="${boxW}px"`;
+      ` srcset="${cands.map(([f, w]) => `${f} ${w}w`).join(", ")}" sizes="${boxW}px"`;
   } catch {
     return "";
   }
@@ -1913,7 +1927,7 @@ function plTile(p, i) {
          markup, and a span in it would be read out. */
       noWidowEmoji(esc(p.title))
     }</b>` +
-    `<span class="pl-count">${p.count}${p.count === 1 ? " video" : " videos"}</span>` +
+    `<span class="pl-count">${plCount(p)}${plCount(p) === 1 ? " video" : " videos"}</span>` +
     (p.path ? `<span class="pl-out">Open the playlist</span>` : "") +
     `</span>`;
   return p.path
@@ -1922,7 +1936,7 @@ function plTile(p, i) {
         // one-video playlist read "1 videos" to a screen reader while the same
         // number two lines up read "1 video". app.js's runtime copy of this
         // card had the same split.
-        `${p.title}, ${p.count}${p.count === 1 ? " video" : " videos"}`,
+        `${p.title}, ${plCount(p)}${plCount(p) === 1 ? " video" : " videos"}`,
       )}">${body}</a>`
     : `<span class="pl">${body}</span>`;
 }
@@ -1954,7 +1968,7 @@ const setOrder = new Map(
     .map((s, i) => [s.id, i])
 );
 const plHtml = playlists
-  .filter((p) => (p.count || 0) > 0)
+  .filter((p) => plCount(p) > 0)
   .slice()
   .sort(
     (a, b) =>
@@ -3204,6 +3218,10 @@ ${BRAND_STYLE_MIN}
 .vcar .hero-art,
 .vcar .tile-stage{max-width:440px}
 }
+/* FROM 641 THE SHELF LINES UP ON THE LEFT, like the trophy above it (ui.css
+   .hofx, margin-inline:0 auto in 641-1199). Centred here and left there, the
+   Greatest Hits and Latest cards sat 100px in from the trophy at 768. */
+@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}}
 @media(min-width:900px) and (max-width:999px){
 .vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
 .vcar .hero{max-width:none;margin:0;padding:var(--s4)}

@@ -1290,7 +1290,7 @@ const style = `
    mislead on its own. Photo and the "Pitch Black shown" line are the product
    table's, moved across whole: products.json is per SET, so without that line
    the picture claims to be "an ETB" rather than "Pitch Black's ETB". */
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));gap:var(--s4)}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--s4)}
 .pcard{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);box-shadow:var(--lift);display:flex;flex-direction:column;gap:var(--s3)}
 /* A kind with too few logged rips to carry a rate is dimmed rather than hidden,
@@ -2216,12 +2216,12 @@ ${monthFigure()}
          PriceCharting and the Pokemon TCG API and are not his to give away.
          A licence line that did not draw that line would be claiming more than
          it holds. */ ""}
-    <p class="luck-note" style="margin-top:var(--s6)">The counts and rates on this page are our own, measured from
+    <div class="wrap"><p class="luck-note" style="margin-top:var(--s6)">The counts and rates on this page are our own, measured from
       the rip log, and you are welcome to reuse them under
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank"
         aria-label="Creative Commons Attribution 4.0 International license, opens on creativecommons.org">CC BY 4.0</a>
       with credit to Garbage Rips 585. That covers the figures we counted, not the card names, prices or set data
-      beside them, which come from TCGdex, PriceCharting and the Pokemon TCG API.</p>
+      beside them, which come from TCGdex, PriceCharting and the Pokemon TCG API.</p></div>
 </main>`;
 
 // NO Dataset MARKUP UNTIL THERE IS A DATASET. With nothing logged this

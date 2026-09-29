@@ -532,7 +532,7 @@ const style = `
 .ty-n{color:var(--ink-2);font-size:var(--t-micro);line-height:1.5}
 .ty-x{color:var(--ink-2);font-size:var(--t-micro);line-height:1.5}
 .ty-list{display:flex;flex-direction:column;gap:var(--s4);margin-top:var(--s4)}
-.ty-t{scroll-margin-top:var(--s5)}
+.ty-t{scroll-margin-top:calc(var(--bar-h,60px) + var(--s5))}
 .ty-th{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);margin-bottom:var(--s2)}
 .ty-th h3{font:400 var(--t-m)/1.15 var(--display);display:inline-flex;align-items:center;gap:8px}
 .ty-th .ty-m{width:22px;height:22px;flex:0 0 22px}

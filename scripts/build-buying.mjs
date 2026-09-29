@@ -818,7 +818,7 @@ const style = `
 .by-key p + p{margin-top:var(--s3)}
 .by-grp{margin-top:var(--s6)}
 .by-grp > p{color:var(--ink-2);max-width:44em;margin-bottom:var(--s4)}
-.by-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4)}
+.by-vs{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s4);align-items:start}
 /* THIS 900 IS CORRECT AND IT IS THE ONE THAT LOOKS WRONG. Every other grid on
    this page moved to 700 on 20 August 2026 so an iPad in portrait stops getting
    the phone layout. This one did not, because the cards are ESSAYS: the venue

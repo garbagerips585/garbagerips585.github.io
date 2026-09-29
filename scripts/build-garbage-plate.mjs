@@ -1123,7 +1123,7 @@ const style = `
 /* ---- Lists of what is not here, and the sources ------------------------- */
 .gp-gaps{list-style:none;display:grid;gap:var(--s3);max-width:52em;
   border-left:3px solid var(--keyline);padding-left:var(--s4)}
-.gp-gaps li{font-size:var(--t-sm);line-height:1.6;color:var(--ink-2)}
+.gp-gaps li{font-size:var(--t-sm);line-height:1.6;color:var(--ink-2);max-width:46em}
 .gp-gaps a{color:var(--sky-deep);font-weight:600}
 .gp-gaps li span{display:block;font-size:var(--t-micro);margin-top:2px}
 .gp-more{max-width:52em;margin:var(--s5) 0;border:1px solid var(--hair);border-radius:var(--r);background:var(--card)}
@@ -1723,10 +1723,12 @@ const buildScript = `<script>
   }
   function settle(){
     svg.classList.remove('is-armed'); ol.classList.remove('is-armed'); step(-1);
-    btn.disabled=true; btn.textContent='Plate built';
+    /* aria-disabled, not disabled: disabling the focused button dropped focus
+       to <body> and a keyboard reader lost their place. */
+    btn.setAttribute('aria-disabled','true'); btn.textContent='Plate built';
   }
   btn.addEventListener('click',function(){
-    if(btn.disabled) return;
+    if(btn.getAttribute('aria-disabled')==='true') return;
     svg.classList.add('is-armed'); ol.classList.add('is-armed'); step(-1);
     var fs=setTimeout(settle,2000), i=0;
     (function tick(){

@@ -377,7 +377,7 @@ function eraTable(e) {
         ? `<a href="/sets/${s.slug}.html">${esc(s.name)}</a>`
         : esc(s.name);
       const comp = companionByApiId.get(s.apiId);
-      return `        <tr${s.slug ? ' class="mine"' : ""}>
+      return `        <tr${s.slug ? ' class="xp-mine"' : ""}>
           <th scope="row">
             ${/* THE NAME IS WRAPPED IN ITS OWN SPAN so that the copy button can
                   take it without the pills beside it. It used to read the cell
@@ -600,15 +600,15 @@ const style = `
    THE COLOUR IS NOT ALONE. .xp-rips already prints "12 rips" as a link in that
    same row and the no-value cell says "None" to a screen reader, so the mark is
    a second, faster reading of something the row already states in words. */
-.xp-table tr.mine th{box-shadow:inset 4px 0 0 var(--gold)}
-.xp-table tr.mine:hover th{box-shadow:inset 4px 0 0 var(--gold)}
-.xp-table tr.mine th a{text-decoration:underline;text-decoration-color:var(--gold);
+.xp-table tr.xp-mine th{box-shadow:inset 4px 0 0 var(--ketchup)}
+.xp-table tr.xp-mine:hover th{box-shadow:inset 4px 0 0 var(--ketchup)}
+.xp-table tr.xp-mine th a{text-decoration:underline;text-decoration-color:var(--ketchup);
   text-underline-offset:3px;text-decoration-thickness:2px}
 /* --plum on --lilac-pale was a purple chip on a cream site and is now a grey
    chip on an off-white one, 1.08:1 against the card. Ink on --paper-3 with a
    hairline is the palette's chip and it is the same one .bmk uses on
    /buying.html, so the two pages agree about what a chip looks like. */
-.xp-tag{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+.xp-tag{font:700 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   color:var(--ink);background:var(--paper-3);border:1px solid var(--hair);
   border-radius:var(--r-pill);padding:3px 6px}
 /* THE COMPANION POINTER. Three rows on this table are a subset of the row

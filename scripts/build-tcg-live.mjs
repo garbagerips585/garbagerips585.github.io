@@ -372,7 +372,7 @@ const ld = [
 const style = `
 .tl-lede{max-width:44em}
 .tl-chk{font:400 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);margin-top:var(--s3)}
-.tl-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
+.tl-s{margin-top:var(--s6);scroll-margin-top:calc(var(--bar-h,60px) + var(--s5))}
 .tl-s > p{max-width:44em;line-height:1.6}
 .tl-s > p + p{margin-top:var(--s3)}
 .tl-jump{display:flex;flex-wrap:wrap;gap:8px;margin:var(--s5) 0 0}

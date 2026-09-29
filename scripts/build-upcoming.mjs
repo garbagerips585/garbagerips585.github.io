@@ -336,7 +336,7 @@ const style = `
 .up-code{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);vertical-align:middle;
   letter-spacing:.08em}
 .up-blurb{color:var(--ink-2);max-width:46em}
-.up-hi{list-style:none;display:flex;flex-direction:column;gap:6px;margin:var(--s4) 0 0}
+.up-hi{list-style:none;display:flex;flex-direction:column;gap:6px;margin:var(--s4) 0 0;max-width:62ch}
 .up-hi li{display:flex;gap:var(--s3);align-items:flex-start;color:var(--ink-2);font-size:var(--t-sm)}
 .up-hi li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:2px;
   background:var(--mustard);border:1px solid var(--gold-deep);transform:rotate(45deg)}

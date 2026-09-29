@@ -118,7 +118,7 @@ const miniCSS = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/[ \t]*\n[
 
 const style = `
 .cs-lede{max-width:44em}
-.cs-s{margin-top:var(--s6);scroll-margin-top:var(--s5)}
+.cs-s{margin-top:var(--s6);scroll-margin-top:calc(var(--bar-h,60px) + var(--s5))}
 .cs-s > p{max-width:44em;line-height:1.6}
 .cs-s > p + p{margin-top:var(--s3)}
 .cs-back{margin-top:var(--s7)}

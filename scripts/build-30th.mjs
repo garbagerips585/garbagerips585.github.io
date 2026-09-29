@@ -1409,7 +1409,12 @@ ${clCss}
 .t30-sum--set span{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 @media(max-width:599px){.t30-sum--set{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .t30-sum div{background:var(--paper);border:1px solid var(--keyline);border-radius:var(--r-sm);padding:var(--s3);text-align:center}
-.t30-sum b{display:block;font:400 var(--t-xl)/1 var(--display);color:var(--ink)}
+.t30-sum b{display:block;font-family:var(--display);font-weight:400;line-height:1;color:var(--ink)}
+/* Longhands, and the size set once here: the font shorthand this used reset
+   the clamp() the tablet rule above set, so "Sep 16" clipped at 1000-1199. */
+.t30-sum:not(.t30-sum--set) b{font-size:var(--t-xl)}
+@media(min-width:600px){.t30-sum:not(.t30-sum--set) b{font-size:clamp(1.7rem,2.6vw,var(--t-xl))}}
+@media(max-width:599px){.t30-sum:not(.t30-sum--set) b{font-size:1.6rem}}
 .t30-sum span{display:block;margin-top:4px;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.04em}
 .t30-bs{margin-top:var(--s5)}
 .t30-bs h3{display:flex;align-items:baseline;gap:var(--s3);flex-wrap:wrap;margin:0}
@@ -1679,10 +1684,10 @@ ${clCss}
    alone on a row at 768, 1024 and 1280: ten is two rows of five from 700px, and
    the hits run two, three, then six across. */
 @media(min-width:700px){.t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr))}
-  .t30-cts--hits{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .t30-cts--hits{grid-template-columns:repeat(var(--ht,3),minmax(0,1fr))}}
 @media(min-width:900px){
   .t30-cts--top{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--s4)}
-  .t30-cts--hits{grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--s4)}
+  .t30-cts--hits{grid-template-columns:repeat(var(--hd,6),minmax(0,1fr));gap:var(--s4)}
   .t30-cts--top .t30-ct-n,.t30-cts--hits .t30-ct-n{font-size:var(--t-body)}
 }
 /* ============================================================ THE ENLARGED CARD
@@ -2296,7 +2301,13 @@ const hitsBand = !setHits.length ? "" : `
         return pn ? ` The count includes ${pn === 1 ? "one Black Star promo" : `${pn} Black Star promos`}.` : "";
       })()} This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
-    <ol class="t30-cts t30-cts--hits" data-zg="hits">
+    <ol class="t30-cts t30-cts--hits" data-zg="hits" style="${(() => {
+      /* COLUMNS THAT NEVER LEAVE ONE CARD ALONE, 29 September 2026: six across
+         drew the seventh hit by itself. The widest count from the list whose
+         last row is not a single card. */
+      const n = setHits.length, pick = (cs) => cs.find((c) => n <= c || n % c !== 1) || cs[cs.length - 1];
+      return `--hd:${pick([7, 6, 5])};--ht:${pick([4, 3])}`;
+    })()}">
 ${setHits
   .map(({ h, v, row, pr, promoPid }) => {
     /* No normalising here any more: dexLocalId() inside pictureFor() takes the
@@ -2731,7 +2742,7 @@ const html = `<!DOCTYPE html>
      starts scrolling. build-pokemon.mjs and build-intl-pages.mjs already do
      this; this builder simply never got the line. -->
 <link rel="preconnect" href="https://assets.tcgdex.net">
-<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com" crossorigin>
+<link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com">
 ${FONTS}
 ${STYLES_NO_PACKS_CSS}
 <style>${style}</style>
@@ -3148,6 +3159,23 @@ ${APP_JS_NO_PACKPLAYER}
 (function () {
   var f = document.querySelector("#checklist .t30-clf"), l = document.querySelector("#checklist .t30-cl");
   if (!f || !l) return;
+  /* THE PRICE SORT MOVES THE ROWS, NOT JUST THEIR PICTURE, 29 September 2026.
+     CSS order alone left Tab, a screen reader and the pop-up's Next in number
+     order while the eye read price order. The CSS rule stays as the no-script
+     fallback; with the rows re-appended the two agree. */
+  var orig = [].slice.call(l.children);
+  var rank = function (li) { return parseInt(li.style.getPropertyValue("--rank"), 10) || 9999; };
+  f.addEventListener("change", function (e) {
+    if (!e.target || e.target.name !== "clo") return;
+    if (document.getElementById("clo-price").checked) {
+      orig.filter(function (li) { return li.classList.contains("t30-row"); })
+        .map(function (li, i) { return { li: li, i: i }; })
+        .sort(function (a, b) { return rank(a.li) - rank(b.li) || a.i - b.i; })
+        .forEach(function (x) { l.appendChild(x.li); });
+    } else {
+      orig.forEach(function (li) { l.appendChild(li); });
+    }
+  });
   f.addEventListener("change", function () {
     /* Aim for where the bar sits when it is pinned, not where it is now: once
        the list has shrunk the bar has often scrolled away with it. */

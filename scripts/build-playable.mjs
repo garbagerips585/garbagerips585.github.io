@@ -247,7 +247,7 @@ const style = `
 .pl{display:grid;grid-template-columns:2.2em 56px 1fr;gap:var(--s3);align-items:center;
   border:2px solid var(--keyline);border-radius:var(--r);background:var(--card);
   padding:var(--s2) var(--s3);box-shadow:var(--hard-lg)}
-.pl-rank{font-family:var(--display);font-size:1.05rem;color:var(--gold-deep);
+.pl-rank{font-family:var(--display);font-size:1.05rem;color:var(--ink);
   text-align:right;line-height:1}
 .pl-pic{display:block}
 /* The scans are 245x337 intrinsic. The box is what decides the transfer. */

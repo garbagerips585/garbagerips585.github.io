@@ -1115,7 +1115,7 @@ const style = `
    the dark slab the chip was always meant to be and --chrome-ink reads
    13.70:1 on it. The accent rule is 4.84:1 on the chip and 3.03:1 against the
    card behind it, so the pill's own edge clears the graphical gate too. */
-.bs-mark{font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+.bs-mark{font:700 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;
   padding:5px 8px;border-radius:var(--r-pill);white-space:nowrap}
 .bs-mark.yes{background:var(--band-bg);color:var(--chrome-ink);border:1px solid var(--gold)}
 .bs-mark.no{background:var(--page);color:var(--ink-2);border:1px solid var(--hair)}

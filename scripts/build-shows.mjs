@@ -1757,7 +1757,15 @@ ${CLIENT_DAY_JS}
     happen. If one you went to is missing, or a detail here is wrong, say so on any of the socials and it gets fixed.</p>
 </div>
 </main>
+${/* THE ARCHIVE'S FLYER AND LOGO BUTTONS OPENED NOTHING until 29 September
+     2026: showCard() renders them with data-imglb on both pages, and only the
+     calendar page carried the dialog and its script. */""}${imgLbMarkup("Show flyer or logo")}
 ${footer("Show listings are collected by hand and change without notice. This page is a record of shows that have already happened.")}
+<script>
+(function(){
+${imgLbJs("Show flyer or logo")}
+})();
+</script>
 ${APP_JS}
 </body>
 </html>

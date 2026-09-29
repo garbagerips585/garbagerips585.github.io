@@ -11,11 +11,11 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://garbagerips.com/past-shows.html">
 <meta property="og:site_name" content="Garbage Rips 585">
-<meta property="og:image" content="https://garbagerips.com/assets/og-card-shows.jpg?v=2be3e3df">
+<meta property="og:image" content="https://garbagerips.com/assets/og-card-shows.jpg?v=7abd03a3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://garbagerips.com/assets/og-card-shows.jpg?v=2be3e3df">
+<meta name="twitter:image" content="https://garbagerips.com/assets/og-card-shows.jpg?v=7abd03a3">
 <link rel="icon" href="/favicon.ico?v=b04a29ce" sizes="any">
 <link rel="icon" href="/favicon-32.png?v=07a50754" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=5f5f964d">
@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=037cc7e7">
-<link rel="stylesheet" href="/assets/ui.css?v=924c0ad8">
+<link rel="stylesheet" href="/assets/ui.css?v=0b21d906">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Card shows","item":"https://garbagerips.com/card-shows.html"},{"@type":"ListItem","position":3,"name":"Past shows"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -1139,6 +1139,10 @@
     happen. If one you went to is missing, or a detail here is wrong, say so on any of the socials and it gets fixed.</p>
 </div>
 </main>
+<div class="img-lb" id="imgLb" role="dialog" aria-modal="true" aria-label="Show flyer or logo" hidden>
+  <button type="button" class="img-lb-x" aria-label="Close">&times;</button>
+  <picture><source id="imgLbAvif" type="image/avif" srcset=""><img src="" alt=""></picture>
+</div>
 <footer>
   <div class="wrap">
     <nav class="foot-nav" aria-label="Footer">
@@ -1254,6 +1258,66 @@
     Show listings are collected by hand and change without notice. This page is a record of shows that have already happened.<br>Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
-<script src="/assets/app.js?v=25824a04" defer></script>
+<script>
+(function(){
+
+  var lb = document.getElementById('imgLb');
+  var lbImg = lb && lb.querySelector('img');
+  var lbAvif = lb && lb.querySelector('#imgLbAvif');
+  var lbClose = lb && lb.querySelector('.img-lb-x');
+  var lbOpener = null;
+  function closeLb(){
+    if (!lb) return;
+    lb.hidden = true;
+    if (lbAvif) lbAvif.srcset = '';
+    if (lbImg) { lbImg.removeAttribute('src'); lbImg.alt = ''; }
+    document.body.style.overflow = '';
+    var main = document.getElementById('main');
+    if (main) main.inert = false;
+    lb.setAttribute('aria-label', "Show flyer or logo");
+    if (lbOpener) { lbOpener.focus(); lbOpener = null; }
+  }
+  document.querySelectorAll('[data-imglb]').forEach(function(b){
+    b.addEventListener('click', function(){
+      if (!lb) return;
+      lbOpener = b;
+      // THE SOURCE FIRST, THEN THE IMG, and the order is the whole trick. A
+      // <picture> resolves when the img gets its src: if the source's srcset is
+      // still empty at that moment the browser picks the WebP or JPEG and
+      // commits to it, and the AVIF never loads however correct the markup
+      // looks afterwards. packplayer.js records the same failure on the
+      // carousel slides.
+      if (lbAvif) lbAvif.srcset = b.dataset.imglbAvif || '';
+      lbImg.src = b.dataset.imglb;
+      lbImg.alt = b.dataset.imglbAlt || '';
+      lb.hidden = false;
+      document.body.style.overflow = 'hidden';
+      // The dialog holds exactly ONE focusable node, so without this a single
+      // Tab leaves it and lands in the footer, on links the reader cannot see
+      // behind a 94% opaque overlay. Shift+Tab is worse: it walks back up the
+      // whole page. inert also keeps the background out of the accessibility
+      // tree for the browsers that honour it; the Tab guard below covers the
+      // ones that do not.
+      var main = document.getElementById('main');
+      if (main) main.inert = true;
+      if (b.dataset.imglbAlt) lb.setAttribute('aria-label', b.dataset.imglbAlt);
+      lbClose.focus();
+    });
+  });
+  if (lb) {
+    lbClose.addEventListener('click', closeLb);
+    lb.addEventListener('click', function(e){ if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function(e){
+      if (lb.hidden) return;
+      if (e.key === 'Escape') { closeLb(); return; }
+      // One focusable node in here, so the honest trap is to refuse Tab outright
+      // and keep focus on the close button rather than cycle a list of one.
+      if (e.key === 'Tab') { e.preventDefault(); lbClose.focus(); }
+    });
+  }
+
+})();
+</script>
+<script src="/assets/app.js?v=67b4bdd8" defer></script>
 </body>
 </html>

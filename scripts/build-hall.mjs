@@ -1778,7 +1778,9 @@ ${evenBand(".chof-list", rest.length, 3)}}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
-.chof:hover{border-color:rgba(224,162,31,.55);transform:translateY(-3px)}
+/* No lift: the card itself is not a link (its art and its rip link are), and a
+   lift promised a click that went nowhere. The edge still answers. */
+.chof:hover{border-color:rgba(224,162,31,.55)}
 /* The top three get the plaque treatment. Everything below is still an
    exhibit, just not on the podium. */
 .chof-top{border-color:rgba(224,162,31,.45);background:rgba(224,162,31,.09)}
@@ -2145,7 +2147,9 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
     document.body.style.overflow='';
     if(last) last.focus();                 // send focus back where it came from
   }
-  document.querySelectorAll('.chof-art').forEach(function(b){
+  /* .mvc-art too: the Most valuable card carried the same data and zoom cursor
+     and was never wired. */
+  document.querySelectorAll('.chof-art,.mvc-art').forEach(function(b){
     b.addEventListener('click',function(){open(b)});
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

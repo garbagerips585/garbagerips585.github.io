@@ -1137,6 +1137,8 @@ const HUB_CSS = `
 .g-shot{display:block;margin:0;border:2px solid var(--ink);border-radius:10px;
   overflow:hidden;background:var(--page);line-height:0}
 .g-shot img{display:block;width:100%;height:auto}
+@media(hover:hover){a.g-card:hover{border-color:var(--sky)}}
+@media(hover:hover) and (prefers-reduced-motion:no-preference){a.g-card{transition:transform .15s ease}a.g-card:hover{transform:translateY(-2px)}}
 .g-card.has-shot{container-type:inline-size;
   display:grid;grid-template-columns:min(46%,190px) 1fr;
   column-gap:var(--s4);align-items:start}
@@ -1529,11 +1531,17 @@ const whosPage = shell({
   }
 
   fetch('/data/games/dex.json').then(function(r){return r.json();}).then(function(d){
+    /* games.js is deferred and this block is not, so the data could land
+       before GR existed: a ReferenceError the catch below reported as a lost
+       connection, on 1 load in 3. Wait for the document, which is after it. */
+    return new Promise(function(ok){if(window.GR)ok(d);else document.addEventListener('DOMContentLoaded',function(){ok(d);});});
+  }).then(function(d){
     all=d.pokemon;
     document.getElementById('mGen1').addEventListener('click',function(){setMode(true);});
     document.getElementById('mAll').addEventListener('click',function(){setMode(false);});
     setMode(true);
-  }).catch(function(){
+  }).catch(function(e){
+    if(window.console)console.error(e);
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the Pokedex. Check your connection and reload.</p>';
   });
 })();
@@ -1774,13 +1782,19 @@ const setPage = shell({
   }
 
   fetch('/data/games/setquiz.json').then(function(r){return r.json();}).then(function(d){
+    /* games.js is deferred and this block is not, so the data could land
+       before GR existed: a ReferenceError the catch below reported as a lost
+       connection, on 1 load in 3. Wait for the document, which is after it. */
+    return new Promise(function(ok){if(window.GR)ok(d);else document.addEventListener('DOMContentLoaded',function(){ok(d);});});
+  }).then(function(d){
     sets=d.sets; cards=d.cards; setEra=d.setEra||[]; eras=d.eras||[]; minPool=d.minEraPool||6;
     byEra=eras.map(function(){return [];});
     for(var i=0;i<setEra.length;i++) if(byEra[setEra[i]]) byEra[setEra[i]].push(i);
     document.getElementById('mAny').addEventListener('click',function(){setMode(false);});
     document.getElementById('mEra').addEventListener('click',function(){setMode(true);});
     setMode(false);
-  }).catch(function(){
+  }).catch(function(e){
+    if(window.console)console.error(e);
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the card list. Check your connection and reload.</p>';
   });
 })();
@@ -1955,10 +1969,16 @@ ${/* "the good bit" is British for "the good part", and it is not a word a
     return q;
   }
   fetch('/data/games/trivia.json').then(function(r){return r.json();}).then(function(d){
+    /* games.js is deferred and this block is not, so the data could land
+       before GR existed: a ReferenceError the catch below reported as a lost
+       connection, on 1 load in 3. Wait for the document, which is after it. */
+    return new Promise(function(ok){if(window.GR)ok(d);else document.addEventListener('DOMContentLoaded',function(){ok(d);});});
+  }).then(function(d){
     qs=d.q;
     GR.Quiz({key:'gr.trivia',mount:document.getElementById('game'),next:build,
       preload:function(q){return q._art;}});
-  }).catch(function(){
+  }).catch(function(e){
+    if(window.console)console.error(e);
     document.getElementById('game').innerHTML='<p class="price-note">Could not load the questions. Check your connection and reload.</p>';
   });
 })();

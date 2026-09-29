@@ -343,7 +343,11 @@
 
     // Then tear the pack away over the top of the already-playing video.
     var face=pack.querySelector('.pack-l');
-    var clear=once(function(){ pack.remove(); focusPlayer(byKeyboard); });
+    /* ONLY IF FOCUS HAS NOT MOVED ON, 29 September 2026: a reader who Tabbed
+       away during the 1.5s tear had focus yanked back into the iframe when the
+       animation ended. Checked before the pack goes, since removing a focused
+       element drops focus to <body> either way. */
+    var clear=once(function(){ var a=document.activeElement, still=a===pack||a===document.body||!a; pack.remove(); focusPlayer(byKeyboard&&still); });
     var tear=once(function(){
       pack.classList.remove('shaking');
       pack.classList.add('tearing');

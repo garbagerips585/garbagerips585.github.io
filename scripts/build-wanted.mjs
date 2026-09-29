@@ -599,7 +599,7 @@ a.wc:hover{transform:translateY(-3px);border-color:var(--ink)}
   text-transform:uppercase}
 .pr-v{font:700 var(--t-sm)/1.4 var(--body);color:var(--ink)}
 .pr-none .pr-v{font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
-.pr-psa .pr-v{color:var(--gold-deep)}
+.pr-psa .pr-v{color:var(--ketchup-deep)}
 .price-note{font:700 var(--t-micro)/1.6 var(--mono);color:var(--ink-2);
   border-left:3px solid var(--lilac);padding-left:var(--s3);margin-top:var(--s6);max-width:52em}
 

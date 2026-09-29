@@ -150,7 +150,7 @@
     mount();                                 // first, while the gesture is live
     if(reduced){ pack.remove(); focusPlayer(byKeyboard); return; }
     var face=pack.querySelector('.pack-l');
-    var clear=once(function(){ pack.remove(); focusPlayer(byKeyboard); });
+    var clear=once(function(){ var a=document.activeElement, still=a===pack||a===document.body||!a; pack.remove(); focusPlayer(byKeyboard&&still); });
     var tear=once(function(){
       pack.classList.remove('shaking');
       pack.classList.add('tearing');

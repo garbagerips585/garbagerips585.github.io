@@ -579,6 +579,7 @@
         railSyncs.push(sync);
         box.addEventListener("focusin", function (e) {
           if (!isSwipeRail(f)) return;
+          try { if (!e.target.matches(":focus-visible")) return; } catch (err) {}
           var chip = e.target.closest && e.target.closest(".chip");
           if (chip) bringIntoRail(box, chip);
         });
@@ -740,6 +741,9 @@
         ));
         return;
       }
+      pls.forEach(function (p) {
+        if (Array.isArray(p.videoIds)) p.count = p.videoIds.filter(function (id) { return byId[id]; }).length;
+      });
       pls = pls.filter(function (p) { return (p.count || 0) > 0; });
       if (!pls.length) {
         box.appendChild(emptyState(
