@@ -2453,6 +2453,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 26 September 2026: \"30th Celebration Greninja ex Tin,  Pack #3, hit yes, Sneasel - Classic Collection\". THE ONLY SNEASEL IN THE SET: data/30th-checklist.json holds exactly one, the Classic Collection reprint at 25/111, so nothing had to be disambiguated. The number is written whole, 25/111, because Classic Collection reprints keep their original set's numbering and a bare 25 is not unique in that section. His video description today says the same card (\"we pulled the epic Sneasel\"). Nothing is added to the binder here: the binder already holds 25/111 from his own list, and this row is what came out of a pack on camera. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "j9WH5F22YUA": [
+      {
+        "card": "Yveltal ex",
+        "set": "perfect-order",
+        "setName": "Perfect Order",
+        "rarity": "Ultra Rare",
+        "number": "105",
+        "hallOfFame": false,
+        "handNote": "The owner, 29 September 2026: \"Single Booster Pack, Pack #14, Hit yes, Yveltal ex - Double Silver Star - Ultra Rare, Perfect Order\". Perfect Order prints Yveltal ex TWICE, 053 Double Rare and 105 Ultra Rare, and the rarity chooses: Double Silver Star is the Ultra Rare symbol, so this is 105. His typed rarity is the source and the number follows from it (rip-log rule: rarity beats number). The video description says the same (\"Yveltal ex Ultra Rare (Double Silver Star)\"). Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

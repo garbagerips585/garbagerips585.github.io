@@ -1,13 +1,34 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 305005,
-    "subscribers": 397,
-    "videos": 358,
-    "readAt": "2026-09-28"
+    "views": 306276,
+    "subscribers": 402,
+    "videos": 359,
+    "readAt": "2026-09-29"
   },
-  "syncedAt": "2026-09-28",
+  "syncedAt": "2026-09-29",
   "videos": [
+    {
+      "id": "j9WH5F22YUA",
+      "title": "Perfect Order Pack #14 🔥 | Most Metal Card in the Set?! Yveltal ex! 🎸",
+      "path": "rip/perfect-order-pack-14-most-metal-card-in-the-set-yveltal-ex-j9WH5F22YUA.html",
+      "published": "2026-09-29",
+      "publishedAt": "2026-09-29T10:14:04Z",
+      "duration": 23,
+      "views": 695,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "perfect-order"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "packNumber": 14,
+      "packs": 1,
+      "label": "Perfect Order Pack - Pack 14"
+    },
     {
       "id": "CdwJMIt6br4",
       "title": "30th Celebration Tin Pack #4 ⚡ | Classic Garbage Rip 🗑️",
@@ -15,7 +36,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 819,
+      "views": 1167,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +58,7 @@
       "published": "2026-09-27",
       "publishedAt": "2026-09-27T11:44:28Z",
       "duration": 21,
-      "views": 1086,
+      "views": 1110,
       "vertical": true,
       "short": true,
       "sets": [
@@ -60,7 +81,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 1020,
+      "views": 1041,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +102,7 @@
       "published": "2026-09-25",
       "publishedAt": "2026-09-25T16:57:19Z",
       "duration": 22,
-      "views": 911,
+      "views": 910,
       "vertical": true,
       "short": true,
       "sets": [
@@ -103,7 +124,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1254,
+      "views": 1257,
       "vertical": true,
       "short": true,
       "sets": [
@@ -146,7 +167,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 662,
+      "views": 663,
       "vertical": true,
       "short": true,
       "sets": [
@@ -209,7 +230,7 @@
       "published": "2026-09-19",
       "publishedAt": "2026-09-19T10:35:14Z",
       "duration": 26,
-      "views": 917,
+      "views": 918,
       "vertical": true,
       "short": true,
       "sets": [
@@ -466,7 +487,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1581,
+      "views": 1582,
       "vertical": true,
       "short": true,
       "sets": [
@@ -892,7 +913,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1015,
+      "views": 1017,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1064,7 +1085,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1053,
+      "views": 1054,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1686,7 +1707,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 947,
+      "views": 949,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1897,7 +1918,7 @@
       "published": "2026-07-26",
       "publishedAt": "2026-07-26T15:52:05Z",
       "duration": 22,
-      "views": 39,
+      "views": 40,
       "vertical": true,
       "short": true,
       "sets": [

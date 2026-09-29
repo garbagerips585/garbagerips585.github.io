@@ -2843,5 +2843,9 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 28 September 2026: \"30th Celebration Greninja ex Tin , Pack #4, No hit, 30th Celebration\". Pack 4 of the same Greninja ex Tin as Pack #1 (22 September), Pack #2 (iJHcRxYHa5g) and Pack #3 (5TKvy9CVPww). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. He calls it a TIN and the taxonomy derives `tin` on its own; on 26 September he confirmed it is the ex Tin, on shelves September 16.",
     "hasHitWhy": "\"No hit\" is his own word and the whole source. The description agrees (\"we got our first official Garbage Rip from the set\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
+  },
+  "j9WH5F22YUA": {
+    "packNumber": 14,
+    "packNumberWhy": "The owner, 29 September 2026: \"Single Booster Pack, Pack #14, Hit yes, Yveltal ex - Double Silver Star - Ultra Rare, Perfect Order\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. Follows Pack #13 (N02mLMwZSq0, 16 September) in the same run of single Perfect Order packs. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row."
   }
 }
