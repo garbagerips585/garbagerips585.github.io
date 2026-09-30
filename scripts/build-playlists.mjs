@@ -31,7 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
-import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, noWidowEmoji, RIP_BANNER, clipMeta, plainDashes} from "../shared/format.mjs";
+import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, LIB_TILE_SIZES, noWidowEmoji, RIP_BANNER, clipMeta, plainDashes} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const OUT = join(ROOT, "public/playlists");
@@ -453,7 +453,7 @@ const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile$
   packsOnDisk.has(setId) ? " pack--img" : ""
 }" aria-hidden="true">
             <span class="pack-face pack-l">
-              <span class="pack-art">${packsOnDisk.has(setId) ? packTileImg(setId) : ""}</span>
+              <span class="pack-art">${packsOnDisk.has(setId) ? packTileImg(setId, LIB_TILE_SIZES) : ""}</span>
               <span class="pack-brand">${esc(setId === "default" ? "GARBAGE RIPS" : labelFor("sets", setId) || "GARBAGE RIPS")}<small>${
                 setId === "default" ? "585" : "GARBAGE RIPS 585"
               }</small></span>
@@ -972,7 +972,7 @@ ${strip}
       }</div>
 ${WALL_H2}
 ${statLine(vids, newest)}
-      <div class="wall" data-riplb>
+      <div class="wall wall--lib" data-riplb>
 ${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels, Boolean(run.setId))).join("\n"); })()}
       </div>
 ${nearby(run)}

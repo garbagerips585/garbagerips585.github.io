@@ -525,13 +525,21 @@ elif _depth:
 # copy (the next build discards the edit) or editing the source and not
 # building (the edit never ships). Both look like "my CSS change did nothing",
 # which is a bad afternoon, so compare them here.
-_built = open(os.path.join(ROOT, "public/assets/ui.css"), encoding="utf-8").read()
-_squash = lambda t: _re.sub(r"\s+", "", _re.sub(r"/\*.*?\*/", "", t, flags=_re.S))
-if _squash(_css) != _squash(_built):
+# SINCE 30 SEPTEMBER 2026 public/assets/ui.css IS THE SOURCE MINUS THE RULES
+# scripts/split-page-css.mjs moved into the few pages that use them, so the two
+# no longer squash equal. The split has a --check mode that rebuilds the full
+# stylesheet from the source, redoes the split, and fails if the shipped
+# stylesheet or any page's <style data-pcss> differs: the same question, asked
+# of the split's output rather than of build-css.mjs's.
+import subprocess as _sp
+_r = _sp.run(["node", os.path.join(ROOT, "scripts/split-page-css.mjs"), "--check"], capture_output=True, text=True)
+if _r.returncode != 0:
     fail.append(
-        "ui.css: assets-source/ui.css and public/assets/ui.css differ by more "
-        "than comments. Run node scripts/build-css.mjs (and check you did not "
-        "edit the generated public/assets/ui.css by hand)."
+        "ui.css: public/assets/ui.css or a page's <style data-pcss> is not what "
+        "assets-source/ui.css plus scripts/split-page-css.mjs would produce. Run "
+        "node scripts/build-css.mjs and node scripts/split-page-css.mjs (or all of "
+        "build-all.mjs), and check you did not edit the generated ui.css by hand. "
+        + (_r.stderr.strip() or _r.stdout.strip())[:300]
     )
 
 # ---------------------------------------------------------------------------

@@ -414,6 +414,10 @@ const STEPS = [
   // of the index for want of a tag. Generated because the hand-written one
   // went stale and started describing a catalogue that no longer existed.
   "node scripts/build-untagged.mjs",
+  // After every page and before the stamps: moves the rules only a handful of
+  // pages use out of the render-blocking ui.css and into those pages. See the
+  // header of the script, and re-run it after any single builder.
+  "node scripts/split-page-css.mjs",
   "node scripts/stamp-assets.mjs",
   "python3 scripts/check-build.py",
 ];

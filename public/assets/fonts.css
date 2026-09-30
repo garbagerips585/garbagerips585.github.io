@@ -74,6 +74,15 @@
  * ------------------------------------------------------------------------- */
 @font-face{font-family:'Outfit Fallback';src:local('Arial'),local('Helvetica'),local('Roboto');
   size-adjust:97.78%;ascent-override:102.27%;descent-override:26.59%;line-gap-override:0%}
+/* AND ITS OWN BOLD FACE, 30 September 2026. With one regular face the fallback
+   bold was Arial's bold at the regular face's 97.78%, and real Outfit 700
+   measured 2 to 6% wider across 376 bold runs on six pages (1.026 on /types,
+   1.062 on /buying), so headings and bold phrases rewrapped when Outfit landed:
+   CLS 0.02-0.05 on /types, /evolution, /eevee-evolutions, /openings/etb. The
+   bold face takes Arial Bold by name at a size measured against it: 95%, with
+   the ascent and descent scaled so a line box is the height it was. */
+@font-face{font-family:'Outfit Fallback';font-weight:600 900;src:local('Arial Bold'),local('Arial-BoldMT'),local('Helvetica Bold'),local('Roboto Bold');
+  size-adjust:95%;ascent-override:105.3%;descent-override:27.4%;line-gap-override:0%}
 /* ARIAL, NOT ARIAL BLACK, AND THAT IS THE WHOLE BUG THIS LINE FIXES. The first
    draft listed Arial Black first because Titan One is a heavy display face and
    a heavy fallback looked like the closer match. It is 20.32% WIDER than Titan

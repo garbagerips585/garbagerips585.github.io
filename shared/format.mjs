@@ -1382,12 +1382,27 @@ export function avifPicture(img, opts) {
  * all: emitting one would be a dead round trip to a file that does not exist.
  * The caller is what holds that set, so the caller does the check.
  */
-export function packTileImg(setId) {
+export function packTileImg(setId, sizes = "") {
   const base = `/assets/packs/${setId}-garbage-rips-585-booster-pack-tile`;
+  /* WITH `sizes`, THE WHOLE LADDER, 30 September 2026: the 3-across library
+     wall (/videos and the playlist pages) draws a tile 400-473px wide, so the
+     400w file alone was soft at DPR 1 and at 0.42 of the pixels needed at
+     DPR 2. build-packs.py writes -tile 400w, -mid 560w and the 810w master
+     for every set. Without `sizes` (rails, small tiles) it stays one file. */
+  if (sizes) {
+    const full = base.replace(/-tile$/, "");
+    const set = (ext) => `${base}.${ext} 400w, ${full}-mid.${ext} 560w, ${full}.${ext} 810w`;
+    return `<picture><source type="image/avif" srcset="${set("avif")}" sizes="${sizes}">` +
+      `<img class="pack-img" src="${base}.webp" srcset="${set("webp")}" sizes="${sizes}" alt="" width="400" height="711"` +
+      ` loading="lazy" decoding="async"></picture>`;
+  }
   return `<picture><source type="image/avif" srcset="${base}.avif">` +
     `<img class="pack-img" src="${base}.webp" alt="" width="400" height="711"` +
     ` loading="lazy" decoding="async"></picture>`;
 }
+/* The library wall's real tile width: 3 across from 641px inside the 1452px
+   wrap (473px at most), 2 across below. */
+export const LIB_TILE_SIZES = "(min-width:1300px) 473px, (min-width:641px) 31vw, 46vw";
 
 /**
  * A meta description clipped to what a search result will actually show.

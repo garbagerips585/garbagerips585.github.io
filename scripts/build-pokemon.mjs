@@ -723,6 +723,17 @@ function weight(p) {
 // scrolled sideways. It is the branching families that break this rule, so test
 // one (Eevee, Wurmple, Tyrogue) rather than a straight three-stage line.
 const CSS = `<style>
+/* SHORTER ON A PHONE, 30 September 2026. The owner: "make these shorter on
+   mobile with a show all or show more option". Pikachu ran 49 screens at 390,
+   three quarters of it one grid of 168 scans. Below 768px the long grids and
+   the name-only list start at 12 and 20 and grow on request (script at the
+   foot of the page); with no script, or on a wider screen, everything shows. */
+.is-over{display:none!important}
+.poke-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px var(--s3);margin:var(--s4) 0 0}
+.poke-more button{appearance:none;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--keyline);
+  background:var(--card);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body,inherit);cursor:pointer}
+.poke-more button:hover,.poke-more button:focus-visible{border-color:var(--sky);color:var(--sky)}
+.poke-more span{flex-basis:100%;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
 .dx-top{display:flex;flex-direction:column;gap:var(--s4);align-items:flex-start;margin-top:var(--s4)}
 .dx-art{width:128px;height:128px;object-fit:contain;flex:none;background:var(--card);
 border:1px solid var(--hair);border-radius:var(--r);padding:4px}
@@ -1772,6 +1783,38 @@ ${footer(priceFooter("Pokedex data and artwork from PokeAPI. Fan made, not offic
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+})();
+</script>
+<script>
+/* SHOW MORE ON A PHONE. Hidden items are display:none, so their lazy scans are
+   never fetched until they are asked for. */
+(function(){
+  if(!window.matchMedia||!matchMedia('(max-width:767px)').matches) return;
+  function clamp(box, first, step, noun){
+    var items=[].slice.call(box.children);
+    if(items.length<=first+4) return;
+    var shown=first, wrap=document.createElement('div');
+    wrap.className='poke-more';
+    var note=document.createElement('span'); note.setAttribute('role','status');
+    var more=document.createElement('button'); more.type='button';
+    var all=document.createElement('button'); all.type='button';
+    wrap.appendChild(note); wrap.appendChild(more); wrap.appendChild(all);
+    box.parentNode.insertBefore(wrap, box.nextSibling);
+    function paint(){
+      items.forEach(function(el,i){ el.classList.toggle('is-over', i>=shown); });
+      var left=items.length-shown;
+      if(left<=0){ wrap.remove(); return; }
+      note.textContent='Showing '+shown+' of '+items.length+' '+noun;
+      more.textContent='Show '+Math.min(step,left)+' more';
+      all.textContent='Show all '+items.length;
+      all.hidden = left<=step;
+    }
+    more.addEventListener('click',function(){ shown+=step; paint(); });
+    all.addEventListener('click',function(){ shown=items.length; paint(); });
+    paint();
+  }
+  document.querySelectorAll('.chase-grid').forEach(function(g){ clamp(g,12,24,'cards'); });
+  document.querySelectorAll('.flat-list').forEach(function(l){ clamp(l,20,40,'printings'); });
 })();
 </script>
 ${APP_JS}

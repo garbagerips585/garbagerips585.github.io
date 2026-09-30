@@ -16,7 +16,7 @@ import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { checkDrift, SITE_SAY } from "../shared/chrome.mjs";
-import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, longDate, noWidowEmoji, RIP_BANNER, plainDashesAll} from "../shared/format.mjs";
+import { esc, MONTHS_SHORT as MONTHS, moneyCompact, imgDims, viewCount, avifPicture, packTileImg, LIB_TILE_SIZES, longDate, noWidowEmoji, RIP_BANNER, plainDashesAll} from "../shared/format.mjs";
 import { labelFor, PRODUCT_TYPES } from "../shared/taxonomy.mjs";
 // The sourcing sentence for a raw card price, and the "which of the two dates
 // in that file is the money's" helper. NOT re-worded here: this page prints the
@@ -1640,8 +1640,8 @@ const fmtDate = (iso) => {
  * element that must not be left to the browser here is tile 0, which is this
  * page's LCP element, and it is not: the head preloads its AVIF by name.
  */
-function packFacade(setId) {
-  const art = packs.has(setId) ? packTileImg(setId) : "";
+function packFacade(setId, sizes = "") {
+  const art = packs.has(setId) ? packTileImg(setId, sizes) : "";
   return `<span class="pack pack--${setId} pack--tile${art ? " pack--img" : ""}" aria-hidden="true"><span class="pack-face pack-l">` +
     `<span class="pack-art">${art}</span><span class="pack-brand">${esc(labelOf("sets", setId))}<small>GARBAGE RIPS 585</small></span>` +
     `<span class="pack-seal"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg></span>` +
@@ -1701,7 +1701,7 @@ function libCard(v) {
   if (v.views) bits.push(fmtViews(v.views).toUpperCase());
   else if (v.published) bits.push(fmtDate(v.published).toUpperCase());
   return `<article class="v"><a class="art" href="${esc(href)}" aria-label="Play ${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}">` +
-    packFacade(set) +
+    packFacade(set, LIB_TILE_SIZES) +
     (pull ? `<span class="hit">${esc(labelOf("pulls", pull))}</span>` : "") +
     (v.duration ? `<span class="dur">${clock(v.duration)}</span>` : "") +
     RIP_BANNER + `</a>` +
@@ -1839,7 +1839,9 @@ const libPreloadHtml = [
   .slice(0, LIB_PRELOAD)
   .map(
     (s) =>
-      `<link rel="preload" as="image" href="/assets/packs/${s}-garbage-rips-585-booster-pack-tile.avif" type="image/avif" fetchpriority="high">`,
+      /* imagesrcset, matching the tile's own ladder: a preload for the 400w file
+         while the tile picked 560w or 810w would be a second, wasted fetch. */
+      `<link rel="preload" as="image" imagesrcset="/assets/packs/${s}-garbage-rips-585-booster-pack-tile.avif 400w, /assets/packs/${s}-garbage-rips-585-booster-pack-mid.avif 560w, /assets/packs/${s}-garbage-rips-585-booster-pack.avif 810w" imagesizes="${LIB_TILE_SIZES}" type="image/avif" fetchpriority="high">`,
   )
   .join("\n");
 

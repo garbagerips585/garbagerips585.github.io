@@ -229,6 +229,32 @@ shared/chrome.mjs hashes the built stylesheet at import time to make the
 if the two files have drifted apart, which is what catches an edit made to the
 generated copy by habit.
 
+**SINCE 30 SEPTEMBER 2026 THE BUILT ui.css IS NOT THE WHOLE SOURCE: page-only
+rules move into the page.** `scripts/split-page-css.mjs` runs just before
+stamp-assets. It finds rules whose every selector needs a class that appears on
+1 to 5 built pages (and in no `public/assets/*.js`), deletes them from
+`public/assets/ui.css`, and writes them into a `<style data-pcss>` right after
+that page's ui.css `<link>`. A cascade guard keeps a rule shared when a later
+shared rule of equal specificity could fight it for the same property. First
+run: 297 rules moved to 38 pages, ui.css 25,530 -> 20,979 bytes gzipped, and 0
+computed-style differences over 164,892 elements (41 pages x 390/768/1440,
+compared against a same-tree noise floor).
+- **Keep editing `assets-source/ui.css`, exactly as before.** The split is
+  derived from it on every build, so a rule can move in or out on its own as
+  pages gain or lose a class.
+- **check-build.py runs `split-page-css.mjs --check`** in place of the old
+  "same rules as the source" comparison. It fails when ui.css or any page is
+  not what a fresh split would write, which is also what catches a single
+  builder run after build-all.
+- **The split ignores HTML and CSS comments when it counts class usage.**
+  stamp-assets strips inline-style comments AFTER the split, and several of
+  those comments name classes, so counting them made the split and the --check
+  disagree on 9 files. If they disagree again, look for another input that
+  stamp changes.
+- A class added by JavaScript must appear in a `public/assets/*.js` file by
+  name, or its rules can move off pages that need them. A class built by
+  string concatenation in a script cannot be seen: write it out in full.
+
 **ALWAYS FINISH WITH build-all.mjs. ANY SINGLE BUILDER YOU RUN AFTERWARDS PUTS
 THE TREE BACK, INCLUDING ONE YOU RAN ONLY TO READ ITS OUTPUT.** That last clause
 is the one that actually bites and it is why this paragraph exists. `stamp-assets
