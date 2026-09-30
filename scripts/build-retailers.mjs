@@ -595,7 +595,11 @@ ${fmts
 
 const TIER = {
   small: "Small sealed only, so packs, blisters and tins rather than boxes",
-  boxes: "The bigger sealed formats too, so elite trainer boxes and booster boxes",
+  // "and booster boxes" was a promise on every page with this tier, and two of
+  // them (Meijer, and Walgreens from 30 September 2026) list elite trainer boxes
+  // and no booster box. Every box-tier retailer has an elite trainer box, so the
+  // chip names that one and lets the stocks sentence say the rest.
+  boxes: "The bigger sealed formats too, including elite trainer boxes",
   repack: "Repackaged assortments rather than product published by Pokemon",
   unknown: "Not establishable from their website",
 };
@@ -1235,6 +1239,11 @@ ${MENU}
         cnrTotalWord.charAt(0).toUpperCase() + cnrTotalWord.slice(1)
       )} more chains were checked and are not on this list;
         <a href="#could-not-read">the reason for each one</a> is at the bottom.</p>
+      ${/* The reseller warning, one line, near the top, 30 September 2026 on the
+            owner's ask: the full section is further down at #who-sells, and
+            this is the sentence a shopper needs before they scroll to a shop. */ ""}<p class="rt-note rt-warn"><b>Buying on target.com, walmart.com or bestbuy.com?</b> Check who is
+        selling it first. Independent resellers list beside the chain's own stock, usually well over the
+        suggested price. <a href="#who-sells">How to tell</a>.</p>
 
       <div class="rt-key">
         <h2>If you cannot see any, <span class="hl">ask anyway</span></h2>
@@ -1260,7 +1269,7 @@ ${retailers.map(dirCard).join("\n")}
         </div>
       </section>
 
-      <section class="rt-grp">
+      <section class="rt-grp" id="who-sells">
         <h2>A price on their site is not always <span class="hl">their</span> price</h2>
         <p class="rt-note">${esc(R.marketplace.claim)}</p>
         <ul class="rt-list">
@@ -1554,7 +1563,30 @@ ${MENU}
         hostOf(r.confirmed.url)
       )}</a></p>
 
-      <section class="rt-grp">
+${/* MOVED UP, 30 September 2026, from below the price list to directly under
+      the answer. The owner: "sites like Target.com and Walmart.com allow 3rd
+      party sellers to resell product on their sites, and they always charge
+      over retail price, usually market prices so its something alot of people
+      don't realize and they overpay for cards". The section was right and was
+      in the wrong place: on /retailers/target.html it sat after the whole price
+      table, below where a shopper stops reading, on the pages where it is the
+      single most useful thing we can say. "Usually" and "well above" are what
+      the readings in marketplaceNote show (a $194.23 marketplace ETB beside
+      Best Buy's own $49.99, a $189.99 two-pack beside Target's own $59.99);
+      the page never says "always", because nobody has read every listing. */ ""}${r.marketplaceKind === "mixed" ? `      <section class="rt-grp rt-who" id="who-sells">
+        <h2>Check who is <span class="hl">selling it</span> before you pay</h2>
+        <p class="rt-note"><b>Not every price on ${esc(hostOf(r.confirmed.url).replace(/^www\./, ""))} is ${esc(
+          r.name
+        )}'s.</b> Independent sellers list right beside ${esc(r.name)}'s own stock and set their own
+          price, usually a resale price well above what ${esc(r.name)} itself charges. It is easy to pay
+          double without noticing.</p>
+        <p class="rt-note">${esc(r.marketplaceNote)}</p>
+        <p class="rt-note">Before you buy, check the price against <a href="/msrp.html">what it is supposed
+          to cost</a>. The tells for every chain that runs a marketplace are on
+          <a href="/retailers.html#who-sells">the shop list</a>.</p>
+      </section>
+
+` : ""}      <section class="rt-grp">
         <h2>What they <span class="hl">stock</span></h2>
         <p class="rt-note"><b>${esc(TIER[r.stocksTier] || TIER.unknown)}.</b> ${esc(r.stocks)}</p>
 ${formatStrip(r, fmts)}
@@ -1605,13 +1637,6 @@ ${r.whereInStore ? `      <section class="rt-grp">
           which prices sealed product from Pokemon's own shop.</p>
 ${readingBlock(r, rs)}
       </section>
-
-${r.marketplaceKind === "mixed" ? `      <section class="rt-grp">
-        <h2>A price on their site is not always <span class="hl">their</span> price</h2>
-        <p class="rt-note">${esc(r.marketplaceNote)}</p>
-        <p class="rt-note">${esc(R.marketplace.claim)} The full explanation, and the three tells that
-          separate the two, are on <a href="/retailers.html">the shop list</a>.</p>
-      </section>` : ""}
 
 ${r.availability ? `      <section class="rt-grp">
         <h2>Getting hold of <span class="hl">one</span></h2>

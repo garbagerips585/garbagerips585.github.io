@@ -391,9 +391,20 @@ const USUALLY = {
   "ex-box": "A smaller box built around one ex card, with a promo and a couple of packs.",
   upc: "An Ultra Premium Collection is the largest sealed product of a set: a big box with a lot of packs, a metal or oversize card and usually a full art promo.",
   tin: "A metal tin with a promo card and a few packs. The tin outlives the cards and is the reason a lot of people buy them.",
-  "poke-ball-tin": "A ball-shaped tin, usually with one or two packs and a coin or promo.",
+  // THIS USED TO SAY "usually with one or two packs and a coin or promo", and
+  // data/pack-counts-current.json holds the Poke Ball Tin at 3 packs and 2
+  // sticker sheets, off pokemon.com AND Pokemon Center, read 15 August 2026. The
+  // product page now opens with that sourced answer (see ANSWERS below), so the
+  // old sentence would have put "one or two" on the index card and "3" on the
+  // page it links to. Reworded 30 September 2026 to claim no number at all.
+  "poke-ball-tin": "A ball-shaped tin holding a few packs and a couple of sticker sheets.",
   blister: "A hanging card with one to three packs and a promo, sold on a peg rather than a shelf.",
-  "knock-out": "A Knock Out Collection is built around one big ex card: the promo, a playmat or a set of dice depending on the release, and a few packs. They turn up at Target and Walmart more than anywhere else.",
+  // The old card said "a playmat or a set of dice" and "They turn up at Target
+  // and Walmart more than anywhere else". Neither had a source: the contents in
+  // data/pack-counts-current.json list no playmat and no dice, and no retailer
+  // publishes where a product sells most. Reworded 30 September 2026 to match
+  // the sourced answer the product page now opens with.
+  "knock-out": "A small box built around one foil card, a choice of two characters, with a couple of packs, a sticker sheet and a code card.",
   "collection-box": "A themed box built around a character or a pair of them, with promo cards, sometimes an oversize card, and a few packs. The contents vary more than any other product here.",
   // THE THREE IMPORTED PACKS ANSWERED THEIR OWN H1 WITH ITSELF. The lede sits
   // directly under "What is in a Japanese booster pack?" and read "A Japanese
@@ -427,7 +438,288 @@ const ASKS = {
   "chinese-pack": "What is in a Chinese booster pack?",
 };
 
-const LABEL = new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
+// ------------------------------------------------ the answer, before anything
+//
+// QUESTION FIRST, ANSWER FIRST, AND WHY A LATER EDITOR SHOULD NOT UNDO IT.
+// Bing's AI Performance report, read 30 September 2026, showed
+// /openings/single-pack.html as the site's MOST cited page in Copilot answers,
+// 9 of 20 citations. Its title is the literal question a searcher types and
+// the page answers it at once; the other cited pages share that shape
+// (/retailers/meijer.html, "Does Meijer Sell Pokemon Cards?", and
+// /expansions.html). Every page here already had the question as its title and
+// h1. What they did not have was the ANSWER: each lede opened with a
+// description ("A metal tin with a promo card and a few packs") and the meta
+// description repeated the question and promised "what it holds" instead of
+// saying it. An answer engine quotes the first sentence that answers, and on
+// these pages no sentence near the top carried a number.
+//
+// SO THE LEDE'S FIRST SENTENCE, THE META DESCRIPTION AND og:description ALL
+// LEAD WITH THE ANSWER: the sourced pack count and contents from
+// data/pack-counts-current.json, the file /how-many-packs.html prints with a
+// source on every number. Each sentence is BUILT FROM THE RECORD'S OWN FIELDS
+// and checks that every extra it names is in that record's alsoIncludes. A
+// record that disappears or loses its number drops the answer, the build says
+// so, and the page falls back to its old lede rather than printing a figure
+// nobody can trace.
+//
+// THE BLURB TRAP ABOVE STILL HOLDS. These are counts for CURRENT English
+// releases, which is the data file's own scope, and the note under the lede
+// says so and names the source and the read date. None of it is a claim about a
+// particular set on the page. Where the file says a count varies (tins, UPCs,
+// collection boxes, the two products under the ex-premium tag) the sentence
+// gives the range or names the product, following that file's own traps. No
+// pull rates: CLAUDE.md's rule is "confirmed or nothing", and nothing here is a
+// rate.
+//
+// FOUR PAGES HAVE NO ANSWER, ON PURPOSE. single-pack is the page that earned
+// the citations and is left exactly as it was cited. The Japanese, Korean and
+// Chinese packs have no sourced per-language count anywhere in the repo (see
+// the note inside USUALLY), so they keep their descriptive lede.
+const PACK_COUNTS = JSON.parse(await readFile(join(ROOT, "data/pack-counts-current.json"), "utf8"));
+const pc = (prefix) =>
+  (PACK_COUNTS.products || []).find((p) => String(p.productName || "").startsWith(prefix)) || null;
+const num = (x) => (typeof x === "number" && x > 0 ? x : null);
+// True only when the record itself lists this extra. A sentence that names
+// "65 card sleeves" must be standing on a record that says 65 card sleeves.
+const lists = (rec, ...bits) =>
+  bits.every((b) => (rec?.alsoIncludes || []).some((s) => String(s).toLowerCase().includes(b.toLowerCase())));
+const COLLECTION_PATTERN = PRODUCT_TYPES.find((p) => p.id === "collection-box")?.pattern;
+
+// Each returns { text, tail, recs, caveat } or null. "text" is the answer and
+// must stay under about 158 characters, because clipMeta keeps whole sentences
+// and the answer is the sentence the search result has to carry. "tail" is the
+// existing lede's remaining point, kept where it still says something the
+// answer does not.
+const ANSWERS = {
+  etb: () => {
+    const std = pc("Elite Trainer Box");
+    const pcb = pc("Pokemon Center Elite Trainer Box");
+    if (!num(std?.packs) || !num(pcb?.packs)) return null;
+    if (!lists(std, "promo", "65 card sleeves", "energy", "dice", "collector's box")) return null;
+    return {
+      recs: [std, pcb],
+      text:
+        `A current Elite Trainer Box holds ${std.packs} booster packs, a foil promo card, 65 sleeves, ` +
+        `Energy cards, dice and a collector's box; Pokemon Center's edition holds ${pcb.packs}.`,
+      // The second sentence of USUALLY.etb, which that entry's own comment says
+      // stays. It is still true: the answer is scoped to current boxes.
+      tail: "The pack count has changed over the years, so check the box you are actually buying.",
+    };
+  },
+  bundle: () => {
+    const b = pc("Booster Bundle");
+    if (!num(b?.packs) || (b.alsoIncludes || []).length) return null;
+    return {
+      recs: [b],
+      text: `A Booster Bundle holds ${b.packs} booster packs and nothing else: no sleeves, no dice, no promo card.`,
+      tail: "It is usually the cheapest way to buy several packs at once.",
+    };
+  },
+  blister: () => {
+    const three = pc("Three-Booster Blister");
+    const one = pc("Checklane Blister");
+    if (!num(three?.packs) || !num(one?.packs)) return null;
+    if (!lists(three, "promo", "coin") || !lists(one, "promo", "coin")) return null;
+    return {
+      recs: [three, one],
+      text:
+        `A Pokemon blister holds ${one.packs} or ${three.packs} booster packs with a foil promo card and a coin: ` +
+        `${three.packs} in a Three-Booster Blister, ${one.packs} in a checklane blister.`,
+      tail: "It hangs on a peg rather than sitting on a shelf.",
+      // The disagreement recorded on the blister entry, said out loud rather
+      // than resolved by picking the retailer that agrees with the sentence.
+      caveat:
+        "Blisters have no pokemon.com page, and the two listings disagree on one point: GameStop's " +
+        "three-pack blister names the promo and the coin, Target's names only the packs",
+    };
+  },
+  tin: () => {
+    const std = pc("Standard collector tin");
+    const mini = pc("Mini Tin");
+    const stack = pc("Stacking Tin");
+    if (!num(std?.packs) || !num(mini?.packs) || !num(stack?.packs) || !lists(std, "promo")) return null;
+    // The count CHANGED between years, and the data file's instruction is to
+    // state the current one and date it. Both years come off packsByProduct.
+    const byYear = new Map();
+    for (const p of std.packsByProduct || []) {
+      const y = String(p.released || "").slice(0, 4);
+      if (y && num(p.packs)) byYear.set(y, p.packs);
+    }
+    const nowYear = [...byYear.entries()].filter(([, n]) => n === std.packs).map(([y]) => y).sort().pop();
+    const was = [...byYear.entries()].filter(([, n]) => n !== std.packs).sort().pop();
+    if (!nowYear) return null;
+    const all = [mini.packs, stack.packs, std.packs, ...(was ? [was[1]] : [])];
+    return {
+      recs: [std, mini, stack],
+      text:
+        `A Pokemon tin holds ${Math.min(...all)} to ${Math.max(...all)} booster packs: a Mini Tin has ${mini.packs}, ` +
+        `a Stacking Tin ${stack.packs}, and a standard tin ${std.packs} in ${nowYear}${
+          was ? ` (${was[1]} in ${was[0]})` : ""
+        } plus a foil promo card.`,
+      tail: "The tin outlives the cards and is the reason a lot of people buy them.",
+    };
+  },
+  "poke-ball-tin": () => {
+    const t = pc("Poke Ball Tin");
+    if (!num(t?.packs) || !lists(t, "2 sticker sheets")) return null;
+    return {
+      recs: [t],
+      text: `A current Poke Ball Tin holds ${t.packs} booster packs and 2 sticker sheets.`,
+      // Pokemon Center's own wording on that record: "These tins carry
+      // mixed-expansion packs", and the packs "vary by product".
+      tail: "The packs inside can come from different sets.",
+    };
+  },
+  "knock-out": () => {
+    const k = pc("Knock Out Collection");
+    if (!num(k?.packs) || !lists(k, "foil card", "sticker sheet", "code card")) return null;
+    // The data file asks for "as of the January 2025 release" rather than
+    // implying a live line, and names that release in its source title.
+    if (!(k.sources || []).some((s) => /Jan 2025/.test(s.title || ""))) return null;
+    return {
+      recs: [k],
+      text:
+        `A Knock Out Collection holds ${k.packs} booster packs, a foil card (a choice of two characters), ` +
+        `a sticker sheet and a code card, as of the January 2025 release.`,
+      // Kept from USUALLY. It is the owner's line, not the data file's, and is
+      // flagged for him rather than dropped.
+      tail:
+        "That was the newest edition on pokemon.com when the count was read. They turn up at Target and " +
+        "Walmart more than anywhere else.",
+    };
+  },
+  "ex-premium": () => {
+    const prem = pc("ex Premium Collection");
+    const box = pc("ex Box");
+    if (!num(prem?.packs) || !num(box?.packs) || !lists(prem, "promo", "lenticular", "tech sticker")) return null;
+    return {
+      recs: [prem, box],
+      // "also filed here" because shared/taxonomy.mjs folds the ex Box into
+      // this tag on purpose, and the two differ by four packs. Saying one
+      // number for both is the trap the data file names first.
+      text:
+        `A current ex Premium Collection holds ${prem.packs} booster packs, a foil promo, an oversize lenticular ` +
+        `card and a tech sticker; an ex Box, also filed here, holds ${box.packs}.`,
+      tail: "Both are built around one ex card.",
+    };
+  },
+  upc: () => {
+    const u = pc("Ultra-Premium Collection");
+    const rows = (u?.packsByProduct || []).filter((p) => num(p.packs));
+    if (rows.length < 2 || !lists(u, "promo", "playmat", "deck box", "coin", "dice")) return null;
+    const lo = Math.min(...rows.map((p) => p.packs));
+    const hi = Math.max(...rows.map((p) => p.packs));
+    const top = rows.find((p) => p.packs === hi);
+    const rest = [...new Set(rows.filter((p) => p !== top).map((p) => p.packs))].sort((a, b) => a - b);
+    return {
+      recs: [u],
+      text:
+        `An Ultra Premium Collection holds ${lo} to ${hi} booster packs depending on which one it is, plus ` +
+        `2 to 3 foil promo cards, a playmat, a deck box, a coin and dice.`,
+      // "dated", not "due" or "released": the 30th Celebration box is dated
+      // after the day the file was read, and this word is true on both sides
+      // of that date, so the build needs no clock.
+      tail: `The ${hi}-pack one is the ${String(top.product).replace(/\s*\(.*\)\s*$/, "")}, dated ${longDate(
+        top.released
+      )}; the others hold ${rest.join(" or ")}. There is no single count, so buy one by its full name.`,
+    };
+  },
+  "collection-box": () => {
+    const c = pc("Collection boxes");
+    // ONLY PRODUCTS THIS PAGE'S OWN TAG WOULD CATCH. The data file's
+    // collection-box family also holds a Surprise Box, a Collector Chest and a
+    // Binder Collection, and shared/taxonomy.mjs files none of those here, so
+    // quoting them would describe products this page never lists.
+    const mine = (c?.packsByProduct || []).filter(
+      (p) => num(p.packs) && COLLECTION_PATTERN && COLLECTION_PATTERN.test(p.product || "")
+    );
+    if (!mine.length) return null;
+    const ex = mine[0];
+    return {
+      recs: [c],
+      text:
+        `A Pokemon collection box holds a few booster packs plus promos, and the count changes by box: ` +
+        `the ${ex.product} holds ${ex.packs}.`,
+      tail: "The contents vary more than any other product here.",
+    };
+  },
+};
+
+const ANSWER_MISSES = [];
+const answerFor = (id) => {
+  const f = ANSWERS[id];
+  if (!f) return null;
+  const a = f();
+  if (!a) ANSWER_MISSES.push(id);
+  return a;
+};
+
+// Where the counts in an answer came from, for the note under the lede. Read
+// off the sources that back the fields the sentence used, never typed.
+const joinAnd = (xs) => (xs.length < 3 ? xs.join(" and ") : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`);
+const answerSource = (a) => {
+  const srcs = a.recs.flatMap((r) =>
+    (r.sources || []).filter((s) =>
+      (s.supports || []).some((k) => k === "packs" || k === "packsByProduct" || k === "alsoIncludes")
+    )
+  );
+  // THE MANUFACTURER WINS WHERE IT SPEAKS. The ETB count is on four pokemon.com
+  // pages AND a Target listing; crediting Target there would name the weaker
+  // source for a number the stronger one states. Retailers are named only where
+  // no official page backs the count at all, which is the blister.
+  const official = (p) => /^(pokemon\.com|Pokemon Center)$/.test(p);
+  const pubs = [...new Set(srcs.map((s) => String(s.publisher || "").replace(/\s*\(.*\)\s*$/, "")))];
+  const date = srcs.map((s) => s.readAt).filter(Boolean).sort().pop() || PACK_COUNTS.readAt;
+  const from = pubs.some(official)
+    ? "The Pokemon Company's own product pages"
+    : `the ${joinAnd(pubs)} listings`;
+  return { from, date };
+};
+
+// THE PRICE HALF OF THE ANSWER, off the table on the same page. The title says
+// "Price", and the answer to it sat a screen below the fold in a 29 row table.
+// A range with its read date is the table's own first and last rows, so it
+// cannot disagree with anything under it.
+const priceSentence = (e) => {
+  if (!e.prices.length) return "";
+  const ms = e.prices.map((r) => r.market);
+  return `Sealed, it sells for ${moneyExact(Math.min(...ms))} to ${moneyExact(
+    Math.max(...ms)
+  )} on TCGplayer depending on the set, at market price read ${longDate(prod.checked)}.`;
+};
+
+// "Pokemon" in the question where it fits, because it is in the question as
+// typed ("what is in a pokemon elite trainer box"). Kept under the ~580px cut
+// the titles section of CLAUDE.md measures: 61 characters is where these
+// titles reach about 568px at 20px Arial, so a longer one keeps the old
+// wording. single-pack, tin and poke-ball-tin are not in this map: the first is
+// the cited page, the second already says Pokemon, the third already says Poke.
+const ASKS_POKEMON = {
+  etb: "What is in a Pokemon Elite Trainer Box?",
+  bundle: "What is in a Pokemon Booster Bundle?",
+  blister: "What is in a Pokemon blister pack?",
+  "collection-box": "What is in a Pokemon collection box?",
+  "ex-premium": "What is in a Pokemon ex Premium Collection?",
+  upc: "What is in a Pokemon Ultra Premium Collection?",
+  "knock-out": "What is in a Pokemon Knock Out Collection?",
+  "japanese-pack": "What is in a Japanese Pokemon booster pack?",
+  "korean-pack": "What is in a Korean Pokemon booster pack?",
+  "chinese-pack": "What is in a Chinese Pokemon booster pack?",
+};
+const TITLE_MAX_CHARS = 61;
+// "Price and" ONLY WHERE THE PAGE HAS A PRICE. Seven of these titles read
+// "Price and N Openings" over a body saying "No price table here", which is the
+// same false promise the description comment in the per-product loop removed
+// from the snippet in August. The title is the bigger promise of the two.
+const titleTail = (e) =>
+  `${e.prices.length ? "Price and " : ""}${e.vids.length} Opening${e.vids.length === 1 ? "" : "s"}`;
+const askFor = (e) => {
+  const plain = ASKS[e.id] || `What is in a ${e.label}?`;
+  const pk = ASKS_POKEMON[e.id];
+  return pk && `${pk} ${titleTail(e)}`.length <= TITLE_MAX_CHARS ? pk : plain;
+};
+
+const LABEL =new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
 
 // THE CODE CARD LINE, and the reason it is not on every page here.
 //
@@ -1612,15 +1904,35 @@ const picturelessPages = [];
 // ---------------------------------------------------------------- per product
 for (const e of entries) {
   const path = `/openings/${e.id}.html`;
-  const ask = ASKS[e.id] || `What is in a ${e.label}?`;
+  const ask = askFor(e);
   const nSets = e.sets.size;
+  // The sourced answer, or null. See ANSWERS: null on single-pack and the three
+  // imported packs by design, and on any page whose data record went missing.
+  const answer = answerFor(e.id);
+  const price = priceSentence(e);
   // THE DESCRIPTION USED TO PROMISE A PRICE THE PAGE THEN REFUSES TO GIVE.
   // `e.prices.length || nSets` fell back to the set count for every product we
   // do not track prices for, so seven pages advertised "what it costs across N
   // sets" in the search result while their body says "no price table here,
   // this product is not one of the kinds we track prices for". The snippet IS
   // the promise, so it now describes what the page actually has.
-  const desc = (
+  //
+  // WITH AN ANSWER, THE DESCRIPTION IS THE ANSWER. The question is already the
+  // title directly above it in a result, so repeating it spent the first 40
+  // characters of the snippet on words the reader had just read. The answer
+  // leads, and what the page adds follows. Not sliced to 158 here: head() runs
+  // clipMeta, which keeps whole sentences, and og:description gets all of it.
+  // WITHOUT ONE (single-pack and the imported packs) it is the old sentence,
+  // byte for byte, slice and all.
+  const desc = answer
+    ? `${answer.text} ${
+        e.prices.length
+          ? `TCGplayer prices across ${e.prices.length} set${e.prices.length === 1 ? "" : "s"}, and ${
+              e.vids.length
+            } of them opened on camera.`
+          : `We opened ${e.vids.length} of them on camera${nSets ? `, across ${nSets} set${nSets === 1 ? "" : "s"}` : ""}.`
+      }`
+    : (
     e.prices.length
       ? `${ask} What it holds, what it costs across ${e.prices.length} set${
           e.prices.length === 1 ? "" : "s"
@@ -1684,7 +1996,8 @@ for (const e of entries) {
     // ever truncated. Without it they are 476-551px. og:site_name still has it.
     // "Opening" pluralises here the way the sentence above already pluralises
     // "set": one product had a single video and read "Price and 1 Openings".
-    head(`${ask} Price and ${e.vids.length} Opening${e.vids.length === 1 ? "" : "s"}`, desc, path, {
+    // titleTail drops "Price and" where the page prints no price table.
+    head(`${ask} ${titleTail(e)}`, desc, path, {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -1698,7 +2011,11 @@ for (const e of entries) {
     <div class="wrap">
       <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/openings/">Openings</a> / <span>${esc(e.label)}</span></nav>
       <h1>${esc(ask.replace(/\?$/, ""))}<span class="hl">?</span></h1>
-      <p class="lede op-lede">${esc(USUALLY[e.id] || `A sealed ${e.label}.`)}</p>
+      <p class="lede op-lede">${esc(
+        answer
+          ? [answer.text, answer.tail, price].filter(Boolean).join(" ")
+          : USUALLY[e.id] || `A sealed ${e.label}.`
+      )}</p>
 ${shotHtml}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRINTS
            ON. Seven of these products are boxes and six are not: a single
            booster pack, a peg blister, a metal tin, a Poke Ball tin and the
@@ -1706,12 +2023,25 @@ ${shotHtml}${/* "THIS KIND OF BOX" WAS WRONG ON SIX OF THE THIRTEEN PAGES IT PRI
            "One booster pack, bought loose off a shelf or a peg. That is what
            this kind of box usually holds." One word, and the sentence is true
            on all thirteen. "Product" is the word the rest of the page and the
-           index already use for the category. */ ""}
-      <p class="op-note">That is what this kind of product usually holds. It is deliberately not stated per set,
+           index already use for the category. */ ""}${/* WITH AN ANSWER, THE
+           NOTE NAMES ITS SOURCE. The lede now carries numbers, so the sentence
+           under it says whose they are and when they were read, off the same
+           records, and keeps the old note's point that none of it is stated per
+           set. Without one it is the old note unchanged. */ ""}
+${answer
+        ? (() => {
+            const s = answerSource(answer);
+            return `      <p class="op-note">Those counts come from ${esc(s.from)}, read ${esc(longDate(s.date))}, and
+        describe current English releases${answer.caveat ? `. ${esc(answer.caveat)}` : ""}.
+        <a href="/how-many-packs.html">How many packs each kind of product holds</a> has every one with its
+        source. They are deliberately not stated per set, because the contents have changed between releases;
+        what we can stand behind for a set is what came out of the ones opened here, counted below.</p>`;
+          })()
+        : `      <p class="op-note">That is what this kind of product usually holds. It is deliberately not stated per set,
         because the contents have changed between releases and we do not have a per set count we can stand
         behind. What we do have is what came out of the ones opened here, counted below, and
         <a href="/how-many-packs.html">how many packs each kind of product holds</a>, which is read off the
-        manufacturer's and the sellers' own pages with the source on every number.</p>
+        manufacturer's and the sellers' own pages with the source on every number.</p>`}
 
       <div class="op-facts">
         <div class="op-f"><span class="n">${e.vids.length}</span><span class="l">Opened on camera</span></div>
@@ -1992,10 +2322,13 @@ await writeFile(
         "Sealed product pages, for the site search. Written by build-openings.mjs.",
         "Do not hand-edit: the next build overwrites it.",
       ],
+      // askFor, so the search result, the <title> and the h1 are one string.
+      // "what it costs" only where the page has a price table, for the same
+      // reason titleTail drops "Price and".
       pages: entries.map((e) => [
-        ASKS[e.id] || `What is in a ${e.label}?`,
+        askFor(e),
         `/openings/${e.id}.html`,
-        `${e.label}: what is inside, what it costs, and every one opened on this channel.`,
+        `${e.label}: what is inside, ${e.prices.length ? "what it costs, " : ""}and every one opened on this channel.`,
       ]),
     },
     null,
@@ -2006,6 +2339,11 @@ await writeFile(
 console.log(`Wrote public/openings/ with ${entries.length + 1} pages
   ${entries.length} product types, ${totalRips} openings, ${totalPacks} packs counted
   ${entries.filter((e) => e.prices.length).length} have a price table
+  ${entries.filter((e) => ANSWERS[e.id]).length - ANSWER_MISSES.length} open with a sourced answer${
+    ANSWER_MISSES.length
+      ? `; ${ANSWER_MISSES.length} fell back to the old lede because data/pack-counts-current.json no longer supports the sentence: ${ANSWER_MISSES.join(", ")}`
+      : ""
+  }
   ${entries.filter((e) => runsByKind.has(e.id)).length} carry a run band: ${
     entries
       .filter((e) => runsByKind.has(e.id))

@@ -5804,6 +5804,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://garbagerips.com/retailers/walgreens.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://garbagerips.com/most-valuable-cards.html</loc>
     <lastmod>2026-08-22</lastmod>
     <changefreq>weekly</changefreq>

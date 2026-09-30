@@ -17,18 +17,21 @@
     "A RETAILER IS IN THIS FILE ONLY IF SOMEBODY READ, IN A BROWSER, ON THAT",
     "COMPANY'S OWN SITE, SOMETHING THAT SAYS THEY SELL POKEMON TRADING CARDS.",
     "The url and the date are in `confirmed`. A retailer everybody 'knows' sells",
-    "them is not in here without that. Eight companies were checked and left out",
-    "on this pass and they are listed in `couldNotRead` with the reason, because",
-    "a reader who came looking for Walgreens deserves to know we tried and were",
-    "turned away rather than assume we forgot.",
+    "them is not in here without that. Eight companies are listed in",
+    "`couldNotRead` with the reason, because a reader who came looking for one",
+    "of them deserves to know we tried and were turned away rather than assume",
+    "we forgot. WALGREENS LEFT THAT LIST ON 30 SEPTEMBER 2026: its search pages",
+    "still serve a bot challenge, but its own Trading Cards category page loaded",
+    "and lists Pokemon, which meets the bar. Wegmans joined the list the same day.",
     "",
-    "`couldNotRead` IS NOT A CLAIM THAT THEY DO NOT SELL POKEMON CARDS. Three of",
-    "the eight served a bot challenge, which is a fact about their web server and",
-    "nothing at all about their shelves. One served a search page that never",
-    "filled in, one answered with its own error, and three served a page with no",
-    "Pokemon trading card product on the day. The wording on the page has to keep",
-    "that distinction, because 'Costco does not sell Pokemon cards' is a claim",
-    "about a company and 'we could not read Costco's site' is a claim about us.",
+    "`couldNotRead` IS NOT A CLAIM THAT THEY DO NOT SELL POKEMON CARDS. As of 30",
+    "September 2026, three served a bot challenge, which is a fact about their web",
+    "server and nothing at all about their shelves; one answered with its own",
+    "error; and four served a page with no Pokemon trading card product on the",
+    "day. The wording on the page has to keep that distinction, because 'Costco",
+    "does not sell Pokemon cards' is a claim about a company and 'we could not",
+    "find Pokemon cards on Costco's site' is a claim about us. Do not quote these",
+    "counts from here: build-retailers.mjs counts `barrier` and `kind`.",
     "",
     "`barrier` IS WHY THOSE COUNTS ARE NOW A FIELD RATHER THAN A SENTENCE. The",
     "page said 'Four served a bot challenge' while its own four descriptions",
@@ -123,9 +126,7 @@
     "NEVER STATE PULL RATES. Site-wide rule, and it bites on a page about shops",
     "that sell sealed product."
   ],
-
-  "checked": "2026-08-17",
-
+  "checked": "2026-09-30",
   "askAnEmployee": {
     "claim": "If you cannot see any, ask anyway. A lot of shops now keep trading cards behind the counter, in a locked case or in the back, and plenty do not put them on the sales floor at all. An empty peg is not the same as no stock, and people walk out of shops that had the thing every day of the week.",
     "why": [
@@ -134,16 +135,14 @@
       "Ask about the restock day while you are there. Nobody publishes one, and the person stocking the shelf knows it."
     ]
   },
-
   "marketplace": {
     "claim": "A price on target.com, walmart.com, bestbuy.com or amazon.com is not automatically that chain's price. All four are a shop and a marketplace at the same time: some listings are stock the chain owns, and some are independent sellers using the chain's website as a storefront and setting whatever price they like.",
     "why": [
       "The chain's own stock generally sits at or near the suggested price. The listings that make you gasp are usually somebody reselling after the chain sold out, and the same product will be back near the suggested price on the next restock.",
-      "So the useful move on those four sites is to find who is selling before you look at the number. Target prints a 'Sold and shipped by' line on a partner listing, Walmart prints a seller name and a seller rating, and Best Buy's own search sidebar carries a 'Sold & shipped by: Best Buy' filter, which is the fastest way to see only the chain's own stock.",
+      "So the useful move on those four sites is to find who is selling before you look at the number. Target prints a 'Sold & shipped by' line naming the seller on a partner listing. Walmart prints a seller name and a seller rating, and 'Fulfilled by Walmart' under that name means Walmart ships it, not that Walmart is selling it. Best Buy's own search sidebar carries a 'Sold & shipped by: Best Buy' filter, which is the fastest way to see only the chain's own stock, and its product pages print 'Sold by Best Buy' above the chain's own price.",
       "This matters to this page because it decides what we are allowed to publish. Every price in the table below carries the seller, and every reading where the seller could not be established was thrown away rather than printed against a company's name."
     ]
   },
-
   "legacySellers": {
     "_note": [
       "THE FOUR LISTINGS THIS REPO ALREADY HELD live in data/pack-counts-current.json",
@@ -154,9 +153,8 @@
       "so it lives here, one entry per retailer name as pack-counts spells it."
     ],
     "GameStop": "the GameStop product page names no third-party seller, and GameStop runs no marketplace for new sealed product",
-    "Target": "both Target product pages were reopened on August 17, 2026 and neither carried the 'Sold and shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock"
+    "Target": "both Target product pages were reopened on September 30, 2026 and neither carried the 'Sold & shipped by' line that Target prints on a Target Plus partner listing, which is what marks them as Target's own stock"
   },
-
   "retailers": [
     {
       "id": "barnesandnoble",
@@ -168,9 +166,9 @@
       "confirmed": {
         "how": "Read the Collectible Card Games and Trading Cards collection on barnesandnoble.com, which names Pokemon in Barnes & Noble's own copy and points the reader at a shop.",
         "url": "https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "The online collectible card list is not the shelf. All 37 items in that collection on the day it was read were Disney Lorcana, sports card boxes and Marvel Champions, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.",
+      "stocks": "The online collectible card list is not the shelf. On September 30, 2026 that collection counted 35 items, and the 31 that loaded were sports card boxes, Disney Lorcana, Marvel Champions and Star Wars X-Wing, with no Pokemon product among them, while the same page's own copy names Pokemon as something to come into a shop for.",
       "stocksTier": "unknown",
       "whereInStore": "Barnes & Noble files collectible cards under Toys & Games, then Games, then Collectible Card Games, so the games and toys section rather than the book floor.",
       "whereSource": "The breadcrumb on that collection page: Home, Toys & Games, Games, Collectible Card Games.",
@@ -182,8 +180,8 @@
       "sources": [
         {
           "url": "https://www.barnesandnoble.com/collections/toys-games/games/collectible-card-games-1",
-          "read": "2026-08-17",
-          "what": "The sentence naming Pokemon and sending the reader to a shop, the Toys & Games breadcrumb, and the 37 item list with no Pokemon product in it"
+          "read": "2026-09-30",
+          "what": "The sentence naming Pokemon and sending the reader to a shop, the Toys & Games breadcrumb, and a 35 item list with no Pokemon product in it"
         }
       ]
     },
@@ -195,25 +193,29 @@
       "page": true,
       "answer": "Yes. Best Buy's own search returns current sealed Pokemon trading card product in a Trading Cards category, and their site also carries a Trading Card Accessories category alongside it.",
       "confirmed": {
-        "how": "Searched pokemon trading card game on bestbuy.com and read the results, which listed current sealed Pokemon TCG product under a Trading Cards category with Pokemon as a brand filter.",
+        "how": "Searched pokemon trading card game on bestbuy.com, narrowed the results with Best Buy's own 'Sold & shipped by: Best Buy' filter, and opened the product pages, each of which prints 'Sold by Best Buy' above the price.",
         "url": "https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "Booster bundles, booster boxes and premium collections appeared in the results, so the big sealed items rather than checkout blisters. Their own filter list splits the range by Pack, Box, Collection, Tin, Deck and Kit.",
+      "stocks": "Elite trainer boxes, booster bundles and booster boxes from the current sets, plus premium collections and tins, rather than checkout blisters. Their own filter list splits the range by Pack, Box, Collection, Tin, Deck and Kit.",
       "stocksTier": "boxes",
-      "alsoFormats": ["Booster Bundle", "Booster box"],
       "whereInStore": "Best Buy files them under Trading Cards, with a separate Trading Card Accessories category. There is no aisle to give here: Best Buy does not publish one and the trading card fixture is a recent addition that is not in the same place in every shop.",
       "whereSource": "The category and filter names on Best Buy's own search results page.",
       "display": "",
       "marketplaceKind": "mixed",
-      "marketplaceNote": "Best Buy runs a marketplace alongside its own stock, and its own search sidebar carries a 'Sold & shipped by: Best Buy' filter, which is the quickest way to see only what Best Buy itself is selling. Their free shipping page also states that Marketplace products never qualify for free shipping whatever the order total or membership.",
-      "availability": "Several Pokemon listings carried a 'High demand product' notice saying the item is expected to sell out quickly and that the reservation process has been updated for it, which is Best Buy's own words on its own listing.",
-      "priceNote": "We hold no price reading from Best Buy. The prices on their search results were well above the suggested figure, and we could not establish from that page whether the seller was Best Buy or a marketplace partner, so nothing was recorded rather than a number attributed to the wrong company.",
+      "marketplaceNote": "Best Buy runs a marketplace alongside its own stock and lists the two separately. Each product page shows Best Buy's own offer with a 'Sold by Best Buy' line, and under it a 'More options from Marketplace sellers' line: on September 30, 2026 the 30th Celebration elite trainer box was $49.99 from Best Buy and $194.23 to $289.00 from marketplace sellers, and the unfiltered search showed the $194.23. Its own search sidebar carries a 'Sold & shipped by: Best Buy' filter, which is the quickest way to see only what Best Buy itself is selling. Their free shipping page also states that Marketplace products never qualify for free shipping whatever the order total or membership.",
+      "availability": "Every listing Best Buy itself was selling was marked In Store Only on September 30, 2026, and the upcoming 30th Celebration booster bundle said pickup and shipping were not available for it and that an account is required to buy it. Some Pokemon listings carried a 'High demand product' notice saying the item is expected to sell out quickly and that the reservation process has been updated for it, and the 30th Celebration Knock Out Collection page limits it to one of each product type per customer.",
+      "priceNote": "Every listing Best Buy itself was selling on September 30, 2026 was at or just under the suggested price: $49.99 for an elite trainer box, $26.94 for a booster bundle, $160.99 for a booster box and $9.99 for a Knock Out Collection. The figures several times higher on the same pages belonged to marketplace sellers.",
       "sources": [
         {
           "url": "https://www.bestbuy.com/site/searchpage.jsp?st=pokemon+trading+card+game",
-          "read": "2026-08-17",
+          "read": "2026-09-30",
           "what": "Sealed Pokemon TCG product in a Trading Cards category, the Pokemon brand filter, the Pack, Box, Collection, Tin, Deck and Kit filters, the Sold & shipped by Best Buy filter, and the High demand product notice"
+        },
+        {
+          "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ/sku/6685559",
+          "read": "2026-09-30",
+          "what": "The 30th Celebration elite trainer box at $49.99 sold by Best Buy and marked In Store Only, with marketplace sellers listed beneath it from $194.23 to $289.00"
         }
       ]
     },
@@ -227,22 +229,32 @@
       "confirmed": {
         "how": "Read the Pokemon brand shop on cvs.com, which carries Pokemon trading card product with prices and a question and answer block whose answer is that CVS sells Pokemon products in stores and online.",
         "url": "https://www.cvs.com/shop/brand-shop/p/pokemon",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "On the day it was read that meant a mini tin, a Poke Ball tin with three packs and a coin, and a battle deck. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin, not somewhere you find a box.",
+      "stocks": "On September 30, 2026 that meant tins, single booster packs, a mini portfolio, a Knock Out Collection and a battle deck: a Mega Evolution tin, a 30th Anniversary mini tin, and a Poke Ball tin with three packs and a coin. No elite trainer box, booster bundle or booster box appeared. Treat CVS as somewhere you find a tin or a pack, not somewhere you find a box.",
       "stocksTier": "small",
-      "whereInStore": "CVS files Pokemon under Household, then Toys & Books, and again under Baby & Kids, then Gifts & Toys, so the toy aisle rather than anywhere near the pharmacy counter.",
-      "whereSource": "The category paths CVS's own site puts its Pokemon products under: /shop/household/toys-books/ and /shop/baby-kids/gifts-toys/.",
+      "whereInStore": "CVS files Pokemon cards under Household, then Toys & Books, then Games & Puzzles, and its Poke Ball tin under Baby & Kids, then Gifts & Toys, so the toy aisle rather than anywhere near the pharmacy counter.",
+      "whereSource": "The breadcrumbs on CVS's own product pages: Shop, Household, Toys & Books, Games & Puzzles on the tins, packs and Knock Out Collection, and Shop, Baby & Kids, Gifts & Toys, Toys on the Poke Ball tin.",
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "",
-      "availability": "CVS prints a warning on its own Pokemon page that is worth carrying to the register: prices may vary from online to in store. The figures below are the online ones.",
+      "availability": "Every Pokemon trading card product page read on September 30, 2026 said 'In store purchase only', even though the brand page's own answer still says CVS sells Pokemon products in stores and online. CVS also prints a warning worth carrying to the register: prices may vary from online to in store. The figures below are the ones on the website.",
       "priceNote": "",
       "sources": [
         {
           "url": "https://www.cvs.com/shop/brand-shop/p/pokemon",
-          "read": "2026-08-17",
+          "read": "2026-09-30",
           "what": "The Pokemon trading card products and their prices, the 'Does CVS Carry Pokemon Products' answer, and the 'Prices may vary from online to in store' line"
+        },
+        {
+          "url": "https://www.cvs.com/shop/pok-mon-tcg-30th-anniversary-mini-tin-assorted-designs-prodid-662589",
+          "read": "2026-09-30",
+          "what": "The 30th Anniversary mini tin at $12.99, the Household, Toys & Books, Games & Puzzles breadcrumb, and the In store purchase only line"
+        },
+        {
+          "url": "https://www.cvs.com/shop/pok-mon-poke-ball-tin-with-3-trading-card-packs-coin-blind-capsule-prodid-444357",
+          "read": "2026-09-30",
+          "what": "The Poke Ball tin at $21.79, the Baby & Kids, Gifts & Toys, Toys breadcrumb, and the In store purchase only line"
         }
       ]
     },
@@ -256,27 +268,32 @@
       "confirmed": {
         "how": "Read the Pokemon TCG Mini Tin product page on dollargeneral.com, filed under the chain's own Toys & Games then Pokemon category, with a price and a note that it cannot be delivered.",
         "url": "https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "Packs, tins and repackaged formats: single packs, mini tins, three-booster tins, Poke Ball tins, a mini portfolio with a booster in it. Nothing box sized appeared on their site.",
+      "stocks": "Packs, tins and repackaged formats: sleeved booster packs, mini tins, three-booster tins, a stacking tin, a mini portfolio with a booster in it and a 30th Celebration poster collection. The one box sized listing on their site was an older Brilliant Stars elite trainer box at $40.00, marked not sold at the store the site picked.",
       "stocksTier": "small",
-      "whereInStore": "Dollar General files Pokemon under Toys & Games, so the toy aisle. Their stores are small enough that this is usually one short run of shelving.",
+      "whereInStore": "Dollar General files Pokemon under Toys & Games, so the toy aisle.",
       "whereSource": "The breadcrumb on their own category page: Dollar General, Toys & Games, Pokemon.",
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "",
-      "availability": "The Pokemon trading card listing read on their site was marked 'Item is not eligible for delivery', and the same category filtered to delivery-eligible and in-stock returned nothing at all, so this is a shop errand rather than an order.",
+      "availability": "The Pokemon trading card listings read on their site were marked 'Item is not eligible for delivery', and the same category filtered to delivery-eligible and in-stock returned nothing at all, so this is a shop errand rather than an order.",
       "priceNote": "",
       "sources": [
         {
           "url": "https://www.dollargeneral.com/p/pokemon-trading-card-game-mini-tin-assorted/820650105838",
-          "read": "2026-08-17",
+          "read": "2026-09-30",
           "what": "The mini tin, its price, and the not eligible for delivery line"
         },
         {
           "url": "https://www.dollargeneral.com/c/toys/pokemon",
-          "read": "2026-08-17",
-          "what": "The Toys & Games then Pokemon breadcrumb, and that the delivery-eligible and in-stock filters return no results"
+          "read": "2026-09-30",
+          "what": "The Toys & Games then Pokemon breadcrumb, the Pokemon product list, and that the delivery-eligible and in-stock filters return no results"
+        },
+        {
+          "url": "https://www.dollargeneral.com/p/pokemon-trading-card-game-sword-shield-booster-pack-assorted-10-ct/820650801563",
+          "read": "2026-09-30",
+          "what": "The Sword & Shield sleeved booster pack at $5.50, described as 10 cards, and its not eligible for delivery line"
         }
       ]
     },
@@ -286,31 +303,36 @@
       "name": "Five Below",
       "kind": "Discount chain",
       "page": true,
-      "answer": "Yes. Five Below lists Pokemon booster packs on its own site, under its own Trading Cards category, with pickup at a named store as well as shipping.",
+      "answer": "Yes. Five Below's own Trading Cards and Pokemon pages both say it stocks Pokemon booster packs, and its site still lists a Pokemon booster pack of its own, though on September 30, 2026 that pack was unavailable for pickup and for shipping.",
       "confirmed": {
-        "how": "Read the Scarlet & Violet Destined Rivals Booster Expansion Pack product page on fivebelow.com, which describes a 10 card booster pack and offers pickup and shipping.",
+        "how": "Read the Scarlet & Violet Destined Rivals Booster Expansion Pack product page on fivebelow.com, which describes a 10 card booster pack, and the Trading Cards and Pokemon pages whose own copy says they stock Pokemon booster packs.",
         "url": "https://www.fivebelow.com/products/pokmon-trading-card-game-scarlet-violet-destined-rivals-booster-expansion-pack-9179259",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "Single booster packs and mixed card bundles, plus a large amount of Pokemon merchandise that is not cards at all. Their Pokemon brand page on the day it was read was mostly plush, puzzles and headphones, so do not judge the card shelf by that page.",
+      "stocks": "Single booster packs, going by their own copy, and very little of it online. On September 30, 2026 their Trading Cards category held 9 items and none of them was Pokemon, and their Pokemon brand page was 20 items of plush, puzzles, headphones and figures with no cards at all, so do not judge the card shelf by the website.",
       "stocksTier": "small",
-      "whereInStore": "Five Below files trading cards under Toys & Games, then Blind Bags and Collectibles, then Trading Cards, and their Pokemon merchandise is spread across several other departments.",
-      "whereSource": "The category path on their own site: /categories/toys-and-games/blind-bags-and-collectibles/trading-cards.",
+      "whereInStore": "Five Below files trading cards under Toys & Games, then Blind Bags, then Trading Cards, and their Pokemon merchandise is spread across several other departments.",
+      "whereSource": "The breadcrumb on their own Trading Cards page and on the Pokemon booster pack page: Home, Toys & Games, Blind Bags, Trading Cards.",
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "",
-      "availability": "Their listings show pickup and shipping stock separately and the two disagreed on almost every Pokemon row read, so a thing that is out of stock for pickup at your store may still be in stock to ship, and the other way around.",
+      "availability": "The Pokemon booster pack page read on September 30, 2026 showed pickup not available at the nearby store the site picked and shipping currently unavailable, with a limit of 5 per customer per order. Their Trading Cards page also states the returns rule: trading cards can be returned within 90 days only while they are still sealed, and once opened they cannot be returned.",
       "priceNote": "",
       "sources": [
         {
           "url": "https://www.fivebelow.com/products/pokmon-trading-card-game-scarlet-violet-destined-rivals-booster-expansion-pack-9179259",
-          "read": "2026-08-17",
-          "what": "The booster pack, its price, its 10 cards and 1 Basic Energy contents, and the pickup and shipping options"
+          "read": "2026-09-30",
+          "what": "The booster pack, its price, its 10 cards and 1 Basic Energy contents, the unavailable pickup and shipping options, and the limit of 5 per customer"
+        },
+        {
+          "url": "https://www.fivebelow.com/categories/toys-and-games/blind-bags-and-collectibles/trading-cards",
+          "read": "2026-09-30",
+          "what": "The Toys & Games, Blind Bags, Trading Cards breadcrumb, 9 items with no Pokemon product among them, the line naming Pokemon booster packs, and the sealed-only 90 day returns rule"
         },
         {
           "url": "https://www.fivebelow.com/categories/top-brands/pokemon",
-          "read": "2026-08-17",
-          "what": "The Pokemon brand page, which is mostly merchandise rather than cards, and the store-level pickup indicator"
+          "read": "2026-09-30",
+          "what": "The Pokemon brand page, 20 items of merchandise with no trading cards among them, and its own line that the shop stocks Pokemon booster packs"
         }
       ]
     },
@@ -322,24 +344,29 @@
       "page": true,
       "answer": "Yes, and more of it than anywhere else on this page. Trading Cards is a top-level category in GameStop's own site navigation, alongside Graded Trading Cards and a card grading service.",
       "confirmed": {
-        "how": "Searched pokemon trading cards on gamestop.com and read the results, then opened three product pages and read each price on the page itself.",
+        "how": "Searched pokemon trading cards on gamestop.com and read the results, then opened the product pages for the current sets and read each price on the page itself.",
         "url": "https://www.gamestop.com/search/?q=pokemon+trading+cards",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "The full range, which is unusual for a chain: sleeved booster packs, three-booster blisters, booster bundles, elite trainer boxes, booster boxes, build and battle boxes, tins, ex boxes, premium collections, battle decks and sleeves and binders. If a sealed format exists, GameStop listed it.",
+      "stocks": "The full range, which is unusual for a chain: sleeved booster packs, three-booster blisters, booster bundles, elite trainer boxes, booster boxes, build and battle boxes, tins, ex boxes, premium collections, battle decks and sleeves and binders, plus pre-orders for sets that are not out yet. If a sealed format exists, GameStop listed it.",
       "stocksTier": "boxes",
-      "whereInStore": "GameStop files them under Toys & Games, then Trading Cards, and carries Graded Trading Cards as its own separate category. In a shop that size the card fixture is usually within sight of the register, which is also where you have to ask for anything in the locked case.",
+      "whereInStore": "GameStop files them under Toys & Games, then Trading Cards, and carries Graded Trading Cards as its own separate category.",
       "whereSource": "The product page breadcrumb on gamestop.com: Toys & Games, Trading Cards. The Graded Trading Cards and Card Grading Service entries are in their own site navigation.",
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "No third-party seller is named on any GameStop product page read, so the prices below are GameStop's own asking prices rather than a reseller's.",
-      "availability": "Every product page read offered pick up in-store as well as shipping, and GameStop prices a second, lower figure for Pro members on every Pokemon line. The member price is not the price on the shelf and is not what is compared below.",
+      "availability": "Every product page read offered pick up in-store, and most did not offer shipping: on September 30, 2026 the pre-orders and most of the in-stock boxes said Ship to Home Not Available, and the 30th Celebration elite trainer box page said it is sold exclusively in stores. Pre-order pages carry a purchase limit, 2 per account on most of them. GameStop prices a second, lower figure for Pro members on every Pokemon line. The member price is not the price on the shelf and is not what is compared below.",
       "priceNote": "",
       "sources": [
         {
           "url": "https://www.gamestop.com/search/?q=pokemon+trading+cards",
-          "read": "2026-08-17",
-          "what": "The range of sealed Pokemon product carried, and the Trading Cards, Graded Trading Cards and Card Grading Service entries in their own navigation"
+          "read": "2026-09-30",
+          "what": "The range of sealed Pokemon product carried, the pre-orders, and the Trading Cards, Graded Trading Cards and Card Grading Service entries in their own navigation"
+        },
+        {
+          "url": "https://www.gamestop.com/toys-games/trading-cards/products/pokemon-trading-card-game-30th-celebration-elite-trainer-box/448552.html",
+          "read": "2026-09-30",
+          "what": "The 30th Celebration elite trainer box at $99.99, the Toys & Games then Trading Cards breadcrumb, and the line saying it is sold exclusively in stores"
         }
       ]
     },
@@ -351,24 +378,24 @@
       "page": true,
       "answer": "Yes, in stores only. Meijer has a Trading Cards department of its own, and every Pokemon row on it was marked In Store Only when it was read.",
       "confirmed": {
-        "how": "Read Meijer's own Toys, Trading Cards department page, which listed current sealed Pokemon product with prices, pickup times and an In Store Only marker on every Pokemon row.",
+        "how": "Read Meijer's own Toys, Trading Cards department page, which listed current sealed Pokemon product with prices, pickup times and an In Store Only marker on every Pokemon row, and opened the product pages behind them.",
         "url": "https://www.meijer.com/shopping/departments/toys/trading-cards.html",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "A wide range for a supermarket: elite trainer boxes, ex boxes, ultra premium collections, Poke Ball tins, blisters and card envelopes, alongside sports card boxes in the same department.",
+      "stocks": "A wide range for a supermarket: elite trainer boxes, booster bundles, ex boxes, an ultra premium collection, a binder collection, a collector chest, Poke Ball tins, mini tins, blisters and card envelopes, alongside sports card boxes in the same department.",
       "stocksTier": "boxes",
       "whereInStore": "Meijer files them under Toys, then Trading Cards & Collectibles, so the toy department rather than the magazine run at the front.",
       "whereSource": "The department path on their own site: /shopping/departments/toys/trading-cards.html and /shopping/departments/toys/trading-cards-collectibles.html.",
       "display": "",
       "marketplaceKind": "none",
       "marketplaceNote": "",
-      "availability": "Every Pokemon row read was marked In Store Only with pickup available within three hours, so Meijer will hold one for you but will not ship it.",
+      "availability": "Every Pokemon row read was marked In Store Only with pickup available within three hours, and every Pokemon product page opened said it was in store only at the store the site picked, so Meijer will hold one for you but will not ship it.",
       "priceNote": "",
       "sources": [
         {
           "url": "https://www.meijer.com/shopping/departments/toys/trading-cards.html",
-          "read": "2026-08-17",
-          "what": "The Pokemon products and their prices, the In Store Only marker on every one, and the pickup within three hours line"
+          "read": "2026-09-30",
+          "what": "The Pokemon products and their prices, the In Store Only marker on every one, the pickup within three hours line, and the sold by filter listing Meijer against all 264 results"
         }
       ]
     },
@@ -382,7 +409,7 @@
       "confirmed": {
         "how": "Searched pokemon trading cards on staples.com. Six results, two of them Pokemon: a 40 card Power Pack and a 10 card TCG Refuel Pack, both branded Wayne Global, LLC.",
         "url": "https://www.staples.com/pokemon+trading+cards/directory_pokemon+trading+cards",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
       "stocks": "A 40 card pack at $9.89 and a 10 card pack at $4.39, both from a third-party packager, sitting beside the same packager's baseball, basketball and football packs.",
       "stocksTier": "repack",
@@ -396,7 +423,7 @@
       "sources": [
         {
           "url": "https://www.staples.com/pokemon+trading+cards/directory_pokemon+trading+cards",
-          "read": "2026-08-17",
+          "read": "2026-09-30",
           "what": "The two Wayne Global Pokemon packs, their card counts and their prices, among six results"
         }
       ]
@@ -409,29 +436,34 @@
       "page": true,
       "answer": "Yes, and it is one of the two chains most people mean when they ask. Target files Pokemon under its own Toys & Games, Trading Cards department, and stocks the full sealed range.",
       "confirmed": {
-        "how": "Opened two Target product pages for current Pokemon sealed product, both under the Target, Toys & Games, Trading Cards breadcrumb, and read the price on each.",
+        "how": "Opened three Target product pages for current Pokemon sealed product, all under the Target, Toys & Games, Trading Cards, Trading Card Games, Pokemon Trading Cards breadcrumb, and read the price on each. None carried the 'Sold & shipped by' line that marks a partner listing.",
         "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
-      "stocks": "The full sealed range including elite trainer boxes, three-booster blisters, booster bundles, tins and collections. Both Target-owned pages read on the day were sold out, which is the normal state of a Pokemon shelf at a big chain rather than a fact about Target.",
+      "stocks": "The full sealed range including elite trainer boxes, three-booster blisters, booster bundles, tins and collections. All three Target-owned pages read on September 30, 2026 were out of stock, which is the normal state of a Pokemon shelf at a big chain rather than a fact about Target.",
       "stocksTier": "boxes",
-      "whereInStore": "Target files them under Toys & Games, then Trading Cards, so the toy department. Target does publish an aisle label on a product page once you have picked a store, so if you want the aisle rather than the department, set your store on their own product page and read it there. It differs store to store, which is why there is no number here.",
-      "whereSource": "The breadcrumb on their own product pages: Target, Toys & Games, Trading Cards.",
+      "whereInStore": "Target files them under Toys & Games, then Trading Cards, then Trading Card Games, then Pokemon Trading Cards, so the toy department. Target does publish an aisle label on a product page once you have picked a store, so if you want the aisle rather than the department, set your store on their own product page and read it there. It differs store to store, which is why there is no number here.",
+      "whereSource": "The breadcrumb on their own product pages: Target, Toys & Games, Trading Cards, Trading Card Games, Pokemon Trading Cards.",
       "display": "",
       "marketplaceKind": "mixed",
-      "marketplaceNote": "Target Plus is Target's marketplace and its listings sit in the same search results as Target's own stock. A search for elite trainer boxes returned two-packs at $189.99 and $549.00 beside Target's own single boxes at $59.99. A partner listing carries a 'Sold and shipped by' line naming the seller; Target's own does not.",
+      "marketplaceNote": "Target Plus is Target's marketplace and its listings sit in the same results as Target's own stock. A partner listing carries a 'Sold & shipped by' line naming the seller; Target's own does not. On September 30, 2026 a Chaos Rising elite trainer box two-pack at $189.99 was sold and shipped by Nationwide Distributor, and a Perfect Order checklane blister at $16.49 by BlueProton, while Target's own single Pitch Black and 30th Celebration elite trainer boxes were $59.99 and $69.99.",
       "availability": "Purchase limits on Pokemon at Target are set per drop rather than as a standing rule. For one 2026 drop Target announced a limit of one unit per item per guest, in stores and online, on its own corporate newsroom.",
-      "priceNote": "Trading cards are final sale at Target. Their own return exceptions page names trading cards and trading card accessories, listing Pokemon, sport cards and binders, among items that cannot be returned.",
+      "priceNote": "Trading cards are final sale at Target. Their own return exceptions page names trading cards and trading card accessories, listing Pokemon, sport cards and binders, among items that cannot be returned, and every Pokemon product page read on September 30, 2026 was marked as a final sale item that can't be returned or exchanged.",
       "sources": [
         {
           "url": "https://www.target.com/p/pok-233-mon-trading-card-game-mega-evolution-chaos-rising-three-booster-blister/-/A-95298174",
-          "read": "2026-08-17",
-          "what": "The Chaos Rising three-booster blister at $14.99, the Toys & Games then Trading Cards breadcrumb, and the absence of any Sold and shipped by line, which is what marks it as Target's own"
+          "read": "2026-09-30",
+          "what": "The Chaos Rising three-booster blister at $14.99, the Toys & Games, Trading Cards, Trading Card Games, Pokemon Trading Cards breadcrumb, and the absence of any Sold & shipped by line, which is what marks it as Target's own"
+        },
+        {
+          "url": "https://www.target.com/p/pok-233-mon-trading-card-game-30th-celebration-elite-trainer-box/-/A-1010892076",
+          "read": "2026-09-30",
+          "what": "The 30th Celebration elite trainer box at $69.99 with no Sold & shipped by line, out of stock, and marked final sale"
         },
         {
           "url": "https://www.target.com/p/pokemon-tcg-chaos-rising-elite-trainer-box-2-pack/-/A-1012774663",
-          "read": "2026-08-17",
-          "what": "An online-only elite trainer box two-pack at $189.99, read to see how far the same search runs above the chain's own single-box price"
+          "read": "2026-09-30",
+          "what": "An online-only elite trainer box two-pack at $189.99, sold and shipped by Nationwide Distributor, read to see how far a partner listing runs above the chain's own single-box price"
         }
       ]
     },
@@ -443,44 +475,87 @@
       "page": true,
       "answer": "Yes, and it is the other chain most people mean. Walmart carries its own Pokemon trading card categories, and the cards are a fixture in the toy department of almost every supercenter.",
       "confirmed": {
-        "how": "Searched pokemon elite trainer box on walmart.com and read the results, which carried Walmart's own category links for Pokemon trading cards, Pokemon booster boxes, Pokemon collector tins and all Pokemon cards, over a page of current sealed product.",
+        "how": "Searched pokemon elite trainer box on walmart.com and read the results, which carried Walmart's own category links for Pokemon trading cards, collector tins, card binders, booster boxes and trainer boxes, over a page of current sealed product.",
         "url": "https://www.walmart.com/search?q=pokemon%20elite%20trainer%20box",
-        "read": "2026-08-17"
+        "read": "2026-09-30"
       },
       "stocks": "The full sealed range. Walmart's own category list on that page names trading cards, collector tins, card binders, booster boxes and trainer boxes as separate groups.",
       "stocksTier": "boxes",
-      "alsoFormats": ["Elite Trainer Box", "Booster box", "Collector tin"],
-      "whereInStore": "Walmart files Pokemon cards under Toys, so the toy department, and its own category names for them are Pokemon trading cards and Pokemon booster boxes. Some supercenters also keep a card fixture near electronics or at a checkout lane, which nobody publishes and which is exactly what to ask about.",
+      "alsoFormats": [
+        "Elite Trainer Box",
+        "Booster box",
+        "Collector tin"
+      ],
+      "whereInStore": "Walmart files Pokemon cards under Toys, so the toy department, and its own category names for them are Pokemon trading cards and Pokemon booster boxes.",
       "whereSource": "Walmart's own category links on its search results page.",
       "display": "",
       "marketplaceKind": "mixed",
-      "marketplaceNote": "Walmart Marketplace listings sit in the same results as Walmart's own stock, and on this search they dominated it: elite trainer boxes at $73.82, $118.99, $167.69 and $249.98 against a suggested $49.99. The listing opened to check carried a seller rating with 1,436 seller reviews, which is a marketplace seller rather than Walmart. Walmart's own stock is the one that sits near the suggested price, and it sells out.",
+      "marketplaceNote": "Walmart Marketplace listings sit in the same results as Walmart's own stock, and on this search they dominated it. On September 30, 2026 every elite trainer box listing opened whose seller could be read had a marketplace seller in the buy box: Chaos Rising at $72.99 sold by DealDudes, Perfect Order at $74.95 sold by Realgoodeal and Pitch Black at $85.99 sold by J & M Collectibles. Each also said 'Fulfilled by Walmart', which means Walmart ships it and does not mean Walmart is selling it. Walmart's own stock is the one that sits near the suggested price, and it sells out.",
       "availability": "Nobody publishes a restock schedule and Walmart is no exception. What this site can say about timing is on the drops page rather than here.",
-      "priceNote": "We hold no first-party price reading from Walmart. Every listing on the search read was a marketplace seller or could not be attributed, and a marketplace price is evidence about resale rather than about Walmart, so nothing is recorded. Walmart publishes no trading card carve-out in its return policy, unlike Target and Best Buy, so its standard return policy governs.",
+      "priceNote": "We hold no first-party price reading from Walmart. Every listing opened on September 30, 2026 whose seller could be read was a marketplace seller, and a marketplace price is evidence about resale rather than about Walmart, so nothing is recorded. Walmart publishes no trading card carve-out in its return policy, unlike Target and Best Buy, so its standard return policy governs.",
       "sources": [
         {
           "url": "https://www.walmart.com/search?q=pokemon%20elite%20trainer%20box",
-          "read": "2026-08-17",
-          "what": "Walmart's own Pokemon category links, and a page of elite trainer box listings from $73.82 to $249.98"
+          "read": "2026-09-30",
+          "what": "Walmart's own Pokemon category links, and a page of elite trainer box listings"
         },
         {
           "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456",
-          "read": "2026-08-17",
-          "what": "A Pitch Black elite trainer box listing carrying a seller rating and 1,436 seller reviews, which is what identifies it as a marketplace seller rather than Walmart"
+          "read": "2026-09-30",
+          "what": "A Pitch Black elite trainer box listing at $85.99 sold by J & M Collectibles and fulfilled by Walmart, with a seller rating from 752 seller reviews, which is what identifies it as a marketplace seller rather than Walmart"
+        }
+      ]
+    },
+    {
+      "id": "walgreens",
+      "slug": "walgreens",
+      "name": "Walgreens",
+      "kind": "Pharmacy chain",
+      "page": true,
+      "_why": "Clears all five of the page-bar questions from Walgreens's own site, not four by padding: (1) confirmed on its own Trading Cards category page with the url and date; (2) stocks names an elite trainer box, a Mega battle deck and several smaller listings; (3) the department is the breadcrumb Toys, Games & Books > Games & Puzzles > Trading Cards; (4) priceNote explains why we hold no price, and the reason is itself a sourced fact: every Pokemon trading card row says Price available in store and the product page says Priced Per Store, while Pokemon plush and figures on the same brand list carry online prices; (5) availability comes from the listings: Store availability varies, Same Day Delivery and Shipping unavailable, visit your store to see if it is available. This is not a name-swapped Staples row, because the page has a specific thing to tell a reader that no other entry says: Walgreens will not tell you the price online or ship it, so this is a walk-in question. It is also a query the site already gets (Walgreens restock searches). stocksTier is 'boxes' on the strength of one elite trainer box listing, which is the same basis Meijer's tier rests on (no booster box at either); if one ETB listing at a pharmacy reads as too thin, 'small' is the honest fallback and the stocks sentence still works under it. alsoFormats carries Elite Trainer Box because we hold no reading from Walgreens and the stocks sentence names it; msrp.json has that exact label and shared/product-photos.mjs pins row 'etb' (Walmart already uses the same label). Walgreens's search pages still served Challenge Validation today and one product page (the elite trainer box) answered with an Akamai Access Denied, so everything here comes from category and brand pages plus the one product page that did load. The brand mark already exists: data/brand-marks.json has 'walgreens' and the id matches it with no alias needed.",
+      "answer": "Yes, in stores. Walgreens has a Trading Cards category of its own with Pokemon in it, and every Pokemon trading card listing there says Price available in store, with shipping and same day delivery both unavailable.",
+      "confirmed": {
+        "how": "Read Walgreens's own Toys, Games & Books, Games & Puzzles, Trading Cards category page, which listed five Pokemon trading card products, an elite trainer box among them, each marked Price available in store and Store availability varies.",
+        "url": "https://www.walgreens.com/store/c/trading-cards/ID=20001439-tier3",
+        "read": "2026-09-30"
+      },
+      "stocks": "An elite trainer box and a Mega battle deck, alongside card packs, a Lightning Set and two catch-all listings named only Pokemon Trading Card Game with the style left open. No booster box or booster bundle appeared.",
+      "stocksTier": "boxes",
+      "alsoFormats": [
+        "Elite Trainer Box"
+      ],
+      "whereInStore": "Walgreens files them under Toys, Games & Books, then Games & Puzzles, then Trading Cards, so the toy and game shelves rather than anywhere near the pharmacy counter.",
+      "whereSource": "The breadcrumb on their own category page: Home, Shop, Toys, Games & Books, Games & Puzzles, Trading Cards, at /store/c/trading-cards/ID=20001439-tier3. The Mega battle deck's own product page files it one shelf over, under Games & Puzzles, then Playing Cards.",
+      "display": "",
+      "marketplaceKind": "none",
+      "marketplaceNote": "",
+      "availability": "Every Pokemon trading card listing read was marked Store availability varies, with Same Day Delivery and Shipping both unavailable, and the product page that loaded says to visit your store to see if it is available. So this is a walk-in errand, and the category page itself warns that price and inventory may vary from online to in store.",
+      "priceNote": "We hold no price reading from Walgreens, and that is how Walgreens publishes them rather than a gap in the reading. Every Pokemon trading card listing on their site says Price available in store where the price would be, and the product page reads Priced Per Store, while the Pokemon plush and figures on the same brand list carry ordinary online prices.",
+      "sources": [
+        {
+          "url": "https://www.walgreens.com/store/c/trading-cards/ID=20001439-tier3",
+          "read": "2026-09-30",
+          "what": "The Toys, Games & Books, Games & Puzzles, Trading Cards breadcrumb, the five Pokemon trading card listings including the elite trainer box, the Price available in store and Store availability varies lines on each, and the Price and inventory may vary from online to in store note"
+        },
+        {
+          "url": "https://www.walgreens.com/store/c/productlist/N=20001434-2672",
+          "read": "2026-09-30",
+          "what": "Games & Puzzles filtered to the Pokemon brand: six trading card listings, including the Mega battle deck, all priced in store with shipping and same day delivery unavailable"
+        },
+        {
+          "url": "https://www.walgreens.com/store/c/pokemon-trading-card-game---mega-battle-deck/ID=300469286-product",
+          "read": "2026-09-30",
+          "what": "The Priced Per Store line, Pickup: visit your store to see if it's available, Same Day Delivery and Shipping not available, and the Games & Puzzles, Playing Cards breadcrumb"
+        },
+        {
+          "url": "https://www.walgreens.com/store/c/productlist/N=2672/1/Brands=yes",
+          "read": "2026-09-30",
+          "what": "Walgreens's all-departments Pokemon brand list: plush at $29.99 and figures at $9.99 priced online, every trading card listing priced in store"
         }
       ]
     }
   ],
-
   "couldNotRead": [
-    {
-      "name": "Walgreens",
-      "kind": "gated",
-      "barrier": "bot-challenge",
-      "why": "walgreens.com served a Challenge Validation page to the browser instead of the shop. No attempt was made to get around it.",
-      "url": "https://www.walgreens.com/search/results.jsp?Ntt=pokemon+trading+cards",
-      "read": "2026-08-17"
-    },
     {
       "name": "Ace Hardware",
       "kind": "gated",
@@ -499,18 +574,18 @@
     },
     {
       "name": "Costco",
-      "kind": "gated",
-      "barrier": "never-loaded",
-      "why": "The Costco search page loaded but never filled in: every result slot still read Loading after repeated reads, so nothing could be confirmed either way.",
-      "url": "https://www.costco.com/CatalogSearch?keyword=pokemon+trading+cards",
-      "read": "2026-08-17"
+      "kind": "nothing-found",
+      "why": "The site read fine this time. Searches for pokemon, pokemon cards, pokemon tcg and pokemon trading cards, the last one again with out of stock items switched on, found Pokemon only as a puzzle, a video game, a pinball machine and dog toys. Costco's own Toys, Trading Cards category held eight items, all of them Topps, Magic: The Gathering, Star Wars Unlimited and K-Pop Demon Hunters cards, and no Pokemon.",
+      "url": "https://www.costco.com/trading-cards.html",
+      "read": "2026-09-30"
     },
     {
       "name": "Sam's Club",
-      "kind": "nothing-found",
-      "why": "The site read fine. Two searches, one for Pokemon and one for elite trainer boxes, returned Pokemon snacks, plush, backpacks, books and video games, and no Pokemon trading card product at all.",
-      "url": "https://www.samsclub.com/s/pokemon%20elite%20trainer%20box",
-      "read": "2026-08-17"
+      "kind": "gated",
+      "barrier": "bot-challenge",
+      "why": "samsclub.com served a Let us know you're human page on both its home page and its search instead of the shop. No attempt was made to get around it. On August 17, 2026 the site did read, and two searches then found no Pokemon trading card product.",
+      "url": "https://www.samsclub.com/s/pokemon%20trading%20cards",
+      "read": "2026-09-30"
     },
     {
       "name": "Dollar Tree",
@@ -533,6 +608,13 @@
       "why": "The search url answered with their own This page is not available error, so nothing could be read.",
       "url": "https://www.dickssportinggoods.com/search?searchTerm=pokemon%20trading%20cards",
       "read": "2026-08-17"
+    },
+    {
+      "name": "Wegmans",
+      "kind": "nothing-found",
+      "why": "Wegmans runs its own online shop and it read fine, set to the Ridge-Culver store in Rochester, NY. A search for Pokemon returned ten items, all of them Pokemon-branded crackers, soup, candy, a Pez dispenser and toothbrushes. Searches for Pokemon cards, Pokemon trading card game and trading cards found no trading card product at all, and the only card game in them was UNO.",
+      "url": "https://www.wegmans.com/shop/search?query=pokemon",
+      "read": "2026-09-30"
     }
   ]
 }

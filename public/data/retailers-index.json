@@ -1,5 +1,5 @@
 {
- "checked": "2026-08-17",
+ "checked": "2026-09-30",
  "pages": [
   {
    "name": "Barnes & Noble",
@@ -45,6 +45,11 @@
    "name": "Walmart",
    "path": "/retailers/walmart.html",
    "sub": "Does Walmart sell Pokemon cards?"
+  },
+  {
+   "name": "Walgreens",
+   "path": "/retailers/walgreens.html",
+   "sub": "Does Walgreens sell Pokemon cards?"
   }
  ]
 }
