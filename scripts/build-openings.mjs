@@ -471,10 +471,16 @@ const ASKS = {
 // pull rates: CLAUDE.md's rule is "confirmed or nothing", and nothing here is a
 // rate.
 //
-// FOUR PAGES HAVE NO ANSWER, ON PURPOSE. single-pack is the page that earned
-// the citations and is left exactly as it was cited. The Japanese, Korean and
-// Chinese packs have no sourced per-language count anywhere in the repo (see
-// the note inside USUALLY), so they keep their descriptive lede.
+// THREE PAGES HAVE NO ANSWER, ON PURPOSE. The Japanese, Korean and Chinese
+// packs have no sourced per-language count anywhere in the repo (see the note
+// inside USUALLY), so they keep their descriptive lede. single-pack was a
+// fourth, held back because it was the page that earned the citations, and it
+// was the weakest lede of them all: "One booster pack, bought loose off a shelf
+// or a peg" never said what is IN a pack. The owner said to give it the answer
+// on 30 September 2026. Its two facts are both first-party: 10 cards, 1 Basic
+// Energy and a code card from Pokemon Center's own listing (the Booster Bundle
+// record's cardsPerPack), and the 30th Celebration pack from TPCi's June 1,
+// 2026 press release (data/30th.json, set.packContents).
 const PACK_COUNTS = JSON.parse(await readFile(join(ROOT, "data/pack-counts-current.json"), "utf8"));
 const pc = (prefix) =>
   (PACK_COUNTS.products || []).find((p) => String(p.productName || "").startsWith(prefix)) || null;
@@ -490,7 +496,26 @@ const COLLECTION_PATTERN = PRODUCT_TYPES.find((p) => p.id === "collection-box")?
 // and the answer is the sentence the search result has to carry. "tail" is the
 // existing lede's remaining point, kept where it still says something the
 // answer does not.
+const T30 = JSON.parse(await readFile(join(ROOT, "data/30th.json"), "utf8"));
 const ANSWERS = {
+  "single-pack": () => {
+    const b = pc("Booster Bundle");
+    const note = String(b?.cardsPerPackNote || "");
+    const t30 = String(T30?.set?.packContents || "");
+    // Every figure in the sentence has to be standing in the record it came
+    // from, so a reworded note or press line drops the answer rather than
+    // leaving a number nobody can trace.
+    if (num(b?.cardsPerPack) !== 10 || !/1 Basic Energy/.test(note) || !/code card/.test(note)) return null;
+    if (!/^Five foil cards, one foil basic Energy/.test(t30)) return null;
+    return {
+      recs: [b],
+      text:
+        `A current English booster pack holds ${b.cardsPerPack} cards, 1 Basic Energy and a code card; ` +
+        `a 30th Celebration pack holds 5 foil cards and a foil Energy.`,
+      tail: "This page is about buying one loose, off a shelf or a peg.",
+      caveat: "The 30th Celebration contents are from The Pokemon Company's June 1, 2026 press release",
+    };
+  },
   etb: () => {
     const std = pc("Elite Trainer Box");
     const pcb = pc("Pokemon Center Elite Trainer Box");
