@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-09-28",
+  "checked": "2026-09-30",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1245,6 +1245,16 @@
       "pikachuNo": 5,
       "got": "2026-09-25",
       "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
+    },
+    {
+      "name": "Pikachu",
+      "n": "034",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-09-30",
+      "note": "The owner, 30 September 2026, in an updated master set list: added in that list and not in the binder before. His header still read \"26 of 30\" for this section and \"145 of 199\" overall; the list itself holds 27 Pikachu, so the count follows the list."
     },
     {
       "name": "Vivillon",
