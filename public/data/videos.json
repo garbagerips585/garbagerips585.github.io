@@ -15,7 +15,7 @@
       "published": "2026-10-01",
       "publishedAt": "2026-10-01T10:32:19Z",
       "duration": 23,
-      "views": 810,
+      "views": 969,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "hasHit": false,
+      "packNumber": 12,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 12"
     },
     {
       "id": "No311h8Ps-I",
@@ -55,7 +58,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1282,
+      "views": 1284,
       "vertical": true,
       "short": true,
       "sets": [

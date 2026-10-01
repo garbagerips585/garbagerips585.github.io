@@ -2851,5 +2851,11 @@
   "No311h8Ps-I": {
     "packNumber": 5,
     "packNumberWhy": "The owner, 30 September 2026: \"30th Celebration Greninja ex Tin, Pack #5, hit yes, Scraggy - Single Gold Star - Illustration Rare\". Pack 5 of the same Greninja ex Tin as Pack #1 (22 September), Pack #2 (iJHcRxYHa5g), Pack #3 (5TKvy9CVPww) and Pack #4 (CdwJMIt6br4), and the last one: on 28 September he said the ex Tin holds 5 packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row."
+  },
+  "xgiGQfjOYQ8": {
+    "packNumber": 12,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 1 October 2026: \"Single Booster pack, Pack #12, hit no, Ascended Heroes\". Follows Pack #11 (IYh51hhJkL0, 17 September) in the same run of single Ascended Heroes packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
+    "hasHitWhy": "\"hit no\" is his own word and the whole source. The title agrees (\"The Bulk Pile Grows!\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
   }
 }
