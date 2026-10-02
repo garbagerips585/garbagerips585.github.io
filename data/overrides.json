@@ -2857,5 +2857,11 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 1 October 2026: \"Single Booster pack, Pack #12, hit no, Ascended Heroes\". Follows Pack #11 (IYh51hhJkL0, 17 September) in the same run of single Ascended Heroes packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
     "hasHitWhy": "\"hit no\" is his own word and the whole source. The title agrees (\"The Bulk Pile Grows!\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
+  },
+  "ZqGxmY2mc90": {
+    "packNumber": 1,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 2 October 2026: \"30th Celebration Knock Out Collection, Pack #1, Hit no , 30th Celebration\". Pack 1 of a 30th Celebration Knock Out Collection, which holds 2 packs (data/pack-counts-current.json). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. The taxonomy already derives knock-out and 30th-celebration from the title, so no product or set override.",
+    "hasHitWhy": "\"Hit no\" is his own word and the whole source. The title agrees (\"No Hit BUT Master Set WIN!\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall."
   }
 }
