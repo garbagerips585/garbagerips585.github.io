@@ -1,0 +1,1548 @@
+{
+  "_readme": [
+    "Written by scripts/sync-subset-scans.py; read by build-set-pages.mjs.",
+    "Maps a companion-subset card's images.pokemontcg.io scan base (`gp` in",
+    "public/data/printings) to locally encoded renditions under",
+    "public/assets/subset/: `src` 245w (.webp with an .avif sibling) and",
+    "`large` 600w (.avif only). See the script's docstring for why."
+  ],
+  "checked": "2026-10-02",
+  "scans": {
+    "https://images.pokemontcg.io/swsh12pt5gg/GG01": {
+      "src": "/assets/subset/swsh12pt5gg-gg01.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg01-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG02": {
+      "src": "/assets/subset/swsh12pt5gg-gg02.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg02-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG03": {
+      "src": "/assets/subset/swsh12pt5gg-gg03.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg03-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG04": {
+      "src": "/assets/subset/swsh12pt5gg-gg04.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg04-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG05": {
+      "src": "/assets/subset/swsh12pt5gg-gg05.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg05-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG06": {
+      "src": "/assets/subset/swsh12pt5gg-gg06.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg06-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG07": {
+      "src": "/assets/subset/swsh12pt5gg-gg07.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg07-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG08": {
+      "src": "/assets/subset/swsh12pt5gg-gg08.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg08-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG09": {
+      "src": "/assets/subset/swsh12pt5gg-gg09.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg09-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG10": {
+      "src": "/assets/subset/swsh12pt5gg-gg10.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg10-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG11": {
+      "src": "/assets/subset/swsh12pt5gg-gg11.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg11-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG12": {
+      "src": "/assets/subset/swsh12pt5gg-gg12.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg12-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG13": {
+      "src": "/assets/subset/swsh12pt5gg-gg13.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg13-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG14": {
+      "src": "/assets/subset/swsh12pt5gg-gg14.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg14-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG15": {
+      "src": "/assets/subset/swsh12pt5gg-gg15.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg15-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG16": {
+      "src": "/assets/subset/swsh12pt5gg-gg16.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg16-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG17": {
+      "src": "/assets/subset/swsh12pt5gg-gg17.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg17-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG18": {
+      "src": "/assets/subset/swsh12pt5gg-gg18.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg18-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG19": {
+      "src": "/assets/subset/swsh12pt5gg-gg19.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg19-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG20": {
+      "src": "/assets/subset/swsh12pt5gg-gg20.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg20-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG21": {
+      "src": "/assets/subset/swsh12pt5gg-gg21.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg21-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG22": {
+      "src": "/assets/subset/swsh12pt5gg-gg22.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg22-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG23": {
+      "src": "/assets/subset/swsh12pt5gg-gg23.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg23-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG24": {
+      "src": "/assets/subset/swsh12pt5gg-gg24.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg24-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG25": {
+      "src": "/assets/subset/swsh12pt5gg-gg25.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg25-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG26": {
+      "src": "/assets/subset/swsh12pt5gg-gg26.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg26-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG27": {
+      "src": "/assets/subset/swsh12pt5gg-gg27.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg27-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG28": {
+      "src": "/assets/subset/swsh12pt5gg-gg28.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg28-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG29": {
+      "src": "/assets/subset/swsh12pt5gg-gg29.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg29-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG30": {
+      "src": "/assets/subset/swsh12pt5gg-gg30.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg30-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG31": {
+      "src": "/assets/subset/swsh12pt5gg-gg31.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg31-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG32": {
+      "src": "/assets/subset/swsh12pt5gg-gg32.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg32-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG33": {
+      "src": "/assets/subset/swsh12pt5gg-gg33.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg33-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG34": {
+      "src": "/assets/subset/swsh12pt5gg-gg34.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg34-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG35": {
+      "src": "/assets/subset/swsh12pt5gg-gg35.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg35-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG36": {
+      "src": "/assets/subset/swsh12pt5gg-gg36.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg36-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG37": {
+      "src": "/assets/subset/swsh12pt5gg-gg37.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg37-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG38": {
+      "src": "/assets/subset/swsh12pt5gg-gg38.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg38-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG39": {
+      "src": "/assets/subset/swsh12pt5gg-gg39.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg39-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG40": {
+      "src": "/assets/subset/swsh12pt5gg-gg40.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg40-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG41": {
+      "src": "/assets/subset/swsh12pt5gg-gg41.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg41-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG42": {
+      "src": "/assets/subset/swsh12pt5gg-gg42.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg42-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG43": {
+      "src": "/assets/subset/swsh12pt5gg-gg43.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg43-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG44": {
+      "src": "/assets/subset/swsh12pt5gg-gg44.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg44-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG45": {
+      "src": "/assets/subset/swsh12pt5gg-gg45.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg45-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG46": {
+      "src": "/assets/subset/swsh12pt5gg-gg46.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg46-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG47": {
+      "src": "/assets/subset/swsh12pt5gg-gg47.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg47-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG48": {
+      "src": "/assets/subset/swsh12pt5gg-gg48.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg48-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG49": {
+      "src": "/assets/subset/swsh12pt5gg-gg49.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg49-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG50": {
+      "src": "/assets/subset/swsh12pt5gg-gg50.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg50-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG51": {
+      "src": "/assets/subset/swsh12pt5gg-gg51.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg51-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG52": {
+      "src": "/assets/subset/swsh12pt5gg-gg52.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg52-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG53": {
+      "src": "/assets/subset/swsh12pt5gg-gg53.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg53-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG54": {
+      "src": "/assets/subset/swsh12pt5gg-gg54.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg54-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG55": {
+      "src": "/assets/subset/swsh12pt5gg-gg55.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg55-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG56": {
+      "src": "/assets/subset/swsh12pt5gg-gg56.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg56-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG57": {
+      "src": "/assets/subset/swsh12pt5gg-gg57.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg57-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG58": {
+      "src": "/assets/subset/swsh12pt5gg-gg58.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg58-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG59": {
+      "src": "/assets/subset/swsh12pt5gg-gg59.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg59-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG60": {
+      "src": "/assets/subset/swsh12pt5gg-gg60.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg60-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG61": {
+      "src": "/assets/subset/swsh12pt5gg-gg61.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg61-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG62": {
+      "src": "/assets/subset/swsh12pt5gg-gg62.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg62-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG63": {
+      "src": "/assets/subset/swsh12pt5gg-gg63.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg63-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG64": {
+      "src": "/assets/subset/swsh12pt5gg-gg64.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg64-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG65": {
+      "src": "/assets/subset/swsh12pt5gg-gg65.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg65-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG66": {
+      "src": "/assets/subset/swsh12pt5gg-gg66.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg66-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG67": {
+      "src": "/assets/subset/swsh12pt5gg-gg67.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg67-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG68": {
+      "src": "/assets/subset/swsh12pt5gg-gg68.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg68-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG69": {
+      "src": "/assets/subset/swsh12pt5gg-gg69.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg69-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12pt5gg/GG70": {
+      "src": "/assets/subset/swsh12pt5gg-gg70.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12pt5gg-gg70-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV001": {
+      "src": "/assets/subset/swsh45sv-sv001.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv001-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV002": {
+      "src": "/assets/subset/swsh45sv-sv002.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv002-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV003": {
+      "src": "/assets/subset/swsh45sv-sv003.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv003-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV004": {
+      "src": "/assets/subset/swsh45sv-sv004.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv004-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV005": {
+      "src": "/assets/subset/swsh45sv-sv005.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv005-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV006": {
+      "src": "/assets/subset/swsh45sv-sv006.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv006-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV007": {
+      "src": "/assets/subset/swsh45sv-sv007.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv007-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV008": {
+      "src": "/assets/subset/swsh45sv-sv008.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv008-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV009": {
+      "src": "/assets/subset/swsh45sv-sv009.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv009-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV010": {
+      "src": "/assets/subset/swsh45sv-sv010.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv010-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV011": {
+      "src": "/assets/subset/swsh45sv-sv011.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv011-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV012": {
+      "src": "/assets/subset/swsh45sv-sv012.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv012-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV013": {
+      "src": "/assets/subset/swsh45sv-sv013.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv013-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV014": {
+      "src": "/assets/subset/swsh45sv-sv014.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv014-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV015": {
+      "src": "/assets/subset/swsh45sv-sv015.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv015-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV016": {
+      "src": "/assets/subset/swsh45sv-sv016.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv016-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV017": {
+      "src": "/assets/subset/swsh45sv-sv017.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv017-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV018": {
+      "src": "/assets/subset/swsh45sv-sv018.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv018-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV019": {
+      "src": "/assets/subset/swsh45sv-sv019.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv019-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV020": {
+      "src": "/assets/subset/swsh45sv-sv020.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv020-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV021": {
+      "src": "/assets/subset/swsh45sv-sv021.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv021-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV022": {
+      "src": "/assets/subset/swsh45sv-sv022.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv022-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV023": {
+      "src": "/assets/subset/swsh45sv-sv023.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv023-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV024": {
+      "src": "/assets/subset/swsh45sv-sv024.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv024-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV025": {
+      "src": "/assets/subset/swsh45sv-sv025.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv025-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV026": {
+      "src": "/assets/subset/swsh45sv-sv026.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv026-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV027": {
+      "src": "/assets/subset/swsh45sv-sv027.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv027-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV028": {
+      "src": "/assets/subset/swsh45sv-sv028.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv028-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV029": {
+      "src": "/assets/subset/swsh45sv-sv029.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv029-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV030": {
+      "src": "/assets/subset/swsh45sv-sv030.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv030-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV031": {
+      "src": "/assets/subset/swsh45sv-sv031.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv031-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV032": {
+      "src": "/assets/subset/swsh45sv-sv032.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv032-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV033": {
+      "src": "/assets/subset/swsh45sv-sv033.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv033-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV034": {
+      "src": "/assets/subset/swsh45sv-sv034.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv034-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV035": {
+      "src": "/assets/subset/swsh45sv-sv035.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv035-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV036": {
+      "src": "/assets/subset/swsh45sv-sv036.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv036-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV037": {
+      "src": "/assets/subset/swsh45sv-sv037.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv037-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV038": {
+      "src": "/assets/subset/swsh45sv-sv038.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv038-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV039": {
+      "src": "/assets/subset/swsh45sv-sv039.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv039-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV040": {
+      "src": "/assets/subset/swsh45sv-sv040.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv040-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV041": {
+      "src": "/assets/subset/swsh45sv-sv041.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv041-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV042": {
+      "src": "/assets/subset/swsh45sv-sv042.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv042-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV043": {
+      "src": "/assets/subset/swsh45sv-sv043.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv043-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV044": {
+      "src": "/assets/subset/swsh45sv-sv044.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv044-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV045": {
+      "src": "/assets/subset/swsh45sv-sv045.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv045-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV046": {
+      "src": "/assets/subset/swsh45sv-sv046.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv046-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV047": {
+      "src": "/assets/subset/swsh45sv-sv047.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv047-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV048": {
+      "src": "/assets/subset/swsh45sv-sv048.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv048-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV049": {
+      "src": "/assets/subset/swsh45sv-sv049.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv049-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV050": {
+      "src": "/assets/subset/swsh45sv-sv050.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv050-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV051": {
+      "src": "/assets/subset/swsh45sv-sv051.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv051-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV052": {
+      "src": "/assets/subset/swsh45sv-sv052.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv052-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV053": {
+      "src": "/assets/subset/swsh45sv-sv053.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv053-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV054": {
+      "src": "/assets/subset/swsh45sv-sv054.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv054-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV055": {
+      "src": "/assets/subset/swsh45sv-sv055.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv055-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV056": {
+      "src": "/assets/subset/swsh45sv-sv056.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv056-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV057": {
+      "src": "/assets/subset/swsh45sv-sv057.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv057-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV058": {
+      "src": "/assets/subset/swsh45sv-sv058.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv058-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV059": {
+      "src": "/assets/subset/swsh45sv-sv059.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv059-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV060": {
+      "src": "/assets/subset/swsh45sv-sv060.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv060-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV061": {
+      "src": "/assets/subset/swsh45sv-sv061.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv061-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV062": {
+      "src": "/assets/subset/swsh45sv-sv062.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv062-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV063": {
+      "src": "/assets/subset/swsh45sv-sv063.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv063-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV064": {
+      "src": "/assets/subset/swsh45sv-sv064.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv064-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV065": {
+      "src": "/assets/subset/swsh45sv-sv065.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv065-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV066": {
+      "src": "/assets/subset/swsh45sv-sv066.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv066-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV067": {
+      "src": "/assets/subset/swsh45sv-sv067.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv067-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV068": {
+      "src": "/assets/subset/swsh45sv-sv068.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv068-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV069": {
+      "src": "/assets/subset/swsh45sv-sv069.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv069-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV070": {
+      "src": "/assets/subset/swsh45sv-sv070.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv070-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV071": {
+      "src": "/assets/subset/swsh45sv-sv071.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv071-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV072": {
+      "src": "/assets/subset/swsh45sv-sv072.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv072-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV073": {
+      "src": "/assets/subset/swsh45sv-sv073.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv073-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV074": {
+      "src": "/assets/subset/swsh45sv-sv074.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv074-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV075": {
+      "src": "/assets/subset/swsh45sv-sv075.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv075-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV076": {
+      "src": "/assets/subset/swsh45sv-sv076.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv076-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV077": {
+      "src": "/assets/subset/swsh45sv-sv077.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv077-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV078": {
+      "src": "/assets/subset/swsh45sv-sv078.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv078-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV079": {
+      "src": "/assets/subset/swsh45sv-sv079.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv079-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV080": {
+      "src": "/assets/subset/swsh45sv-sv080.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv080-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV081": {
+      "src": "/assets/subset/swsh45sv-sv081.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv081-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV082": {
+      "src": "/assets/subset/swsh45sv-sv082.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv082-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV083": {
+      "src": "/assets/subset/swsh45sv-sv083.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv083-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV084": {
+      "src": "/assets/subset/swsh45sv-sv084.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv084-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV085": {
+      "src": "/assets/subset/swsh45sv-sv085.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv085-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV086": {
+      "src": "/assets/subset/swsh45sv-sv086.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv086-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV087": {
+      "src": "/assets/subset/swsh45sv-sv087.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv087-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV088": {
+      "src": "/assets/subset/swsh45sv-sv088.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv088-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV089": {
+      "src": "/assets/subset/swsh45sv-sv089.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv089-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV090": {
+      "src": "/assets/subset/swsh45sv-sv090.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv090-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV091": {
+      "src": "/assets/subset/swsh45sv-sv091.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv091-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV092": {
+      "src": "/assets/subset/swsh45sv-sv092.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv092-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV093": {
+      "src": "/assets/subset/swsh45sv-sv093.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv093-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV094": {
+      "src": "/assets/subset/swsh45sv-sv094.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv094-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV095": {
+      "src": "/assets/subset/swsh45sv-sv095.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv095-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV096": {
+      "src": "/assets/subset/swsh45sv-sv096.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv096-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV097": {
+      "src": "/assets/subset/swsh45sv-sv097.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv097-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV098": {
+      "src": "/assets/subset/swsh45sv-sv098.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv098-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV099": {
+      "src": "/assets/subset/swsh45sv-sv099.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv099-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV100": {
+      "src": "/assets/subset/swsh45sv-sv100.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv100-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV101": {
+      "src": "/assets/subset/swsh45sv-sv101.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv101-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV102": {
+      "src": "/assets/subset/swsh45sv-sv102.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv102-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV103": {
+      "src": "/assets/subset/swsh45sv-sv103.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv103-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV104": {
+      "src": "/assets/subset/swsh45sv-sv104.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv104-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV105": {
+      "src": "/assets/subset/swsh45sv-sv105.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv105-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV106": {
+      "src": "/assets/subset/swsh45sv-sv106.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv106-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV107": {
+      "src": "/assets/subset/swsh45sv-sv107.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv107-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV108": {
+      "src": "/assets/subset/swsh45sv-sv108.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv108-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV109": {
+      "src": "/assets/subset/swsh45sv-sv109.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv109-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV110": {
+      "src": "/assets/subset/swsh45sv-sv110.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv110-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV111": {
+      "src": "/assets/subset/swsh45sv-sv111.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv111-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV112": {
+      "src": "/assets/subset/swsh45sv-sv112.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv112-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV113": {
+      "src": "/assets/subset/swsh45sv-sv113.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv113-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV114": {
+      "src": "/assets/subset/swsh45sv-sv114.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv114-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV115": {
+      "src": "/assets/subset/swsh45sv-sv115.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv115-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV116": {
+      "src": "/assets/subset/swsh45sv-sv116.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv116-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV117": {
+      "src": "/assets/subset/swsh45sv-sv117.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv117-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV118": {
+      "src": "/assets/subset/swsh45sv-sv118.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv118-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV119": {
+      "src": "/assets/subset/swsh45sv-sv119.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv119-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV120": {
+      "src": "/assets/subset/swsh45sv-sv120.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv120-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV121": {
+      "src": "/assets/subset/swsh45sv-sv121.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv121-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh45sv/SV122": {
+      "src": "/assets/subset/swsh45sv-sv122.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh45sv-sv122-lg.avif",
+      "lw": 600,
+      "lh": 837
+    }
+  }
+}

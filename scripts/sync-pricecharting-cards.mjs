@@ -3,8 +3,11 @@
 //
 //   node scripts/sync-pricecharting-cards.mjs           read the cache, write the file
 //   node scripts/sync-pricecharting-cards.mjs --report  measure only, write nothing
+//   node scripts/sync-pricecharting-cards.mjs --companions
+//                                                       the three subsets only
 //
-// Writes data/pricecharting-cards.json. Then: node scripts/sync-cards.mjs, which
+// Writes data/pricecharting-cards.json, and since 2 October 2026 also
+// data/companion-prices.json (see the block at the foot of this file). Then: node scripts/sync-cards.mjs, which
 // overlays these onto public/data/cards/<set>.json, which is the ONE file every
 // set guide, Pokedex page and checklist reads its prices from.
 //
@@ -80,6 +83,17 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const CACHE = join(ROOT, ".cache/pricecharting-console");
 const OUT = join(ROOT, "data/pricecharting-cards.json");
 const REPORT = process.argv.includes("--report");
+/* --companions WRITES THE SUBSET FILE AND LEAVES THE 28 GUIDES ALONE, added 2
+   October 2026, and the reason is a measurement rather than a nicety. The cache
+   on a laptop is whatever that laptop last crawled; the nightly job's cache is
+   its own. Run here that day, a plain run rewrote data/pricecharting-cards.json
+   off pages dated 23 September over the nightly's figures read 2 October, and
+   stamped them 2 October, because the read date below is borrowed from
+   data/price-rotation.json, which describes the NIGHTLY's crawl and not this
+   machine's. So a local run that only wants the subsets must not be able to
+   roll every other price on the site back nine days. The nightly runs this
+   script with no flag and writes both files off one fresh cache. */
+const COMP_ONLY = process.argv.includes("--companions");
 
 // The set guide -> console map moved to shared/pricecharting.mjs when
 // build-top100.mjs started needing it too. Nothing about it changed.
@@ -179,6 +193,7 @@ const bySet = new Map(Object.keys(CONSOLES).map((id) => [id, new Map()]));
 const files = (await readdir(CACHE)).filter((f) => f.endsWith(".html"));
 let pages = 0;
 let newestCache = 0;
+const oldestPage = new Map();
 
 for (const f of files) {
   const html = await readFile(join(CACHE, f), "utf8");
@@ -195,7 +210,10 @@ for (const f of files) {
   const headers = [...html.matchAll(/<th[^>]*>(.*?)<\/th>/gs)].map((m) => text(m[1]));
   if (headers.length && headers.join("|") !== WANT_HEADERS) continue;
   pages += 1;
-  newestCache = Math.max(newestCache, (await stat(join(CACHE, f))).mtimeMs);
+  const mtime = (await stat(join(CACHE, f))).mtimeMs;
+  newestCache = Math.max(newestCache, mtime);
+  // The OLDEST page of each console, for the subsets' read date below.
+  oldestPage.set(path, Math.min(oldestPage.get(path) ?? Infinity, mtime));
 
   const rows = bySet.get(setId);
   for (const m of html.matchAll(/<tr[^>]*id="product-(\d+)"[^>]*>(.*?)<\/tr>/gs)) {
@@ -371,7 +389,7 @@ const doc = {
   ...out,
 };
 
-if (!REPORT) {
+if (!REPORT && !COMP_ONLY) {
   await writeFile(OUT, JSON.stringify(doc, null, 2) + "\n");
   console.log(`Wrote data/pricecharting-cards.json`);
 }
@@ -381,3 +399,207 @@ console.log(`  priced           ${priced}  ${((100 * priced) / cards).toFixed(2)
 console.log(`  no row at that number  ${noRow}`);
 console.log(`  name refused           ${refused}`);
 for (const m of mismatches) console.log(`    ${m}`);
+
+// ===========================================================================
+// THE THREE SUBSETS, 2 October 2026
+// ===========================================================================
+//
+// The owner, 2 October 2026: "yes price the shining fates, crown zenith and
+// celebrations subsets". Shining Fates' Shiny Vault (SV001 to SV122), Crown
+// Zenith's Galarian Gallery (GG01 to GG70) and Celebrations' Classic
+// Collection (25 reprints). data/companion-sets.json lists them and, until
+// today, said this repo held no price for any of the 217.
+//
+// THEY WERE ALREADY IN THE CRAWL. PriceCharting files each subset on its
+// parent's console page, the same pages the loop above has always read:
+// "Charizard VMAX #SV107" sits on /console/pokemon-shining-fates beside the 73
+// main-set rows. So this is the same pages, the same row parser, the same
+// standard-printing allowlist and the same name guard, run against a second
+// checklist. No new feed, no new crawl, no request.
+//
+// WHERE THEY GO, AND WHY NOT public/data/cards/<set>.json. companion-sets.json
+// argues it out: the card counts on the first screen are the PRINTED totals,
+// and that file is read by ten builders and /complete-a-set.html, so folding
+// 217 cards in would silently move all of them. They go to their own file,
+// data/companion-prices.json, which only build-set-pages.mjs reads. It is not
+// companion-sets.json itself either, which says in as many words that it is
+// "not the place to put them": that file is identification and changes by
+// hand; this one is money and changes nightly.
+//
+// HOW EACH SUBSET JOINS, AND IT IS NOT THE SAME FOR ALL THREE:
+//
+//   Shiny Vault         TCGdex "SV107"  against PriceCharting "#SV107"
+//   Galarian Gallery    TCGdex "GG44"   against PriceCharting "#GG44"
+//   Classic Collection  TCGdex "CC002"  against PriceCharting "#4"
+//
+// PriceCharting files the Classic Collection under the number the reprint
+// PRINTS, which is its original's: Charizard is "#4" because the card says
+// 4/102. TCGdex numbers the same 25 cards CC001 to CC025, which no card
+// prints. The bridge is companion-sets.json's `printed` map, and the build
+// re-checks every denominator in it against public/data/expansions.json.
+//
+// THE CLASSIC COLLECTION IS WHY THE NAME GUARD IS NOT OPTIONAL HERE. Number
+// #15 on the Celebrations console is FIVE different cards: Lunala (the main
+// set's own #15), Venusaur 15/102, Here Comes Team Rocket! 15/82, Rocket's
+// Zapdos 15/132 and Claydol 15/106. #4 is Palkia (main set) and Charizard, and
+// Charizard twice, once as [Ultra Premium Collection]. Only the name tells
+// them apart, and only the allowlist keeps the $258 UPC Charizard off the
+// pack one.
+
+const COMP_OUT = join(ROOT, "data/companion-prices.json");
+const compSets = JSON.parse(await readFile(join(ROOT, "data/companion-sets.json"), "utf8")).sets || {};
+
+// The subsets' own checklists: name, number, rarity, straight out of the
+// printings corpus (TCGdex, via sync-all-printings.mjs), the same rows
+// companion-sets.json's count is checked against.
+const corpus = [];
+for (const f of await readdir(join(ROOT, "public/data/printings"))) {
+  if (!/^[a-z0-9]\.json$/.test(f)) continue;
+  for (const c of JSON.parse(await readFile(join(ROOT, "public/data/printings", f), "utf8"))) {
+    if (c.l === "en") corpus.push(c);
+  }
+}
+
+// ONE HAND ALIAS, AND IT IS A NAME, NOT A GUESS AT A CARD. TCGdex prints the
+// Birthday Pikachu reprint's name the way the card does, "_____'s Pikachu",
+// with the blank a child was meant to write their own name in. PriceCharting
+// calls it "Pikachu Birthday". No rule could join those two strings and none
+// should: this is keyed on the one card, checked by eye against the cached
+// row ("Pikachu Birthday #24", the only Pikachu at #24 on that console).
+const COMP_ALIAS = { "celebrations|CC008": "Pikachu Birthday" };
+
+const STANDARD_PRINTINGS = new Set(["", "holo", "reverseholo", "reverse"]);
+const compOut = {};
+const compMiss = [];
+let compCards = 0;
+let compPriced = 0;
+
+for (const [setId, meta] of Object.entries(compSets)) {
+  const consolePath = CONSOLES[setId];
+  const rows = bySet.get(setId);
+  if (!consolePath || !rows) {
+    compMiss.push(`${setId}: no console mapped, so none of its subset can be priced`);
+    continue;
+  }
+  const subset = corpus
+    .filter((c) => c.s === meta.corpusSet)
+    .sort((a, b) => String(a.i).localeCompare(String(b.i), "en", { numeric: true }));
+  if (subset.length !== meta.cards) {
+    // The build fails on this too; say it here first, where it is cheaper.
+    compMiss.push(`${setId}: the corpus holds ${subset.length} "${meta.corpusSet}" cards, companion-sets.json says ${meta.cards}`);
+  }
+  /* THE READ DATE IS THE OLDER OF TWO RECORDS, AND NEVER THE NEWER. The rest of
+     this file borrows its date from data/price-rotation.json, which is the
+     nightly's own record of when it fetched each console. That is the right
+     record in the nightly. On any other machine it describes a crawl this
+     machine did not make: the run that wrote this block had pages from 23
+     September under a record saying 2 October. A file's mtime is the other
+     record, and it is only ever too NEW (a copy resets it, nothing makes it
+     older), so the earlier of the two can understate how fresh a price is and
+     can never overstate it. In the nightly the two agree to the day. */
+  const recorded = rot.refreshed?.[consolePath] || checked;
+  const onDisk = oldestPage.has(consolePath) ? new Date(oldestPage.get(consolePath)).toISOString().slice(0, 10) : recorded;
+  const entry = {
+    console: consolePath,
+    checked: [recorded, onDisk].sort()[0],
+    total: subset.length,
+    priced: 0,
+    cards: {},
+    missing: [],
+  };
+  for (const c of subset) {
+    compCards += 1;
+    const printed = meta.printed?.[c.i]?.no || null;
+    // The number PriceCharting files it under: the subset's own for SV and GG,
+    // the original's numerator for the Classic Collection.
+    const pcNo = meta.printed ? (printed ? numKey(printed.split("/")[0]) : null) : numKey(c.i);
+    const miss = (why) => {
+      entry.missing.push({ n: c.i, name: c.n, why });
+      compMiss.push(`${setId}/${c.i}  "${c.n}"  ${why}`);
+    };
+    if (!pcNo) {
+      miss("no printed number on file in companion-sets.json");
+      continue;
+    }
+    const cands = (rows.get(pcNo) || []).filter((x) => x.ungraded != null);
+    if (!cands.length) {
+      miss(`no PriceCharting row at #${pcNo}`);
+      continue;
+    }
+    const want = COMP_ALIAS[`${setId}|${c.i}`] || c.n;
+    const named = cands.filter((x) => nameAgrees(want, x.name));
+    if (!named.length) {
+      miss(`no row at #${pcNo} with this name (PriceCharting has ${cands.map((x) => `"${x.name}"`).join(", ")})`);
+      continue;
+    }
+    // THE SAME ALLOWLIST AS THE 28 GUIDES, for the same $40.30 Bulbasaur
+    // reason: a [Jumbo] or an [Ultra Premium Collection] copy is a different
+    // product that happens to share a number.
+    const std = named.filter((x) => STANDARD_PRINTINGS.has(norm(x.quals.join(" "))));
+    if (!std.length) {
+      miss(`only special printings at #${pcNo}: [${named.map((x) => x.quals.join(" ")).join("] [")}]`);
+      continue;
+    }
+    // REFUSE RATHER THAN PICK. On the main checklists two standard rows at one
+    // number are a card's normal and reverse holo and the dearer one is the
+    // rule. These subsets print each card once, so two different PRODUCTS left
+    // standing here means the guard above could not tell two cards apart, and
+    // the honest answer to that is no price.
+    if (new Set(std.map((x) => norm(x.name))).size > 1) {
+      miss(`ambiguous at #${pcNo}: ${std.map((x) => `"${x.name}"`).join(", ")}`);
+      continue;
+    }
+    const best = std.slice().sort((a, b) => b.ungraded - a.ungraded)[0];
+    const all = {};
+    for (const x of std) all[x.quals.length ? x.quals.join(" ") : "Base"] = x.ungraded;
+    entry.cards[c.i] = {
+      name: c.n,
+      pcName: best.name,
+      price: best.ungraded,
+      variant: best.quals.length ? best.quals.join(" ") : "Base",
+      all,
+      psa10: best.psa10,
+      g9: best.g9,
+      url: best.url,
+    };
+    entry.priced += 1;
+    compPriced += 1;
+  }
+  if (!entry.missing.length) delete entry.missing;
+  compOut[setId] = entry;
+}
+
+const compDoc = {
+  _readme: [
+    "PriceCharting's Ungraded, Grade 9 and PSA 10 figures for the three subsets",
+    "data/companion-sets.json lists: Shining Fates' Shiny Vault, Crown Zenith's",
+    "Galarian Gallery and Celebrations' Classic Collection. Written by",
+    "scripts/sync-pricecharting-cards.mjs (the block at its foot) off the same",
+    "cached console pages, rows, allowlist and name guard as",
+    "data/pricecharting-cards.json. NO NETWORK.",
+    "",
+    "READ ONLY BY scripts/build-set-pages.mjs, on purpose. These cards are not",
+    "on any checklist in public/data/cards/, and companion-sets.json says why",
+    "they must not be folded in. Keyed by the subset's TCGdex number (SV107,",
+    "GG44, CC002); the number a card prints is the guide's business and comes",
+    "from companion-sets.json.",
+    "",
+    "`checked` IS PER SUBSET and is the EARLIER of the nightly's record and the",
+    "cached pages' own age, so a run off an older cache says so. A card that",
+    "could not be matched exactly is listed under `missing` with the reason,",
+    "and the guides print it with no price rather than a near miss.",
+  ],
+  source: "pricecharting.com",
+  sourceMethodology: "https://www.pricecharting.com/page/methodology",
+  measurement: "PriceCharting ungraded price guide value",
+  scanned: { cards: compCards, priced: compPriced },
+  sets: compOut,
+};
+if (!REPORT) {
+  await writeFile(COMP_OUT, JSON.stringify(compDoc, null, 2) + "\n");
+  console.log(`Wrote data/companion-prices.json`);
+}
+console.log(`  subset cards     ${compCards}`);
+console.log(`  subset priced    ${compPriced}`);
+for (const [id, e] of Object.entries(compOut)) console.log(`    ${id.padEnd(14)} ${e.priced}/${e.total}  read ${e.checked}`);
+for (const m of compMiss) console.log(`    ${m}`);

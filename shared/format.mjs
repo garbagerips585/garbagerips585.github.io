@@ -1065,6 +1065,9 @@ export function imgDims(url) {
   const wh = (w, h) => ` width="${w}" height="${h}"`;
   if (/tcgplayer-cdn\.tcgplayer\.com/.test(u)) return "";
   if (/assets\.tcgdex\.net/.test(u)) return /\/high\.webp/.test(u) ? wh(600, 825) : wh(245, 337);
+  // Local re-encodes of images.pokemontcg.io's subset scans, all 245x342 (see
+  // scripts/sync-subset-scans.py and data/subset-scans.json).
+  if (/^\/assets\/subset\/[^/]+\.(webp|avif)$/.test(u) && !/-lg\./.test(u)) return wh(245, 342);
   if (/images\.pokemontcg\.io/.test(u)) {
     if (/symbol|logo/.test(u)) return "";
     return /_hires/.test(u) ? wh(733, 1024) : wh(245, 342);
@@ -1294,7 +1297,10 @@ export function avifPicture(img, opts) {
   // Our own pack renditions, relative to the page. build-packs.py guarantees the
   // .avif sibling of every .webp it writes.
   const packs = /(^|[\s,])assets\/packs\/[^\s,"]+\.webp/.test(cand);
-  if (!tcgdex && !packs) return img;
+  // The companion-subset scans, 2 October 2026: sync-subset-scans.py writes an
+  // .avif beside every small .webp under /assets/subset/, so the same swap holds.
+  const subset = /^\/assets\/subset\/[^\s,"]+\.webp$/.test(cand);
+  if (!tcgdex && !packs && !subset) return img;
   // Only TCGdex urls are rewritten. A srcset mixing hosts (Scrydex publishes no
   // AVIF at all) would otherwise get a source pointing at files that 400. A pack
   // srcset must be entirely local for the same reason.

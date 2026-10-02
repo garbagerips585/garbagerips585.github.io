@@ -35,7 +35,7 @@ import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY
 // does not call it: it is an intl lookup, and the rows that reach the panel
 // here are English cards whose NAME is not on the checklist, which is a
 // spreadsheet fix rather than a missing file.
-import { noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
+import { noScanBox, NOSCAN_CSS, pinnedShot } from "../shared/card-scan.mjs";
 
 /* ------------------------------------------- the .mine tiles get a 600w rung
  *
@@ -496,10 +496,29 @@ const ogCards = new Set(
 // key, because data/graded.json carries neither. Every call site below passes
 // both. See shared/graded-price.mjs.
 const gradedFor = await loadGradedPrices();
+/* THE SUBSET CARDS ANSWER FROM THEIR OWN ROW, 2 October 2026, behind a
+   hand-entered override and in front of everything else. Their PSA 10 is the
+   PSA 10 column of the same PriceCharting row their raw price came off, which
+   is exactly what tier 3 of the chain is for a checklist card, and it carries
+   that row's read date. The shared resolver cannot be asked: it joins tier 3
+   on (set, number), and the Classic Collection's Charizard is "#4" on a
+   Celebrations console whose own #4 is Palkia. The subset keys (SV107, GG44,
+   CC002) collide with no checklist number, so nothing a checklist card
+   resolves to can move. COMP_BY_KEY is filled further down, once NO_SCAN
+   exists; every call here happens at render time, after that. */
+const COMP_BY_KEY = new Map();
+const compAt = (setId, number) => COMP_BY_KEY.get(`${setId}|${cardNumKey(number)}`) || null;
+const gradedResolve = (setId, number, name, setName) => {
+  const r = gradedFor.resolve(setId, number, { name, setName });
+  if (r?.from === "manual") return r;
+  const c = compAt(setId, number);
+  if (c) return c.psa10 ? { price: c.psa10, from: "pricecharting", source: c.source, asOf: c.read } : null;
+  return r;
+};
 const gradedPrice = (setId, number, name, setName) =>
-  gradedFor.price(setId, number, { name, setName });
+  gradedResolve(setId, number, name, setName)?.price ?? null;
 const gradedAsOf = (setId, number, name, setName) =>
-  gradedFor.stamp(setId, number, { name, setName }).asOf;
+  gradedResolve(setId, number, name, setName)?.asOf || null;
 
 /**
  * WHO SAID SO ABOUT THE GRADED FIGURES. 14 GUIDES PRINTED 99 OF THEM AND NAMED
@@ -530,7 +549,7 @@ const gradedAsOf = (setId, number, name, setName) =>
  * feed", which is the existing behaviour for a mixed page and is why it exists.
  */
 const gradedSource = (setId, number, name, setName) =>
-  gradedFor.stamp(setId, number, { name, setName }).source;
+  gradedResolve(setId, number, name, setName)?.source || null;
 /** Every chase row on this page that actually renders a graded figure. */
 const gradedRows = (s) => (s.chase || []).filter((c) => gradedPrice(s.id, c.number, c.name, s.name));
 /** Every distinct feed credited for a graded figure on this page. */
@@ -641,15 +660,58 @@ try {
  * already decided. So it is emitted from data now, beside each claim, and the
  * fun facts that said it were removed rather than left to say it twice.
  *
- * NO PRICES. See the WHY NO PRICES block in data/companion-sets.json: this
- * repo holds not one figure for these 217 cards, so the pages name what is
- * missing and why, and print no number for it.
+ * PRICED SINCE 2 October 2026. The owner: "yes price the shining fates, crown
+ * zenith and celebrations subsets". Until then this block said the repo held
+ * not one figure for these 217 cards, which was true, and the pages named
+ * what was missing and printed no number. PriceCharting had them all along,
+ * on the same console pages the checklists are priced from, and
+ * scripts/sync-pricecharting-cards.mjs now writes them to
+ * data/companion-prices.json. See the PRICED SINCE block in
+ * data/companion-sets.json for why that file and not the checklists.
  */
 let companions = {};
 try {
   companions = JSON.parse(await readFile(join(ROOT, "data/companion-sets.json"), "utf8")).sets || {};
 } catch {
   /* optional, but see the check below: an unreadable file is not a silent one */
+}
+// LOCAL RE-ENCODES OF THE SUBSET SCANS, 2 October 2026. images.pokemontcg.io
+// serves these as 183KB PNGs (1.2MB "_hires"), which put 550KB of PNG in the
+// hero of /sets/shining-fates.html and /sets/crown-zenith.html. The manifest
+// maps a scan base to a 245w .webp (+ .avif) and a 600w .avif for the pop-up;
+// a base it does not hold keeps the remote PNG. scripts/sync-subset-scans.py.
+let SUBSET_SCANS = {};
+try {
+  SUBSET_SCANS = JSON.parse(await readFile(join(ROOT, "data/subset-scans.json"), "utf8")).scans || {};
+} catch {
+  /* run: python3 scripts/sync-subset-scans.py */
+}
+let compPrices = { sets: {} };
+try {
+  compPrices = JSON.parse(await readFile(join(ROOT, "data/companion-prices.json"), "utf8"));
+} catch {
+  /* run: node scripts/sync-pricecharting-cards.mjs --companions. The check
+     below fails the build on any subset marked priced while this is missing. */
+}
+// The subsets' own card rows, out of the printings corpus (TCGdex via
+// sync-all-printings.mjs), filtered to the three corpus set names
+// companion-sets.json carries. Name, number, rarity and a scan; no money.
+const compCorpus = new Map();
+{
+  const want = new Map(Object.entries(companions).map(([id, c]) => [c.corpusSet, id]));
+  if (want.size) {
+    const dir = join(ROOT, "public/data/printings");
+    for (const f of await readdir(dir)) {
+      if (!/^[a-z0-9]\.json$/.test(f)) continue;
+      for (const c of JSON.parse(await readFile(join(dir, f), "utf8"))) {
+        const id = c.l === "en" && want.get(c.s);
+        if (!id) continue;
+        if (!compCorpus.has(id)) compCorpus.set(id, []);
+        compCorpus.get(id).push(c);
+      }
+    }
+    for (const list of compCorpus.values()) list.sort((a, b) => String(a.i).localeCompare(String(b.i), "en", { numeric: true }));
+  }
 }
 {
   // THE COUNT IS RE-CHECKED AGAINST expansions.json ON EVERY BUILD, the same
@@ -690,11 +752,43 @@ try {
           `so the page cannot claim the companion is absent from it`
       );
     }
-    if (c.priced) {
-      bad.push(
-        `${setId}: priced is true, but nothing in this build reads a companion price. ` +
-          `See the WHY NO PRICES block in data/companion-sets.json before wiring one up.`
-      );
+    // PRICED IS A PROMISE THE PAGE MAKES, so it is held to the data, both
+    // ways round (2 October 2026). A subset marked priced with no prices on
+    // file would print "priced here" over nothing; prices on file for a subset
+    // still marked unpriced would sit unread while the page said none exist.
+    const cp = compPrices.sets?.[setId];
+    if (c.priced && !cp) {
+      bad.push(`${setId}: priced is true, but data/companion-prices.json has no entry. Run node scripts/sync-pricecharting-cards.mjs --companions.`);
+    }
+    if (!c.priced && cp) {
+      bad.push(`${setId}: data/companion-prices.json prices it, but companion-sets.json still says priced: false.`);
+    }
+    // The subset's own rows, which the price join and every printed number
+    // are keyed on. Same count as above, from the other source.
+    const rows = compCorpus.get(setId) || [];
+    if (c.priced && rows.length !== c.cards) {
+      bad.push(`${setId}: the printings corpus holds ${rows.length} "${c.corpusSet}" cards, companion-sets.json says ${c.cards}`);
+    }
+    if (cp) {
+      for (const n of Object.keys(cp.cards || {})) {
+        if (!rows.some((r) => r.i === n)) bad.push(`${setId}: companion-prices.json prices ${n}, which is not a "${c.corpusSet}" card`);
+      }
+    }
+    // THE CLASSIC COLLECTION'S PRINTED NUMBERS ARE HAND KEPT AND RE-CHECKED
+    // HERE. Each reprint prints its ORIGINAL's number, "4/102", which no API
+    // this site reads carries against the reprint (TCGdex says CC002). The map
+    // in companion-sets.json names the original set by apiId, and its printed
+    // total in public/data/expansions.json has to be the denominator. A typo
+    // in the map fails the build rather than printing a number no card has.
+    for (const [cc, p] of Object.entries(c.printed || {})) {
+      if (!rows.some((r) => r.i === cc)) bad.push(`${setId}: printed lists ${cc}, which is not a "${c.corpusSet}" card`);
+      const from = byApi.get(p.from);
+      const [, tot] = String(p.no).split("/");
+      if (!from) bad.push(`${setId}: ${cc} says it reprints ${p.from}, which is not in public/data/expansions.json`);
+      else if (tot && Number(tot) !== from.printedTotal) bad.push(`${setId}: ${cc} prints ${p.no}, but ${from.name} (${p.from}) has a printed total of ${from.printedTotal}`);
+    }
+    if (c.printed && rows.some((r) => !c.printed[r.i])) {
+      bad.push(`${setId}: ${rows.filter((r) => !c.printed[r.i]).map((r) => r.i).join(", ")} have no printed number in companion-sets.json`);
     }
   }
   if (bad.length) {
@@ -728,12 +822,39 @@ const compClause = (c) => `${c.cards} more cards this page does not cover`;
 const compChaseNote = (s, c) =>
   `The ${c.cards} cards of ${c.fullName} are not on it, and this site holds no price for any of them, ` +
   `so there is no honest way for this page to tell you whether one of those beats it.`;
-const compBand = (s, c) => `<p class="lede comp"><b>There is a second ${esc(s.name)} set and it is not on this page.</b>
+/* THE SAME BAND ONCE THE SUBSET IS PRICED, 2 October 2026. What it has to
+   correct changed: the count tile above it is still the checklist's and still
+   leaves the subset out, which is right (the printed totals are what the card
+   in a reader's hand says), but the money no longer does. So it says which
+   parts of the page now count the subset and which still do not, and points
+   at the list. `sub` is compOf(s.id); the unpriced wording below it is kept
+   for a subset that loses its prices, which the build check above makes a
+   loud event rather than a quiet one. */
+const compUnpricedBand = (s, c) => `<p class="lede comp"><b>There is a second ${esc(s.name)} set and it is not on this page.</b>
       ${esc(c.name[0].toUpperCase() + c.name.slice(1))} is ${c.cards} cards numbered ${esc(c.numbering)},
       released the same day: ${esc(c.what)}. The card databases this site reads file it as a set of its
       own, so none of it is in the chase cards, on the checklist, or in any total anywhere on this page,
       and we hold no price for a single one of those ${c.cards} cards. Everything below is the
       ${s.total} card checklist, which is not the whole of what carries the ${esc(s.name)} symbol.</p>`;
+const compBand = (s, c) => {
+  const sub = compOf(s.id);
+  if (!sub) return compUnpricedBand(s, c);
+  const Name = esc(c.name[0].toUpperCase() + c.name.slice(1));
+  const all = sub.priced.length === sub.rows.length;
+  // The example of a reprint's number is the subset's dearest card, so the
+  // one number named here is the one a reader is most likely to be holding.
+  const ex = sub.priced.slice().sort((a, b) => b.price - a.price)[0] || sub.rows[0];
+  return `<p class="lede comp"><b>There is a second ${esc(s.name)} set, and its prices are on this page.</b>
+      ${Name} is ${c.cards} cards ${c.printed ? `printed with the numbers of the cards they reprint, so ${esc(ex.name)} reads ${esc(ex.printed)}` : `numbered ${esc(c.numbering)}`}, out of the same packs and released the same day: ${esc(c.what)}.
+      The card databases this site reads file it as a set of its own, so it is not in the ${s.total} counted above,
+      the rarity breakdown or the checklist. It is in the most valuable cards and in where the money is, each of
+      its cards labeled ${esc(sub.rows[0].label)}, and ${all ? `all ${c.cards}` : `${sub.priced.length} of the ${c.cards}`}
+      are priced in <a href="#subset">their own list</a>.</p>`;
+};
+/* "SHINY VAULT SV107/SV122". The label and the printed number together, which
+   is how every place that names a subset card names it, so a reader can never
+   take SV107 for a number on the main checklist. */
+const compName = (r) => `${r.label} ${r.printed}`;
 
 /**
  * EVERY RARITY THIS BUILD CAN PRINT HAS A RUNG, OR THERE IS NO BUILD.
@@ -862,7 +983,17 @@ function setValue(s) {
   const doc = checklists[s.id];
   if (!doc?.cards?.length) return null;
 
-  const prices = doc.cards
+  /* THE SUBSET IS IN THE SUM, 2 October 2026, on the three guides that have
+     one priced. This band answers "what would one of everything cost and where
+     does that money sit", and on Shining Fates the answer without the Shiny
+     Vault was a question about a checklist nobody buys on its own: Charizard
+     VMAX is the whole reason the set's value is concentrated, and it was not
+     in the arithmetic. Same feed, same console page, so the sum is still one
+     source; the note under the band names both read dates when they differ.
+     The rarity ladder and the checklist stay checklist-only, because those are
+     about the printed set. */
+  const sub = compOf(s.id);
+  const prices = [...doc.cards, ...(sub?.rows || [])]
     .filter((c) => typeof c.price === "number" && c.price > 0)
     .map((c) => c.price)
     .sort((a, b) => b - a);
@@ -916,7 +1047,10 @@ function setValue(s) {
       pricedBy: doc.pricedBy,
     },
     counted: prices.length,
-    total: doc.cards.length,
+    total: doc.cards.length + (sub?.rows.length || 0),
+    listCounted: doc.cards.filter((c) => typeof c.price === "number" && c.price > 0).length,
+    listTotal: doc.cards.length,
+    sub,
     sum,
     half,
     rest,
@@ -1010,15 +1144,22 @@ function valueBand(s, cls) {
   // summed, and the phrase names the checklist instead. The figure itself does
   // not move: nothing here has ever counted those cards, which is the point.
   const comp = companionOf(s.id);
+  const sub = v.sub;
   const some = v.counted === v.total ? "every card" : `each of the ${v.counted} cards that has a price`;
   // WHICH CARDS, IN THE SENTENCE, NOT ONLY IN THE NOTE UNDER IT. The obvious
   // edit was to swap "every card" for "every card on the 73 card checklist",
   // and it produced "one copy of every card on the 73 card checklist in
   // Shining Fates", which is the qualifier fighting the "in <set>" that was
   // already there. Naming the set once, as the checklist's owner, fixes both.
-  const opening = comp
+  // AND ONCE THE SUBSET IS IN THE SUM, the sentence names both parts, so
+  // "every card" is never claimed for a total that is two lists added up.
+  const opening = sub
+    ? `Buy one copy of each of the ${v.listTotal} cards on this guide's ${esc(s.name)} checklist and the ${sub.priced.length} priced cards of ${esc(comp.name)} at its guide value and you would spend`
+    : comp
     ? `Buy one copy of each of the ${v.total} cards on this guide's ${esc(s.name)} checklist at its guide value and you would spend`
     : `Buy one copy of ${some} in ${esc(s.name)} at its guide value and you would spend`;
+  // Both read dates where the subset's differs from the checklist's.
+  const span = sub ? readSpan([priceRead(v.priceStamps || {}), sub.read]) : null;
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
@@ -1035,7 +1176,7 @@ function valueBand(s, cls) {
     <div class="facts">
       ${/* THE TILE LABEL IS A CLAIM TOO, and it is the one a reader photographs.
             "One of every card" is false on the three guides with a companion
-            set, in four words, directly under a dollar figure. */ ""}<div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card${comp ? " listed" : ""}</div></div>
+            set, in four words, directly under a dollar figure. */ ""}<div class="fact"><div class="n">${moneyCompact(v.sum)}</div><div class="l">One of every card${comp && !(sub && sub.priced.length === sub.rows.length && v.counted === v.total) ? " listed" : ""}</div></div>
       <div class="fact"><div class="n">${v.half}</div><div class="l">${plural(
         v.half,
         "Card"
@@ -1046,10 +1187,16 @@ function valueBand(s, cls) {
     <p class="lede sv-say">In plain terms: a handful of cards carry the set and everything else is bulk. That is normal,
       it is true of nearly every modern set, and it is worth knowing before you buy a box hoping to "get your money
       back".</p>
-    <p class="price-note">Added up from the ${v.counted} prices in the checklist below.${
-      comp ? ` It does not include ${esc(comp.fullName)}, which is ${comp.cards} more cards filed as a separate set and unpriced anywhere in this site's data, so the real cost of one of everything with a ${esc(s.name)} symbol on it is higher than this and we cannot say by how much.` : ""
+    <p class="price-note">${
+      sub
+        ? `Added up from the ${v.listCounted} prices in the checklist below and the ${sub.priced.length} in the ${esc(sub.rows[0].label)} list, ${v.counted} in all.${
+            sub.priced.length < sub.rows.length ? ` ${sub.rows.length - sub.priced.length} ${esc(sub.rows[0].label)} cards have no price we could match exactly, so they are not in it.` : ""
+          }`
+        : `Added up from the ${v.counted} prices in the checklist below.${
+            comp ? ` It does not include ${esc(comp.fullName)}, which is ${comp.cards} more cards filed as a separate set and unpriced anywhere in this site's data, so the real cost of one of everything with a ${esc(s.name)} symbol on it is higher than this and we cannot say by how much.` : ""
+          }`
     }
-      ${esc(priceNote(v.priceStamps || {}))} This is what buying one of each card would cost. It is not what a booster
+      ${esc(priceNote(v.priceStamps || {}, span && /between/.test(span) ? { readPhrase: span } : {}))} This is what buying one of each card would cost. It is not what a booster
       box is worth, and it is not the chance of pulling anything. This site only prints a pull rate The Pokemon
       Company itself has confirmed, and it has not published one for this set.</p>
   </div>
@@ -1210,7 +1357,14 @@ function checklistBand(s, cls, pulled = new Map()) {
           word /most-valuable-cards.html and the chase grid's own h2 use, so
           the page's value language reads as one cluster. */ ""}<h2>${esc(s.name)} card list: <span class="hl">all ${doc.cards.length} cards</span></h2>
     <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
-      priciest ? ` The most valuable card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.` : ""
+      // "IN THE SET" STOPPED BEING TRUE ON THREE GUIDES, 2 October 2026, once
+      // their subsets were priced: Skyla is the dearest card on this list and
+      // not the dearest card in Shining Fates.
+      priciest
+        ? compOf(s.id)
+          ? ` The most valuable card on this list is ${esc(priciest.name)} at ${moneyExact(priciest.price)}; ${esc(compOf(s.id).rows[0].label)} cards are listed separately.`
+          : ` The most valuable card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.`
+        : ""
     } Open the list for a picture of every card: filter it by rarity${showChase ? " or to the chase tiers" : ""}, sort it by price, and tap a card to see it larger.</p>
     ${/* THE SUMMARY SAID "Show the full checklist" WHILE THE LIST WAS OPEN,
           2 October 2026. Two labels now, one per state, swapped by [open] in
@@ -1341,6 +1495,88 @@ function checklistCSS(s) {
   const tiers = [...new Set(doc.cards.map((c) => rarityLabel(c.rarity)).filter(Boolean))];
   if (tiers.length < 2) return "";
   return tiers.map((_, i) => `#checklist:has(#clf-r${i}:checked) .cl-row:not([data-r="${i}"]){display:none}`).join("\n");
+}
+
+/* THE SUBSET'S OWN LIST, 2 October 2026: the Shiny Vault, the Galarian
+   Gallery or the Classic Collection, every card with its printed number and
+   its price, on the guide whose packs it comes out of.
+
+   ITS OWN SECTION, NOT ROWS IN THE CHECKLIST, for companion-sets.json's
+   reasons: the checklist is the printed set, its count is the count on the
+   card, and ten other pages read the file it is built from.
+
+   TEXT ROWS, AND THE PICTURE ON A TAP. These cards' only scans are
+   images.pokemontcg.io's 245x342 PNGs, about 183KB each (see the note on
+   compRowsBySet), so a pictured row the way the checklist draws one would be
+   22MB scrolled to the end of the Shiny Vault. The name is a button instead,
+   and the pop-up loads the one card asked for. A row with no scan at all (all
+   25 Classic Collection cards) prints its name as text and opens nothing,
+   rather than a button that promises a picture it cannot show.
+
+   COLLAPSED, like the checklist, and for the same reason: 122 rows is a long
+   scroll between the reader and everything under it. The chase grid above
+   already carries the subset's dearest cards with pictures. */
+function subsetBand(s, cls, pulled = new Map()) {
+  const sub = compOf(s.id);
+  if (!sub) return "";
+  const c = sub.meta;
+  const label = sub.rows[0].label;
+  const n = sub.rows.length;
+  const top = sub.priced.slice().sort((a, b) => b.price - a.price)[0] || null;
+  const read = longDate(sub.read) || sub.read;
+  const src = sub.rows[0].source || "pricecharting.com";
+  // ONE SOURCE SENTENCE FOR THE LIST, carried on the <ol> the pop-up reads it
+  // from (grp.dataset.src), because every row shares one feed and one day.
+  const rawSrc = `${label}. Raw price: ${src}'s price guide value for an ungraded copy, read ${read}.` +
+    (sub.rows.some((r) => r.psa10) ? ` PSA 10: graded sales data from ${src}, off the same row, read ${read}.` : "");
+  return `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Filed separately</p>
+    <h2>${esc(s.name)} ${esc(label)} card list: <span class="hl">all ${n} cards</span></h2>
+    <p class="lede">${esc(c.name[0].toUpperCase() + c.name.slice(1))} comes out of the same ${esc(s.name)} packs and is
+      ${n} cards ${c.printed ? "printed with the numbers of the cards they reprint" : `numbered ${esc(c.numbering)}`}. The card
+      databases file it as a set of its own, which is why it is listed here rather than in the checklist.${
+        top ? ` The most valuable is ${esc(top.name)}, ${esc(top.printed)}, at ${moneyExact(top.price)}.` : ""
+      }${sub.rows.some((r) => r.image) ? " Tap a card's name to see it larger." : ""}</p>
+    <details class="ig-list cl-det">
+      <summary><span class="cl-show">Show all ${n} ${esc(label)} cards</span><span class="cl-hide">Hide the ${esc(label)} list</span></summary>
+      <ol class="ig-cards en cs-list" data-zg="subset" data-src="${esc(rawSrc)}">
+        ${sub.rows
+          .map((r) => {
+            const rl = rarityLabel(r.rarity);
+            const rips = pulled.get(cardNumKey(r.key)) || [];
+            const rip = [...rips].sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")))[0] || null;
+            const price = r.price != null ? moneyCompact(r.price) : "No price";
+            // The pop-up's data, on the button that opens it. zoomData() is
+            // not called: its alts and source walk the whole checklist per
+            // card, and 122 rows of that is the weight the checklist's own
+            // script exists to avoid. These are the same figures the row
+            // prints, so the pop-up cannot disagree with the row.
+            const nm = r.image
+              ? `<button class="cl-zm cs-zm" type="button" data-img="${esc(r.imageLarge || r.image)}" data-name="${esc(r.name)}" data-rarity="${esc([label, rl].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}" data-number="${esc(r.printed)}" data-price="${esc(price)}"${
+                  r.psa10 ? ` data-psa10="${esc(moneyCompact(r.psa10))}"` : ""}${
+                  rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""
+                } aria-label="Enlarge ${esc(r.name)} ${esc(r.printed)}">${esc(r.name)}</button>`
+              : esc(r.name);
+            return `<li class="cl-row"><span class="ig-no">${esc(r.printed)}</span>
+          <span class="ig-nm">${nm}</span>
+          ${r.price != null ? `<span class="ig-pr">${moneyExact(r.price)}</span>` : ""}
+          ${rl ? `<span class="ig-rr2">${BOOKLET_MARK[rl] ? rarityMark(BOOKLET_MARK[rl]) : ""}${esc(rl)}${r.psa10 ? ` &bull; <span class="cs-p10">PSA 10 ${moneyCompact(r.psa10)}</span>` : ""}</span>` : ""}</li>`;
+          })
+          .join("\n        ")}
+      </ol>
+    </details>
+    <p class="price-note">${esc(priceNote({ priceSource: src, pricesChecked: sub.read }))} They come off the same ${esc(s.name)}
+      page on PriceCharting as the checklist's, where ${esc(label)} cards are filed beside the main set, and each was matched
+      on its number and its name; a special printing filed under the same number (a jumbo, an Ultra Premium Collection copy)
+      is never taken for the pack card. The PSA 10 figure on a row is PriceCharting's PSA 10 column from the same reading.
+      ${sub.priced.length} of ${n} cards have a price.${
+        sub.rows.some((r) => r.image)
+          ? ` Card pictures are images.pokemontcg.io's scans; TCGdex, which supplies the checklist's, has none for ${esc(label)} cards.`
+          : ` Neither card database this site reads has a picture of any ${esc(label)} card, so none is shown.`
+      }</p>
+  </div>
+</section>`;
 }
 
 /** "8 weeks earlier", from two ISO dates. */
@@ -1498,6 +1734,74 @@ const NO_SCAN = new Set(
   // feature worked.
 );
 
+/* THE SUBSET CARDS AS ROWS, ONE SHAPE FOR EVERY PLACE THAT PRINTS ONE, 2
+   October 2026: the hero, the chase grid, the value band, the pop-up and the
+   subset's own list all read these, so none of them can print a different
+   number, name or date for the same card.
+
+   THE NUMBER IS WHAT THE CARD PRINTS. "SV107/SV122" and "GG44/GG70" are the
+   subset's own numbering over its own last card, which is how both subsets
+   print it. The Classic Collection prints its ORIGINAL's number ("4/102" on
+   Charizard, a bare "24" on the Birthday Pikachu, which was a promo), out of
+   the hand-kept map in companion-sets.json that the check above holds to
+   public/data/expansions.json. printedNo() is NOT used on any of them: it pads
+   a bare one or two digit number to three ("4" to "004"), which is right for
+   a modern checklist and wrong on a 1999 Charizard.
+
+   THE PICTURE. TCGdex has no scan for any of the 217 (every subset row in the
+   corpus has no `g`); sync-all-printings.mjs found 192 of them on
+   images.pokemontcg.io and probed each one, which is `gp`. That host serves a
+   245x342 PNG of about 183KB (Charizard VMAX SV107, 183,442 bytes, measured 2
+   October 2026) against TCGdex's 16KB AVIF, and nothing smaller, so these go
+   where a reader has asked for a card (the chase grid, the hero's three, the
+   pop-up) and NOT on every row of a 122 card list. data/no-scan.json is
+   honored like everywhere else, and a data/card-shots.json pin is the fallback
+   where there is no `gp`. The 25 Classic Collection cards have neither, so
+   they are named and priced as rows with no picture. */
+const compRowsBySet = new Map();
+for (const [setId, c] of Object.entries(companions)) {
+  const cp = c.priced ? compPrices.sets?.[setId] : null;
+  if (!cp) continue;
+  const rows = compCorpus.get(setId) || [];
+  const last = rows[rows.length - 1]?.i || "";
+  const label = String(c.name).replace(/^the\s+/i, "");
+  const out = rows.map((r) => {
+    const p = cp.cards?.[r.i] || null;
+    let image = null, imageLarge = null;
+    let imageAvif = null;
+    if (r.gp && !NO_SCAN.has(r.gp)) {
+      const loc = SUBSET_SCANS[r.gp];
+      image = loc ? loc.src : `${r.gp}.png`;
+      // The pop-up takes the local 600w AVIF where there is one and keeps the
+      // remote PNG underneath as the fallback for a browser without AVIF.
+      imageLarge = `${r.gp}_hires.png`;
+      imageAvif = loc ? loc.large : null;
+    } else {
+      const pin = pinnedShot(c.corpusSet, r.i);
+      if (pin) { image = pin.thumb; imageLarge = pin.image; }
+    }
+    const row = {
+      key: r.i,
+      name: r.n,
+      rarity: r.r,
+      printed: c.printed ? c.printed[r.i]?.no || r.i : `${r.i}/${last}`,
+      price: typeof p?.price === "number" ? p.price : null,
+      psa10: typeof p?.psa10 === "number" ? p.psa10 : null,
+      image,
+      imageLarge,
+      imageAvif,
+      read: cp.checked,
+      source: compPrices.source || "pricecharting.com",
+      label,
+      missing: (cp.missing || []).find((m) => m.n === r.i)?.why || null,
+    };
+    COMP_BY_KEY.set(`${setId}|${cardNumKey(r.i)}`, row);
+    return row;
+  });
+  compRowsBySet.set(setId, { meta: c, rows: out, read: cp.checked, priced: out.filter((x) => x.price != null) });
+}
+const compOf = (setId) => compRowsBySet.get(setId) || null;
+
 let chaseLinks = {};
 try {
   chaseLinks = JSON.parse(await readFile(join(ROOT, "data/chase-tcg.json"), "utf8")).sets || {};
@@ -1519,23 +1823,46 @@ for (const st of sets) {
     continue;
   }
 
-  st.chase = priced
-    .slice()
-    .sort((a, b) => b.price - a.price)
-    .slice(0, 8)
-    .map((c) => {
-      const n = cardNumKey(c.n);
-      const base = c.img && !NO_SCAN.has(c.img) ? c.img : null;
-      return {
-        name: c.name,
-        number: n,
-        rarity: c.rarity,
-        price: c.price,
-        image: base ? `${base}/low.webp` : null,
-        imageLarge: base ? `${base}/high.webp` : null,
-        url: urls.get(n) || null,
-      };
-    });
+  /* THE SUBSET COMPETES FOR THE EIGHT, 2 October 2026. The Shiny Vault is the
+     reason anyone opens Shining Fates and its Charizard VMAX is the card, so a
+     "most valuable" grid that could not hold it was answering about a
+     checklist while the reader asked about a product. Each subset card keeps
+     `comp`, which is how every later step knows to print its own number, its
+     own read date and its own label rather than a checklist row's. The sort is
+     on the figure alone: both columns are PriceCharting's ungraded guide value
+     off the same console pages, so ranking one against the other is ranking
+     like with like. */
+  const comp = compOf(st.id);
+  const fromList = priced.map((c) => {
+    const n = cardNumKey(c.n);
+    const base = c.img && !NO_SCAN.has(c.img) ? c.img : null;
+    return {
+      name: c.name,
+      number: n,
+      rarity: c.rarity,
+      price: c.price,
+      image: base ? `${base}/low.webp` : null,
+      imageLarge: base ? `${base}/high.webp` : null,
+      url: urls.get(n) || null,
+    };
+  });
+  const fromComp = (comp?.priced || []).map((r) => ({
+    name: r.name,
+    number: cardNumKey(r.key),
+    rarity: r.rarity,
+    price: r.price,
+    image: r.image,
+    imageLarge: r.imageLarge,
+    imageAvif: r.imageAvif,
+    url: null,
+    comp: r,
+  }));
+  // The whole ranked list is kept for the hero's three, which want the top
+  // three WITH A SCAN. On Celebrations the eight dearest are seven Classic
+  // Collection cards and Mew, none with a picture, so a fan drawn from the
+  // eight alone vanished the day the subset was priced.
+  st.chaseAll = [...fromList, ...fromComp].sort((a, b) => b.price - a.price);
+  st.chase = st.chaseAll.slice(0, 8);
   // PRICECHARTING, AND THE DATE IS THE PRICE DATE. `doc.checked` is the day
   // TCGdex was read for the CHECKLIST and it moves nightly; `doc.pricesChecked`
   // is the day PriceCharting was read for the money. Stamping the first one
@@ -2839,13 +3166,26 @@ function derivedFacts(s) {
     // about a checklist while the reader is asking about a product, and the
     // fix is to say which of the two out loud rather than to drop the fact.
     const comp = companionOf(s.id);
+    const sub = compOf(s.id);
+    // ONCE THE SUBSET IS PRICED the chase card is the product's, subset
+    // included, and it says which subset it is in. The checklist's own top is
+    // named after it when the two differ, because "the chase card is Skyla"
+    // was true of something and a reader may have read it elsewhere.
+    const listTop = sub && top.comp
+      ? (checklists[s.id]?.cards || []).filter((c) => typeof c.price === "number" && c.price > 0).sort((a, b) => b.price - a.price)[0]
+      : null;
     out.push(
-      `The chase card ${comp ? `of the ${s.total} on this checklist ` : ``}is <b>${esc(top.name)}</b>${top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""}, ` +
+      `The chase card ${comp && !sub ? `of the ${s.total} on this checklist ` : ``}is <b>${esc(top.name)}</b>${
+        top.comp
+          ? ` (${esc(compName(top.comp))}${topR && topR !== top.comp.label ? `, ${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)}` : ""})`
+          : top.rarity ? ` (${BOOKLET_MARK[topR] ? rarityMark(BOOKLET_MARK[topR]) : ""}${esc(topR)})` : ""
+      }, ` +
       `sitting around <b>${moneyCompact(top.price)}</b> raw` +
       (gradedPrice(s.id, top.number, top.name, s.name)
         ? `, and <b>${moneyCompact(gradedPrice(s.id, top.number, top.name, s.name))}</b> in a PSA 10.`
         : `.`) +
-      (comp ? ` ${esc(compChaseNote(s, comp))}` : ``)
+      (listTop ? ` On the ${s.total} card checklist alone it is ${esc(listTop.name)}, at ${moneyCompact(listTop.price)}.` : ``) +
+      (comp && !sub ? ` ${esc(compChaseNote(s, comp))}` : ``)
     );
   }
   const rips = ripsBySet[s.id];
@@ -2887,6 +3227,10 @@ function rowOf(s, n) {
   return (checklists[s.id]?.cards || []).find((c) => cardNumKey(c.n) === k) || null;
 }
 function numOf(s, n) {
+  // A subset card prints its own form, already whole ("SV107/SV122", "4/102").
+  // It is not a checklist row and must not take the checklist's total.
+  const cr = compAt(s.id, n);
+  if (cr) return cr.printed;
   const row = rowOf(s, n);
   const shown = printedNo(row ? row.n : n);
   if (!shown || !s.printedTotal) return shown;
@@ -3021,18 +3365,32 @@ function zoomData(s, c, pulled) {
   const psaWho = psa ? gradedSource(s.id, c.number, c.name, s.name) : null;
   const psaRead = psa ? gradedAsOf(s.id, c.number, c.name, s.name) : null;
   const k = cardNumKey(c.number);
-  const alts = (doc.cards || [])
-    .filter((x) => x.name === c.name && cardNumKey(x.n) !== k)
-    .map((x) => `#${x.n} ${rarityLabel(x.rarity) || ""} ${typeof x.price === "number" ? moneyCompact(x.price) : "no price"}`.replace(/\s+/g, " "))
-    .join(" • ");
-  const rawRead = longDate(priceRead(doc)) || priceRead(doc);
+  // OTHER PRINTINGS INCLUDE THE SUBSET'S, both ways round, 2 October 2026:
+  // the Shiny Vault Ditto V is another printing of the checklist's Ditto V,
+  // and a reader holding one wants to know the other exists. Each subset entry
+  // names its subset, so "SV118/SV122" cannot read as a checklist number.
+  const comp = compOf(s.id);
+  const cr = compAt(s.id, c.number);
+  const alts = [
+    ...(doc.cards || [])
+      .filter((x) => x.name === c.name && (cr || cardNumKey(x.n) !== k))
+      .map((x) => `#${printedNo(x.n)} ${rarityLabel(x.rarity) || ""} ${typeof x.price === "number" ? moneyCompact(x.price) : "no price"}`),
+    ...(comp?.rows || [])
+      .filter((x) => x.name === c.name && x !== cr)
+      .map((x) => `${x.label} ${x.printed} ${typeof x.price === "number" ? moneyCompact(x.price) : "no price"}`),
+  ].map((t) => t.replace(/\s+/g, " ")).join(" • ");
+  // A SUBSET CARD'S PRICE WAS READ WITH ITS OWN SUBSET, and that can be a
+  // different day from the checklist's (see compPriceNote), so it carries its
+  // own date rather than borrowing the checklist file's.
+  const rawRead = cr ? longDate(cr.read) || cr.read : longDate(priceRead(doc)) || priceRead(doc);
   const src =
-    `Raw price: ${doc.priceSource || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.` +
+    (cr ? `${cr.label} ${cr.printed}. ` : "") +
+    `Raw price: ${(cr ? cr.source : doc.priceSource) || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.` +
     (psa ? ` PSA 10: graded sales data from ${psaWho || "a separate graded sales feed"}${psaRead ? `, read ${longDate(psaRead) || psaRead}` : ""}.` : "");
   const rips = (pulled && pulled.get(k)) || [];
   const first = [...rips].sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")))[0] || null;
-  return ` data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+  return ` data-img="${esc(c.imageLarge || c.image || "")}"${c.imageAvif ? ` data-avif="${esc(c.imageAvif)}"` : ""}
+        data-name="${esc(c.name)}" data-rarity="${esc([cr ? cr.label : "", rarityLabel(c.rarity) || ""].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}"
         data-number="${esc(numOf(s, c.number))}" data-price="${esc(moneyCompact(c.price))}"
         data-psa10="${esc(psa ? moneyCompact(psa) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"${row?.ill ? ` data-ill="${esc(row.ill)}"` : ""}${alts ? ` data-alts="${esc(alts)}"` : ""}
@@ -3056,13 +3414,19 @@ function hitBand(s) {
       const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
       const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
       const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+      // A SUBSET PULL RESOLVES TO ITS SUBSET ROW, 2 October 2026, on the
+      // number the log wrote AND the name, never on the name alone: Paras
+      // GG32 is the one today. It gains the subset's price and picture, so
+      // the hit grid and the chase grid quote the same figure for it.
+      const cr = !m && h.number ? compAt(s.id, h.number) : null;
+      const cm = cr && norm(cr.name) === norm(h.card) ? cr : null;
       const v = videoById.get(h.vid);
       return {
         name: h.card,
         n: m ? m.n : h.number || null,
-        rarity: (m && m.rarity) || h.rarity || null,
-        img: m && m.img ? `${m.img}/low.webp` : null,
-        price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
+        rarity: (m && m.rarity) || (cm && cm.rarity) || h.rarity || null,
+        img: m && m.img ? `${m.img}/low.webp` : cm ? cm.image : null,
+        price: m && typeof m.price === "number" ? m.price : cm && cm.price != null ? cm.price : typeof h.price === "number" ? h.price : null,
         path: v ? v.path : null,
         label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
         published: v ? v.published : null,
@@ -3172,7 +3536,7 @@ function hitBand(s) {
   const priced = [
     ...mine.map((h) => ({
       kind: "mine", img: h.img, name: esc(h.name),
-      meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}`,
+      meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; ${compAt(s.id, h.n) ? esc(`${compAt(s.id, h.n).label} ${compAt(s.id, h.n).printed}`) : `#${esc(h.n)}`}` : ""}`,
       price: typeof h.price === "number" ? h.price : null, psa10: null,
       // COUNT AND RIPS BOTH COME FROM THE GROUPING ABOVE. This rebuild used
       // to derive rips from a single h.path, which was right when every row
@@ -3328,18 +3692,22 @@ ${prose.length ? `<ul class="mine-list">
    the grid's rather than drifting a step behind it. The <ol> is the pop-up's
    group: Previous and Next step through these three and stop there. */
 const heroFan = (s, pulled) => {
-  const priced = (s.chase || []).filter((c) => c.price);
+  const priced = (s.chaseAll || s.chase || []).filter((c) => c.price);
   const three = priced.filter((c) => c.image).slice(0, 3);
   if (three.length < 3) return "";
   // Celebrations' dearest card, Mew, has no scan, so the three drawn are not the
   // top three and the caption must not say they are. It says what they are.
   const exact = three.every((c, i) => c === priced[i]);
+  // Says when the subset is among them, 2 October 2026: three cards with no
+  // word that one is a Shiny Vault card read as the checklist's top three.
+  const sub = three.find((c) => c.comp)?.comp;
   return `    <div class="sh-fan">
       <ol data-zg>
 ${three.map((c) => `        <li><button class="sh-zm" type="button"${zoomData(s, c, pulled)}
-          aria-label="Enlarge ${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "")} ${esc(numOf(s, c.number))}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
+          aria-label="Enlarge ${esc(c.name)}, ${c.comp && c.comp.label !== rarityLabel(c.rarity) ? `${esc(c.comp.label)} ` : ""}${esc(rarityLabel(c.rarity) || "")} ${esc(numOf(s, c.number))}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
       </ol>
-      <p>${exact ? "The top three by raw price" : "The top three by raw price with a scan"}</p>
+      <p>${exact ? "The top three by raw price" : "The top three by raw price with a scan"}${
+        sub ? (three.every((c) => c.comp) ? `, all ${esc(sub.label)}` : `, ${esc(sub.label)} included`) : ""}</p>
     </div>`;
 };
 
@@ -3369,6 +3737,25 @@ const PAGE_CSS = `
    one of them is the .set-rips bug again. Bold carries it. */
 .sv-say,.comp{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
   padding-left:var(--s4);font-size:var(--t-body)}
+.comp a{color:var(--sky-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+/* THE SUBSET LIST, 2 October 2026 (subsetBand). Three guides draw it. The
+   number column is wider than the checklist's 3.4em because "SV107/SV122" is
+   eleven characters and has no break in it; at the checklist's width it ran
+   under the name. 5.4em, not the 6.6em first tried: measured at 390 that
+   left the column 112px for an 80px number and broke "PSA 10" in two under
+   the name. The PSA 10 figure is held to one line for the same reason. The
+   button is 28px tall at least: qa-sweep.mjs measured it at 22px, under the
+   24px WCAG target, on all 192 rows (the row's own tap handler does not
+   count, because a keyboard or switch user reaches the button, not the row). The name is the pop-up's button and keeps the row's type,
+   underlined so it reads as something to press. The whole row is the tap
+   target, through the pop-up script's .cl-row handler. */
+#subset .ig-cards.en li{grid-template-columns:5.4em minmax(0,1fr) auto}
+.cs-p10{white-space:nowrap}
+.cs-zm{display:inline-flex;align-items:center;min-height:28px;
+  font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;text-align:left;cursor:zoom-in;
+  text-decoration:underline;text-decoration-color:var(--keyline);text-underline-offset:3px}
+.cs-zm:hover{text-decoration-color:currentColor}
+#subset .cl-row:has(.cs-zm){cursor:zoom-in}
 /* Cost per pack. Sits directly under the total price it is derived from. */
 .prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
   letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
@@ -3972,11 +4359,22 @@ function setPage(s) {
   // the count and the price both say WHICH cards they describe, in the same
   // breath, because there is no room in a description for a second sentence.
   const comp = companionOf(s.id);
+  // PRICED SUBSET, 2 October 2026: the count names both parts and the top
+  // card names its subset, in the one sentence a search result shows.
+  // THE YEAR RATHER THE FULL DATE, on these three only: with the subset named
+  // in the count, the full date pushed the priciest card past clipMeta's 158
+  // characters and it was dropped, which is the one fact the edit was for.
+  // Measured: 148, 156 and 141 characters on the three.
+  const sub = compOf(s.id);
   const desc =
-    `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
-    `${longDate(s.released) || "recently"}.` +
+    (sub
+      ? `${s.name} Pokemon TCG set guide, ${String(s.released || "").slice(0, 4) || "recently"}: ${s.total || "?"} cards plus the ${comp.cards} card ${sub.rows[0].label}.`
+      : `${s.name} Pokemon TCG set guide: ${s.total || "?"} cards, released ` +
+        `${longDate(s.released) || "recently"}.`) +
     (top && typeof top.price === "number"
-      ? comp
+      ? sub
+        ? ` The priciest is ${top.name}${top.comp ? ` (${compName(top.comp)})` : ""} at ${moneyCompact(top.price)}.`
+        : comp
         ? ` The priciest of those ${s.total} is ${top.name} at ${moneyCompact(top.price)}; ${comp.fullName} is a separate ${comp.cards} cards we hold no prices for.`
         : ` The priciest card is ${top.name} at ${moneyCompact(top.price)}.`
       : ``) +
@@ -4134,7 +4532,7 @@ function setPage(s) {
       ${withScan.map((c) => {
         const rips = pulled.get(cardNumKey(c.number)) || [];
         return `<div class="cc-cell${rips.length ? " is-pulled" : ""}"><button class="chase-card" type="button"${zoomData(s, c, pulled)}
-        aria-label="Enlarge ${esc(c.name)}${rips.length ? ", which we pulled on camera" : ""}">
+        aria-label="Enlarge ${esc(c.name)}${c.comp ? `, ${esc(compName(c.comp))}` : ""}${rips.length ? ", which we pulled on camera" : ""}">
         ${rips.length ? `<span class="cc-flag" aria-hidden="true">We pulled it</span>` : ""}
         ${/* alt="" ON PURPOSE: the button above is aria-labelled "Enlarge <name>"
               and the .nm / .rr lines below print the name, rarity and number in
@@ -4152,7 +4550,11 @@ function setPage(s) {
               worst ("Special Illustration" / "Rare &bull; 121/088"), and the
               number gained its printed total (numOf), which is what says a card
               is past the set. */ ""}<div class="rr">${(() => {
-          const r = esc(rarityLabel(c.rarity) || "");
+          /* A SUBSET CARD SAYS WHICH SUBSET in the slot the rarity takes,
+             2 October 2026: "Shiny Vault &bull; SV107/SV122". The subset is
+             the fact a reader needs to find the card in a binder, the rarity
+             is in the pop-up, and both together ran to three lines at 390. */
+          const r = esc(c.comp ? c.comp.label : rarityLabel(c.rarity) || "");
           const no = esc(numOf(s, c.number));
           const cut = r.lastIndexOf(" ");
           return r ? `${cut > 0 ? `${r.slice(0, cut)} ` : ""}<span class="nw">${cut > 0 ? r.slice(cut + 1) : r}&nbsp;&bull;&nbsp;${no}</span>` : no;
@@ -4177,26 +4579,45 @@ function setPage(s) {
     <ul class="flat-list">
       ${noScan.map((c) => `<li class="flat-item">
         <b>${esc(c.name)}</b>${/* The same flag and link as a pictured tile, 2 October 2026. */ (pulled.get(cardNumKey(c.number)) || []).length ? ` <span class="cc-flag is-inline">We pulled it</span>` : ""}
-        <span>${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(numOf(s, c.number))}</span>
+        <span>${[c.comp ? c.comp.label : "", rarityLabel(c.rarity) || ""].filter((x, i, a) => x && a.indexOf(x) === i).map(esc).join(" &bull; ")} &bull; ${esc(numOf(s, c.number))}</span>
         <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>
         ${/* "Check current price" names no card, and there can be several of
               these rows on one guide. It fires once in the whole tree today,
               on Celebrations' Mew 25, which is that set's own chase card, so
               the least useful accessible name on the page belongs to its most
               important row. */ ""}${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank"
-          aria-label="Check the current price of ${esc(c.name)} ${esc(c.number)}, opens on tcgplayer.com">Check current price</a>` : ""}${
+          aria-label="Check the current price of ${esc(c.name)} ${esc(numOf(s, c.number))}, opens on tcgplayer.com">Check current price</a>` : ""}${
           (pulled.get(cardNumKey(c.number)) || []).length ? ripLinks(pulled.get(cardNumKey(c.number)), esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}
       </li>`).join("\n      ")}
     </ul>
     <p class="mine-note">The card database has no scan for ${
-      noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(noScan[0].number)}` : `${noScan.length} of these`
+      noScan.length === 1 ? `${esc(noScan[0].name)} ${esc(numOf(s, noScan[0].number))}` : `${noScan.length} of these`
     }, so ${noScan.length === 1 ? "it is" : "they are"} named and priced here rather than shown as an empty card.</p>` : ""}
-    <p class="price-note">${esc(priceNote(s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf }))} These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction.${/* "SORTED BY PRICE" IS ONLY REASSURING IF THE READER KNOWS WHAT WAS SORTED.
+    <p class="price-note">${(() => {
+      /* WITH THE SUBSET IN THE EIGHT, 2 October 2026, the sentence says the
+         eight came from two lists, and the read date becomes a span when the
+         subset's day differs from the checklist's, so no figure in the grid
+         is stamped with a day it was not read. */
+      const sub = compOf(s.id);
+      const inGrid = sub ? s.chase.filter((c) => c.comp).length : 0;
+      const stamps = s.priceStamps || { pricesChecked: s.pricesAsOf || s.chasePricesAsOf };
+      const span = inGrid ? readSpan([priceRead(stamps), sub.read]) : null;
+      return `${esc(priceNote(stamps, span && /between/.test(span) ? { readPhrase: span } : {}))} ${
+        sub
+          ? `These are the eight dearest of the ${s.total} rows in the checklist further down and the ${sub.rows.length} in the ${esc(sub.rows[0].label)} list, sorted by price, so they agree with both by construction.${
+              inGrid
+                ? ` ${inGrid === s.chase.length ? `All ${inGrid} are ${esc(sub.rows[0].label)} cards` : `${inGrid === 1 ? "The one" : `The ${inGrid}`} labeled ${esc(sub.rows[0].label)} ${inGrid === 1 ? "is" : "are"} from that subset`}${
+                    span && /between/.test(span) ? `, ${esc(readSpan([sub.read]))}` : ""}.`
+                : ""
+            }`
+          : `These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction.`
+      }`;
+    })()}${/* "SORTED BY PRICE" IS ONLY REASSURING IF THE READER KNOWS WHAT WAS SORTED.
           On the three guides with a companion set these eight are the top of a
           checklist, not the top of a set, and the band above the grid has
           already said so. This is the one clause that keeps the sentence true
           where somebody has scrolled straight to the pictures. */ ""}${
-      comp ? ` Sorted out of the ${s.total} on that checklist: ${esc(comp.fullName)} is a separate ${comp.cards} cards and none of them can be here, because this site holds no price for any of them.` : ""
+      comp && !compOf(s.id) ? ` Sorted out of the ${s.total} on that checklist: ${esc(comp.fullName)} is a separate ${comp.cards} cards and none of them can be here, because this site holds no price for any of them.` : ""
     } Singles move fast, so treat them as a ballpark rather than a quote.${affOn ? ` ${esc(aff.tcgplayer.disclosure)}` : ""}</p>
     ${/* THE GRADED FIGURES GET THEIR OWN SENTENCE, BECAUSE THE ONE ABOVE IS NOT
           ABOUT THEM. It credits PriceCharting for an UNGRADED price, and a
@@ -4459,7 +4880,7 @@ ${rows}
          difference is the real point and stands on its own; the day is only
          worth claiming when the two dates differ. */
       (() => {
-        const rawRead = priceRead(s.priceStamps || {}) || s.pricesAsOf || null;
+        const rawRead = (top.comp && top.comp.read) || priceRead(s.priceStamps || {}) || s.pricesAsOf || null;
         return read && rawRead && String(read).slice(0, 10) !== String(rawRead).slice(0, 10)
           ? " read on a different day" : "";
       })()
@@ -4528,6 +4949,9 @@ ${rows}
 </section>`),
 
     checklists[s.id]?.cards?.length ? tag("checklist", "Card list", (cls) => checklistBand(s, cls, pulled)) : null,
+    // Right under the checklist, so the two card lists sit together; the chip
+    // names the subset, which is the word a reader came looking for.
+    compOf(s.id) ? tag("subset", compOf(s.id).rows[0].label, (cls) => subsetBand(s, cls, pulled)) : null,
     intlSets[s.id]?.sources?.length ? tag("languages", null, (cls) => intlBand(s, cls)) : null,
     productsBySet[s.id]?.products?.length ? tag("products", "Sealed prices", (cls) => productBand(s, cls)) : null,
 
@@ -4659,16 +5083,22 @@ ${rows}
       // The companion clause survives unchanged in what it says: on three
       // guides the count is a checklist's rather than a set's, and the lede's
       // job is to stop a reader believing it is the whole story.
-      const plus = comp ? `, plus ${compClause(comp)}` : "";
+      const sub = compOf(s.id);
+      const plus = sub
+        ? `, plus the ${comp.cards} card ${esc(sub.rows[0].label)}, filed as a set of its own`
+        : comp ? `, plus ${compClause(comp)}` : "";
       const first = when && count
         ? `${esc(s.name)} ${future ? "comes out" : "came out"} ${esc(when)} with ${count}${plus}.`
         : when ? `${esc(s.name)} ${future ? "comes out" : "came out"} ${esc(when)}.`
         : count ? `${esc(s.name)} has ${count}${plus}.`
         : "";
-      const read = longDate(priceRead(doc)) || priceRead(doc);
-      const src = doc.priceSource || "pricecharting.com";
+      // A subset card's figure was read with its subset, so it carries that day.
+      const read = top?.comp ? longDate(top.comp.read) || top.comp.read : longDate(priceRead(doc)) || priceRead(doc);
+      const src = (top?.comp ? top.comp.source : doc.priceSource) || "pricecharting.com";
       const second = top && typeof top.price === "number" && read
-        ? comp
+        ? sub
+          ? `Its most valuable card is ${esc(top.name)}${top.comp ? `, ${esc(compName(top.comp))}` : ""}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}.`
+          : comp
           ? `The most valuable of those ${s.total} is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}. ${esc(comp.name[0].toUpperCase() + comp.name.slice(1))} is not priced here.`
           : `Its most valuable card is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}.`
         : top
@@ -4848,15 +5278,18 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
   function picture(b){
     var big=b.dataset.img, small=b.querySelector('img');
     var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    // data-avif: a subset card's local 600w AVIF (sync-subset-scans.py), with
+    // the remote 1.2MB PNG kept as the fallback in data-img. 2 October 2026.
+    var av=b.dataset.avif || (isDex ? big.slice(0,-5)+'.avif' : '');
     var sm=small && (small.currentSrc || small.src);
     if(sm){
       avif.removeAttribute('srcset'); img.src=sm;
       var hi=new Image();
-      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onload=function(){ if(list[at]!==b) return; if(av) avif.setAttribute('srcset', av); img.src=big; };
       hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
-      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+      hi.src=av || big;
     } else {
-      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      if(av) avif.setAttribute('srcset', av); else avif.removeAttribute('srcset');
       img.src=big;
     }
   }
@@ -5146,7 +5579,21 @@ function indexPage() {
         graded.map((s) => gradedAsOf(s.id, s.chase[0].number, s.chase[0].name, s.name))
       );
       return `
-    <p class="price-note">Top is the priciest card in that set. ${esc(priceNote(newest || {}))}${
+    <p class="price-note">Top is the priciest card in that set${
+      (() => {
+        const subs = [...new Set(priced.filter((s) => s.chase[0].comp).map((s) => `the ${s.chase[0].comp.label}`))];
+        if (!subs.length) return "";
+        const list = subs.length === 1 ? subs[0] : `${subs.slice(0, -1).join(", ")} and ${subs[subs.length - 1]}`;
+        return `, counting the subset${subs.length === 1 ? "" : "s"} filed separately where ${subs.length === 1 ? "it tops" : "they top"} the set (${esc(list)})`;
+      })()
+    }. ${esc(priceNote(newest || {}, (() => {
+      /* THE SAME .pop() PROBLEM AS THE GRADED ONE BELOW, for the raw column,
+         2 October 2026: a subset's top card carries its subset's read date,
+         which can be older than every checklist's, so the raw date is a span
+         over the tops actually printed, not the newest file. */
+      const span = readSpan(priced.map((s) => (s.chase[0].comp ? s.chase[0].comp.read : priceRead(s.priceStamps || {}))));
+      return span && /between/.test(span) ? { readPhrase: span } : {};
+    })()))}${
       graded.length
         ? ` The PSA 10 figures beside ${graded.length === 1 ? "one of them" : `${graded.length} of them`} are ${esc(
             who.length === 1 ? who[0] : "a separate graded sales feed"

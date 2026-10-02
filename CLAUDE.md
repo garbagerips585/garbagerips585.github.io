@@ -2440,6 +2440,22 @@ that checked for a third width correctly concluded there was none and stopped.
 the webp underneath as the fallback. There is no middle width at any host:
 `medium.webp`, `mid.webp` and `600.webp` all 404, and Scrydex ignores `?w=`.
 
+**THE COMPANION SUBSETS ARE PRICED AND THEIR SCANS ARE SELF-HOSTED, since 2
+October 2026** (the owner: "yes price the shining fates, crown zenith and
+celebrations subsets"). The Shiny Vault, Galarian Gallery and Classic Collection,
+217 cards, are priced from the cached PriceCharting crawl into
+`data/companion-prices.json` (`sync-pricecharting-cards.mjs --companions` writes
+only that file; a plain local run of that script without the flag rewrites
+`data/pricecharting-cards.json` from whatever cache is on this machine, so mind
+the date). TCGdex has no scan for any of them and images.pokemontcg.io serves a
+183KB PNG and a 1.2MB `_hires`, nothing between, which put 550KB of PNG in two
+heroes. `python3 scripts/sync-subset-scans.py` (NOT in build-all, it fetches)
+re-encodes the 192 that exist into `public/assets/subset/`: a 245w .webp + .avif
+and a 600w .avif for the pop-up, 17.2MB on disk. The 600w is AVIF only on
+purpose: both formats were 30MB, and a browser without AVIF falls back to the
+remote PNG on a tap. `data/subset-scans.json` is the manifest the builder reads;
+a base it does not hold keeps the remote url.
+
 **`loading="lazy"` IS A VERTICAL HEURISTIC AND NOTHING ELSE.** Chrome measures
 how far an image is from the viewport DOWN the page. A slide parked 407px to the
 right inside a horizontal scroll track is, by that measure, right next to you,

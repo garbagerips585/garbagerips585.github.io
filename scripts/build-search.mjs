@@ -40,6 +40,7 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, clipMeta} from "../shared/format.mjs";
 import { NORM_SRC, PARSE_SRC, SCORE_SRC } from "../shared/search-text.mjs";
+import { CARD_NUMBER_SRC, parseCardNumber } from "../shared/card-number-query.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -352,9 +353,28 @@ const index = {
   // the fourth, and no check caught it because both are valid strings. The
   // count ships with the index now, from the same read that produces it.
   cardCount: nCards,
+  // [released, printedTotal, promo, subsets] per set slug, the shape
+  // printedForm() in shared/card-number-query.mjs reads, so a card row here
+  // prints "113/088" the way /cards.html and the set guides do, and a typed
+  // "113/088" can pick the set that prints 88. Every card-index set has a
+  // guide, so sets.json is the whole of it; card-index holds no subset
+  // numbers (TG, GG, SV), so there are none to total. 2 October 2026.
+  cardSets: Object.fromEntries(sets.map((x) => [x.id, [x.released || "", x.printedTotal || 0, 0, 0]])),
 };
 
 await writeFile(join(ROOT, "public/data/site-index.json"), JSON.stringify(index) + "\n");
+
+// The card number reader ships as source. build-cards.mjs proves it at length;
+// this proves the copy THIS page inlines still runs and still agrees, so the
+// page cannot ship a reader that throws on the first keystroke.
+{
+  const shipped = new Function(`${CARD_NUMBER_SRC}\n return parseCardNumber;`)();
+  for (const q of ["113/088", "018/072", "pikachu 25", "TG05", "pikachu"]) {
+    if (JSON.stringify(shipped(q)) !== JSON.stringify(parseCardNumber(q))) {
+      throw new Error(`the parseCardNumber inlined into search.html disagrees with the module on "${q}"`);
+    }
+  }
+}
 
 const total =
   index.pages.length + index.sets.length + index.pokemon.length + index.rips.length;
@@ -483,6 +503,8 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   ${NORM_SRC}
   ${PARSE_SRC}
   ${SCORE_SRC}
+  // The card number reader /cards.html uses, from shared/card-number-query.mjs.
+  ${CARD_NUMBER_SRC}
 
   // EVERY TERM HAS TO HIT, and the row is ranked by how well they hit.
   //
@@ -581,25 +603,55 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
     html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
 
     if(CARDS){
-      var c=[];
+      var c=[], cx=[], cs=SITE.cardSets||{};
       // THE CARD ROWS CARRY set AND rarity AND WERE MATCHED ON NEITHER.
-      // r = [name, setId, rarity, number, price]. "illustration rare" found 0
-      // cards while 20 rarity values sat in r[2] on every row, and a set name
+      // r = [name, setId, number, rarity, price]. "illustration rare" found 0
+      // cards while 20 rarity values sat in r[3] on every row, and a set name
       // could not narrow a search at all. Folded and ANDed like everything else;
       // the price sort below is untouched and still decides the order.
+      //
+      // AND A CARD NUMBER IS MATCHED AS A NUMBER, 2 October 2026. "113/088"
+      // folds to the terms 113 and 088, and no row holds an 088, so the Perfect
+      // Order card printed 113/088 was not found here either. A number read by
+      // parseCardNumber matches the card's own number exactly, zeros ignored
+      // ("018" is "18"), any other words still have to be in the row, and a
+      // typed total keeps only the sets that print it when any do. Those cards
+      // come first; the old substring match still runs beside it and fills in
+      // after, so nothing it found before is lost.
+      var num=parseCardNumber(q), nterms=num ? parseQuery(num.text) : null;
       for(var i=0;i<CARDS.cards.length;i++){
-        var r=CARDS.cards[i], ok=true;
+        var r=CARDS.cards[i], ok=true, ex=false;
         var hay=norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''));
         for(var j=0;j<terms.length;j++){
           if(hay.indexOf(terms[j])===-1){ ok=false; break; }
         }
-        if(ok) c.push(r);
+        if(num && numKey(r[2])===num.key){
+          ex=true;
+          for(j=0;j<nterms.length;j++) if(hay.indexOf(nterms[j])===-1){ ex=false; break; }
+        }
+        if(ex) cx.push(r); else if(ok) c.push(r);
       }
+      if(num && num.den && !num.pre){
+        var cd=cx.filter(function(r){ return (cs[r[1]]||[])[1]===num.den; });
+        if(cd.length) cx=cd;
+      }
+      // "151" IS A SET AS WELL AS A NUMBER, and here it was the set first: the
+      // priciest cards of 151 led the list before numbers were read. So where
+      // the typed number is a whole word of any set's name, both lists merge
+      // and price decides, exactly as before; only elsewhere do the exact
+      // number matches go first.
+      var setWord=false;
+      if(num) for(var sk in CARDS.sets){
+        if((' '+norm(CARDS.sets[sk])+' ').indexOf(' '+num.word+' ')!==-1){ setWord=true; break; }
+      }
+      if(setWord){ c=cx.concat(c); cx=[]; }
       c.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      cx.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      c=cx.concat(c);
       n+=c.length;
       html+=group('Cards', c.slice(0,10).map(function(r){
-        return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+r[2], money(r[4]));
-      }), c.length>10 ? 'Showing the 10 priciest of '+c.length.toLocaleString('en-US')+'.' : '',
+        return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+printedForm(r[2], cs[r[1]]), money(r[4]));
+      }), c.length>10 ? (num && !setWord ? 'Showing 10' : 'Showing the 10 priciest')+' of '+c.length.toLocaleString('en-US')+'.' : '',
          c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
     }
 

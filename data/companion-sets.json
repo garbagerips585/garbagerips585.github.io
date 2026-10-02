@@ -49,22 +49,48 @@
     "pages in a sentence saying what is not counted, so a stale one makes the",
     "correction itself a wrong number.",
     "",
-    "------------------------------------------------------------- WHY NO PRICES",
+    "------------------------------------------- PRICED SINCE 2 OCTOBER 2026",
     "",
-    "`priced` is false on all three and it is the load bearing field on this",
-    "page. This repo holds no price for a single one of these 217 cards:",
-    "public/data/cards/*.json covers the 28 guide checklists only, and the 311",
-    "companion rows in public/data/printings/*.json carry a name, a number, a",
-    "rarity and a picture and no money at all.",
+    "`priced` is true on all three since 2 October 2026. The owner, that day:",
+    "\"yes price the shining fates, crown zenith and celebrations subsets\".",
     "",
-    "So the guides say what is missing and why, and they name no figure for it.",
-    "Naming the Shiny Vault's best card without a price we hold would be a claim",
-    "with no source behind it, and quoting one from memory would be worse.",
+    "Until then this block was headed WHY NO PRICES and said this repo held no",
+    "price for a single one of these 217 cards. That was true of the repo, and",
+    "it turned out not to be true of the crawl: PriceCharting files each subset",
+    "on its parent's console page, beside the main set, so the pages",
+    "sync-pricecharting-cards.mjs already reads every night held all 217. The",
+    "block at the foot of that script now matches them on the same row parser,",
+    "the same standard-printing allowlist and the same name guard, and on the",
+    "first run (cached pages read 23 September 2026) it priced 217 of 217:",
+    "Shiny Vault 122, Galarian Gallery 70, Classic Collection 25.",
     "",
-    "IF PRICES EVER ARRIVE, this file is not the place to put them. The right",
-    "shape is the one every other price on a set guide already has: one feed,",
-    "read once, landing in public/data/cards/<set>.json through sync-cards.mjs,",
-    "so the top of a page cannot disagree with the bottom of it.",
+    "THE PRICES ARE IN data/companion-prices.json, NOT HERE AND NOT IN THE",
+    "CHECKLISTS. This block used to say that if prices ever arrived, the right",
+    "home was public/data/cards/<set>.json through sync-cards.mjs. The block",
+    "below, written the same day, is the reason that is still wrong: those",
+    "files are the printed set and ten builders read them. So the subset has",
+    "its own price file, written by the same script off the same pages, and",
+    "ONLY build-set-pages.mjs reads it. The aim that sentence was protecting,",
+    "that the top of a page cannot disagree with the bottom, is kept a",
+    "different way: the hero, the chase grid, the value band, the pop-up and",
+    "the subset's own list all read one row per card (compRowsBySet).",
+    "",
+    "THIS FILE STAYS IDENTIFICATION. It gained two fields that day:",
+    "",
+    "  corpusSet   the set name the printings corpus files the subset under",
+    "  printed     Classic Collection only. Each reprint prints its ORIGINAL's",
+    "              number (Charizard reads 4/102, the Birthday Pikachu promo a",
+    "              bare 24), which no API this site reads carries against the",
+    "              reprint: TCGdex numbers them CC001 to CC025. Transcribed from",
+    "              serebii.net/card/celebrations/, read 2 October 2026 (Bulbapedia",
+    "              refused the request), and HELD TO THE REPO on every build: the",
+    "              original set is named by apiId and its printedTotal in",
+    "              public/data/expansions.json must equal the denominator, so a",
+    "              typo fails the build. It is also the join key: PriceCharting",
+    "              files Charizard as \"#4\".",
+    "",
+    "The count check still runs, and a subset marked priced with no entry in",
+    "data/companion-prices.json (or the reverse) fails the build too.",
     "",
     "-------------------------------------------------- WHY NOT JUST FOLD THEM IN",
     "",
@@ -82,9 +108,13 @@
     "  3. It could not be done evenly. The Classic Collection cannot be priced",
     "     from anything in this repo at all, so folding would have produced two",
     "     folded sets and one that quietly was not, which is the exact failure a",
-    "     reader cannot see."
+    "     reader cannot see.",
+    "",
+    "     (Reason 3 is history since 2 October 2026: all three are priced now,",
+    "     the Classic Collection included. Reasons 1 and 2 are why they still",
+    "     are not folded in.)"
   ],
-  "checked": "2026-08-19",
+  "checked": "2026-10-02",
   "sets": {
     "shining-fates": {
       "apiId": "swsh45sv",
@@ -93,7 +123,8 @@
       "cards": 122,
       "numbering": "SV001 to SV122",
       "what": "shiny cards at their own rarities, 104 of the 122 filed as Shiny Rare",
-      "priced": false
+      "priced": true,
+      "corpusSet": "Shining Fates Shiny Vault"
     },
     "crown-zenith": {
       "apiId": "swsh12pt5gg",
@@ -102,7 +133,8 @@
       "cards": 70,
       "numbering": "GG01 to GG70",
       "what": "34 Rare, 32 Ultra Rare and 4 Secret Rare on the checklist",
-      "priced": false
+      "priced": true,
+      "corpusSet": "Crown Zenith Galarian Gallery"
     },
     "celebrations": {
       "apiId": "cel25c",
@@ -110,8 +142,36 @@
       "fullName": "Celebrations: Classic Collection",
       "cards": 25,
       "numbering": "CC001 to CC025",
-      "what": "reprints of older cards, CC001 Blastoise through CC025 Tapu Lele GX",
-      "priced": false
+      "what": "reprints of older cards, CC001 Blastoise (2/102) through CC025 Tapu Lele GX (60/145) in the card databases' numbering",
+      "priced": true,
+      "corpusSet": "Celebrations Classic Collection",
+      "printed": {
+        "CC001": { "no": "2/102", "from": "base1" },
+        "CC002": { "no": "4/102", "from": "base1" },
+        "CC003": { "no": "15/102", "from": "base1" },
+        "CC004": { "no": "73/102", "from": "base1" },
+        "CC005": { "no": "8/82", "from": "base5" },
+        "CC006": { "no": "15/82", "from": "base5" },
+        "CC007": { "no": "15/132", "from": "gym2" },
+        "CC008": { "no": "24", "from": "basep" },
+        "CC009": { "no": "20/111", "from": "neo1" },
+        "CC010": { "no": "66/64", "from": "neo3" },
+        "CC011": { "no": "9/95", "from": "ex4" },
+        "CC012": { "no": "86/109", "from": "ex7" },
+        "CC013": { "no": "88/92", "from": "ex12" },
+        "CC014": { "no": "93/101", "from": "ex15" },
+        "CC015": { "no": "17/17", "from": "pop5" },
+        "CC016": { "no": "15/106", "from": "dp4" },
+        "CC017": { "no": "109/111", "from": "pl2" },
+        "CC018": { "no": "145/147", "from": "pl3" },
+        "CC019": { "no": "107/123", "from": "hgss1" },
+        "CC020": { "no": "113/114", "from": "bw1" },
+        "CC021": { "no": "114/114", "from": "bw1" },
+        "CC022": { "no": "54/99", "from": "bw4" },
+        "CC023": { "no": "97/146", "from": "xy1" },
+        "CC024": { "no": "76/108", "from": "xy6" },
+        "CC025": { "no": "60/145", "from": "sm2" }
+      }
     }
   },
   "_noGuideReadme": [
@@ -133,10 +193,20 @@
     "as sm115 and its Shiny Vault as sma, which share no prefix at all."
   ],
   "noGuide": {
-    "sma": { "parentApiId": "sm115" },
-    "swsh9tg": { "parentApiId": "swsh9" },
-    "swsh10tg": { "parentApiId": "swsh10" },
-    "swsh11tg": { "parentApiId": "swsh11" },
-    "swsh12tg": { "parentApiId": "swsh12" }
+    "sma": {
+      "parentApiId": "sm115"
+    },
+    "swsh9tg": {
+      "parentApiId": "swsh9"
+    },
+    "swsh10tg": {
+      "parentApiId": "swsh10"
+    },
+    "swsh11tg": {
+      "parentApiId": "swsh11"
+    },
+    "swsh12tg": {
+      "parentApiId": "swsh12"
+    }
   }
 }

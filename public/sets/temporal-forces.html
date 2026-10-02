@@ -31,6 +31,14 @@ letter-spacing:.02em}
 .band-sky .rar-pr{color:var(--ink)}
 .sv-say,.comp{max-width:42em;margin-top:var(--s5);border-left:4px solid var(--gold);
 padding-left:var(--s4);font-size:var(--t-body)}
+.comp a{color:var(--sky-deep);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+#subset .ig-cards.en li{grid-template-columns:5.4em minmax(0,1fr) auto}
+.cs-p10{white-space:nowrap}
+.cs-zm{display:inline-flex;align-items:center;min-height:28px;
+font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;text-align:left;cursor:zoom-in;
+text-decoration:underline;text-decoration-color:var(--keyline);text-underline-offset:3px}
+.cs-zm:hover{text-decoration-color:currentColor}
+#subset .cl-row:has(.cs-zm){cursor:zoom-in}
 .prod-per{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.04em;text-transform:uppercase;margin-top:3px}
 .prod-per b{display:inline-block;background:var(--mustard);color:var(--on-accent);
@@ -2073,15 +2081,18 @@ height:auto;min-height:44px;padding-block:6px}
   function picture(b){
     var big=b.dataset.img, small=b.querySelector('img');
     var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    // data-avif: a subset card's local 600w AVIF (sync-subset-scans.py), with
+    // the remote 1.2MB PNG kept as the fallback in data-img. 2 October 2026.
+    var av=b.dataset.avif || (isDex ? big.slice(0,-5)+'.avif' : '');
     var sm=small && (small.currentSrc || small.src);
     if(sm){
       avif.removeAttribute('srcset'); img.src=sm;
       var hi=new Image();
-      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onload=function(){ if(list[at]!==b) return; if(av) avif.setAttribute('srcset', av); img.src=big; };
       hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
-      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+      hi.src=av || big;
     } else {
-      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      if(av) avif.setAttribute('srcset', av); else avif.removeAttribute('srcset');
       img.src=big;
     }
   }

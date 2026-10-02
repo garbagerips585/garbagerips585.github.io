@@ -13,6 +13,10 @@
 // name|set|number, which was measured to match all 4,481 priced cards, so an
 // English card we rip keeps its price and its thumbnail.
 //
+// AND IT WRITES A THIRD, since 2 October 2026: public/data/card-numbers/, the
+// same printings grouped by collector number, so "113/088" finds the card
+// whose corner says 113/088. See the block above NUM_BUCKETS.
+//
 // SERVER RENDERED FIRST, SEARCH SECOND. The page ships with the 60 most
 // valuable cards already in the HTML, so it is a real page to a crawler and to
 // anyone with JS off, and so it has something to say before you type. The
@@ -23,7 +27,7 @@
 // markup for a page where the median visitor looks at one card. The index is
 // fetched once, on demand, and only when somebody actually types.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -44,7 +48,9 @@ import {
   STYLES_NO_PACKS_CSS as STYLES,
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
-import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, RARITY_ALIAS, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
+import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, RARITY_ALIAS, imgDims, avifPicture, clipMeta, cardNumKey} from "../shared/format.mjs";
+import { parseCardNumber, printedForm, numKey, CARD_NUMBER_SRC } from "../shared/card-number-query.mjs";
+import { NORM_SRC, norm } from "../shared/search-text.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -133,11 +139,15 @@ let shardRows = 0;
 // server renders from card-index and the search renders from these shards, so
 // the guard below has to see both or it only proves half the page.
 const rarities = new Set();
+// Every printing, kept for the number index below, which needs them grouped by
+// collector number rather than by the first letter of the name.
+const corpus = [];
 for (const r of rows) if (r[3]) rarities.add(r[3]);
 for (const [k] of Object.entries(printings.shards || {})) {
   const shard = JSON.parse(await readFile(join(ROOT, `public/data/printings/${k}.json`), "utf8"));
   shardRows += shard.length;
   for (const c of shard) {
+    corpus.push(c);
     if (c.l && c.l !== "en") foreign += 1;
     if (c.r) rarities.add(c.r);
   }
@@ -206,6 +216,177 @@ if (foreign > outside) {
 }
 const n = (v) => v.toLocaleString("en-US");
 
+/* ------------------------------------------- search by card number --------
+ *
+ * ADDED 2 October 2026. The owner: "have the site match the cards exactly as
+ * thats how people will look things up". Typing "113" or "113/088" for a
+ * Perfect Order card answered "Nothing matched", because a query was only ever
+ * compared with the card's NAME, inside the one shard its first letter picks.
+ * A number does not pick a shard: #113 exists in 135 printings spread across
+ * every letter, so the name shards cannot answer it without fetching all 5.9MB.
+ *
+ * SO THE SAME PRINTINGS ARE WRITTEN A SECOND TIME, GROUPED BY NUMBER, and that
+ * is the whole cost. public/data/card-numbers/<n>.json holds every printing
+ * whose number's digits leave remainder n when divided by NUM_BUCKETS, keyed
+ * by cardNumKey, so one query fetches one bucket and reads one key. The rows
+ * carry only what the result row renders (name, set, number, rarity, printed
+ * name, the untranslated flag, language), with the set and rarity strings
+ * stored once per bucket; no image url, because the search draws thumbnails
+ * from card-index.json's per-set prefix and never from the corpus.
+ *
+ * DERIVED HERE AND NOT IN sync-all-printings.mjs, and that is the opposite of
+ * the argument above RARITY_JS, so it needs saying. That argument is about a
+ * page builder REWRITING a sync's output, which the next sync silently undoes.
+ * This writes a NEW file from the shards on every build and rewrites nothing,
+ * so a sync followed by build-all regenerates it and cannot strand it.
+ *
+ * THE SET FACTS COME FROM COMMITTED FILES ONLY: the printed total (the "088"
+ * in 113/088) and the release date (newest sets first) for each set name in
+ * the corpus. The corpus itself carries neither, and the TCGdex clone that
+ * does lives in .cache/, which CI does not have, so reading it here would make
+ * the nightly build and a local one write different files. Three sources, the
+ * first to know a set wins:
+ *   public/data/sets.json         the sets with guides, the freshest figures
+ *   public/data/intl-guides.json  the 13 Japanese, Korean and Chinese guides,
+ *                                 joined on their printed (native) set name
+ *   public/data/expansions.json   174 English sets from api.pokemontcg.io,
+ *                                 joined by name, or by data/ptcg-scans.json's
+ *                                 corpus-name -> api id map where names differ
+ * A set none of them knows is still searched in full; it just carries no date
+ * (it sorts after the dated ones) and no total (a typed total cannot select
+ * it, and its number is shown exactly as the feed holds it).
+ *
+ * SUBSET TOTALS ARE COUNTED, NOT LOOKED UP. "SV107/SV122", "GG44/GG70",
+ * "TG05/TG30": the total after a prefixed number is the size of that subset,
+ * which no file records, and is the highest number carrying that prefix in
+ * that set. Promo sets take none, because a promo prints no total at all.
+ */
+const NUM_BUCKETS = 20;
+const LANGS = ["en", "ja", "zh"];
+const NUM_DIR = join(ROOT, "public/data/card-numbers");
+
+const fold = (s) =>
+  norm(String(s || "").replace(/^HS\s*[\u2014-]\s*/i, "")).replace(/\band\b/g, " ").replace(/\s+/g, " ").trim();
+// Two corpus names no join can see: TCGdex's "Base Set" is api.pokemontcg.io's
+// "Base", and the "HS" sets are prefixed there and bare here (fold handles those).
+const FOLD_ALIAS = { "base set": "base" };
+
+const expansions = JSON.parse(await readFile(join(ROOT, "public/data/expansions.json"), "utf8")).sets || [];
+const intlGuides = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {};
+const ptcgIds = JSON.parse(await readFile(join(ROOT, "data/ptcg-scans.json"), "utf8")).sets || {};
+const expByFold = new Map(expansions.map((x) => [fold(x.name), x]));
+const expById = new Map(expansions.map((x) => [x.apiId, x]));
+const guideByName = new Map(sets.map((x) => [x.name, x]));
+const intlByNative = new Map(
+  Object.values(intlGuides).filter((g) => g.native).map((g) => [g.native, g]),
+);
+
+// A set whose cards are reprints that keep the ORIGINAL card's number. TCGdex
+// files Celebrations' Classic Collection as CC001 to CC025, and the cards
+// themselves print "4/102" and "15/132", so a "CC004/CC025" would be a number
+// no card carries. Searchable by CC004 all the same; just never completed.
+const REPRINT_NUMBERS = new Set(["Celebrations Classic Collection"]);
+// [released, printedTotal, promo, subsetTotals] per corpus set name.
+const setMeta = {};
+const subsetMax = new Map();
+for (const c of corpus) {
+  const m = /^([A-Za-z]+)(\d+)$/.exec(String(c.i));
+  if (!m) continue;
+  const k = `${c.s}\u0000${m[1].toUpperCase()}`;
+  subsetMax.set(k, Math.max(subsetMax.get(k) || 0, Number(m[2])));
+}
+let metaFrom = { guide: 0, intl: 0, expansions: 0, none: 0 };
+for (const name of [...new Set(corpus.map((c) => c.s))].sort()) {
+  const g = guideByName.get(name);
+  const ig = intlByNative.get(name);
+  const f = fold(name);
+  const ex = expByFold.get(FOLD_ALIAS[f] || f) || expById.get(ptcgIds[name]);
+  const released = g?.released || ig?.released || ex?.released || "";
+  const total = g?.printedTotal || ig?.cardCount?.official || ex?.printedTotal || 0;
+  const promo = /promo|black star|プロモ/i.test(name) || ex?.promo === true ? 1 : 0;
+  metaFrom[g ? "guide" : ig ? "intl" : ex ? "expansions" : "none"] += 1;
+  const sub = {};
+  if (!promo && !REPRINT_NUMBERS.has(name)) {
+    for (const [k, v] of subsetMax) {
+      const [s, pre] = k.split("\u0000");
+      if (s === name) sub[pre] = v;
+    }
+  }
+  if (!released && !total && !Object.keys(sub).length) continue;
+  setMeta[name] = [released, total, promo, Object.keys(sub).length ? sub : 0];
+}
+
+// THE BROWSER'S KEY HAS TO BE THE BUILD'S KEY, row by row. numKey() is what
+// the page computes from a typed number and cardNumKey() is what groups the
+// rows here; if they ever disagree on one number, that card is unfindable by
+// it and nothing looks wrong. parseCardNumber is checked the same way on every
+// number it can parse, because that is the path a typed query takes.
+let keyChecked = 0;
+for (const c of corpus) {
+  const want = cardNumKey(c.i);
+  if (numKey(c.i) !== want) {
+    throw new Error(`numKey("${c.i}") is "${numKey(c.i)}" but cardNumKey gives "${want}" (${c.n}, ${c.s})`);
+  }
+  const p = parseCardNumber(String(c.i));
+  if (p && p.text === "" && p.key !== want) {
+    throw new Error(`a reader typing "${c.i}" gets key "${p.key}" but ${c.n} (${c.s}) is filed under "${want}"`);
+  }
+  keyChecked += 1;
+}
+
+const buckets = Array.from({ length: NUM_BUCKETS }, () => ({ s: [], r: [], k: {} }));
+const sIdx = buckets.map(() => new Map());
+const rIdx = buckets.map(() => new Map());
+const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
+let numRows = 0;
+for (const c of [...corpus].sort((a, b) => cmp(cardNumKey(a.i), cardNumKey(b.i)) || cmp(a.s, b.s) || cmp(a.n, b.n) || cmp(String(a.i), String(b.i)))) {
+  const key = cardNumKey(c.i);
+  const run = /(\d+)\D*$/.exec(key);
+  // "LIG", "ONE", "!": a handful of Energy numbered with no digit at all. No
+  // typed number can reach them, and the name search still does.
+  if (!run) continue;
+  const b = Number(run[1]) % NUM_BUCKETS;
+  const B = buckets[b];
+  if (!sIdx[b].has(c.s)) { sIdx[b].set(c.s, B.s.length); B.s.push(c.s); }
+  if (!rIdx[b].has(c.r || "")) { rIdx[b].set(c.r || "", B.r.length); B.r.push(c.r || ""); }
+  const li = LANGS.indexOf(c.l);
+  if (li < 0) throw new Error(`card-numbers: unknown language "${c.l}" on ${c.n} (${c.s}); add it to LANGS here and in the page`);
+  // Trailing defaults are dropped: an English card with no printed name is
+  // [name, set, number, rarity] and the page reads the missing tail as 0.
+  const row = [c.n, sIdx[b].get(c.s), String(c.i), rIdx[b].get(c.r || ""), c.p || 0, c.u ? 1 : 0, li];
+  while (row.length > 4 && !row[row.length - 1]) row.pop();
+  (B.k[key] ||= []).push(row);
+  numRows += 1;
+}
+await rm(NUM_DIR, { recursive: true, force: true });
+await mkdir(NUM_DIR, { recursive: true });
+let numBytes = 0;
+for (let b = 0; b < NUM_BUCKETS; b++) {
+  const body = JSON.stringify(buckets[b]);
+  numBytes += body.length;
+  await writeFile(join(NUM_DIR, `${b}.json`), body);
+}
+const metaBody = JSON.stringify({ buckets: NUM_BUCKETS, sets: setMeta });
+await writeFile(join(NUM_DIR, "sets.json"), metaBody);
+numBytes += metaBody.length;
+
+// The two number functions ship as source, like rarityLabel. Prove the
+// shipped copies behave like the imported ones on the forms the owner's
+// readers type, so a closure dependency added later fails the build.
+const shippedNum = new Function(`${CARD_NUMBER_SRC}\n return { parseCardNumber, printedForm, numKey };`)();
+for (const q of ["113", "113/088", "#113", "018/072", "18/72", "SV107", "SV107/SV122", "GG44/GG70", "TG05", "perfect order 113", "pikachu 25", "4/102", "79a", "pikachu"]) {
+  if (JSON.stringify(shippedNum.parseCardNumber(q)) !== JSON.stringify(parseCardNumber(q))) {
+    throw new Error(`the parseCardNumber serialized into cards.html disagrees with the module on "${q}"`);
+  }
+}
+for (const [name, m] of Object.entries(setMeta)) {
+  if (shippedNum.printedForm("113", m) !== printedForm("113", m)) {
+    throw new Error(`the printedForm serialized into cards.html disagrees with the module for ${name}`);
+  }
+}
+// What the server rendered rows print, from the same table the browser reads.
+const shownNo = (slug, num) => printedForm(num, setMeta[setName[slug]]);
+
 // TWO DATASETS, TWO DATES. The count comes from the printings corpus and the
 // prices come from the card index, and they are not read on the same day. This
 // used to date the whole sentence with index.checked, which put the price date
@@ -223,7 +404,7 @@ const newest = [index.checked, printings.checked].filter(Boolean).sort().pop();
 // default that module uses rather than being typed twice.
 const priceSourceName = index.priceSource || "PriceCharting";
 const desc =
-  `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name, ` +
+  `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name or card number, ` +
   `with rarity and ${priceSourceName}'s current price guide value for an ungraded copy. ` +
   `Updated ${longDate(newest) || newest}.`;
 
@@ -427,7 +608,7 @@ const row = (r, i) => {
   return `<li class="cq${src ? " has-thumb" : ""}">
         ${src ? cqImg(src, i < EAGER_ROWS) : ""}
         <a class="cq-name" href="/sets/${esc(slug)}.html">${esc(name)}</a>
-        <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(n || "")}</span>
+        <span class="cq-set">${esc(setName[slug] || slug)} &bull; ${esc(shownNo(slug, n || ""))}</span>
         ${rarity ? `<span class="cq-rr">${esc(rarityLabel(rarity))}</span>` : ""}
         ${typeof price === "number" ? `<span class="cq-pr">${moneyExact(price)}</span>` : ""}
       </li>`;
@@ -473,7 +654,8 @@ ${MENU}
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <h1>Card <span class="hl">search</span></h1>
     <p class="lede" style="max-width:36em">Every printing we could source, ${nAll} of them across ${nSets} sets,
-      English, Japanese and Chinese alike. Type a Pokemon name and you get all of them, not just the English ones.
+      English, Japanese and Chinese alike. Type a Pokemon name and you get all of them, not just the English ones,
+      or type the number off the card's corner, like 113/088 or TG05.
       The ${n(priced.length)} from the sets we rip that have a US market price also carry what they are going for.</p>
   </div>
 </header>
@@ -483,8 +665,8 @@ ${MENU}
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Card search</nav>
 
     <form class="cardsearch" role="search" onsubmit="return false">
-      <label class="sr-only" for="cq">Search cards by name</label>
-      <input id="cq" type="search" placeholder="Umbreon, Charizard, Iono..." autocomplete="off" enterkeyhint="search">
+      <label class="sr-only" for="cq">Search cards by name or card number</label>
+      <input id="cq" type="search" placeholder="Umbreon, Charizard, 113/088..." autocomplete="off" enterkeyhint="search">
       <select id="cset" aria-label="Limit to one set">
         <option value="">Every set</option>
         ${sets
@@ -563,6 +745,17 @@ ${footer(priceFooter("Fan made, not official."))}
   function esc(s){ return String(s).replace(/[&<>"]/g,function(c){
     return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
 
+  // NOT hand written either: shared/card-number-query.mjs's parser, key and
+  // printed form, and shared/search-text.mjs's norm(), serialized in by
+  // build-cards.mjs, which checks the shipped copies against the modules.
+  ${CARD_NUMBER_SRC}
+  ${NORM_SRC}
+  // [released, printedTotal, promo, subsetTotals] per set name, from
+  // /data/card-numbers/sets.json. Loaded beside card-index.json; empty if it
+  // fails, which only costs the "/088" on each row and the newest-first order.
+  var SETMETA={};
+  var NUM_BUCKETS=${NUM_BUCKETS}, LANGS=${JSON.stringify(LANGS)};
+
   ${/* EVERY WRITE TO THE STATUS LINE GOES THROUGH HERE, AND IT IS A LIVE
         REGION, WHICH IS THE WHOLE REASON. Measured typing "charizard" at
         110ms a key: 9 keystrokes mutated this aria-live="polite" paragraph
@@ -603,10 +796,12 @@ ${footer(priceFooter("Fan made, not official."))}
     },400);
   }
 
-  function render(hits, total){
+  // note and emptyNote replace the default status sentence when a search has
+  // something more exact to say, which today is only the card number search.
+  function render(hits, total, note, emptyNote){
     if(!hits.length){
       list.innerHTML='';
-      setStatus('Nothing matched. Check the spelling, or try just the Pokemon name.');
+      setStatus(emptyNote || 'Nothing matched. Check the spelling, or try just the Pokemon name.');
       head.hidden=true;
       return;
     }
@@ -661,16 +856,18 @@ ${footer(priceFooter("Fan made, not official."))}
         + img
         + nameCell
         + printed
-        + '<span class="cq-set">'+esc(r.set)+' • '+esc(r.n||'')+'</span>'
+        // The number as the card prints it, "113/088", from the same table and
+        // the same function the server rendered rows above were built with.
+        + '<span class="cq-set">'+esc(r.set)+' • '+esc(printedForm(r.n||'', SETMETA[r.set]))+'</span>'
         + (r.rarity?'<span class="cq-rr">'+esc(rarityLabel(r.rarity))+'</span>':'')
         + flag
         + (typeof r.price==='number'?'<span class="cq-pr">'+money(r.price)+'</span>':'')
         + '</li>';
     }).join('');
     head.hidden=true;
-    setStatus(total>hits.length
+    setStatus(note || (total>hits.length
       ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
-      : total.toLocaleString('en-US')+(total===1?' match':' matches'));
+      : total.toLocaleString('en-US')+(total===1?' match':' matches')));
   }
 
   // ---- every printing, in every language -------------------------------
@@ -728,15 +925,25 @@ ${footer(priceFooter("Fan made, not official."))}
     // A set filter names one of our 23 English sets, so it stays on the priced
     // index: the corpus has no notion of our slugs and every hit would be a
     // set the dropdown cannot express.
+    // A number inside one set ("113" with Perfect Order picked) matches the
+    // card's own number, and any words beside it must be in the name. The
+    // name match is still tried first, unchanged.
+    var num=parseCardNumber(q);
     if(set){
+      var sw=num&&num.text ? norm(num.text).split(' ') : [];
       var only=DATA.cards.filter(function(r){
         if(r[1]!==set) return false;
-        return !q || r[0].toLowerCase().indexOf(q)!==-1;
+        if(!q || r[0].toLowerCase().indexOf(q)!==-1) return true;
+        if(!num || numKey(r[2])!==num.key) return false;
+        var nm=norm(r[0]);
+        for(var i=0;i<sw.length;i++) if(sw[i] && nm.indexOf(sw[i])===-1) return false;
+        return true;
       });
       only.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
       render(only.map(fromPriced).slice(0,MAX), only.length);
       return;
     }
+    if(num){ numberRun(q, num); return; }
     var k=shardKey(q);
     if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
     var pm=priceMap();
@@ -758,6 +965,131 @@ ${footer(priceFooter("Fan made, not official."))}
     render(hits.slice(0,MAX), hits.length);
   }
 
+  // ---- the number off the card's corner ----------------------------------
+  // "113", "#113", "113/088", "18/72", "SV107/SV122", "TG05", and a number
+  // beside a name or a set: "pikachu 25", "perfect order 113". See the block
+  // above NUM_BUCKETS in build-cards.mjs for the data and why it is shaped so.
+  //
+  // THREE WAYS IN, ONE LIST, EACH CARD ONCE, ranked in this order:
+  //   0  the card's number is the typed number, and every other word is in
+  //      its name, printed name or set name. This is the search.
+  //   1  the card's NAME contains the whole query, which is exactly the match
+  //      this page made before numbers existed. Kept so a name with a number
+  //      in it can never stop finding itself ("Energy Removal 2", "Alakazam
+  //      E4", "Fire Cube 01": 49 printings, counted 2 October 2026, and every
+  //      one has a word in front of its number). So it is skipped when the
+  //      query is a number and nothing else: no name is only a number, and a
+  //      bare "TG05" would otherwise fetch the 400KB "t" shard to find none.
+  //   2  the typed number is a word of the SET's name and the other words are
+  //      in the card's name, so "charizard 151" finds the Charizards of 151.
+  //      A bare "151" takes the whole of that set from the priced index, which
+  //      is already in memory, after the cards that are numbered 151.
+  // Inside a tier: English first, then the newest set, then set and name.
+  //
+  // A TYPED TOTAL NARROWS, IT DOES NOT HIDE. "113/088" keeps the cards whose
+  // set prints 88 as its total (or, for "SV107/SV122", whose SV run ends at
+  // 122). Where no set we hold a total for matches, every card with that
+  // number is shown and the status says why, rather than "Nothing matched"
+  // for a number that plainly exists.
+  var NUMB={}, NUMB_WAIT={};
+  function loadBucket(b, then){
+    if(NUMB[b]){ then(); return; }
+    if(NUMB_WAIT[b]){ NUMB_WAIT[b].push(then); return; }
+    NUMB_WAIT[b]=[then];
+    function done(j){
+      NUMB[b]=j&&j.k ? j : {s:[],r:[],k:{}};
+      var w=NUMB_WAIT[b]; NUMB_WAIT[b]=null;
+      w.forEach(function(fn){ fn(); });
+    }
+    fetch('/data/card-numbers/'+b+'.json').then(function(r){ return r.ok ? r.json() : null; })
+      .then(done).catch(function(){ done(null); });
+  }
+  function fromShard(c, pm){
+    var m=pm[key3(c.n,c.s,c.i)];
+    return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
+             untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
+  }
+  function numberRun(q, num){
+    var b=num.n % NUM_BUCKETS;
+    var words=num.text ? norm(num.text).split(' ').filter(function(w){ return w; }) : [];
+    var k0=words.length && /^[a-z]/.test(q) ? shardKey(q) : '';
+    var k1=words.length && /^[a-z]/.test(words[0]) && !num.pre && !num.den ? words[0].charAt(0) : '';
+    if(!NUMB[b]){ setStatus('Searching every set...'); loadBucket(b, run); return; }
+    if(k0 && !SHARD[k0]){ setStatus('Searching every set...'); loadShard(k0, run); return; }
+    if(k1 && !SHARD[k1]){ setStatus('Searching every set...'); loadShard(k1, run); return; }
+    var pm=priceMap(), seen={}, out=[], i, j, c, ok;
+    function add(h, tier){
+      var id=h.name+'|'+h.set+'|'+numKey(h.n);
+      if(seen[id]) return;
+      seen[id]=1; h.tier=tier; out.push(h);
+    }
+    var B=NUMB[b], grp=B.k[num.key]||[];
+    for(i=0;i<grp.length;i++){
+      var r=grp[i];
+      var setN=B.s[r[1]];
+      if(words.length){
+        var hay=norm(r[0]+' '+(r[4]||'')+' '+setN);
+        for(ok=true,j=0;j<words.length;j++) if(hay.indexOf(words[j])===-1){ ok=false; break; }
+        if(!ok) continue;
+      }
+      var m=pm[key3(r[0],setN,r[2])];
+      add({ name:r[0], printed:r[4]||null, set:setN, n:r[2], rarity:B.r[r[3]]||'',
+            lang:LANGS[r[6]||0], untranslated:r[5]||0, price:m?m.price:null, slug:m?m.slug:null }, 0);
+    }
+    if(k0){
+      var S0=SHARD[k0];
+      for(i=0;i<S0.length;i++) if(S0[i].n.toLowerCase().indexOf(q)!==-1) add(fromShard(S0[i], pm), 1);
+    }
+    if(k1){
+      var S1=SHARD[k1], w=' '+num.word+' ';
+      for(i=0;i<S1.length;i++){
+        c=S1[i];
+        if((' '+norm(c.s)+' ').indexOf(w)===-1) continue;
+        var nm=norm(c.n);
+        for(ok=true,j=0;j<words.length;j++) if(nm.indexOf(words[j])===-1){ ok=false; break; }
+        if(ok) add(fromShard(c, pm), 2);
+      }
+    }
+    if(!words.length && !num.pre && !num.den){
+      var named={}, w2=' '+num.word+' ';
+      for(var sk in DATA.sets) if((' '+norm(DATA.sets[sk])+' ').indexOf(w2)!==-1) named[sk]=1;
+      for(i=0;i<DATA.cards.length;i++) if(named[DATA.cards[i][1]]) add(fromPriced(DATA.cards[i]), 2);
+    }
+    var typed=num.word.toUpperCase(), note='', denText='';
+    if(num.den){
+      denText=num.denWord.toUpperCase();
+      var hit=out.filter(function(h){
+        var m=SETMETA[h.set];
+        if(h.tier!==0 || !m) return false;
+        if(num.denPre) return num.pre===num.denPre && !!m[3] && m[3][num.denPre]===num.den;
+        return !num.pre && m[1]===num.den;
+      });
+      if(hit.length){
+        var rest=out.length-hit.length;
+        note=hit.length.toLocaleString('en-US')+(hit.length===1?' match':' matches')+' for '+typed+'/'+denText
+          +(rest ? '. '+rest.toLocaleString('en-US')+' more '+(rest===1?'card is':'cards are')+' numbered '+typed+' in sets with another total; search '+typed+' on its own for those.' : '');
+        out=hit;
+      } else if(out.length){
+        note=out.length.toLocaleString('en-US')+(out.length===1?' match':' matches')+' for '+typed
+          +'. None is from a set we know prints '+denText+' as its total, so this is every '+typed+'.';
+      }
+    }
+    out.sort(function(a,b){
+      if(a.tier!==b.tier) return a.tier-b.tier;
+      var ae=a.lang==='en'?0:1, be=b.lang==='en'?0:1;
+      if(ae!==be) return ae-be;
+      var ad=(SETMETA[a.set]||[''])[0]||'', bd=(SETMETA[b.set]||[''])[0]||'';
+      if(ad!==bd) return ad<bd?1:-1;
+      if(a.set!==b.set) return a.set<b.set?-1:1;
+      return a.name<b.name?-1:a.name>b.name?1:0;
+    });
+    if(!note && out.length>MAX){
+      note=out.length.toLocaleString('en-US')+' matches, showing the '+MAX+' from the newest sets';
+    }
+    render(out.slice(0,MAX), out.length, note,
+      'No card we hold is numbered '+typed+(denText?'/'+denText:'')+(words.length?' with those words beside it':'')+'. Check the number, or try the Pokemon name.');
+  }
+
   // The priced index is a positional array; the corpus is objects. One shape
   // reaches render() so it does not have to know which index a row came from.
   function fromPriced(r){
@@ -775,7 +1107,16 @@ ${footer(priceFooter("Fan made, not official."))}
     if(LOADING) return;
     LOADING=true;
     setStatus('Loading the card list...');
-    fetch('/data/card-index.json').then(function(r){ return r.json(); }).then(function(j){
+    // The set table rides beside the index, in parallel, and can fail on its
+    // own: rows then print the number as the feed holds it and a typed total
+    // narrows nothing, which is a worse page and still a working one.
+    Promise.all([
+      fetch('/data/card-index.json').then(function(r){ return r.json(); }),
+      fetch('/data/card-numbers/sets.json').then(function(r){ return r.ok ? r.json() : null; })
+        .catch(function(){ return null; })
+    ]).then(function(res){
+      var j=res[0];
+      SETMETA=(res[1]&&res[1].sets)||{};
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
       // NOTHING WAITING MEANS NOTHING WILL CLEAR THE STATUS, and it sat on
@@ -830,4 +1171,7 @@ console.log(`Wrote public/cards.html
   ${priced.length} priced, ${top.length} rendered into the HTML
   buckets: ${priced.length} priced + ${unpricedOurs} ours with no TCGplayer entry
            + ${foreign} non-English + ${otherEnglish} other English = ${parts} of ${printings.total}
-  priciest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}`);
+  priciest: ${top[0]?.[0]} ${top[0]?.[2]} (${setName[top[0]?.[1]]}) ${moneyExact(top[0]?.[4])}
+Wrote public/data/card-numbers/ (search by card number)
+  ${numRows} printings in ${NUM_BUCKETS} buckets, ${(numBytes / 1024).toFixed(1)}KB raw; ${keyChecked} numbers key-checked against cardNumKey
+  set facts for ${Object.keys(setMeta).length} of ${printings.sets} sets: ${metaFrom.guide} from guides, ${metaFrom.intl} intl guides, ${metaFrom.expansions} expansions.json, ${metaFrom.none} unknown`);

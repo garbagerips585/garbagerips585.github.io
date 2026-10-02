@@ -385,6 +385,55 @@
   if(s&&s.indexOf(term)!==-1) return 2;
   return 0;
 }
+  // The card number reader /cards.html uses, from shared/card-number-query.mjs.
+  var numKey = function numKey(v) {
+  return String(v == null ? "" : v).trim().toUpperCase().replace(/\d+/g, function (d) {
+    return String(Number(d));
+  });
+};
+var parseCardNumber = function parseCardNumber(raw) {
+  var q = String(raw == null ? "" : raw).toLowerCase();
+  // The total's digits are optional so that "113/" and "SV107/SV", which every
+  // reader types on the way to "113/088", still read as 113 and SV107. Without
+  // that the half-typed number falls through to the name search, and a query
+  // starting with a digit sends it to the 872KB shard of Japanese names.
+  var re = /(^|\s)#?([a-z]{0,4})(\d{1,4})([a-z]?)(?:\s*\/\s*#?([a-z]{0,4})(\d{0,4}))?(?=\s|$)/;
+  var m = re.exec(q);
+  if (!m) return null;
+  var pre = m[2].toUpperCase(), suf = m[4].toUpperCase(), n = Number(m[3]);
+  var start = m.index + m[1].length;
+  var denPre = (m[5] || "").toUpperCase();
+  if (m[6] && !denPre && pre) denPre = pre;
+  return {
+    key: pre + String(n) + suf,
+    pre: pre,
+    n: n,
+    den: Number(m[6] || 0),
+    denPre: denPre,
+    word: m[2] + m[3] + m[4],
+    denWord: Number(m[6] || 0) ? (m[5] || "") + m[6] : "",
+    text: (q.slice(0, start) + " " + q.slice(m.index + m[0].length)).replace(/\s+/g, " ").trim(),
+  };
+};
+var printedForm = function printedForm(num, meta) {
+  var s = String(num == null ? "" : num);
+  if (!meta || meta[2]) return s;
+  var x = /^([A-Za-z]*)(\d+)$/.exec(s);
+  if (!x) return s;
+  var modern = String(meta[0] || "") >= "2020-02-07";
+  if (!x[1]) {
+    if (!meta[1]) return s;
+    if (!modern) return s + "/" + meta[1];
+    var w = Math.max(3, x[2].length);
+    var pad = function (v) { v = String(v); while (v.length < w) v = "0" + v; return v; };
+    return pad(x[2]) + "/" + pad(meta[1]);
+  }
+  var sub = meta[3] && meta[3][x[1].toUpperCase()];
+  if (!modern || !sub) return s;
+  var t = String(sub);
+  while (t.length < x[2].length) t = "0" + t;
+  return s + "/" + x[1] + t;
+};
 
   // EVERY TERM HAS TO HIT, and the row is ranked by how well they hit.
   //
@@ -483,25 +532,55 @@
     html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
 
     if(CARDS){
-      var c=[];
+      var c=[], cx=[], cs=SITE.cardSets||{};
       // THE CARD ROWS CARRY set AND rarity AND WERE MATCHED ON NEITHER.
-      // r = [name, setId, rarity, number, price]. "illustration rare" found 0
-      // cards while 20 rarity values sat in r[2] on every row, and a set name
+      // r = [name, setId, number, rarity, price]. "illustration rare" found 0
+      // cards while 20 rarity values sat in r[3] on every row, and a set name
       // could not narrow a search at all. Folded and ANDed like everything else;
       // the price sort below is untouched and still decides the order.
+      //
+      // AND A CARD NUMBER IS MATCHED AS A NUMBER, 2 October 2026. "113/088"
+      // folds to the terms 113 and 088, and no row holds an 088, so the Perfect
+      // Order card printed 113/088 was not found here either. A number read by
+      // parseCardNumber matches the card's own number exactly, zeros ignored
+      // ("018" is "18"), any other words still have to be in the row, and a
+      // typed total keeps only the sets that print it when any do. Those cards
+      // come first; the old substring match still runs beside it and fills in
+      // after, so nothing it found before is lost.
+      var num=parseCardNumber(q), nterms=num ? parseQuery(num.text) : null;
       for(var i=0;i<CARDS.cards.length;i++){
-        var r=CARDS.cards[i], ok=true;
+        var r=CARDS.cards[i], ok=true, ex=false;
         var hay=norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''));
         for(var j=0;j<terms.length;j++){
           if(hay.indexOf(terms[j])===-1){ ok=false; break; }
         }
-        if(ok) c.push(r);
+        if(num && numKey(r[2])===num.key){
+          ex=true;
+          for(j=0;j<nterms.length;j++) if(hay.indexOf(nterms[j])===-1){ ex=false; break; }
+        }
+        if(ex) cx.push(r); else if(ok) c.push(r);
       }
+      if(num && num.den && !num.pre){
+        var cd=cx.filter(function(r){ return (cs[r[1]]||[])[1]===num.den; });
+        if(cd.length) cx=cd;
+      }
+      // "151" IS A SET AS WELL AS A NUMBER, and here it was the set first: the
+      // priciest cards of 151 led the list before numbers were read. So where
+      // the typed number is a whole word of any set's name, both lists merge
+      // and price decides, exactly as before; only elsewhere do the exact
+      // number matches go first.
+      var setWord=false;
+      if(num) for(var sk in CARDS.sets){
+        if((' '+norm(CARDS.sets[sk])+' ').indexOf(' '+num.word+' ')!==-1){ setWord=true; break; }
+      }
+      if(setWord){ c=cx.concat(c); cx=[]; }
       c.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      cx.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      c=cx.concat(c);
       n+=c.length;
       html+=group('Cards', c.slice(0,10).map(function(r){
-        return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+r[2], money(r[4]));
-      }), c.length>10 ? 'Showing the 10 priciest of '+c.length.toLocaleString('en-US')+'.' : '',
+        return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+printedForm(r[2], cs[r[1]]), money(r[4]));
+      }), c.length>10 ? (num && !setWord ? 'Showing 10' : 'Showing the 10 priciest')+' of '+c.length.toLocaleString('en-US')+'.' : '',
          c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
     }
 
