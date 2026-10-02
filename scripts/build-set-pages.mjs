@@ -126,6 +126,9 @@ function mineImg(url) {
   );
 }
 import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
+// The one loader of dated shop listings, shared with /msrp.html, /retailers.html
+// and /what-to-buy.html (2 October 2026, the sealed band's shelf prices).
+import { loadListings, multStr } from "../shared/listings.mjs";
 import { daysSince } from "../shared/today.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -1113,11 +1116,90 @@ function rarityPrices(s) {
   return out;
 }
 
-function checklistBand(s, cls) {
+/* THE CARD LIST, ROUND TWO, 2 October 2026. A collector finishing a set had
+   180 plain text rows to read on Prismatic Evolutions, with nothing to scan by
+   but a rarity word. This borrows the 30th Celebration checklist's working
+   parts (build-30th.mjs: the :has() filter chips, the price sort with a DOM
+   reorder behind it, the sticky filter bar and the scroll back on a change)
+   and adds a picture to every row that opens the guide's own pop-up, stepping
+   through the rows that are showing.
+
+   STILL COLLAPSED BY DEFAULT, AND THAT IS THE WEIGHT DECISION. Measured at
+   390x844 DPR 3, gzipped, cache off: a TCGdex low.avif averages 15.9KB over a
+   spread of nine Prismatic Evolutions cards, so a pictured list opened by
+   default and scrolled to the end adds roughly 2.8MB to that guide and more
+   on 151 (207 cards) and Paldean Fates (245). The opened list is also about
+   73px a row on a phone, so 13,000px of scroll sits between the rarity band
+   and everything under it for a reader who did not come for the list. Closed,
+   a lazy picture is never in the render tree and is never fetched, so on-load
+   and fully scrolled stay where they were for every reader who does not ask,
+   and a reader who opens it pays a screen at a time.
+
+   THE PICTURES ARE BUILT BY THE SCRIPT WHEN THE LIST IS FIRST OPENED, not
+   written into the HTML, because the HTML is the one cost every reader pays.
+   A server-written <picture> plus the pop-up's data-* is about 600 bytes a row,
+   108KB raw on Prismatic Evolutions. What a row carries instead is its tier
+   index (data-r), its price rank (--k, for the no-script sort) and its
+   illustrator; the script reads the name, number, rarity and price off the
+   row's own text, so the pop-up cannot print a figure the row does not.
+   Without a script the list is the text list it always was, and the filter
+   chips and the price sort still work, because they are CSS.
+
+   ONE SIZE OF FILE AT EVERY DENSITY, checked at DPR 3. The picture box is
+   44px on a phone, 52px from 760 and 56px from 1200, so the widest ask is
+   56 x 3 = 168 device pixels, under the 245px low rendition with room. With
+   only one candidate there is no srcset for a sizes to steer, so none is
+   written; high.webp loads only in the pop-up. */
+function checklistBand(s, cls, pulled = new Map()) {
   const doc = checklists[s.id];
   if (!doc?.cards?.length) return "";
   const priced = doc.cards.filter((c) => c.price != null);
   const priciest = priced.slice().sort((a, b) => b.price - a.price)[0];
+
+  // THE TIERS ON THIS CHECKLIST, in ladder order, each with a page-local
+  // index. The index is what a row carries (data-r="3" rather than the whole
+  // slug, 180 times) and what the filter CSS below matches.
+  const tiers = [...new Set(doc.cards.map((c) => rarityLabel(c.rarity)).filter(Boolean))]
+    .sort((a, b) => RARITY_ORDER.indexOf(a) - RARITY_ORDER.indexOf(b));
+  const tierIx = new Map(tiers.map((t, i) => [t, i]));
+  const tierN = (t) => doc.cards.filter((c) => rarityLabel(c.rarity) === t).length;
+  const nChase = doc.cards.filter((c) => CHASE.has(rarityLabel(c.rarity))).length;
+  // Price rank, dearest first, for the sort. Unpriced rows go last in number
+  // order, the 30th's 9999.
+  const rank = new Map(priced.slice().sort((a, b) => b.price - a.price || String(a.n).localeCompare(String(b.n), "en", { numeric: true })).map((c, i) => [c, i + 1]));
+  // Every row's picture is base + its own number, verified across all 5,554
+  // checklist rows on 2 October 2026 (one row in the whole tree has no image at
+  // all). A row whose scan is missing or on data/no-scan.json carries data-x
+  // and gets a worded "No scan" cell, never an empty box.
+  const firstImg = doc.cards.find((c) => c.img)?.img || "";
+  const base = firstImg ? firstImg.slice(0, firstImg.lastIndexOf("/") + 1) : "";
+  const hasScan = (c) => Boolean(c.img) && !NO_SCAN.has(c.img) && c.img === `${base}${c.n}`;
+  // THE TCGPLAYER LINK ONLY WHERE THE CHASE GRID ALREADY OFFERS IT: the eight
+  // chase cards. data/chase-tcg.json holds a link for nearly every card, and
+  // emitting all of them put a 100-byte url on every row (+1.5KB gzipped on
+  // Prismatic Evolutions, measured) and an outbound link into 180 pop-ups where
+  // the page has argued for eight. "Every click stays on the site."
+  const chaseNos = new Set((s.chase || []).map((x) => cardNumKey(x.number)));
+  const urls = new Map(Object.entries(chaseLinks[s.id]?.links || {}).filter(([n]) => chaseNos.has(n)));
+  // THE PSA 10 SOURCE SENTENCE, ONCE. Nearly every row has a graded figure
+  // (177 of 180 on Prismatic Evolutions) and nearly all of them share one feed
+  // and one read date, so writing the sentence on each row was 4KB gzipped of
+  // repetition. The commonest sentence goes on the list; a row whose feed or
+  // date differs carries its own. The script joins them exactly as zoomData()
+  // writes them, raw sentence first.
+  const psaSentence = (c) => {
+    const k = cardNumKey(c.n);
+    if (!gradedPrice(s.id, k, c.name, s.name)) return null;
+    const who = gradedSource(s.id, k, c.name, s.name), rd = gradedAsOf(s.id, k, c.name, s.name);
+    return `PSA 10: graded sales data from ${who || "a separate graded sales feed"}${rd ? `, read ${longDate(rd) || rd}` : ""}.`;
+  };
+  const psaCount = new Map();
+  for (const c of doc.cards) { const t = psaSentence(c); if (t) psaCount.set(t, (psaCount.get(t) || 0) + 1); }
+  const psaShared = [...psaCount.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || "";
+  const ofTot = s.printedTotal ? (setPads(s) ? String(s.printedTotal).padStart(3, "0") : String(s.printedTotal)) : "";
+  const rawRead = longDate(priceRead(doc)) || priceRead(doc);
+  const rawSrc = `Raw price: ${doc.priceSource || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.`;
+  const showChase = nChase > 0 && nChase < doc.cards.length;
 
   return `<section class="${cls}">
   <div class="wrap">
@@ -1129,10 +1211,29 @@ function checklistBand(s, cls) {
           the page's value language reads as one cluster. */ ""}<h2>${esc(s.name)} card list: <span class="hl">all ${doc.cards.length} cards</span></h2>
     <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
       priciest ? ` The most valuable card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.` : ""
-    }</p>
-    <details class="ig-list">
-      <summary>Show the full ${esc(s.name)} checklist</summary>
-      <ol class="ig-cards en">
+    } Open the list for a picture of every card: filter it by rarity${showChase ? " or to the chase tiers" : ""}, sort it by price, and tap a card to see it larger.</p>
+    ${/* THE SUMMARY SAID "Show the full checklist" WHILE THE LIST WAS OPEN,
+          2 October 2026. Two labels now, one per state, swapped by [open] in
+          PAGE_CSS, so the control always says what pressing it will do. */ ""}<details class="ig-list cl-det">
+      <summary><span class="cl-show">Show all ${doc.cards.length} cards, with pictures</span><span class="cl-hide">Hide the card list</span></summary>
+      ${/* THE FILTERS ARE INPUTS AND CSS, the 30th's no-script pattern: a
+            radio per view, and :has() on the section hides the other rows
+            (the per-tier rules are generated beside the page, see
+            checklistCSS). "All" is checked so a browser without :has() shows
+            every row, which is the list this replaced. Chips only appear when
+            they would change something: no tier chips for a one-tier list, no
+            chase chip where every row or no row is chase. */ ""}<form class="cl-f" onsubmit="return false" aria-label="Filter and sort the card list">
+        ${tiers.length > 1 || showChase ? `<fieldset><legend>Show</legend>
+          <input type="radio" name="clf" id="clf-all" checked><label for="clf-all">All <i>${doc.cards.length}</i></label>${
+            showChase ? `\n          <input type="radio" name="clf" id="clf-chase"><label for="clf-chase">Chase tiers <i>${nChase}</i></label>` : ""}${
+            tiers.length > 1 ? tiers.map((t, i) => `\n          <input type="radio" name="clf" id="clf-r${i}"><label for="clf-r${i}">${esc(t)} <i>${tierN(t)}</i></label>`).join("") : ""}
+        </fieldset>` : ""}
+        ${priced.length > 1 ? `<fieldset><legend>Sort</legend>
+          <input type="radio" name="clo" id="clo-num" checked><label for="clo-num">Number</label>
+          <input type="radio" name="clo" id="clo-price"><label for="clo-price">Price</label>
+        </fieldset>` : ""}
+      </form>
+      <ol class="ig-cards en cl-list" data-zg="checklist"${base ? ` data-base="${esc(base)}"` : ""}${ofTot ? ` data-of="${esc(ofTot)}"` : ""} data-src="${esc(rawSrc)}"${psaShared ? ` data-src10="${esc(psaShared)}"` : ""}>
         ${doc.cards
           .map((c) => {
             /**
@@ -1153,7 +1254,7 @@ function checklistBand(s, cls) {
              * shows, so Common and Uncommon get nothing rather than an invented
              * glyph, exactly as the ladder above argues.
              *
-             * THE GOLD ROWS ARE `CHASE`, the same set of tiers the ladder
+             * THE CHASE ROWS ARE `CHASE`, the same set of tiers the ladder
              * highlights and the quick facts count, so the three cannot disagree
              * about what counts as worth chasing. It adds no claim: every one of
              * those rows already prints its own rarity and its own price.
@@ -1173,13 +1274,30 @@ function checklistBand(s, cls) {
              */
             const r = rarityLabel(c.rarity);
             const chase = Boolean(r) && CHASE.has(r);
+            const k = cardNumKey(c.n);
+            // THE POP-UP'S PER-CARD EXTRAS, only where a card has one, so the
+            // common row pays nothing for them: a PSA 10 figure (with its own
+            // source sentence, because the list's shared one names only the raw
+            // feed), the rip that pulled it, and the TCGplayer link the chase
+            // grid's pop-up already offers. Same calls zoomData() makes.
+            const psa = gradedPrice(s.id, k, c.name, s.name);
+            const psaSrc = psa ? psaSentence(c) : null;
+            const rips = pulled.get(k) || [];
+            const rip = [...rips].sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")))[0] || null;
+            const url = urls.get(k);
+            const extra =
+              (c.ill ? ` data-ill="${esc(c.ill)}"` : "") +
+              (psa ? ` data-psa10="${esc(moneyCompact(psa))}"${psaSrc !== psaShared ? ` data-src="${esc(`${rawSrc} ${psaSrc}`)}"` : ""}` : "") +
+              (rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : "") +
+              (url ? ` data-url="${esc(affLink(url))}"` : "") +
+              (hasScan(c) ? "" : " data-x");
             // THE TINT WAS THE ONLY MARK AND IT STOPPED BEING GOLD, 2 October
             // 2026. The copy under the list said "the gold rows" months after
             // the palette swap made them a dark teal wash, and a mark carried by
             // color alone is lost to anyone who cannot tell that wash from the
             // card. Each chase row now carries the same small CHASE tag the
             // rarity ladder does, and the note names the tag, not a color.
-            return `<li${chase ? ` class="is-chase"` : ""}><span class="ig-no">${esc(c.n || "")}</span>
+            return `<li class="cl-row${chase ? " is-chase" : ""}"${r ? ` data-r="${tierIx.get(r)}"` : ""} style="--k:${rank.get(c) || 9999}"${extra}><span class="ig-no">${esc(c.n || "")}</span>
           <span class="ig-nm">${esc(c.name)}${chase ? ` <b class="ch-tag">Chase</b>` : ""}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr2">${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${esc(r)}</span>` : ""}</li>`;
@@ -1207,9 +1325,22 @@ function checklistBand(s, cls) {
     } ${esc(priceNote(doc))}
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
+      Card pictures are TCGdex's scans.
       Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
   </div>
 </section>`;
+}
+
+/* THE CARD LIST'S PER-TIER FILTER RULES, one per tier on THIS checklist, so a
+   guide ships the rules for the chips it draws and nothing else (2 October
+   2026). The tier index matches checklistBand's data-r. The chase and sort
+   rules are the same on every guide and live in PAGE_CSS. */
+function checklistCSS(s) {
+  const doc = checklists[s.id];
+  if (!doc?.cards?.length) return "";
+  const tiers = [...new Set(doc.cards.map((c) => rarityLabel(c.rarity)).filter(Boolean))];
+  if (tiers.length < 2) return "";
+  return tiers.map((_, i) => `#checklist:has(#clf-r${i}:checked) .cl-row:not([data-r="${i}"]){display:none}`).join("\n");
 }
 
 /** "8 weeks earlier", from two ISO dates. */
@@ -2007,6 +2138,236 @@ try {
   /* run: node scripts/sync-products.mjs */
 }
 
+/* ===================================== THE SHELF PRICE BESIDE THE MARKET ONE
+ *
+ * 2 October 2026. The sealed band printed one price per product, TCGplayer's
+ * market figure, and its lede told a reader that on some sets "the bigger boxes
+ * cost more per pack, not less". That is true at market and false on a shelf:
+ * Pokemon Center sells the Perfect Order booster box at $161.64 for 36 packs and
+ * the bundle at $26.94 for 6, which is $4.49 a pack either way. A reader in a
+ * shop holding a box was being handed the one number on the page that does not
+ * describe the shop. So each product now carries, where this repo holds one:
+ *
+ *   1. THE POKEMON CENTER PRICE for that exact product, out of
+ *      data/pokemon-center-prices.json, which this site treats as the
+ *      manufacturer's suggested price (data/msrp.json's _readme, and
+ *      shared/msrp-basis.mjs's MSRP_FACTS, say why). Read date printed.
+ *   2. DATED READINGS FROM PHYSICAL RETAILERS for the same product, each
+ *      linking to that retailer's own page on this site (/retailers/<slug>.html,
+ *      internal, so teal), never to the shop.
+ *   3. THE MULTIPLE, market over the Pokemon Center price, with its band name
+ *      from data/over-msrp.json, labeled as the rule of thumb it is.
+ *
+ * NOTHING IS GUESSED. A product with no reading of its own gets none of the
+ * three: in particular the type-level suggested price on /msrp.html (an Elite
+ * Trainer Box is $49.99) is NOT stamped onto a set's ETB, because a special set
+ * is not obliged to sell at the type's figure and a 2021 box is not priced like
+ * a 2026 one. msrp.json's own _readme makes the generational argument at length.
+ *
+ * ------------------------------------------------------ WHAT IS REUSED, AND WHY
+ *
+ * build-msrp.mjs's resolvePC is the matcher the brief named, and it is not
+ * exported and is not this file's to edit. What it does is the rule kept here:
+ * a Pokemon Center figure is joined by an EXACT NAME, the name is looked up in
+ * a by-name index that holds EVERY reading under that name, and a name two SKUs
+ * share at different prices identifies no price at all. It throws on that,
+ * because its names are typed by a human who asserted them; this join derives
+ * its names, so the same finding drops the figure and says so in the build log
+ * instead of stopping 44 pages over one shop title.
+ *
+ * The other half is msrp.json's human type check, reused as data rather than
+ * re-derived: each row's `pcFrom` lists the readings a person verified ARE that
+ * product type ("a display box cannot be priced by multiplying a pack", "Pokemon
+ * Center never writes the word blister"). A reading this join lands on that a
+ * person filed under a DIFFERENT type is refused. And the retailer readings come
+ * through shared/listings.mjs's loadListings(), the one loader /msrp.html,
+ * /retailers.html and /what-to-buy.html already share, which is what enforces
+ * first-party sellers and throws on anything it cannot attribute.
+ *
+ * ------------------------------------------------- THE FULL SET PREFIX, ALWAYS
+ *
+ * The trap the brief named and the one this join is shaped around: "Mega
+ * Evolution-Ascended Heroes Mini Tin" contains "Mega Evolution", and Mega
+ * Evolution is a set with a guide of its own. Pokemon Center writes a set's
+ * products as "<Set> ..." or "<Era>-<Set> ...", so a reading belongs to a set
+ * only when the set's whole name sits at the very start or straight after the
+ * one era hyphen, followed by a space. "Mega Evolution-Perfect Order" fails both
+ * for Mega Evolution, and "Mega Evolution Booster Bundle (6 Packs)" passes.
+ * Retailers write "Mega Evolution Ascended Heroes" with no hyphen at all, so a
+ * retailer reading names a set when the set's name appears as whole words and is
+ * NOT followed straight away by another set's name, which is what an era word
+ * looks like. A reading that still names two sets names none.
+ */
+const PC_FILE = JSON.parse(await readFile(join(ROOT, "data/pokemon-center-prices.json"), "utf8"));
+const MSRP_FILE = JSON.parse(await readFile(join(ROOT, "data/msrp.json"), "utf8"));
+const OVER_BANDS = (JSON.parse(await readFile(join(ROOT, "data/over-msrp.json"), "utf8")).bands || []);
+const { listings: SHOP_LISTINGS } = await loadListings();
+
+// Every reading under a name, never the last one seen: resolvePC's own fix for
+// the two "V Heroes Tin (Espeon V)" SKUs at $19.99 and $24.99.
+const PC_INDEX = new Map();
+for (const p of PC_FILE.products || []) {
+  if (!PC_INDEX.has(p.name)) PC_INDEX.set(p.name, []);
+  PC_INDEX.get(p.name).push(p);
+}
+// Which msrp.json type a person filed each Pokemon Center reading under.
+const PC_TYPE = new Map();
+for (const row of MSRP_FILE.products || []) for (const n of row.pcFrom || []) PC_TYPE.set(n, row.label);
+
+const foldName = (t) => String(t || "").normalize("NFD").replace(/[̀-ͯ]/g, "");
+const reLit = (t) => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+// "<Set> rest" or "<Era>-<Set> rest" for Pokemon Center, and also "<Era>: <Set>"
+// for TCGplayer's own titles ("Mega Evolution: Ascended Heroes Collection").
+const restAfterSet = (setName, name, seps) => {
+  const m = new RegExp(`^(?:[^${seps}]+[${seps}]\\s*)?${reLit(foldName(setName))} (.+)$`, "i").exec(foldName(name));
+  return m ? m[1] : null;
+};
+// The part of a product name that identifies the SKU once the set is known:
+// brackets and parentheses agree ("Mini Tin [Flareon]" is "Mini Tin
+// (Flareon)"), and the shop's own pack-count tags and "(Exclusive)" go, because
+// TCGplayer leaves them off the same box. "Booster Display Box" is Pokemon
+// Center's name for a booster box, and msrp.json's booster box row lists twelve
+// of them under that type, which is the evidence for the one alias here.
+const skuKey = (rest) => String(rest || "")
+  .replace(/\[([^\]]+)\]/g, "($1)")
+  .replace(/\s*\(exclusive\)/gi, "")
+  .replace(/\s*\(\d+\s+(?:packs?|cards)(?:\s*&[^)]*)?\)/gi, "")
+  .replace(/\bbooster display box\b/gi, "Booster Box")
+  .replace(/\s+/g, " ").trim().toLowerCase();
+
+// THE msrp.json TYPES A products.json ROW CAN BE, by its kind and, where the
+// kind is broad, its name. A size word ("Half Booster Box", "Enhanced") is a
+// different SKU and is no type here, the same call packsIn() makes below.
+function productTypes(p) {
+  const nm = String(p.name || "");
+  if (/\b(half|enhanced|jumbo|double)\b/i.test(nm)) return [];
+  switch (p.kind) {
+    case "Booster Box": return ["Booster box"];
+    case "Elite Trainer Box": return ["Elite Trainer Box"];
+    case "Pokemon Center Elite Trainer Box": return ["Pokemon Center Elite Trainer Box"];
+    case "Booster Bundle": return ["Booster Bundle"];
+    case "Single Pack": return ["Sleeved booster pack", "Loose booster pack"];
+    case "Build & Battle Box": return ["Build and Battle Box"];
+    case "Tin": return /\bmini tin\b/i.test(nm) ? ["Mini tin"] : [];
+    case "Blister Pack": return /\b(3|three)[- ]?(pk|pack|booster)/i.test(nm) ? ["Three-pack blister"] : [];
+    case "Collection Box": return /\bbinder collection\b/i.test(nm) ? ["Binder Collection"] : [];
+    default: return [];
+  }
+}
+
+const pcDropped = [];
+/** The Pokemon Center reading for this exact product on this set, or null. */
+function pcPriceFor(s, p) {
+  const want = restAfterSet(s.name, p.name, ":\\-");
+  if (!want) return null;
+  const key = skuKey(want);
+  const types = productTypes(p);
+  const hits = [];
+  for (const [name, all] of PC_INDEX) {
+    const rest = restAfterSet(s.name, name, "\\-");
+    if (!rest || skuKey(rest) !== key) continue;
+    hits.push({ name, all });
+  }
+  if (!hits.length) return null;
+  const prices = new Set(hits.flatMap((h) => h.all.map((x) => x.price)));
+  if (prices.size !== 1) {
+    pcDropped.push(`${s.id} / ${p.name}: ${hits.length} Pokemon Center name(s) match at ${[...prices].join(" and ")}, so no one price`);
+    return null;
+  }
+  const filed = hits.map((h) => PC_TYPE.get(h.name)).filter(Boolean);
+  // Only a CONFLICT refuses: a product this file has no type for (a pin
+  // collection, an enhanced box) is still that exact SKU by name, and msrp.json
+  // filing it somewhere is no evidence against the match.
+  if (types.length && filed.some((t) => !types.includes(t))) {
+    pcDropped.push(`${s.id} / ${p.name}: msrp.json files "${hits[0].name}" as ${filed.join(", ")}, not as ${types.join(" or ") || "this kind"}`);
+    return null;
+  }
+  const first = hits[0].all[0];
+  return { price: first.price, name: first.name, url: `${PC_FILE.base || ""}${first.path}`, readOn: PC_FILE.readOn, n: hits.reduce((a, h) => a + h.all.length, 0) };
+}
+
+// Set membership for a retailer's free-text title. Dashes and colons are
+// spacing in these titles ("Mega Evolution—Pitch Black", "Card Game: Perfect
+// Order"), so they fold to spaces before the whole-word test.
+const SET_NAMES = sets.map((x) => ({ id: x.id, re: new RegExp(`(?:^|[^a-z0-9])${reLit(foldName(x.name).toLowerCase())}(?=$|[^a-z0-9])`, "g"), name: foldName(x.name).toLowerCase() }));
+function listingSetId(title) {
+  const t = foldName(title).toLowerCase().replace(/[‐-―:\-]+/g, " ").replace(/\s+/g, " ");
+  const found = new Set();
+  for (const s of SET_NAMES) {
+    for (const m of t.matchAll(s.re)) {
+      const after = t.slice(m.index + m[0].length).replace(/^\s+/, "");
+      // An era word: followed straight away by another set's whole name.
+      if (SET_NAMES.some((o) => o.id !== s.id && after.startsWith(o.name) && /^($|[^a-z0-9])/.test(after.slice(o.name.length)))) continue;
+      found.add(s.id);
+    }
+  }
+  return found.size === 1 ? [...found][0] : null;
+}
+const LISTINGS_BY_SET = new Map();
+for (const l of SHOP_LISTINGS) {
+  if (l.seller !== "first-party") continue; // loadListings guarantees it; this page re-asserts it
+  const id = listingSetId(l.product);
+  if (!id) continue;
+  if (!LISTINGS_BY_SET.has(id)) LISTINGS_BY_SET.set(id, []);
+  LISTINGS_BY_SET.get(id).push(l);
+}
+/** This guide's retailer readings, joined to its products by type, each used once. */
+function shopReadings(s, items) {
+  const out = new Map(items.map((p) => [p, []]));
+  for (const l of LISTINGS_BY_SET.get(s.id) || []) {
+    const p = items.find((x) => productTypes(x).includes(l.baseLabel));
+    if (p) out.get(p).push(l);
+  }
+  return out;
+}
+/** data/over-msrp.json's band for a multiple. The edges are judgement; the page says so. */
+const overBand = (x) => OVER_BANDS.find((b) => b.upto == null || x <= b.upto) || null;
+
+/* THE SHELF LINES UNDER ONE PRODUCT, 2 October 2026: its Pokemon Center
+   price and read date, the market multiple with its band, and the dated shop
+   readings grouped by retailer. Prices are pink because they are marks; a
+   retailer's name is teal because it is a route to that retailer's page here.
+   A shop multiple divides by THIS product's Pokemon Center price and nothing
+   else, so a guide with no reading of its own prints the shop's figure and its
+   date and no multiple, rather than dividing by a type-level number that may
+   not be this box's. Retailers in name order and readings newest first, never
+   by the multiple (over-msrp.json's _readme: no league table). */
+function shelfLines(s, p, pc, ls) {
+  if (!pc && !ls.length) return "";
+  const out = [];
+  if (pc) {
+    const packs = packsIn(p, s.released);
+    const x = typeof p.market === "number" && p.market > 0 ? p.market / pc.price : null;
+    const band = x ? overBand(x) : null;
+    // Each phrase is a no-break run, so a narrow card breaks between "at
+    // Pokemon Center", the read date and the per-pack figure, never inside one.
+    out.push(`<p class="prod-pc"><b>${priceUSD(pc.price)}</b> <span><span class="nw">at Pokemon Center,</span> <span class="nw">read ${esc(shortDate(pc.readOn))}</span>${
+      packs && packs > 1 ? ` <span class="nw">&bull; ${priceUSD(pc.price / packs)} a pack</span>` : ""}</span></p>`);
+    if (x) out.push(`<p class="prod-x">Market is ${multStr(x)}x that${band ? `: ${esc(band.label.toLowerCase())}` : ""}</p>`);
+  }
+  if (ls.length) {
+    const by = new Map();
+    for (const l of ls) {
+      if (!by.has(l.retailerId)) by.set(l.retailerId, { r: l.retailer, rows: [] });
+      by.get(l.retailerId).rows.push(l);
+    }
+    const groups = [...by.values()].sort((a, b) => a.r.name.localeCompare(b.r.name));
+    // "Assorted" or "styles may vary" is a different promise from one named
+    // design, and a sleeved pack is a different SKU from a loose one, so a
+    // reading that is either says so in a word rather than in the shop's own
+    // title (which can carry an em dash, and this site prints none).
+    const word = (l) => /assorted|styles may vary|blind/i.test(l.product) ? " assorted"
+      : /sleeved/i.test(l.baseLabel) && p.kind === "Single Pack" ? " sleeved" : "";
+    out.push(`<p class="prod-shops"><span class="prod-k">In shops</span> ${groups.map((g) => {
+      const who = g.r.slug ? `<a href="/retailers/${esc(g.r.slug)}.html">${esc(g.r.name)}</a>` : esc(g.r.name);
+      const rows = g.rows.slice().sort((a, b) => String(b.read).localeCompare(String(a.read)) || a.amount - b.amount);
+      return `<span class="prod-shop">${who} ${rows.map((l) => `<span class="nw"><b>${priceUSD(l.amount)}</b>${word(l)}${
+        pc ? ` (${multStr(l.amount / pc.price)}x)` : ""} <i>${esc(shortDate(l.read))}</i></span>`).join(", ")}</span>`;
+    }).join(" ")}</p>`);
+  }
+  return `\n          ${out.join("\n          ")}`;
+}
+
 /**
  * "What you can buy": the sealed products for this set, cheapest first.
  *
@@ -2167,8 +2528,20 @@ function productBand(s, cls) {
   // saying the same dollar figure twice. "Cheapest way in" is the smallest
   // amount of money that gets you playing. "Cheapest per pack" is what a pack
   // costs, which is the one that decides between a box and a handful of packs.
-  const name = (x) => esc(productLabel(x, s.released).kind.toLowerCase());
-  let lede = `Every sealed ${esc(s.name)} product still being sold, cheapest first.`;
+  // "Pokemon Center" keeps its capitals: it is a shop's name, and the shelf
+  // sentence below puts it in prose for the first time (2 October 2026).
+  const name = (x) => esc(productLabel(x, s.released).kind.toLowerCase().replace(/^pokemon center /, "Pokemon Center "));
+  // EVERY COMPARISON BELOW IS SCOPED TO MARKET NOW, 2 October 2026. The lede
+  // said "on this set the bigger boxes cost more per pack, not less" as a fact
+  // about the boxes, and it is a fact about TCGplayer. On Pokemon Center's own
+  // shelf a booster box and a bundle both come to $4.49 a pack (Perfect Order,
+  // read August 17, 2026), so the same sentence is false at the shelf price on
+  // exactly the sets where the reader is most likely to be standing in a shop.
+  // The market sentences keep their figures and say "at market"; the shelf
+  // sentence after them is printed only from this set's own Pokemon Center
+  // readings, so where there are none it says nothing rather than borrowing a
+  // type-level figure.
+  let lede = `Every sealed ${esc(s.name)} product still being sold, cheapest first at TCGplayer market price.`;
   const cheaperBox = bestPack && singly && bestPack.p !== singly.p;
   const off = cheaperBox ? Math.round(((singly.each - bestPack.each) / singly.each) * 100) : 0;
 
@@ -2177,25 +2550,57 @@ function productBand(s, cls) {
     // cheapest pack there is. Saying "$6.55" twice in two sentences is what the
     // first draft did, so the two claims share one figure here.
     lede += cheaperBox
-      ? ` The cheapest way in is one pack at ${priceUSD(singly.each)}, but the cheapest pack in the set is inside the
+      ? ` At market, the cheapest way in is one pack at ${priceUSD(singly.each)}, but the cheapest pack in the set is inside the
       ${name(bestPack.p)} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`
-      : ` The cheapest way in is also the cheapest pack: one pack at ${priceUSD(singly.each)}.${
-          next ? ` The ${name(next.p)} works out at ${priceUSD(next.each)} a pack, so on this set the bigger boxes cost
-      more per pack, not less.` : ""
+      : ` At market, the cheapest way in is also the cheapest pack: one pack at ${priceUSD(singly.each)}.${
+          next ? ` The ${name(next.p)} works out at ${priceUSD(next.each)} a pack, so at market prices the bigger boxes
+      cost more per pack on this set, not less.` : ""
         }`;
   } else {
-    lede += ` The cheapest way in is ${name(cheapest)} at ${priceUSD(cheapest.market)}.`;
+    lede += ` At market, the cheapest way in is ${name(cheapest)} at ${priceUSD(cheapest.market)}.`;
     if (cheaperBox) {
       lede += ` Packs bought one at a time are ${priceUSD(singly.each)} each; the cheapest pack in the set is inside the
       ${name(bestPack.p)} at ${priceUSD(bestPack.each)}${off >= 1 ? `, which is ${off}% less` : ""}.`;
     } else if (bestPack && singly) {
-      lede += ` No box here beats a single pack per pack, at ${priceUSD(singly.each)}${
+      lede += ` At market, no box here beats a single pack per pack, at ${priceUSD(singly.each)}${
         next ? `: the ${name(next.p)} works out at ${priceUSD(next.each)}` : ""
       }.`;
     } else if (bestPack) {
-      lede += ` The cheapest pack here is inside the ${name(bestPack.p)} at ${priceUSD(bestPack.each)}.`;
+      lede += ` At market, the cheapest pack here is inside the ${name(bestPack.p)} at ${priceUSD(bestPack.each)}.`;
     }
   }
+
+  // THE SHELF, out of this set's own Pokemon Center readings and the same pack
+  // counts the market division uses (packsIn, so the era gate and the size-word
+  // guard hold here too). Up to four, cheapest a pack first.
+  const shelf = new Map(items.map((p) => [p, pcPriceFor(s, p)]));
+  const shops = shopReadings(s, items);
+  const shelfPer = items
+    .map((p) => ({ p, pc: shelf.get(p), packs: packsIn(p, s.released) }))
+    .filter((x) => x.pc && x.packs)
+    .map((x) => ({ ...x, each: x.pc.price / x.packs }))
+    .sort((a, b) => a.each - b.each);
+  if (shelfPer.length) {
+    const said = shelfPer.slice(0, 4);
+    // Products that come to the same cent share one figure, so a reader sees
+    // "the booster box and the booster bundle at $4.49 a pack" as the one fact
+    // it is rather than the same number twice in a row.
+    const runs = [];
+    for (const x of said) {
+      const last = runs[runs.length - 1];
+      if (last && Math.abs(last.each - x.each) < 0.005) last.items.push(x);
+      else runs.push({ each: x.each, items: [x] });
+    }
+    const and = (xs) => (xs.length === 1 ? xs[0] : `${xs.slice(0, -1).join(", ")} and ${xs[xs.length - 1]}`);
+    const list = and(runs.map((r, i) => `${and(r.items.map((x) => `the ${name(x.p)}`))} at ${priceUSD(r.each)}${
+      i === 0 && !(r.items.length === 1 && r.items[0].packs === 1) ? " a pack" : ""}`));
+    const flat = said.length > 1 && runs.length === 1;
+    lede += ` At Pokemon Center's own prices, read ${esc(longDate(PC_FILE.readOn))}, ${list}.${
+      flat ? " On that shelf the size of the box makes no difference to what a pack costs." : ""
+    }`;
+  }
+  const anyShelf = items.some((p) => shelf.get(p));
+  const anyShop = items.some((p) => (shops.get(p) || []).length);
 
   // imgDims(), not a literal, and on TCGplayer's host it deliberately returns
   // NOTHING. These 139 photos carried width="245" height="337", which is a card
@@ -2310,7 +2715,7 @@ function productBand(s, cls) {
                   p.listings ? ` &bull; ${p.listings} seller${p.listings === 1 ? "" : "s"}` : ""
                 }</p>`
               : ""
-          }
+          }${shelfLines(s, p, shelf.get(p), shops.get(p) || [])}
         </div>
       </li>`
     )
@@ -2330,7 +2735,18 @@ ${cards}
     </ul>
     <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
       ${esc(longDate(entry.checked))}. They move every day, so treat them as a rough idea and not a quote.
-      Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
+      Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>${
+      /* WHERE EACH SHELF FIGURE CAME FROM, 2 October 2026, and only the
+         clauses for figures this guide actually prints. The band names are
+         over-msrp.json's own labels and the page calls them a rule of thumb,
+         which is what that file's _readme requires wherever they appear. */
+      anyShelf || anyShop ? `
+    <p class="prod-note">${anyShelf ? `A Pokemon Center figure is that exact product's price in Pokemon's own shop, read by hand
+      on ${esc(longDate(PC_FILE.readOn))}. Pokemon Center is the manufacturer selling its own product, so this site treats
+      its price as the suggested retail price: <a href="/msrp.html">what sealed Pokemon should cost</a>. The multiple
+      beside it is the market price divided by it, and its name (${OVER_BANDS.map((b, i, a) => `${esc(b.label.toLowerCase())} ${b.upto == null ? `past ${multStr(a[i - 1].upto)}x` : `to ${multStr(b.upto)}x`}`).join(", ")}) is this site's rule of thumb, not a measurement. ` : ""}${
+      anyShop ? `A shop figure is one listing of that product on one day at a retailer selling its own stock, dated
+      beside it and linked to that retailer's page here. It is an example, not a score for the shop.` : ""}</p>` : ""}
     ${perPacks.length ? `<p class="prod-note">Cost per pack is the market price divided by the pack count printed on
       each card above, so you can check it. Sleeves, dice, decks and promo cards are counted as worth nothing, which
       flatters every box that includes them. Anything whose pack count is not in our data gets no per-pack figure
@@ -3284,6 +3700,111 @@ const PAGE_CSS = `
   .lbx .lb-actions{justify-content:flex-start}
   .lbx .lbx-nav{margin:0 0 8px}
 }
+
+/* ============================================ THE SECOND 2 October 2026 PASS
+   The card list, the rarity breakdown's pictures and the sealed band's shelf
+   prices. ui.css is being edited by another pass at the same time, so every
+   rule here carries enough classes to win on its own: .rar and .ig-cards li
+   are (0,1,0) and (0,2,1) there. */
+
+/* THE RARITY BREAKDOWN'S TIER CARD, the 30th's .t30-rar picture beside this
+   ladder's own bar and mid/top line. A column of its own spanning the tier's
+   rows, 44px, the card's shape; see rarityPic(). Where there is no scan the
+   cell is a well (--paper, the fix CLAUDE.md names for a light surface that
+   swallows small type) with the reason in words. */
+.rarity-list .rar.has-pic{grid-template-columns:44px minmax(0,1fr) auto;column-gap:12px}
+.rarity-list .rar.has-pic .rar-pic{grid-column:1;grid-row:1 / span 3;align-self:center}
+.rarity-list .rar.has-pic.no-pr .rar-pic{grid-row:1 / span 2}
+.rarity-list .rar.has-pic .rar-name{grid-column:2}
+.rarity-list .rar.has-pic .rar-n{grid-column:3}
+.rarity-list .rar.has-pic .rar-pr,.rarity-list .rar.has-pic .rar-bar{grid-column:2 / -1}
+.rar-pic{display:block;width:44px;aspect-ratio:245/337;padding:0;border:0;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.rar-zm,.cl-zm{cursor:zoom-in}
+.rar-zm picture,.rar-zm img,.cl-zm picture,.cl-zm img{display:block;width:100%;height:100%;object-fit:cover}
+.rar-zm:focus-visible,.cl-zm:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.rar-pic.rar-none,.cl-pic.cl-none{display:grid;place-items:center;padding:2px;text-align:center;background:var(--paper);
+  border:1px dashed var(--keyline);font:700 .625rem/1.15 var(--mono);letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2)}
+
+/* THE CARD LIST. Two summary labels, one per state. */
+.cl-det[open] .cl-show,.cl-det:not([open]) .cl-hide{display:none}
+/* THE FILTER BAR, the 30th's .t30-clf: chips are labels for visually hidden
+   inputs, 44px tall, teal when checked because a checked filter is a current
+   state. Sticky inside the list only, so it lets go when the list ends; one
+   row that scrolls sideways below 1280 rather than three rows of chips. */
+#checklist .cl-f{position:sticky;top:var(--bar-h,60px);z-index:5;display:flex;flex-wrap:wrap;gap:8px 20px;
+  padding:8px var(--s5);background:var(--card);border-bottom:1px solid var(--hair)}
+.cl-f fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.cl-f legend{float:left;margin-right:6px;font:700 var(--t-micro)/44px var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+.cl-f input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.cl-f label{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;cursor:pointer;
+  background:var(--paper);border:1px solid var(--keyline);font:700 var(--t-sm)/1 var(--body);color:var(--ink);white-space:nowrap}
+.cl-f label i{font:400 var(--t-micro)/1 var(--mono);font-style:normal;color:var(--ink-2)}
+.cl-f input:checked+label{border:2px solid var(--sky);background:var(--paper-3)}
+.cl-f input:checked+label i{color:var(--ink)}
+.cl-f input:focus-visible+label{outline:3px solid var(--sky);outline-offset:2px}
+@media(max-width:1279px){
+  #checklist .cl-f{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px var(--s4)}
+  #checklist .cl-f::-webkit-scrollbar{display:none}
+  #checklist .cl-f fieldset{flex-wrap:nowrap;flex:none}
+}
+/* A DESKTOP BAR IS TWO ROWS OF CHIPS ON A TEN-TIER SET, and at 44px a chip it
+   pinned 160px of every screen at 1440 (Ascended Heroes, measured). A mouse
+   does not need a 44px target, so from 1280, the width where the bar stops
+   scrolling sideways and starts wrapping, chips are 36px: WCAG 2.2's 24px
+   minimum with room, and about 100px of bar. */
+@media(min-width:1280px){
+  #checklist .cl-f{padding-block:6px;row-gap:4px}
+  #checklist .cl-f label{min-height:36px}
+  #checklist .cl-f legend{line-height:36px}
+}
+/* The two filters every guide shares. The per-tier ones are generated beside
+   each page by checklistCSS(). Price order is CSS order for a browser with no
+   script; the script moves the rows themselves. */
+#checklist:has(#clf-chase:checked) .cl-row:not(.is-chase){display:none}
+#checklist:has(#clo-price:checked) .cl-row{order:var(--k)}
+/* THE PICTURED ROW, only once the script has built the pictures (.cl-on), so
+   a reader with no script keeps the text row exactly as it was. Picture,
+   then the name and price on one line and the number and rarity under it.
+   --rt is the one number, read by the column and the picture. */
+.cl-list{--rt:44px}
+@media(min-width:760px){.cl-list{--rt:52px}}
+@media(min-width:1200px){
+  .cl-list{--rt:56px}
+  .ig-cards.cl-list.cl-on{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s5)}
+}
+.ig-cards.en.cl-on li.cl-row{grid-template-columns:var(--rt) auto minmax(0,1fr) auto;
+  grid-template-areas:"p nm nm pr" "p no rr rr";align-items:center;column-gap:10px;row-gap:2px}
+.cl-on .cl-row > .cl-pic{grid-area:p;width:var(--rt)}
+.cl-on .cl-row > .ig-nm{grid-area:nm;align-self:end}
+.cl-on .cl-row > .ig-pr{grid-area:pr;align-self:end}
+.cl-on .cl-row > .ig-no{grid-area:no;align-self:start}
+.cl-on .cl-row > .ig-rr2{grid-area:rr;align-self:start}
+.cl-pic{display:block;aspect-ratio:245/337;padding:0;border:0;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.cl-on .cl-row:has(.cl-zm){cursor:zoom-in}
+/* HOVER IS A KEYLINE, NOT A LIGHTER FILL. The 30th lifts the row with 45% of
+   --paper-3, and on this card green that takes the small pink price to about
+   4.1:1 for as long as the pointer rests there (the hover trap CLAUDE.md
+   records under the palette swap). An inset line marks the row and leaves
+   every ink on it where it was. */
+@media(hover:hover){.cl-on .cl-row:has(.cl-zm):hover{box-shadow:inset 0 0 0 1px var(--keyline);border-radius:6px}}
+
+/* THE SHELF LINES UNDER A PRODUCT. The Pokemon Center price is a mark, so its
+   figure is the small pink (ui.css prices the market figure the same way, at
+   display size); the multiple and the shop readings are mono figures; a
+   retailer's name is a route to its page here, so teal and underlined. */
+.prod-pc{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:6px}
+.prod-pc b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
+.prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
+.prod-x{margin-top:2px}
+.prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+.prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
+.prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.prod-shops .prod-shop{display:block}
+.prod-shops a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;display:inline-block;padding-block:3px}
+.prod-shops a:hover,.prod-shops a:focus-visible{color:var(--sky)}
+.prod-shops b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
+.prod-shops i{font:400 var(--t-micro)/1.2 var(--mono);font-style:normal}
 ${RARITY_CSS}`;
 
 /**
@@ -3384,6 +3905,41 @@ function guideDates(s) {
 }
 
 // ------------------------------------------------------------------ a set
+/* WHICH CARD STANDS FOR A TIER IN THE RARITY BREAKDOWN, 2 October 2026.
+   The dearest card at that tier on this guide's checklist, the same file and
+   the same figure the tier's "top" price prints, so the picture is the card
+   that price belongs to. Where no card at the tier is priced, the first one on
+   the checklist, as the 30th does. The tier is joined through rarityLabel,
+   the join rarityPrices() makes.
+
+   TWO WORDED FALLBACKS, NEVER A BLANK BOX. A tier whose card has no scan (a
+   null image, or a base on data/no-scan.json, as Celebrations' Mew is) says
+   "No scan". A tier the checklist does not use at all says "Not shown":
+   sets.json and the checklists carve Ascended Heroes differently (seven "Mega
+   Attack Rare" there are Ultra Rares here, see rarityPrices), so there is no
+   card to pick, and "No scan" would claim a missing file that is not missing.
+
+   44px, low.webp only: 44 x 3 = 132 device pixels at DPR 3 against the 245px
+   file, so one candidate covers every density and no sizes is needed. Lazy,
+   because the band is thousands of pixels down on every guide. Where the
+   tier's card is one of the hero fan's three it is the same low.webp url, a
+   cache hit. */
+function rarityPic(s, key, pulled) {
+  const cards = (checklists[s.id]?.cards || []).filter((c) => rarityLabel(c.rarity) === key);
+  const none = (w) => `<span class="rar-pic rar-none" aria-hidden="true">${w}</span>`;
+  if (!cards.length) return none("Not shown");
+  const c = cards.filter((x) => typeof x.price === "number" && x.price > 0).sort((a, b) => b.price - a.price)[0] || cards[0];
+  if (!c.img || NO_SCAN.has(c.img)) return none("No scan");
+  const n = cardNumKey(c.n);
+  const card = {
+    name: c.name, number: n, rarity: c.rarity, price: c.price,
+    image: `${c.img}/low.webp`, imageLarge: `${c.img}/high.webp`,
+    url: chaseLinks[s.id]?.links?.[n] || null,
+  };
+  return `<button class="rar-pic rar-zm" type="button"${zoomData(s, card, pulled)}
+          aria-label="Enlarge ${esc(c.name)} ${esc(numOf(s, n))}, the ${typeof c.price === "number" ? "most valuable" : "first"} ${esc(key)} card">${avifPicture(`<img src="${card.image}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(card.image)}>`)}</button>`;
+}
+
 function setPage(s) {
   const url = `${SITE}/sets/${s.id}.html`;
   // The hero logo's url is built inside heroLogo(), which needs the whole
@@ -3922,7 +4478,8 @@ ${rows}
     ${ordered.length ? `${rarPr.size ? `<p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>` : ""}
-    <div class="rarity-list" data-figure="chart">
+    ${/* data-zg: the tier pictures are one pop-up group, so Previous and
+          Next walk the ladder's cards in ladder order (2 October 2026). */ ""}<div class="rarity-list" data-figure="chart" data-zg="rarity">
       ${ordered.map(([r, n]) => {
         const key = rarityLabel(r) || r;
         const pr = rarPr.get(key);
@@ -3931,7 +4488,14 @@ ${rows}
         // reader could name. The tag is a word, pink because it is a mark that
         // goes nowhere, and it is the thing the 101 band and the checklist note
         // now point at.
-        return `<div class="rar${CHASE.has(key) ? " chase" : ""}">
+        // THE TIER'S DEAREST CARD, BESIDE ITS BAR, 2 October 2026: the 30th's
+        // .t30-rar tiles brought over, which the owner likes, without giving up
+        // this ladder's mid and top figures, which say more than the 30th's
+        // bare counts. See rarityPic() for which card, and for the worded
+        // fallback where there is no scan to show.
+        const pic = rarityPic(s, key, pulled);
+        return `<div class="rar${CHASE.has(key) ? " chase" : ""} has-pic${pr ? "" : " no-pr"}">
+        ${pic}
         <span class="rar-name">${BOOKLET_MARK[key] ? rarityMark(BOOKLET_MARK[key]) : ""}${esc(key)}${CHASE.has(key) ? ` <b class="ch-tag">Chase</b>` : ""}</span>
         <span class="rar-n">${n}</span>
         ${pr
@@ -3960,7 +4524,7 @@ ${rows}
   </div>
 </section>`),
 
-    checklists[s.id]?.cards?.length ? tag("checklist", "Card list", (cls) => checklistBand(s, cls)) : null,
+    checklists[s.id]?.cards?.length ? tag("checklist", "Card list", (cls) => checklistBand(s, cls, pulled)) : null,
     intlSets[s.id]?.sources?.length ? tag("languages", null, (cls) => intlBand(s, cls)) : null,
     productsBySet[s.id]?.products?.length ? tag("products", "Sealed prices", (cls) => productBand(s, cls)) : null,
 
@@ -4034,7 +4598,10 @@ ${rows}
   // Read off the drawn body rather than recomputed, so this cannot drift out of
   // step with the condition inside the tile.
   const css = body.includes("noscan") ? `${PAGE_CSS}\n${NOSCAN_CSS}` : PAGE_CSS;
-  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css }) + `
+  // The card list's per-tier filter rules ride with the page that draws those
+  // chips, 2 October 2026; see checklistCSS().
+  const clCss = checklistCSS(s);
+  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css: clCss ? `${css}\n${clCss}` : css }) + `
 <header class="set-hero">
   <div class="wrap${fan ? " sh-has-fan" : ""}">
     <div class="sh-text">
@@ -4252,11 +4819,18 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
   var $=function(id){return document.getElementById(id);};
-  var last=null, list=[], at=0;
+  var last=null, list=[], at=0, grp=null;
+  // THREE MORE GROUPS, 2 October 2026: the card list's pictures (.cl-zm, built
+  // by the card list script when the list is opened), the rarity breakdown's
+  // tier cards (.rar-zm) and the original two. A filtered-out row is
+  // display:none, so offsetParent is null and it drops out of the walk:
+  // Previous and Next step through the rows that are showing, in the order
+  // they are showing (the price sort moves the rows, not just their paint).
+  var ZM='.chase-card,.sh-zm,.cl-zm,.rar-zm';
   function groupOf(b){
     var g=b.closest('[data-zg]');
-    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
-    return all.filter(function(x){return x.dataset.img;});
+    var all=g ? [].slice.call(g.querySelectorAll(ZM)) : [b];
+    return all.filter(function(x){return x.dataset.img && (x===b || x.offsetParent!==null);});
   }
   // The lightbox is the one place on this page that loads high.webp, 600x825
   // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
@@ -4292,7 +4866,9 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
     var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
     $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
-    $('lbSrc').textContent=d.src || '';
+    // The card list carries its raw price sentence once, on the list, rather
+    // than on 180 rows; a row with a PSA 10 figure carries its own.
+    $('lbSrc').textContent=d.src || (grp && grp.dataset.src) || '';
     var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
     var rip=$('lbRip'); rip.hidden=!d.rip;
     if(d.rip){
@@ -4305,7 +4881,7 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
   }
   function open(b){
-    last=b; list=groupOf(b);
+    last=b; list=groupOf(b); grp=b.closest('[data-zg]');
     var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
@@ -4316,8 +4892,15 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
   }
-  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
-    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  // ONE LISTENER FOR EVERY OPENER, 2 October 2026, because the card list's
+  // buttons do not exist until the list is first opened. A tap anywhere on a
+  // card list row opens its card, the 30th's whole-row target, except on a
+  // link inside it.
+  document.addEventListener('click',function(e){
+    var t=e.target; if(!t.closest || lb.contains(t)) return;
+    var b=t.closest(ZM);
+    if(!b){ var row=t.closest('.cl-row'); if(row && !t.closest('a')) b=row.querySelector('.cl-zm'); }
+    if(b && b.dataset.img) open(b);
   });
   $('lbPrev').addEventListener('click',function(){ step(-1); });
   $('lbNext').addEventListener('click',function(){ step(1); });
@@ -4339,6 +4922,76 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     if(!sw) return;
     var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
     if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
+})();
+</script>
+<script>
+/* THE CARD LIST, 2 October 2026 (checklistBand in the builder says why each
+   part is shaped as it is).
+   1. The pictures are built the first time the list is opened, from the row's
+      own number and the list's data-base, each one a button the pop-up opens.
+      A row carrying data-x has no scan and gets the words instead.
+   2. Every figure the pop-up shows is read off the row's own text, so the two
+      cannot disagree. "Other printings" is the other rows of the same name.
+   3. The price sort moves the rows, not only their paint (the 30th's fix of
+      29 September 2026): CSS order alone left Tab, a screen reader and the
+      pop-up's Next in number order while the eye read price order.
+   4. A filter change deep in the list brings the list's top back to just
+      under the pinned bar, rather than leaving the reader in the section below
+      once the list shrinks above them. */
+(function(){
+  var sec=document.getElementById('checklist'); if(!sec) return;
+  var det=sec.querySelector('details.cl-det'), ol=sec.querySelector('ol.cl-list'), f=sec.querySelector('.cl-f');
+  if(!det || !ol) return;
+  var rows=[].slice.call(ol.children), base=ol.getAttribute('data-base')||'', of=ol.getAttribute('data-of')||'';
+  function txt(el){ return el ? el.textContent.replace(/\\s+/g,' ').trim() : ''; }
+  function nameOf(li){ var n=li.querySelector('.ig-nm'); return n && n.firstChild ? n.firstChild.nodeValue.trim() : ''; }
+  function tierOf(li){ var l=li.hasAttribute('data-r') && document.querySelector('label[for="clf-r'+li.getAttribute('data-r')+'"]');
+    return l ? l.firstChild.nodeValue.trim() : txt(li.querySelector('.ig-rr2')); }
+  function noScan(li){ var w=document.createElement('span'); w.className='cl-pic cl-none'; w.setAttribute('aria-hidden','true'); w.textContent='No scan'; return w; }
+  function build(){
+    if(ol.classList.contains('cl-on')) return;
+    var byName={};
+    rows.forEach(function(li){ var n=nameOf(li); (byName[n]=byName[n]||[]).push(li); });
+    rows.forEach(function(li){
+      var d=li.dataset, no=txt(li.querySelector('.ig-no'));
+      if(!base || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
+      var b=document.createElement('button'), nm=nameOf(li), pr=li.querySelector('.ig-pr');
+      b.type='button'; b.className='cl-pic cl-zm';
+      b.dataset.img=base+no+'/high.webp';
+      b.dataset.name=nm; b.dataset.rarity=tierOf(li);
+      b.dataset.number=of ? no+'/'+of : no;
+      b.dataset.price=pr ? txt(pr) : 'No price yet';
+      ['ill','psa10','src','rip','ripWhen','ripN','url'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
+      if(d.psa10 && !d.src) b.dataset.src=(ol.getAttribute('data-src')||'')+' '+(ol.getAttribute('data-src10')||'');
+      var alts=(byName[nm]||[]).filter(function(x){return x!==li;}).map(function(x){
+        var p=x.querySelector('.ig-pr'); return '#'+txt(x.querySelector('.ig-no'))+' '+tierOf(x)+' '+(p ? txt(p) : 'no price');
+      });
+      if(alts.length) b.dataset.alts=alts.join(' \\u2022 ');
+      b.setAttribute('aria-label','Enlarge '+nm+' '+b.dataset.number);
+      var pic=document.createElement('picture'), src=document.createElement('source'), img=document.createElement('img');
+      src.type='image/avif'; src.srcset=base+no+'/low.avif';
+      img.src=base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
+      img.onerror=function(){ if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
+      pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
+      li.insertBefore(b, li.firstChild);
+    });
+    ol.classList.add('cl-on');
+  }
+  det.addEventListener('toggle',function(){ if(det.open) build(); });
+  if(det.open) build();
+  if(!f) return;
+  var rank=function(li){ return parseInt(li.style.getPropertyValue('--k'),10) || 9999; };
+  f.addEventListener('change',function(e){
+    if(e.target && e.target.name==='clo'){
+      var byPrice=document.getElementById('clo-price').checked;
+      rows.map(function(li,i){ return {li:li,i:i}; })
+        .sort(function(a,b){ return byPrice ? (rank(a.li)-rank(b.li) || a.i-b.i) : a.i-b.i; })
+        .forEach(function(x){ ol.appendChild(x.li); });
+    }
+    var pinned=(parseFloat(getComputedStyle(f).top) || 60)+f.offsetHeight+8;
+    var top=ol.getBoundingClientRect().top;
+    if(top<pinned) window.scrollBy({ top: top-pinned, behavior: 'instant' });
   });
 })();
 </script>
@@ -4625,6 +5278,15 @@ Wrote ${sets.length} set pages + index to public/sets/
 
 Remember to re-run build-pages.mjs so the sitemap picks these up.
 `);
+
+// THE SHELF PRICES THIS RUN REFUSED, 2 October 2026: a Pokemon Center name
+// two SKUs share at different prices, or a reading msrp.json files under a
+// different product type. Printed here rather than on a page, like the box
+// number gaps above; the page simply prints no shelf price for that product.
+if (pcDropped.length) {
+  console.log(`  ${pcDropped.length} Pokemon Center match(es) dropped from the sealed band:`);
+  for (const d of [...new Set(pcDropped)]) console.log(`    ${d}`);
+}
 
 // What this run deleted and did not put back. On a build-all run the answer is
 // always nothing, because build-intl-pages.mjs writes the non-English guides

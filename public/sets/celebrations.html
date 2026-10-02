@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
+<link rel="stylesheet" href="/assets/ui.css?v=555e96aa">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -176,6 +176,71 @@ align-items:center;text-align:left;padding:24px}
 .lbx .lb-actions{justify-content:flex-start}
 .lbx .lbx-nav{margin:0 0 8px}
 }
+.rarity-list .rar.has-pic{grid-template-columns:44px minmax(0,1fr) auto;column-gap:12px}
+.rarity-list .rar.has-pic .rar-pic{grid-column:1;grid-row:1 / span 3;align-self:center}
+.rarity-list .rar.has-pic.no-pr .rar-pic{grid-row:1 / span 2}
+.rarity-list .rar.has-pic .rar-name{grid-column:2}
+.rarity-list .rar.has-pic .rar-n{grid-column:3}
+.rarity-list .rar.has-pic .rar-pr,.rarity-list .rar.has-pic .rar-bar{grid-column:2 / -1}
+.rar-pic{display:block;width:44px;aspect-ratio:245/337;padding:0;border:0;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.rar-zm,.cl-zm{cursor:zoom-in}
+.rar-zm picture,.rar-zm img,.cl-zm picture,.cl-zm img{display:block;width:100%;height:100%;object-fit:cover}
+.rar-zm:focus-visible,.cl-zm:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+.rar-pic.rar-none,.cl-pic.cl-none{display:grid;place-items:center;padding:2px;text-align:center;background:var(--paper);
+border:1px dashed var(--keyline);font:700 .625rem/1.15 var(--mono);letter-spacing:.03em;text-transform:uppercase;color:var(--ink-2)}
+.cl-det[open] .cl-show,.cl-det:not([open]) .cl-hide{display:none}
+#checklist .cl-f{position:sticky;top:var(--bar-h,60px);z-index:5;display:flex;flex-wrap:wrap;gap:8px 20px;
+padding:8px var(--s5);background:var(--card);border-bottom:1px solid var(--hair)}
+.cl-f fieldset{border:0;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:6px;align-items:center;min-width:0}
+.cl-f legend{float:left;margin-right:6px;font:700 var(--t-micro)/44px var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.06em}
+.cl-f input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.cl-f label{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;cursor:pointer;
+background:var(--paper);border:1px solid var(--keyline);font:700 var(--t-sm)/1 var(--body);color:var(--ink);white-space:nowrap}
+.cl-f label i{font:400 var(--t-micro)/1 var(--mono);font-style:normal;color:var(--ink-2)}
+.cl-f input:checked+label{border:2px solid var(--sky);background:var(--paper-3)}
+.cl-f input:checked+label i{color:var(--ink)}
+.cl-f input:focus-visible+label{outline:3px solid var(--sky);outline-offset:2px}
+@media(max-width:1279px){
+#checklist .cl-f{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;padding:6px var(--s4)}
+#checklist .cl-f::-webkit-scrollbar{display:none}
+#checklist .cl-f fieldset{flex-wrap:nowrap;flex:none}
+}
+@media(min-width:1280px){
+#checklist .cl-f{padding-block:6px;row-gap:4px}
+#checklist .cl-f label{min-height:36px}
+#checklist .cl-f legend{line-height:36px}
+}
+#checklist:has(#clf-chase:checked) .cl-row:not(.is-chase){display:none}
+#checklist:has(#clo-price:checked) .cl-row{order:var(--k)}
+.cl-list{--rt:44px}
+@media(min-width:760px){.cl-list{--rt:52px}}
+@media(min-width:1200px){
+.cl-list{--rt:56px}
+.ig-cards.cl-list.cl-on{grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--s5)}
+}
+.ig-cards.en.cl-on li.cl-row{grid-template-columns:var(--rt) auto minmax(0,1fr) auto;
+grid-template-areas:"p nm nm pr" "p no rr rr";align-items:center;column-gap:10px;row-gap:2px}
+.cl-on .cl-row > .cl-pic{grid-area:p;width:var(--rt)}
+.cl-on .cl-row > .ig-nm{grid-area:nm;align-self:end}
+.cl-on .cl-row > .ig-pr{grid-area:pr;align-self:end}
+.cl-on .cl-row > .ig-no{grid-area:no;align-self:start}
+.cl-on .cl-row > .ig-rr2{grid-area:rr;align-self:start}
+.cl-pic{display:block;aspect-ratio:245/337;padding:0;border:0;border-radius:3px;overflow:hidden;background:var(--paper-3)}
+.cl-on .cl-row:has(.cl-zm){cursor:zoom-in}
+@media(hover:hover){.cl-on .cl-row:has(.cl-zm):hover{box-shadow:inset 0 0 0 1px var(--keyline);border-radius:6px}}
+.prod-pc{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:6px}
+.prod-pc b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
+.prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
+.prod-x{margin-top:2px}
+.prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+.prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
+.prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
+.prod-shops .prod-shop{display:block}
+.prod-shops a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;display:inline-block;padding-block:3px}
+.prod-shops a:hover,.prod-shops a:focus-visible{color:var(--sky)}
+.prod-shops b{font:700 var(--t-sm)/1.2 var(--mono);color:var(--ketchup-deep)}
+.prod-shops i{font:400 var(--t-micro)/1.2 var(--mono);font-style:normal}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -188,7 +253,13 @@ align-items:center;text-align:left;padding:24px}
 border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
-height:auto;min-height:44px;padding-block:6px}</style>
+height:auto;min-height:44px;padding-block:6px}
+#checklist:has(#clf-r0:checked) .cl-row:not([data-r="0"]){display:none}
+#checklist:has(#clf-r1:checked) .cl-row:not([data-r="1"]){display:none}
+#checklist:has(#clf-r2:checked) .cl-row:not([data-r="2"]){display:none}
+#checklist:has(#clf-r3:checked) .cl-row:not([data-r="3"]){display:none}
+#checklist:has(#clf-r4:checked) .cl-row:not([data-r="4"]){display:none}
+#checklist:has(#clf-r5:checked) .cl-row:not([data-r="5"]){display:none}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Celebrations Pokemon TCG Set Guide","description":"Celebrations Pokemon TCG set guide: 25 cards, released October 8, 2021. The priciest of those 25 is Mew at $54.84; Celebrations: Classic Collection is a separate 25 cards we hold no prices for. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-celebrations.jpg?v=3cbee3cd"],"about":{"@type":"Thing","name":"Celebrations (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/celebrations.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/celebrations.html"},"datePublished":"2026-08-15","dateModified":"2026-10-02","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Celebrations"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
@@ -596,38 +667,74 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
-    <div class="rarity-list" data-figure="chart">
-      <div class="rar chase">
+    <div class="rarity-list" data-figure="chart" data-zg="rarity">
+      <div class="rar chase has-pic">
+        <span class="rar-pic rar-none" aria-hidden="true">No scan</span>
         <span class="rar-name">Secret Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">1</span>
         <span class="rar-pr"><b>$54.84</b></span>
         <span class="rar-bar"><i style="width:8%"></i></span>
       </div>
-      <div class="rar chase">
+      <div class="rar chase has-pic">
+        <button class="rar-pic rar-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/24/high.webp"
+        data-name="Professor's Research (Professor Oak)" data-rarity="Ultra Rare"
+        data-number="24/25" data-price="$1.80"
+        data-psa10="$56.33"
+        data-url="https://www.tcgplayer.com/product/250293" data-ill="Ken Sugimori" data-alts="#23 Holo Rare $0.57"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Professor's Research (Professor Oak) 24/25, the most valuable Ultra Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/24/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/24/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">1</span>
         <span class="rar-pr"><b>$1.80</b></span>
         <span class="rar-bar"><i style="width:8%"></i></span>
       </div>
-      <div class="rar chase">
+      <div class="rar chase has-pic">
+        <button class="rar-pic rar-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/7/high.webp"
+        data-name="Flying Pikachu VMAX" data-rarity="Holo Rare VMAX"
+        data-number="7/25" data-price="$7.50"
+        data-psa10="$90.00"
+        data-url="https://www.tcgplayer.com/product/250305" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Flying Pikachu VMAX 7/25, the most valuable Holo Rare VMAX card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare VMAX <b class="ch-tag">Chase</b></span>
         <span class="rar-n">2</span>
         <span class="rar-pr">Mid <b>$7.50</b> &bull; top <b>$7.50</b></span>
         <span class="rar-bar"><i style="width:17%"></i></span>
       </div>
-      <div class="rar">
+      <div class="rar has-pic">
+        <button class="rar-pic rar-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/8/high.webp"
+        data-name="Surfing Pikachu V" data-rarity="Holo Rare V"
+        data-number="8/25" data-price="$4.55"
+        data-psa10="$179"
+        data-url="https://www.tcgplayer.com/product/250306" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Surfing Pikachu V 8/25, the most valuable Holo Rare V card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/8/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/8/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare V</span>
         <span class="rar-n">4</span>
         <span class="rar-pr">Mid <b>$4.25</b> &bull; top <b>$4.55</b></span>
         <span class="rar-bar"><i style="width:33%"></i></span>
       </div>
-      <div class="rar">
+      <div class="rar has-pic">
+        <button class="rar-pic rar-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/5/high.webp"
+        data-name="Pikachu" data-rarity="Holo Rare"
+        data-number="5/25" data-price="$5.95"
+        data-psa10="$1,318"
+        data-url="https://www.tcgplayer.com/product/250303" data-ill="Mitsuhiro Arita"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Pikachu 5/25, the most valuable Holo Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare</span>
         <span class="rar-n">5</span>
         <span class="rar-pr">Mid <b>$1.29</b> &bull; top <b>$5.95</b></span>
         <span class="rar-bar"><i style="width:42%"></i></span>
       </div>
-      <div class="rar">
+      <div class="rar has-pic">
+        <button class="rar-pic rar-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/14/high.webp"
+        data-name="Cosmoem" data-rarity="Rare"
+        data-number="14/25" data-price="$1.85"
+        data-psa10="$126"
+        data-url="https://www.tcgplayer.com/product/250297" data-ill="kirisAki"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Cosmoem 14/25, the most valuable Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/14/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/14/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span>
         <span class="rar-n">12</span>
         <span class="rar-pr">Mid <b>$1.46</b> &bull; top <b>$1.85</b></span>
@@ -648,107 +755,123 @@ height:auto;min-height:44px;padding-block:6px}</style>
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
     <h2>Celebrations card list: <span class="hl">all 25 cards</span></h2>
-    <p class="lede">All 25 cards in Celebrations, with what each one is worth. The most valuable card in the set is Mew at $54.84.</p>
-    <details class="ig-list">
-      <summary>Show the full Celebrations checklist</summary>
-      <ol class="ig-cards en">
-        <li><span class="ig-no">1</span>
+    <p class="lede">All 25 cards in Celebrations, with what each one is worth. The most valuable card in the set is Mew at $54.84. Open the list for a picture of every card: filter it by rarity or to the chase tiers, sort it by price, and tap a card to see it larger.</p>
+    <details class="ig-list cl-det">
+      <summary><span class="cl-show">Show all 25 cards, with pictures</span><span class="cl-hide">Hide the card list</span></summary>
+      <form class="cl-f" onsubmit="return false" aria-label="Filter and sort the card list">
+        <fieldset><legend>Show</legend>
+          <input type="radio" name="clf" id="clf-all" checked><label for="clf-all">All <i>25</i></label>
+          <input type="radio" name="clf" id="clf-chase"><label for="clf-chase">Chase tiers <i>4</i></label>
+          <input type="radio" name="clf" id="clf-r0"><label for="clf-r0">Secret Rare <i>1</i></label>
+          <input type="radio" name="clf" id="clf-r1"><label for="clf-r1">Ultra Rare <i>1</i></label>
+          <input type="radio" name="clf" id="clf-r2"><label for="clf-r2">Holo Rare VMAX <i>2</i></label>
+          <input type="radio" name="clf" id="clf-r3"><label for="clf-r3">Holo Rare V <i>4</i></label>
+          <input type="radio" name="clf" id="clf-r4"><label for="clf-r4">Holo Rare <i>5</i></label>
+          <input type="radio" name="clf" id="clf-r5"><label for="clf-r5">Rare <i>12</i></label>
+        </fieldset>
+        <fieldset><legend>Sort</legend>
+          <input type="radio" name="clo" id="clo-num" checked><label for="clo-num">Number</label>
+          <input type="radio" name="clo" id="clo-price"><label for="clo-price">Price</label>
+        </fieldset>
+      </form>
+      <ol class="ig-cards en cl-list" data-zg="checklist" data-base="https://assets.tcgdex.net/en/swsh/cel25/" data-of="25" data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026." data-src10="PSA 10: graded sales data from pricecharting.com, read October 2, 2026.">
+        <li class="cl-row" data-r="5" style="--k:21" data-ill="Kouki Saitou" data-psa10="$143"><span class="ig-no">1</span>
           <span class="ig-nm">Ho-Oh</span>
           <span class="ig-pr">$1.16</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">2</span>
+        <li class="cl-row" data-r="5" style="--k:15" data-ill="Aya Kusube" data-psa10="$150"><span class="ig-no">2</span>
           <span class="ig-nm">Reshiram</span>
           <span class="ig-pr">$1.46</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">3</span>
+        <li class="cl-row" data-r="5" style="--k:13" data-ill="Ryuta Fuse" data-psa10="$199"><span class="ig-no">3</span>
           <span class="ig-nm">Kyogre</span>
           <span class="ig-pr">$1.50</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">4</span>
+        <li class="cl-row" data-r="5" style="--k:23" data-ill="5ban Graphics" data-psa10="$145"><span class="ig-no">4</span>
           <span class="ig-nm">Palkia</span>
           <span class="ig-pr">$0.99</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">5</span>
+        <li class="cl-row" data-r="4" style="--k:4" data-ill="Mitsuhiro Arita" data-psa10="$1,318" data-url="https://www.tcgplayer.com/product/250303"><span class="ig-no">5</span>
           <span class="ig-nm">Pikachu</span>
           <span class="ig-pr">$5.95</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li><span class="ig-no">6</span>
+        <li class="cl-row" data-r="3" style="--k:6" data-ill="aky CG Works" data-psa10="$128" data-url="https://www.tcgplayer.com/product/250304"><span class="ig-no">6</span>
           <span class="ig-nm">Flying Pikachu V</span>
           <span class="ig-pr">$4.25</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="is-chase"><span class="ig-no">7</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:2" data-ill="aky CG Works" data-psa10="$90.00" data-url="https://www.tcgplayer.com/product/250305"><span class="ig-no">7</span>
           <span class="ig-nm">Flying Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.50</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
-        <li><span class="ig-no">8</span>
+        <li class="cl-row" data-r="3" style="--k:5" data-ill="aky CG Works" data-psa10="$179" data-url="https://www.tcgplayer.com/product/250306"><span class="ig-no">8</span>
           <span class="ig-nm">Surfing Pikachu V</span>
           <span class="ig-pr">$4.55</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="is-chase"><span class="ig-no">9</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:3" data-ill="aky CG Works" data-psa10="$92.00" data-url="https://www.tcgplayer.com/product/250307"><span class="ig-no">9</span>
           <span class="ig-nm">Surfing Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.00</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
-        <li><span class="ig-no">10</span>
+        <li class="cl-row" data-r="5" style="--k:14" data-ill="Aya Kusube" data-psa10="$140"><span class="ig-no">10</span>
           <span class="ig-nm">Zekrom</span>
           <span class="ig-pr">$1.48</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">11</span>
+        <li class="cl-row" data-r="4" style="--k:7" data-ill="Yuu Nishida" data-psa10="$815" data-url="https://www.tcgplayer.com/product/250309"><span class="ig-no">11</span>
           <span class="ig-nm">Mew</span>
           <span class="ig-pr">$3.99</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li><span class="ig-no">12</span>
+        <li class="cl-row" data-r="5" style="--k:17" data-ill="AKIRA EGAWA" data-psa10="$95.73"><span class="ig-no">12</span>
           <span class="ig-nm">Xerneas</span>
           <span class="ig-pr">$1.27</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">13</span>
+        <li class="cl-row" data-r="5" style="--k:11" data-ill="kirisAki" data-psa10="$147"><span class="ig-no">13</span>
           <span class="ig-nm">Cosmog</span>
           <span class="ig-pr">$1.57</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">14</span>
+        <li class="cl-row" data-r="5" style="--k:8" data-ill="kirisAki" data-psa10="$126" data-url="https://www.tcgplayer.com/product/250297"><span class="ig-no">14</span>
           <span class="ig-nm">Cosmoem</span>
           <span class="ig-pr">$1.85</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">15</span>
+        <li class="cl-row" data-r="4" style="--k:16" data-ill="kirisAki" data-psa10="$164"><span class="ig-no">15</span>
           <span class="ig-nm">Lunala</span>
           <span class="ig-pr">$1.29</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li><span class="ig-no">16</span>
+        <li class="cl-row" data-r="3" style="--k:12" data-ill="Mitsuhiro Arita" data-psa10="$47.27"><span class="ig-no">16</span>
           <span class="ig-nm">Zacian V</span>
           <span class="ig-pr">$1.57</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li><span class="ig-no">17</span>
+        <li class="cl-row" data-r="5" style="--k:18" data-ill="Ryuta Fuse" data-psa10="$156"><span class="ig-no">17</span>
           <span class="ig-nm">Groudon</span>
           <span class="ig-pr">$1.26</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">18</span>
+        <li class="cl-row" data-r="3" style="--k:22" data-ill="Mitsuhiro Arita" data-psa10="$50.02"><span class="ig-no">18</span>
           <span class="ig-nm">Zamazenta V</span>
           <span class="ig-pr">$1.12</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li><span class="ig-no">19</span>
+        <li class="cl-row" data-r="5" style="--k:24" data-ill="AKIRA EGAWA" data-psa10="$89.89"><span class="ig-no">19</span>
           <span class="ig-nm">Yveltal</span>
           <span class="ig-pr">$0.87</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">20</span>
+        <li class="cl-row" data-r="5" style="--k:20" data-ill="5ban Graphics" data-psa10="$106"><span class="ig-no">20</span>
           <span class="ig-nm">Dialga</span>
           <span class="ig-pr">$1.21</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">21</span>
+        <li class="cl-row" data-r="4" style="--k:19" data-ill="kirisAki" data-psa10="$255"><span class="ig-no">21</span>
           <span class="ig-nm">Solgaleo</span>
           <span class="ig-pr">$1.25</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li><span class="ig-no">22</span>
+        <li class="cl-row" data-r="5" style="--k:9" data-ill="Kouki Saitou" data-psa10="$255"><span class="ig-no">22</span>
           <span class="ig-nm">Lugia</span>
           <span class="ig-pr">$1.80</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li><span class="ig-no">23</span>
+        <li class="cl-row" data-r="4" style="--k:25" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$244"><span class="ig-no">23</span>
           <span class="ig-nm">Professor's Research (Professor Oak)</span>
           <span class="ig-pr">$0.57</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li class="is-chase"><span class="ig-no">24</span>
+        <li class="cl-row is-chase" data-r="1" style="--k:10" data-ill="Ken Sugimori" data-psa10="$56.33"><span class="ig-no">24</span>
           <span class="ig-nm">Professor's Research (Professor Oak) <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.80</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="is-chase"><span class="ig-no">25</span>
+        <li class="cl-row is-chase" data-r="0" style="--k:1" data-ill="Saki Hayashiro" data-psa10="$200" data-url="https://www.tcgplayer.com/product/250295" data-x><span class="ig-no">25</span>
           <span class="ig-nm">Mew <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$54.84</span>
           <span class="ig-rr2">Secret Rare</span></li>
@@ -757,6 +880,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <p class="price-note">Rows tagged CHASE are the chase tiers, the same tiers the rarity breakdown above tags. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. 25 of 25 cards have a price.
+      Card pictures are TCGdex's scans.
       Looking for one card in particular? <a href="/cards.html?set=celebrations">Search every card on the site</a>.</p>
   </div>
 </section>
@@ -765,7 +889,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
     <h2>Celebrations ETB and pack <span class="hl">prices</span></h2>
-    <p class="lede prod-lede">Every sealed Celebrations product still being sold, cheapest first. The cheapest way in is also the cheapest pack: one pack at $34.23.</p>
+    <p class="lede prod-lede">Every sealed Celebrations product still being sold, cheapest first at TCGplayer market price. At market, the cheapest way in is also the cheapest pack: one pack at $34.23.</p>
     <ul class="prod-grid">
       <li class="prod">
         <a class="prod-shot" href="https://www.tcgplayer.com/product/248577/celebrations-booster-pack" rel="noopener" target="_blank" tabindex="-1" aria-hidden="true">
@@ -840,6 +964,8 @@ height:auto;min-height:44px;padding-block:6px}</style>
           
           
           <p class="prod-low">Cheapest listing $460.00 &bull; 46 sellers</p>
+          <p class="prod-pc"><b>$64.99</b> <span><span class="nw">at Pokemon Center,</span> <span class="nw">read Aug 17, 2026</span></span></p>
+          <p class="prod-x">Market is 7.92x that: double and up</p>
         </div>
       </li>
       <li class="prod">
@@ -861,6 +987,10 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <p class="prod-note">Prices are TCGplayer market and lowest-listing prices, read on
       October 2, 2026. They move every day, so treat them as a rough idea and not a quote.
       Product photos are TCGplayer's. We are not a shop and we do not sell any of this.</p>
+    <p class="prod-note">A Pokemon Center figure is that exact product's price in Pokemon's own shop, read by hand
+      on August 17, 2026. Pokemon Center is the manufacturer selling its own product, so this site treats
+      its price as the suggested retail price: <a href="/msrp.html">what sealed Pokemon should cost</a>. The multiple
+      beside it is the market price divided by it, and its name (about retail to 1.15x, a shop's margin to 1.5x, scarcity pricing to 2x, double and up past 2x) is this site's rule of thumb, not a measurement. </p>
     <p class="prod-note">Cost per pack is the market price divided by the pack count printed on
       each card above, so you can check it. Sleeves, dice, decks and promo cards are counted as worth nothing, which
       flatters every box that includes them. Anything whose pack count is not in our data gets no per-pack figure
@@ -1072,11 +1202,18 @@ height:auto;min-height:44px;padding-block:6px}</style>
 (function(){
   var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
   var $=function(id){return document.getElementById(id);};
-  var last=null, list=[], at=0;
+  var last=null, list=[], at=0, grp=null;
+  // THREE MORE GROUPS, 2 October 2026: the card list's pictures (.cl-zm, built
+  // by the card list script when the list is opened), the rarity breakdown's
+  // tier cards (.rar-zm) and the original two. A filtered-out row is
+  // display:none, so offsetParent is null and it drops out of the walk:
+  // Previous and Next step through the rows that are showing, in the order
+  // they are showing (the price sort moves the rows, not just their paint).
+  var ZM='.chase-card,.sh-zm,.cl-zm,.rar-zm';
   function groupOf(b){
     var g=b.closest('[data-zg]');
-    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
-    return all.filter(function(x){return x.dataset.img;});
+    var all=g ? [].slice.call(g.querySelectorAll(ZM)) : [b];
+    return all.filter(function(x){return x.dataset.img && (x===b || x.offsetParent!==null);});
   }
   // The lightbox is the one place on this page that loads high.webp, 600x825
   // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
@@ -1112,7 +1249,9 @@ height:auto;min-height:44px;padding-block:6px}</style>
     $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
     var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
     $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
-    $('lbSrc').textContent=d.src || '';
+    // The card list carries its raw price sentence once, on the list, rather
+    // than on 180 rows; a row with a PSA 10 figure carries its own.
+    $('lbSrc').textContent=d.src || (grp && grp.dataset.src) || '';
     var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
     var rip=$('lbRip'); rip.hidden=!d.rip;
     if(d.rip){
@@ -1125,7 +1264,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
     $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
   }
   function open(b){
-    last=b; list=groupOf(b);
+    last=b; list=groupOf(b); grp=b.closest('[data-zg]');
     var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
@@ -1136,8 +1275,15 @@ height:auto;min-height:44px;padding-block:6px}</style>
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
   }
-  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
-    b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
+  // ONE LISTENER FOR EVERY OPENER, 2 October 2026, because the card list's
+  // buttons do not exist until the list is first opened. A tap anywhere on a
+  // card list row opens its card, the 30th's whole-row target, except on a
+  // link inside it.
+  document.addEventListener('click',function(e){
+    var t=e.target; if(!t.closest || lb.contains(t)) return;
+    var b=t.closest(ZM);
+    if(!b){ var row=t.closest('.cl-row'); if(row && !t.closest('a')) b=row.querySelector('.cl-zm'); }
+    if(b && b.dataset.img) open(b);
   });
   $('lbPrev').addEventListener('click',function(){ step(-1); });
   $('lbNext').addEventListener('click',function(){ step(1); });
@@ -1159,6 +1305,76 @@ height:auto;min-height:44px;padding-block:6px}</style>
     if(!sw) return;
     var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
     if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
+})();
+</script>
+<script>
+/* THE CARD LIST, 2 October 2026 (checklistBand in the builder says why each
+   part is shaped as it is).
+   1. The pictures are built the first time the list is opened, from the row's
+      own number and the list's data-base, each one a button the pop-up opens.
+      A row carrying data-x has no scan and gets the words instead.
+   2. Every figure the pop-up shows is read off the row's own text, so the two
+      cannot disagree. "Other printings" is the other rows of the same name.
+   3. The price sort moves the rows, not only their paint (the 30th's fix of
+      29 September 2026): CSS order alone left Tab, a screen reader and the
+      pop-up's Next in number order while the eye read price order.
+   4. A filter change deep in the list brings the list's top back to just
+      under the pinned bar, rather than leaving the reader in the section below
+      once the list shrinks above them. */
+(function(){
+  var sec=document.getElementById('checklist'); if(!sec) return;
+  var det=sec.querySelector('details.cl-det'), ol=sec.querySelector('ol.cl-list'), f=sec.querySelector('.cl-f');
+  if(!det || !ol) return;
+  var rows=[].slice.call(ol.children), base=ol.getAttribute('data-base')||'', of=ol.getAttribute('data-of')||'';
+  function txt(el){ return el ? el.textContent.replace(/\s+/g,' ').trim() : ''; }
+  function nameOf(li){ var n=li.querySelector('.ig-nm'); return n && n.firstChild ? n.firstChild.nodeValue.trim() : ''; }
+  function tierOf(li){ var l=li.hasAttribute('data-r') && document.querySelector('label[for="clf-r'+li.getAttribute('data-r')+'"]');
+    return l ? l.firstChild.nodeValue.trim() : txt(li.querySelector('.ig-rr2')); }
+  function noScan(li){ var w=document.createElement('span'); w.className='cl-pic cl-none'; w.setAttribute('aria-hidden','true'); w.textContent='No scan'; return w; }
+  function build(){
+    if(ol.classList.contains('cl-on')) return;
+    var byName={};
+    rows.forEach(function(li){ var n=nameOf(li); (byName[n]=byName[n]||[]).push(li); });
+    rows.forEach(function(li){
+      var d=li.dataset, no=txt(li.querySelector('.ig-no'));
+      if(!base || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
+      var b=document.createElement('button'), nm=nameOf(li), pr=li.querySelector('.ig-pr');
+      b.type='button'; b.className='cl-pic cl-zm';
+      b.dataset.img=base+no+'/high.webp';
+      b.dataset.name=nm; b.dataset.rarity=tierOf(li);
+      b.dataset.number=of ? no+'/'+of : no;
+      b.dataset.price=pr ? txt(pr) : 'No price yet';
+      ['ill','psa10','src','rip','ripWhen','ripN','url'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
+      if(d.psa10 && !d.src) b.dataset.src=(ol.getAttribute('data-src')||'')+' '+(ol.getAttribute('data-src10')||'');
+      var alts=(byName[nm]||[]).filter(function(x){return x!==li;}).map(function(x){
+        var p=x.querySelector('.ig-pr'); return '#'+txt(x.querySelector('.ig-no'))+' '+tierOf(x)+' '+(p ? txt(p) : 'no price');
+      });
+      if(alts.length) b.dataset.alts=alts.join(' \u2022 ');
+      b.setAttribute('aria-label','Enlarge '+nm+' '+b.dataset.number);
+      var pic=document.createElement('picture'), src=document.createElement('source'), img=document.createElement('img');
+      src.type='image/avif'; src.srcset=base+no+'/low.avif';
+      img.src=base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
+      img.onerror=function(){ if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
+      pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
+      li.insertBefore(b, li.firstChild);
+    });
+    ol.classList.add('cl-on');
+  }
+  det.addEventListener('toggle',function(){ if(det.open) build(); });
+  if(det.open) build();
+  if(!f) return;
+  var rank=function(li){ return parseInt(li.style.getPropertyValue('--k'),10) || 9999; };
+  f.addEventListener('change',function(e){
+    if(e.target && e.target.name==='clo'){
+      var byPrice=document.getElementById('clo-price').checked;
+      rows.map(function(li,i){ return {li:li,i:i}; })
+        .sort(function(a,b){ return byPrice ? (rank(a.li)-rank(b.li) || a.i-b.i) : a.i-b.i; })
+        .forEach(function(x){ ol.appendChild(x.li); });
+    }
+    var pinned=(parseFloat(getComputedStyle(f).top) || 60)+f.offsetHeight+8;
+    var top=ol.getBoundingClientRect().top;
+    if(top<pinned) window.scrollBy({ top: top-pinned, behavior: 'instant' });
   });
 })();
 </script>
