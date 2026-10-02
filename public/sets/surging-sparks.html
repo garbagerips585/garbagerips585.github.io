@@ -82,6 +82,26 @@ padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
 .facts.opened{grid-template-columns:repeat(4,minmax(0,21.2em));justify-content:start}
 .facts.opened .fact:last-child:nth-child(4n + 1){grid-column:auto}
 }
+.set-hero .wrap.sh-has-fan{gap:18px}
+.sh-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
+.sh-fan li{width:96px}
+.sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
+.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+transition:transform .18s ease}
+.sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
+.sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
+.sh-fan li:nth-child(3){transform:rotate(4deg) translateY(5px)}
+.sh-fan p{margin:var(--s3,12px) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.06em}
+@media(min-width:1000px){
+.set-hero .wrap.sh-has-fan{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+gap:var(--s6,48px);text-align:left}
+.sh-has-fan .sh-text{align-items:flex-start}
+.sh-fan li{width:130px}
+.sh-fan ol{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -237,11 +257,39 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
 <main id="main" tabindex="-1">
 
 <header class="set-hero">
-  <div class="wrap">
+  <div class="wrap sh-has-fan">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <picture><source type="image/avif" srcset="/assets/logos/surging-sparks-pokemon-tcg-set-logo-sm.avif 226w, /assets/logos/surging-sparks-pokemon-tcg-set-logo-md.avif 340w, /assets/logos/surging-sparks-pokemon-tcg-set-logo.avif 679w" sizes="(max-width:329px) 126.7px, (max-width:647px) 38.5vw, 249px"><img class="logo-big" width="679" height="300" src="/assets/logos/surging-sparks-pokemon-tcg-set-logo.webp" srcset="/assets/logos/surging-sparks-pokemon-tcg-set-logo-sm.webp 226w, /assets/logos/surging-sparks-pokemon-tcg-set-logo-md.webp 340w, /assets/logos/surging-sparks-pokemon-tcg-set-logo.webp 679w" sizes="(max-width:329px) 126.7px, (max-width:647px) 38.5vw, 249px" alt="" onerror="this.remove()"></picture>
     <h1>Surging Sparks</h1>
     <p class="lede w34">A 2024 set, 252 cards. What is in Surging Sparks, what is actually rare in it, and what the cards worth chasing are going for. Pikachu ex leads them at the moment.</p>
+    </div>
+    <div class="sh-fan">
+      <ol>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv08/238/high.webp"
+          data-name="Pikachu ex" data-rarity="Special Illustration Rare"
+          data-number="238" data-price="$248"
+          data-psa10="$912"
+          data-url="https://www.tcgplayer.com/product/590027"
+          aria-label="Enlarge Pikachu ex, Special Illustration Rare 238"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/238/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/238/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv08/239/high.webp"
+          data-name="Latias ex" data-rarity="Special Illustration Rare"
+          data-number="239" data-price="$163"
+          data-psa10="$470"
+          data-url="https://www.tcgplayer.com/product/589985"
+          aria-label="Enlarge Latias ex, Special Illustration Rare 239"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/239/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/239/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv08/237/high.webp"
+          data-name="Milotic ex" data-rarity="Special Illustration Rare"
+          data-number="237" data-price="$111"
+          data-psa10="$267"
+          data-url="https://www.tcgplayer.com/product/590006"
+          aria-label="Enlarge Milotic ex, Special Illustration Rare 237"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08/237/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv08/237/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      </ol>
+      <p>The top three by raw price</p>
+    </div>
   </div>
 </header>
 
@@ -1997,7 +2045,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

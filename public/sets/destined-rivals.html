@@ -82,6 +82,26 @@ padding-left:7px;padding-right:7px;margin-left:-7px;margin-right:-7px}
 .facts.opened{grid-template-columns:repeat(4,minmax(0,21.2em));justify-content:start}
 .facts.opened .fact:last-child:nth-child(4n + 1){grid-column:auto}
 }
+.set-hero .wrap.sh-has-fan{gap:18px}
+.sh-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
+.sh-fan li{width:96px}
+.sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
+.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+transition:transform .18s ease}
+.sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
+.sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
+.sh-fan li:nth-child(3){transform:rotate(4deg) translateY(5px)}
+.sh-fan p{margin:var(--s3,12px) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.06em}
+@media(min-width:1000px){
+.set-hero .wrap.sh-has-fan{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+gap:var(--s6,48px);text-align:left}
+.sh-has-fan .sh-text{align-items:flex-start}
+.sh-fan li{width:130px}
+.sh-fan ol{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -231,11 +251,39 @@ height:auto;min-height:44px;padding-block:6px}</style>
 <main id="main" tabindex="-1">
 
 <header class="set-hero">
-  <div class="wrap">
+  <div class="wrap sh-has-fan">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <img class="logo-big" width="806" height="300" src="/assets/logos/destined-rivals-pokemon-tcg-set-logo.webp" srcset="/assets/logos/destined-rivals-pokemon-tcg-set-logo-sm.webp 269w, /assets/logos/destined-rivals-pokemon-tcg-set-logo-md.webp 403w, /assets/logos/destined-rivals-pokemon-tcg-set-logo.webp 806w" sizes="(max-width:329px) 150.5px, (max-width:647px) 45.7vw, 295.5px" alt="" onerror="this.remove()">
     <h1>Destined Rivals</h1>
     <p class="lede w34">A 2025 set, 244 cards. What is in Destined Rivals, what is actually rare in it, and what the cards worth chasing are going for. Team Rocket's Mewtwo ex leads them at the moment.</p>
+    </div>
+    <div class="sh-fan">
+      <ol>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv10/231/high.webp"
+          data-name="Team Rocket's Mewtwo ex" data-rarity="Special Illustration Rare"
+          data-number="231" data-price="$409"
+          data-psa10="$917"
+          data-url="https://www.tcgplayer.com/product/633031"
+          aria-label="Enlarge Team Rocket's Mewtwo ex, Special Illustration Rare 231"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv10/232/high.webp"
+          data-name="Cynthia's Garchomp ex" data-rarity="Special Illustration Rare"
+          data-number="232" data-price="$189"
+          data-psa10="$400"
+          data-url="https://www.tcgplayer.com/product/633032"
+          aria-label="Enlarge Cynthia's Garchomp ex, Special Illustration Rare 232"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/232/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/en/sv/sv10/230/high.webp"
+          data-name="Ethan's Ho-Oh ex" data-rarity="Special Illustration Rare"
+          data-number="230" data-price="$132"
+          data-psa10="$334"
+          data-url="https://www.tcgplayer.com/product/633030"
+          aria-label="Enlarge Ethan's Ho-Oh ex, Special Illustration Rare 230"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv10/230/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      </ol>
+      <p>The top three by raw price</p>
+    </div>
   </div>
 </header>
 
@@ -1979,7 +2027,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

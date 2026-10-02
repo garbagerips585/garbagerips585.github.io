@@ -33,7 +33,27 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
 .intl-sym{flex:0 0 32px;width:32px;height:32px;object-fit:contain}
 .intl-enh{margin-top:var(--s6);font-size:var(--t-m)}
 .intl-ensay{max-width:42em;margin-top:6px;font-size:var(--t-sm);line-height:1.55;color:var(--ink-2)}
-.intl-enchase .chase-card{display:block;text-align:left;text-decoration:none;color:inherit;font:inherit}</style>
+.intl-enchase .chase-card{display:block;text-align:left;text-decoration:none;color:inherit;font:inherit}
+.set-hero .wrap.sh-has-fan{gap:18px}
+.sh-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
+.sh-fan li{width:96px}
+.sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
+.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+transition:transform .18s ease}
+.sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
+.sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
+.sh-fan li:nth-child(3){transform:rotate(4deg) translateY(5px)}
+.sh-fan p{margin:var(--s3,12px) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+text-transform:uppercase;letter-spacing:.06em}
+@media(min-width:1000px){
+.set-hero .wrap.sh-has-fan{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+gap:var(--s6,48px);text-align:left}
+.sh-has-fan .sh-text{align-items:flex-start}
+.sh-fan li{width:130px}
+.sh-fan ol{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Battle Partners Pokemon TCG Set Guide","description":"Battle Partners (Korean) Pokemon TCG set guide: 132 cards, released January 24, 2025, and why it is the same set as English Journey Together.","image":["https://garbagerips.com/assets/og-ko-battle-partners.jpg?v=a8aba139"],"about":{"@type":"Thing","name":"Battle Partners (Pokemon Trading Card Game, Korean)"},"url":"https://garbagerips.com/sets/ko-battle-partners.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ko-battle-partners.html"},"datePublished":"2026-08-12","dateModified":"2026-10-02","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Battle Partners"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
@@ -170,12 +190,34 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
 <main id="main" tabindex="-1">
 
 <header class="set-hero">
-  <div class="wrap">
+  <div class="wrap sh-has-fan">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; 🇰🇷 Korean set</span>
     
     <h1>Battle Partners</h1>
     
     <p class="lede" style="max-width:34em">The Korean printing of the set English calls Journey Together. Same cards, different name. And out first.</p>
+    </div>
+    <div class="sh-fan">
+      <ol>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/ja/SV/SV9/129/high.webp"
+          data-name="Salamence ex" data-rarity="Numbered past the set"
+          data-number="129" data-price=""
+          aria-label="Enlarge Salamence ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/129/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/129/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/ja/SV/SV9/124/high.webp"
+          data-name="Volcanion ex" data-rarity="Numbered past the set"
+          data-number="124" data-price=""
+          aria-label="Enlarge Volcanion ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/124/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/124/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button"
+          data-img="https://assets.tcgdex.net/ja/SV/SV9/120/high.webp"
+          data-name="Dudunsparce ex" data-rarity="Numbered past the set"
+          data-number="120" data-price=""
+          aria-label="Enlarge Dudunsparce ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV9/120/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV9/120/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      </ol>
+      <p>The top three by rarity</p>
+    </div>
   </div>
 </header>
 
@@ -1173,7 +1215,7 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

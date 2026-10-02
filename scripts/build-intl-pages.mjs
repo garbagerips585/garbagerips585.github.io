@@ -863,6 +863,55 @@ const PACK_CSS = `
 .pk-see:hover{text-decoration:underline}
 `;
 
+/* THE TOP THREE CARDS IN THE HERO, 2 October 2026, the imported half of
+   heroFan() in build-set-pages.mjs; read the argument there. Two differences,
+   both forced by what these guides hold:
+   - RANKED BY RARITY, NOT PRICE. `notable` is sorted by rarity tier first (see
+     sync-intl-guides.mjs), and these guides carry no native price, so the
+     caption says rarity. Saying "by raw price" here would be a claim with no
+     figure behind it anywhere on the page.
+   - ONLY THE SET'S OWN SCANS. Five Japanese guides have no native scan at all,
+     and borrowing the English printing's artwork for a Japanese card was
+     rejected long ago (see enChase). Fewer than three native scans, no fan. */
+const introFan = (g) => {
+  const three = (g.notable || []).filter((c) => c.image).slice(0, 3);
+  if (three.length < 3) return "";
+  const wrapRarity = makeWrapRarity(g);
+  return `    <div class="sh-fan">
+      <ol>
+${three.map((c) => `        <li><button class="sh-zm" type="button"
+          data-img="${esc(c.imageLarge || c.image || "")}"
+          data-name="${esc(cardName(c))}" data-rarity="${esc(rarityLabel(wrapRarity(c)) || (c.secret ? "Numbered past the set" : ""))}"
+          data-number="${esc(c.localId || "")}" data-price=""
+          aria-label="Enlarge ${esc(cardName(c))}">${avifPicture(`<img src="${esc(c.image)}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
+      </ol>
+      <p>The top three by rarity</p>
+    </div>`;
+};
+// Same rules as the fan block in build-set-pages.mjs's PAGE_CSS. Gated on the
+// fan, so a guide with no fan carries none of it.
+const FAN_CSS = `
+.set-hero .wrap.sh-has-fan{gap:18px}
+.sh-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
+.sh-fan li{width:96px}
+.sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
+.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+  transition:transform .18s ease}
+.sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
+.sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
+.sh-fan li:nth-child(3){transform:rotate(4deg) translateY(5px)}
+.sh-fan p{margin:var(--s3,12px) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+@media(min-width:1000px){
+  .set-hero .wrap.sh-has-fan{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+    gap:var(--s6,48px);text-align:left}
+  .sh-has-fan .sh-text{align-items:flex-start}
+  .sh-fan li{width:130px}
+  .sh-fan ol{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}`;
+
 const PAGE_CSS = `
 /* Three columns fit 320px without help (1fr plus two 4em numerics), but the
    wrapper scrolls anyway rather than trusting that: a long rarity name is the
@@ -2005,11 +2054,13 @@ function guidePage(g) {
     // testing the rendered markup cannot drift out of step with the condition
     // inside it, where a second copy of that condition would.
     css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : "",
-      body.includes("noscan") ? NOSCAN_CSS : "", body.includes("pk-band") ? PACK_CSS : ""]
+      body.includes("noscan") ? NOSCAN_CSS : "", body.includes("pk-band") ? PACK_CSS : "",
+      introFan(g) ? FAN_CSS : ""]
       .filter(Boolean).join("\n"),
   }) + `
 <header class="set-hero">
-  <div class="wrap">
+  <div class="wrap${introFan(g) ? " sh-has-fan" : ""}">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; ${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.langName)} set</span>
     ${ownLogo(g.id, `${g.english} logo`)}
     <h1>${esc(g.english)}</h1>
@@ -2020,6 +2071,8 @@ function guidePage(g) {
           (g.released && en.released && g.released < en.released ? " And out first." : "")
         : `A ${esc(g.langName)} set that never got an English release.`
     }</p>
+    </div>
+${introFan(g)}
   </div>
 </header>
 
@@ -2081,7 +2134,7 @@ ${footer("Set data from TCGdex, card names via PokeAPI. Fan made, not official."
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

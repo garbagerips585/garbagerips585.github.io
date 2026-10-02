@@ -164,11 +164,14 @@
 
 <header class="set-hero">
   <div class="wrap">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; 🇨🇳 Chinese set</span>
     
     <h1>Gem Pack Vol. 2</h1>
     <p class="intl-hero-native cjk" lang="zh-cn">宝石包Vol.2</p>
     <p class="lede" style="max-width:34em">A Chinese set that never got an English release.</p>
+    </div>
+
   </div>
 </header>
 
@@ -397,7 +400,7 @@
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });

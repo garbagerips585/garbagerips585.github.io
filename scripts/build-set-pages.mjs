@@ -2405,6 +2405,46 @@ function derivedFacts(s) {
  * pattern as build-expansions.mjs and build-luck.mjs. Everything else on these
  * pages is a class ui.css already carries.
  */
+/* THE TOP THREE CARDS, IN THE FIRST SCREEN, 2 October 2026. The owner, on the
+   30th Celebration page's hero: "I really like how the 30th set page looks at
+   the top showing the top 3 chase cards right on the top fold, can we update
+   all sets pages across the board to have those". Same three the chase grid
+   opens with (s.chase is sorted by price before this runs), same pop-up: each
+   is a .chase-card-style button carrying the same data-* the grid's buttons
+   carry, and the lightbox script binds .sh-zm alongside .chase-card.
+
+   NO PRICE ON THEM, on purpose, and that is the lede's own rule a few lines
+   down: the first sourcing sentence is under the chase grid, so a dollar figure
+   up here would be a number with no source in reach. The pop-up prints the
+   price, which is the same trade the chase grid's own buttons make.
+
+   ONLY low.webp, NO srcset. high.webp is 600px and 100KB+ apiece; three of them
+   above the fold on a retina laptop was 300KB+ for three 130px boxes. The box is
+   held to 130px on a desktop and 96px on a phone, so the 245w file covers DPR 2
+   on a laptop at 94% and is the same file the chase grid fetches below, a cache
+   hit. Lazy, because CLAUDE.md measured eager above-fold pictures costing first
+   paint and turning a picture into the LCP element.
+
+   Fewer than three scanned, priced cards and there is no fan, rather than a fan
+   of two: the layout and the caption are both about three. */
+const heroFan = (s) => {
+  const three = (s.chase || []).filter((c) => c.image && c.price).slice(0, 3);
+  if (three.length < 3) return "";
+  const psa = (c) => gradedPrice(s.id, c.number, c.name, s.name);
+  return `    <div class="sh-fan">
+      <ol>
+${three.map((c) => `        <li><button class="sh-zm" type="button"
+          data-img="${esc(c.imageLarge || c.image || "")}"
+          data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+          data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
+          data-psa10="${esc(psa(c) ? moneyCompact(psa(c)) : "")}"
+          data-url="${esc(c.url ? affLink(c.url) : "")}"
+          aria-label="Enlarge ${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "")} ${esc(c.number)}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
+      </ol>
+      <p>The top three by raw price</p>
+    </div>`;
+};
+
 const PAGE_CSS = `
 /* The money-per-rarity line under each bar. .rar is a two column grid whose
    .rar-bar already spans both, so this sits between the count and the bar and
@@ -2599,6 +2639,29 @@ const PAGE_CSS = `
   .facts.opened{grid-template-columns:repeat(4,minmax(0,21.2em));justify-content:start}
   .facts.opened .fact:last-child:nth-child(4n + 1){grid-column:auto}
 }
+/* THE HERO FAN, see heroFan(). .set-hero .wrap is display:flex in ui.css at
+   (0,2,0), so these carry a third class or a page rule loses to it silently,
+   which is the trap CLAUDE.md records under the Topps hero. */
+.set-hero .wrap.sh-has-fan{gap:18px}
+.sh-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+.sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
+.sh-fan li{width:96px}
+.sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
+.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+  transition:transform .18s ease}
+.sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
+.sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
+.sh-fan li:nth-child(3){transform:rotate(4deg) translateY(5px)}
+.sh-fan p{margin:var(--s3,12px) 0 0;text-align:center;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.06em}
+@media(min-width:1000px){
+  .set-hero .wrap.sh-has-fan{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;
+    gap:var(--s6,48px);text-align:left}
+  .sh-has-fan .sh-text{align-items:flex-start}
+  .sh-fan li{width:130px}
+  .sh-fan ol{gap:14px}
+}
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
 ${RARITY_CSS}`;
 
 /**
@@ -3460,7 +3523,8 @@ ${rows}
   const css = body.includes("noscan") ? `${PAGE_CSS}\n${NOSCAN_CSS}` : PAGE_CSS;
   return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css }) + `
 <header class="set-hero">
-  <div class="wrap">
+  <div class="wrap${heroFan(s) ? " sh-has-fan" : ""}">
+    <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     ${heroLogo(s.id)}
     <h1>${esc(s.name)}</h1>
@@ -3504,6 +3568,8 @@ ${rows}
           : `each card will be worth once prices land.`);
       return opener ? `${opener} ${body}` : body;
     })()}</p>
+    </div>
+${heroFan(s)}
   </div>
 </header>
 
@@ -3649,7 +3715,7 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
   }
-  document.querySelectorAll('.chase-card').forEach(function(b){
+  document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
