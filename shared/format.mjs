@@ -794,6 +794,20 @@ export function moneyExact(v) {
  * priced anywhere near the top eight, so neither reaches a chase list today, but
  * a `find` on that number answers Escavalier for both.
  */
+/* THE NUMBER AS THE CARD PRINTS IT, 2 October 2026. The owner: "have the site
+   match the cards exactly as thats how people will look things up". Every
+   Sword & Shield and later card prints a three digit number ("018/072"), and
+   TCGdex files four of our sets unpadded ("18"): Rebel Clash, Shining Fates,
+   Chilling Reign and Celebrations. Pads a bare one or two digit number to
+   three and leaves everything else alone (GG32, SV107, TG01, SWSH050).
+   CALLERS DECIDE WHETHER IT APPLIES: 1999 to Sun & Moon cards print "4/102"
+   unpadded, so this is only for sets that print three digits, which today is
+   every set with a guide. Joins keep using cardNumKey, which strips zeros. */
+export const printedNo = (v) => {
+  const s = String(v ?? "").trim();
+  return /^\d{1,2}$/.test(s) ? s.padStart(3, "0") : s;
+};
+
 export const cardNumKey = (v) =>
   String(v ?? "").trim().toUpperCase().replace(/(?<![0-9])0+(?=[0-9])/g, "");
 

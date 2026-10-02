@@ -28,7 +28,7 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, FONTS, dropUnusedPacksCSS,
   APP_JS_NO_PACKPLAYER as APP_JS } from "../shared/chrome.mjs";
 import { labelFor, CARD_SETS } from "../shared/taxonomy.mjs";
 import { parseHits, rarityLabelOf, rarityMark, RARITY_CSS } from "../shared/rarity.mjs";
-import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta, plainDashesAll, nat} from "../shared/format.mjs";
+import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY_ORDER, cardNumKey, imgDims, productSrcsetAttr, avifPicture, plural, count, clipMeta, plainDashesAll, nat, printedNo } from "../shared/format.mjs";
 // WHAT A CARD SLOT SHOWS WHEN THERE IS NO SCAN. One panel for /hall.html, the
 // rip pages and both set-guide builders, so four grids cannot answer the same
 // question four ways. corpusScan is the other half of that module and this file
@@ -1297,7 +1297,7 @@ function checklistBand(s, cls, pulled = new Map()) {
             // color alone is lost to anyone who cannot tell that wash from the
             // card. Each chase row now carries the same small CHASE tag the
             // rarity ladder does, and the note names the tag, not a color.
-            return `<li class="cl-row${chase ? " is-chase" : ""}"${r ? ` data-r="${tierIx.get(r)}"` : ""} style="--k:${rank.get(c) || 9999}"${extra}><span class="ig-no">${esc(c.n || "")}</span>
+            return `<li class="cl-row${chase ? " is-chase" : ""}"${r ? ` data-r="${tierIx.get(r)}"` : ""} style="--k:${rank.get(c) || 9999}"${extra}><span class="ig-no">${esc(printedNo(c.n))}</span>
           <span class="ig-nm">${esc(c.name)}${chase ? ` <b class="ch-tag">Chase</b>` : ""}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr2">${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${esc(r)}</span>` : ""}</li>`;
@@ -2878,14 +2878,17 @@ function derivedFacts(s) {
    rather than an invented "025/025". The number itself comes off the
    checklist row, so the chase list's unpadded "20" reads "020/088" exactly as
    the checklist row below it does. */
-const setPads = (s) => (checklists[s.id]?.cards || []).some((c) => /^0\d/.test(String(c.n || "")));
+// EVERY GUIDE PADS NOW, 2 October 2026: the four unpadded checklists print
+// three digits on the card itself ("018/072"), and the owner asked for the
+// card's own form because that is what a reader types. printedNo() does it.
+const setPads = () => true;
 function rowOf(s, n) {
   const k = cardNumKey(n);
   return (checklists[s.id]?.cards || []).find((c) => cardNumKey(c.n) === k) || null;
 }
 function numOf(s, n) {
   const row = rowOf(s, n);
-  const shown = row ? String(row.n) : String(n ?? "");
+  const shown = printedNo(row ? row.n : n);
   if (!shown || !s.printedTotal) return shown;
   const tot = setPads(s) ? String(s.printedTotal).padStart(Math.max(3, shown.length), "0") : String(s.printedTotal);
   return `${shown}/${tot}`;
@@ -2969,7 +2972,7 @@ function secretLine(s) {
     };
   }
   if (tier.length) {
-    const names = tier.map((c) => `${esc(c.name)} (#${esc(c.n)} of ${s.printedTotal})`).join(", ");
+    const names = tier.map((c) => `${esc(c.name)} (#${esc(printedNo(c.n))}/${esc(printedNo(s.printedTotal))})`).join(", ");
     return {
       has: true,
       html: `<p class="lede w42">${name} has <b>no cards numbered past the printed set</b>: all ${cards.length} sit inside its printed total of ${s.printedTotal}. ${

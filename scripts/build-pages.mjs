@@ -58,7 +58,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // gradedPrice() are the receipt for in CLAUDE.md.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
-import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER, cardScan } from "../shared/format.mjs";
+import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityLabel, cardNumKey, imgDims, viewCount, avifPicture, packTileImg, clipMeta, plainDashesAll, RIP_BANNER, cardScan, printedNo } from "../shared/format.mjs";
 // Who sold or sent the packs, read out of the rip's own description.
 import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
 import { avifSource } from "../shared/logo-srcset.mjs";
@@ -841,7 +841,9 @@ async function resolveHits(vid) {
          "69/132" -- the very number pinnedShot had just used to find the
          picture. All 30 of that subset are structurally unresolvable, so this
          was every future Classic hit, on its rip page and on /hall.html. */
-      n: m ? m.n : sub?.n || h.number || null,
+      // printedNo: the card's own three digit form on a guided set ("018", not
+      // "18"); see shared/format.mjs. 1999 to Sun & Moon sets keep theirs.
+      n: (hasGuide(h.set) ? printedNo : (x) => x)(m ? m.n : sub?.n || h.number || null) || null,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
       // build-hall.mjs uses: the file this row was resolved out of wins and the
       // second source stands behind it rather than over it.
@@ -1611,7 +1613,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
         ${c.image ? avifPicture(`<img src="${esc(c.image)}" alt="${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "card")} from ${esc(setLabel)}" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`) : ""}
         <div>
           <b>${esc(c.name)}</b>
-          <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(c.number)}` : ""}</span>
+          <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(printedNo(c.number))}` : ""}</span>
           <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>
         </div>
       </li>`).join("\n      ")}
