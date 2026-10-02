@@ -26,7 +26,23 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
-<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+<style>.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+.ij-jump::-webkit-scrollbar{display:none}
+.ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
 object-position:left center;margin:6px 0 10px}
 .intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
 max-width:44em;font-size:var(--t-sm);line-height:1.5}
@@ -79,7 +95,12 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan li{width:130px}
 .sh-fan ol{gap:14px}
 }
-@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}</style>
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .ij-jump{order:2}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Stellar Miracle Pokemon TCG Set Guide","description":"Stellar Miracle (ステラミラクル) Pokemon TCG set guide: 135 cards, released July 19, 2024, and why it is the same set as English Stellar Crown.","image":["https://garbagerips.com/assets/og-ja-stellar-miracle.jpg?v=ecf26b84"],"about":{"@type":"Thing","name":"Stellar Miracle (Pokemon Trading Card Game, Japanese)"},"url":"https://garbagerips.com/sets/ja-stellar-miracle.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ja-stellar-miracle.html"},"datePublished":"2026-08-12","dateModified":"2026-10-02","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Stellar Miracle"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
@@ -222,7 +243,17 @@ gap:var(--s6,48px);text-align:left}
     
     <h1>Stellar Miracle</h1>
     <p class="intl-hero-native cjk" lang="ja">ステラミラクル</p>
-    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Stellar Crown. Same cards, different name. And out first.</p>
+    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Stellar Crown: same cards, different name. Its 135 cards came out July 19, 2024, 2 months before the English set.</p>
+    <nav class="ij-jump" aria-label="On this page">
+      <a href="#english-version">English version</a>
+      <a href="#rarest-cards">Rarest cards</a>
+      <a href="#rarity">Rarities</a>
+      <a href="#booster-pack">Booster pack</a>
+      <a href="#card-list">Card list</a>
+      <a href="#openings">Openings</a>
+      <a href="#pulls">Our pulls</a>
+      <a href="#sources">Sources</a>
+    </nav>
     </div>
     <div class="sh-fan">
       <ol>
@@ -260,10 +291,10 @@ gap:var(--s6,48px);text-align:left}
     </div>
   </div>
 </section>
-<section class="band tight">
+<section id="english-version" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>Stellar Miracle is <span class="hl">Stellar Crown</span></h2>
+    <h2>Japanese vs English: Stellar Miracle and <span class="hl">Stellar Crown</span></h2>
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. Stellar Miracle is the Japanese printing behind English Stellar Crown.</p>
     <ul class="intl-grid">
@@ -305,10 +336,10 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="rarest-cards" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2>Stellar Miracle <span class="hl">rarest cards</span></h2>
     
     <div class="chase-grid">
       <button class="chase-card" type="button"
@@ -470,21 +501,16 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="rarity" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Stellar Miracle rarity <span class="hl">breakdown</span></h2>
     
     <div class="rarity-list" data-figure="chart">
       <div class="rar">
-        <span class="rar-name">Common</span>
-        <span class="rar-n">48</span>
-        <span class="rar-bar"><i style="width:100%"></i></span>
-      </div>
-      <div class="rar">
-        <span class="rar-name">Uncommon</span>
-        <span class="rar-n">34</span>
-        <span class="rar-bar"><i style="width:71%"></i></span>
+        <span class="rar-name">Double Rare</span>
+        <span class="rar-n">8</span>
+        <span class="rar-bar"><i style="width:17%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Rare</span>
@@ -492,21 +518,25 @@ gap:var(--s6,48px);text-align:left}
         <span class="rar-bar"><i style="width:19%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Double Rare</span>
-        <span class="rar-n">8</span>
-        <span class="rar-bar"><i style="width:17%"></i></span>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">34</span>
+        <span class="rar-bar"><i style="width:71%"></i></span>
+      </div>
+      <div class="rar">
+        <span class="rar-name">Common</span>
+        <span class="rar-n">48</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
     <p class="price-note">33 more cards are numbered past card 102, which is
-      how Japanese sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>
+      how Japanese sets carry their secret rares. TCGdex does not label the rarity on any of them, so they are counted here rather than guessed at.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="booster-pack" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
-    <h2>The <span class="hl">pack</span> itself</h2>
+    <h2>Stellar Miracle <span class="hl">booster pack</span></h2>
     <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip. The Japanese name runs across the bottom of the wrapper.</p>
     <div class="pk-band">
       <a class="pk-shot" href="https://www.tcgplayer.com/product/565216/stellar-miracle-booster-pack" rel="noopener" target="_blank"
@@ -528,11 +558,11 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band tight">
+<section id="card-list" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 135 cards, English names where the card is a Pokemon.</p>
+    <h2>Stellar Miracle (Japanese) <span class="hl">card list</span></h2>
+    <p class="lede">All 135 cards, every one with its English name.</p>
     <details class="ig-list">
       <summary>Show the full Stellar Miracle checklist</summary>
       <ol class="ig-cards">
@@ -1078,17 +1108,14 @@ gap:var(--s6,48px);text-align:left}
           <span class="ig-rr">Secret</span></li>
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their Japanese names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated. All 22 Trainer and Energy cards are named the way TCGplayer's Japanese catalog files them, matched on the collector number.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="openings" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">3</span> of these</h2>
+    <h2>Stellar Miracle openings: <span class="hl">3</span> rips</h2>
     <div class="set-watch">
       
       <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
@@ -1113,10 +1140,10 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band tight">
+<section id="pulls" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <h2>What we have <span class="hl">pulled</span> from Stellar Miracle</h2>
     <p class="lede" style="max-width:38em">3 cards out of our own packs.
       Every one of them is in a video you can watch.</p>
     <ul class="mine-grid">
@@ -1152,7 +1179,7 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="sources" class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
@@ -1161,6 +1188,7 @@ gap:var(--s6,48px);text-align:left}
       
       
       <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>
+      <li>Trainer and Energy names in English from TCGplayer's Japanese catalog, matched to this checklist on the collector number: all 22 on this page.</li>
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>

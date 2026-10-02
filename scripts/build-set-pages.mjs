@@ -110,6 +110,11 @@ import { noScanBox, NOSCAN_CSS } from "../shared/card-scan.mjs";
  * from build-intl-pages.mjs, which carries its own copy of this grid the way it
  * carries its own copy of the lede. Same fix, same shape, that file's call.
  */
+/* 2 October 2026: the grid now fills the band (.mine-cols in PAGE_CSS), so the
+   box is no longer 194px flat above 520. Measured at 1440 it is 193px with six
+   across; between 521 and 1199 it runs about 126 to 190px, so 194 OVER-states
+   it there, which can only pick the same or a larger file, never a softer one.
+   Left as is rather than re-derived per column count. */
 const MINE_SIZES = "(max-width:520px) calc(50vw - 52px), 194px";
 function mineImg(url) {
   const two = /^https:\/\/assets\.tcgdex\.net\/.+\/low\.webp$/.test(url);
@@ -1117,9 +1122,13 @@ function checklistBand(s, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
+    ${/* "<set> card list" IS THE QUERY, 2 October 2026, so it is the heading,
+          with the count in it because "how many cards" is the question asked
+          next. "Most valuable" in the lede, not "most expensive": it is the
+          word /most-valuable-cards.html and the chase grid's own h2 use, so
+          the page's value language reads as one cluster. */ ""}<h2>${esc(s.name)} card list: <span class="hl">all ${doc.cards.length} cards</span></h2>
     <p class="lede">All ${doc.cards.length} cards in ${esc(s.name)}, with what each one is worth.${
-      priciest ? ` The most expensive card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.` : ""
+      priciest ? ` The most valuable card in the set is ${esc(priciest.name)} at ${moneyExact(priciest.price)}.` : ""
     }</p>
     <details class="ig-list">
       <summary>Show the full ${esc(s.name)} checklist</summary>
@@ -1164,8 +1173,14 @@ function checklistBand(s, cls) {
              */
             const r = rarityLabel(c.rarity);
             const chase = Boolean(r) && CHASE.has(r);
+            // THE TINT WAS THE ONLY MARK AND IT STOPPED BEING GOLD, 2 October
+            // 2026. The copy under the list said "the gold rows" months after
+            // the palette swap made them a dark teal wash, and a mark carried by
+            // color alone is lost to anyone who cannot tell that wash from the
+            // card. Each chase row now carries the same small CHASE tag the
+            // rarity ladder does, and the note names the tag, not a color.
             return `<li${chase ? ` class="is-chase"` : ""}><span class="ig-no">${esc(c.n || "")}</span>
-          <span class="ig-nm">${esc(c.name)}</span>
+          <span class="ig-nm">${esc(c.name)}${chase ? ` <b class="ch-tag">Chase</b>` : ""}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr2">${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${esc(r)}</span>` : ""}</li>`;
           })
@@ -1183,7 +1198,7 @@ function checklistBand(s, cls) {
        */
       [
         doc.cards.some((c) => CHASE.has(rarityLabel(c.rarity)))
-          ? `The gold rows are the chase tiers, the same ones the rarity breakdown above highlights.`
+          ? `Rows tagged CHASE are the chase tiers, the same tiers the rarity breakdown above tags.`
           : "",
         doc.cards.some((c) => BOOKLET_MARK[rarityLabel(c.rarity)])
           ? `The stars beside a rarity are the ones printed on that card.`
@@ -1515,7 +1530,9 @@ const PROSE_HITS = new Map();
     for (const u of unmatched) unmatchedAll.push(`${v.id}: ${u}`);
     for (const h of hits) {
       if (!PROSE_HITS.has(h.set)) PROSE_HITS.set(h.set, []);
-      PROSE_HITS.get(h.set).push({ ...h, path: v.path, label: v.siteTitle || v.title });
+      // `published` rides along so a card pulled in two rips can date each
+      // link (2 October 2026, see ripLinks below).
+      PROSE_HITS.get(h.set).push({ ...h, path: v.path, label: v.siteTitle || v.title, published: v.published });
     }
   }
   if (unmatchedAll.length) {
@@ -2111,6 +2128,23 @@ function perPack(p, released) {
   return { packs, each };
 }
 
+/* THE PRODUCT WORDS FOR THE SEALED BAND'S HEADING, 2 October 2026. At most
+   three, in the order people search them, and only kinds that are actually in
+   this guide's list: "Perfect Order booster box, ETB and pack prices". Both
+   Elite Trainer Box kinds are one "ETB"; a Half Booster Box is filed as kind
+   Booster Box and is one. Nothing recognized falls back to "sealed product". */
+const PRODUCT_WORD = [
+  [/^Booster Box$/, "booster box"],
+  [/Elite Trainer Box$/, "ETB"],
+  [/^Single Pack$/, "pack"],
+  [/^Booster Bundle$/, "booster bundle"],
+];
+function productWords(items) {
+  const have = PRODUCT_WORD.filter(([rx]) => items.some((p) => rx.test(p.kind || ""))).map(([, w]) => w).slice(0, 3);
+  if (!have.length) return "sealed product";
+  return have.length === 1 ? have[0] : `${have.slice(0, -1).join(", ")} and ${have[have.length - 1]}`;
+}
+
 function productBand(s, cls) {
   const entry = productsBySet[s.id];
   if (!entry?.products?.length) return "";
@@ -2285,7 +2319,11 @@ function productBand(s, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
-    <h2>Ways to open <span class="hl">${esc(s.name)}</span></h2>
+    ${/* THE HEADING NAMES THE PRODUCTS THAT ARE ON THIS GUIDE, 2 October 2026,
+          in the words people search ("booster box", "ETB"), built from the
+          kinds in products.json rather than promising a box that is not
+          listed. A kind with no short name here does not get a word in the
+          heading; it is still a row in the grid. */ ""}<h2>${esc(s.name)} ${productWords(items)} <span class="hl">prices</span></h2>
     <p class="lede prod-lede">${lede}</p>
     <ul class="prod-grid">
 ${cards}
@@ -2353,8 +2391,10 @@ function derivedFacts(s) {
     .reduce((a, [, n]) => a + n, 0);
   if (chaseCount && total) {
     out.push(
+      // "HIGHLIGHTED" NAMED A COLOR THAT NO LONGER MARKS ANYTHING, 2 October
+      // 2026: the tiers carry a CHASE tag now, so the sentence names the tag.
       `<b>${chaseCount} of the ${total} cards</b> sit at a chase rarity, which is every tier ` +
-      `highlighted in the rarity breakdown below. That is what the checklist holds, not how ` +
+      `tagged CHASE in the rarity breakdown below. That is what the checklist holds, not how ` +
       `often any of it turns up.`
     );
   }
@@ -2405,6 +2445,441 @@ function derivedFacts(s) {
  * pattern as build-expansions.mjs and build-luck.mjs. Everything else on these
  * pages is a class ui.css already carries.
  */
+/* ------------------------------------------------ helpers added 2 October 2026
+ *
+ * Six small functions the redesign of the guide's top half and its pop-up
+ * share. They live together so the chase grid, the hero fan, the hit grid and
+ * the pop-up cannot each grow their own idea of how a card number or a rip
+ * link is written.
+ */
+
+/* THE NUMBER AS THE CARD PRINTS IT, "124/088". The chase grid printed "124"
+   and the checklist "124", and neither said out of what; the printed total is
+   what tells a reader #124 is past the set. Padding follows the checklist the
+   page already prints: 25 of the 29 checklists pad to three digits (TCGdex's
+   own form, which is also what modern cards print), and the four that do not
+   (Celebrations, Chilling Reign, Shining Fates, Rebel Clash) print "25/25"
+   rather than an invented "025/025". The number itself comes off the
+   checklist row, so the chase list's unpadded "20" reads "020/088" exactly as
+   the checklist row below it does. */
+const setPads = (s) => (checklists[s.id]?.cards || []).some((c) => /^0\d/.test(String(c.n || "")));
+function rowOf(s, n) {
+  const k = cardNumKey(n);
+  return (checklists[s.id]?.cards || []).find((c) => cardNumKey(c.n) === k) || null;
+}
+function numOf(s, n) {
+  const row = rowOf(s, n);
+  const shown = row ? String(row.n) : String(n ?? "");
+  if (!shown || !s.printedTotal) return shown;
+  const tot = setPads(s) ? String(s.printedTotal).padStart(Math.max(3, shown.length), "0") : String(s.printedTotal);
+  return `${shown}/${tot}`;
+}
+
+/* ONE LINK FOR ONE RIP, A ROW OF DATED CHIPS FOR SEVERAL. A card pulled in
+   two rips printed two identical "Watch the rip" links with identical
+   aria-labels, pushed to opposite ends of the tile by margin-top:auto, which
+   read as a rendering fault and announced as one link twice. Each chip names
+   its own date in its label; the visible text is the day when every rip has a
+   different one, and "Rip 1", "Rip 2" when two share a day. Oldest first, so
+   "Rip 1" is the first time it came out. `name` is already-escaped text. */
+function ripLinks(rips, name, { one = "mine-w", many = "mine-rip" } = {}) {
+  const list = [...(rips || [])].filter((r) => r && r.path)
+    .sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")));
+  if (!list.length) return "";
+  const when = (r) => (r.published ? `, posted ${esc(longDate(r.published))}` : "");
+  if (list.length === 1) {
+    const r = list[0];
+    return `<a class="${one}" href="/${esc(r.path)}" aria-label="Watch the rip that pulled ${name}${when(r)}">Watch the rip &rarr;</a>`;
+  }
+  const oneYear = new Set(list.map((r) => String(r.published || "").slice(0, 4))).size === 1;
+  const day = (r) => {
+    if (!r.published) return "";
+    const d = shortDate(r.published);
+    return oneYear ? d.replace(/,\s*\d{4}$/, "") : d;
+  };
+  const days = list.map(day);
+  const dated = days.every(Boolean) && new Set(days).size === days.length;
+  return `<p class="mine-rips"><span class="mine-rips-k">Watch the rips</span>${list
+    .map((r, i) => `<a class="${many}" href="/${esc(r.path)}" aria-label="Watch rip ${i + 1} of ${list.length} that pulled ${name}${when(r)}">${dated ? esc(days[i]) : `Rip ${i + 1}`}</a>`)
+    .join("")}</p>`;
+}
+
+/* "<SET> HAS N CARDS NUMBERED PAST THE PRINTED SET, #A TO #B", 2 October 2026,
+   for the rarity band. The fact tile at the top prints the count and nothing
+   says WHICH cards, which is the part a collector checking a binder needs.
+   Counted off the checklist rather than taken from sets.json's secretCount,
+   then checked against it: the tile and this sentence sit on one page, so if
+   they disagree the sentence is dropped and the build says so rather than
+   printing two answers.
+
+   CELEBRATIONS IS THE CASE THE TILE'S OWN COMMENT RECORDS ("Numbered past the
+   set"): its 25th card is a Secret Rare numbered 25 of 25, so the count past
+   the set is 0 while the ladder shows a Secret Rare. The sentence says both,
+   because that is exactly where a reader would otherwise think the page is
+   wrong.
+
+   "Secret rares" is the collector's word for a card past the printed total, and
+   on the Scarlet & Violet sets no card's rarity is spelled Secret Rare at all,
+   so the sentence says which sense it means rather than letting the heading
+   promise a tier the ladder does not have. */
+const secretWarned = new Set();
+function secretLine(s) {
+  const cards = checklists[s.id]?.cards || [];
+  if (!cards.length || !s.printedTotal) return { has: false, html: "" };
+  const past = cards
+    .filter((c) => /^\d+$/.test(String(c.n)) && Number(c.n) > s.printedTotal)
+    .sort((a, b) => Number(a.n) - Number(b.n));
+  const tier = cards.filter((c) => rarityLabel(c.rarity) === "Secret Rare");
+  if (typeof s.secretCount === "number" && past.length !== s.secretCount) {
+    if (!secretWarned.has(s.id)) {
+      secretWarned.add(s.id);
+      console.log(`  ${s.id}: the checklist has ${past.length} cards numbered past ${s.printedTotal}, sets.json says ${s.secretCount}; the rarity band drops its secret rare sentence until they agree.`);
+    }
+    return { has: past.length > 0 || tier.length > 0, html: "" };
+  }
+  const name = esc(s.name);
+  if (past.length) {
+    const lo = esc(past[0].n), hi = esc(past[past.length - 1].n);
+    const allTier = past.every((c) => rarityLabel(c.rarity) === "Secret Rare");
+    return {
+      has: true,
+      html: `<p class="lede w42">${name} has <b>${past.length === 1 ? "one card" : `${past.length} cards`} numbered past the printed set</b>, ${
+        past.length === 1 ? `#${hi}` : `#${lo} to #${hi}`
+      }, against a printed total of ${s.printedTotal}. That is what collectors mean by a secret rare${
+        allTier
+          ? `, and here the checklist files ${past.length === 1 ? "it" : `all ${past.length}`} as Secret Rare too.`
+          : `: the number runs past the total printed beside it. ${past.length === 1 ? "Its" : "Each one's"} printed rarity is on the ladder below.`
+      }</p>`,
+    };
+  }
+  if (tier.length) {
+    const names = tier.map((c) => `${esc(c.name)} (#${esc(c.n)} of ${s.printedTotal})`).join(", ");
+    return {
+      has: true,
+      html: `<p class="lede w42">${name} has <b>no cards numbered past the printed set</b>: all ${cards.length} sit inside its printed total of ${s.printedTotal}. ${
+        tier.length === 1 ? "Its one Secret Rare is" : `Its ${tier.length} Secret Rares are`
+      } ${names}, which is why the fact tile above reads 0 numbered past the set while the ladder below still shows a Secret Rare.</p>`,
+    };
+  }
+  return { has: false, html: "" };
+}
+
+/* A BAND'S ANCHOR AND ITS "On this page" LABEL, set on the function that
+   draws it so the band list in setPage stays one list. A null label means the
+   band gets an id but no chip. */
+const tag = (id, chip, fn) => Object.assign(fn, { id, chip });
+
+/* COLUMNS THAT NEVER LEAVE ONE TILE ALONE ON THE LAST ROW, the 30th
+   Celebration page's rule (build-30th.mjs, the hits band) brought over: for
+   each width band, the widest count from its list whose last row is not a
+   single tile. A count at or above the number of tiles is also fine, it just
+   leaves the row short at the tile's natural size. Read by .mine-cols in
+   PAGE_CSS. A phone stays at two, where a lone last tile is half a row and
+   three would draw 100px cards. */
+function mineCols(n) {
+  const pick = (cs) => cs.find((c) => n <= c || n % c !== 1) || cs[cs.length - 1];
+  return `--mc3:${pick([3, 2])};--mc4:${pick([4, 3])};--mc5:${pick([5, 4])};--mc6:${pick([6, 7, 5])}`;
+}
+
+/* EVERYTHING THE POP-UP NEEDS ABOUT ONE CARD, as data-* on the control that
+   opens it, so the chase grid and the hero fan carry the same set and the
+   script reads one shape. New since 2 October 2026, for parity with the 30th
+   Celebration pop-up the owner likes:
+     data-number  the printed form, "124/088", see numOf()
+     data-ill     the illustrator, off the checklist row's `ill`
+     data-alts    the other printings of the same name in this set, each with
+                  its number, tier and price, off the same checklist
+     data-src     where the price came from and the day it was read, in the
+                  pop-up itself, because the pop-up is the one view of this
+                  page where no sourcing sentence is anywhere in sight
+     data-rip     the rip that pulled it, when the channel did
+   Every figure here is the same checklist figure the grid and the checklist
+   print, so the pop-up cannot disagree with the page under it. */
+function zoomData(s, c, pulled) {
+  const doc = checklists[s.id] || {};
+  const row = rowOf(s, c.number);
+  const psa = gradedPrice(s.id, c.number, c.name, s.name);
+  const psaWho = psa ? gradedSource(s.id, c.number, c.name, s.name) : null;
+  const psaRead = psa ? gradedAsOf(s.id, c.number, c.name, s.name) : null;
+  const k = cardNumKey(c.number);
+  const alts = (doc.cards || [])
+    .filter((x) => x.name === c.name && cardNumKey(x.n) !== k)
+    .map((x) => `#${x.n} ${rarityLabel(x.rarity) || ""} ${typeof x.price === "number" ? moneyCompact(x.price) : "no price"}`.replace(/\s+/g, " "))
+    .join(" • ");
+  const rawRead = longDate(priceRead(doc)) || priceRead(doc);
+  const src =
+    `Raw price: ${doc.priceSource || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.` +
+    (psa ? ` PSA 10: graded sales data from ${psaWho || "a separate graded sales feed"}${psaRead ? `, read ${longDate(psaRead) || psaRead}` : ""}.` : "");
+  const rips = (pulled && pulled.get(k)) || [];
+  const first = [...rips].sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")))[0] || null;
+  return ` data-img="${esc(c.imageLarge || c.image || "")}"
+        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
+        data-number="${esc(numOf(s, c.number))}" data-price="${esc(moneyCompact(c.price))}"
+        data-psa10="${esc(psa ? moneyCompact(psa) : "")}"
+        data-url="${esc(c.url ? affLink(c.url) : "")}"${row?.ill ? ` data-ill="${esc(row.ill)}"` : ""}${alts ? ` data-alts="${esc(alts)}"` : ""}
+        data-src="${esc(src)}"${first ? ` data-rip="/${esc(first.path)}" data-rip-when="${esc(longDate(first.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""}`;
+}
+
+/**
+ * "WHAT WE HAVE HIT", LIFTED OUT OF THE BAND LIST, 2 October 2026.
+ *
+ * This was an IIFE inside setPage's band array. It moved out, unchanged in what
+ * it resolves, because a second part of the page now needs its answer: the chase
+ * grid flags the tiles the channel actually pulled ("We pulled it") and the
+ * pop-up links to the rip. Both read `pulled` off this, so the flag can never
+ * claim a card the hit grid does not show, and nothing resolves a logged hit
+ * twice in two slightly different ways.
+ */
+function hitBand(s) {
+  const mineRaw = (hitsBySet.get(s.id) || [])
+    .map((h) => {
+      const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
+      const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
+      const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
+      const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
+      const v = videoById.get(h.vid);
+      return {
+        name: h.card,
+        n: m ? m.n : h.number || null,
+        rarity: (m && m.rarity) || h.rarity || null,
+        img: m && m.img ? `${m.img}/low.webp` : null,
+        price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
+        path: v ? v.path : null,
+        label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
+        published: v ? v.published : null,
+      };
+    })
+    .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
+  // THE SAME CARD PULLED TWICE IS ONE CARD AND A COUNT, NOT TWO TILES.
+  //
+  // The owner: "when we hit the same card more than once, don't show it twice on
+  // the pages where we show hits, just show the card and then make a new
+  // badge for showing 2x or 3x or however many we have". Chespin appeared
+  // twice on the Chaos Rising guide, identical scan, identical price,
+  // identical everything, which reads as a rendering fault rather than as
+  // a fact about the pulls.
+  //
+  // GROUPED ON THE RESOLVED CARD, not the typed string, so "Trainer Dawn"
+  // and "Dawn" collapse the way they already do for the text-only rows: the
+  // catalogue number is the identity when there is one, and the normalised
+  // name when there is not.
+  //
+  // Every rip is kept, not just the first, because "we hit this twice" is
+  // only interesting if you can watch both. The badge is hidden at one, per
+  // his instruction: "if its only 1 dont show any number".
+  const seenCard = new Map();
+  for (const h of mineRaw) {
+    const k = h.n ? `n:${h.n}` : `x:${String(h.name).toLowerCase().replace(/[^a-z0-9]/g, "")}`;
+    const prev = seenCard.get(k);
+    if (!prev) { seenCard.set(k, { ...h, count: 1, rips: h.path ? [{ path: h.path, label: h.label, published: h.published }] : [] }); continue; }
+    prev.count += 1;
+    if (h.path && !prev.rips.some((r) => r.path === h.path)) prev.rips.push({ path: h.path, label: h.label, published: h.published });
+  }
+  const mine = [...seenCard.values()];
+  // Hits that only ever got a sentence in the log, minus any card the My
+  // Hits tab already covers properly, so a card with a scan and a price is
+  // not also listed as bare text underneath it.
+  // MATCHING ON THE EXACT STRING WAS TOO STRICT AND IT SHOWED. The My Hits
+  // tab had "Dawn" and the rip log said "Trainer Dawn", so the same card
+  // rendered twice on Phantasmal Flames: once with a scan and a price, once
+  // as bare text underneath. The log writes a card type in front of a
+  // supporter's name and the catalogue does not, so the comparison drops
+  // that word and then accepts either string containing the other.
+  const key = (x) =>
+    String(x || "")
+      .toLowerCase()
+      .replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
+      .replace(/[^a-z0-9]+/g, " ")
+      .trim();
+  // PROMOS FROM THE PRODUCTS THAT OPENED THIS SET. A Black Star Promo out
+  // of a UPC is not a card in the set, and it is absolutely part of what
+  // came out of that rip, so it belongs on the page with its own scan,
+  // number and price and a label that says what it is.
+  // ONE SET PAGE PER PROMO, named in the data by `forSet`. Matching on
+  // "any set this video opened" put the same two promos at the top of four
+  // different pages, because the UPC held packs from four sets. A promo is
+  // in none of them; it shipped alongside one of them, and that is the only
+  // answer that reads true. Anything without forSet appears on no set page
+  // rather than being guessed onto one, and is named at build time below.
+  const promoHits = [];
+  for (const v of videos) {
+    for (const h of HITS[v.id] || []) {
+      if (!h.promo || h.forSet !== s.id) continue;
+      if (promoHits.some((x) => x.card === h.card)) continue;
+      promoHits.push({ ...h, path: v.path, label: v.siteTitle || v.title, published: v.published });
+    }
+  }
+  const seen = mine.map((h) => key(h.name)).filter(Boolean)
+    .concat(promoHits.map((h) => key(h.card)));
+  // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, not two identical rows.
+  // Doubles are ordinary across hundreds of packs, and listing the same
+  // card again tells the reader nothing except that the page repeats
+  // itself. The count is the interesting part, so it goes on the row, and
+  // every rip it came out of stays linked.
+  const grouped = new Map();
+  for (const h of PROSE_HITS.get(s.id) || []) {
+    const k = key(h.card);
+    if (!k || seen.some((m) => m === k || m.includes(k) || k.includes(m))) continue;
+    if (!grouped.has(k)) grouped.set(k, { ...h, count: 0, rips: [] });
+    const g = grouped.get(k);
+    g.count += 1;
+    // Same card from the same video is still one pull for linking purposes.
+    if (!g.rips.some((r) => r.path === h.path)) g.rips.push({ path: h.path, label: h.label, published: h.published });
+    // Keep the most specific rarity seen for it.
+    if (!g.rarity && h.rarity) g.rarity = h.rarity;
+  }
+  // Resolve what we can to a real card so it shows its scan in the grid
+  // with everything else. Anything that will not resolve stays a text row
+  // rather than being shown as a guess.
+  const proseAll = [...grouped.values()].sort((a, b) => b.count - a.count);
+  const proseCards = [];
+  const prose = [];
+  for (const h of proseAll) {
+    // A promo is not in this set's checklist and must never be resolved
+    // against it. It still has a scan and a price of its own, carried by
+    // the rip log, so it renders as a full card rather than a bare line.
+    const c = h.promo ? null : resolveCard(s.id, h.card, h.rarity);
+    if (c) proseCards.push({ ...h, resolved: c });
+    else prose.push(h);
+  }
+
+  // ONE LIST, SORTED BY VALUE. The three kinds of hit used to render as
+  // three consecutive blocks, each sorted within itself, so a $38.75 promo
+  // sat below a $2.87 card purely because it came from a different file.
+  // Nobody reading the page cares which file a card came out of. They care
+  // what it is worth, so everything with a picture is normalised to one
+  // shape and sorted on price. Anything with no market price sorts last
+  // rather than sorting as if it were free.
+  const priced = [
+    ...mine.map((h) => ({
+      kind: "mine", img: h.img, name: esc(h.name),
+      meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}`,
+      price: typeof h.price === "number" ? h.price : null, psa10: null,
+      // COUNT AND RIPS BOTH COME FROM THE GROUPING ABOVE. This rebuild used
+      // to derive rips from a single h.path, which was right when every row
+      // was one pull; now a row can be several, and dropping count here was
+      // why the first attempt deduplicated Chespin correctly and then
+      // rendered it with no badge.
+      count: h.count || 1,
+      rips: h.rips && h.rips.length ? h.rips : h.path ? [{ path: h.path, label: h.label, published: h.published }] : [],
+      num: h.n || null,
+    })),
+    ...promoHits.map((h) => ({
+      kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
+      meta: `${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}`,
+      price: typeof h.price === "number" ? h.price : null,
+      psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+      rips: [{ path: h.path, label: h.label, published: h.published }],
+    })),
+    ...proseCards.map((h) => ({
+      kind: "prose", img: h.resolved.img,
+      name: `${esc(h.resolved.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}`,
+      // rarityLabel, for the same reason the `mine` rows above call it: this
+      // is TCGdex's raw field and TCGdex ships "Double rare" and "Ultra Rare"
+      // inside ONE checklist. Printed verbatim it put 5 sentence-case entries
+      // among 18 title-case ones in a single grid, and /sets/mega-evolution
+      // read "Illustration rare" in a component on a page that writes
+      // "Illustration Rare" 54 times elsewhere. Only this branch was missing
+      // it, which is why the split looked random rather than per-set.
+      meta: `${esc(rarityLabel(h.resolved.rarity) || rarityLabelOf(h.rarity) || "")}${h.resolved.number ? ` &bull; #${esc(h.resolved.number)}` : ""}`,
+      price: typeof h.resolved.price === "number" ? h.resolved.price : null, psa10: null,
+      rips: h.rips,
+      num: h.resolved.number || null,
+    })),
+  ].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
+  if (!mine.length && !proseAll.length && !promoHits.length) return null;
+  // WHICH CHECKLIST NUMBERS WE PULLED, 2 October 2026, for the chase grid's
+  // "We pulled it" flag and the pop-up's rip link. Read off the tiles this
+  // band is about to draw and nothing else: a promo is in no checklist so it
+  // cannot match a chase card, and a text-only row has no number to match on.
+  // Keyed with cardNumKey because the chase list is unpadded and the
+  // checklist is padded, the join this file has got wrong once already.
+  const pulled = new Map();
+  for (const h of priced) {
+    if (h.kind === "promo" || !h.num || !h.rips.length) continue;
+    const k = cardNumKey(h.num);
+    pulled.set(k, [...(pulled.get(k) || []), ...h.rips.filter((r) => !(pulled.get(k) || []).some((x) => x.path === r.path))]);
+  }
+  return { pulled, render: (cls) => `<section class="${cls}">
+  <div class="wrap">
+<p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+<h2>What we have <span class="hl">hit</span> from this set</h2>
+${/* The SECOND sentence has to agree too, and only the first one did. Four
+      guides today have hit exactly one card from a set, and they read
+      "1 card out of our own packs. Every one of them is in a video you can
+      watch." Same fix in build-intl-pages.mjs, which carries this lede
+      word for word. */ ""}<p class="lede w38">${priced.length + prose.length} card${
+  priced.length + prose.length === 1 ? "" : "s"
+} out of our own packs. ${
+  priced.length + prose.length === 1 ? "It is" : "Every one of them is"
+} in a video you can watch.</p>
+${priced.length ? `<ul class="mine-grid mine-cols" style="${mineCols(priced.length)}">
+  ${priced
+    .map(
+      (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
+    ${/* A TILE WITH NO SCAN IS NOT AN EMPTY BOX, since 22 August 2026. The owner,
+          about the whole site: "there should be no empty place holder
+          images anywhere on the site." Every one of these is a row whose
+          card NAME matches nothing on this set's checklist, so there is no
+          printing to fetch a picture of; the build says which rows and why
+          on every run. The box holds the same ratio and the same hatch and
+          now carries this set's own symbol and the words "No scan". The
+          symbol is honest here because the row is on that set's own guide,
+          it is a 40px glyph rather than a card face, and the page header
+          has already fetched the same file so it costs no request. The
+          three things deliberately NOT in it are argued in
+          shared/card-scan.mjs. */ ""}${h.img ? mineImg(h.img) : noScanBox("mine-img is-none", { slug: s.id, name: s.name })}
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">${h.name}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
+    <p class="mine-r">${h.meta}</p>
+    ${/* moneyCompact, NOT moneyExact, AND THAT IS THE HALL OF FAME'S SHAPE
+          RATHER THAN A TASTE CALL. These tiles and the plaques on
+          /hall.html are the same cards out of the same data/hits.json, and
+          they printed the same card two ways: $175.00 here against $175
+          there for Mega Greninja ex, Chaos Rising #122. shared/format.mjs
+          says which is which and this band is squarely on the compact side
+          of it: a tile in a list, where the cents are noise and the column
+          has to stay narrow. The checklist and the rarity ladder further
+          down keep moneyExact, because those really are rows where the
+          number is the point. */ ""}<p class="mine-p">${typeof h.price === "number" ? moneyCompact(h.price) : "No price"}${
+        typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyCompact(h.psa10)} in a 10</span>` : ""
+      }</p>
+    ${/* THE CARD IS IN THE LINK'S NAME. Pitch Black printed ten "Watch the rip"
+         links to ten different rips; out of context, which is how a screen
+         reader's link list reads them, they were ten identical links.
+         AND THE DATE IS IN IT NOW, 2 October 2026: a card pulled twice printed
+         two identical "Watch the rip" links with identical labels, so the
+         same fault came back inside one tile. ripLinks() draws one link for
+         one rip and a row of dated chips for several. h.name is already
+         escaped markup, so the tags come off rather than escaping it twice. */
+      ripLinks(h.rips, String(h.name).replace(/<[^>]*>/g, ""))}
+  </li>`
+    )
+    .join("\n      ")}
+</ul>` : ""}
+${prose.length ? `<ul class="mine-list">
+  ${prose
+    .map(
+      (h) => `<li><b>${esc(h.card)}</b>${
+        h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""
+      }${
+        h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
+      }
+    ${/* Same fix as the tiles above, 2 October 2026: these rows had no
+          label at all and a card logged twice printed two identical buttons. */
+      ripLinks(h.rips, esc(h.card), { one: "mine-btn", many: "mine-btn" })}</li>`
+    )
+    .join("\n      ")}
+</ul>
+<p class="mine-note">Those came out of the rip log as written. They do not have a card number or a
+  price against them yet, so they are listed rather than priced.</p>` : ""}
+  </div>
+</section>` };
+}
+
 /* THE TOP THREE CARDS, IN THE FIRST SCREEN, 2 October 2026. The owner, on the
    30th Celebration page's hero: "I really like how the 30th set page looks at
    the top showing the top 3 chase cards right on the top fold, can we update
@@ -2426,24 +2901,24 @@ function derivedFacts(s) {
    paint and turning a picture into the LCP element.
 
    Fewer than three scanned, priced cards and there is no fan, rather than a fan
-   of two: the layout and the caption are both about three. */
-const heroFan = (s) => {
+   of two: the layout and the caption are both about three.
+
+   THE data-* COME FROM zoomData() SINCE 2 October 2026, the same call the chase
+   grid makes, so the fan's pop-up gained the illustrator, the printed number,
+   the other printings, the price source and the rip link in the same edit as
+   the grid's rather than drifting a step behind it. The <ol> is the pop-up's
+   group: Previous and Next step through these three and stop there. */
+const heroFan = (s, pulled) => {
   const priced = (s.chase || []).filter((c) => c.price);
   const three = priced.filter((c) => c.image).slice(0, 3);
   if (three.length < 3) return "";
   // Celebrations' dearest card, Mew, has no scan, so the three drawn are not the
   // top three and the caption must not say they are. It says what they are.
   const exact = three.every((c, i) => c === priced[i]);
-  const psa = (c) => gradedPrice(s.id, c.number, c.name, s.name);
   return `    <div class="sh-fan">
-      <ol>
-${three.map((c) => `        <li><button class="sh-zm" type="button"
-          data-img="${esc(c.imageLarge || c.image || "")}"
-          data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
-          data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
-          data-psa10="${esc(psa(c) ? moneyCompact(psa(c)) : "")}"
-          data-url="${esc(c.url ? affLink(c.url) : "")}"
-          aria-label="Enlarge ${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "")} ${esc(c.number)}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
+      <ol data-zg>
+${three.map((c) => `        <li><button class="sh-zm" type="button"${zoomData(s, c, pulled)}
+          aria-label="Enlarge ${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "")} ${esc(numOf(s, c.number))}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
       </ol>
       <p>${exact ? "The top three by raw price" : "The top three by raw price with a scan"}</p>
     </div>`;
@@ -2666,6 +3141,149 @@ const PAGE_CSS = `
   .sh-fan ol{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+/* ON A PHONE THE CARDS COME BEFORE THE CHIPS, 2 October 2026. The answer-first
+   lede plus a row of jump chips pushed the three cards to y=560-700 at 375x812,
+   which is under the fold on a real phone once the browser's own bars are
+   counted, and the cards were the whole point of the owner's ask. Below 1000px
+   the text column dissolves into the hero's flex column so the fan can be
+   ordered ahead of the chips; at 1000 and up the two-column grid is untouched. */
+@media(max-width:999px){
+  .set-hero .wrap.sh-has-fan .sh-text{display:contents}
+  .set-hero .wrap.sh-has-fan .sh-fan{order:1}
+  .set-hero .wrap.sh-has-fan .sh-jump{order:2}
+}
+
+/* ============================================ THE 2 October 2026 PASS
+   Everything below came in one pass over the guide's top half, its headings,
+   the hit grid and the pop-up, most of it borrowed from /30th-celebration.html
+   because the owner likes that page. Each rule says which item it serves. */
+
+/* THE H1'S SECOND LINE. The set name stays the big line; "card list and set
+   guide" is the same heading at half size, neutral, so the hero still reads as
+   the set while the heading's text is the phrase a searcher types. */
+.set-hero h1 .sh-h1s{display:block;margin-top:.25em;font-size:max(.46em,1.05rem);line-height:1.2;color:var(--ink-2)}
+
+/* ON THIS PAGE. The 30th's .t30-jump: routes, so teal; 44px chips; one row
+   that scrolls sideways on a phone, edge to edge, rather than three rows of
+   wrap. Centered under a centered hero, left-aligned once the fan moves the
+   text into a left column. align-self:stretch because .sh-text centers its
+   children, and a centered child cannot scroll past the gutter. */
+.sh-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:100%;min-width:0}
+/* .sh-text is a flex item of the hero's centered column, so it sized itself to
+   its widest child, and a no-wrap chip row is 500px wide: the whole hero text
+   block went 532px on a 390 phone and pushed the page sideways. Stretched to
+   the column instead, three classes against ui.css's (0,2,0) wrap rule. */
+.set-hero .wrap .sh-text{align-self:stretch;min-width:0}
+.sh-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+  font:700 var(--t-sm)/1 var(--body);text-decoration:none;white-space:nowrap}
+.sh-jump a:hover,.sh-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+  .sh-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+    align-self:stretch;margin-inline:calc(-1 * var(--gut));padding:2px var(--gut) 6px;scroll-padding-inline:var(--gut)}
+  .sh-jump::-webkit-scrollbar{display:none}
+  .sh-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .sh-jump{justify-content:flex-start}}
+
+/* THE CHASE TAG. The chase tiers were marked by color alone (a teal bar
+   gradient on the ladder, a teal wash on the checklist) and the copy still
+   called it gold. A word survives losing color, which is what CLAUDE.md asks
+   of every design here. Pink, the small one, because it is a mark that goes
+   nowhere and it is micro type: the NEW and #1 HIT flag family. */
+.ch-tag{display:inline-block;vertical-align:.12em;margin-left:6px;padding:3px 6px 2px;border-radius:var(--r-pill);
+  background:var(--ketchup-deep);color:var(--on-accent);font:700 .625rem/1 var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;white-space:nowrap}
+
+/* CHASE GRID: FOUR ACROSS FROM 700px. ui.css draws three from 620 and four
+   from 900, so a 768 tablet drew eight cards as three, three and an orphan
+   pair. [data-zg] for the second class: same specificity as ui.css would tie,
+   and this file must not depend on ending up later. */
+@media(min-width:700px){.chase-grid[data-zg]{grid-template-columns:repeat(4,minmax(0,1fr))}}
+/* Each tile is a cell holding the button and, when we pulled it, the rip link.
+   A SUBGRID OF TWO ROWS, so every card in a visual row is one height and the
+   link hangs in a row of its own under the card that has one. Stretching the
+   button to the cell instead made the card BESIDE a pulled one grow by the
+   link's 44px, which read as two different tile sizes. Row gap is zero and
+   the spacing is the button's own margin, so a row with no link in it is
+   spaced exactly as before. Without subgrid the cell is a plain column and
+   still lays out, just without the cross-tile alignment. */
+.chase-grid[data-zg]{row-gap:0}
+.chase-grid .cc-cell{display:flex;flex-direction:column;min-width:0}
+@supports (grid-template-rows:subgrid){
+  .chase-grid .cc-cell{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:0}
+}
+.cc-cell .chase-card{position:relative;margin-bottom:14px}
+.cc-cell .cc-rip{margin:-10px 0 8px}
+/* The meta line: tighter tracking and a no-break run (see the builder) so
+   "Special Illustration Rare &bull; 121/088" is two lines on a phone, not three. */
+.chase-grid .chase-card .rr{letter-spacing:.02em}
+.chase-card .nw{white-space:nowrap}
+/* The PSA 10 read date on a line of its own, so neither the figure nor the date
+   breaks in the middle. */
+.chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
+/* WE PULLED IT. Pink because it is a mark, sitting on the tile's top edge over
+   the border and the padding, never on the card's art. */
+.cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
+  background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+  text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 0 var(--keyline);pointer-events:none}
+.cc-flag.is-inline{position:static;display:inline-block;vertical-align:.1em;margin-left:6px;box-shadow:none}
+/* ...and the route to the rip under it, teal because it goes somewhere. */
+.cc-rip{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.3 var(--body);
+  color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.cc-rip:hover,.cc-rip:focus-visible{color:var(--sky)}
+
+/* WHAT WE HAVE HIT: a row of dated chips where a card came out of more than
+   one rip, in place of two identical "Watch the rip" links pushed to opposite
+   ends of the tile by .mine-w's margin-top:auto. */
+.mine-rips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;margin-top:auto;padding-top:6px}
+.mine-rips-k{flex-basis:100%;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.mine-rip{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border:1px solid var(--keyline);
+  border-radius:999px;background:var(--paper);color:var(--sky-deep);font:700 var(--t-micro)/1 var(--body);
+  text-decoration:none;white-space:nowrap}
+.mine-rip:hover,.mine-rip:focus-visible{border-color:var(--sky);color:var(--sky)}
+.mine-list .mine-rips{margin-top:0;padding-top:0}
+/* THE GRID FILLS THE BAND. ui.css capped tiles at 220px and justified them
+   start, which left half a 1440 band empty beside four tiles. Fixed counts per
+   width now, chosen per guide by mineCols() so the last row is never a single
+   tile (the 30th's --hd/--ht idea), each track 1fr. Two classes, so it beats
+   ui.css's .mine-grid at equal weight wherever the rules land. */
+.mine-grid.mine-cols{grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}
+@media(min-width:521px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc3,3),minmax(0,1fr))}}
+@media(min-width:700px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc4,4),minmax(0,1fr))}}
+@media(min-width:900px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc5,5),minmax(0,1fr))}}
+@media(min-width:1200px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc6,6),minmax(0,1fr))}}
+
+/* THE POP-UP. On a phone the card sits above the words, as before; from 760px
+   it sits beside them, as on the 30th, so the extra lines (illustrator, source,
+   other printings, the rip) never push the price off a laptop screen.
+   THE PICTURE HAS A HEIGHT, NOT ONLY A CAP: with a cap alone the box is 0px
+   until the file lands, so the panel jumps and a quick second tap on Next lands
+   on whatever moved under it (the 30th's own note). 600/825 is TCGdex's high
+   rendition. touch-action:pan-y so a phone can still scroll the panel and the
+   sideways swipe reaches the script. */
+.lbx-fig{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.lbx .lbx-fig img{display:block;margin:0 auto;width:auto;max-width:100%;height:min(46vh,420px);
+  aspect-ratio:600/825;object-fit:contain;-webkit-user-drag:none}
+.lbx-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.lbx-nav[hidden]{display:none}
+.lbx-go{appearance:none;min-height:44px;padding:0 14px;border:1px solid var(--keyline);border-radius:999px;
+  background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);cursor:pointer;white-space:nowrap}
+.lbx-go:hover,.lbx-go:focus-visible{border-color:var(--sky);color:var(--sky)}
+.lbx-of{margin:0;font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.lbx-ill{margin:4px 0 0;font-size:var(--t-sm);color:var(--ink-2)}
+.lbx-src{margin:8px 0 0;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+.lbx-alts{margin:8px 0 0;font-size:var(--t-sm);line-height:1.45}
+.lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
+.lbx-rip a{color:var(--sky-deep)}
+.lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+@media(min-width:760px){
+  .lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
+    align-items:center;text-align:left;padding:24px}
+  .lbx .lbx-fig img{height:min(72vh,560px)}
+  .lbx .lb-actions{justify-content:flex-start}
+  .lbx .lbx-nav{margin:0 0 8px}
+}
 ${RARITY_CSS}`;
 
 /**
@@ -2713,6 +3331,58 @@ ${MENU}
 <main id="main" tabindex="-1">
 `;
 
+/* WHEN EACH GUIDE FIRST WENT UP, AND WHEN IT LAST CHANGED, 2 October 2026.
+
+   datePublished MUST NOT MOVE, and nothing in the data files is a stable
+   answer: syncedAt, checked and pricesChecked all advance on every refresh,
+   and the set's release date is wrong for every set older than this site
+   (Rebel Clash is 2020; its guide is August 2026). The honest stable value is
+   the day the guide's page first entered this repo, which Pages publishes on
+   every push, so it is read once from git and written down here rather than
+   asked of git on every build: CI's drift job rebuilds in a scratch copy, and
+   a build that shells out to git history is not hermetic. Taken with
+     git log --diff-filter=A --format=%ad --date=short -- public/sets/<id>.html
+   on 2 October 2026, oldest commit that added each file.
+
+   A SET NOT IN THE MAP (a new guide) falls back to its release date, which for
+   a set released after this site existed is the day its guide went up within
+   a few days, or to dateModified if the release is still ahead. The build
+   names any such set so the line can be added here.
+
+   dateModified is the later of the checklist file's two stamps, `checked`
+   (TCGdex, the cards) and `pricesChecked` (PriceCharting, the money), the two
+   reads every number on the page comes from. sets.json's syncedAt is
+   deliberately not in it: it is older than both on every guide today. */
+const GUIDE_FIRST_PUBLISHED = {
+  "151": "2026-08-11", "ascended-heroes": "2026-08-11", "black-bolt": "2026-08-11",
+  "celebrations": "2026-08-15", "chaos-rising": "2026-08-11", "chilling-reign": "2026-08-15",
+  "crown-zenith": "2026-08-15", "destined-rivals": "2026-08-11", "journey-together": "2026-08-11",
+  "mega-evolution": "2026-08-11", "obsidian-flames": "2026-08-11", "paldea-evolved": "2026-08-11",
+  "paldean-fates": "2026-08-11", "paradox-rift": "2026-08-11", "perfect-order": "2026-08-11",
+  "phantasmal-flames": "2026-08-11", "pitch-black": "2026-08-11", "pokemon-go": "2026-08-11",
+  "prismatic-evolutions": "2026-08-11", "rebel-clash": "2026-08-15", "scarlet-violet": "2026-08-11",
+  "shining-fates": "2026-08-15", "shrouded-fable": "2026-08-11", "silver-tempest": "2026-08-31",
+  "stellar-crown": "2026-08-11", "surging-sparks": "2026-08-11", "temporal-forces": "2026-08-11",
+  "twilight-masquerade": "2026-08-11", "white-flare": "2026-08-11",
+};
+const guideDatesWarned = new Set();
+function guideDates(s) {
+  const doc = checklists[s.id] || {};
+  // syncedAt only when the checklist file is missing altogether.
+  const modified = [doc.checked, doc.pricesChecked]
+    .filter(Boolean).map((d) => String(d).slice(0, 10)).sort().pop() || syncedAt;
+  let published = GUIDE_FIRST_PUBLISHED[s.id];
+  if (!published) {
+    const rel = String(s.released || "").replace(/\//g, "-").slice(0, 10);
+    published = rel && rel <= modified ? rel : modified;
+    if (!guideDatesWarned.has(s.id)) {
+      guideDatesWarned.add(s.id);
+      console.log(`  ${s.id} has no GUIDE_FIRST_PUBLISHED entry, so its datePublished is ${published}; add the day its guide first went up.`);
+    }
+  }
+  return { published, modified };
+}
+
 // ------------------------------------------------------------------ a set
 function setPage(s) {
   const url = `${SITE}/sets/${s.id}.html`;
@@ -2722,6 +3392,12 @@ function setPage(s) {
   const rips = ripsBySet[s.id] || 0;
   const label = labelFor("sets", s.id);
   const top = s.chase?.[0];
+  // The hits are resolved once, up here, because three parts of the page read
+  // them: the "What we have hit" band, the chase grid's "We pulled it" flag and
+  // the pop-up's rip link (2 October 2026, see hitBand()).
+  const hit = hitBand(s);
+  const pulled = hit ? hit.pulled : new Map();
+  const fan = heroFan(s, pulled);
   // THE ONE CLICKABLE FACT WAS BEHIND THE CUT, AND ON 28 GUIDES IT WAS NOT
   // THERE AT ALL. Every description said "the top chase cards with current
   // guide values" and named none of them, so 28 results in a search page read
@@ -2775,8 +3451,14 @@ function setPage(s) {
       // the Article's canonical home rather than a page that merely mentions
       // it. Every guide carried the first and none carried the second.
       mainEntityOfPage: { "@type": "WebPage", "@id": url },
-      datePublished: syncedAt,
-      dateModified: syncedAt,
+      // TWO DIFFERENT DATES NOW, 2 October 2026. Both were sets.json's
+      // syncedAt, which is the day the pokemontcg.io list was last pulled: it
+      // moves whenever that sync runs, so every guide claimed to have been
+      // first published on the most recent sync day, and it did not move when
+      // the prices did, which is the change a reader actually cares about.
+      // See guideDates() for where each one now comes from.
+      datePublished: guideDates(s).published,
+      dateModified: guideDates(s).modified,
       author: { "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/" },
       publisher: {
         "@type": "Organization",
@@ -2842,10 +3524,16 @@ function setPage(s) {
     // edit: move these two entries back under the two IIFEs above and nothing
     // else has to change, because the tone alternation is computed from the pin
     // rather than written down.
-    (cls) => `<section class="${cls}">
+    //
+    // tag() GIVES A BAND ITS id AND, WHERE IT EARNS ONE, ITS "On this page"
+    // CHIP (2 October 2026). See the jump row under the hero.
+    tag("chase", s.chase?.length ? "Most valuable" : "Chase cards", (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    ${/* IN THE SEARCHER'S WORDS, 2 October 2026. "Top chase cards" is this
+          site's phrase; "most valuable <set> cards" is what gets typed into a
+          search box, and an h2 is the heading a result can quote. The .hl stays
+          on a word and the heading itself stays neutral, per the accent rule. */ ""}<h2><span class="hl">Most valuable</span> ${esc(s.name)} cards</h2>
     ${s.chase?.length ? (() => {
       /**
        * A CHASE CARD WITH NO SCAN IS A ROW, NOT AN EMPTY TILE.
@@ -2875,14 +3563,20 @@ function setPage(s) {
       const noScan = s.chase.filter((c) => !c.image);
       const psa = (c) => gradedPrice(s.id, c.number, c.name, s.name);
       return `
-    ${withScan.length ? `<div class="chase-grid">
-      ${withScan.map((c) => `<button class="chase-card" type="button"
-        data-img="${esc(c.imageLarge || c.image || "")}"
-        data-name="${esc(c.name)}" data-rarity="${esc(rarityLabel(c.rarity) || "")}"
-        data-number="${esc(c.number)}" data-price="${esc(moneyCompact(c.price))}"
-        data-psa10="${esc(psa(c) ? moneyCompact(psa(c)) : "")}"
-        data-url="${esc(c.url ? affLink(c.url) : "")}"
-        aria-label="Enlarge ${esc(c.name)}">
+    ${/* EACH TILE IS A CELL NOW, 2 October 2026, holding the button and, when
+          the channel pulled that card, a link to the rip. A link cannot live
+          inside a button, and the flag on its own would announce a fact with
+          no way to check it. The cell is the pop-up's group too: data-zg marks
+          the grid, so Previous and Next walk these eight and no others.
+          "WE PULLED IT" IS PINK BECAUSE IT GOES NOWHERE (the NEW and #1 HIT
+          family); the link under the tile is teal because it does. The flag
+          reads off hitBand()'s own tiles, so it cannot claim a card the "What
+          we have hit" grid further down does not show. */ ""}${withScan.length ? `<div class="chase-grid" data-zg>
+      ${withScan.map((c) => {
+        const rips = pulled.get(cardNumKey(c.number)) || [];
+        return `<div class="cc-cell${rips.length ? " is-pulled" : ""}"><button class="chase-card" type="button"${zoomData(s, c, pulled)}
+        aria-label="Enlarge ${esc(c.name)}${rips.length ? ", which we pulled on camera" : ""}">
+        ${rips.length ? `<span class="cc-flag" aria-hidden="true">We pulled it</span>` : ""}
         ${/* alt="" ON PURPOSE: the button above is aria-labelled "Enlarge <name>"
               and the .nm / .rr lines below print the name, rarity and number in
               full, so an alt here made the AX tree read the card out a second
@@ -2891,30 +3585,48 @@ function setPage(s) {
               announced. `onerror` removes the node, so no broken image is ever
               left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"` : ""} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
-        <div class="rr">${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</div>
+        ${/* THE META LINE WRAPPED TO THREE LINES AT 390, 2 October 2026:
+              "Special Illustration" / "Rare &bull;" / "121", because the mono
+              letter-spacing let 20 characters to a line and the break fell
+              before the bullet. The last word of the tier, the bullet and the
+              number are now glued with no-break spaces, so it is two lines at
+              worst ("Special Illustration" / "Rare &bull; 121/088"), and the
+              number gained its printed total (numOf), which is what says a card
+              is past the set. */ ""}<div class="rr">${(() => {
+          const r = esc(rarityLabel(c.rarity) || "");
+          const no = esc(numOf(s, c.number));
+          const cut = r.lastIndexOf(" ");
+          return r ? `${cut > 0 ? `${r.slice(0, cut)} ` : ""}<span class="nw">${cut > 0 ? r.slice(cut + 1) : r}&nbsp;&bull;&nbsp;${no}</span>` : no;
+        })()}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
         ${psa(c)
           ? `<div class="pr10">PSA 10 ${moneyCompact(psa(c))}${
               // longDate, not the raw ISO string the price file stores. Every other date
               // on this page is long form, including the "last updated" line directly
               // under this grid, so a bare 2026-08-12 here read as a different site.
-              gradedAsOf(s.id, c.number, c.name, s.name) ? `<span> &bull; ${esc(longDate(gradedAsOf(s.id, c.number, c.name, s.name)))}</span>` : ""
+              // ITS OWN LINE SINCE 2 October 2026: "PSA 10 $5,625 &bull; October 2,
+              // 2026" broke mid-date at 768 once the grid went four across. The
+              // figure and the read date are each one unbroken line now, and the
+              // date says it is a read date rather than leaving that to the bullet.
+              gradedAsOf(s.id, c.number, c.name, s.name) ? `<span class="pr10-d">read ${esc(longDate(gradedAsOf(s.id, c.number, c.name, s.name)))}</span>` : ""
             }</div>`
           : ""}
-      </button>`).join("\n      ")}
+      </button>${rips.length ? ripLinks(rips, esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}</div>`;
+      }).join("\n      ")}
     </div>` : ""}
     ${noScan.length ? `${withScan.length ? `<h3 class="flat-h">No scan for ${noScan.length === 1 ? "this one" : "these"}</h3>` : ""}
     <ul class="flat-list">
       ${noScan.map((c) => `<li class="flat-item">
-        <b>${esc(c.name)}</b>
-        <span>${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(c.number)}</span>
+        <b>${esc(c.name)}</b>${/* The same flag and link as a pictured tile, 2 October 2026. */ (pulled.get(cardNumKey(c.number)) || []).length ? ` <span class="cc-flag is-inline">We pulled it</span>` : ""}
+        <span>${esc(rarityLabel(c.rarity) || "")} &bull; ${esc(numOf(s, c.number))}</span>
         <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>
         ${/* "Check current price" names no card, and there can be several of
               these rows on one guide. It fires once in the whole tree today,
               on Celebrations' Mew 25, which is that set's own chase card, so
               the least useful accessible name on the page belongs to its most
               important row. */ ""}${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank"
-          aria-label="Check the current price of ${esc(c.name)} ${esc(c.number)}, opens on tcgplayer.com">Check current price</a>` : ""}
+          aria-label="Check the current price of ${esc(c.name)} ${esc(c.number)}, opens on tcgplayer.com">Check current price</a>` : ""}${
+          (pulled.get(cardNumKey(c.number)) || []).length ? ripLinks(pulled.get(cardNumKey(c.number)), esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}
       </li>`).join("\n      ")}
     </ul>
     <p class="mine-note">The card database has no scan for ${
@@ -2955,9 +3667,9 @@ function setPage(s) {
       <strong>No prices yet.</strong> ${esc(s.name)} is recent enough that pricing data has not landed in the card database. The card list and rarity counts further down this page are accurate; the values will fill in as the market settles.
     </div>`}
   </div>
-</section>`,
+</section>`),
 
-    setValue(s) ? (cls) => valueBand(s, cls) : null,
+    setValue(s) ? tag("value", null, (cls) => valueBand(s, cls)) : null,
 
     (() => {
       // A COUNT, THE WAYS IN, AND ONE THING TO PRESS PLAY ON. Redesigned
@@ -3030,7 +3742,7 @@ function setPage(s) {
             newest.duration ? ` &bull; ${clockMS(newest.duration)}` : ""
           }</span></span>
       </a></li>`;
-      return (cls) => `<section class="${cls}">
+      return tag("rips", "Our rips", (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every ${esc(s.name)} <span class="hl">rip</span></h2>
@@ -3058,238 +3770,10 @@ function setPage(s) {
 ${rows}
     </ul>
   </div>
-</section>`;
+</section>`);
     })(),
 
-    (() => {
-      const mineRaw = (hitsBySet.get(s.id) || [])
-        .map((h) => {
-          const norm = (x) => String(x).toLowerCase().replace(/[^a-z0-9]/g, "");
-          const same = ((checklists[s.id] || {}).cards || []).filter((c) => norm(c.name) === norm(h.card));
-          const want = h.rarity ? norm(h.rarity).slice(0, 8) : null;
-          const m = (want && same.find((c) => norm(c.rarity).includes(want))) || same[0] || null;
-          const v = videoById.get(h.vid);
-          return {
-            name: h.card,
-            n: m ? m.n : h.number || null,
-            rarity: (m && m.rarity) || h.rarity || null,
-            img: m && m.img ? `${m.img}/low.webp` : null,
-            price: m && typeof m.price === "number" ? m.price : typeof h.price === "number" ? h.price : null,
-            path: v ? v.path : null,
-            label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,
-          };
-        })
-        .sort((a, b) => (b.price ?? 0) - (a.price ?? 0));
-      // THE SAME CARD PULLED TWICE IS ONE CARD AND A COUNT, NOT TWO TILES.
-      //
-      // The owner: "when we hit the same card more than once, don't show it twice on
-      // the pages where we show hits, just show the card and then make a new
-      // badge for showing 2x or 3x or however many we have". Chespin appeared
-      // twice on the Chaos Rising guide, identical scan, identical price,
-      // identical everything, which reads as a rendering fault rather than as
-      // a fact about the pulls.
-      //
-      // GROUPED ON THE RESOLVED CARD, not the typed string, so "Trainer Dawn"
-      // and "Dawn" collapse the way they already do for the text-only rows: the
-      // catalogue number is the identity when there is one, and the normalised
-      // name when there is not.
-      //
-      // Every rip is kept, not just the first, because "we hit this twice" is
-      // only interesting if you can watch both. The badge is hidden at one, per
-      // his instruction: "if its only 1 dont show any number".
-      const seenCard = new Map();
-      for (const h of mineRaw) {
-        const k = h.n ? `n:${h.n}` : `x:${String(h.name).toLowerCase().replace(/[^a-z0-9]/g, "")}`;
-        const prev = seenCard.get(k);
-        if (!prev) { seenCard.set(k, { ...h, count: 1, rips: h.path ? [{ path: h.path, label: h.label }] : [] }); continue; }
-        prev.count += 1;
-        if (h.path && !prev.rips.some((r) => r.path === h.path)) prev.rips.push({ path: h.path, label: h.label });
-      }
-      const mine = [...seenCard.values()];
-      // Hits that only ever got a sentence in the log, minus any card the My
-      // Hits tab already covers properly, so a card with a scan and a price is
-      // not also listed as bare text underneath it.
-      // MATCHING ON THE EXACT STRING WAS TOO STRICT AND IT SHOWED. The My Hits
-      // tab had "Dawn" and the rip log said "Trainer Dawn", so the same card
-      // rendered twice on Phantasmal Flames: once with a scan and a price, once
-      // as bare text underneath. The log writes a card type in front of a
-      // supporter's name and the catalogue does not, so the comparison drops
-      // that word and then accepts either string containing the other.
-      const key = (x) =>
-        String(x || "")
-          .toLowerCase()
-          .replace(/\b(trainer|supporter|item|stadium)\b/g, " ")
-          .replace(/[^a-z0-9]+/g, " ")
-          .trim();
-      // PROMOS FROM THE PRODUCTS THAT OPENED THIS SET. A Black Star Promo out
-      // of a UPC is not a card in the set, and it is absolutely part of what
-      // came out of that rip, so it belongs on the page with its own scan,
-      // number and price and a label that says what it is.
-      // ONE SET PAGE PER PROMO, named in the data by `forSet`. Matching on
-      // "any set this video opened" put the same two promos at the top of four
-      // different pages, because the UPC held packs from four sets. A promo is
-      // in none of them; it shipped alongside one of them, and that is the only
-      // answer that reads true. Anything without forSet appears on no set page
-      // rather than being guessed onto one, and is named at build time below.
-      const promoHits = [];
-      for (const v of videos) {
-        for (const h of HITS[v.id] || []) {
-          if (!h.promo || h.forSet !== s.id) continue;
-          if (promoHits.some((x) => x.card === h.card)) continue;
-          promoHits.push({ ...h, path: v.path, label: v.siteTitle || v.title });
-        }
-      }
-      const seen = mine.map((h) => key(h.name)).filter(Boolean)
-        .concat(promoHits.map((h) => key(h.card)));
-      // A CARD PULLED TWICE IS ONE ROW WITH A COUNT, not two identical rows.
-      // Doubles are ordinary across hundreds of packs, and listing the same
-      // card again tells the reader nothing except that the page repeats
-      // itself. The count is the interesting part, so it goes on the row, and
-      // every rip it came out of stays linked.
-      const grouped = new Map();
-      for (const h of PROSE_HITS.get(s.id) || []) {
-        const k = key(h.card);
-        if (!k || seen.some((m) => m === k || m.includes(k) || k.includes(m))) continue;
-        if (!grouped.has(k)) grouped.set(k, { ...h, count: 0, rips: [] });
-        const g = grouped.get(k);
-        g.count += 1;
-        // Same card from the same video is still one pull for linking purposes.
-        if (!g.rips.some((r) => r.path === h.path)) g.rips.push({ path: h.path, label: h.label });
-        // Keep the most specific rarity seen for it.
-        if (!g.rarity && h.rarity) g.rarity = h.rarity;
-      }
-      // Resolve what we can to a real card so it shows its scan in the grid
-      // with everything else. Anything that will not resolve stays a text row
-      // rather than being shown as a guess.
-      const proseAll = [...grouped.values()].sort((a, b) => b.count - a.count);
-      const proseCards = [];
-      const prose = [];
-      for (const h of proseAll) {
-        // A promo is not in this set's checklist and must never be resolved
-        // against it. It still has a scan and a price of its own, carried by
-        // the rip log, so it renders as a full card rather than a bare line.
-        const c = h.promo ? null : resolveCard(s.id, h.card, h.rarity);
-        if (c) proseCards.push({ ...h, resolved: c });
-        else prose.push(h);
-      }
-
-      // ONE LIST, SORTED BY VALUE. The three kinds of hit used to render as
-      // three consecutive blocks, each sorted within itself, so a $38.75 promo
-      // sat below a $2.87 card purely because it came from a different file.
-      // Nobody reading the page cares which file a card came out of. They care
-      // what it is worth, so everything with a picture is normalised to one
-      // shape and sorted on price. Anything with no market price sorts last
-      // rather than sorting as if it were free.
-      const priced = [
-        ...mine.map((h) => ({
-          kind: "mine", img: h.img, name: esc(h.name),
-          meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; #${esc(h.n)}` : ""}`,
-          price: typeof h.price === "number" ? h.price : null, psa10: null,
-          // COUNT AND RIPS BOTH COME FROM THE GROUPING ABOVE. This rebuild used
-          // to derive rips from a single h.path, which was right when every row
-          // was one pull; now a row can be several, and dropping count here was
-          // why the first attempt deduplicated Chespin correctly and then
-          // rendered it with no badge.
-          count: h.count || 1,
-          rips: h.rips && h.rips.length ? h.rips : h.path ? [{ path: h.path, label: h.label }] : [],
-        })),
-        ...promoHits.map((h) => ({
-          kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
-          meta: `${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}`,
-          price: typeof h.price === "number" ? h.price : null,
-          psa10: typeof h.psa10 === "number" ? h.psa10 : null,
-          rips: [{ path: h.path, label: h.label }],
-        })),
-        ...proseCards.map((h) => ({
-          kind: "prose", img: h.resolved.img,
-          name: `${esc(h.resolved.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}`,
-          // rarityLabel, for the same reason the `mine` rows above call it: this
-          // is TCGdex's raw field and TCGdex ships "Double rare" and "Ultra Rare"
-          // inside ONE checklist. Printed verbatim it put 5 sentence-case entries
-          // among 18 title-case ones in a single grid, and /sets/mega-evolution
-          // read "Illustration rare" in a component on a page that writes
-          // "Illustration Rare" 54 times elsewhere. Only this branch was missing
-          // it, which is why the split looked random rather than per-set.
-          meta: `${esc(rarityLabel(h.resolved.rarity) || rarityLabelOf(h.rarity) || "")}${h.resolved.number ? ` &bull; #${esc(h.resolved.number)}` : ""}`,
-          price: typeof h.resolved.price === "number" ? h.resolved.price : null, psa10: null,
-          rips: h.rips,
-        })),
-      ].sort((a, b) => (b.price ?? -1) - (a.price ?? -1));
-      if (!mine.length && !proseAll.length && !promoHits.length) return null;
-      return (cls) => `<section class="${cls}">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
-    ${/* The SECOND sentence has to agree too, and only the first one did. Four
-          guides today have hit exactly one card from a set, and they read
-          "1 card out of our own packs. Every one of them is in a video you can
-          watch." Same fix in build-intl-pages.mjs, which carries this lede
-          word for word. */ ""}<p class="lede w38">${priced.length + prose.length} card${
-      priced.length + prose.length === 1 ? "" : "s"
-    } out of our own packs. ${
-      priced.length + prose.length === 1 ? "It is" : "Every one of them is"
-    } in a video you can watch.</p>
-    ${priced.length ? `<ul class="mine-grid">
-      ${priced
-        .map(
-          (h) => `<li class="mine${h.kind === "promo" ? " is-promo" : ""}">
-        ${/* A TILE WITH NO SCAN IS NOT AN EMPTY BOX, since 22 August 2026. The owner,
-              about the whole site: "there should be no empty place holder
-              images anywhere on the site." Every one of these is a row whose
-              card NAME matches nothing on this set's checklist, so there is no
-              printing to fetch a picture of; the build says which rows and why
-              on every run. The box holds the same ratio and the same hatch and
-              now carries this set's own symbol and the words "No scan". The
-              symbol is honest here because the row is on that set's own guide,
-              it is a 40px glyph rather than a card face, and the page header
-              has already fetched the same file so it costs no request. The
-              three things deliberately NOT in it are argued in
-              shared/card-scan.mjs. */ ""}${h.img ? mineImg(h.img) : noScanBox("mine-img is-none", { slug: s.id, name: s.name })}
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">${h.name}${h.count > 1 ? ` <span class="mine-x">&times;${h.count}</span>` : ""}</p>
-        <p class="mine-r">${h.meta}</p>
-        ${/* moneyCompact, NOT moneyExact, AND THAT IS THE HALL OF FAME'S SHAPE
-              RATHER THAN A TASTE CALL. These tiles and the plaques on
-              /hall.html are the same cards out of the same data/hits.json, and
-              they printed the same card two ways: $175.00 here against $175
-              there for Mega Greninja ex, Chaos Rising #122. shared/format.mjs
-              says which is which and this band is squarely on the compact side
-              of it: a tile in a list, where the cents are noise and the column
-              has to stay narrow. The checklist and the rarity ladder further
-              down keep moneyExact, because those really are rows where the
-              number is the point. */ ""}<p class="mine-p">${typeof h.price === "number" ? moneyCompact(h.price) : "No price"}${
-            typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyCompact(h.psa10)} in a 10</span>` : ""
-          }</p>
-        ${/* THE CARD IS IN THE LINK'S NAME. Pitch Black printed ten "Watch the rip"
-             links to ten different rips; out of context, which is how a screen
-             reader's link list reads them, they were ten identical links. */
-          h.rips.map((r) => `<a class="mine-w" href="/${esc(r.path)}" aria-label="Watch the rip that pulled ${/* h.name is already escaped markup; strip tags, do not escape twice */ String(h.name).replace(/<[^>]*>/g, "").replace(/"/g, "&quot;")}">Watch the rip &rarr;</a>`).join("\n        ")}
-      </li>`
-        )
-        .join("\n      ")}
-    </ul>` : ""}
-    ${prose.length ? `<ul class="mine-list">
-      ${prose
-        .map(
-          (h) => `<li><b>${esc(h.card)}</b>${
-            h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""
-          }${
-            h.rarity ? ` <span class="mine-rk">${rarityMark(h.rarity)}${esc(rarityLabelOf(h.rarity))}</span>` : ""
-          }
-        ${h.rips
-          .map((r) => `<a class="mine-btn" href="/${esc(r.path)}">Watch the rip &rarr;</a>`)
-          .join("\n        ")}</li>`
-        )
-        .join("\n      ")}
-    </ul>
-    <p class="mine-note">Those came out of the rip log as written. They do not have a card number or a
-      price against them yet, so they are listed rather than priced.</p>` : ""}
-  </div>
-</section>`;
-    })(),
+    hit ? tag("hits", "Our hits", hit.render) : null,
 
     (() => {
       // HOW MUCH SEALED PRODUCT THIS SET HAS COST US. Sits directly under
@@ -3352,7 +3836,7 @@ ${rows}
         n === 1 ? word : /(s|x|z|ch|sh)$/i.test(word) ? `${word}es` : `${word}s`;
       const anyBoxes = rows.some((r) => r.counted === "boxes");
       const anyPacks = rows.some((r) => r.counted === "packs");
-      return (cls) => `<section class="${cls}">
+      return tag("opened", null, (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Out of our own pocket</p>
     <h2>What we have <span class="hl">opened</span> of this set</h2>
@@ -3372,17 +3856,20 @@ ${rows}
         : ""
     }${anyPacks ? "Loose packs are counted one per opening. " : ""}Anything we have not written a number against is not counted here, so these are a floor rather than a total.</p>
   </div>
-</section>`;
+</section>`);
     })(),
 
     // PINNED to the sky gradient, and the tone of everything else is worked out
     // by alternating outward from here. Alternating outward from a fixed point
     // can never produce two neighbours the same; alternating from the top and
     // then forcing one section into place can.
-    { pin: true, html: (cls) => `<section class="${cls}">
+    { pin: true, id: "facts", chip: "Set 101", html: (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
-    <h2>${esc(s.name)} <span class="hl">101</span></h2>
+    ${/* A QUESTION A SEARCHER ASKS, ANSWERED BY THE LIST UNDER IT, 2 October
+          2026. "<set> 101" was the site's phrase; the release date and the size
+          are the first two facts below, so the heading asks for exactly those.
+          The chip that lands here still says "Set 101". */ ""}<h2>When did ${esc(s.name)} come out, and <span class="hl">how big</span> is it?</h2>
     <ul class="facts-list">
       ${derivedFacts(s).map((f) => `<li>${f}</li>`).join("\n      ")}
       ${(s.notes?.funFacts || []).map((f) => `<li>${esc(f)}</li>`).join("\n      ")}
@@ -3422,10 +3909,16 @@ ${rows}
   </div>
 </section>` },
 
-    (cls) => `<section class="${cls}">
+    tag("rarity", "Rarity", (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    ${/* "SECRET RARES" IS WHAT GETS SEARCHED, 2 October 2026, so it is in the
+          heading wherever the set has one in either sense: a card numbered past
+          the printed set, or a tier actually called Secret Rare. The one
+          sentence under it says which sense, from the checklist. */ ""}<h2>${
+      secretLine(s).has ? `${esc(s.name)} <span class="hl">secret rares</span> and rarity breakdown` : `${esc(s.name)} <span class="hl">rarity</span> breakdown`
+    }</h2>
+    ${secretLine(s).html}
     ${ordered.length ? `${rarPr.size ? `<p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>` : ""}
@@ -3433,8 +3926,13 @@ ${rows}
       ${ordered.map(([r, n]) => {
         const key = rarityLabel(r) || r;
         const pr = rarPr.get(key);
+        // THE CHASE TAG, 2 October 2026. These rows were marked by a teal bar
+        // gradient alone, which the checklist's note called "gold" and which no
+        // reader could name. The tag is a word, pink because it is a mark that
+        // goes nowhere, and it is the thing the 101 band and the checklist note
+        // now point at.
         return `<div class="rar${CHASE.has(key) ? " chase" : ""}">
-        <span class="rar-name">${BOOKLET_MARK[key] ? rarityMark(BOOKLET_MARK[key]) : ""}${esc(key)}</span>
+        <span class="rar-name">${BOOKLET_MARK[key] ? rarityMark(BOOKLET_MARK[key]) : ""}${esc(key)}${CHASE.has(key) ? ` <b class="ch-tag">Chase</b>` : ""}</span>
         <span class="rar-n">${n}</span>
         ${pr
           ? `<span class="rar-pr">${
@@ -3460,13 +3958,13 @@ ${rows}
       own count, so a few tiers show a count and no money rather than a number covering a different set of cards than
       the one beside it.</p>` : ""}` : `<p class="lede">Card list not available for this set yet.</p>`}
   </div>
-</section>`,
+</section>`),
 
-    checklists[s.id]?.cards?.length ? (cls) => checklistBand(s, cls) : null,
-    intlSets[s.id]?.sources?.length ? (cls) => intlBand(s, cls) : null,
-    productsBySet[s.id]?.products?.length ? (cls) => productBand(s, cls) : null,
+    checklists[s.id]?.cards?.length ? tag("checklist", "Card list", (cls) => checklistBand(s, cls)) : null,
+    intlSets[s.id]?.sources?.length ? tag("languages", null, (cls) => intlBand(s, cls)) : null,
+    productsBySet[s.id]?.products?.length ? tag("products", "Sealed prices", (cls) => productBand(s, cls)) : null,
 
-    rips ? (cls) => `<section class="${cls}">
+    rips ? tag("watch", null, (cls) => `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">${rips}</span> of these</h2>
@@ -3493,9 +3991,9 @@ ${rows}
       </div>
     </div>
   </div>
-</section>` : null,
+</section>`) : null,
 
-    (cls) => `<section class="${cls}">
+    tag("more-sets", null, (cls) => `<section class="${cls}">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -3506,7 +4004,7 @@ ${rows}
     </div>
     <div style="text-align:center;margin-top:22px"><a class="btn btn-ghost" href="/sets/">Every set &rarr;</a></div>
   </div>
-</section>`,
+</section>`),
   ].filter(Boolean);
 
   const pin = bands.findIndex((b) => b.pin);
@@ -3515,9 +4013,20 @@ ${rows}
     .map((b, i) => {
       const isBand = Math.abs(i - pin) % 2 === 0;
       const cls = b.pin ? "band-sky tight" : isBand ? "band tight" : "tight";
-      return (b.pin ? b.html : b)(cls);
+      const html = (b.pin ? b.html : b)(cls);
+      // EVERY BAND OPENS WITH <section class=, so the id goes in there rather
+      // than through twelve template edits. A band that ever opens with
+      // anything else fails here instead of shipping a chip that goes nowhere.
+      if (!b.id) return html;
+      if (!html.startsWith("<section ")) throw new Error(`setPage(${s.id}): band "${b.id}" does not open with <section, so it cannot take its id.`);
+      return html.replace(/^<section /, `<section id="${b.id}" `);
     })
     .join("\n\n");
+  // THE "On this page" CHIPS, 2 October 2026, the 30th Celebration page's
+  // .t30-jump brought over (build-30th.mjs). One chip per band that exists on
+  // THIS guide and was given a label, in page order, so a guide with no rips
+  // has no "Our rips" chip pointing at nothing.
+  const chips = bands.filter((b) => b.id && b.chip);
 
   // THE NO-SCAN PANEL'S RULES RIDE WITH THE PANEL. Eight of the 28 guides emit
   // one today, so they are gated rather than added to PAGE_CSS: that block is
@@ -3527,11 +4036,17 @@ ${rows}
   const css = body.includes("noscan") ? `${PAGE_CSS}\n${NOSCAN_CSS}` : PAGE_CSS;
   return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css }) + `
 <header class="set-hero">
-  <div class="wrap${heroFan(s) ? " sh-has-fan" : ""}">
+  <div class="wrap${fan ? " sh-has-fan" : ""}">
     <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     ${heroLogo(s.id)}
-    <h1>${esc(s.name)}</h1>
+    ${/* THE H1 SAYS WHAT A SEARCHER TYPES, 2 October 2026: "<set> card list"
+          is the query these pages answer, and a bare set name told a results
+          page nothing the logo above it had not. The set name stays the big
+          line; the descriptor is a smaller second line of the SAME heading, so
+          the h1's text is the whole phrase while the hero still reads as the
+          set. No .hl: the line is neutral like every heading here, and the set
+          name is already the loudest thing in the first screen. */ ""}<h1>${esc(s.name)} <span class="sh-h1s">card list and set guide</span></h1>
     ${/* THIS SENTENCE WAS THE SAME ON ALL 28 ENGLISH GUIDES WITH THE NAME
           SWAPPED, and at 390x844 it held 231px of the only screen most readers
           see: hero logo, set name, and four lines that told a stranger nothing
@@ -3549,31 +4064,60 @@ ${rows}
 
           s.chase has already been rebuilt from the checklist and sorted by
           price further up this file, which is why chase[0] can be trusted here
-          when CLAUDE.md says it cannot be trusted out of sets.json. */ ""}<p class="lede w34">${(() => {
-      // Year off the ISO string rather than through Date(), which shifts a
-      // date-only value across a year boundary in a westward timezone.
-      const yr = /^(\d{4})/.exec(String(s.released || ""))?.[1];
-      // "A 2021 set, 73 cards" is the first number on the page and on three
-      // guides it was the count of a checklist rather than of a set. The
-      // companion clause is short on purpose: the lede's job is to stop a
-      // reader believing 73 is the whole story, and the band under the fact
-      // tiles is where the rest of it is said.
-      const opener =
-        yr && s.total ? `A ${yr} set, ${s.total} cards${comp ? `, plus ${compClause(comp)}` : ""}.`
-        : yr ? `A ${yr} set.`
-        : s.total ? `${s.total} cards${comp ? `, plus ${compClause(comp)}` : ""}.`
+          when CLAUDE.md says it cannot be trusted out of sets.json.
+
+          ANSWER FIRST, AND NOW WITH THE FIGURE, 2 October 2026. A searcher
+          asking "when did it come out, how many cards, what is the best card
+          worth" got the year, a count and a name, and had to scroll for the
+          rest. The first sentence now carries the release date and the count
+          (printed plus numbered past, the two figures the fact tiles print),
+          and the second names the most valuable card WITH its price. The ban
+          above was on a number with no source in reach, so the rule is met
+          rather than dropped: the SAME sentence names pricecharting.com and the
+          day it was read, off the checklist file's own stamps (priceRead), and
+          the figure is moneyCompact of the same chase[0] the grid, the meta
+          description and the /sets/ index print, so all four agree. */ ""}<p class="lede w34">${(() => {
+      const doc = checklists[s.id] || {};
+      const future = s.released && (daysSince(s.released) ?? 0) < 0;
+      const when = longDate(s.released);
+      // "124 cards: 88 in the printed set and 36 numbered past it". The second
+      // half only where there is one; Celebrations' 25 of 25 has nothing past
+      // its printed count, and its Secret Rare is explained in the rarity band.
+      const count = s.total
+        ? `${s.total} cards${s.printedTotal && s.secretCount > 0 ? `: ${s.printedTotal} in the printed set and ${s.secretCount} numbered past it` : ""}`
         : "";
-      const body =
-        `What is in ${esc(s.name)}, what is actually rare in it, and what ` +
-        (top
-          ? comp
-            ? `the cards worth chasing are going for. ${esc(top.name)} leads those ${s.total}, and ${esc(comp.name)} is not priced here.`
-            : `the cards worth chasing are going for. ${esc(top.name)} leads them at the moment.`
-          : `each card will be worth once prices land.`);
-      return opener ? `${opener} ${body}` : body;
+      // The companion clause survives unchanged in what it says: on three
+      // guides the count is a checklist's rather than a set's, and the lede's
+      // job is to stop a reader believing it is the whole story.
+      const plus = comp ? `, plus ${compClause(comp)}` : "";
+      const first = when && count
+        ? `${esc(s.name)} ${future ? "comes out" : "came out"} ${esc(when)} with ${count}${plus}.`
+        : when ? `${esc(s.name)} ${future ? "comes out" : "came out"} ${esc(when)}.`
+        : count ? `${esc(s.name)} has ${count}${plus}.`
+        : "";
+      const read = longDate(priceRead(doc)) || priceRead(doc);
+      const src = doc.priceSource || "pricecharting.com";
+      const second = top && typeof top.price === "number" && read
+        ? comp
+          ? `The most valuable of those ${s.total} is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}. ${esc(comp.name[0].toUpperCase() + comp.name.slice(1))} is not priced here.`
+          : `Its most valuable card is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}.`
+        : top
+          ? `Its most valuable card is ${esc(top.name)}.`
+          : `Prices have not landed for it yet, so the card list and the rarity counts come first.`;
+      return [first, second].filter(Boolean).join(" ");
     })()}</p>
+    ${/* ON THIS PAGE, 2 October 2026: the 30th Celebration page's .t30-jump,
+          which the owner likes, brought to every English guide. Routes, so
+          teal per the accent rule; not sticky, for the reason the 30th gives
+          (a pinned bar costs a phone a slice of every screen). Built from the
+          bands this guide actually has, in page order, so it never offers a
+          section that is not there. Each band's id is set in setPage's band
+          loop, and ui.css's [id] and :focus scroll-margin rules land the
+          heading under the sticky bar. */ ""}<nav class="sh-jump" aria-label="On this page">${chips
+      .map((b) => `<a href="#${b.id}">${esc(b.chip)}</a>`)
+      .join("")}</nav>
     </div>
-${heroFan(s)}
+${fan}
   </div>
 </header>
 
@@ -3671,13 +4215,20 @@ ${symbolFor(s) ? `
 ${body}
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
-  <div class="lb-inner">
+  <div class="lb-inner lbx">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
-    <p class="lb-nm" id="lbNm"></p>
-    <p class="lb-rr" id="lbRr"></p>
-    <p class="lb-pr" id="lbPr"></p>
-    <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    <div class="lbx-fig" id="lbFig"><picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture></div>
+    <div class="lbx-info">
+      <div class="lbx-nav" id="lbNav"><button class="lbx-go" type="button" id="lbPrev" aria-label="Previous card">&larr; Prev</button><p class="lbx-of" id="lbOf" aria-live="polite"></p><button class="lbx-go" type="button" id="lbNext" aria-label="Next card">Next &rarr;</button></div>
+      <p class="lb-nm" id="lbNm"></p>
+      <p class="lb-rr" id="lbRr"></p>
+      <p class="lbx-ill" id="lbIll" hidden></p>
+      <p class="lb-pr" id="lbPr"></p>
+      <p class="lbx-src" id="lbSrc"></p>
+      <p class="lbx-alts" id="lbAlts" hidden></p>
+      <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    </div>
   </div>
 </div>
 
@@ -3688,33 +4239,79 @@ ${/* The stock credit names TCGdex for the card data and PriceCharting for the
       too, from the data, and only on the pages that actually print one. */ ""}
 ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s)}. ` : ""}Prices are estimates and move constantly.`))}
 <script>
+/* THE POP-UP, AT PARITY WITH THE 30th CELEBRATION'S, 2 October 2026.
+   Previous and Next, the arrow keys and a sideways swipe step through the
+   group the card was opened from (the chase grid, or the three in the hero),
+   and never across groups: data-zg marks a group. "Card X of N" says where you
+   are. Everything the open card shows comes off its own data-* (zoomData() in
+   the builder), so the pop-up adds no figure the tile does not carry.
+   What already worked is kept as it was: Escape and the backdrop close, focus
+   goes to the close button and back to the card that opened it, the page
+   behind does not scroll, and the AVIF source is only set for the host that
+   publishes one. */
 (function(){
-  var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
-  var last=null;
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
+  var $=function(id){return document.getElementById(id);};
+  var last=null, list=[], at=0;
+  function groupOf(b){
+    var g=b.closest('[data-zg]');
+    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
+    return all.filter(function(x){return x.dataset.img;});
+  }
+  // The lightbox is the one place on this page that loads high.webp, 600x825
+  // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
+  // reach it because the url only becomes an image url on click, so the
+  // <source> is filled here, applying the SAME host test avifPicture applies:
+  // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+  // pointing at a 404 paints a broken card instead of falling back.
+  // srcset FIRST, then src, so the webp is never requested and abandoned.
+  // STEPPING SHOWS THE TILE'S OWN SMALL FILE FIRST, then swaps in the big one
+  // once it has arrived, so Next never leaves the previous card on screen
+  // under the new card's name. The small file is already in the cache.
+  function picture(b){
+    var big=b.dataset.img, small=b.querySelector('img');
+    var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    var sm=small && (small.currentSrc || small.src);
+    if(sm){
+      avif.removeAttribute('srcset'); img.src=sm;
+      var hi=new Image();
+      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
+      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+    } else {
+      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      img.src=big;
+    }
+  }
+  function show(i){
+    at=(i+list.length)%list.length;
+    var b=list[at], d=b.dataset;
+    picture(b);
+    img.alt=d.name+' '+d.number;
+    $('lbNm').textContent=d.name;
+    $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
+    var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
+    $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
+    $('lbSrc').textContent=d.src || '';
+    var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
+    var rip=$('lbRip'); rip.hidden=!d.rip;
+    if(d.rip){
+      var a=$('lbRipA'); a.href=d.rip;
+      a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
+    }
+    var u=$('lbUrl');
+    if(d.url){u.href=d.url;u.hidden=false;}else{u.hidden=true;}
+    $('lbNav').hidden=list.length<2;
+    $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
+  }
   function open(b){
-    last=b;
-    // The lightbox is the one place on this page that loads high.webp, 600x825
-    // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
-    // reach it because the url only becomes an image url on click, so the
-    // <source> is filled here, applying the SAME host test avifPicture applies:
-    // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
-    // pointing at a 404 paints a broken card instead of falling back.
-    // srcset FIRST, then src, so the webp is never requested and abandoned.
-    var big=b.dataset.img, avif=document.getElementById('lbAvif');
-    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
-      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
-    else avif.removeAttribute('srcset');
-    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
-    document.getElementById('lbNm').textContent=b.dataset.name;
-    document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' \u2022 ');
-    document.getElementById('lbPr').textContent=b.dataset.price
-      + (b.dataset.psa10 ? '  \u2022  PSA 10 ' + b.dataset.psa10 : '');
-    var u=document.getElementById('lbUrl');
-    if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
+    last=b; list=groupOf(b);
+    var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
     lb.querySelector('.lb-close').focus();
   }
+  function step(n){ if(list.length>1) show(at+n); }
   function close(){
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
@@ -3722,8 +4319,27 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
   document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
+  $('lbPrev').addEventListener('click',function(){ step(-1); });
+  $('lbNext').addEventListener('click',function(){ step(1); });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); }
+  });
+  // A SIDEWAYS SWIPE ON THE CARD STEPS, as on the 30th. touch-action:pan-y on
+  // the picture (PAGE_CSS) leaves vertical scrolling to the browser, which the
+  // phone needs because this panel can be taller than the screen, and hands
+  // the horizontal gesture to these listeners.
+  var sw=null, fig=$('lbFig');
+  fig.addEventListener('pointerdown',function(e){ sw={x:e.clientX,y:e.clientY}; });
+  fig.addEventListener('pointercancel',function(){ sw=null; });
+  fig.addEventListener('pointerup',function(e){
+    if(!sw) return;
+    var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
 })();
 </script>
 ${APP_JS}

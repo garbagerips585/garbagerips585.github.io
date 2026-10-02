@@ -26,7 +26,23 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
-<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+<style>.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+.ij-jump::-webkit-scrollbar{display:none}
+.ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
 object-position:left center;margin:6px 0 10px}
 .intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
 max-width:44em;font-size:var(--t-sm);line-height:1.5}
@@ -176,7 +192,15 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
     
     <h1>Mask of Change</h1>
     <p class="intl-hero-native cjk" lang="ko">변환의 가면</p>
-    <p class="lede" style="max-width:34em">The Korean printing of the set English calls Twilight Masquerade. Same cards, different name.</p>
+    <p class="lede" style="max-width:34em">The Korean printing of the set English calls Twilight Masquerade: same cards, different name. Its 101 cards came out June 21, 2024, 28 days after the English set.</p>
+    <nav class="ij-jump" aria-label="On this page">
+      <a href="#english-version">English version</a>
+      <a href="#chase-cards">Chase cards</a>
+      <a href="#rarity">Rarities</a>
+      <a href="#card-list">Card list</a>
+      <a href="#openings">Openings</a>
+      <a href="#sources">Sources</a>
+    </nav>
     
 
   </div>
@@ -195,10 +219,10 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
     </div>
   </div>
 </section>
-<section class="band tight">
+<section id="english-version" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>Mask of Change is <span class="hl">Twilight Masquerade</span></h2>
+    <h2>Korean vs English: Mask of Change and <span class="hl">Twilight Masquerade</span></h2>
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. Mask of Change is the Korean printing behind English Twilight Masquerade.</p>
     <ul class="intl-grid">
@@ -240,10 +264,10 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
   </div>
 </section>
 
-<section class="tight">
+<section id="chase-cards" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>What to <span class="hl">chase</span> in English</h2>
+    <h2>Twilight Masquerade <span class="hl">chase cards</span> in English</h2>
     <p class="intl-ensay">The priciest cards in English Twilight Masquerade, which is the set on the shelf in a US store.
       These are that set's own cards, numbers and prices. No card in the Korean printing is labeled at a chase rarity, so there is nothing of its own to picture here. Its full checklist is further down.</p>
     <div class="chase-grid intl-enchase">
@@ -276,21 +300,16 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="rarity" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Mask of Change rarity <span class="hl">breakdown</span></h2>
     
     <div class="rarity-list" data-figure="chart">
       <div class="rar">
-        <span class="rar-name">Common</span>
-        <span class="rar-n">48</span>
-        <span class="rar-bar"><i style="width:100%"></i></span>
-      </div>
-      <div class="rar">
-        <span class="rar-name">Uncommon</span>
-        <span class="rar-n">33</span>
-        <span class="rar-bar"><i style="width:69%"></i></span>
+        <span class="rar-name">Double Rare</span>
+        <span class="rar-n">8</span>
+        <span class="rar-bar"><i style="width:17%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Rare</span>
@@ -298,20 +317,25 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
         <span class="rar-bar"><i style="width:19%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Double Rare</span>
-        <span class="rar-n">8</span>
-        <span class="rar-bar"><i style="width:17%"></i></span>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">33</span>
+        <span class="rar-bar"><i style="width:69%"></i></span>
+      </div>
+      <div class="rar">
+        <span class="rar-name">Common</span>
+        <span class="rar-n">48</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
     
   </div>
 </section>
 
-<section class="tight">
+<section id="card-list" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 101 cards, English names where the card is a Pokemon. This list is the Japanese printing's, because TCGdex has no Korean card records for this set.</p>
+    <h2>Mask of Change (Korean) <span class="hl">card list</span></h2>
+    <p class="lede">All 101 cards, 85 of them with an English name. This list is the Japanese printing's, because TCGdex has no Korean card records for this set.</p>
     <details class="ig-list">
       <summary>Show the full Mask of Change checklist</summary>
       <ol class="ig-cards">
@@ -721,17 +745,15 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
           <span class="ig-rr">Energy</span></li>
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their Japanese names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated; 4 of the 89 Pokemon cards carry a printed name that lookup cannot match and keep their Japanese one. Trainer and Energy cards keep their Japanese names here: no source this page reads names them in English for this
+      printing, and a guessed name on a reference page is worse than an honest one you can paste into a search.</p>
   </div>
 </section>
 
-<section class="band tight">
+<section id="openings" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">1</span> of these</h2>
+    <h2>Mask of Change openings: <span class="hl">1</span> rip</h2>
     <div class="set-watch">
       
       <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
@@ -752,7 +774,7 @@ max-width:44em;font-size:var(--t-sm);line-height:1.5}
   </div>
 </section>
 
-<section class="tight">
+<section id="sources" class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">

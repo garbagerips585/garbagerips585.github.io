@@ -302,6 +302,48 @@ const datedSet = (name) => {
   return setDate.get(key) || null;
 };
 
+/* ------------------------------------------------------ set guide links
+ *
+ * NOT ONE OF THESE 1,026 PAGES LINKED A SET GUIDE UNTIL 2 OCTOBER 2026. Every
+ * printing named its set in plain text ("the Perfect Order one at $105.49")
+ * while the guide to that set sat one tap away and nothing pointed at it.
+ *
+ * THE LIST IS READ FROM THE FILES THE GUIDE BUILDERS READ, NEVER TYPED, so a
+ * set with no guide can never get a link that 404s:
+ *   - build-set-pages.mjs writes /sets/<id>.html for EVERY entry in
+ *     public/data/sets.json, unfiltered. The priced feed's `set` is that same
+ *     id, and TCGdex's English set name equals sets.json's name on all of them
+ *     (checked: 29 of 29), so both feeds join without an alias table.
+ *   - Its STANDALONE_GUIDES live outside /sets/: /30th-celebration.html, built
+ *     only when data/30th.json reads (the same try it uses), and /base-set.html,
+ *     listed unconditionally. TCGdex calls the 1999 set "Base Set".
+ *   - build-intl-pages.mjs writes /sets/<key>.html for every entry in
+ *     public/data/intl-guides.json. Those join on LANGUAGE AND NATIVE NAME
+ *     together: TCGdex's Japanese printings of クリムゾンヘイズ are the Japanese
+ *     Crimson Haze, and our guide is the KOREAN one, so a name match alone
+ *     would send a Japanese card to the wrong country's guide.
+ * Deliberately unlinked: "Celebrations Classic Collection" (the Celebrations
+ * guide covers the 25 card main set, not the reprints) and every TCG Pocket
+ * set (digital, no guide). */
+const GUIDE_BY_ID = new Map(); // priced feed set id -> href
+const GUIDE_BY_NAME = new Map(); // `${lang}|${TCGdex set name}` -> href
+for (const s of (await readJson("public/data/sets.json", { sets: [] })).sets || []) {
+  GUIDE_BY_ID.set(s.id, `/sets/${s.id}.html`);
+  GUIDE_BY_NAME.set(`en|${s.name}`, `/sets/${s.id}.html`);
+}
+if (await readJson("data/30th.json", null)) {
+  GUIDE_BY_ID.set("30th-celebration", "/30th-celebration.html");
+  GUIDE_BY_NAME.set("en|30th Celebration", "/30th-celebration.html");
+}
+GUIDE_BY_NAME.set("en|Base Set", "/base-set.html");
+for (const [id, g] of Object.entries((await readJson("public/data/intl-guides.json", { sets: {} })).sets || {})) {
+  if (g.lang && g.native) GUIDE_BY_NAME.set(`${g.lang}|${g.native}`, `/sets/${id}.html`);
+}
+/** The guide for a TCGdex printing, or null. Pocket is never a printing. */
+const guideForPrint = (c) => (pocketSets.has(c.s) ? null : GUIDE_BY_NAME.get(`${c.l}|${c.s}`) || null);
+/** Wrap already-escaped html in a link to `href`, or return it untouched. */
+const guideLink = (href, html) => (href ? `<a href="${href}">${html}</a>` : html);
+
 /* ------------------------------------------------------------ the species */
 
 const byDexName = new Map(DEX.map((p) => [p.name, p]));
@@ -610,10 +652,14 @@ const species = DEX.map((p) => {
 
   // The earliest English set we can put a date on, Pocket excluded.
   let first = null;
+  let firstGuide = null;
   for (const c of prints) {
     if (c.l !== "en" || pocketSets.has(c.s)) continue;
     const s = datedSet(c.s);
-    if (s && (!first || s.released < first.released)) first = s;
+    if (s && (!first || s.released < first.released)) {
+      first = s;
+      firstGuide = guideForPrint(c);
+    }
   }
 
   const rips = ripsFor(p.name);
@@ -630,6 +676,7 @@ const species = DEX.map((p) => {
     sets,
     pricedSets,
     first,
+    firstGuide,
     rips,
     setRips: setRipsFor(sets, rips),
     family: familyOf(p),
@@ -729,6 +776,12 @@ const CSS = `<style>
    the name-only list start at 12 and 20 and grow on request (script at the
    foot of the page); with no script, or on a wider screen, everything shows. */
 .is-over{display:none!important}
+/* SET GUIDE LINKS ON THE PRINTING ROWS. Teal and underlined, the same rule as
+   .facts-list a in ui.css, because ".rr" and ".flat-item span" are not
+   paragraphs and the prose link rule does not reach them. The 6px of inline
+   padding moves nothing (vertical padding on an inline box takes no layout
+   space) and stretches an 11px line into a ~25px hit area on a phone. */
+.chase-card .rr a,.flat-item span a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;padding:6px 0}
 .poke-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px var(--s3);margin:var(--s4) 0 0}
 .poke-more button{appearance:none;min-height:44px;padding:0 18px;border-radius:999px;border:1px solid var(--keyline);
   background:var(--card);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body,inherit);cursor:pointer}
@@ -902,23 +955,31 @@ function pokePage(p) {
   // description alone, and the lede that now repeats the claim has to make it
   // in the same words, or the page and the snippet disagree about the same
   // card.
-  const priciestWho = p.priciest
-    ? p.priciest.name === p.name
-      ? // Same string twice reads as a typo: "the priciest Abomasnow card we
-        // price is Abomasnow in Paldean Fates". A base-form printing is named
-        // by its set instead.
-        //
-        // AND A SET WHOSE NAME IS A NUMBER CANNOT TAKE THAT SHAPE. Pokemon's
-        // 2023 set is officially called 151, so "the 151 one" is what this
-        // printed on 46 pages, and it reads as a card number rather than as a
-        // set. It had been going out in those pages' meta descriptions for as
-        // long as the clause has existed. Any set name opening with a digit
-        // gets the preposition instead: "the one from 151".
-        /^\d/.test(String(p.priciest.setName))
-        ? `the one from ${p.priciest.setName}`
-        : `the ${p.priciest.setName} one`
-      : `${p.priciest.name} in ${p.priciest.setName}`
-    : "";
+  //
+  // AND IT IS WRITTEN ONCE FOR TWO RENDERINGS. `setAs` turns the set name into
+  // plain text for the meta description and into a link to its guide for the
+  // hero lede; the card name goes through `nameAs`. One function, so the
+  // snippet and the page cannot drift apart.
+  const whoIs = (setAs, nameAs) =>
+    p.priciest
+      ? p.priciest.name === p.name
+        ? // Same string twice reads as a typo: "the priciest Abomasnow card we
+          // price is Abomasnow in Paldean Fates". A base-form printing is named
+          // by its set instead.
+          //
+          // AND A SET WHOSE NAME IS A NUMBER CANNOT TAKE THAT SHAPE. Pokemon's
+          // 2023 set is officially called 151, so "the 151 one" is what this
+          // printed on 46 pages, and it reads as a card number rather than as a
+          // set. It had been going out in those pages' meta descriptions for as
+          // long as the clause has existed. Any set name opening with a digit
+          // gets the preposition instead: "the one from 151".
+          /^\d/.test(String(p.priciest.setName))
+          ? `the one from ${setAs(p.priciest.setName)}`
+          : `the ${setAs(p.priciest.setName)} one`
+        : `${nameAs(p.priciest.name)} in ${setAs(p.priciest.setName)}`
+      : "";
+  const priciestWho = whoIs((s) => s, (s) => s);
+  const priciestWhoHtml = whoIs((s) => guideLink(GUIDE_BY_ID.get(p.priciest.set), esc(s)), esc);
   const priciestClause = p.priciest
     ? `The priciest ${p.name} card we price is ${priciestWho} at ${moneyExact(p.priciest.price)}.`
     : "";
@@ -964,7 +1025,7 @@ function pokePage(p) {
   // lede cannot print a different number from the card it is describing. See
   // the note on the facts strip below for what the other rounding cost.
   const heroLede = p.priciest
-    ? `Every ${esc(p.name)} card we could find. The priciest one we price is ${esc(priciestWho)} at ` +
+    ? `Every ${esc(p.name)} card we could find. The priciest one we price is ${priciestWhoHtml} at ` +
       `${moneyCompact(p.priciest.price)}` +
       (p.cheapest && p.cheapest !== p.priciest ? `, and the cheapest is ${moneyCompact(p.cheapest.price)}` : "") +
       `.`
@@ -1026,7 +1087,7 @@ function pokePage(p) {
   if (p.genus) facts.push(`<b>The ${esc(p.genus)} Pokemon.</b> ${esc(p.name)} is #${p.id} in the National Pokedex.`);
   if (p.first)
     facts.push(
-      `<b>First English card.</b> ${esc(p.first.name)}, ${esc(longDate(p.first.released) || p.first.released)}.`,
+      `<b>First English card.</b> ${guideLink(p.firstGuide, esc(p.first.name))}, ${esc(longDate(p.first.released) || p.first.released)}.`,
     );
   // ONLY A SINGLE-TYPE POKEMON GETS THE CARD-TYPE SENTENCE, and this is not
   // caution, it is what the measurement in data/types.json actually covers. That
@@ -1186,6 +1247,22 @@ function pokePage(p) {
   })();
 
   /* ---------------------------------------------------------- priced band */
+  /* THE SET GUIDES FOR THE CARDS ABOVE, ONE LINE UNDER THE GRID, because the
+     set name on each tile cannot be the link: every tile is a <button> that
+     opens the lightbox, and a link inside a button is invalid and untappable
+     on its own. So each set the grid prints gets ONE link here, priciest set
+     first, in a sentence (an inline link in prose, the site's normal prose
+     link). Sets with no guide are left out rather than listed bare. */
+  const pricedGuides = (() => {
+    const seen = new Map();
+    for (const c of sorted) {
+      const href = GUIDE_BY_ID.get(c.set);
+      if (href && !seen.has(href)) seen.set(href, guideLink(href, nat(c.setName, SET_LANG.get(c.setName))));
+    }
+    const links = [...seen.values()];
+    if (!links.length) return "";
+    return `<p class="price-note">${links.length === 1 ? "The set guide for these cards" : "Set guides for these cards"}: ${list(links)}.</p>`;
+  })();
   const pricedBand = sorted.length
     ? `
 <section class="band tight">
@@ -1264,6 +1341,7 @@ function pokePage(p) {
         )
         .join("\n      ")}
     </div>
+    ${pricedGuides}
     <p class="price-note">${esc(priceNote(priceDoc))} Where a card
       comes as a normal, holo and reverse holo at different prices, the figure is the priciest of them. Prices move
       daily, so treat these as a ballpark. <a href="/cards.html?q=${encodeURIComponent(p.name)}">Search every card</a>.</p>
@@ -1395,7 +1473,7 @@ function pokePage(p) {
           (c) => `<div class="chase-card is-flat">
         ${avifPicture(`<img src="${esc(cardScan(c, false))}" onerror="this.remove()" alt="" loading="lazy" decoding="async"${imgDims(cardScan(c, false))}>`)}
         <div class="nm">${nat(c.n, c.l)}</div>
-        <div class="rr">${nat(c.s, c.l)} &bull; ${esc(c.i)}</div>
+        <div class="rr">${guideLink(guideForPrint(c), nat(c.s, c.l))} &bull; ${esc(c.i)}</div>
         ${rar(c.r) ? `<div class="rr">${esc(rar(c.r))}</div>` : ""}
         ${tag(c) ? `<div class="rr">${tag(c)}</div>` : ""}
       </div>`,
@@ -1408,7 +1486,7 @@ function pokePage(p) {
         .map(
           (c) => `<li class="flat-item">
         <b>${nat(c.n, c.l)}</b>
-        <span>${nat(c.s, c.l)} &bull; ${esc(c.i)}</span>
+        <span>${guideLink(guideForPrint(c), nat(c.s, c.l))} &bull; ${esc(c.i)}</span>
         ${[rar(c.r), tag(c)].filter(Boolean).length ? `<span>${[rar(c.r), tag(c)].filter(Boolean).join(" &bull; ")}</span>` : ""}
       </li>`,
         )

@@ -102,6 +102,80 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan ol{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .sh-jump{order:2}
+}
+.set-hero h1 .sh-h1s{display:block;margin-top:.25em;font-size:max(.46em,1.05rem);line-height:1.2;color:var(--ink-2)}
+.sh-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:100%;min-width:0}
+.set-hero .wrap .sh-text{align-self:stretch;min-width:0}
+.sh-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body);text-decoration:none;white-space:nowrap}
+.sh-jump a:hover,.sh-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.sh-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+align-self:stretch;margin-inline:calc(-1 * var(--gut));padding:2px var(--gut) 6px;scroll-padding-inline:var(--gut)}
+.sh-jump::-webkit-scrollbar{display:none}
+.sh-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .sh-jump{justify-content:flex-start}}
+.ch-tag{display:inline-block;vertical-align:.12em;margin-left:6px;padding:3px 6px 2px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 .625rem/1 var(--mono);letter-spacing:.06em;
+text-transform:uppercase;white-space:nowrap}
+@media(min-width:700px){.chase-grid[data-zg]{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.chase-grid[data-zg]{row-gap:0}
+.chase-grid .cc-cell{display:flex;flex-direction:column;min-width:0}
+@supports (grid-template-rows:subgrid){
+.chase-grid .cc-cell{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:0}
+}
+.cc-cell .chase-card{position:relative;margin-bottom:14px}
+.cc-cell .cc-rip{margin:-10px 0 8px}
+.chase-grid .chase-card .rr{letter-spacing:.02em}
+.chase-card .nw{white-space:nowrap}
+.chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
+.cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 0 var(--keyline);pointer-events:none}
+.cc-flag.is-inline{position:static;display:inline-block;vertical-align:.1em;margin-left:6px;box-shadow:none}
+.cc-rip{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.3 var(--body);
+color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.cc-rip:hover,.cc-rip:focus-visible{color:var(--sky)}
+.mine-rips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;margin-top:auto;padding-top:6px}
+.mine-rips-k{flex-basis:100%;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.mine-rip{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border:1px solid var(--keyline);
+border-radius:999px;background:var(--paper);color:var(--sky-deep);font:700 var(--t-micro)/1 var(--body);
+text-decoration:none;white-space:nowrap}
+.mine-rip:hover,.mine-rip:focus-visible{border-color:var(--sky);color:var(--sky)}
+.mine-list .mine-rips{margin-top:0;padding-top:0}
+.mine-grid.mine-cols{grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}
+@media(min-width:521px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc3,3),minmax(0,1fr))}}
+@media(min-width:700px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc4,4),minmax(0,1fr))}}
+@media(min-width:900px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc5,5),minmax(0,1fr))}}
+@media(min-width:1200px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc6,6),minmax(0,1fr))}}
+.lbx-fig{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.lbx .lbx-fig img{display:block;margin:0 auto;width:auto;max-width:100%;height:min(46vh,420px);
+aspect-ratio:600/825;object-fit:contain;-webkit-user-drag:none}
+.lbx-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.lbx-nav[hidden]{display:none}
+.lbx-go{appearance:none;min-height:44px;padding:0 14px;border:1px solid var(--keyline);border-radius:999px;
+background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);cursor:pointer;white-space:nowrap}
+.lbx-go:hover,.lbx-go:focus-visible{border-color:var(--sky);color:var(--sky)}
+.lbx-of{margin:0;font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.lbx-ill{margin:4px 0 0;font-size:var(--t-sm);color:var(--ink-2)}
+.lbx-src{margin:8px 0 0;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+.lbx-alts{margin:8px 0 0;font-size:var(--t-sm);line-height:1.45}
+.lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
+.lbx-rip a{color:var(--sky-deep)}
+.lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+@media(min-width:760px){
+.lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
+align-items:center;text-align:left;padding:24px}
+.lbx .lbx-fig img{height:min(72vh,560px)}
+.lbx .lb-actions{justify-content:flex-start}
+.lbx .lbx-nav{margin:0 0 8px}
+}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -115,7 +189,7 @@ border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
 height:auto;min-height:44px;padding-block:6px}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Rebel Clash Pokemon TCG Set Guide","description":"Rebel Clash Pokemon TCG set guide: 209 cards, released May 1, 2020. The priciest card is Boss's Orders (Giovanni) at $55.37. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-rebel-clash.jpg?v=8b36e174"],"about":{"@type":"Thing","name":"Rebel Clash (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/rebel-clash.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/rebel-clash.html"},"datePublished":"2026-09-18","dateModified":"2026-09-18","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Rebel Clash Pokemon TCG Set Guide","description":"Rebel Clash Pokemon TCG set guide: 209 cards, released May 1, 2020. The priciest card is Boss's Orders (Giovanni) at $55.37. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-rebel-clash.jpg?v=8b36e174"],"about":{"@type":"Thing","name":"Rebel Clash (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/rebel-clash.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/rebel-clash.html"},"datePublished":"2026-08-15","dateModified":"2026-10-02","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Rebel Clash"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -255,32 +329,33 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <img class="logo-big" width="578" height="195" src="/assets/logos/rebel-clash-pokemon-tcg-set-logo.webp" srcset="/assets/logos/rebel-clash-pokemon-tcg-set-logo-sm.webp 296w, /assets/logos/rebel-clash-pokemon-tcg-set-logo-md.webp 445w, /assets/logos/rebel-clash-pokemon-tcg-set-logo.webp 578w" sizes="(max-width:329px) 166px, (max-width:647px) 50.4vw, 326.1px" alt="" onerror="this.remove()">
-    <h1>Rebel Clash</h1>
-    <p class="lede w34">A 2020 set, 209 cards. What is in Rebel Clash, what is actually rare in it, and what the cards worth chasing are going for. Boss's Orders (Giovanni) leads them at the moment.</p>
+    <h1>Rebel Clash <span class="sh-h1s">card list and set guide</span></h1>
+    <p class="lede w34">Rebel Clash came out May 1, 2020 with 209 cards: 192 in the printed set and 17 numbered past it. Its most valuable card is Boss's Orders (Giovanni): $55.37 for an ungraded copy on pricecharting.com's price guide, read October 2, 2026.</p>
+    <nav class="sh-jump" aria-label="On this page"><a href="#chase">Most valuable</a><a href="#rips">Our rips</a><a href="#hits">Our hits</a><a href="#facts">Set 101</a><a href="#rarity">Rarity</a><a href="#checklist">Card list</a><a href="#products">Sealed prices</a></nav>
     </div>
     <div class="sh-fan">
-      <ol>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp"
-          data-name="Boss's Orders (Giovanni)" data-rarity="Ultra Rare"
-          data-number="189" data-price="$55.37"
-          data-psa10="$94.37"
-          data-url="https://www.tcgplayer.com/product/213256"
-          aria-label="Enlarge Boss's Orders (Giovanni), Ultra Rare 189"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/189/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/189/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp"
-          data-name="Boss's Orders (Giovanni)" data-rarity="Secret Rare"
-          data-number="200" data-price="$35.10"
-          data-psa10="$75.00"
-          data-url="https://www.tcgplayer.com/product/213257"
-          aria-label="Enlarge Boss's Orders (Giovanni), Secret Rare 200"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/200/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp"
-          data-name="Ninetales V" data-rarity="Ultra Rare"
-          data-number="177" data-price="$29.75"
-          data-psa10="$123"
-          data-url="https://www.tcgplayer.com/product/213102"
-          aria-label="Enlarge Ninetales V, Ultra Rare 177"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      <ol data-zg>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp"
+        data-name="Boss's Orders (Giovanni)" data-rarity="Ultra Rare"
+        data-number="189/192" data-price="$55.37"
+        data-psa10="$94.37"
+        data-url="https://www.tcgplayer.com/product/213256" data-ill="nagimiso" data-alts="#154 Holo Rare $3.43 • #200 Secret Rare $35.10"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Boss's Orders (Giovanni), Ultra Rare 189/192"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/189/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/189/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp"
+        data-name="Boss's Orders (Giovanni)" data-rarity="Secret Rare"
+        data-number="200/192" data-price="$35.10"
+        data-psa10="$75.00"
+        data-url="https://www.tcgplayer.com/product/213257" data-ill="nagimiso" data-alts="#154 Holo Rare $3.43 • #189 Ultra Rare $55.37"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Boss's Orders (Giovanni), Secret Rare 200/192"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/200/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/200/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp"
+        data-name="Ninetales V" data-rarity="Ultra Rare"
+        data-number="177/192" data-price="$29.75"
+        data-psa10="$123"
+        data-url="https://www.tcgplayer.com/product/213102" data-ill="Saki Hayashiro" data-alts="#26 Holo Rare V $4.99"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Ninetales V, Ultra Rare 177/192"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
       </ol>
       <p>The top three by raw price</p>
     </div>
@@ -312,116 +387,124 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="chase" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2><span class="hl">Most valuable</span> Rebel Clash cards</h2>
     
-    <div class="chase-grid">
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp"
+    <div class="chase-grid" data-zg>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp"
         data-name="Boss's Orders (Giovanni)" data-rarity="Ultra Rare"
-        data-number="189" data-price="$55.37"
+        data-number="189/192" data-price="$55.37"
         data-psa10="$94.37"
-        data-url="https://www.tcgplayer.com/product/213256"
+        data-url="https://www.tcgplayer.com/product/213256" data-ill="nagimiso" data-alts="#154 Holo Rare $3.43 • #200 Secret Rare $35.10"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Boss's Orders (Giovanni)">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/189/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/189/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/189/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/189/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Boss's Orders (Giovanni)</div>
-        <div class="rr">Ultra Rare &bull; 189</div>
+        <div class="rr">Ultra <span class="nw">Rare&nbsp;&bull;&nbsp;189/192</span></div>
         <div class="pr">$55.37</div>
-        <div class="pr10">PSA 10 $94.37<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp"
+        <div class="pr10">PSA 10 $94.37<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp"
         data-name="Boss's Orders (Giovanni)" data-rarity="Secret Rare"
-        data-number="200" data-price="$35.10"
+        data-number="200/192" data-price="$35.10"
         data-psa10="$75.00"
-        data-url="https://www.tcgplayer.com/product/213257"
+        data-url="https://www.tcgplayer.com/product/213257" data-ill="nagimiso" data-alts="#154 Holo Rare $3.43 • #189 Ultra Rare $55.37"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Boss's Orders (Giovanni)">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/200/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/200/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/200/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/200/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Boss's Orders (Giovanni)</div>
-        <div class="rr">Secret Rare &bull; 200</div>
+        <div class="rr">Secret <span class="nw">Rare&nbsp;&bull;&nbsp;200/192</span></div>
         <div class="pr">$35.10</div>
-        <div class="pr10">PSA 10 $75.00<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp"
+        <div class="pr10">PSA 10 $75.00<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp"
         data-name="Ninetales V" data-rarity="Ultra Rare"
-        data-number="177" data-price="$29.75"
+        data-number="177/192" data-price="$29.75"
         data-psa10="$123"
-        data-url="https://www.tcgplayer.com/product/213102"
+        data-url="https://www.tcgplayer.com/product/213102" data-ill="Saki Hayashiro" data-alts="#26 Holo Rare V $4.99"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Ninetales V">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/177/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Ninetales V</div>
-        <div class="rr">Ultra Rare &bull; 177</div>
+        <div class="rr">Ultra <span class="nw">Rare&nbsp;&bull;&nbsp;177/192</span></div>
         <div class="pr">$29.75</div>
-        <div class="pr10">PSA 10 $123<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/196/high.webp"
+        <div class="pr10">PSA 10 $123<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/196/high.webp"
         data-name="Toxtricity VMAX" data-rarity="Secret Rare"
-        data-number="196" data-price="$21.75"
+        data-number="196/192" data-price="$21.75"
         data-psa10="$79.83"
-        data-url="https://www.tcgplayer.com/product/213157"
+        data-url="https://www.tcgplayer.com/product/213157" data-ill="5ban Graphics" data-alts="#71 Holo Rare VMAX $4.80"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Toxtricity VMAX">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/196/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/196/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/196/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/196/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/196/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Toxtricity VMAX</div>
-        <div class="rr">Secret Rare &bull; 196</div>
+        <div class="rr">Secret <span class="nw">Rare&nbsp;&bull;&nbsp;196/192</span></div>
         <div class="pr">$21.75</div>
-        <div class="pr10">PSA 10 $79.83<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/192/high.webp"
+        <div class="pr10">PSA 10 $79.83<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/192/high.webp"
         data-name="Sonia" data-rarity="Ultra Rare"
-        data-number="192" data-price="$20.00"
+        data-number="192/192" data-price="$20.00"
         data-psa10="$55.00"
-        data-url="https://www.tcgplayer.com/product/213276"
+        data-url="https://www.tcgplayer.com/product/213276" data-ill="Naoki Saito" data-alts="#167 Uncommon $0.75 • #203 Secret Rare $13.76"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Sonia">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/192/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/192/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/192/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/192/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/192/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Sonia</div>
-        <div class="rr">Ultra Rare &bull; 192</div>
+        <div class="rr">Ultra <span class="nw">Rare&nbsp;&bull;&nbsp;192/192</span></div>
         <div class="pr">$20.00</div>
-        <div class="pr10">PSA 10 $55.00<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/197/high.webp"
+        <div class="pr10">PSA 10 $55.00<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/197/high.webp"
         data-name="Dragapult VMAX" data-rarity="Secret Rare"
-        data-number="197" data-price="$20.00"
+        data-number="197/192" data-price="$20.00"
         data-psa10="$83.00"
-        data-url="https://www.tcgplayer.com/product/213181"
+        data-url="https://www.tcgplayer.com/product/213181" data-ill="aky CG Works" data-alts="#93 Holo Rare VMAX $4.68"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Dragapult VMAX">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/197/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/197/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/197/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/197/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/197/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Dragapult VMAX</div>
-        <div class="rr">Secret Rare &bull; 197</div>
+        <div class="rr">Secret <span class="nw">Rare&nbsp;&bull;&nbsp;197/192</span></div>
         <div class="pr">$20.00</div>
-        <div class="pr10">PSA 10 $83.00<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/39/high.webp"
+        <div class="pr10">PSA 10 $83.00<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/39/high.webp"
         data-name="Magikarp" data-rarity="Common"
-        data-number="39" data-price="$18.00"
+        data-number="39/192" data-price="$18.00"
         data-psa10="$111"
-        data-url="https://www.tcgplayer.com/product/213117"
+        data-url="https://www.tcgplayer.com/product/213117" data-ill="kanahei"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Magikarp">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/39/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/39/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/39/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/39/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/39/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Magikarp</div>
-        <div class="rr">Common &bull; 39</div>
+        <div class="rr"><span class="nw">Common&nbsp;&bull;&nbsp;39/192</span></div>
         <div class="pr">$18.00</div>
-        <div class="pr10">PSA 10 $111<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/swsh2/194/high.webp"
+        <div class="pr10">PSA 10 $111<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/swsh2/194/high.webp"
         data-name="Cinderace VMAX" data-rarity="Secret Rare"
-        data-number="194" data-price="$16.58"
+        data-number="194/192" data-price="$16.58"
         data-psa10="$62.56"
-        data-url="https://www.tcgplayer.com/product/213114"
+        data-url="https://www.tcgplayer.com/product/213114" data-ill="5ban Graphics" data-alts="#36 Holo Rare VMAX $3.64"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Cinderace VMAX">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/194/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/194/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh2/194/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/194/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/194/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Cinderace VMAX</div>
-        <div class="rr">Secret Rare &bull; 194</div>
+        <div class="rr">Secret <span class="nw">Rare&nbsp;&bull;&nbsp;194/192</span></div>
         <div class="pr">$16.58</div>
-        <div class="pr10">PSA 10 $62.56<span> &bull; October 2, 2026</span></div>
-      </button>
+        <div class="pr10">PSA 10 $62.56<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
     </div>
     
     <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.</p>
@@ -430,7 +513,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="value" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
@@ -471,7 +554,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="rips" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every Rebel Clash <span class="hl">rip</span></h2>
@@ -488,36 +571,36 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="hits" class="tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede w38">1 card out of our own packs. It is in a video you can watch.</p>
-    <ul class="mine-grid">
-      <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/36/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/36/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/swsh/swsh2/36/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/36/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/36/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Cinderace V Max</p>
-        <p class="mine-r">Holo Rare VMAX &bull; #36</p>
-        <p class="mine-p">$3.64</p>
-        <a class="mine-w" href="/rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html" aria-label="Watch the rip that pulled Cinderace V Max">Watch the rip &rarr;</a>
-      </li>
-    </ul>
-    
+<p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+<h2>What we have <span class="hl">hit</span> from this set</h2>
+<p class="lede w38">1 card out of our own packs. It is in a video you can watch.</p>
+<ul class="mine-grid mine-cols" style="--mc3:3;--mc4:4;--mc5:5;--mc6:6">
+  <li class="mine">
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh2/36/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh2/36/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/swsh/swsh2/36/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh2/36/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh2/36/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Cinderace V Max</p>
+    <p class="mine-r">Holo Rare VMAX &bull; #36</p>
+    <p class="mine-p">$3.64</p>
+    <a class="mine-w" href="/rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html" aria-label="Watch the rip that pulled Cinderace V Max, posted April 12, 2026">Watch the rip &rarr;</a>
+  </li>
+</ul>
+
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="facts" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
-    <h2>Rebel Clash <span class="hl">101</span></h2>
+    <h2>When did Rebel Clash come out, and <span class="hl">how big</span> is it?</h2>
     <ul class="facts-list">
       <li><b>Released May 1, 2020</b>, which was 6 years ago.</li>
       <li>The set is <b>192 cards</b> on paper, but there are <b>209</b> in total. The extra 17 are secret rares numbered past the printed count.</li>
-      <li><b>42 of the 209 cards</b> sit at a chase rarity, which is every tier highlighted in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
+      <li><b>42 of the 209 cards</b> sit at a chase rarity, which is every tier tagged CHASE in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
       <li>The chase card is <b>Boss's Orders (Giovanni)</b> (<span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare), sitting around <b>$55.37</b> raw, and <b>$94.37</b> in a PSA 10.</li>
       <li>We have ripped <b>2 videos</b> worth of this set on the channel.</li>
       <li>The most expensive Common in Rebel Clash is a Magikarp, and only as a reverse holo: the reverse is worth about eight times the plain copy. Same card, same number, same rarity symbol, different foil. Both figures from pricecharting.com, read August 16, 2026.</li>
@@ -527,28 +610,29 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="rarity" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Rebel Clash <span class="hl">secret rares</span> and rarity breakdown</h2>
+    <p class="lede w42">Rebel Clash has <b>17 cards numbered past the printed set</b>, #193 to #209, against a printed total of 192. That is what collectors mean by a secret rare, and here the checklist files all 17 as Secret Rare too.</p>
     <p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
     <div class="rarity-list" data-figure="chart">
       <div class="rar chase">
-        <span class="rar-name">Secret Rare</span>
+        <span class="rar-name">Secret Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">17</span>
         <span class="rar-pr">Mid <b>$9.97</b> &bull; top <b>$35.10</b></span>
         <span class="rar-bar"><i style="width:33%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span>
+        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">18</span>
         <span class="rar-pr">Mid <b>$4.99</b> &bull; top <b>$55.37</b></span>
         <span class="rar-bar"><i style="width:35%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name">Holo Rare VMAX</span>
+        <span class="rar-name">Holo Rare VMAX <b class="ch-tag">Chase</b></span>
         <span class="rar-n">7</span>
         <span class="rar-pr">Mid <b>$3.11</b> &bull; top <b>$4.80</b></span>
         <span class="rar-bar"><i style="width:14%"></i></span>
@@ -594,11 +678,11 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="checklist" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 209 cards in Rebel Clash, with what each one is worth. The most expensive card in the set is Boss's Orders (Giovanni) at $55.37.</p>
+    <h2>Rebel Clash card list: <span class="hl">all 209 cards</span></h2>
+    <p class="lede">All 209 cards in Rebel Clash, with what each one is worth. The most valuable card in the set is Boss's Orders (Giovanni) at $55.37.</p>
     <details class="ig-list">
       <summary>Show the full Rebel Clash checklist</summary>
       <ol class="ig-cards en">
@@ -671,7 +755,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$0.96</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">18</span>
-          <span class="ig-nm">Rillaboom VMAX</span>
+          <span class="ig-nm">Rillaboom VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.57</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">19</span>
@@ -743,7 +827,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$1.03</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">36</span>
-          <span class="ig-nm">Cinderace VMAX</span>
+          <span class="ig-nm">Cinderace VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.64</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">37</span>
@@ -799,7 +883,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$1.12</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">50</span>
-          <span class="ig-nm">Inteleon VMAX</span>
+          <span class="ig-nm">Inteleon VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.12</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">51</span>
@@ -883,7 +967,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$1.43</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">71</span>
-          <span class="ig-nm">Toxtricity VMAX</span>
+          <span class="ig-nm">Toxtricity VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.80</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">72</span>
@@ -971,7 +1055,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$2.12</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">93</span>
-          <span class="ig-nm">Dragapult VMAX</span>
+          <span class="ig-nm">Dragapult VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.68</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">94</span>
@@ -1087,7 +1171,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$1.00</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">122</span>
-          <span class="ig-nm">Malamar VMAX</span>
+          <span class="ig-nm">Malamar VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.54</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">123</span>
@@ -1147,7 +1231,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$1.17</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">137</span>
-          <span class="ig-nm">Copperajah VMAX</span>
+          <span class="ig-nm">Copperajah VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.11</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">138</span>
@@ -1299,158 +1383,158 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$0.98</span>
           <span class="ig-rr2">Uncommon</span></li>
         <li class="is-chase"><span class="ig-no">175</span>
-          <span class="ig-nm">Rillaboom V</span>
+          <span class="ig-nm">Rillaboom V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.49</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">176</span>
-          <span class="ig-nm">Eldegoss V</span>
+          <span class="ig-nm">Eldegoss V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.41</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">177</span>
-          <span class="ig-nm">Ninetales V</span>
+          <span class="ig-nm">Ninetales V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$29.75</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">178</span>
-          <span class="ig-nm">Cinderace V</span>
+          <span class="ig-nm">Cinderace V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.35</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">179</span>
-          <span class="ig-nm">Milotic V</span>
+          <span class="ig-nm">Milotic V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$13.59</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">180</span>
-          <span class="ig-nm">Inteleon V</span>
+          <span class="ig-nm">Inteleon V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.47</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">181</span>
-          <span class="ig-nm">Boltund V</span>
+          <span class="ig-nm">Boltund V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.36</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">182</span>
-          <span class="ig-nm">Toxtricity V</span>
+          <span class="ig-nm">Toxtricity V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.69</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">183</span>
-          <span class="ig-nm">Dragapult V</span>
+          <span class="ig-nm">Dragapult V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$10.50</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">184</span>
-          <span class="ig-nm">Sandaconda V</span>
+          <span class="ig-nm">Sandaconda V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">185</span>
-          <span class="ig-nm">Falinks V</span>
+          <span class="ig-nm">Falinks V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">186</span>
-          <span class="ig-nm">Malamar V</span>
+          <span class="ig-nm">Malamar V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">187</span>
-          <span class="ig-nm">Copperajah V</span>
+          <span class="ig-nm">Copperajah V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.49</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">188</span>
-          <span class="ig-nm">Dubwool V</span>
+          <span class="ig-nm">Dubwool V <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.51</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">189</span>
-          <span class="ig-nm">Boss's Orders (Giovanni)</span>
+          <span class="ig-nm">Boss's Orders (Giovanni) <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$55.37</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">190</span>
-          <span class="ig-nm">Milo</span>
+          <span class="ig-nm">Milo <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.75</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">191</span>
-          <span class="ig-nm">Oleana</span>
+          <span class="ig-nm">Oleana <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.13</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">192</span>
-          <span class="ig-nm">Sonia</span>
+          <span class="ig-nm">Sonia <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$20.00</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">193</span>
-          <span class="ig-nm">Rillaboom VMAX</span>
+          <span class="ig-nm">Rillaboom VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$9.97</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">194</span>
-          <span class="ig-nm">Cinderace VMAX</span>
+          <span class="ig-nm">Cinderace VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$16.58</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">195</span>
-          <span class="ig-nm">Inteleon VMAX</span>
+          <span class="ig-nm">Inteleon VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$11.39</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">196</span>
-          <span class="ig-nm">Toxtricity VMAX</span>
+          <span class="ig-nm">Toxtricity VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$21.75</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">197</span>
-          <span class="ig-nm">Dragapult VMAX</span>
+          <span class="ig-nm">Dragapult VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$20.00</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">198</span>
-          <span class="ig-nm">Malamar VMAX</span>
+          <span class="ig-nm">Malamar VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.52</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">199</span>
-          <span class="ig-nm">Copperajah VMAX</span>
+          <span class="ig-nm">Copperajah VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.64</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">200</span>
-          <span class="ig-nm">Boss's Orders (Giovanni)</span>
+          <span class="ig-nm">Boss's Orders (Giovanni) <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$35.10</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">201</span>
-          <span class="ig-nm">Milo</span>
+          <span class="ig-nm">Milo <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.62</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">202</span>
-          <span class="ig-nm">Oleana</span>
+          <span class="ig-nm">Oleana <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.43</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">203</span>
-          <span class="ig-nm">Sonia</span>
+          <span class="ig-nm">Sonia <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$13.76</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">204</span>
-          <span class="ig-nm">Frosmoth</span>
+          <span class="ig-nm">Frosmoth <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$14.62</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">205</span>
-          <span class="ig-nm">Galarian Perrserker</span>
+          <span class="ig-nm">Galarian Perrserker <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$10.74</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">206</span>
-          <span class="ig-nm">Big Charm</span>
+          <span class="ig-nm">Big Charm <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.59</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">207</span>
-          <span class="ig-nm">Scoop Up Net</span>
+          <span class="ig-nm">Scoop Up Net <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.37</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">208</span>
-          <span class="ig-nm">Tool Scrapper</span>
+          <span class="ig-nm">Tool Scrapper <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.43</span>
           <span class="ig-rr2">Secret Rare</span></li>
         <li class="is-chase"><span class="ig-no">209</span>
-          <span class="ig-nm">Twin Energy</span>
+          <span class="ig-nm">Twin Energy <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.87</span>
           <span class="ig-rr2">Secret Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">The gold rows are the chase tiers, the same ones the rarity breakdown above highlights. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
+    <p class="price-note">Rows tagged CHASE are the chase tiers, the same tiers the rarity breakdown above tags. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. 209 of 209 cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=rebel-clash">Search every card on the site</a>.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="products" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
-    <h2>Ways to open <span class="hl">Rebel Clash</span></h2>
+    <h2>Rebel Clash booster box, ETB and pack <span class="hl">prices</span></h2>
     <p class="lede prod-lede">Every sealed Rebel Clash product still being sold, cheapest first. The cheapest way in is also the cheapest pack: one pack at $12.40.</p>
     <ul class="prod-grid">
       <li class="prod">
@@ -1571,7 +1655,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="watch" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">2</span> of these</h2>
@@ -1591,7 +1675,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="more-sets" class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -1625,13 +1709,20 @@ height:auto;min-height:44px;padding-block:6px}</style>
 </section>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
-  <div class="lb-inner">
+  <div class="lb-inner lbx">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
-    <p class="lb-nm" id="lbNm"></p>
-    <p class="lb-rr" id="lbRr"></p>
-    <p class="lb-pr" id="lbPr"></p>
-    <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    <div class="lbx-fig" id="lbFig"><picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture></div>
+    <div class="lbx-info">
+      <div class="lbx-nav" id="lbNav"><button class="lbx-go" type="button" id="lbPrev" aria-label="Previous card">&larr; Prev</button><p class="lbx-of" id="lbOf" aria-live="polite"></p><button class="lbx-go" type="button" id="lbNext" aria-label="Next card">Next &rarr;</button></div>
+      <p class="lb-nm" id="lbNm"></p>
+      <p class="lb-rr" id="lbRr"></p>
+      <p class="lbx-ill" id="lbIll" hidden></p>
+      <p class="lb-pr" id="lbPr"></p>
+      <p class="lbx-src" id="lbSrc"></p>
+      <p class="lbx-alts" id="lbAlts" hidden></p>
+      <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    </div>
   </div>
 </div>
 
@@ -1753,33 +1844,79 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </footer>
 <script>
+/* THE POP-UP, AT PARITY WITH THE 30th CELEBRATION'S, 2 October 2026.
+   Previous and Next, the arrow keys and a sideways swipe step through the
+   group the card was opened from (the chase grid, or the three in the hero),
+   and never across groups: data-zg marks a group. "Card X of N" says where you
+   are. Everything the open card shows comes off its own data-* (zoomData() in
+   the builder), so the pop-up adds no figure the tile does not carry.
+   What already worked is kept as it was: Escape and the backdrop close, focus
+   goes to the close button and back to the card that opened it, the page
+   behind does not scroll, and the AVIF source is only set for the host that
+   publishes one. */
 (function(){
-  var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
-  var last=null;
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
+  var $=function(id){return document.getElementById(id);};
+  var last=null, list=[], at=0;
+  function groupOf(b){
+    var g=b.closest('[data-zg]');
+    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
+    return all.filter(function(x){return x.dataset.img;});
+  }
+  // The lightbox is the one place on this page that loads high.webp, 600x825
+  // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
+  // reach it because the url only becomes an image url on click, so the
+  // <source> is filled here, applying the SAME host test avifPicture applies:
+  // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+  // pointing at a 404 paints a broken card instead of falling back.
+  // srcset FIRST, then src, so the webp is never requested and abandoned.
+  // STEPPING SHOWS THE TILE'S OWN SMALL FILE FIRST, then swaps in the big one
+  // once it has arrived, so Next never leaves the previous card on screen
+  // under the new card's name. The small file is already in the cache.
+  function picture(b){
+    var big=b.dataset.img, small=b.querySelector('img');
+    var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    var sm=small && (small.currentSrc || small.src);
+    if(sm){
+      avif.removeAttribute('srcset'); img.src=sm;
+      var hi=new Image();
+      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
+      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+    } else {
+      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      img.src=big;
+    }
+  }
+  function show(i){
+    at=(i+list.length)%list.length;
+    var b=list[at], d=b.dataset;
+    picture(b);
+    img.alt=d.name+' '+d.number;
+    $('lbNm').textContent=d.name;
+    $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
+    var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
+    $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
+    $('lbSrc').textContent=d.src || '';
+    var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
+    var rip=$('lbRip'); rip.hidden=!d.rip;
+    if(d.rip){
+      var a=$('lbRipA'); a.href=d.rip;
+      a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
+    }
+    var u=$('lbUrl');
+    if(d.url){u.href=d.url;u.hidden=false;}else{u.hidden=true;}
+    $('lbNav').hidden=list.length<2;
+    $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
+  }
   function open(b){
-    last=b;
-    // The lightbox is the one place on this page that loads high.webp, 600x825
-    // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
-    // reach it because the url only becomes an image url on click, so the
-    // <source> is filled here, applying the SAME host test avifPicture applies:
-    // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
-    // pointing at a 404 paints a broken card instead of falling back.
-    // srcset FIRST, then src, so the webp is never requested and abandoned.
-    var big=b.dataset.img, avif=document.getElementById('lbAvif');
-    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
-      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
-    else avif.removeAttribute('srcset');
-    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
-    document.getElementById('lbNm').textContent=b.dataset.name;
-    document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
-    document.getElementById('lbPr').textContent=b.dataset.price
-      + (b.dataset.psa10 ? '  •  PSA 10 ' + b.dataset.psa10 : '');
-    var u=document.getElementById('lbUrl');
-    if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
+    last=b; list=groupOf(b);
+    var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
     lb.querySelector('.lb-close').focus();
   }
+  function step(n){ if(list.length>1) show(at+n); }
   function close(){
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
@@ -1787,8 +1924,27 @@ height:auto;min-height:44px;padding-block:6px}</style>
   document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
+  $('lbPrev').addEventListener('click',function(){ step(-1); });
+  $('lbNext').addEventListener('click',function(){ step(1); });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); }
+  });
+  // A SIDEWAYS SWIPE ON THE CARD STEPS, as on the 30th. touch-action:pan-y on
+  // the picture (PAGE_CSS) leaves vertical scrolling to the browser, which the
+  // phone needs because this panel can be taller than the screen, and hands
+  // the horizontal gesture to these listeners.
+  var sw=null, fig=$('lbFig');
+  fig.addEventListener('pointerdown',function(e){ sw={x:e.clientX,y:e.clientY}; });
+  fig.addEventListener('pointercancel',function(){ sw=null; });
+  fig.addEventListener('pointerup',function(e){
+    if(!sw) return;
+    var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
 })();
 </script>
 <script src="/assets/app.js?v=67b4bdd8" defer></script>

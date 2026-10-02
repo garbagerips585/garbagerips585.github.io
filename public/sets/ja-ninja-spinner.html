@@ -26,7 +26,23 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
-<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+<style>.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+.ij-jump::-webkit-scrollbar{display:none}
+.ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
 object-position:left center;margin:6px 0 10px}
 .intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
 max-width:44em;font-size:var(--t-sm);line-height:1.5}
@@ -44,10 +60,12 @@ text-transform:uppercase;vertical-align:bottom}
 .rcmp th[scope=row],.rcmp thead th:first-child{text-align:left;font-weight:600}
 .rcmp td{font:700 var(--t-sm)/1.4 var(--mono);white-space:nowrap}
 .rcmp tbody tr:last-child th,.rcmp tbody tr:last-child td{border-bottom:0}
-.rcmp tr.is-same{background:var(--sky-tint)}
-.rcmp tr.is-same th[scope=row]{color:var(--gold-deep)}
+.rcmp tr.is-same th[scope=row]{color:var(--ink)}
+.rcmp-tag{display:inline-block;margin-left:8px;padding:2px 7px;border:1px solid var(--ketchup-deep);
+border-radius:999px;color:var(--ketchup-deep);font:700 var(--t-micro)/1.2 var(--mono);
+letter-spacing:.06em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .rcmp tr.is-total th,.rcmp tr.is-total td{border-top:2px solid var(--ink);font-weight:700}
-.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--gold);
+.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--keyline);
 padding-left:var(--s4);font-size:var(--t-body)}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
@@ -94,7 +112,12 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan li{width:130px}
 .sh-fan ol{gap:14px}
 }
-@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}</style>
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .ij-jump{order:2}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Ninja Spinner Pokemon TCG Set Guide","description":"Ninja Spinner (ニンジャスピナー) Pokemon TCG set guide: 120 cards, released March 13, 2026, and why it is the same set as English Chaos Rising.","image":["https://garbagerips.com/assets/og-ja-ninja-spinner.jpg?v=f4d3bc51"],"about":{"@type":"Thing","name":"Ninja Spinner (Pokemon Trading Card Game, Japanese)"},"url":"https://garbagerips.com/sets/ja-ninja-spinner.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ja-ninja-spinner.html"},"datePublished":"2026-08-12","dateModified":"2026-10-02","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Ninja Spinner"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
@@ -237,7 +260,18 @@ gap:var(--s6,48px);text-align:left}
     <img class="logo-big" width="282" height="112" src="/assets/logos/ja-ninja-spinner-pokemon-tcg-set-logo.webp" srcset="/assets/logos/ja-ninja-spinner-pokemon-tcg-set-logo-sm.webp 252w, /assets/logos/ja-ninja-spinner-pokemon-tcg-set-logo.webp 282w" sizes="(max-width:329px) 141px, (max-width:647px) 42.8vw, 277px" alt="Ninja Spinner logo" onerror="this.remove()">
     <h1>Ninja Spinner</h1>
     <p class="intl-hero-native cjk" lang="ja">ニンジャスピナー</p>
-    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Chaos Rising. Same cards, different name. And out first.</p>
+    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Chaos Rising: same cards, different name. Its 120 cards came out March 13, 2026, 2 months before the English set.</p>
+    <nav class="ij-jump" aria-label="On this page">
+      <a href="#english-version">English version</a>
+      <a href="#card-for-card">Card for card</a>
+      <a href="#rarest-cards">Rarest cards</a>
+      <a href="#rarity">Rarities</a>
+      <a href="#booster-pack">Booster pack</a>
+      <a href="#card-list">Card list</a>
+      <a href="#openings">Openings</a>
+      <a href="#pulls">Our pulls</a>
+      <a href="#sources">Sources</a>
+    </nav>
     </div>
     <div class="sh-fan">
       <ol>
@@ -275,10 +309,10 @@ gap:var(--s6,48px);text-align:left}
     </div>
   </div>
 </section>
-<section class="tight">
+<section id="english-version" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>Ninja Spinner is <span class="hl">Chaos Rising</span></h2>
+    <h2>Japanese vs English: Ninja Spinner and <span class="hl">Chaos Rising</span></h2>
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. Ninja Spinner is the Japanese printing behind English Chaos Rising.</p>
     <ul class="intl-grid">
@@ -322,12 +356,12 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band tight">
+<section id="card-for-card" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Card for card</p>
-    <h2>How close is it to <span class="hl">Chaos Rising</span>?</h2>
+    <h2>Ninja Spinner vs <span class="hl">Chaos Rising</span> by rarity</h2>
     <p class="lede" style="max-width:42em">"Same set" is nearly true and worth checking rather than taking on trust.
-      Here is every rarity in both printings, side by side. The gold rows are the ones that match.</p>
+      Here is every rarity in both printings, side by side. A rarity tagged Match holds the same number of cards in both.</p>
     <div class="rcmp-wrap">
       <table class="rcmp">
         <caption class="sr-only">Card count by rarity in Ninja Spinner against Chaos Rising</caption>
@@ -336,16 +370,16 @@ gap:var(--s6,48px);text-align:left}
         </thead>
         <tbody>
           <tr class="is-same">
-            <th scope="row">Mega Hyper Rare</th><td>1</td><td>1</td>
+            <th scope="row">Mega Hyper Rare<span class="rcmp-tag">Match</span></th><td>1</td><td>1</td>
           </tr>
           <tr class="is-same">
-            <th scope="row">Special Illustration Rare</th><td>6</td><td>6</td>
+            <th scope="row">Special Illustration Rare<span class="rcmp-tag">Match</span></th><td>6</td><td>6</td>
           </tr>
           <tr>
             <th scope="row">Illustration Rare</th><td>12</td><td>11</td>
           </tr>
           <tr class="is-same">
-            <th scope="row">Ultra Rare</th><td>18</td><td>18</td>
+            <th scope="row">Ultra Rare<span class="rcmp-tag">Match</span></th><td>18</td><td>18</td>
           </tr>
           <tr>
             <th scope="row">Double Rare</th><td>8</td><td>10</td>
@@ -357,7 +391,7 @@ gap:var(--s6,48px);text-align:left}
             <th scope="row">Uncommon</th><td>29</td><td>26</td>
           </tr>
           <tr class="is-same">
-            <th scope="row">Common</th><td>38</td><td>38</td>
+            <th scope="row">Common<span class="rcmp-tag">Match</span></th><td>38</td><td>38</td>
           </tr>
           <tr class="is-total"><th scope="row">Every card</th><td>120</td><td>122</td></tr>
         </tbody>
@@ -371,10 +405,10 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="rarest-cards" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2>Ninja Spinner <span class="hl">rarest cards</span></h2>
     
     <div class="chase-grid">
       <button class="chase-card" type="button"
@@ -536,21 +570,21 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="rarity" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Ninja Spinner rarity <span class="hl">breakdown</span></h2>
     
     <div class="rarity-list" data-figure="chart">
       <div class="rar">
-        <span class="rar-name">Common</span>
-        <span class="rar-n">38</span>
-        <span class="rar-bar"><i style="width:100%"></i></span>
+        <span class="rar-name">Mega Ultra Rare</span>
+        <span class="rar-n">1</span>
+        <span class="rar-bar"><i style="width:4%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Uncommon</span>
-        <span class="rar-n">29</span>
-        <span class="rar-bar"><i style="width:76%"></i></span>
+        <span class="rar-name">Special Art Rare</span>
+        <span class="rar-n">6</span>
+        <span class="rar-bar"><i style="width:16%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Super Rare</span>
@@ -573,26 +607,25 @@ gap:var(--s6,48px);text-align:left}
         <span class="rar-bar"><i style="width:21%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Special Art Rare</span>
-        <span class="rar-n">6</span>
-        <span class="rar-bar"><i style="width:16%"></i></span>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">29</span>
+        <span class="rar-bar"><i style="width:76%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Mega Ultra Rare</span>
-        <span class="rar-n">1</span>
-        <span class="rar-bar"><i style="width:4%"></i></span>
+        <span class="rar-name">Common</span>
+        <span class="rar-n">38</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
     <p class="price-note">37 more cards are numbered past card 83, which is
-      how Japanese sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>
+      how Japanese sets carry their secret rares. Every one of them is labeled, so each is counted on its own tier above.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="booster-pack" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
-    <h2>The <span class="hl">pack</span> itself</h2>
+    <h2>Ninja Spinner <span class="hl">booster pack</span></h2>
     <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip. The Japanese name runs across the bottom of the wrapper.</p>
     <div class="pk-band">
       <a class="pk-shot" href="https://www.tcgplayer.com/product/683776/ninja-spinner-booster-pack" rel="noopener" target="_blank"
@@ -614,11 +647,11 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band tight">
+<section id="card-list" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 120 cards, English names where the card is a Pokemon.</p>
+    <h2>Ninja Spinner (Japanese) <span class="hl">card list</span></h2>
+    <p class="lede">All 120 cards, every one with its English name.</p>
     <details class="ig-list">
       <summary>Show the full Ninja Spinner checklist</summary>
       <ol class="ig-cards">
@@ -1104,17 +1137,14 @@ gap:var(--s6,48px);text-align:left}
           <span class="ig-rr">Mega Ultra Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their Japanese names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated. All 24 Trainer and Energy cards are named the way TCGplayer's Japanese catalog files them, matched on the collector number.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="openings" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">2</span> of these</h2>
+    <h2>Ninja Spinner openings: <span class="hl">2</span> rips</h2>
     <div class="set-watch">
       
       <div class="packshot pack pack--ja-ninja-spinner"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/ja-ninja-spinner-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
@@ -1137,10 +1167,10 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band tight">
+<section id="pulls" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <h2>What we have <span class="hl">pulled</span> from Ninja Spinner</h2>
     <p class="lede" style="max-width:38em">3 cards out of our own packs.
       Every one of them is in a video you can watch.</p>
     <ul class="mine-grid">
@@ -1176,7 +1206,7 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="sources" class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
@@ -1185,6 +1215,7 @@ gap:var(--s6,48px);text-align:left}
       
       
       <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>
+      <li>Trainer and Energy names in English from TCGplayer's Japanese catalog, matched to this checklist on the collector number: all 24 on this page.</li>
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>

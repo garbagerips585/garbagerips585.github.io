@@ -102,6 +102,80 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan ol{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .sh-jump{order:2}
+}
+.set-hero h1 .sh-h1s{display:block;margin-top:.25em;font-size:max(.46em,1.05rem);line-height:1.2;color:var(--ink-2)}
+.sh-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:100%;min-width:0}
+.set-hero .wrap .sh-text{align-self:stretch;min-width:0}
+.sh-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body);text-decoration:none;white-space:nowrap}
+.sh-jump a:hover,.sh-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.sh-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+align-self:stretch;margin-inline:calc(-1 * var(--gut));padding:2px var(--gut) 6px;scroll-padding-inline:var(--gut)}
+.sh-jump::-webkit-scrollbar{display:none}
+.sh-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .sh-jump{justify-content:flex-start}}
+.ch-tag{display:inline-block;vertical-align:.12em;margin-left:6px;padding:3px 6px 2px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 .625rem/1 var(--mono);letter-spacing:.06em;
+text-transform:uppercase;white-space:nowrap}
+@media(min-width:700px){.chase-grid[data-zg]{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.chase-grid[data-zg]{row-gap:0}
+.chase-grid .cc-cell{display:flex;flex-direction:column;min-width:0}
+@supports (grid-template-rows:subgrid){
+.chase-grid .cc-cell{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:0}
+}
+.cc-cell .chase-card{position:relative;margin-bottom:14px}
+.cc-cell .cc-rip{margin:-10px 0 8px}
+.chase-grid .chase-card .rr{letter-spacing:.02em}
+.chase-card .nw{white-space:nowrap}
+.chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
+.cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 0 var(--keyline);pointer-events:none}
+.cc-flag.is-inline{position:static;display:inline-block;vertical-align:.1em;margin-left:6px;box-shadow:none}
+.cc-rip{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.3 var(--body);
+color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.cc-rip:hover,.cc-rip:focus-visible{color:var(--sky)}
+.mine-rips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;margin-top:auto;padding-top:6px}
+.mine-rips-k{flex-basis:100%;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.mine-rip{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border:1px solid var(--keyline);
+border-radius:999px;background:var(--paper);color:var(--sky-deep);font:700 var(--t-micro)/1 var(--body);
+text-decoration:none;white-space:nowrap}
+.mine-rip:hover,.mine-rip:focus-visible{border-color:var(--sky);color:var(--sky)}
+.mine-list .mine-rips{margin-top:0;padding-top:0}
+.mine-grid.mine-cols{grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}
+@media(min-width:521px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc3,3),minmax(0,1fr))}}
+@media(min-width:700px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc4,4),minmax(0,1fr))}}
+@media(min-width:900px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc5,5),minmax(0,1fr))}}
+@media(min-width:1200px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc6,6),minmax(0,1fr))}}
+.lbx-fig{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.lbx .lbx-fig img{display:block;margin:0 auto;width:auto;max-width:100%;height:min(46vh,420px);
+aspect-ratio:600/825;object-fit:contain;-webkit-user-drag:none}
+.lbx-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.lbx-nav[hidden]{display:none}
+.lbx-go{appearance:none;min-height:44px;padding:0 14px;border:1px solid var(--keyline);border-radius:999px;
+background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);cursor:pointer;white-space:nowrap}
+.lbx-go:hover,.lbx-go:focus-visible{border-color:var(--sky);color:var(--sky)}
+.lbx-of{margin:0;font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.lbx-ill{margin:4px 0 0;font-size:var(--t-sm);color:var(--ink-2)}
+.lbx-src{margin:8px 0 0;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+.lbx-alts{margin:8px 0 0;font-size:var(--t-sm);line-height:1.45}
+.lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
+.lbx-rip a{color:var(--sky-deep)}
+.lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+@media(min-width:760px){
+.lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
+align-items:center;text-align:left;padding:24px}
+.lbx .lbx-fig img{height:min(72vh,560px)}
+.lbx .lb-actions{justify-content:flex-start}
+.lbx .lbx-nav{margin:0 0 8px}
+}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -115,7 +189,7 @@ border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
 height:auto;min-height:44px;padding-block:6px}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Celebrations Pokemon TCG Set Guide","description":"Celebrations Pokemon TCG set guide: 25 cards, released October 8, 2021. The priciest of those 25 is Mew at $54.84; Celebrations: Classic Collection is a separate 25 cards we hold no prices for. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-celebrations.jpg?v=3cbee3cd"],"about":{"@type":"Thing","name":"Celebrations (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/celebrations.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/celebrations.html"},"datePublished":"2026-09-18","dateModified":"2026-09-18","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Celebrations Pokemon TCG Set Guide","description":"Celebrations Pokemon TCG set guide: 25 cards, released October 8, 2021. The priciest of those 25 is Mew at $54.84; Celebrations: Classic Collection is a separate 25 cards we hold no prices for. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-celebrations.jpg?v=3cbee3cd"],"about":{"@type":"Thing","name":"Celebrations (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/celebrations.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/celebrations.html"},"datePublished":"2026-08-15","dateModified":"2026-10-02","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Celebrations"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -255,32 +329,33 @@ height:auto;min-height:44px;padding-block:6px}</style>
     <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <picture><source type="image/avif" srcset="/assets/logos/celebrations-pokemon-tcg-set-logo-sm.avif 428w, /assets/logos/celebrations-pokemon-tcg-set-logo.avif 557w" sizes="(max-width:329px) 239.9px, (max-width:647px) 72.8vw, 471.3px"><img class="logo-big" width="557" height="130" src="/assets/logos/celebrations-pokemon-tcg-set-logo.webp" srcset="/assets/logos/celebrations-pokemon-tcg-set-logo-sm.webp 428w, /assets/logos/celebrations-pokemon-tcg-set-logo.webp 557w" sizes="(max-width:329px) 239.9px, (max-width:647px) 72.8vw, 471.3px" alt="" onerror="this.remove()"></picture>
-    <h1>Celebrations</h1>
-    <p class="lede w34">A 2021 set, 25 cards, plus 25 more cards this page does not cover. What is in Celebrations, what is actually rare in it, and what the cards worth chasing are going for. Mew leads those 25, and the Classic Collection is not priced here.</p>
+    <h1>Celebrations <span class="sh-h1s">card list and set guide</span></h1>
+    <p class="lede w34">Celebrations came out October 8, 2021 with 25 cards, plus 25 more cards this page does not cover. The most valuable of those 25 is Mew: $54.84 for an ungraded copy on pricecharting.com's price guide, read October 2, 2026. The Classic Collection is not priced here.</p>
+    <nav class="sh-jump" aria-label="On this page"><a href="#chase">Most valuable</a><a href="#rips">Our rips</a><a href="#facts">Set 101</a><a href="#rarity">Rarity</a><a href="#checklist">Card list</a><a href="#products">Sealed prices</a></nav>
     </div>
     <div class="sh-fan">
-      <ol>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/cel25/7/high.webp"
-          data-name="Flying Pikachu VMAX" data-rarity="Holo Rare VMAX"
-          data-number="7" data-price="$7.50"
-          data-psa10="$90.00"
-          data-url="https://www.tcgplayer.com/product/250305"
-          aria-label="Enlarge Flying Pikachu VMAX, Holo Rare VMAX 7"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/cel25/9/high.webp"
-          data-name="Surfing Pikachu VMAX" data-rarity="Holo Rare VMAX"
-          data-number="9" data-price="$7.00"
-          data-psa10="$92.00"
-          data-url="https://www.tcgplayer.com/product/250307"
-          aria-label="Enlarge Surfing Pikachu VMAX, Holo Rare VMAX 9"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/9/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/9/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/swsh/cel25/5/high.webp"
-          data-name="Pikachu" data-rarity="Holo Rare"
-          data-number="5" data-price="$5.95"
-          data-psa10="$1,318"
-          data-url="https://www.tcgplayer.com/product/250303"
-          aria-label="Enlarge Pikachu, Holo Rare 5"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      <ol data-zg>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/7/high.webp"
+        data-name="Flying Pikachu VMAX" data-rarity="Holo Rare VMAX"
+        data-number="7/25" data-price="$7.50"
+        data-psa10="$90.00"
+        data-url="https://www.tcgplayer.com/product/250305" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Flying Pikachu VMAX, Holo Rare VMAX 7/25"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/9/high.webp"
+        data-name="Surfing Pikachu VMAX" data-rarity="Holo Rare VMAX"
+        data-number="9/25" data-price="$7.00"
+        data-psa10="$92.00"
+        data-url="https://www.tcgplayer.com/product/250307" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Surfing Pikachu VMAX, Holo Rare VMAX 9/25"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/9/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/9/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/5/high.webp"
+        data-name="Pikachu" data-rarity="Holo Rare"
+        data-number="5/25" data-price="$5.95"
+        data-psa10="$1,318"
+        data-url="https://www.tcgplayer.com/product/250303" data-ill="Mitsuhiro Arita"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Pikachu, Holo Rare 5/25"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
       </ol>
       <p>The top three by raw price with a scan</p>
     </div>
@@ -318,109 +393,116 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="chase" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2><span class="hl">Most valuable</span> Celebrations cards</h2>
     
-    <div class="chase-grid">
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/7/high.webp"
+    <div class="chase-grid" data-zg>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/7/high.webp"
         data-name="Flying Pikachu VMAX" data-rarity="Holo Rare VMAX"
-        data-number="7" data-price="$7.50"
+        data-number="7/25" data-price="$7.50"
         data-psa10="$90.00"
-        data-url="https://www.tcgplayer.com/product/250305"
+        data-url="https://www.tcgplayer.com/product/250305" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Flying Pikachu VMAX">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/7/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/7/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Flying Pikachu VMAX</div>
-        <div class="rr">Holo Rare VMAX &bull; 7</div>
+        <div class="rr">Holo Rare <span class="nw">VMAX&nbsp;&bull;&nbsp;7/25</span></div>
         <div class="pr">$7.50</div>
-        <div class="pr10">PSA 10 $90.00<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/9/high.webp"
+        <div class="pr10">PSA 10 $90.00<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/9/high.webp"
         data-name="Surfing Pikachu VMAX" data-rarity="Holo Rare VMAX"
-        data-number="9" data-price="$7.00"
+        data-number="9/25" data-price="$7.00"
         data-psa10="$92.00"
-        data-url="https://www.tcgplayer.com/product/250307"
+        data-url="https://www.tcgplayer.com/product/250307" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Surfing Pikachu VMAX">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/9/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/9/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/9/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/9/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/9/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Surfing Pikachu VMAX</div>
-        <div class="rr">Holo Rare VMAX &bull; 9</div>
+        <div class="rr">Holo Rare <span class="nw">VMAX&nbsp;&bull;&nbsp;9/25</span></div>
         <div class="pr">$7.00</div>
-        <div class="pr10">PSA 10 $92.00<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/5/high.webp"
+        <div class="pr10">PSA 10 $92.00<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/5/high.webp"
         data-name="Pikachu" data-rarity="Holo Rare"
-        data-number="5" data-price="$5.95"
+        data-number="5/25" data-price="$5.95"
         data-psa10="$1,318"
-        data-url="https://www.tcgplayer.com/product/250303"
+        data-url="https://www.tcgplayer.com/product/250303" data-ill="Mitsuhiro Arita"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Pikachu">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/5/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/5/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Pikachu</div>
-        <div class="rr">Holo Rare &bull; 5</div>
+        <div class="rr">Holo <span class="nw">Rare&nbsp;&bull;&nbsp;5/25</span></div>
         <div class="pr">$5.95</div>
-        <div class="pr10">PSA 10 $1,318<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/8/high.webp"
+        <div class="pr10">PSA 10 $1,318<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/8/high.webp"
         data-name="Surfing Pikachu V" data-rarity="Holo Rare V"
-        data-number="8" data-price="$4.55"
+        data-number="8/25" data-price="$4.55"
         data-psa10="$179"
-        data-url="https://www.tcgplayer.com/product/250306"
+        data-url="https://www.tcgplayer.com/product/250306" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Surfing Pikachu V">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/8/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/8/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/8/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/8/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/8/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Surfing Pikachu V</div>
-        <div class="rr">Holo Rare V &bull; 8</div>
+        <div class="rr">Holo Rare <span class="nw">V&nbsp;&bull;&nbsp;8/25</span></div>
         <div class="pr">$4.55</div>
-        <div class="pr10">PSA 10 $179<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/6/high.webp"
+        <div class="pr10">PSA 10 $179<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/6/high.webp"
         data-name="Flying Pikachu V" data-rarity="Holo Rare V"
-        data-number="6" data-price="$4.25"
+        data-number="6/25" data-price="$4.25"
         data-psa10="$128"
-        data-url="https://www.tcgplayer.com/product/250304"
+        data-url="https://www.tcgplayer.com/product/250304" data-ill="aky CG Works"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Flying Pikachu V">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/6/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/6/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/6/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/6/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/6/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Flying Pikachu V</div>
-        <div class="rr">Holo Rare V &bull; 6</div>
+        <div class="rr">Holo Rare <span class="nw">V&nbsp;&bull;&nbsp;6/25</span></div>
         <div class="pr">$4.25</div>
-        <div class="pr10">PSA 10 $128<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/11/high.webp"
+        <div class="pr10">PSA 10 $128<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/11/high.webp"
         data-name="Mew" data-rarity="Holo Rare"
-        data-number="11" data-price="$3.99"
+        data-number="11/25" data-price="$3.99"
         data-psa10="$815"
-        data-url="https://www.tcgplayer.com/product/250309"
+        data-url="https://www.tcgplayer.com/product/250309" data-ill="Yuu Nishida" data-alts="#25 Secret Rare $54.84"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Mew">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/11/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/11/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/11/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/11/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/11/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Mew</div>
-        <div class="rr">Holo Rare &bull; 11</div>
+        <div class="rr">Holo <span class="nw">Rare&nbsp;&bull;&nbsp;11/25</span></div>
         <div class="pr">$3.99</div>
-        <div class="pr10">PSA 10 $815<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/swsh/cel25/14/high.webp"
+        <div class="pr10">PSA 10 $815<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/swsh/cel25/14/high.webp"
         data-name="Cosmoem" data-rarity="Rare"
-        data-number="14" data-price="$1.85"
+        data-number="14/25" data-price="$1.85"
         data-psa10="$126"
-        data-url="https://www.tcgplayer.com/product/250297"
+        data-url="https://www.tcgplayer.com/product/250297" data-ill="kirisAki"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Cosmoem">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/14/low.avif 245w, https://assets.tcgdex.net/en/swsh/cel25/14/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/cel25/14/low.webp" srcset="https://assets.tcgdex.net/en/swsh/cel25/14/low.webp 245w, https://assets.tcgdex.net/en/swsh/cel25/14/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Cosmoem</div>
-        <div class="rr">Rare &bull; 14</div>
+        <div class="rr"><span class="nw">Rare&nbsp;&bull;&nbsp;14/25</span></div>
         <div class="pr">$1.85</div>
-        <div class="pr10">PSA 10 $126<span> &bull; October 2, 2026</span></div>
-      </button>
+        <div class="pr10">PSA 10 $126<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
     </div>
     <h3 class="flat-h">No scan for this one</h3>
     <ul class="flat-list">
       <li class="flat-item">
         <b>Mew</b>
-        <span>Secret Rare &bull; 25</span>
+        <span>Secret Rare &bull; 25/25</span>
         <span class="flat-pr">$54.84 &bull; PSA 10 $200</span>
         <a href="https://www.tcgplayer.com/product/250295" rel="nofollow noopener" target="_blank"
           aria-label="Check the current price of Mew 25, opens on tcgplayer.com">Check current price</a>
@@ -433,7 +515,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="value" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
@@ -474,7 +556,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="rips" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every Celebrations <span class="hl">rip</span></h2>
@@ -491,13 +573,13 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="facts" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
-    <h2>Celebrations <span class="hl">101</span></h2>
+    <h2>When did Celebrations come out, and <span class="hl">how big</span> is it?</h2>
     <ul class="facts-list">
       <li><b>Released October 8, 2021</b>, which was 4 years ago.</li>
-      <li><b>4 of the 25 cards</b> sit at a chase rarity, which is every tier highlighted in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
+      <li><b>4 of the 25 cards</b> sit at a chase rarity, which is every tier tagged CHASE in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
       <li>The chase card of the 25 on this checklist is <b>Mew</b> (Secret Rare), sitting around <b>$54.84</b> raw, and <b>$200</b> in a PSA 10. The 25 cards of Celebrations: Classic Collection are not on it, and this site holds no price for any of them, so there is no honest way for this page to tell you whether one of those beats it.</li>
       <li>We have ripped <b>1 video</b> worth of this set on the channel.</li>
       <li>25 cards makes this the smallest of the 29 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page.</li>
@@ -506,28 +588,29 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="rarity" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Celebrations <span class="hl">secret rares</span> and rarity breakdown</h2>
+    <p class="lede w42">Celebrations has <b>no cards numbered past the printed set</b>: all 25 sit inside its printed total of 25. Its one Secret Rare is Mew (#25 of 25), which is why the fact tile above reads 0 numbered past the set while the ladder below still shows a Secret Rare.</p>
     <p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
     <div class="rarity-list" data-figure="chart">
       <div class="rar chase">
-        <span class="rar-name">Secret Rare</span>
+        <span class="rar-name">Secret Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">1</span>
         <span class="rar-pr"><b>$54.84</b></span>
         <span class="rar-bar"><i style="width:8%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span>
+        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">1</span>
         <span class="rar-pr"><b>$1.80</b></span>
         <span class="rar-bar"><i style="width:8%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name">Holo Rare VMAX</span>
+        <span class="rar-name">Holo Rare VMAX <b class="ch-tag">Chase</b></span>
         <span class="rar-n">2</span>
         <span class="rar-pr">Mid <b>$7.50</b> &bull; top <b>$7.50</b></span>
         <span class="rar-bar"><i style="width:17%"></i></span>
@@ -561,11 +644,11 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="checklist" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 25 cards in Celebrations, with what each one is worth. The most expensive card in the set is Mew at $54.84.</p>
+    <h2>Celebrations card list: <span class="hl">all 25 cards</span></h2>
+    <p class="lede">All 25 cards in Celebrations, with what each one is worth. The most valuable card in the set is Mew at $54.84.</p>
     <details class="ig-list">
       <summary>Show the full Celebrations checklist</summary>
       <ol class="ig-cards en">
@@ -594,7 +677,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$4.25</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">7</span>
-          <span class="ig-nm">Flying Pikachu VMAX</span>
+          <span class="ig-nm">Flying Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.50</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">8</span>
@@ -602,7 +685,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$4.55</span>
           <span class="ig-rr2">Holo Rare V</span></li>
         <li class="is-chase"><span class="ig-no">9</span>
-          <span class="ig-nm">Surfing Pikachu VMAX</span>
+          <span class="ig-nm">Surfing Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.00</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
         <li><span class="ig-no">10</span>
@@ -662,26 +745,26 @@ height:auto;min-height:44px;padding-block:6px}</style>
           <span class="ig-pr">$0.57</span>
           <span class="ig-rr2">Holo Rare</span></li>
         <li class="is-chase"><span class="ig-no">24</span>
-          <span class="ig-nm">Professor's Research (Professor Oak)</span>
+          <span class="ig-nm">Professor's Research (Professor Oak) <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.80</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">25</span>
-          <span class="ig-nm">Mew</span>
+          <span class="ig-nm">Mew <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$54.84</span>
           <span class="ig-rr2">Secret Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">The gold rows are the chase tiers, the same ones the rarity breakdown above highlights. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
+    <p class="price-note">Rows tagged CHASE are the chase tiers, the same tiers the rarity breakdown above tags. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. 25 of 25 cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=celebrations">Search every card on the site</a>.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="products" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
-    <h2>Ways to open <span class="hl">Celebrations</span></h2>
+    <h2>Celebrations ETB and pack <span class="hl">prices</span></h2>
     <p class="lede prod-lede">Every sealed Celebrations product still being sold, cheapest first. The cheapest way in is also the cheapest pack: one pack at $34.23.</p>
     <ul class="prod-grid">
       <li class="prod">
@@ -787,7 +870,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="band tight">
+<section id="watch" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">1</span> of these</h2>
@@ -807,7 +890,7 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </section>
 
-<section class="tight">
+<section id="more-sets" class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -841,13 +924,20 @@ height:auto;min-height:44px;padding-block:6px}</style>
 </section>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
-  <div class="lb-inner">
+  <div class="lb-inner lbx">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
-    <p class="lb-nm" id="lbNm"></p>
-    <p class="lb-rr" id="lbRr"></p>
-    <p class="lb-pr" id="lbPr"></p>
-    <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    <div class="lbx-fig" id="lbFig"><picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture></div>
+    <div class="lbx-info">
+      <div class="lbx-nav" id="lbNav"><button class="lbx-go" type="button" id="lbPrev" aria-label="Previous card">&larr; Prev</button><p class="lbx-of" id="lbOf" aria-live="polite"></p><button class="lbx-go" type="button" id="lbNext" aria-label="Next card">Next &rarr;</button></div>
+      <p class="lb-nm" id="lbNm"></p>
+      <p class="lb-rr" id="lbRr"></p>
+      <p class="lbx-ill" id="lbIll" hidden></p>
+      <p class="lb-pr" id="lbPr"></p>
+      <p class="lbx-src" id="lbSrc"></p>
+      <p class="lbx-alts" id="lbAlts" hidden></p>
+      <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    </div>
   </div>
 </div>
 
@@ -969,33 +1059,79 @@ height:auto;min-height:44px;padding-block:6px}</style>
   </div>
 </footer>
 <script>
+/* THE POP-UP, AT PARITY WITH THE 30th CELEBRATION'S, 2 October 2026.
+   Previous and Next, the arrow keys and a sideways swipe step through the
+   group the card was opened from (the chase grid, or the three in the hero),
+   and never across groups: data-zg marks a group. "Card X of N" says where you
+   are. Everything the open card shows comes off its own data-* (zoomData() in
+   the builder), so the pop-up adds no figure the tile does not carry.
+   What already worked is kept as it was: Escape and the backdrop close, focus
+   goes to the close button and back to the card that opened it, the page
+   behind does not scroll, and the AVIF source is only set for the host that
+   publishes one. */
 (function(){
-  var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
-  var last=null;
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
+  var $=function(id){return document.getElementById(id);};
+  var last=null, list=[], at=0;
+  function groupOf(b){
+    var g=b.closest('[data-zg]');
+    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
+    return all.filter(function(x){return x.dataset.img;});
+  }
+  // The lightbox is the one place on this page that loads high.webp, 600x825
+  // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
+  // reach it because the url only becomes an image url on click, so the
+  // <source> is filled here, applying the SAME host test avifPicture applies:
+  // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+  // pointing at a 404 paints a broken card instead of falling back.
+  // srcset FIRST, then src, so the webp is never requested and abandoned.
+  // STEPPING SHOWS THE TILE'S OWN SMALL FILE FIRST, then swaps in the big one
+  // once it has arrived, so Next never leaves the previous card on screen
+  // under the new card's name. The small file is already in the cache.
+  function picture(b){
+    var big=b.dataset.img, small=b.querySelector('img');
+    var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    var sm=small && (small.currentSrc || small.src);
+    if(sm){
+      avif.removeAttribute('srcset'); img.src=sm;
+      var hi=new Image();
+      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
+      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+    } else {
+      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      img.src=big;
+    }
+  }
+  function show(i){
+    at=(i+list.length)%list.length;
+    var b=list[at], d=b.dataset;
+    picture(b);
+    img.alt=d.name+' '+d.number;
+    $('lbNm').textContent=d.name;
+    $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
+    var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
+    $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
+    $('lbSrc').textContent=d.src || '';
+    var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
+    var rip=$('lbRip'); rip.hidden=!d.rip;
+    if(d.rip){
+      var a=$('lbRipA'); a.href=d.rip;
+      a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
+    }
+    var u=$('lbUrl');
+    if(d.url){u.href=d.url;u.hidden=false;}else{u.hidden=true;}
+    $('lbNav').hidden=list.length<2;
+    $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
+  }
   function open(b){
-    last=b;
-    // The lightbox is the one place on this page that loads high.webp, 600x825
-    // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
-    // reach it because the url only becomes an image url on click, so the
-    // <source> is filled here, applying the SAME host test avifPicture applies:
-    // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
-    // pointing at a 404 paints a broken card instead of falling back.
-    // srcset FIRST, then src, so the webp is never requested and abandoned.
-    var big=b.dataset.img, avif=document.getElementById('lbAvif');
-    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
-      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
-    else avif.removeAttribute('srcset');
-    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
-    document.getElementById('lbNm').textContent=b.dataset.name;
-    document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
-    document.getElementById('lbPr').textContent=b.dataset.price
-      + (b.dataset.psa10 ? '  •  PSA 10 ' + b.dataset.psa10 : '');
-    var u=document.getElementById('lbUrl');
-    if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
+    last=b; list=groupOf(b);
+    var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
     lb.querySelector('.lb-close').focus();
   }
+  function step(n){ if(list.length>1) show(at+n); }
   function close(){
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
@@ -1003,8 +1139,27 @@ height:auto;min-height:44px;padding-block:6px}</style>
   document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
+  $('lbPrev').addEventListener('click',function(){ step(-1); });
+  $('lbNext').addEventListener('click',function(){ step(1); });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); }
+  });
+  // A SIDEWAYS SWIPE ON THE CARD STEPS, as on the 30th. touch-action:pan-y on
+  // the picture (PAGE_CSS) leaves vertical scrolling to the browser, which the
+  // phone needs because this panel can be taller than the screen, and hands
+  // the horizontal gesture to these listeners.
+  var sw=null, fig=$('lbFig');
+  fig.addEventListener('pointerdown',function(e){ sw={x:e.clientX,y:e.clientY}; });
+  fig.addEventListener('pointercancel',function(){ sw=null; });
+  fig.addEventListener('pointerup',function(e){
+    if(!sw) return;
+    var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
 })();
 </script>
 <script src="/assets/app.js?v=67b4bdd8" defer></script>

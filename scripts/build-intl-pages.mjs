@@ -24,6 +24,15 @@
 // translates them and guessing at 35 of them would be exactly the sort of
 // confident error a reference page must not make.
 //
+// THAT LAST SENTENCE STOPPED BEING TRUE ON 22 AUGUST 2026 AND THE PAGE KEPT
+// SAYING IT UNTIL 2 October 2026. sync-intl-guides.mjs fills the English name of
+// a Trainer or Energy card from TCGplayer's Japanese catalog, matched on the
+// collector number, wherever every guide agrees on it (dropConflictingNames).
+// On the Japanese guides that is all but one or two rows per set; on the four
+// Korean ones it is none, because they have no TCGplayer pin. So the checklist
+// note no longer states a rule: namesNote() COUNTS which rows carry an English
+// name and which keep the native one, per guide, and says that.
+//
 // **THIS PARAGRAPH USED TO SAY "no product photography" TOO, AND THE REASON
 // GIVEN WAS ABOUT THIS REPO RATHER THAN ABOUT THE WORLD.** 22 August 2026.
 // sync-products.mjs hardcoded `productLineName: ["pokemon"]`, so the sealed
@@ -621,7 +630,7 @@ function hitsBand(g, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    ${/* 2 October 2026: names the set, as every other heading here now does. */ ""}<h2>What we have <span class="hl">pulled</span> from ${esc(g.english)}</h2>
     ${/* The second sentence agrees as well as the first. An imported guide that
           has hit exactly one card read "1 card out of our own packs. Every one
           of them is in a video you can watch." build-set-pages.mjs carries the
@@ -910,7 +919,105 @@ const FAN_CSS = `
   .sh-fan li{width:130px}
   .sh-fan ol{gap:14px}
 }
-@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}`;
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+/* ON A PHONE THE CARDS COME BEFORE THE CHIPS, 2 October 2026. The answer-first
+   lede plus a row of jump chips pushed the three cards to y=560-700 at 375x812,
+   which is under the fold on a real phone once the browser's own bars are
+   counted, and the cards were the whole point of the owner's ask. Below 1000px
+   the text column dissolves into the hero's flex column so the fan can be
+   ordered ahead of the chips; at 1000 and up the two-column grid is untouched. */
+@media(max-width:999px){
+  .set-hero .wrap.sh-has-fan .sh-text{display:contents}
+  .set-hero .wrap.sh-has-fan .sh-fan{order:1}
+  .set-hero .wrap.sh-has-fan .ij-jump{order:2}
+}`;
+
+/* TWO RULES EVERY ONE OF THESE GUIDES NEEDS, 2 October 2026, so this block is
+   emitted on all thirteen rather than gated.
+
+   ON THIS PAGE. The chip row under the hero lede, the same shape as .t30-jump
+   on /30th-celebration.html (the owner's favorite page): teal, because every
+   chip is a route; 44px tall; one row that scrolls sideways on a phone rather
+   than three rows of wrap. One chip per section the guide actually draws, read
+   off the drawn bands in guidePage, so a guide with no pack photograph has no
+   "Booster pack" chip pointing at nothing. Not sticky, for the reason the 30th
+   gives: a pinned bar costs a phone a slice of every screen.
+
+   CJK NAMES BREAK BETWEEN WORDS, NOT INSIDE THEM. Japanese has no spaces, so
+   the browser may break between ANY two kana, and at 390 the checklist printed
+   "オーガポン みどりのめ / んex", the card name cut mid-word. keep-all makes a
+   run of kana or hangul one unit and breaks only at a space; overflow-wrap
+   anywhere is the escape hatch, so a name longer than its box still breaks
+   rather than pushing the page sideways. The selector is every place this page
+   tags a native name, scoped to main. */
+const INTL_CSS = `
+.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+  border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+  font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+  .ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+    overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+    padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+  .ij-jump::-webkit-scrollbar{display:none}
+  .ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+/* WITH A FAN, THE CHIPS SIT INSIDE .sh-text, which is a centered flex item and
+   so as wide as its widest child: the unwrapped chip row made it 694px on a
+   390px phone and the whole page scrolled sideways. Stretching it to the hero
+   below the fan's two-column breakpoint gives the row a width to scroll in. */
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+`;
+
+/* THE LEDE ANSWERS "WHAT IS THIS SET" BEFORE ANYTHING ELSE, 2 October 2026.
+   It said what the English equivalent is and, on most guides, "And out first",
+   which is a claim with no number in it. Now it is the three facts a searcher
+   came for, each read off a field this page already prints elsewhere: the
+   English twin (g.equivalent), the card count (g.cardCount.total, the "Cards
+   total" fact below), and the release date with its distance from the English
+   one (g.released against the twin's sets.json date, the same pair and the
+   same gap() the twin panel prints as "Out N later"). No price, because these
+   guides carry no native price; see the header. A field that is missing drops
+   its clause rather than printing "unknown". */
+function heroLede(g, en) {
+  const total = g.cardCount?.total;
+  const when = longDate(g.released);
+  const merged = g.siblingName || (g.sibling ? guides.sets[g.sibling]?.english : null);
+  const lang = esc(g.langName);
+  let first;
+  if (!en) {
+    first = `A ${lang} set that never got an English release.`;
+  } else if (g.confidence === "partial") {
+    // The twin panel's own warning says why: the English match is partial.
+    first = `A ${lang} set English never printed as one set: most of its cards went into ${esc(en.name)}.`;
+  } else if (merged) {
+    // "Snow Hazard (스노해저드, SV2P)" is the twin panel's spelling; the hero
+    // wants only the English name, so the bracket comes off.
+    // English merged JAPANESE sets, so a Korean guide is the Korean printing
+    // of one of them, not one of two Korean sets.
+    first = `${g.lang === "ja" ? `One of the two ${lang} sets` : `The ${lang} printing of one of the two sets`} English merged to make ${esc(en.name)}; the other is ${
+      esc(String(merged).replace(/\s*\(.*\)\s*$/, ""))}.`;
+  } else {
+    first = `The ${lang} printing of the set English calls ${esc(en.name)}: same cards, different name.`;
+  }
+  let second = "";
+  if (when) {
+    const lead = total ? `Its ${total} cards came out ${when}` : `It came out ${when}`;
+    let rel = "";
+    if (en?.released && g.released) {
+      if (g.released === en.released) rel = `, the same day as the English set`;
+      else rel = `, ${gap(g.released, en.released)} ${g.released < en.released ? "before" : "after"} the English set`;
+    }
+    second = `${lead}${rel}.`;
+  } else if (total) {
+    second = `${total} cards.`;
+  }
+  return [first, second].filter(Boolean).join(" ");
+}
 
 const PAGE_CSS = `
 /* Three columns fit 320px without help (1fr plus two 4em numerics), but the
@@ -926,13 +1033,21 @@ const PAGE_CSS = `
 .rcmp th[scope=row],.rcmp thead th:first-child{text-align:left;font-weight:600}
 .rcmp td{font:700 var(--t-sm)/1.4 var(--mono);white-space:nowrap}
 .rcmp tbody tr:last-child th,.rcmp tbody tr:last-child td{border-bottom:0}
-/* Gold marks a tier that holds the same number of cards in both printings,
-   which is the thing the table is for. --mustard at 16% keeps the row text at
-   its normal contrast rather than tinting it. */
-.rcmp tr.is-same{background:var(--sky-tint)}
-.rcmp tr.is-same th[scope=row]{color:var(--gold-deep)}
+/* A MATCHED ROW CARRIES A PINK "Match" TAG, 2 October 2026, and is no longer
+   painted teal. This comment used to say "Gold marks a tier", written when the
+   palette was gold; the swap to Trubbish Deep re-pointed --gold-deep and
+   --sky-tint at the light blue, so the matched rows came out in the color that
+   means "you can click this" on a row that goes nowhere. THE ACCENT RULE in
+   CLAUDE.md: teal is a route, pink is a mark. A match is a mark, so it is a
+   small pink tag beside the rarity name, --ketchup-deep because the tag is
+   micro type and the big pink fails 4.5:1 there. The row itself stays on the
+   card, and the quote bar under the table goes neutral for the same reason. */
+.rcmp tr.is-same th[scope=row]{color:var(--ink)}
+.rcmp-tag{display:inline-block;margin-left:8px;padding:2px 7px;border:1px solid var(--ketchup-deep);
+  border-radius:999px;color:var(--ketchup-deep);font:700 var(--t-micro)/1.2 var(--mono);
+  letter-spacing:.06em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .rcmp tr.is-total th,.rcmp tr.is-total td{border-top:2px solid var(--ink);font-weight:700}
-.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--gold);
+.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--keyline);
   padding-left:var(--s4);font-size:var(--t-body)}
 `;
 
@@ -1006,7 +1121,8 @@ function twinBand(g, cls) {
     return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>No English version</p>
-    <h2>This one <span class="hl">never left</span></h2>
+    ${/* 2 October 2026: "is there an English <set>" is the question that
+          lands here, so the heading answers it in those words. */ ""}<h2>${esc(g.english)} has <span class="hl">no English version</span></h2>
     <p class="lede intl-lede">${esc(g.english)} looks to be a regional exclusive. There is no English set to compare it
       to and no Japanese one either: its set code returns nothing under Japanese, Korean or Traditional Chinese on
       TCGdex, which is where we checked. If you want these cards, imported ${esc(g.langName)} packs are the way.</p>
@@ -1022,7 +1138,9 @@ function twinBand(g, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>${esc(g.english)} is <span class="hl">${esc(en.name)}</span></h2>${/* "in a US SHOP", not store, went out on all 12 imported set guides. The
+    ${/* THE SEARCHER'S WORDS, 2 October 2026. "<set> is <English set>" was a
+          sentence; "Japanese vs English" is the query people type, and the
+          heading still carries both names with the .hl on the English one. */ ""}<h2>${esc(g.langName)} vs English: ${esc(g.english)} and <span class="hl">${esc(en.name)}</span></h2>${/* "in a US SHOP", not store, went out on all 12 imported set guides. The
          whole point of the sentence is US retail: Target, Walmart, a card shop
          counter. "Shop" is the British word for the first two, and this site is
          written in American English. The hobby term "card shop" is a different
@@ -1192,10 +1310,15 @@ function compareBand(g, en, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Card for card</p>
-    <h2>How close is it to <span class="hl">${esc(en.name)}</span>?</h2>
+    ${/* THE HEADING IN THE WORDS SOMEBODY SEARCHES, 2 October 2026: "abyss
+          eye vs pitch black" is the query, "How close is it to" was ours. The
+          .hl stays on the English name, which is the word the band is about.
+          AND THE LEDE NAMES THE MARKER THE TABLE ACTUALLY USES: it said "the
+          gold rows", and there have been no gold rows since the palette swap,
+          only teal ones, which are now a pink Match tag. */ ""}<h2>${esc(g.english)} vs <span class="hl">${esc(en.name)}</span> by rarity</h2>
     <p class="lede" style="max-width:42em">"Same set" is nearly true and worth checking rather than taking on trust.
       Here is every rarity in both printings, side by side.${
-        c.same.length ? ` The gold rows are the ones that match.` : ""
+        c.same.length ? ` A rarity tagged Match holds the same number of cards in both.` : ""
       }</p>
     <div class="rcmp-wrap">
       <table class="rcmp">
@@ -1207,7 +1330,7 @@ function compareBand(g, en, cls) {
           ${c.rows
             .map(
               (x) => `<tr${x.mine === x.theirs ? ` class="is-same"` : ""}>
-            <th scope="row">${esc(x.r)}</th><td>${x.mine}</td><td>${x.theirs}</td>
+            <th scope="row">${esc(x.r)}${x.mine === x.theirs ? `<span class="rcmp-tag">Match</span>` : ""}</th><td>${x.mine}</td><td>${x.theirs}</td>
           </tr>`
             )
             .join("\n          ")}
@@ -1339,9 +1462,24 @@ function chaseBand(g, en, cls) {
    * that is the only case where the section's own cards are not being pushed
    * under somebody else's: with even one native scan the grid leads, as it
    * always has.
+   *
+   * REVERSED 2 October 2026, AND THE MEASUREMENT ABOVE STILL STANDS. The
+   * heading over this band now reads "<set> rarest cards", in the words a
+   * searcher types, and on these three guides (Abyss Eye, Nihil Zero, Mega
+   * Brave) the first thing under it was four cards from a DIFFERENT set: the
+   * English twin's priciest, which are not the twelve this heading names and
+   * are not even the same list. The name list is the answer to the heading,
+   * so it leads, and the English grid follows it exactly as it does on every
+   * other guide. The cost is real and is the one measured above: the English
+   * scans sit lower. Measured on Abyss Eye at 390x844, from the band's top:
+   * the English grid went from 375px to 1,013px down (638px lower) and the
+   * name list from 1,206px to 264px (942px higher).
+   * Two things pay for it. The "On this page" chips in the hero reach this
+   * band in one tap, and the hero fan is absent on exactly these guides, so
+   * nothing above the band is pretending to be their cards either. If the
+   * name list ever grows past twelve, measure again before keeping this.
    */
-  const enFirst = !withScan.length && Boolean(enChase(g, en));
-  const enBlock = enChase(g, en, { nativeBelow: enFirst });
+  const enBlock = enChase(g, en);
   // NO LEDE WHERE THERE IS NOTHING TO EXPLAIN. This band carried none before and
   // the six guides whose grid is complete still carry none: a sentence counting
   // the tiles under a heading that already says what they are is the "picture
@@ -1352,17 +1490,19 @@ function chaseBand(g, en, cls) {
     ? ""
     : !withScan.length
       ? `TCGdex publishes no card scans for ${esc(g.english)}, so this page can name the cards worth hunting but cannot show them.${
-          enBlock ? " What it can show is the same cards in English." : ""
+          // "under the list" since the list leads again, 2 October 2026.
+          enBlock ? " What it can show, under the list, is the English set's own chase cards." : ""
         }`
       : `${withScan.length} of these have a scan and are pictured. The other ${noScan.length} we can name but not show.`;
   // The name list needs a heading of its own wherever something else sits above
   // it, and the two cases want different words: beside a grid of this set's own
   // scans it is the remainder, under the English grid it is this set's list.
+  // The enFirst case had its own "The <set> chase list" heading here; with the
+  // list leading again it sits straight under the band heading, which already
+  // says what it is, so only the remainder-beside-a-grid case keeps one.
   const flatHead = withScan.length
     ? `<h3 class="flat-h">Named, with no scan to show</h3>`
-    : enFirst
-      ? `<h3 class="flat-h">The ${esc(g.english)} chase list</h3>`
-      : "";
+    : "";
 
   /* THE WORD PRINTED ON THE WRAPPER, NOW THAT THE OWNER HAS SETTLED IT.
      He asked on 4 September 2026: "keep the Art Rare on Japanese sets and use
@@ -1419,9 +1559,11 @@ function chaseBand(g, en, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    ${/* "<set> rarest cards", 2 October 2026, in place of "Top chase cards".
+          Rarest and not priciest because `notable` is ranked by rarity tier
+          and these guides carry no native price; see introFan. */ ""}<h2>${esc(g.english)} <span class="hl">rarest cards</span></h2>
     ${say ? `<p class="lede" style="max-width:42em">${say}</p>` : ""}
-${enFirst ? enBlock : ""}    ${withScan.length ? `<div class="chase-grid">
+    ${withScan.length ? `<div class="chase-grid">
       ${withScan.map(tile).join("\n      ")}
     </div>` : ""}
     ${noScan.length ? `${flatHead}
@@ -1432,7 +1574,7 @@ ${enFirst ? enBlock : ""}    ${withScan.length ? `<div class="chase-grid">
       databases that carry them at all, and a converted half-filled price table is worse than none. The English
       ${en ? `<a href="/sets/${esc(g.equivalent)}.html">${esc(en.name)} guide</a> carries` : "guides carry"} live USD
       values for the same cards.</p>
-${enFirst ? "" : enBlock}  </div>
+${enBlock}  </div>
 </section>`;
 }
 
@@ -1477,7 +1619,9 @@ function enOnlyBand(g, en, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>What to <span class="hl">chase</span> in English</h2>
+    ${/* The English set's name in the heading, 2 October 2026: these are its
+          cards, and saying so in the heading is the guard the paragraph under
+          it already carries. */ ""}<h2>${esc(en.name)} <span class="hl">chase cards</span> in English</h2>
 ${block}  </div>
 </section>`;
 }
@@ -1522,7 +1666,7 @@ ${block}  </div>
  * written here because the two guides that need it are absent for two different
  * reasons and a single sentence covering both would be false about one of them.
  */
-function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = {}) {
+function enChase(g, en, { standalone = false, why = "" } = {}) {
   // Skip the 101 TCGdex bases that 404, up front. onerror hides the gap in the
   // browser and the page still pays for the round trip to find out, which is
   // the reason data/no-scan.json exists. None of the current chase cards is on
@@ -1548,7 +1692,9 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
         // at all. "Not the Japanese ones above" printed over the top of a page
         // whose Japanese cards are below it is a small lie that a reader
         // scrolling in a shop will notice before anything else on the section.
-        standalone ? `` : nativeBelow ? `, not the ${esc(g.langName)} ones listed below` : `, not the ${esc(g.langName)} ones above`
+        // The "listed below" case went on 2 October 2026 with enFirst: the
+        // native list leads on every guide now, so only two shapes are left.
+        standalone ? `` : `, not the ${esc(g.langName)} ones above`
       }.${standalone && why ? ` ${why}` : ""}</p>
     <div class="chase-grid intl-enchase">
       ${chase
@@ -1581,12 +1727,65 @@ function enChase(g, en, { standalone = false, why = "", nativeBelow = false } = 
 `;
 }
 
+/* THE LADDER IS SORTED BY TIER, RAREST FIRST, 2 October 2026. It was sorted by
+   COUNT, so Abyss Eye read Common 38, Uncommon 27, Ultra Rare 18 and put its one
+   Mega Hyper Rare, the card the set is opened for, at the bottom, while every
+   English guide reads top-down from the chase tier. Same order the English
+   ladders use, but NOT the same ladder, and that is the whole difficulty.
+
+   TWO LADDERS, PICKED PER GUIDE, NEVER MIXED. shared/rarity.mjs and the note
+   over makeWrapRarity keep the Japanese and English vocabularies apart, and a
+   single list cannot rank both: "Ultra Rare" is the TOP of ja-cyber-judge's
+   ladder and four rungs down on the TCGdex-worded guides beside it. So a guide
+   whose printed words are the wrapper's (a TCGplayer checklist, or any guide
+   jpLadderNames can name) ranks on JP_RARITY_ORDER, and every other guide ranks
+   on RARITY_ORDER in TCGdex's words. Those are the ladders sync-intl-guides.mjs
+   already ranks `notable` by (rarityRank and jpRarityRank), so the chase grid
+   and this list now agree about which tier is higher.
+
+   READ OUT OF THAT FILE'S SOURCE, NOT COPIED AND NOT IMPORTED. Importing it
+   would RUN the sync, network and all; a second copy here would drift the first
+   time somebody places a new tier. So the two array literals are parsed out of
+   the text, and a parse that finds nothing, or a printed rung that is on
+   neither ladder, THROWS rather than falling back to a count, which is the same
+   stance the sync takes on an unplaced tier. If those ladders ever move into
+   shared/, point this at the module and delete the parser. */
+const SYNC_SRC = await readFile(join(ROOT, "scripts/sync-intl-guides.mjs"), "utf8");
+const ladderFromSync = (name) => {
+  const m = new RegExp(`const ${name} = \\[([^\\]]*)\\]`).exec(SYNC_SRC);
+  const rungs = m ? [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1].toLowerCase()) : [];
+  if (rungs.length < 4) {
+    throw new Error(`build-intl-pages: could not read ${name} out of scripts/sync-intl-guides.mjs. ` +
+      `The rarity ladder sorts on it; fix the parser rather than sorting by count.`);
+  }
+  return rungs;
+};
+const LADDER_TCGDEX = ladderFromSync("RARITY_ORDER");
+const LADDER_JP = ladderFromSync("JP_RARITY_ORDER");
+
+function ladderSort(g, rarities, jpNames) {
+  const jp = Boolean(g.checklistFrom) || jpNames.size > 0;
+  const ladder = jp ? LADDER_JP : LADDER_TCGDEX;
+  const rank = ([r]) => {
+    const word = String(jp ? jpNames.get(r) || r : r).toLowerCase();
+    const i = ladder.indexOf(word);
+    if (i === -1) {
+      throw new Error(`${g.id}: rarity "${jp ? jpNames.get(r) || r : r}" is not on ` +
+        `${jp ? "JP_RARITY_ORDER" : "RARITY_ORDER"} in scripts/sync-intl-guides.mjs, so it has no tier to sort by.`);
+    }
+    return i;
+  };
+  // Best first; a tie cannot happen inside one ladder, but count breaks one anyway.
+  return [...rarities].sort((a, b) => rank(b) - rank(a) || b[1] - a[1]);
+}
+
 function rarityBand(g, rarities, maxN, secretCount, cls) {
   const jpNames = jpLadderNames(g);
+  rarities = ladderSort(g, rarities, jpNames);
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    ${/* "<set> rarity breakdown", 2 October 2026, the searcher's words. */ ""}<h2>${esc(g.english)} rarity <span class="hl">breakdown</span></h2>
     ${/* THE LADDER WAS DRAWING EVERY BAR FULL, on all thirteen guides.
           ui.css styles `.rar-name`, `.rar-n` and `.rar-bar i`, which is the
           markup build-set-pages.mjs emits. This file emitted `.rar-n` for the
@@ -1624,8 +1823,20 @@ function rarityBand(g, rarities, maxN, secretCount, cls) {
           ? `Every one of them is named above, and the tier names are the ${esc(g.langName)} ones off the wrapper rather than
       the English ladder: Art Rare, Super Rare, Special Art Rare and Ultra Rare are their own tiers and we do not translate
       them into English ones.`
-          : `TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.`
+          : (() => {
+              /* COUNTED, 2 October 2026, the same fault as the checklist note.
+                 "TCGdex does not label the rarity on every one of them" was
+                 true of the five guides whose secrets are all unlabeled and
+                 false of the five Japanese ones whose secrets are all labeled:
+                 Abyss Eye's ladder above adds to 118 of 118, so every one of
+                 its 37 is on a rung. */
+              const unl = (g.cards || []).filter((c) => c.secret && !c.rarity).length;
+              return unl === 0
+                ? `Every one of them is labeled, so each is counted on its own tier above.`
+                : unl === secretCount
+                  ? `TCGdex does not label the rarity on any of them, so they are counted here rather than guessed at.`
+                  : `TCGdex does not label the rarity on ${unl} of them, so those are counted here rather than guessed at.`;
+            })()
       }</p>` : ""}
   </div>
 </section>`;
@@ -1677,7 +1888,7 @@ function packBand(g, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
-    <h2>The <span class="hl">pack</span> itself</h2>
+    ${/* "<set> booster pack", 2 October 2026, the searcher's words. */ ""}<h2>${esc(g.english)} <span class="hl">booster pack</span></h2>
     <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip.${
       g.native ? ` The ${esc(g.langName)} name runs across the bottom of the wrapper.` : ""
     }</p>
@@ -1714,13 +1925,61 @@ function packBand(g, cls) {
 </section>`;
 }
 
+/* WHICH ROWS OF THIS CHECKLIST HAVE AN ENGLISH NAME, COUNTED, 2 October 2026.
+   The note under the list said "Trainer and Supporter cards keep their Japanese
+   names" on all twelve TCGdex guides, and on the Japanese ones it was false:
+   21 of Abyss Eye's 22 Trainers read in English, filled from TCGplayer by
+   sync-intl-guides.mjs (see the header). It was true of the Korean guides and
+   of nothing else, which is the sign of a sentence that should be a count.
+   The two sources are told apart by category, because that is how the sync
+   decides: englishName() answers only for a Pokemon (PokeAPI is keyed on the
+   Pokedex), so an English name on any other row came from TCGplayer. */
+function nameCounts(g) {
+  const pk = (g.cards || []).filter((c) => c.category === "Pokemon");
+  const other = (g.cards || []).filter((c) => c.category !== "Pokemon");
+  return {
+    pk: pk.length, pkEn: pk.filter((c) => c.en).length,
+    other: other.length, otherEn: other.filter((c) => c.en).length,
+    otherNative: other.filter((c) => !c.en).map((c) => c.native).filter(Boolean),
+  };
+}
+
+function namesNote(g) {
+  const n = nameCounts(g);
+  const nl = esc(g.dataSource?.langName || g.langName);
+  const say = [];
+  say.push(`Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated${
+    n.pkEn < n.pk
+      ? `; ${n.pk - n.pkEn} of the ${n.pk} Pokemon cards carry a printed name that lookup cannot match and keep their ${nl} one`
+      : ""
+  }.`);
+  if (!n.other) {
+    // no Trainer or Energy rows at all: nothing to say about them
+  } else if (n.otherEn === n.other) {
+    say.push(`All ${n.other} Trainer and Energy cards are named the way TCGplayer's Japanese catalog files them, matched on the collector number.`);
+  } else if (n.otherEn) {
+    // The distinct native names, so a reader can see which rows these are.
+    const left = [...new Set(n.otherNative)];
+    const one = n.other - n.otherEn === 1;
+    const names = left.map((x) => `<span lang="${esc(g.dataSource?.lang || g.lang)}">${esc(x)}</span>`).join(", ");
+    say.push(`${n.otherEn} of the ${n.other} Trainer and Energy cards are named the way TCGplayer's Japanese catalog files them, matched on the collector number.
+      ${one ? `The other one, ${names}, keeps its ${nl} name` : `The other ${n.other - n.otherEn} (${names}) keep their ${nl} names`}:
+      where the catalog gave no single English name for a card, none is printed.`);
+  } else {
+    say.push(`Trainer and Energy cards keep their ${nl} names here: no source this page reads names them in English for this
+      printing, and a guessed name on a reference page is worse than an honest one you can paste into a search.`);
+  }
+  return say.join(" ");
+}
+
 function checklistBand(g, cls) {
   const wrapRarity = makeWrapRarity(g);
   if (!g.cards?.length) {
     return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>No <span class="hl">checklist</span> yet</h2>
+    ${/* 2 October 2026: "<set> card list", the searcher's words, saying the
+          list is not out rather than "No checklist yet". */ ""}<h2>${esc(g.english)} card list: <span class="hl">not out yet</span></h2>
     <p class="lede">TCGdex knows this set exists, when it landed and how big it is, but has not published its card list.
       As soon as it does, this page fills in on the next nightly build.</p>
   </div>
@@ -1729,7 +1988,8 @@ function checklistBand(g, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
+    ${/* "<set> (Japanese) card list", 2 October 2026: the query, word for
+          word, where "Full checklist" was ours. */ ""}<h2>${esc(g.english)} (${esc(g.langName)}) <span class="hl">card list</span></h2>
     ${/* TWO SENTENCES, BECAUSE THE TWO CHECKLIST SOURCES DO NOT COVER THE SAME
           CARDS. "English names where the card is a Pokemon" is exactly true of
           a TCGdex checklist and understates a TCGplayer one, which names the
@@ -1739,7 +1999,15 @@ function checklistBand(g, cls) {
           way round and is switched with it. */ ""}<p class="lede">${
       g.checklistFrom
         ? `All ${g.cards.length} cards, in English, including the Trainers and the Energy.`
-        : `All ${g.cards.length} cards, English names where the card is a Pokemon.`
+        // COUNTED, 2 October 2026; see namesNote. "English names where the
+        // card is a Pokemon" understated every Japanese guide.
+        : (() => {
+            const n = nameCounts(g);
+            const en = n.pkEn + n.otherEn;
+            return en === g.cards.length
+              ? `All ${g.cards.length} cards, every one with its English name.`
+              : `All ${g.cards.length} cards, ${en} of them with an English name.`;
+          })()
     }${
       g.dataSource?.borrowed
         ? ` This list is the ${esc(g.dataSource.langName)} printing's, because TCGdex has no ${esc(g.langName)} card records for this set.`
@@ -1765,10 +2033,7 @@ function checklistBand(g, cls) {
       catalog, so the Trainers and the Energy are named too, which is the one thing our other imported checklists cannot do.
       Nothing on this page is transliterated or guessed at: where a name could not be read off a catalog it is not printed.
       The ${esc(g.langName)} name is beside each one, because that is what is on the card in your hand.</p>`
-      : `<p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their ${esc(g.dataSource?.langName || g.langName)} names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>`}
+      : `<p class="price-note">${namesNote(g)}</p>`}
   </div>
 </section>`;
 }
@@ -1778,7 +2043,8 @@ function ripsBand(g, rips, label, cls) {
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">${rips.length}</span> of these</h2>
+    ${/* The set's name and the word people search, "openings", 2 October
+          2026; the count stays the highlighted mark. */ ""}<h2>${esc(g.english)} openings: <span class="hl">${rips.length}</span> rip${rips.length === 1 ? "" : "s"}</h2>
     <div class="set-watch">
       ${/* THE TILE FILE, NOT THE MASTER. `.packshot .pack-art` measures 172x262
             CSS px at every width, so 344x524 at DPR2, and packs.css hands it the
@@ -1875,7 +2141,14 @@ function sourceBand(g, cls) {
       ${g.nameNote ? `<li><strong>On the name.</strong> ${esc(g.nameNote)}</li>` : ""}
       ${tcg
         ? `<li><strong>The rarity words here are the ${esc(g.langName)} ones.</strong> This set's tiers read Art Rare, Super Rare, Special Art Rare and Ultra Rare, which is what is printed on the wrapper, and TCGdex happens to publish this one set in those words. On the guides where it publishes the anglicized names instead, the ${esc(g.langName)} word is taken from the checklist's own rarity column rather than translated: the two ladders are lined up by reading what a card is actually filed as in both, on the same row, and where a rung has no answer in that column nothing is printed for it. We still do not invent an equivalence the two companies have not published.</li>`
-        : `<li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>`}
+        : `<li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>${
+          /* AND THE OTHER HALF OF THE NAMES, 2 October 2026, on the guides
+             where it exists: this band credited PokeAPI alone for every English
+             name while TCGplayer had supplied the Trainers' and Energy's. */
+          nameCounts(g).otherEn
+            ? `\n      <li>Trainer and Energy names in English from TCGplayer's Japanese catalog, matched to this checklist on the collector number: ${nameCounts(g).otherEn === nameCounts(g).other ? `all ${nameCounts(g).other}` : `${nameCounts(g).otherEn} of the ${nameCounts(g).other}`} on this page.</li>`
+            : ""
+        }`}
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>
@@ -1971,16 +2244,23 @@ function guidePage(g) {
   // The rarity ladder is PINNED to the sky gradient it has always had and the
   // rest alternate outward from it, which cannot produce two neighbours the
   // same. See the matching note in build-set-pages.mjs.
+  /* EVERY BAND HAS AN ID NOW, AND A CHIP NAME, 2 October 2026, so the "On
+     this page" row in the hero can link to it. The id is stamped onto the
+     band's own <section> after it is drawn, in one place below, rather than
+     threaded through nine functions. */
+  const S = (id, chip, fn, pin = false) => ({ id, chip, pin, html: fn });
   const bands = [
-    (cls) => twinBand(g, cls),
-    (cls) => compareBand(g, en, cls),
+    S("english-version", en ? "English version" : "No English version", (cls) => twinBand(g, cls)),
+    S("card-for-card", "Card for card", (cls) => compareBand(g, en, cls)),
     // NOT `: null`. A guide with no chase list of its own still has an English
     // twin whose chase cards are priced and pictured, and hiding the only card
     // art on the page behind an empty native list is what left two of these
     // guides with three images apiece. enOnlyBand returns "" where there is
     // genuinely nothing to show, and the empty-band filter below drops it.
-    g.notable?.length ? (cls) => chaseBand(g, en, cls) : (cls) => enOnlyBand(g, en, cls),
-    rarities.length ? { pin: true, html: (cls) => rarityBand(g, rarities, maxN, secretCount, cls) } : null,
+    g.notable?.length
+      ? S("rarest-cards", "Rarest cards", (cls) => chaseBand(g, en, cls))
+      : S("chase-cards", "Chase cards", (cls) => enOnlyBand(g, en, cls)),
+    rarities.length ? S("rarity", "Rarities", (cls) => rarityBand(g, rarities, maxN, secretCount, cls), true) : null,
     // THE PACK GOES UNDER THE RARITY LADDER AND ABOVE THE CHECKLIST, which is
     // where a reader has just been told what is IN the set and has not yet been
     // handed 118 rows of it. It cannot go higher: the twin panel and the
@@ -1988,24 +2268,33 @@ function guidePage(g) {
     // photograph above them would answer a question nobody came with. It
     // returns "" on the five guides with no entry and the empty-band filter
     // below drops it, so the zebra never gains a gap.
-    (cls) => packBand(g, cls),
-    (cls) => checklistBand(g, cls),
-    rips.length ? (cls) => ripsBand(g, rips, label, cls) : null,
-    HITS_BY_SET.has(g.id) ? (cls) => hitsBand(g, cls) : null,
-    (cls) => sourceBand(g, cls),
+    S("booster-pack", "Booster pack", (cls) => packBand(g, cls)),
+    S("card-list", "Card list", (cls) => checklistBand(g, cls)),
+    rips.length ? S("openings", "Openings", (cls) => ripsBand(g, rips, label, cls)) : null,
+    HITS_BY_SET.has(g.id) ? S("pulls", "Our pulls", (cls) => hitsBand(g, cls)) : null,
+    S("sources", "Sources", (cls) => sourceBand(g, cls)),
   ].filter(Boolean);
 
   // twinBand and compareBand both return "" on some guides, and an empty string
   // still occupies a slot in the alternation, which would leave a visible gap
   // in the zebra. Render first, then drop the empties, then tone what is left.
-  const drawn = bands.map((b) => ({ b, html: (b.pin ? b.html : b)("") })).filter((x) => x.html.trim());
+  const drawn = bands.map((b) => ({ b, html: b.html("") })).filter((x) => x.html.trim());
   const pin = Math.max(0, drawn.findIndex((x) => x.b.pin));
   const body = drawn
     .map((x, i) => {
       const cls = x.b.pin ? "band-sky tight" : Math.abs(i - pin) % 2 === 0 ? "band tight" : "tight";
-      return (x.b.pin ? x.b.html : x.b)(cls);
+      const html = x.b.html(cls);
+      // Every band opens with exactly one <section class=...>; a band that
+      // stops doing so would ship a chip pointing at nothing, so it throws.
+      if (!html.trimStart().startsWith(`<section class="`)) {
+        throw new Error(`${g.id}: band "${x.b.id}" does not open with a <section class>, so its id cannot be stamped.`);
+      }
+      return html.replace(`<section class="`, `<section id="${x.b.id}" class="`);
     })
     .join("\n\n");
+  const jump = `<nav class="ij-jump" aria-label="On this page">
+      ${drawn.map((x) => `<a href="#${x.b.id}">${esc(x.b.chip)}</a>`).join("\n      ")}
+    </nav>`;
 
   return head({
     // No " | Garbage Rips 585". These are the longest titles in /sets/, because
@@ -2053,7 +2342,7 @@ function guidePage(g) {
     // no-scan panel's is: packBand renders on eight of the thirteen guides and
     // testing the rendered markup cannot drift out of step with the condition
     // inside it, where a second copy of that condition would.
-    css: [en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : "",
+    css: [INTL_CSS, en ? ART_CSS : "", rarityCompare(g, en) ? PAGE_CSS : "", HITS_BY_SET.has(g.id) ? RARITY_CSS : "",
       body.includes("noscan") ? NOSCAN_CSS : "", body.includes("pk-band") ? PACK_CSS : "",
       introFan(g) ? FAN_CSS : ""]
       .filter(Boolean).join("\n"),
@@ -2067,12 +2356,8 @@ function guidePage(g) {
     ${ownLogo(g.id, `${g.english} logo`)}
     <h1>${esc(g.english)}</h1>
     ${g.native ? `<p class="intl-hero-native cjk" lang="${esc(g.lang)}">${esc(g.native)}</p>` : ""}
-    <p class="lede" style="max-width:34em">${
-      en
-        ? `The ${esc(g.langName)} printing of the set English calls ${esc(en.name)}. Same cards, different name.` +
-          (g.released && en.released && g.released < en.released ? " And out first." : "")
-        : `A ${esc(g.langName)} set that never got an English release.`
-    }</p>
+    <p class="lede" style="max-width:34em">${heroLede(g, en)}</p>
+    ${jump}
     ${introFan(g) ? `</div>` : ""}
 ${introFan(g)}
   </div>

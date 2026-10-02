@@ -102,6 +102,80 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan ol{gap:14px}
 }
 @media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .sh-jump{order:2}
+}
+.set-hero h1 .sh-h1s{display:block;margin-top:.25em;font-size:max(.46em,1.05rem);line-height:1.2;color:var(--ink-2)}
+.sh-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:100%;min-width:0}
+.set-hero .wrap .sh-text{align-self:stretch;min-width:0}
+.sh-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body);text-decoration:none;white-space:nowrap}
+.sh-jump a:hover,.sh-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.sh-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;overscroll-behavior-x:contain;
+align-self:stretch;margin-inline:calc(-1 * var(--gut));padding:2px var(--gut) 6px;scroll-padding-inline:var(--gut)}
+.sh-jump::-webkit-scrollbar{display:none}
+.sh-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .sh-jump{justify-content:flex-start}}
+.ch-tag{display:inline-block;vertical-align:.12em;margin-left:6px;padding:3px 6px 2px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 .625rem/1 var(--mono);letter-spacing:.06em;
+text-transform:uppercase;white-space:nowrap}
+@media(min-width:700px){.chase-grid[data-zg]{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.chase-grid[data-zg]{row-gap:0}
+.chase-grid .cc-cell{display:flex;flex-direction:column;min-width:0}
+@supports (grid-template-rows:subgrid){
+.chase-grid .cc-cell{display:grid;grid-row:span 2;grid-template-rows:subgrid;row-gap:0}
+}
+.cc-cell .chase-card{position:relative;margin-bottom:14px}
+.cc-cell .cc-rip{margin:-10px 0 8px}
+.chase-grid .chase-card .rr{letter-spacing:.02em}
+.chase-card .nw{white-space:nowrap}
+.chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
+.cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
+background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
+text-transform:uppercase;white-space:nowrap;box-shadow:0 2px 0 var(--keyline);pointer-events:none}
+.cc-flag.is-inline{position:static;display:inline-block;vertical-align:.1em;margin-left:6px;box-shadow:none}
+.cc-rip{display:inline-flex;align-items:center;min-height:44px;font:700 var(--t-sm)/1.3 var(--body);
+color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.cc-rip:hover,.cc-rip:focus-visible{color:var(--sky)}
+.mine-rips{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:0;margin-top:auto;padding-top:6px}
+.mine-rips-k{flex-basis:100%;font:700 var(--t-micro)/1.3 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+.mine-rip{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border:1px solid var(--keyline);
+border-radius:999px;background:var(--paper);color:var(--sky-deep);font:700 var(--t-micro)/1 var(--body);
+text-decoration:none;white-space:nowrap}
+.mine-rip:hover,.mine-rip:focus-visible{border-color:var(--sky);color:var(--sky)}
+.mine-list .mine-rips{margin-top:0;padding-top:0}
+.mine-grid.mine-cols{grid-template-columns:repeat(2,minmax(0,1fr));justify-content:stretch}
+@media(min-width:521px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc3,3),minmax(0,1fr))}}
+@media(min-width:700px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc4,4),minmax(0,1fr))}}
+@media(min-width:900px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc5,5),minmax(0,1fr))}}
+@media(min-width:1200px){.mine-grid.mine-cols{grid-template-columns:repeat(var(--mc6,6),minmax(0,1fr))}}
+.lbx-fig{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.lbx .lbx-fig img{display:block;margin:0 auto;width:auto;max-width:100%;height:min(46vh,420px);
+aspect-ratio:600/825;object-fit:contain;-webkit-user-drag:none}
+.lbx-nav{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:12px}
+.lbx-nav[hidden]{display:none}
+.lbx-go{appearance:none;min-height:44px;padding:0 14px;border:1px solid var(--keyline);border-radius:999px;
+background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body);cursor:pointer;white-space:nowrap}
+.lbx-go:hover,.lbx-go:focus-visible{border-color:var(--sky);color:var(--sky)}
+.lbx-of{margin:0;font:700 var(--t-micro)/1.2 var(--mono);color:var(--ink-2);letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.lbx-ill{margin:4px 0 0;font-size:var(--t-sm);color:var(--ink-2)}
+.lbx-src{margin:8px 0 0;font:400 var(--t-micro)/1.5 var(--mono);color:var(--ink-2)}
+.lbx-alts{margin:8px 0 0;font-size:var(--t-sm);line-height:1.45}
+.lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
+.lbx-rip a{color:var(--sky-deep)}
+.lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+@media(min-width:760px){
+.lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
+align-items:center;text-align:left;padding:24px}
+.lbx .lbx-fig img{height:min(72vh,560px)}
+.lbx .lb-actions{justify-content:flex-start}
+.lbx .lbx-nav{margin:0 0 8px}
+}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
 .rk-gold svg{fill:var(--gold)}
@@ -121,7 +195,7 @@ background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8
 .noscan .noscan-s{aspect-ratio:auto;object-fit:contain;background:none;opacity:.92}
 .noscan .noscan-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
 color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;text-align:center}</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Ascended Heroes Pokemon TCG Set Guide","description":"Ascended Heroes Pokemon TCG set guide: 295 cards, released January 30, 2026. The priciest card is Mega Gengar ex at $819. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-ascended-heroes.jpg?v=e350072f"],"about":{"@type":"Thing","name":"Ascended Heroes (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/ascended-heroes.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ascended-heroes.html"},"datePublished":"2026-09-18","dateModified":"2026-09-18","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Ascended Heroes Pokemon TCG Set Guide","description":"Ascended Heroes Pokemon TCG set guide: 295 cards, released January 30, 2026. The priciest card is Mega Gengar ex at $819. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-ascended-heroes.jpg?v=e350072f"],"about":{"@type":"Thing","name":"Ascended Heroes (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/ascended-heroes.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ascended-heroes.html"},"datePublished":"2026-08-11","dateModified":"2026-10-02","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Ascended Heroes"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -261,32 +335,33 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
     <div class="sh-text">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>
     <img class="logo-big" width="592" height="300" src="/assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp" srcset="/assets/logos/ascended-heroes-pokemon-tcg-set-logo-sm.webp 197w, /assets/logos/ascended-heroes-pokemon-tcg-set-logo-md.webp 296w, /assets/logos/ascended-heroes-pokemon-tcg-set-logo.webp 592w" sizes="(max-width:329px) 110.5px, (max-width:647px) 33.5vw, 217.1px" alt="" onerror="this.remove()">
-    <h1>Ascended Heroes</h1>
-    <p class="lede w34">A 2026 set, 295 cards. What is in Ascended Heroes, what is actually rare in it, and what the cards worth chasing are going for. Mega Gengar ex leads them at the moment.</p>
+    <h1>Ascended Heroes <span class="sh-h1s">card list and set guide</span></h1>
+    <p class="lede w34">Ascended Heroes came out January 30, 2026 with 295 cards: 217 in the printed set and 78 numbered past it. Its most valuable card is Mega Gengar ex: $819 for an ungraded copy on pricecharting.com's price guide, read October 2, 2026.</p>
+    <nav class="sh-jump" aria-label="On this page"><a href="#chase">Most valuable</a><a href="#rips">Our rips</a><a href="#hits">Our hits</a><a href="#facts">Set 101</a><a href="#rarity">Rarity</a><a href="#checklist">Card list</a><a href="#products">Sealed prices</a></nav>
     </div>
     <div class="sh-fan">
-      <ol>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/me/me02.5/284/high.webp"
-          data-name="Mega Gengar ex" data-rarity="Special Illustration Rare"
-          data-number="284" data-price="$819"
-          data-psa10="$1,930"
-          data-url="https://www.tcgplayer.com/product/676096"
-          aria-label="Enlarge Mega Gengar ex, Special Illustration Rare 284"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/me/me02.5/276/high.webp"
-          data-name="Pikachu ex" data-rarity="Special Illustration Rare"
-          data-number="276" data-price="$809"
-          data-psa10="$1,975"
-          data-url="https://www.tcgplayer.com/product/676088"
-          aria-label="Enlarge Pikachu ex, Special Illustration Rare 276"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
-        <li><button class="sh-zm" type="button"
-          data-img="https://assets.tcgdex.net/en/me/me02.5/290/high.webp"
-          data-name="Mega Dragonite ex" data-rarity="Special Illustration Rare"
-          data-number="290" data-price="$500"
-          data-psa10="$973"
-          data-url="https://www.tcgplayer.com/product/676102"
-          aria-label="Enlarge Mega Dragonite ex, Special Illustration Rare 290"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+      <ol data-zg>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/284/high.webp"
+        data-name="Mega Gengar ex" data-rarity="Special Illustration Rare"
+        data-number="284/217" data-price="$819"
+        data-psa10="$1,930"
+        data-url="https://www.tcgplayer.com/product/676096" data-ill="danciao" data-alts="#125 Double Rare $3.09 • #269 Ultra Rare $40.00"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Mega Gengar ex, Special Illustration Rare 284/217"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/276/high.webp"
+        data-name="Pikachu ex" data-rarity="Special Illustration Rare"
+        data-number="276/217" data-price="$809"
+        data-psa10="$1,975"
+        data-url="https://www.tcgplayer.com/product/676088" data-ill="booota" data-alts="#057 Double Rare $3.67 • #277 Special Illustration Rare $303"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Pikachu ex, Special Illustration Rare 276/217"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
+        <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/290/high.webp"
+        data-name="Mega Dragonite ex" data-rarity="Special Illustration Rare"
+        data-number="290/217" data-price="$500"
+        data-psa10="$973"
+        data-url="https://www.tcgplayer.com/product/676102" data-ill="DOM" data-alts="#152 Double Rare $4.72 • #271 Ultra Rare $30.55 • #295 Mega Hyper Rare $196"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
+          aria-label="Enlarge Mega Dragonite ex, Special Illustration Rare 290/217"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture></button></li>
       </ol>
       <p>The top three by raw price</p>
     </div>
@@ -318,116 +393,124 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="tight">
+<section id="chase" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2><span class="hl">Most valuable</span> Ascended Heroes cards</h2>
     
-    <div class="chase-grid">
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/284/high.webp"
+    <div class="chase-grid" data-zg>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/284/high.webp"
         data-name="Mega Gengar ex" data-rarity="Special Illustration Rare"
-        data-number="284" data-price="$819"
+        data-number="284/217" data-price="$819"
         data-psa10="$1,930"
-        data-url="https://www.tcgplayer.com/product/676096"
+        data-url="https://www.tcgplayer.com/product/676096" data-ill="danciao" data-alts="#125 Double Rare $3.09 • #269 Ultra Rare $40.00"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Mega Gengar ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/284/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/284/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/284/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/284/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Mega Gengar ex</div>
-        <div class="rr">Special Illustration Rare &bull; 284</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;284/217</span></div>
         <div class="pr">$819</div>
-        <div class="pr10">PSA 10 $1,930<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/276/high.webp"
+        <div class="pr10">PSA 10 $1,930<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/276/high.webp"
         data-name="Pikachu ex" data-rarity="Special Illustration Rare"
-        data-number="276" data-price="$809"
+        data-number="276/217" data-price="$809"
         data-psa10="$1,975"
-        data-url="https://www.tcgplayer.com/product/676088"
+        data-url="https://www.tcgplayer.com/product/676088" data-ill="booota" data-alts="#057 Double Rare $3.67 • #277 Special Illustration Rare $303"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Pikachu ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/276/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/276/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/276/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/276/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Pikachu ex</div>
-        <div class="rr">Special Illustration Rare &bull; 276</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;276/217</span></div>
         <div class="pr">$809</div>
-        <div class="pr10">PSA 10 $1,975<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/290/high.webp"
+        <div class="pr10">PSA 10 $1,975<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/290/high.webp"
         data-name="Mega Dragonite ex" data-rarity="Special Illustration Rare"
-        data-number="290" data-price="$500"
+        data-number="290/217" data-price="$500"
         data-psa10="$973"
-        data-url="https://www.tcgplayer.com/product/676102"
+        data-url="https://www.tcgplayer.com/product/676102" data-ill="DOM" data-alts="#152 Double Rare $4.72 • #271 Ultra Rare $30.55 • #295 Mega Hyper Rare $196"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Mega Dragonite ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/290/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/290/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/290/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/290/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Mega Dragonite ex</div>
-        <div class="rr">Special Illustration Rare &bull; 290</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;290/217</span></div>
         <div class="pr">$500</div>
-        <div class="pr10">PSA 10 $973<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/294/high.webp"
+        <div class="pr10">PSA 10 $973<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/294/high.webp"
         data-name="Mega Charizard Y ex" data-rarity="Mega Hyper Rare"
-        data-number="294" data-price="$323"
+        data-number="294/217" data-price="$323"
         data-psa10="$1,875"
-        data-url="https://www.tcgplayer.com/product/676106"
+        data-url="https://www.tcgplayer.com/product/676106" data-ill="aky CG Works" data-alts="#022 Double Rare $7.07"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Mega Charizard Y ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/294/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/294/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/294/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/294/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/294/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Mega Charizard Y ex</div>
-        <div class="rr">Mega Hyper Rare &bull; 294</div>
+        <div class="rr">Mega Hyper <span class="nw">Rare&nbsp;&bull;&nbsp;294/217</span></div>
         <div class="pr">$323</div>
-        <div class="pr10">PSA 10 $1,875<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/277/high.webp"
+        <div class="pr10">PSA 10 $1,875<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/277/high.webp"
         data-name="Pikachu ex" data-rarity="Special Illustration Rare"
-        data-number="277" data-price="$303"
+        data-number="277/217" data-price="$303"
         data-psa10="$769"
-        data-url="https://www.tcgplayer.com/product/676089"
+        data-url="https://www.tcgplayer.com/product/676089" data-ill="James Turner" data-alts="#057 Double Rare $3.67 • #276 Special Illustration Rare $809"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Pikachu ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/277/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/277/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/277/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/277/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/277/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Pikachu ex</div>
-        <div class="rr">Special Illustration Rare &bull; 277</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;277/217</span></div>
         <div class="pr">$303</div>
-        <div class="pr10">PSA 10 $769<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/281/high.webp"
+        <div class="pr10">PSA 10 $769<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/281/high.webp"
         data-name="Team Rocket's Mewtwo ex" data-rarity="Special Illustration Rare"
-        data-number="281" data-price="$259"
+        data-number="281/217" data-price="$259"
         data-psa10="$582"
-        data-url="https://www.tcgplayer.com/product/676093"
+        data-url="https://www.tcgplayer.com/product/676093" data-ill="Mitsuhiro Arita" data-alts="#079 Double Rare $2.52"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Team Rocket's Mewtwo ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/281/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/281/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/281/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/281/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/281/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Mewtwo ex</div>
-        <div class="rr">Special Illustration Rare &bull; 281</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;281/217</span></div>
         <div class="pr">$259</div>
-        <div class="pr10">PSA 10 $582<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/295/high.webp"
+        <div class="pr10">PSA 10 $582<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/295/high.webp"
         data-name="Mega Dragonite ex" data-rarity="Mega Hyper Rare"
-        data-number="295" data-price="$196"
+        data-number="295/217" data-price="$196"
         data-psa10="$1,048"
-        data-url="https://www.tcgplayer.com/product/676107"
+        data-url="https://www.tcgplayer.com/product/676107" data-ill="aky CG Works" data-alts="#152 Double Rare $4.72 • #271 Ultra Rare $30.55 • #290 Special Illustration Rare $500"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Mega Dragonite ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/295/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/295/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/295/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/295/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/295/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Mega Dragonite ex</div>
-        <div class="rr">Mega Hyper Rare &bull; 295</div>
+        <div class="rr">Mega Hyper <span class="nw">Rare&nbsp;&bull;&nbsp;295/217</span></div>
         <div class="pr">$196</div>
-        <div class="pr10">PSA 10 $1,048<span> &bull; October 2, 2026</span></div>
-      </button>
-      <button class="chase-card" type="button"
-        data-img="https://assets.tcgdex.net/en/me/me02.5/280/high.webp"
+        <div class="pr10">PSA 10 $1,048<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
+      <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/me/me02.5/280/high.webp"
         data-name="Lillie's Clefairy ex" data-rarity="Special Illustration Rare"
-        data-number="280" data-price="$135"
+        data-number="280/217" data-price="$135"
         data-psa10="$280"
-        data-url="https://www.tcgplayer.com/product/676092"
+        data-url="https://www.tcgplayer.com/product/676092" data-ill="Naoki Saito" data-alts="#076 Double Rare $2.01"
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. PSA 10: graded sales data from pricecharting.com, read October 2, 2026."
         aria-label="Enlarge Lillie's Clefairy ex">
+        
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/280/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/280/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/280/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/280/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/280/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Lillie's Clefairy ex</div>
-        <div class="rr">Special Illustration Rare &bull; 280</div>
+        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;280/217</span></div>
         <div class="pr">$135</div>
-        <div class="pr10">PSA 10 $280<span> &bull; October 2, 2026</span></div>
-      </button>
+        <div class="pr10">PSA 10 $280<span class="pr10-d">read October 2, 2026</span></div>
+      </button></div>
     </div>
     
     <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.</p>
@@ -436,7 +519,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band tight">
+<section id="value" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where the value sits</p>
     <h2>Where the <span class="hl">money</span> is</h2>
@@ -477,7 +560,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="tight">
+<section id="rips" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
     <h2>Every Ascended Heroes <span class="hl">rip</span></h2>
@@ -503,288 +586,282 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band tight">
+<section id="hits" class="band tight">
   <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
-    <p class="lede w38">24 cards out of our own packs. Every one of them is in a video you can watch.</p>
-    <ul class="mine-grid">
+<p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+<h2>What we have <span class="hl">hit</span> from this set</h2>
+<p class="lede w38">24 cards out of our own packs. Every one of them is in a video you can watch.</p>
+<ul class="mine-grid mine-cols" style="--mc3:3;--mc4:4;--mc5:5;--mc6:6">
+  <li class="mine">
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/238/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/238/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/238/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/238/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/238/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Team Rocket's Mimikyu</p>
+    <p class="mine-r">Illustration Rare &bull; #238</p>
+    <p class="mine-p">$19.44</p>
+    <a class="mine-w" href="/rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html" aria-label="Watch the rip that pulled Team Rocket's Mimikyu, posted March 8, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/238/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/238/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/238/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/238/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/238/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Team Rocket's Mimikyu</p>
-        <p class="mine-r">Illustration Rare &bull; #238</p>
-        <p class="mine-p">$19.44</p>
-        <a class="mine-w" href="/rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html" aria-label="Watch the rip that pulled Team Rocket's Mimikyu">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/236/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/236/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/236/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/236/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/236/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Slurpuff</p>
+    <p class="mine-r">Illustration Rare &bull; #236</p>
+    <p class="mine-p">$7.74</p>
+    <a class="mine-w" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html" aria-label="Watch the rip that pulled Slurpuff, posted June 21, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/236/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/236/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/236/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/236/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/236/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Slurpuff</p>
-        <p class="mine-r">Illustration Rare &bull; #236</p>
-        <p class="mine-p">$7.74</p>
-        <a class="mine-w" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html" aria-label="Watch the rip that pulled Slurpuff">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/231/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/231/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/231/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/231/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/231/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Iono's Wattrel</p>
+    <p class="mine-r">Illustration Rare &bull; #231</p>
+    <p class="mine-p">$7.47</p>
+    <a class="mine-w" href="/rip/ascended-heroes-pack-11-we-pulled-an-iono-card-IYh51hhJkL0.html" aria-label="Watch the rip that pulled Iono's Wattrel, posted September 17, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/231/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/231/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/231/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/231/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/231/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Iono's Wattrel</p>
-        <p class="mine-r">Illustration Rare &bull; #231</p>
-        <p class="mine-p">$7.47</p>
-        <a class="mine-w" href="/rip/ascended-heroes-pack-11-we-pulled-an-iono-card-IYh51hhJkL0.html" aria-label="Watch the rip that pulled Iono's Wattrel">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/225/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Scorbunny</p>
+    <p class="mine-r">Illustration Rare &bull; #225</p>
+    <p class="mine-p">$7.29</p>
+    <a class="mine-w" href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html" aria-label="Watch the rip that pulled Scorbunny, posted July 9, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/225/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/225/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/225/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Scorbunny</p>
-        <p class="mine-r">Illustration Rare &bull; #225</p>
-        <p class="mine-p">$7.29</p>
-        <a class="mine-w" href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html" aria-label="Watch the rip that pulled Scorbunny">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/265/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/265/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/265/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/265/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/265/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Froslass ex</p>
+    <p class="mine-r">Ultra Rare &bull; #265</p>
+    <p class="mine-p">$7.12</p>
+    <a class="mine-w" href="/rip/ascended-heroes-mini-tin-3-is-this-the-one-sdZx0lmq2mQ.html" aria-label="Watch the rip that pulled Mega Froslass ex, posted April 26, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/265/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/265/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/265/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/265/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/265/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Froslass ex</p>
-        <p class="mine-r">Ultra Rare &bull; #265</p>
-        <p class="mine-p">$7.12</p>
-        <a class="mine-w" href="/rip/ascended-heroes-mini-tin-3-is-this-the-one-sdZx0lmq2mQ.html" aria-label="Watch the rip that pulled Mega Froslass ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/022/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/022/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/022/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Charizard Y ex</p>
+    <p class="mine-r">Double Rare &bull; #022</p>
+    <p class="mine-p">$7.07</p>
+    <a class="mine-w" href="/rip/ascended-heroes-elite-trainer-box-pack-1-9-packs-9-chances--e9F0ufKpIQ.html" aria-label="Watch the rip that pulled Mega Charizard Y ex, posted March 11, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/022/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/022/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/022/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/022/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Charizard Y ex</p>
-        <p class="mine-r">Double Rare &bull; #022</p>
-        <p class="mine-p">$7.07</p>
-        <a class="mine-w" href="/rip/ascended-heroes-elite-trainer-box-pack-1-9-packs-9-chances--e9F0ufKpIQ.html" aria-label="Watch the rip that pulled Mega Charizard Y ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/248/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/248/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/248/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/248/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/248/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Drakloak</p>
+    <p class="mine-r">Illustration Rare &bull; #248</p>
+    <p class="mine-p">$5.55</p>
+    <a class="mine-w" href="/rip/ascended-heroes-etb-pack-5-halfway-through-the-box-IcQFu0SaoH4.html" aria-label="Watch the rip that pulled Drakloak, posted March 19, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/248/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/248/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/248/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/248/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/248/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Drakloak</p>
-        <p class="mine-r">Illustration Rare &bull; #248</p>
-        <p class="mine-p">$5.55</p>
-        <a class="mine-w" href="/rip/ascended-heroes-etb-pack-5-halfway-through-the-box-IcQFu0SaoH4.html" aria-label="Watch the rip that pulled Drakloak">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/228/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/228/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/228/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/228/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/228/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Weavile</p>
+    <p class="mine-r">Illustration Rare &bull; #228</p>
+    <p class="mine-p">$5.00</p>
+    <a class="mine-w" href="/rip/only-garbage-rips-ascended-heroes-2-pack-blister-8xqvY3OzugE.html" aria-label="Watch the rip that pulled Weavile, posted March 2, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/228/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/228/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/228/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/228/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/228/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Weavile</p>
-        <p class="mine-r">Illustration Rare &bull; #228</p>
-        <p class="mine-p">$5.00</p>
-        <a class="mine-w" href="/rip/only-garbage-rips-ascended-heroes-2-pack-blister-8xqvY3OzugE.html" aria-label="Watch the rip that pulled Weavile">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/152/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/152/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/152/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/152/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/152/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Dragonite ex</p>
+    <p class="mine-r">Double Rare &bull; #152</p>
+    <p class="mine-p">$4.72</p>
+    <a class="mine-w" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html" aria-label="Watch the rip that pulled Mega Dragonite ex, posted April 4, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/152/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/152/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/152/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/152/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/152/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Dragonite ex</p>
-        <p class="mine-r">Double Rare &bull; #152</p>
-        <p class="mine-p">$4.72</p>
-        <a class="mine-w" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html" aria-label="Watch the rip that pulled Mega Dragonite ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/249/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/249/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/249/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/249/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/249/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Larry's Staraptor</p>
+    <p class="mine-r">Illustration Rare &bull; #249</p>
+    <p class="mine-p">$4.59</p>
+    <a class="mine-w" href="/rip/final-ascended-heroes-bundle-pack-last-pack-magic-8d2a5b_BmYQ.html" aria-label="Watch the rip that pulled Larry's Staraptor, posted May 15, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/249/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/249/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/249/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/249/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/249/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Larry's Staraptor</p>
-        <p class="mine-r">Illustration Rare &bull; #249</p>
-        <p class="mine-p">$4.59</p>
-        <a class="mine-w" href="/rip/final-ascended-heroes-bundle-pack-last-pack-magic-8d2a5b_BmYQ.html" aria-label="Watch the rip that pulled Larry's Staraptor">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/235/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/235/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/235/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/235/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/235/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Togekiss</p>
+    <p class="mine-r">Illustration Rare &bull; #235</p>
+    <p class="mine-p">$4.49</p>
+    <a class="mine-w" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Watch the rip that pulled Togekiss, posted April 10, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/235/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/235/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/235/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/235/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/235/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Togekiss</p>
-        <p class="mine-r">Illustration Rare &bull; #235</p>
-        <p class="mine-p">$4.49</p>
-        <a class="mine-w" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Watch the rip that pulled Togekiss">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/230/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/230/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/230/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/230/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/230/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Vikavolt</p>
+    <p class="mine-r">Illustration Rare &bull; #230</p>
+    <p class="mine-p">$2.92</p>
+    <a class="mine-w" href="/rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html" aria-label="Watch the rip that pulled Vikavolt, posted May 28, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/230/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/230/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/230/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/230/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/230/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Vikavolt</p>
-        <p class="mine-r">Illustration Rare &bull; #230</p>
-        <p class="mine-p">$2.92</p>
-        <a class="mine-w" href="/rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html" aria-label="Watch the rip that pulled Vikavolt">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/263/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Team Rocket's Transceiver</p>
+    <p class="mine-r">Ultra Rare &bull; #263</p>
+    <p class="mine-p">$1.99</p>
+    <a class="mine-w" href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html" aria-label="Watch the rip that pulled Team Rocket's Transceiver, posted July 11, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/263/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/263/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/263/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Team Rocket's Transceiver</p>
-        <p class="mine-r">Ultra Rare &bull; #263</p>
-        <p class="mine-p">$1.99</p>
-        <a class="mine-w" href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html" aria-label="Watch the rip that pulled Team Rocket's Transceiver">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/160/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/160/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/160/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/160/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/160/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Dragapult ex</p>
+    <p class="mine-r">Double Rare &bull; #160</p>
+    <p class="mine-p">$1.99</p>
+    <a class="mine-w" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html" aria-label="Watch the rip that pulled Dragapult ex, posted April 8, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/160/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/160/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/160/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/160/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/160/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Dragapult ex</p>
-        <p class="mine-r">Double Rare &bull; #160</p>
-        <p class="mine-p">$1.99</p>
-        <a class="mine-w" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html" aria-label="Watch the rip that pulled Dragapult ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/254/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/254/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/254/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/254/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/254/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Anthea &amp; Concordia</p>
+    <p class="mine-r">Ultra Rare &bull; #254</p>
+    <p class="mine-p">$1.94</p>
+    <a class="mine-w" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Watch the rip that pulled Anthea &amp; Concordia, posted April 10, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/254/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/254/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/254/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/254/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/254/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Anthea &amp; Concordia</p>
-        <p class="mine-r">Ultra Rare &bull; #254</p>
-        <p class="mine-p">$1.94</p>
-        <a class="mine-w" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html" aria-label="Watch the rip that pulled Anthea &amp; Concordia">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/135/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Scrafty ex <span class="mine-x">&times;2</span></p>
+    <p class="mine-r">Double Rare &bull; #135</p>
+    <p class="mine-p">$1.90</p>
+    <p class="mine-rips"><span class="mine-rips-k">Watch the rips</span><a class="mine-rip" href="/rip/mega-meganium-ex-box-2-pack-2-we-got-one-Nqu1vGtbAME.html" aria-label="Watch rip 1 of 2 that pulled Mega Scrafty ex, posted July 7, 2026">Jul 7</a><a class="mine-rip" href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html" aria-label="Watch rip 2 of 2 that pulled Mega Scrafty ex, posted July 12, 2026">Jul 12</a></p>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/135/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/135/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/135/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Scrafty ex <span class="mine-x">&times;2</span></p>
-        <p class="mine-r">Double Rare &bull; #135</p>
-        <p class="mine-p">$1.90</p>
-        <a class="mine-w" href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html" aria-label="Watch the rip that pulled Mega Scrafty ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/mega-meganium-ex-box-2-pack-2-we-got-one-Nqu1vGtbAME.html" aria-label="Watch the rip that pulled Mega Scrafty ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/179/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/179/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/179/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/179/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/179/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Terapagos ex <span class="mine-x">&times;2</span></p>
+    <p class="mine-r">Double Rare &bull; #179</p>
+    <p class="mine-p">$1.71</p>
+    <p class="mine-rips"><span class="mine-rips-k">Watch the rips</span><a class="mine-rip" href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html" aria-label="Watch rip 1 of 2 that pulled Terapagos ex, posted April 28, 2026">Apr 28</a><a class="mine-rip" href="/rip/ascended-heroes-pack-6-still-no-big-hits-GroN9k8XsN0.html" aria-label="Watch rip 2 of 2 that pulled Terapagos ex, posted April 29, 2026">Apr 29</a></p>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/179/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/179/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/179/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/179/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/179/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Terapagos ex <span class="mine-x">&times;2</span></p>
-        <p class="mine-r">Double Rare &bull; #179</p>
-        <p class="mine-p">$1.71</p>
-        <a class="mine-w" href="/rip/ascended-heroes-pack-6-still-no-big-hits-GroN9k8XsN0.html" aria-label="Watch the rip that pulled Terapagos ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/ascended-heroes-mini-tin-4-we-need-a-hit-rMMOuM8bsqE.html" aria-label="Watch the rip that pulled Terapagos ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/061/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/061/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/061/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/061/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/061/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Eelektross ex</p>
+    <p class="mine-r">Double Rare &bull; #061</p>
+    <p class="mine-p">$1.58</p>
+    <a class="mine-w" href="/rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html" aria-label="Watch the rip that pulled Mega Eelektross ex, posted June 1, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/061/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/061/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/061/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/061/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/061/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Eelektross ex</p>
-        <p class="mine-r">Double Rare &bull; #061</p>
-        <p class="mine-p">$1.58</p>
-        <a class="mine-w" href="/rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html" aria-label="Watch the rip that pulled Mega Eelektross ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/038/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/038/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/038/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/038/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/038/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Cinderace ex</p>
+    <p class="mine-r">Double Rare &bull; #038</p>
+    <p class="mine-p">$1.49</p>
+    <a class="mine-w" href="/rip/ascended-heroes-pack-3-third-times-the-charm-LROQ-vFl4Hs.html" aria-label="Watch the rip that pulled Cinderace ex, posted February 21, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/038/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/038/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/038/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/038/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/038/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Cinderace ex</p>
-        <p class="mine-r">Double Rare &bull; #038</p>
-        <p class="mine-p">$1.49</p>
-        <a class="mine-w" href="/rip/ascended-heroes-pack-3-third-times-the-charm-LROQ-vFl4Hs.html" aria-label="Watch the rip that pulled Cinderace ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/252/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Stunfisk ex <span class="mine-x">&times;2</span></p>
+    <p class="mine-r">Ultra Rare &bull; #252</p>
+    <p class="mine-p">$1.46</p>
+    <p class="mine-rips"><span class="mine-rips-k">Watch the rips</span><a class="mine-rip" href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html" aria-label="Watch rip 1 of 2 that pulled Stunfisk ex, posted February 17, 2026">Feb 17</a><a class="mine-rip" href="/rip/ascended-heroes-mini-tin-2-any-better-HbSOpODafEw.html" aria-label="Watch rip 2 of 2 that pulled Stunfisk ex, posted April 22, 2026">Apr 22</a></p>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/252/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/252/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/252/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Stunfisk ex <span class="mine-x">&times;2</span></p>
-        <p class="mine-r">Ultra Rare &bull; #252</p>
-        <p class="mine-p">$1.46</p>
-        <a class="mine-w" href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html" aria-label="Watch the rip that pulled Stunfisk ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/ascended-heroes-mini-tin-2-any-better-HbSOpODafEw.html" aria-label="Watch the rip that pulled Stunfisk ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/070/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Iono's Bellibolt ex</p>
+    <p class="mine-r">Double Rare &bull; #070</p>
+    <p class="mine-p">$1.45</p>
+    <a class="mine-w" href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html" aria-label="Watch the rip that pulled Iono's Bellibolt ex, posted June 4, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/070/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/070/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/070/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Iono's Bellibolt ex</p>
-        <p class="mine-r">Double Rare &bull; #070</p>
-        <p class="mine-p">$1.45</p>
-        <a class="mine-w" href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html" aria-label="Watch the rip that pulled Iono's Bellibolt ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/116/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/116/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/116/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/116/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/116/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Hawlucha ex</p>
+    <p class="mine-r">Double Rare &bull; #116</p>
+    <p class="mine-p">$1.40</p>
+    <a class="mine-w" href="/rip/mega-meganium-ex-box-pack-3-we-need-a-hit-hOBpKIl2lX4.html" aria-label="Watch the rip that pulled Mega Hawlucha ex, posted June 19, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/116/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/116/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/116/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/116/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/116/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Mega Hawlucha ex</p>
-        <p class="mine-r">Double Rare &bull; #116</p>
-        <p class="mine-p">$1.40</p>
-        <a class="mine-w" href="/rip/mega-meganium-ex-box-pack-3-we-need-a-hit-hOBpKIl2lX4.html" aria-label="Watch the rip that pulled Mega Hawlucha ex">Watch the rip &rarr;</a>
-      </li>
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/258/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/258/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/258/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/258/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/258/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Cheren</p>
+    <p class="mine-r">Ultra Rare &bull; #258</p>
+    <p class="mine-p">$1.23</p>
+    <a class="mine-w" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html" aria-label="Watch the rip that pulled Cheren, posted April 4, 2026">Watch the rip &rarr;</a>
+  </li>
       <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/258/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/258/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/258/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/258/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/258/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Cheren</p>
-        <p class="mine-r">Ultra Rare &bull; #258</p>
-        <p class="mine-p">$1.23</p>
-        <a class="mine-w" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html" aria-label="Watch the rip that pulled Cheren">Watch the rip &rarr;</a>
-      </li>
-      <li class="mine">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/164/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/164/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/164/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/164/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/164/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
-        <!-- The count rides on the name, not on the picture, because the
-             picture is the card and the count is a fact about our pulls.
-             Hidden at one: a "x1" badge on every other card would make the
-             ordinary case look annotated. -->
-        <p class="mine-n">Larry's Dudunsparce ex <span class="mine-x">&times;4</span></p>
-        <p class="mine-r">Double Rare &bull; #164</p>
-        <p class="mine-p">$1.21</p>
-        <a class="mine-w" href="/rip/mega-emboar-ex-box-pack-3-we-need-the-mega-dragonite-sir-w3dQBhumsug.html" aria-label="Watch the rip that pulled Larry's Dudunsparce ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/only-garbage-rips-mega-emboar-ex-pack-2-n4iGQVPBtfE.html" aria-label="Watch the rip that pulled Larry's Dudunsparce ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/ascended-heroes-booster-bundle-pack-3-getting-lucky-yet-PvitecaJjAc.html" aria-label="Watch the rip that pulled Larry's Dudunsparce ex">Watch the rip &rarr;</a>
-        <a class="mine-w" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html" aria-label="Watch the rip that pulled Larry's Dudunsparce ex">Watch the rip &rarr;</a>
-      </li>
-    </ul>
-    
+    <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/164/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/164/high.avif 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px"><img class="mine-img" src="https://assets.tcgdex.net/en/me/me02.5/164/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/164/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/164/high.webp 600w" sizes="(max-width:520px) calc(50vw - 52px), 194px" alt="" loading="lazy" onerror="this.remove()" decoding="async" width="245" height="337"></picture>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Larry's Dudunsparce ex <span class="mine-x">&times;4</span></p>
+    <p class="mine-r">Double Rare &bull; #164</p>
+    <p class="mine-p">$1.21</p>
+    <p class="mine-rips"><span class="mine-rips-k">Watch the rips</span><a class="mine-rip" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html" aria-label="Watch rip 1 of 4 that pulled Larry's Dudunsparce ex, posted April 8, 2026">Apr 8</a><a class="mine-rip" href="/rip/ascended-heroes-booster-bundle-pack-3-getting-lucky-yet-PvitecaJjAc.html" aria-label="Watch rip 2 of 4 that pulled Larry's Dudunsparce ex, posted May 6, 2026">May 6</a><a class="mine-rip" href="/rip/only-garbage-rips-mega-emboar-ex-pack-2-n4iGQVPBtfE.html" aria-label="Watch rip 3 of 4 that pulled Larry's Dudunsparce ex, posted June 23, 2026">Jun 23</a><a class="mine-rip" href="/rip/mega-emboar-ex-box-pack-3-we-need-the-mega-dragonite-sir-w3dQBhumsug.html" aria-label="Watch rip 4 of 4 that pulled Larry's Dudunsparce ex, posted June 25, 2026">Jun 25</a></p>
+  </li>
+</ul>
+
   </div>
 </section>
 
-<section class="tight">
+<section id="opened" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Out of our own pocket</p>
     <h2>What we have <span class="hl">opened</span> of this set</h2>
@@ -797,14 +874,14 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="facts" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
-    <h2>Ascended Heroes <span class="hl">101</span></h2>
+    <h2>When did Ascended Heroes come out, and <span class="hl">how big</span> is it?</h2>
     <ul class="facts-list">
       <li><b>Released January 30, 2026</b>, which was 8 months ago.</li>
       <li>The set is <b>217 cards</b> on paper, but there are <b>295</b> in total. The extra 78 are secret rares numbered past the printed count.</li>
-      <li><b>78 of the 295 cards</b> sit at a chase rarity, which is every tier highlighted in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
+      <li><b>78 of the 295 cards</b> sit at a chase rarity, which is every tier tagged CHASE in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
       <li>Only <b><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>2 Mega Hyper Rares</b> exist in the entire set.</li>
       <li>The chase card is <b>Mega Gengar ex</b> (<span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare), sitting around <b>$819</b> raw, and <b>$1,930</b> in a PSA 10.</li>
       <li>We have ripped <b>62 videos</b> worth of this set on the channel.</li>
@@ -815,34 +892,35 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="tight">
+<section id="rarity" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Ascended Heroes <span class="hl">secret rares</span> and rarity breakdown</h2>
+    <p class="lede w42">Ascended Heroes has <b>78 cards numbered past the printed set</b>, #218 to #295, against a printed total of 217. That is what collectors mean by a secret rare: the number runs past the total printed beside it. Each one's printed rarity is on the ladder below.</p>
     <p class="lede w42">How many cards sit at each rarity, and what those
       cards are worth. <b>Mid</b> is the middle card at that rarity: half of them cost more than that and half cost
       less, which is a far better guide to what you will actually see than the one famous card at the top.</p>
     <div class="rarity-list" data-figure="chart">
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>Mega Hyper Rare</span>
+        <span class="rar-name"><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>Mega Hyper Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">2</span>
         <span class="rar-pr">Mid <b>$322.73</b> &bull; top <b>$322.73</b></span>
         <span class="rar-bar"><i style="width:4%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span>
+        <span class="rar-name"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">22</span>
         <span class="rar-pr">Mid <b>$61.53</b> &bull; top <b>$818.75</b></span>
         <span class="rar-bar"><i style="width:26%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span>
+        <span class="rar-name"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">33</span>
         <span class="rar-pr">Mid <b>$5.55</b> &bull; top <b>$51.26</b></span>
         <span class="rar-bar"><i style="width:39%"></i></span>
       </div>
       <div class="rar chase">
-        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span>
+        <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">21</span>
         <span class="rar-pr">Mid <b>$2.95</b> &bull; top <b>$40.00</b></span>
         <span class="rar-bar"><i style="width:25%"></i></span>
@@ -882,11 +960,11 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band tight">
+<section id="checklist" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 295 cards in Ascended Heroes, with what each one is worth. The most expensive card in the set is Mega Gengar ex at $818.75.</p>
+    <h2>Ascended Heroes card list: <span class="hl">all 295 cards</span></h2>
+    <p class="lede">All 295 cards in Ascended Heroes, with what each one is worth. The most valuable card in the set is Mega Gengar ex at $818.75.</p>
     <details class="ig-list">
       <summary>Show the full Ascended Heroes checklist</summary>
       <ol class="ig-cards en">
@@ -1759,327 +1837,327 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-pr">$1.74</span>
           <span class="ig-rr2">Uncommon</span></li>
         <li class="is-chase"><span class="ig-no">218</span>
-          <span class="ig-nm">Erika's Tangela</span>
+          <span class="ig-nm">Erika's Tangela <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$13.95</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">219</span>
-          <span class="ig-nm">Beautifly</span>
+          <span class="ig-nm">Beautifly <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.86</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">220</span>
-          <span class="ig-nm">Dustox</span>
+          <span class="ig-nm">Dustox <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.62</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">221</span>
-          <span class="ig-nm">Budew</span>
+          <span class="ig-nm">Budew <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.39</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">222</span>
-          <span class="ig-nm">Ethan's Magcargo</span>
+          <span class="ig-nm">Ethan's Magcargo <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.02</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">223</span>
-          <span class="ig-nm">Numel</span>
+          <span class="ig-nm">Numel <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.32</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">224</span>
-          <span class="ig-nm">Salazzle</span>
+          <span class="ig-nm">Salazzle <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.37</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">225</span>
-          <span class="ig-nm">Scorbunny</span>
+          <span class="ig-nm">Scorbunny <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.29</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">226</span>
-          <span class="ig-nm">Psyduck</span>
+          <span class="ig-nm">Psyduck <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$51.26</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">227</span>
-          <span class="ig-nm">Snorunt</span>
+          <span class="ig-nm">Snorunt <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.50</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">228</span>
-          <span class="ig-nm">Weavile</span>
+          <span class="ig-nm">Weavile <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">229</span>
-          <span class="ig-nm">Heliolisk</span>
+          <span class="ig-nm">Heliolisk <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.84</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">230</span>
-          <span class="ig-nm">Vikavolt</span>
+          <span class="ig-nm">Vikavolt <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.92</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">231</span>
-          <span class="ig-nm">Iono's Wattrel</span>
+          <span class="ig-nm">Iono's Wattrel <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.47</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">232</span>
-          <span class="ig-nm">Marill</span>
+          <span class="ig-nm">Marill <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$11.44</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">233</span>
-          <span class="ig-nm">Misdreavus</span>
+          <span class="ig-nm">Misdreavus <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.79</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">234</span>
-          <span class="ig-nm">Banette</span>
+          <span class="ig-nm">Banette <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$9.99</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">235</span>
-          <span class="ig-nm">Togekiss</span>
+          <span class="ig-nm">Togekiss <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">236</span>
-          <span class="ig-nm">Slurpuff</span>
+          <span class="ig-nm">Slurpuff <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.74</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">237</span>
-          <span class="ig-nm">Hop's Trevenant</span>
+          <span class="ig-nm">Hop's Trevenant <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.70</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">238</span>
-          <span class="ig-nm">Team Rocket's Mimikyu</span>
+          <span class="ig-nm">Team Rocket's Mimikyu <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$19.44</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">239</span>
-          <span class="ig-nm">Team Rocket's Dugtrio</span>
+          <span class="ig-nm">Team Rocket's Dugtrio <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.74</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">240</span>
-          <span class="ig-nm">Hitmontop</span>
+          <span class="ig-nm">Hitmontop <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.40</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">241</span>
-          <span class="ig-nm">Medicham</span>
+          <span class="ig-nm">Medicham <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.75</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">242</span>
-          <span class="ig-nm">Carbink</span>
+          <span class="ig-nm">Carbink <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">243</span>
-          <span class="ig-nm">Mightyena</span>
+          <span class="ig-nm">Mightyena <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">244</span>
-          <span class="ig-nm">Cynthia's Spiritomb</span>
+          <span class="ig-nm">Cynthia's Spiritomb <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.51</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">245</span>
-          <span class="ig-nm">Galarian Obstagoon</span>
+          <span class="ig-nm">Galarian Obstagoon <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.44</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">246</span>
-          <span class="ig-nm">Mawile</span>
+          <span class="ig-nm">Mawile <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.21</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">247</span>
-          <span class="ig-nm">Dreepy</span>
+          <span class="ig-nm">Dreepy <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.61</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">248</span>
-          <span class="ig-nm">Drakloak</span>
+          <span class="ig-nm">Drakloak <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.55</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">249</span>
-          <span class="ig-nm">Larry's Staraptor</span>
+          <span class="ig-nm">Larry's Staraptor <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.59</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">250</span>
-          <span class="ig-nm">Fan Rotom</span>
+          <span class="ig-nm">Fan Rotom <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.25</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">251</span>
-          <span class="ig-nm">Sprigatito ex</span>
+          <span class="ig-nm">Sprigatito ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.85</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">252</span>
-          <span class="ig-nm">Stunfisk ex</span>
+          <span class="ig-nm">Stunfisk ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.46</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">253</span>
-          <span class="ig-nm">Mega Audino ex</span>
+          <span class="ig-nm">Mega Audino ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">254</span>
-          <span class="ig-nm">Anthea &amp; Concordia</span>
+          <span class="ig-nm">Anthea &amp; Concordia <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.94</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">255</span>
-          <span class="ig-nm">Black Belt's Training</span>
+          <span class="ig-nm">Black Belt's Training <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.94</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">256</span>
-          <span class="ig-nm">Boss's Orders</span>
+          <span class="ig-nm">Boss's Orders <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">257</span>
-          <span class="ig-nm">Canari</span>
+          <span class="ig-nm">Canari <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$3.21</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">258</span>
-          <span class="ig-nm">Cheren</span>
+          <span class="ig-nm">Cheren <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.23</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">259</span>
-          <span class="ig-nm">Counter Gain</span>
+          <span class="ig-nm">Counter Gain <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.35</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">260</span>
-          <span class="ig-nm">Glass Trumpet</span>
+          <span class="ig-nm">Glass Trumpet <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.47</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">261</span>
-          <span class="ig-nm">Jamming Tower</span>
+          <span class="ig-nm">Jamming Tower <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.59</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">262</span>
-          <span class="ig-nm">N's PP Up</span>
+          <span class="ig-nm">N's PP Up <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.95</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">263</span>
-          <span class="ig-nm">Team Rocket's Transceiver</span>
+          <span class="ig-nm">Team Rocket's Transceiver <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">264</span>
-          <span class="ig-nm">Ultra Ball</span>
+          <span class="ig-nm">Ultra Ball <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.46</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">265</span>
-          <span class="ig-nm">Mega Froslass ex</span>
+          <span class="ig-nm">Mega Froslass ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.12</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">266</span>
-          <span class="ig-nm">Mega Eelektross ex</span>
+          <span class="ig-nm">Mega Eelektross ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.69</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">267</span>
-          <span class="ig-nm">Mega Diancie ex</span>
+          <span class="ig-nm">Mega Diancie ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.16</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">268</span>
-          <span class="ig-nm">Mega Hawlucha ex</span>
+          <span class="ig-nm">Mega Hawlucha ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.14</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">269</span>
-          <span class="ig-nm">Mega Gengar ex</span>
+          <span class="ig-nm">Mega Gengar ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$40.00</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">270</span>
-          <span class="ig-nm">Mega Scrafty ex</span>
+          <span class="ig-nm">Mega Scrafty ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.16</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">271</span>
-          <span class="ig-nm">Mega Dragonite ex</span>
+          <span class="ig-nm">Mega Dragonite ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$30.55</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
         <li class="is-chase"><span class="ig-no">272</span>
-          <span class="ig-nm">Mega Meganium ex</span>
+          <span class="ig-nm">Mega Meganium ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$67.25</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">273</span>
-          <span class="ig-nm">Mega Emboar ex</span>
+          <span class="ig-nm">Mega Emboar ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$42.41</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">274</span>
-          <span class="ig-nm">Mega Feraligatr ex</span>
+          <span class="ig-nm">Mega Feraligatr ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$97.51</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">275</span>
-          <span class="ig-nm">Mega Froslass ex</span>
+          <span class="ig-nm">Mega Froslass ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$61.53</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">276</span>
-          <span class="ig-nm">Pikachu ex</span>
+          <span class="ig-nm">Pikachu ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$808.58</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">277</span>
-          <span class="ig-nm">Pikachu ex</span>
+          <span class="ig-nm">Pikachu ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$303.48</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">278</span>
-          <span class="ig-nm">Mega Eelektross ex</span>
+          <span class="ig-nm">Mega Eelektross ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$28.50</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">279</span>
-          <span class="ig-nm">Iono's Bellibolt ex</span>
+          <span class="ig-nm">Iono's Bellibolt ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$53.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">280</span>
-          <span class="ig-nm">Lillie's Clefairy ex</span>
+          <span class="ig-nm">Lillie's Clefairy ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$135.39</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">281</span>
-          <span class="ig-nm">Team Rocket's Mewtwo ex</span>
+          <span class="ig-nm">Team Rocket's Mewtwo ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$258.63</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">282</span>
-          <span class="ig-nm">Mega Diancie ex</span>
+          <span class="ig-nm">Mega Diancie ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$44.86</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">283</span>
-          <span class="ig-nm">Mega Hawlucha ex</span>
+          <span class="ig-nm">Mega Hawlucha ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$46.96</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">284</span>
-          <span class="ig-nm">Mega Gengar ex</span>
+          <span class="ig-nm">Mega Gengar ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$818.75</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">285</span>
-          <span class="ig-nm">Mega Scrafty ex</span>
+          <span class="ig-nm">Mega Scrafty ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$50.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">286</span>
-          <span class="ig-nm">N's Zoroark ex</span>
+          <span class="ig-nm">N's Zoroark ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$130.38</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">287</span>
-          <span class="ig-nm">Marnie's Grimmsnarl ex</span>
+          <span class="ig-nm">Marnie's Grimmsnarl ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$51.68</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">288</span>
-          <span class="ig-nm">Fezandipiti ex</span>
+          <span class="ig-nm">Fezandipiti ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$48.50</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">289</span>
-          <span class="ig-nm">Steven's Metagross ex</span>
+          <span class="ig-nm">Steven's Metagross ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$67.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">290</span>
-          <span class="ig-nm">Mega Dragonite ex</span>
+          <span class="ig-nm">Mega Dragonite ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$499.98</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">291</span>
-          <span class="ig-nm">Canari</span>
+          <span class="ig-nm">Canari <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$29.16</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">292</span>
-          <span class="ig-nm">Iris's Fighting Spirit</span>
+          <span class="ig-nm">Iris's Fighting Spirit <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$23.17</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">293</span>
-          <span class="ig-nm">Surfer</span>
+          <span class="ig-nm">Surfer <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$18.46</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
         <li class="is-chase"><span class="ig-no">294</span>
-          <span class="ig-nm">Mega Charizard Y ex</span>
+          <span class="ig-nm">Mega Charizard Y ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$322.73</span>
           <span class="ig-rr2"><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>Mega Hyper Rare</span></li>
         <li class="is-chase"><span class="ig-no">295</span>
-          <span class="ig-nm">Mega Dragonite ex</span>
+          <span class="ig-nm">Mega Dragonite ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$195.58</span>
           <span class="ig-rr2"><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>Mega Hyper Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">The gold rows are the chase tiers, the same ones the rarity breakdown above highlights. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
+    <p class="price-note">Rows tagged CHASE are the chase tiers, the same tiers the rarity breakdown above tags. The stars beside a rarity are the ones printed on that card. Prices are pricecharting.com's price guide value for an ungraded copy, read October 2, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace.
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. 295 of 295 cards have a price.
       Looking for one card in particular? <a href="/cards.html?set=ascended-heroes">Search every card on the site</a>.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="languages" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same set, other language</p>
     <h2>Ascended Heroes is also <span class="hl" lang="ja">MEGAドリームex</span><span class="intl-en">Mega Dream ex</span></h2>
@@ -2104,10 +2182,10 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band tight">
+<section id="products" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
-    <h2>Ways to open <span class="hl">Ascended Heroes</span></h2>
+    <h2>Ascended Heroes ETB, pack and booster bundle <span class="hl">prices</span></h2>
     <p class="lede prod-lede">Every sealed Ascended Heroes product still being sold, cheapest first. The cheapest way in is also the cheapest pack: one pack at $12.13. The booster bundle works out at $14.64 a pack, so on this set the bigger boxes cost
       more per pack, not less.</p>
     <ul class="prod-grid">
@@ -2211,7 +2289,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="tight">
+<section id="watch" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">62</span> of these</h2>
@@ -2231,7 +2309,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section class="band tight">
+<section id="more-sets" class="band tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -2265,13 +2343,20 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
 </section>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbNm">
-  <div class="lb-inner">
+  <div class="lb-inner lbx">
     <button class="lb-close" type="button" aria-label="Close">&times;</button>
-    <picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture>
-    <p class="lb-nm" id="lbNm"></p>
-    <p class="lb-rr" id="lbRr"></p>
-    <p class="lb-pr" id="lbPr"></p>
-    <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    <div class="lbx-fig" id="lbFig"><picture><source id="lbAvif" type="image/avif"><img id="lbImg" src="" alt=""></picture></div>
+    <div class="lbx-info">
+      <div class="lbx-nav" id="lbNav"><button class="lbx-go" type="button" id="lbPrev" aria-label="Previous card">&larr; Prev</button><p class="lbx-of" id="lbOf" aria-live="polite"></p><button class="lbx-go" type="button" id="lbNext" aria-label="Next card">Next &rarr;</button></div>
+      <p class="lb-nm" id="lbNm"></p>
+      <p class="lb-rr" id="lbRr"></p>
+      <p class="lbx-ill" id="lbIll" hidden></p>
+      <p class="lb-pr" id="lbPr"></p>
+      <p class="lbx-src" id="lbSrc"></p>
+      <p class="lbx-alts" id="lbAlts" hidden></p>
+      <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+    </div>
   </div>
 </div>
 
@@ -2393,33 +2478,79 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </footer>
 <script>
+/* THE POP-UP, AT PARITY WITH THE 30th CELEBRATION'S, 2 October 2026.
+   Previous and Next, the arrow keys and a sideways swipe step through the
+   group the card was opened from (the chase grid, or the three in the hero),
+   and never across groups: data-zg marks a group. "Card X of N" says where you
+   are. Everything the open card shows comes off its own data-* (zoomData() in
+   the builder), so the pop-up adds no figure the tile does not carry.
+   What already worked is kept as it was: Escape and the backdrop close, focus
+   goes to the close button and back to the card that opened it, the page
+   behind does not scroll, and the AVIF source is only set for the host that
+   publishes one. */
 (function(){
-  var lb=document.getElementById('lb'), img=document.getElementById('lbImg');
-  var last=null;
+  var lb=document.getElementById('lb'), img=document.getElementById('lbImg'), avif=document.getElementById('lbAvif');
+  var $=function(id){return document.getElementById(id);};
+  var last=null, list=[], at=0;
+  function groupOf(b){
+    var g=b.closest('[data-zg]');
+    var all=g ? [].slice.call(g.querySelectorAll('.chase-card,.sh-zm')) : [b];
+    return all.filter(function(x){return x.dataset.img;});
+  }
+  // The lightbox is the one place on this page that loads high.webp, 600x825
+  // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
+  // reach it because the url only becomes an image url on click, so the
+  // <source> is filled here, applying the SAME host test avifPicture applies:
+  // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
+  // pointing at a 404 paints a broken card instead of falling back.
+  // srcset FIRST, then src, so the webp is never requested and abandoned.
+  // STEPPING SHOWS THE TILE'S OWN SMALL FILE FIRST, then swaps in the big one
+  // once it has arrived, so Next never leaves the previous card on screen
+  // under the new card's name. The small file is already in the cache.
+  function picture(b){
+    var big=b.dataset.img, small=b.querySelector('img');
+    var isDex=big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp';
+    var sm=small && (small.currentSrc || small.src);
+    if(sm){
+      avif.removeAttribute('srcset'); img.src=sm;
+      var hi=new Image();
+      hi.onload=function(){ if(list[at]!==b) return; if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); img.src=big; };
+      hi.onerror=function(){ if(list[at]!==b) return; avif.removeAttribute('srcset'); img.src=big; };
+      hi.src=isDex ? big.slice(0,-5)+'.avif' : big;
+    } else {
+      if(isDex) avif.setAttribute('srcset', big.slice(0,-5)+'.avif'); else avif.removeAttribute('srcset');
+      img.src=big;
+    }
+  }
+  function show(i){
+    at=(i+list.length)%list.length;
+    var b=list[at], d=b.dataset;
+    picture(b);
+    img.alt=d.name+' '+d.number;
+    $('lbNm').textContent=d.name;
+    $('lbRr').textContent=[d.rarity,d.number].filter(Boolean).join(' • ');
+    var ill=$('lbIll'); ill.hidden=!d.ill; ill.textContent=d.ill ? 'Illustrated by '+d.ill : '';
+    $('lbPr').textContent=d.price + (d.psa10 ? '  •  PSA 10 ' + d.psa10 : '');
+    $('lbSrc').textContent=d.src || '';
+    var alts=$('lbAlts'); alts.hidden=!d.alts; alts.textContent=d.alts ? 'Other printings in this set: '+d.alts : '';
+    var rip=$('lbRip'); rip.hidden=!d.rip;
+    if(d.rip){
+      var a=$('lbRipA'); a.href=d.rip;
+      a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
+    }
+    var u=$('lbUrl');
+    if(d.url){u.href=d.url;u.hidden=false;}else{u.hidden=true;}
+    $('lbNav').hidden=list.length<2;
+    $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
+  }
   function open(b){
-    last=b;
-    // The lightbox is the one place on this page that loads high.webp, 600x825
-    // and 100-135KB, and AVIF is 37% smaller at that size. avifPicture() cannot
-    // reach it because the url only becomes an image url on click, so the
-    // <source> is filled here, applying the SAME host test avifPicture applies:
-    // only assets.tcgdex.net publishes an AVIF beside its WebP, and a <source>
-    // pointing at a 404 paints a broken card instead of falling back.
-    // srcset FIRST, then src, so the webp is never requested and abandoned.
-    var big=b.dataset.img, avif=document.getElementById('lbAvif');
-    if(big.indexOf('https://assets.tcgdex.net/')===0 && big.slice(-5)==='.webp')
-      avif.setAttribute('srcset', big.slice(0,-5)+'.avif');
-    else avif.removeAttribute('srcset');
-    img.src=big; img.alt=b.dataset.name+' '+b.dataset.number;
-    document.getElementById('lbNm').textContent=b.dataset.name;
-    document.getElementById('lbRr').textContent=[b.dataset.rarity,b.dataset.number].filter(Boolean).join(' • ');
-    document.getElementById('lbPr').textContent=b.dataset.price
-      + (b.dataset.psa10 ? '  •  PSA 10 ' + b.dataset.psa10 : '');
-    var u=document.getElementById('lbUrl');
-    if(b.dataset.url){u.href=b.dataset.url;u.hidden=false;}else{u.hidden=true;}
+    last=b; list=groupOf(b);
+    var i=list.indexOf(b); show(i<0?0:i);
     lb.classList.add('on');
     document.body.style.overflow='hidden';
     lb.querySelector('.lb-close').focus();
   }
+  function step(n){ if(list.length>1) show(at+n); }
   function close(){
     lb.classList.remove('on'); document.body.style.overflow='';
     if(last) last.focus();      // return focus where it came from
@@ -2427,8 +2558,27 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   document.querySelectorAll('.chase-card,.sh-zm').forEach(function(b){
     b.addEventListener('click',function(){ if(b.dataset.img) open(b); });
   });
+  $('lbPrev').addEventListener('click',function(){ step(-1); });
+  $('lbNext').addEventListener('click',function(){ step(1); });
   lb.addEventListener('click',function(e){ if(e.target===lb||e.target.closest('.lb-close')) close(); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&lb.classList.contains('on')) close(); });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('on')) return;
+    if(e.key==='Escape') close();
+    else if(e.key==='ArrowLeft'){ e.preventDefault(); step(-1); }
+    else if(e.key==='ArrowRight'){ e.preventDefault(); step(1); }
+  });
+  // A SIDEWAYS SWIPE ON THE CARD STEPS, as on the 30th. touch-action:pan-y on
+  // the picture (PAGE_CSS) leaves vertical scrolling to the browser, which the
+  // phone needs because this panel can be taller than the screen, and hands
+  // the horizontal gesture to these listeners.
+  var sw=null, fig=$('lbFig');
+  fig.addEventListener('pointerdown',function(e){ sw={x:e.clientX,y:e.clientY}; });
+  fig.addEventListener('pointercancel',function(){ sw=null; });
+  fig.addEventListener('pointerup',function(e){
+    if(!sw) return;
+    var dx=e.clientX-sw.x, dy=e.clientY-sw.y; sw=null;
+    if(Math.abs(dx)>50 && Math.abs(dx)>1.5*Math.abs(dy)) step(dx<0?1:-1);
+  });
 })();
 </script>
 <script src="/assets/app.js?v=67b4bdd8" defer></script>

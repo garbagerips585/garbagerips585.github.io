@@ -26,7 +26,23 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
-<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+<style>.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+.ij-jump::-webkit-scrollbar{display:none}
+.ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
 object-position:left center;margin:6px 0 10px}
 .intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
 max-width:44em;font-size:var(--t-sm);line-height:1.5}
@@ -53,7 +69,12 @@ gap:var(--s6,48px);text-align:left}
 .sh-fan li{width:130px}
 .sh-fan ol{gap:14px}
 }
-@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}</style>
+@media(prefers-reduced-motion:reduce){.sh-zm img{transition:none}}
+@media(max-width:999px){
+.set-hero .wrap.sh-has-fan .sh-text{display:contents}
+.set-hero .wrap.sh-has-fan .sh-fan{order:1}
+.set-hero .wrap.sh-has-fan .ij-jump{order:2}
+}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Battle Partners Pokemon TCG Set Guide","description":"Battle Partners (Korean) Pokemon TCG set guide: 132 cards, released January 24, 2025, and why it is the same set as English Journey Together.","image":["https://garbagerips.com/assets/og-ko-battle-partners.jpg?v=a8aba139"],"about":{"@type":"Thing","name":"Battle Partners (Pokemon Trading Card Game, Korean)"},"url":"https://garbagerips.com/sets/ko-battle-partners.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/ko-battle-partners.html"},"datePublished":"2026-08-12","dateModified":"2026-10-02","author":{"@type":"Organization","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","name":"Garbage Rips 585","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Battle Partners"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
@@ -196,7 +217,15 @@ gap:var(--s6,48px);text-align:left}
     
     <h1>Battle Partners</h1>
     
-    <p class="lede" style="max-width:34em">The Korean printing of the set English calls Journey Together. Same cards, different name. And out first.</p>
+    <p class="lede" style="max-width:34em">The Korean printing of the set English calls Journey Together: same cards, different name. Its 132 cards came out January 24, 2025, 2 months before the English set.</p>
+    <nav class="ij-jump" aria-label="On this page">
+      <a href="#english-version">English version</a>
+      <a href="#rarest-cards">Rarest cards</a>
+      <a href="#rarity">Rarities</a>
+      <a href="#card-list">Card list</a>
+      <a href="#openings">Openings</a>
+      <a href="#sources">Sources</a>
+    </nav>
     </div>
     <div class="sh-fan">
       <ol>
@@ -234,10 +263,10 @@ gap:var(--s6,48px);text-align:left}
     </div>
   </div>
 </section>
-<section class="band tight">
+<section id="english-version" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>Battle Partners is <span class="hl">Journey Together</span></h2>
+    <h2>Korean vs English: Battle Partners and <span class="hl">Journey Together</span></h2>
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. Battle Partners is the Korean printing behind English Journey Together.</p>
     <ul class="intl-grid">
@@ -279,10 +308,10 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="rarest-cards" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
+    <h2>Battle Partners <span class="hl">rarest cards</span></h2>
     
     <div class="chase-grid">
       <button class="chase-card" type="button"
@@ -444,21 +473,16 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="rarity" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Battle Partners rarity <span class="hl">breakdown</span></h2>
     
     <div class="rarity-list" data-figure="chart">
       <div class="rar">
-        <span class="rar-name">Common</span>
-        <span class="rar-n">48</span>
-        <span class="rar-bar"><i style="width:100%"></i></span>
-      </div>
-      <div class="rar">
-        <span class="rar-name">Uncommon</span>
-        <span class="rar-n">34</span>
-        <span class="rar-bar"><i style="width:71%"></i></span>
+        <span class="rar-name">Double Rare</span>
+        <span class="rar-n">8</span>
+        <span class="rar-bar"><i style="width:17%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Rare</span>
@@ -466,22 +490,26 @@ gap:var(--s6,48px);text-align:left}
         <span class="rar-bar"><i style="width:21%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Double Rare</span>
-        <span class="rar-n">8</span>
-        <span class="rar-bar"><i style="width:17%"></i></span>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">34</span>
+        <span class="rar-bar"><i style="width:71%"></i></span>
+      </div>
+      <div class="rar">
+        <span class="rar-name">Common</span>
+        <span class="rar-n">48</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
     <p class="price-note">32 more cards are numbered past card 100, which is
-      how Japanese sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>
+      how Japanese sets carry their secret rares. TCGdex does not label the rarity on any of them, so they are counted here rather than guessed at.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="card-list" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 132 cards, English names where the card is a Pokemon. This list is the Japanese printing's, because TCGdex has no Korean card records for this set.</p>
+    <h2>Battle Partners (Korean) <span class="hl">card list</span></h2>
+    <p class="lede">All 132 cards, 101 of them with an English name. This list is the Japanese printing's, because TCGdex has no Korean card records for this set.</p>
     <details class="ig-list">
       <summary>Show the full Battle Partners checklist</summary>
       <ol class="ig-cards">
@@ -1015,17 +1043,15 @@ gap:var(--s6,48px);text-align:left}
           <span class="ig-rr">Secret</span></li>
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their Japanese names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated; 14 of the 115 Pokemon cards carry a printed name that lookup cannot match and keep their Japanese one. Trainer and Energy cards keep their Japanese names here: no source this page reads names them in English for this
+      printing, and a guessed name on a reference page is worse than an honest one you can paste into a search.</p>
   </div>
 </section>
 
-<section class="band tight">
+<section id="openings" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">1</span> of these</h2>
+    <h2>Battle Partners openings: <span class="hl">1</span> rip</h2>
     <div class="set-watch">
       
       <div class="packshot pack pack--default"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/default-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
@@ -1046,7 +1072,7 @@ gap:var(--s6,48px);text-align:left}
   </div>
 </section>
 
-<section class="tight">
+<section id="sources" class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">

@@ -26,7 +26,23 @@
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=a9411f9b">
 <link rel="stylesheet" href="/assets/packs.css?v=eaa7f9bb">
-<style>.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
+<style>.ij-jump{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:2px 0 0}
+.ij-jump a{display:inline-grid;place-items:center;min-height:44px;padding:0 14px;border-radius:999px;
+border:1px solid var(--keyline);background:var(--paper);color:var(--sky-deep);
+font:700 var(--t-sm)/1 var(--body,inherit);text-decoration:none;white-space:nowrap}
+.ij-jump a:hover,.ij-jump a:focus-visible{border-color:var(--sky);color:var(--sky)}
+@media(max-width:599px){
+.ij-jump{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;
+overscroll-behavior-x:contain;align-self:stretch;margin-inline:calc(-1 * var(--gut,16px));
+padding:2px var(--gut,16px) 6px;scroll-padding-inline:var(--gut,16px)}
+.ij-jump::-webkit-scrollbar{display:none}
+.ij-jump a{flex:none}
+}
+@media(min-width:1000px){.sh-has-fan .ij-jump{justify-content:flex-start}}
+@media(max-width:999px){.set-hero .sh-text{align-self:stretch;min-width:0}}
+main [lang="ja"],main [lang="ko"],main [lang="zh-cn"],main [lang="zh-tw"],
+main .cjk,main .intl-native,main .ig-native{word-break:keep-all;overflow-wrap:anywhere}
+.intl-logo{display:block;width:auto;max-width:150px;height:56px;object-fit:contain;
 object-position:left center;margin:6px 0 10px}
 .intl-spot{display:flex;align-items:center;gap:var(--s3);margin-top:var(--s4);
 max-width:44em;font-size:var(--t-sm);line-height:1.5}
@@ -44,10 +60,12 @@ text-transform:uppercase;vertical-align:bottom}
 .rcmp th[scope=row],.rcmp thead th:first-child{text-align:left;font-weight:600}
 .rcmp td{font:700 var(--t-sm)/1.4 var(--mono);white-space:nowrap}
 .rcmp tbody tr:last-child th,.rcmp tbody tr:last-child td{border-bottom:0}
-.rcmp tr.is-same{background:var(--sky-tint)}
-.rcmp tr.is-same th[scope=row]{color:var(--gold-deep)}
+.rcmp tr.is-same th[scope=row]{color:var(--ink)}
+.rcmp-tag{display:inline-block;margin-left:8px;padding:2px 7px;border:1px solid var(--ketchup-deep);
+border-radius:999px;color:var(--ketchup-deep);font:700 var(--t-micro)/1.2 var(--mono);
+letter-spacing:.06em;text-transform:uppercase;vertical-align:1px;white-space:nowrap}
 .rcmp tr.is-total th,.rcmp tr.is-total td{border-top:2px solid var(--ink);font-weight:700}
-.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--gold);
+.rcmp-say{max-width:42em;margin-top:var(--s4);border-left:4px solid var(--keyline);
 padding-left:var(--s4);font-size:var(--t-body)}
 .rk{display:inline-flex;align-items:center;gap:1px;vertical-align:-1px;margin-right:5px}
 .rk svg{width:11px;height:11px;display:block}
@@ -223,7 +241,18 @@ text-transform:uppercase;letter-spacing:.04em}
     <img class="logo-big" width="275" height="104" src="/assets/logos/ja-nihil-zero-pokemon-tcg-set-logo.webp" srcset="/assets/logos/ja-nihil-zero-pokemon-tcg-set-logo-sm.webp 264w, /assets/logos/ja-nihil-zero-pokemon-tcg-set-logo.webp 275w" sizes="(max-width:329px) 148.1px, (max-width:647px) 45vw, 290.9px" alt="Nihil Zero logo" onerror="this.remove()">
     <h1>Nihil Zero</h1>
     <p class="intl-hero-native cjk" lang="ja">ムニキスゼロ</p>
-    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Perfect Order. Same cards, different name. And out first.</p>
+    <p class="lede" style="max-width:34em">The Japanese printing of the set English calls Perfect Order: same cards, different name. Its 117 cards came out January 23, 2026, 2 months before the English set.</p>
+    <nav class="ij-jump" aria-label="On this page">
+      <a href="#english-version">English version</a>
+      <a href="#card-for-card">Card for card</a>
+      <a href="#rarest-cards">Rarest cards</a>
+      <a href="#rarity">Rarities</a>
+      <a href="#booster-pack">Booster pack</a>
+      <a href="#card-list">Card list</a>
+      <a href="#openings">Openings</a>
+      <a href="#pulls">Our pulls</a>
+      <a href="#sources">Sources</a>
+    </nav>
     
 
   </div>
@@ -242,10 +271,10 @@ text-transform:uppercase;letter-spacing:.04em}
     </div>
   </div>
 </section>
-<section class="tight">
+<section id="english-version" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Same cards, different name</p>
-    <h2>Nihil Zero is <span class="hl">Perfect Order</span></h2>
+    <h2>Japanese vs English: Nihil Zero and <span class="hl">Perfect Order</span></h2>
     <p class="lede intl-lede">If you have watched these rips and then gone looking for the set in a US store, this is the
       one you want. Nihil Zero is the Japanese printing behind English Perfect Order.</p>
     <ul class="intl-grid">
@@ -289,12 +318,12 @@ text-transform:uppercase;letter-spacing:.04em}
   </div>
 </section>
 
-<section class="band tight">
+<section id="card-for-card" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Card for card</p>
-    <h2>How close is it to <span class="hl">Perfect Order</span>?</h2>
+    <h2>Nihil Zero vs <span class="hl">Perfect Order</span> by rarity</h2>
     <p class="lede" style="max-width:42em">"Same set" is nearly true and worth checking rather than taking on trust.
-      Here is every rarity in both printings, side by side. The gold rows are the ones that match.</p>
+      Here is every rarity in both printings, side by side. A rarity tagged Match holds the same number of cards in both.</p>
     <div class="rcmp-wrap">
       <table class="rcmp">
         <caption class="sr-only">Card count by rarity in Nihil Zero against Perfect Order</caption>
@@ -303,16 +332,16 @@ text-transform:uppercase;letter-spacing:.04em}
         </thead>
         <tbody>
           <tr class="is-same">
-            <th scope="row">Mega Hyper Rare</th><td>1</td><td>1</td>
+            <th scope="row">Mega Hyper Rare<span class="rcmp-tag">Match</span></th><td>1</td><td>1</td>
           </tr>
           <tr class="is-same">
-            <th scope="row">Special Illustration Rare</th><td>6</td><td>6</td>
+            <th scope="row">Special Illustration Rare<span class="rcmp-tag">Match</span></th><td>6</td><td>6</td>
           </tr>
           <tr>
             <th scope="row">Illustration Rare</th><td>12</td><td>11</td>
           </tr>
           <tr class="is-same">
-            <th scope="row">Ultra Rare</th><td>18</td><td>18</td>
+            <th scope="row">Ultra Rare<span class="rcmp-tag">Match</span></th><td>18</td><td>18</td>
           </tr>
           <tr>
             <th scope="row">Double Rare</th><td>8</td><td>9</td>
@@ -338,43 +367,13 @@ text-transform:uppercase;letter-spacing:.04em}
   </div>
 </section>
 
-<section class="tight">
+<section id="rarest-cards" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>The ones you want</p>
-    <h2>Top <span class="hl">chase cards</span></h2>
-    <p class="lede" style="max-width:42em">TCGdex publishes no card scans for Nihil Zero, so this page can name the cards worth hunting but cannot show them. What it can show is the same cards in English.</p>
-    <h3 class="intl-enh">The same cards in English</h3>
-    <p class="intl-ensay">The priciest cards in English Perfect Order, which is the set on the shelf in a US store.
-      These are that set's own cards, numbers and prices, not the Japanese ones listed below.</p>
-    <div class="chase-grid intl-enchase">
-      <a class="chase-card" href="/sets/perfect-order.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/124/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/124/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
-        <div class="nm">Mega Zygarde ex</div>
-        <div class="rr">Mega Hyper Rare &bull; 124</div>
-        <div class="pr">$105</div>
-      </a>
-      <a class="chase-card" href="/sets/perfect-order.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/121/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/121/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
-        <div class="nm">Meowth ex</div>
-        <div class="rr">Special Illustration Rare &bull; 121</div>
-        <div class="pr">$100</div>
-      </a>
-      <a class="chase-card" href="/sets/perfect-order.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/120/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/120/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
-        <div class="nm">Mega Zygarde ex</div>
-        <div class="rr">Special Illustration Rare &bull; 120</div>
-        <div class="pr">$46.42</div>
-      </a>
-      <a class="chase-card" href="/sets/perfect-order.html">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/119/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/119/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
-        <div class="nm">Mega Clefable ex</div>
-        <div class="rr">Special Illustration Rare &bull; 119</div>
-        <div class="pr">$45.67</div>
-      </a>
-    </div>
-    <p class="price-note">English Perfect Order card scans from TCGdex, pricecharting.com price guide values for an ungraded copy, read October 2, 2026. Every one of them links through to the Perfect Order guide, which prices the whole checklist.</p>
+    <h2>Nihil Zero <span class="hl">rarest cards</span></h2>
+    <p class="lede" style="max-width:42em">TCGdex publishes no card scans for Nihil Zero, so this page can name the cards worth hunting but cannot show them. What it can show, under the list, is the English set's own chase cards.</p>
     
-    <h3 class="flat-h">The Nihil Zero chase list</h3>
+    
     <ul class="flat-list">
       <li class="flat-item">
         <b>Mega Zygarde ex</b>
@@ -441,24 +440,54 @@ text-transform:uppercase;letter-spacing:.04em}
       databases that carry them at all, and a converted half-filled price table is worse than none. The English
       <a href="/sets/perfect-order.html">Perfect Order guide</a> carries live USD
       values for the same cards.</p>
+    <h3 class="intl-enh">The same cards in English</h3>
+    <p class="intl-ensay">The priciest cards in English Perfect Order, which is the set on the shelf in a US store.
+      These are that set's own cards, numbers and prices, not the Japanese ones above.</p>
+    <div class="chase-grid intl-enchase">
+      <a class="chase-card" href="/sets/perfect-order.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/124/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/124/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+        <div class="nm">Mega Zygarde ex</div>
+        <div class="rr">Mega Hyper Rare &bull; 124</div>
+        <div class="pr">$105</div>
+      </a>
+      <a class="chase-card" href="/sets/perfect-order.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/121/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/121/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+        <div class="nm">Meowth ex</div>
+        <div class="rr">Special Illustration Rare &bull; 121</div>
+        <div class="pr">$100</div>
+      </a>
+      <a class="chase-card" href="/sets/perfect-order.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/120/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/120/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+        <div class="nm">Mega Zygarde ex</div>
+        <div class="rr">Special Illustration Rare &bull; 120</div>
+        <div class="pr">$46.42</div>
+      </a>
+      <a class="chase-card" href="/sets/perfect-order.html">
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me03/119/low.avif"><img src="https://assets.tcgdex.net/en/me/me03/119/low.webp" alt="" loading="lazy" decoding="async" onerror="this.remove()" width="245" height="337"></picture>
+        <div class="nm">Mega Clefable ex</div>
+        <div class="rr">Special Illustration Rare &bull; 119</div>
+        <div class="pr">$45.67</div>
+      </a>
+    </div>
+    <p class="price-note">English Perfect Order card scans from TCGdex, pricecharting.com price guide values for an ungraded copy, read October 2, 2026. Every one of them links through to the Perfect Order guide, which prices the whole checklist.</p>
   </div>
 </section>
 
-<section class="band-sky tight">
+<section id="rarity" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What is actually rare</p>
-    <h2>Rarity <span class="hl">breakdown</span></h2>
+    <h2>Nihil Zero rarity <span class="hl">breakdown</span></h2>
     
     <div class="rarity-list" data-figure="chart">
       <div class="rar">
-        <span class="rar-name">Common</span>
-        <span class="rar-n">38</span>
-        <span class="rar-bar"><i style="width:100%"></i></span>
+        <span class="rar-name">Mega Ultra Rare</span>
+        <span class="rar-n">1</span>
+        <span class="rar-bar"><i style="width:4%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Uncommon</span>
-        <span class="rar-n">26</span>
-        <span class="rar-bar"><i style="width:68%"></i></span>
+        <span class="rar-name">Special Art Rare</span>
+        <span class="rar-n">6</span>
+        <span class="rar-bar"><i style="width:16%"></i></span>
       </div>
       <div class="rar">
         <span class="rar-name">Super Rare</span>
@@ -471,36 +500,35 @@ text-transform:uppercase;letter-spacing:.04em}
         <span class="rar-bar"><i style="width:32%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Rare</span>
-        <span class="rar-n">8</span>
-        <span class="rar-bar"><i style="width:21%"></i></span>
-      </div>
-      <div class="rar">
         <span class="rar-name">Double Rare</span>
         <span class="rar-n">8</span>
         <span class="rar-bar"><i style="width:21%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Special Art Rare</span>
-        <span class="rar-n">6</span>
-        <span class="rar-bar"><i style="width:16%"></i></span>
+        <span class="rar-name">Rare</span>
+        <span class="rar-n">8</span>
+        <span class="rar-bar"><i style="width:21%"></i></span>
       </div>
       <div class="rar">
-        <span class="rar-name">Mega Ultra Rare</span>
-        <span class="rar-n">1</span>
-        <span class="rar-bar"><i style="width:4%"></i></span>
+        <span class="rar-name">Uncommon</span>
+        <span class="rar-n">26</span>
+        <span class="rar-bar"><i style="width:68%"></i></span>
+      </div>
+      <div class="rar">
+        <span class="rar-name">Common</span>
+        <span class="rar-n">38</span>
+        <span class="rar-bar"><i style="width:100%"></i></span>
       </div>
     </div>
     <p class="price-note">37 more cards are numbered past card 80, which is
-      how Japanese sets carry their secret rares. TCGdex does not label the rarity on every
-      one of them, so they are counted here rather than guessed at.</p>
+      how Japanese sets carry their secret rares. Every one of them is labeled, so each is counted on its own tier above.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="booster-pack" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What it looks like</p>
-    <h2>The <span class="hl">pack</span> itself</h2>
+    <h2>Nihil Zero <span class="hl">booster pack</span></h2>
     <p class="lede" style="max-width:38em">What to look for on a shelf, or in somebody's rip. The Japanese name runs across the bottom of the wrapper.</p>
     <div class="pk-band">
       <a class="pk-shot" href="https://www.tcgplayer.com/product/674454/nihil-zero-booster-pack" rel="noopener" target="_blank"
@@ -522,11 +550,11 @@ text-transform:uppercase;letter-spacing:.04em}
   </div>
 </section>
 
-<section class="band tight">
+<section id="card-list" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every card</p>
-    <h2>Full <span class="hl">checklist</span></h2>
-    <p class="lede">All 117 cards, English names where the card is a Pokemon.</p>
+    <h2>Nihil Zero (Japanese) <span class="hl">card list</span></h2>
+    <p class="lede">All 117 cards, 116 of them with an English name.</p>
     <details class="ig-list">
       <summary>Show the full Nihil Zero checklist</summary>
       <ol class="ig-cards">
@@ -1000,17 +1028,16 @@ text-transform:uppercase;letter-spacing:.04em}
           <span class="ig-rr">Mega Ultra Rare</span></li>
       </ol>
     </details>
-    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather
-      than transliterated. Trainer and Supporter cards keep their Japanese names: no
-      free source translates them, and a guessed name on a reference page is worse than an honest one you can paste into
-      a search.</p>
+    <p class="price-note">Pokemon names come from the National Pokedex number on each card, so they are looked up rather than transliterated. 25 of the 26 Trainer and Energy cards are named the way TCGplayer's Japanese catalog files them, matched on the collector number.
+      The other one, <span lang="ja">活力の森</span>, keeps its Japanese name:
+      where the catalog gave no single English name for a card, none is printed.</p>
   </div>
 </section>
 
-<section class="tight">
+<section id="openings" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
-    <h2>We ripped <span class="hl">2</span> of these</h2>
+    <h2>Nihil Zero openings: <span class="hl">2</span> rips</h2>
     <div class="set-watch">
       
       <div class="packshot pack pack--ja-nihil-zero"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/ja-nihil-zero-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
@@ -1033,10 +1060,10 @@ text-transform:uppercase;letter-spacing:.04em}
   </div>
 </section>
 
-<section class="band tight">
+<section id="pulls" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
-    <h2>What we have <span class="hl">hit</span> from this set</h2>
+    <h2>What we have <span class="hl">pulled</span> from Nihil Zero</h2>
     <p class="lede" style="max-width:38em">3 cards out of our own packs.
       Every one of them is in a video you can watch.</p>
     <ul class="mine-grid">
@@ -1072,7 +1099,7 @@ text-transform:uppercase;letter-spacing:.04em}
   </div>
 </section>
 
-<section class="tight">
+<section id="sources" class="tight">
   <div class="wrap">
     <h2>Where this <span class="hl">came from</span></h2>
     <ul class="facts-list">
@@ -1081,6 +1108,7 @@ text-transform:uppercase;letter-spacing:.04em}
       
       <li><strong>On the name.</strong> The set itself is certain: the code, the card count and the release date all check out. The English name is less settled. The card database we read transcribes the Japanese name in a way that does not come out as Nihil Zero, but Nihil Zero is what is on the packs we opened and what everyone calls it. We went with the packs.</li>
       <li>Pokemon card names in English via the National Pokedex number, through <a href="https://pokeapi.co" rel="noopener" target="_blank" aria-label="PokeAPI, the source of the English card names, opens on pokeapi.co">PokeAPI</a>.</li>
+      <li>Trainer and Energy names in English from TCGplayer's Japanese catalog, matched to this checklist on the collector number: 25 of the 26 on this page.</li>
       <li>This is a fan page. Nothing here is sold by us and none of it is official.</li>
     </ul>
   </div>
