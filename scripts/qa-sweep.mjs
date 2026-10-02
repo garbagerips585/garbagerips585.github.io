@@ -66,6 +66,10 @@ const ALL = argv.includes("--all");
 // Drive a remote origin instead of the local static server. Trailing slash is
 // stripped so callers can pass either form without producing a double slash.
 const BASE = arg("--base", "").replace(/\/$/, "");
+// --cdp <port>: Chrome's debugging port, 9333 by default. A full sweep is about
+// 4,600 renders and outlasts a one hour job, so it is run as parallel batches
+// (--only), and two batches on one port kill each other's browser.
+const CDP = Number(arg("--cdp", "9333"));
 const ORIGIN = BASE || `http://127.0.0.1:${PORT}`;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -139,14 +143,14 @@ let chrome, profile;
 async function startChrome() {
   profile = await mkdtemp(join(tmpdir(), "qa-chrome-"));
   chrome = spawn(CHROME, [
-    "--headless=new", "--remote-debugging-port=9333", `--user-data-dir=${profile}`,
+    "--headless=new", `--remote-debugging-port=${CDP}`, `--user-data-dir=${profile}`,
     "--no-first-run", "--no-default-browser-check", "--disable-extensions",
     "--hide-scrollbars", "--force-device-scale-factor=1", "--force-color-profile=srgb",
     "about:blank",
   ], { stdio: "ignore" });
   for (let i = 0; i < 100; i++) {
     try {
-      const r = await fetch("http://127.0.0.1:9333/json/version");
+      const r = await fetch(`http://127.0.0.1:${CDP}/json/version`);
       if (r.ok) return (await r.json()).webSocketDebuggerUrl;
     } catch {}
     await sleep(100);

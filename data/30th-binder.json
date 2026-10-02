@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-09-30",
+  "checked": "2026-10-02",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1377,6 +1377,16 @@
       "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
     },
     {
+      "name": "Salamence ex",
+      "n": "156",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Special Illustration Rare",
+      "got": "2026-10-02",
+      "note": "The owner, 2 October 2026, in an updated master set list: added in that list and not in the binder before. He listed it under Illustration Rare and confirmed the same day it is the Salamence ex Special Illustration Rare, #156: \"yes 156 is the Salamence ex SIR i put it it in wrong section\"."
+    },
+    {
       "name": "Zeraora",
       "n": "057",
       "of": 128,
@@ -1437,6 +1447,16 @@
       "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
     },
     {
+      "name": "Sylveon ex",
+      "n": "071",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Double Rare",
+      "got": "2026-10-02",
+      "note": "The owner, 2 October 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
       "name": "Umbreon ex",
       "n": "092",
       "of": 128,
@@ -1455,6 +1475,16 @@
       "rarity": "Common",
       "got": "2026-09-28",
       "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Hisuian Zoroark",
+      "n": "123",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-10-02",
+      "note": "The owner, 2 October 2026, in an updated master set list: added in that list and not in the binder before."
     },
     {
       "name": "Darkrai & Cresselia Legend (Bottom)",
