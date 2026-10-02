@@ -1836,13 +1836,17 @@ for (const st of sets) {
   const fromList = priced.map((c) => {
     const n = cardNumKey(c.n);
     const base = c.img && !NO_SCAN.has(c.img) ? c.img : null;
+    // A CHECKLIST CARD TCGdex HAS NO SCAN FOR falls back to a data/card-shots
+    // .json pin, 2 October 2026: Celebrations' Mew #025/025, its one Secret Rare
+    // and its most valuable main-set card, was the last "No scan" in that hero.
+    const pin = base ? null : pinnedShot(st.name, c.n);
     return {
       name: c.name,
       number: n,
       rarity: c.rarity,
       price: c.price,
-      image: base ? `${base}/low.webp` : null,
-      imageLarge: base ? `${base}/high.webp` : null,
+      image: base ? `${base}/low.webp` : pin ? pin.thumb : null,
+      imageLarge: base ? `${base}/high.webp` : pin ? pin.image : null,
       url: urls.get(n) || null,
     };
   });
@@ -3924,6 +3928,11 @@ const PAGE_CSS = `
   .facts.opened{grid-template-columns:repeat(4,minmax(0,21.2em));justify-content:start}
   .facts.opened .fact:last-child:nth-child(4n + 1){grid-column:auto}
 }
+/* aspect-ratio:auto 5/7 on .sh-zm img, 2 October 2026: a TCGplayer pin (the
+   Classic Collection, Celebrations' Mew) carries no width/height because that
+   host pads to its own canvas, so the hero's cards were 0px tall until they
+   arrived and the hero grew under the reader. "auto" keeps each file's own
+   ratio once it loads; 5/7 is only the placeholder. */
 /* THE HERO FAN, see heroFan(). .set-hero .wrap is display:flex in ui.css at
    (0,2,0), so these carry a third class or a page rule loses to it silently,
    which is the trap CLAUDE.md records under the Topps hero. */
@@ -3932,7 +3941,7 @@ const PAGE_CSS = `
 .sh-fan ol{list-style:none;margin:0;padding:0;display:flex;justify-content:center;gap:10px;align-items:flex-end}
 .sh-fan li{width:96px}
 .sh-zm{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-radius:4.6%/3.3%}
-.sh-zm img{display:block;width:100%;height:auto;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
+.sh-zm img{display:block;width:100%;height:auto;aspect-ratio:auto 5/7;border-radius:4.6%/3.3%;box-shadow:0 10px 22px rgb(0 0 0 / .45);
   transition:transform .18s ease}
 .sh-zm:hover img,.sh-zm:focus-visible img{transform:translateY(-5px)}
 .sh-fan li:nth-child(1){transform:rotate(-4deg) translateY(5px)}
@@ -4319,11 +4328,12 @@ function rarityPic(s, key, pulled) {
   const none = (w) => `<span class="rar-pic rar-none" aria-hidden="true">${w}</span>`;
   if (!cards.length) return none("Not shown");
   const c = cards.filter((x) => typeof x.price === "number" && x.price > 0).sort((a, b) => b.price - a.price)[0] || cards[0];
-  if (!c.img || NO_SCAN.has(c.img)) return none("No scan");
+  const pin = !c.img || NO_SCAN.has(c.img) ? pinnedShot(s.name, c.n) : null;
+  if ((!c.img || NO_SCAN.has(c.img)) && !pin) return none("No scan");
   const n = cardNumKey(c.n);
   const card = {
     name: c.name, number: n, rarity: c.rarity, price: c.price,
-    image: `${c.img}/low.webp`, imageLarge: `${c.img}/high.webp`,
+    image: pin ? pin.thumb : `${c.img}/low.webp`, imageLarge: pin ? pin.image : `${c.img}/high.webp`,
     url: chaseLinks[s.id]?.links?.[n] || null,
   };
   return `<button class="rar-pic rar-zm" type="button"${zoomData(s, card, pulled)}
