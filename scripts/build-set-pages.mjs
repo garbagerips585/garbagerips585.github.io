@@ -2428,8 +2428,12 @@ function derivedFacts(s) {
    Fewer than three scanned, priced cards and there is no fan, rather than a fan
    of two: the layout and the caption are both about three. */
 const heroFan = (s) => {
-  const three = (s.chase || []).filter((c) => c.image && c.price).slice(0, 3);
+  const priced = (s.chase || []).filter((c) => c.price);
+  const three = priced.filter((c) => c.image).slice(0, 3);
   if (three.length < 3) return "";
+  // Celebrations' dearest card, Mew, has no scan, so the three drawn are not the
+  // top three and the caption must not say they are. It says what they are.
+  const exact = three.every((c, i) => c === priced[i]);
   const psa = (c) => gradedPrice(s.id, c.number, c.name, s.name);
   return `    <div class="sh-fan">
       <ol>
@@ -2441,7 +2445,7 @@ ${three.map((c) => `        <li><button class="sh-zm" type="button"
           data-url="${esc(c.url ? affLink(c.url) : "")}"
           aria-label="Enlarge ${esc(c.name)}, ${esc(rarityLabel(c.rarity) || "")} ${esc(c.number)}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
       </ol>
-      <p>The top three by raw price</p>
+      <p>${exact ? "The top three by raw price" : "The top three by raw price with a scan"}</p>
     </div>`;
 };
 

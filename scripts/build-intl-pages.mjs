@@ -2060,7 +2060,9 @@ function guidePage(g) {
   }) + `
 <header class="set-hero">
   <div class="wrap${introFan(g) ? " sh-has-fan" : ""}">
-    <div class="sh-text">
+    ${/* The wrapper only exists with a fan, because its rules ride in FAN_CSS.
+          Emitted unconditionally it left five guides with an unstyled block
+          and the kicker sitting on top of the logo. */ ""}${introFan(g) ? `<div class="sh-text">` : ""}
     <span class="kicker">Pokemon TCG &bull; ${g.langFlag ? `${g.langFlag} ` : ""}${esc(g.langName)} set</span>
     ${ownLogo(g.id, `${g.english} logo`)}
     <h1>${esc(g.english)}</h1>
@@ -2071,7 +2073,7 @@ function guidePage(g) {
           (g.released && en.released && g.released < en.released ? " And out first." : "")
         : `A ${esc(g.langName)} set that never got an English release.`
     }</p>
-    </div>
+    ${introFan(g) ? `</div>` : ""}
 ${introFan(g)}
   </div>
 </header>
