@@ -28,17 +28,17 @@
   "sets": {
     "shining-fates": {
       "console": "/console/pokemon-shining-fates",
-      "checked": "2026-09-23",
+      "checked": "2026-10-03",
       "total": 122,
       "priced": 122,
       "cards": {
         "SV001": {
           "name": "Rowlet",
           "pcName": "Rowlet",
-          "price": 3.6,
+          "price": 3.99,
           "variant": "Base",
           "all": {
-            "Base": 3.6
+            "Base": 3.99
           },
           "psa10": 28,
           "g9": 18.41,
@@ -47,70 +47,70 @@
         "SV002": {
           "name": "Dartrix",
           "pcName": "Dartrix",
-          "price": 3.5,
+          "price": 3.53,
           "variant": "Base",
           "all": {
-            "Base": 3.5
+            "Base": 3.53
           },
-          "psa10": 22.09,
+          "psa10": 22.14,
           "g9": 13.99,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dartrix-sv002"
         },
         "SV003": {
           "name": "Decidueye",
           "pcName": "Decidueye",
-          "price": 5.68,
+          "price": 5.73,
           "variant": "Base",
           "all": {
-            "Base": 5.68
+            "Base": 5.73
           },
-          "psa10": 52.02,
-          "g9": 23.12,
+          "psa10": 50.97,
+          "g9": 23.47,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/decidueye-sv003"
         },
         "SV004": {
           "name": "Grookey",
           "pcName": "Grookey",
-          "price": 2.71,
+          "price": 2.58,
           "variant": "Base",
           "all": {
-            "Base": 2.71
+            "Base": 2.58
           },
           "psa10": 50,
-          "g9": 20.44,
+          "g9": 20.26,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/grookey-sv004"
         },
         "SV005": {
           "name": "Thwackey",
           "pcName": "Thwackey",
-          "price": 3.07,
+          "price": 3.1,
           "variant": "Base",
           "all": {
-            "Base": 3.07
+            "Base": 3.1
           },
           "psa10": 26.49,
-          "g9": 12.23,
+          "g9": 12.3,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/thwackey-sv005"
         },
         "SV006": {
           "name": "Rillaboom",
           "pcName": "Rillaboom",
-          "price": 3,
+          "price": 3.14,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 3.14
           },
-          "psa10": 48.76,
-          "g9": 13.86,
+          "psa10": 50,
+          "g9": 13.98,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/rillaboom-sv006"
         },
         "SV007": {
           "name": "Blipbug",
           "pcName": "Blipbug",
-          "price": 1.99,
+          "price": 1.92,
           "variant": "Base",
           "all": {
-            "Base": 1.99
+            "Base": 1.92
           },
           "psa10": 23.5,
           "g9": 8,
@@ -119,34 +119,34 @@
         "SV008": {
           "name": "Dottler",
           "pcName": "Dottler",
-          "price": 1.56,
+          "price": 1.64,
           "variant": "Base",
           "all": {
-            "Base": 1.56
+            "Base": 1.64
           },
-          "psa10": 22.77,
+          "psa10": 22.88,
           "g9": 6,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dottler-sv008"
         },
         "SV009": {
           "name": "Orbeetle",
           "pcName": "Orbeetle",
-          "price": 2.34,
+          "price": 2.09,
           "variant": "Base",
           "all": {
-            "Base": 2.34
+            "Base": 2.09
           },
-          "psa10": 31.99,
+          "psa10": 36,
           "g9": 29.99,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/orbeetle-sv009"
         },
         "SV010": {
           "name": "Gossifleur",
           "pcName": "Gossifleur",
-          "price": 2.41,
+          "price": 2.79,
           "variant": "Base",
           "all": {
-            "Base": 2.41
+            "Base": 2.79
           },
           "psa10": 24.85,
           "g9": 20,
@@ -155,10 +155,10 @@
         "SV011": {
           "name": "Eldegoss",
           "pcName": "Eldegoss",
-          "price": 1.86,
+          "price": 1.84,
           "variant": "Base",
           "all": {
-            "Base": 1.86
+            "Base": 1.84
           },
           "psa10": 29.51,
           "g9": 22,
@@ -172,32 +172,32 @@
           "all": {
             "Base": 9
           },
-          "psa10": 60.01,
+          "psa10": 55.75,
           "g9": 21,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/applin-sv012"
         },
         "SV013": {
           "name": "Flapple",
           "pcName": "Flapple",
-          "price": 4.38,
+          "price": 4.62,
           "variant": "Base",
           "all": {
-            "Base": 4.38
+            "Base": 4.62
           },
-          "psa10": 30.01,
-          "g9": 11,
+          "psa10": 39.01,
+          "g9": 10,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/flapple-sv013"
         },
         "SV014": {
           "name": "Appletun",
           "pcName": "Appletun",
-          "price": 8.2,
+          "price": 7.75,
           "variant": "Base",
           "all": {
-            "Base": 8.2
+            "Base": 7.75
           },
           "psa10": 41.49,
-          "g9": 8.77,
+          "g9": 8.78,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/appletun-sv014"
         },
         "SV015": {
@@ -208,29 +208,29 @@
           "all": {
             "Base": 4.07
           },
-          "psa10": 85,
+          "psa10": 88.05,
           "g9": 14.25,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/scorbunny-sv015"
         },
         "SV016": {
           "name": "Raboot",
           "pcName": "Raboot",
-          "price": 5.77,
+          "price": 5.46,
           "variant": "Base",
           "all": {
-            "Base": 5.77
+            "Base": 5.46
           },
-          "psa10": 42,
+          "psa10": 50,
           "g9": 14,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/raboot-sv016"
         },
         "SV017": {
           "name": "Cinderace",
           "pcName": "Cinderace",
-          "price": 6.35,
+          "price": 6.33,
           "variant": "Base",
           "all": {
-            "Base": 6.35
+            "Base": 6.33
           },
           "psa10": 50.86,
           "g9": 15.5,
@@ -239,34 +239,34 @@
         "SV018": {
           "name": "Sizzlipede",
           "pcName": "Sizzlipede",
-          "price": 2.74,
+          "price": 2.77,
           "variant": "Base",
           "all": {
-            "Base": 2.74
+            "Base": 2.77
           },
-          "psa10": 18.92,
+          "psa10": 18.91,
           "g9": 18.75,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/sizzlipede-sv018"
         },
         "SV019": {
           "name": "Centiskorch",
           "pcName": "Centiskorch",
-          "price": 2.21,
+          "price": 2.3,
           "variant": "Base",
           "all": {
-            "Base": 2.21
+            "Base": 2.3
           },
-          "psa10": 28.74,
+          "psa10": 28.75,
           "g9": 11,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/centiskorch-sv019"
         },
         "SV020": {
           "name": "Galarian Mr. Mime",
           "pcName": "Galarian Mr. Mime",
-          "price": 2.21,
+          "price": 2,
           "variant": "Base",
           "all": {
-            "Base": 2.21
+            "Base": 2
           },
           "psa10": 28.5,
           "g9": 12,
@@ -275,34 +275,34 @@
         "SV021": {
           "name": "Galarian Mr. Rime",
           "pcName": "Galarian Mr. Rime",
-          "price": 1.6,
+          "price": 1.71,
           "variant": "Base",
           "all": {
-            "Base": 1.6
+            "Base": 1.71
           },
-          "psa10": 36.65,
+          "psa10": 36.67,
           "g9": 14,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-mr-rime-sv021"
         },
         "SV022": {
           "name": "Suicune",
           "pcName": "Suicune",
-          "price": 16.16,
+          "price": 16.17,
           "variant": "Base",
           "all": {
-            "Base": 16.16
+            "Base": 16.17
           },
-          "psa10": 162.43,
-          "g9": 24.3,
+          "psa10": 160.47,
+          "g9": 24.31,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/suicune-sv022"
         },
         "SV023": {
           "name": "Galarian Darumaka",
           "pcName": "Galarian Darumaka",
-          "price": 2.49,
+          "price": 2.26,
           "variant": "Base",
           "all": {
-            "Base": 2.49
+            "Base": 2.26
           },
           "psa10": 23.55,
           "g9": 16,
@@ -323,22 +323,22 @@
         "SV025": {
           "name": "Sobble",
           "pcName": "Sobble",
-          "price": 2.26,
+          "price": 2.17,
           "variant": "Base",
           "all": {
-            "Base": 2.26
+            "Base": 2.17
           },
-          "psa10": 33.5,
+          "psa10": 33.07,
           "g9": 18,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/sobble-sv025"
         },
         "SV026": {
           "name": "Drizzile",
           "pcName": "Drizzile",
-          "price": 4.36,
+          "price": 4.5,
           "variant": "Base",
           "all": {
-            "Base": 4.36
+            "Base": 4.5
           },
           "psa10": 24.51,
           "g9": 8.62,
@@ -347,34 +347,34 @@
         "SV027": {
           "name": "Inteleon",
           "pcName": "Inteleon",
-          "price": 5.22,
+          "price": 5.2,
           "variant": "Base",
           "all": {
-            "Base": 5.22
+            "Base": 5.2
           },
           "psa10": 50,
-          "g9": 14.5,
+          "g9": 35.14,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/inteleon-sv027"
         },
         "SV028": {
           "name": "Chewtle",
           "pcName": "Chewtle",
-          "price": 2.72,
+          "price": 2.7,
           "variant": "Base",
           "all": {
-            "Base": 2.72
+            "Base": 2.7
           },
           "psa10": 21.56,
-          "g9": 13,
+          "g9": 17.01,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/chewtle-sv028"
         },
         "SV029": {
           "name": "Drednaw",
           "pcName": "Drednaw",
-          "price": 1.97,
+          "price": 2.25,
           "variant": "Base",
           "all": {
-            "Base": 1.97
+            "Base": 2.25
           },
           "psa10": 27.51,
           "g9": 12.5,
@@ -383,34 +383,34 @@
         "SV030": {
           "name": "Cramorant",
           "pcName": "Cramorant",
-          "price": 1.99,
+          "price": 1.72,
           "variant": "Base",
           "all": {
-            "Base": 1.99
+            "Base": 1.72
           },
-          "psa10": 40.92,
+          "psa10": 40.79,
           "g9": 16,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/cramorant-sv030"
         },
         "SV031": {
           "name": "Arrokuda",
           "pcName": "Arrokuda",
-          "price": 2,
+          "price": 1.67,
           "variant": "Base",
           "all": {
-            "Base": 2
+            "Base": 1.67
           },
-          "psa10": 30.34,
-          "g9": 16.1,
+          "psa10": 30.31,
+          "g9": 16.79,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/arrokuda-sv031"
         },
         "SV032": {
           "name": "Barraskewda",
           "pcName": "Barraskewda",
-          "price": 1.7,
+          "price": 1.87,
           "variant": "Base",
           "all": {
-            "Base": 1.7
+            "Base": 1.87
           },
           "psa10": 22.51,
           "g9": 10.44,
@@ -419,22 +419,22 @@
         "SV033": {
           "name": "Snom",
           "pcName": "Snom",
-          "price": 5.38,
+          "price": 5.43,
           "variant": "Base",
           "all": {
-            "Base": 5.38
+            "Base": 5.43
           },
-          "psa10": 61.56,
+          "psa10": 60.36,
           "g9": 18.36,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/snom-sv033"
         },
         "SV034": {
           "name": "Frosmoth",
           "pcName": "Frosmoth",
-          "price": 4.21,
+          "price": 3.95,
           "variant": "Base",
           "all": {
-            "Base": 4.21
+            "Base": 3.95
           },
           "psa10": 28,
           "g9": 10.44,
@@ -443,10 +443,10 @@
         "SV035": {
           "name": "Eiscue",
           "pcName": "Eiscue",
-          "price": 4.73,
+          "price": 4.44,
           "variant": "Base",
           "all": {
-            "Base": 4.73
+            "Base": 4.44
           },
           "psa10": 27.15,
           "g9": 15,
@@ -455,22 +455,22 @@
         "SV036": {
           "name": "Dracovish",
           "pcName": "Dracovish",
-          "price": 3.86,
+          "price": 3.7,
           "variant": "Base",
           "all": {
-            "Base": 3.86
+            "Base": 3.7
           },
-          "psa10": 47.55,
-          "g9": 10,
+          "psa10": 48.27,
+          "g9": 11,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dracovish-sv036"
         },
         "SV037": {
           "name": "Arctovish",
           "pcName": "Arctovish",
-          "price": 2.49,
+          "price": 2.12,
           "variant": "Base",
           "all": {
-            "Base": 2.49
+            "Base": 2.12
           },
           "psa10": 40.09,
           "g9": 14.6,
@@ -479,10 +479,10 @@
         "SV038": {
           "name": "Rotom",
           "pcName": "Rotom",
-          "price": 6.02,
+          "price": 5.82,
           "variant": "Base",
           "all": {
-            "Base": 6.02
+            "Base": 5.82
           },
           "psa10": 75,
           "g9": 14,
@@ -491,34 +491,34 @@
         "SV039": {
           "name": "Yamper",
           "pcName": "Yamper",
-          "price": 17.63,
+          "price": 18.03,
           "variant": "Base",
           "all": {
-            "Base": 17.63
+            "Base": 18.03
           },
-          "psa10": 100.17,
-          "g9": 20,
+          "psa10": 100.09,
+          "g9": 19,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/yamper-sv039"
         },
         "SV040": {
           "name": "Boltund",
           "pcName": "Boltund",
-          "price": 3.12,
+          "price": 3.25,
           "variant": "Base",
           "all": {
-            "Base": 3.12
+            "Base": 3.25
           },
           "psa10": 24.95,
-          "g9": 12.65,
+          "g9": 15.5,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/boltund-sv040"
         },
         "SV041": {
           "name": "Toxel",
           "pcName": "Toxel",
-          "price": 5.88,
+          "price": 4.93,
           "variant": "Base",
           "all": {
-            "Base": 5.88
+            "Base": 4.93
           },
           "psa10": 44.78,
           "g9": 21,
@@ -527,34 +527,34 @@
         "SV042": {
           "name": "Toxtricity",
           "pcName": "Toxtricity",
-          "price": 2.79,
+          "price": 2.49,
           "variant": "Base",
           "all": {
-            "Base": 2.79
+            "Base": 2.49
           },
           "psa10": 37.5,
-          "g9": 15.45,
+          "g9": 15.03,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/toxtricity-sv042"
         },
         "SV043": {
           "name": "Pincurchin",
           "pcName": "Pincurchin",
-          "price": 2,
+          "price": 2.41,
           "variant": "Base",
           "all": {
-            "Base": 2
+            "Base": 2.41
           },
           "psa10": 21.76,
-          "g9": 14.82,
+          "g9": 11.89,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/pincurchin-sv043"
         },
         "SV044": {
           "name": "Morpeko",
           "pcName": "Morpeko",
-          "price": 17.68,
+          "price": 17.5,
           "variant": "Base",
           "all": {
-            "Base": 17.68
+            "Base": 17.5
           },
           "psa10": 51.42,
           "g9": 16,
@@ -563,22 +563,22 @@
         "SV045": {
           "name": "Dracozolt",
           "pcName": "Dracozolt",
-          "price": 3,
+          "price": 2.99,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 2.99
           },
-          "psa10": 21.09,
+          "psa10": 21.02,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dracozolt-sv045"
         },
         "SV046": {
           "name": "Arctozolt",
           "pcName": "Arctozolt",
-          "price": 5.88,
+          "price": 5.97,
           "variant": "Base",
           "all": {
-            "Base": 5.88
+            "Base": 5.97
           },
           "psa10": 43,
           "g9": 21,
@@ -587,34 +587,34 @@
         "SV047": {
           "name": "Galarian Ponyta",
           "pcName": "Galarian Ponyta",
-          "price": 15.99,
+          "price": 14.8,
           "variant": "Base",
           "all": {
-            "Base": 15.99
+            "Base": 14.8
           },
           "psa10": 66.93,
-          "g9": 24.99,
+          "g9": 24.32,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-ponyta-sv047"
         },
         "SV048": {
           "name": "Galarian Rapidash",
           "pcName": "Galarian Rapidash",
-          "price": 13.87,
+          "price": 12.3,
           "variant": "Base",
           "all": {
-            "Base": 13.87
+            "Base": 12.3
           },
           "psa10": 42.75,
-          "g9": 21.97,
+          "g9": 22.24,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-rapidash-sv048"
         },
         "SV049": {
           "name": "Galarian Corsola",
           "pcName": "Galarian Corsola",
-          "price": 2.45,
+          "price": 2.6,
           "variant": "Base",
           "all": {
-            "Base": 2.45
+            "Base": 2.6
           },
           "psa10": 35.95,
           "g9": 9,
@@ -623,10 +623,10 @@
         "SV050": {
           "name": "Galarian Cursola",
           "pcName": "Galarian Cursola",
-          "price": 2.2,
+          "price": 2.24,
           "variant": "Base",
           "all": {
-            "Base": 2.2
+            "Base": 2.24
           },
           "psa10": 24.5,
           "g9": 12,
@@ -635,10 +635,10 @@
         "SV051": {
           "name": "Dedenne",
           "pcName": "Dedenne",
-          "price": 5.34,
+          "price": 5.58,
           "variant": "Base",
           "all": {
-            "Base": 5.34
+            "Base": 5.58
           },
           "psa10": 54.21,
           "g9": 22,
@@ -647,22 +647,22 @@
         "SV052": {
           "name": "Sinistea",
           "pcName": "Sinistea",
-          "price": 3.83,
+          "price": 3.99,
           "variant": "Base",
           "all": {
-            "Base": 3.83
+            "Base": 3.99
           },
-          "psa10": 25.18,
+          "psa10": 36.41,
           "g9": 12,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/sinistea-sv052"
         },
         "SV053": {
           "name": "Polteageist",
           "pcName": "Polteageist",
-          "price": 1.6,
+          "price": 1.81,
           "variant": "Base",
           "all": {
-            "Base": 1.6
+            "Base": 1.81
           },
           "psa10": 28.78,
           "g9": 13.01,
@@ -671,22 +671,22 @@
         "SV054": {
           "name": "Hatenna",
           "pcName": "Hatenna",
-          "price": 3.21,
+          "price": 3.06,
           "variant": "Base",
           "all": {
-            "Base": 3.21
+            "Base": 3.06
           },
           "psa10": 29.49,
-          "g9": 12.4,
+          "g9": 17.5,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/hatenna-sv054"
         },
         "SV055": {
           "name": "Hattrem",
           "pcName": "Hattrem",
-          "price": 3.85,
+          "price": 3.51,
           "variant": "Base",
           "all": {
-            "Base": 3.85
+            "Base": 3.51
           },
           "psa10": 27.48,
           "g9": 7.07,
@@ -695,10 +695,10 @@
         "SV056": {
           "name": "Hatterene",
           "pcName": "Hatterene",
-          "price": 3.61,
+          "price": 3.93,
           "variant": "Base",
           "all": {
-            "Base": 3.61
+            "Base": 3.93
           },
           "psa10": 37.5,
           "g9": 21.34,
@@ -707,10 +707,10 @@
         "SV057": {
           "name": "Milcery",
           "pcName": "Milcery",
-          "price": 6.38,
+          "price": 6.04,
           "variant": "Base",
           "all": {
-            "Base": 6.38
+            "Base": 6.04
           },
           "psa10": 40,
           "g9": 11,
@@ -719,46 +719,46 @@
         "SV058": {
           "name": "Alcremie",
           "pcName": "Alcremie",
-          "price": 8.05,
+          "price": 7.53,
           "variant": "Base",
           "all": {
-            "Base": 8.05
+            "Base": 7.53
           },
-          "psa10": 47.97,
-          "g9": 16.2,
+          "psa10": 48,
+          "g9": 14.99,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/alcremie-sv058"
         },
         "SV059": {
           "name": "Indeedee",
           "pcName": "Indeedee",
-          "price": 2.38,
+          "price": 2.33,
           "variant": "Base",
           "all": {
-            "Base": 2.38
+            "Base": 2.33
           },
-          "psa10": 41.72,
+          "psa10": 41,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/indeedee-sv059"
         },
         "SV060": {
           "name": "Dreepy",
           "pcName": "Dreepy",
-          "price": 6.25,
+          "price": 6.5,
           "variant": "Base",
           "all": {
-            "Base": 6.25
+            "Base": 6.5
           },
-          "psa10": 39.56,
+          "psa10": 39.48,
           "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dreepy-sv060"
         },
         "SV061": {
           "name": "Drakloak",
           "pcName": "Drakloak",
-          "price": 3.85,
+          "price": 4.15,
           "variant": "Base",
           "all": {
-            "Base": 3.85
+            "Base": 4.15
           },
           "psa10": 85.88,
           "g9": 29,
@@ -767,10 +767,10 @@
         "SV062": {
           "name": "Dragapult",
           "pcName": "Dragapult",
-          "price": 3,
+          "price": 3.09,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 3.09
           },
           "psa10": 75,
           "g9": 23.42,
@@ -779,10 +779,10 @@
         "SV063": {
           "name": "Galarian Farfetch'd",
           "pcName": "Galarian Farfetch'd",
-          "price": 3.47,
+          "price": 3.76,
           "variant": "Base",
           "all": {
-            "Base": 3.47
+            "Base": 3.76
           },
           "psa10": 50.85,
           "g9": 22,
@@ -791,34 +791,34 @@
         "SV064": {
           "name": "Galarian Sirfetch'd",
           "pcName": "Galarian Sirfetch'd",
-          "price": 1.8,
+          "price": 2.01,
           "variant": "Base",
           "all": {
-            "Base": 1.8
+            "Base": 2.01
           },
-          "psa10": 34.48,
-          "g9": 23.64,
+          "psa10": 42.95,
+          "g9": 23.53,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-sirfetch%27d-sv064"
         },
         "SV065": {
           "name": "Galarian Yamask",
           "pcName": "Galarian Yamask",
-          "price": 2.28,
+          "price": 2.65,
           "variant": "Base",
           "all": {
-            "Base": 2.28
+            "Base": 2.65
           },
-          "psa10": 21.72,
+          "psa10": 21.71,
           "g9": 16.26,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-yamask-sv065"
         },
         "SV066": {
           "name": "Galarian Runerigus",
           "pcName": "Galarian Runerigus",
-          "price": 3.3,
+          "price": 3.39,
           "variant": "Base",
           "all": {
-            "Base": 3.3
+            "Base": 3.39
           },
           "psa10": 30,
           "g9": 17.17,
@@ -827,10 +827,10 @@
         "SV067": {
           "name": "Rolycoly",
           "pcName": "Rolycoly",
-          "price": 1.75,
+          "price": 1.9,
           "variant": "Base",
           "all": {
-            "Base": 1.75
+            "Base": 1.9
           },
           "psa10": 29.99,
           "g9": 21,
@@ -839,10 +839,10 @@
         "SV068": {
           "name": "Carkol",
           "pcName": "Carkol",
-          "price": 1.76,
+          "price": 1.91,
           "variant": "Base",
           "all": {
-            "Base": 1.76
+            "Base": 1.91
           },
           "psa10": 24.99,
           "g9": 9.51,
@@ -851,22 +851,22 @@
         "SV069": {
           "name": "Coalossal",
           "pcName": "Coalossal",
-          "price": 1.76,
+          "price": 1.73,
           "variant": "Base",
           "all": {
-            "Base": 1.76
+            "Base": 1.73
           },
           "psa10": 39.99,
-          "g9": 12.05,
+          "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/coalossal-sv069"
         },
         "SV070": {
           "name": "Silicobra",
           "pcName": "Silicobra",
-          "price": 1.9,
+          "price": 1.83,
           "variant": "Base",
           "all": {
-            "Base": 1.9
+            "Base": 1.83
           },
           "psa10": 29.86,
           "g9": 20,
@@ -875,10 +875,10 @@
         "SV071": {
           "name": "Sandaconda",
           "pcName": "Sandaconda",
-          "price": 1.59,
+          "price": 1.46,
           "variant": "Base",
           "all": {
-            "Base": 1.59
+            "Base": 1.46
           },
           "psa10": 26.75,
           "g9": 21,
@@ -887,10 +887,10 @@
         "SV072": {
           "name": "Clobbopus",
           "pcName": "Clobbopus",
-          "price": 2.31,
+          "price": 2.37,
           "variant": "Base",
           "all": {
-            "Base": 2.31
+            "Base": 2.37
           },
           "psa10": 39.95,
           "g9": 9.15,
@@ -911,10 +911,10 @@
         "SV074": {
           "name": "Falinks",
           "pcName": "Falinks",
-          "price": 1.31,
+          "price": 1.55,
           "variant": "Base",
           "all": {
-            "Base": 1.31
+            "Base": 1.55
           },
           "psa10": 29.99,
           "g9": 17,
@@ -923,82 +923,82 @@
         "SV075": {
           "name": "Stonjourner",
           "pcName": "Stonjourner",
-          "price": 1.21,
+          "price": 1.67,
           "variant": "Base",
           "all": {
-            "Base": 1.21
+            "Base": 1.67
           },
-          "psa10": 24.08,
+          "psa10": 24.06,
           "g9": 12,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/stonjourner-sv075"
         },
         "SV076": {
           "name": "Koffing",
           "pcName": "Koffing",
-          "price": 10.84,
+          "price": 9.84,
           "variant": "Base",
           "all": {
-            "Base": 10.84
+            "Base": 9.84
           },
           "psa10": 32.05,
-          "g9": 19.04,
+          "g9": 18.9,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/koffing-sv076"
         },
         "SV077": {
           "name": "Galarian Weezing",
           "pcName": "Galarian Weezing",
-          "price": 4.56,
+          "price": 4.51,
           "variant": "Base",
           "all": {
-            "Base": 4.56
+            "Base": 4.51
           },
-          "psa10": 48.22,
+          "psa10": 47.88,
           "g9": 18.49,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-weezing-sv077"
         },
         "SV078": {
           "name": "Galarian Zigzagoon",
           "pcName": "Galarian Zigzagoon",
-          "price": 2.75,
+          "price": 2.66,
           "variant": "Base",
           "all": {
-            "Base": 2.75
+            "Base": 2.66
           },
-          "psa10": 74.46,
+          "psa10": 74.68,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-zigzagoon-sv078"
         },
         "SV079": {
           "name": "Galarian Linoone",
           "pcName": "Galarian Linoone",
-          "price": 2.7,
+          "price": 2.8,
           "variant": "Base",
           "all": {
-            "Base": 2.7
+            "Base": 2.8
           },
-          "psa10": 22.6,
+          "psa10": 22.55,
           "g9": 10,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-linoone-sv079"
         },
         "SV080": {
           "name": "Galarian Obstagoon",
           "pcName": "Galarian Obstagoon",
-          "price": 3.47,
+          "price": 3.43,
           "variant": "Base",
           "all": {
-            "Base": 3.47
+            "Base": 3.43
           },
-          "psa10": 31,
-          "g9": 18.5,
+          "psa10": 43.71,
+          "g9": 18.49,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-obstagoon-sv080"
         },
         "SV081": {
           "name": "Nickit",
           "pcName": "Nickit",
-          "price": 3.29,
+          "price": 3.1,
           "variant": "Base",
           "all": {
-            "Base": 3.29
+            "Base": 3.1
           },
           "psa10": 26,
           "g9": 22,
@@ -1007,46 +1007,46 @@
         "SV082": {
           "name": "Thievul",
           "pcName": "Thievul",
-          "price": 2.26,
+          "price": 2.53,
           "variant": "Base",
           "all": {
-            "Base": 2.26
+            "Base": 2.53
           },
-          "psa10": 38.78,
+          "psa10": 39.89,
           "g9": 21,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/thievul-sv082"
         },
         "SV083": {
           "name": "Impidimp",
           "pcName": "Impidimp",
-          "price": 2.5,
+          "price": 2.98,
           "variant": "Base",
           "all": {
-            "Base": 2.5
+            "Base": 2.98
           },
           "psa10": 26,
-          "g9": 8.9,
+          "g9": 9.21,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/impidimp-sv083"
         },
         "SV084": {
           "name": "Morgrem",
           "pcName": "Morgrem",
-          "price": 2.5,
+          "price": 2.49,
           "variant": "Base",
           "all": {
-            "Base": 2.5
+            "Base": 2.49
           },
-          "psa10": 39.83,
+          "psa10": 37.95,
           "g9": 12,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/morgrem-sv084"
         },
         "SV085": {
           "name": "Grimmsnarl",
           "pcName": "Grimmsnarl",
-          "price": 2.68,
+          "price": 2.77,
           "variant": "Base",
           "all": {
-            "Base": 2.68
+            "Base": 2.77
           },
           "psa10": 25,
           "g9": 9.51,
@@ -1055,22 +1055,22 @@
         "SV086": {
           "name": "Galarian Meowth",
           "pcName": "Galarian Meowth",
-          "price": 5.54,
+          "price": 5.68,
           "variant": "Base",
           "all": {
-            "Base": 5.54
+            "Base": 5.68
           },
-          "psa10": 56.48,
-          "g9": 25.93,
+          "psa10": 56.22,
+          "g9": 19.24,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/galarian-meowth-sv086"
         },
         "SV087": {
           "name": "Galarian Perrserker",
           "pcName": "Galarian Perrserker",
-          "price": 2.47,
+          "price": 2.39,
           "variant": "Base",
           "all": {
-            "Base": 2.47
+            "Base": 2.39
           },
           "psa10": 39.38,
           "g9": 18.73,
@@ -1079,10 +1079,10 @@
         "SV088": {
           "name": "Galarian Stunfisk",
           "pcName": "Galarian Stunfisk",
-          "price": 1.88,
+          "price": 1.71,
           "variant": "Base",
           "all": {
-            "Base": 1.88
+            "Base": 1.71
           },
           "psa10": 23.75,
           "g9": 4,
@@ -1091,34 +1091,34 @@
         "SV089": {
           "name": "Corviknight",
           "pcName": "Corviknight",
-          "price": 1.52,
+          "price": 1.78,
           "variant": "Base",
           "all": {
-            "Base": 1.52
+            "Base": 1.78
           },
-          "psa10": 47.57,
+          "psa10": 47.5,
           "g9": 14.1,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/corviknight-sv089"
         },
         "SV090": {
           "name": "Cufant",
           "pcName": "Cufant",
-          "price": 3.1,
+          "price": 3.25,
           "variant": "Base",
           "all": {
-            "Base": 3.1
+            "Base": 3.25
           },
           "psa10": 23.08,
-          "g9": 15.42,
+          "g9": 16.49,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/cufant-sv090"
         },
         "SV091": {
           "name": "Copperajah",
           "pcName": "Copperajah",
-          "price": 2.15,
+          "price": 1.99,
           "variant": "Base",
           "all": {
-            "Base": 2.15
+            "Base": 1.99
           },
           "psa10": 35.81,
           "g9": 15,
@@ -1127,10 +1127,10 @@
         "SV092": {
           "name": "Duraludon",
           "pcName": "Duraludon",
-          "price": 2.34,
+          "price": 2.54,
           "variant": "Base",
           "all": {
-            "Base": 2.34
+            "Base": 2.54
           },
           "psa10": 26,
           "g9": 13.5,
@@ -1139,22 +1139,22 @@
         "SV093": {
           "name": "Minccino",
           "pcName": "Minccino",
-          "price": 12.61,
+          "price": 12,
           "variant": "Base",
           "all": {
-            "Base": 12.61
+            "Base": 12
           },
-          "psa10": 94.32,
-          "g9": 17.77,
+          "psa10": 82.54,
+          "g9": 17.76,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/minccino-sv093"
         },
         "SV094": {
           "name": "Cinccino",
           "pcName": "Cinccino",
-          "price": 10.54,
+          "price": 11.46,
           "variant": "Base",
           "all": {
-            "Base": 10.54
+            "Base": 11.46
           },
           "psa10": 79.69,
           "g9": 16.25,
@@ -1163,10 +1163,10 @@
         "SV095": {
           "name": "Ducklett",
           "pcName": "Ducklett",
-          "price": 5.23,
+          "price": 5.02,
           "variant": "Base",
           "all": {
-            "Base": 5.23
+            "Base": 5.02
           },
           "psa10": 52,
           "g9": 16.82,
@@ -1175,10 +1175,10 @@
         "SV096": {
           "name": "Swanna",
           "pcName": "Swanna",
-          "price": 2.3,
+          "price": 2.33,
           "variant": "Base",
           "all": {
-            "Base": 2.3
+            "Base": 2.33
           },
           "psa10": 26,
           "g9": 14.99,
@@ -1187,58 +1187,58 @@
         "SV097": {
           "name": "Bunnelby",
           "pcName": "Bunnelby",
-          "price": 1.5,
+          "price": 1.62,
           "variant": "Base",
           "all": {
-            "Base": 1.5
+            "Base": 1.62
           },
           "psa10": 44,
-          "g9": 10.09,
+          "g9": 10.11,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/bunnelby-sv097"
         },
         "SV098": {
           "name": "Oranguru",
           "pcName": "Oranguru",
-          "price": 2.03,
+          "price": 2.37,
           "variant": "Base",
           "all": {
-            "Base": 2.03
+            "Base": 2.37
           },
-          "psa10": 37.4,
+          "psa10": 39.95,
           "g9": 9.51,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/oranguru-sv098"
         },
         "SV099": {
           "name": "Skwovet",
           "pcName": "Skwovet",
-          "price": 2.73,
+          "price": 2.38,
           "variant": "Base",
           "all": {
-            "Base": 2.73
+            "Base": 2.38
           },
-          "psa10": 27.99,
+          "psa10": 38,
           "g9": 11,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/skwovet-sv099"
         },
         "SV100": {
           "name": "Greedent",
           "pcName": "Greedent",
-          "price": 2.79,
+          "price": 2.7,
           "variant": "Base",
           "all": {
-            "Base": 2.79
+            "Base": 2.7
           },
-          "psa10": 33.07,
+          "psa10": 33.04,
           "g9": 7.59,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/greedent-sv100"
         },
         "SV101": {
           "name": "Rookidee",
           "pcName": "Rookidee",
-          "price": 3.27,
+          "price": 3,
           "variant": "Base",
           "all": {
-            "Base": 3.27
+            "Base": 3
           },
           "psa10": 16.57,
           "g9": 10,
@@ -1247,10 +1247,10 @@
         "SV102": {
           "name": "Corvisquire",
           "pcName": "Corvisquire",
-          "price": 3,
+          "price": 2.46,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 2.46
           },
           "psa10": 29.45,
           "g9": 15,
@@ -1259,10 +1259,10 @@
         "SV103": {
           "name": "Wooloo",
           "pcName": "Wooloo",
-          "price": 3.99,
+          "price": 4.23,
           "variant": "Base",
           "all": {
-            "Base": 3.99
+            "Base": 4.23
           },
           "psa10": 72,
           "g9": 15.32,
@@ -1271,740 +1271,740 @@
         "SV104": {
           "name": "Dubwool",
           "pcName": "Dubwool",
-          "price": 1.5,
+          "price": 1.55,
           "variant": "Base",
           "all": {
-            "Base": 1.5
+            "Base": 1.55
           },
           "psa10": 34.55,
-          "g9": 15.52,
+          "g9": 15.5,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dubwool-sv104"
         },
         "SV105": {
           "name": "Rillaboom V",
           "pcName": "Rillaboom V",
-          "price": 1.38,
+          "price": 1.8,
           "variant": "Base",
           "all": {
-            "Base": 1.38
+            "Base": 1.8
           },
-          "psa10": 37.08,
-          "g9": 13.75,
+          "psa10": 39.99,
+          "g9": 13.74,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/rillaboom-v-sv105"
         },
         "SV106": {
           "name": "Rillaboom VMAX",
           "pcName": "Rillaboom VMAX",
-          "price": 2.88,
+          "price": 2.76,
           "variant": "Base",
           "all": {
-            "Base": 2.88
+            "Base": 2.76
           },
-          "psa10": 45.36,
+          "psa10": 45.25,
           "g9": 19,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/rillaboom-vmax-sv106"
         },
         "SV107": {
           "name": "Charizard VMAX",
           "pcName": "Charizard VMAX",
-          "price": 130,
+          "price": 105.84,
           "variant": "Base",
           "all": {
-            "Base": 130
+            "Base": 105.84
           },
-          "psa10": 242.5,
-          "g9": 132,
+          "psa10": 238.8,
+          "g9": 117.5,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/charizard-vmax-sv107"
         },
         "SV108": {
           "name": "Centiskorch V",
           "pcName": "Centiskorch V",
-          "price": 1.5,
+          "price": 1.61,
           "variant": "Base",
           "all": {
-            "Base": 1.5
+            "Base": 1.61
           },
-          "psa10": 34,
-          "g9": 13,
+          "psa10": 33.83,
+          "g9": 12,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/centiskorch-v-sv108"
         },
         "SV109": {
           "name": "Centiskorch VMAX",
           "pcName": "Centiskorch VMAX",
-          "price": 2.43,
+          "price": 2.23,
           "variant": "Base",
           "all": {
-            "Base": 2.43
+            "Base": 2.23
           },
-          "psa10": 39.37,
-          "g9": 11.43,
+          "psa10": 38.12,
+          "g9": 9.78,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/centiskorch-vmax-sv109"
         },
         "SV110": {
           "name": "Lapras V",
           "pcName": "Lapras V",
-          "price": 4.4,
+          "price": 4.47,
           "variant": "Base",
           "all": {
-            "Base": 4.4
+            "Base": 4.47
           },
-          "psa10": 63.9,
-          "g9": 17.52,
+          "psa10": 71,
+          "g9": 17.51,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/lapras-v-sv110"
         },
         "SV111": {
           "name": "Lapras VMAX",
           "pcName": "Lapras VMAX",
-          "price": 7.71,
+          "price": 8.09,
           "variant": "Base",
           "all": {
-            "Base": 7.71
+            "Base": 8.09
           },
-          "psa10": 72.5,
+          "psa10": 80,
           "g9": 24.5,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/lapras-vmax-sv111"
         },
         "SV112": {
           "name": "Toxtricity V",
           "pcName": "Toxtricity V",
-          "price": 2.89,
+          "price": 2.28,
           "variant": "Base",
           "all": {
-            "Base": 2.89
+            "Base": 2.28
           },
           "psa10": 44.75,
-          "g9": 15.48,
+          "g9": 15.41,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/toxtricity-v-sv112"
         },
         "SV113": {
           "name": "Toxtricity VMAX",
           "pcName": "Toxtricity VMAX",
-          "price": 4.15,
+          "price": 4.33,
           "variant": "Base",
           "all": {
-            "Base": 4.15
+            "Base": 4.33
           },
-          "psa10": 50.23,
-          "g9": 15.41,
+          "psa10": 52.99,
+          "g9": 15.26,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/toxtricity-vmax-sv113"
         },
         "SV114": {
           "name": "Indeedee V",
           "pcName": "Indeedee V",
-          "price": 1.24,
+          "price": 1.59,
           "variant": "Base",
           "all": {
-            "Base": 1.24
+            "Base": 1.59
           },
-          "psa10": 35.63,
+          "psa10": 39.99,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/indeedee-v-sv114"
         },
         "SV115": {
           "name": "Falinks V",
           "pcName": "Falinks V",
-          "price": 1.79,
+          "price": 2,
           "variant": "Base",
           "all": {
-            "Base": 1.79
+            "Base": 2
           },
-          "psa10": 34.7,
-          "g9": 14.01,
+          "psa10": 34.33,
+          "g9": 18.09,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/falinks-v-sv115"
         },
         "SV116": {
           "name": "Grimmsnarl V",
           "pcName": "Grimmsnarl V",
-          "price": 1.89,
+          "price": 1.76,
           "variant": "Base",
           "all": {
-            "Base": 1.89
+            "Base": 1.76
           },
-          "psa10": 38.83,
-          "g9": 14.43,
+          "psa10": 39.35,
+          "g9": 16.75,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/grimmsnarl-v-sv116"
         },
         "SV117": {
           "name": "Grimmsnarl VMAX",
           "pcName": "Grimmsnarl VMAX",
-          "price": 4.14,
+          "price": 3.69,
           "variant": "Base",
           "all": {
-            "Base": 4.14
+            "Base": 3.69
           },
-          "psa10": 54.36,
-          "g9": 16.43,
+          "psa10": 53.79,
+          "g9": 19.06,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/grimmsnarl-vmax-sv117"
         },
         "SV118": {
           "name": "Ditto V",
           "pcName": "Ditto V",
-          "price": 8.82,
+          "price": 9.92,
           "variant": "Base",
           "all": {
-            "Base": 8.82
+            "Base": 9.92
           },
-          "psa10": 120,
-          "g9": 24.22,
+          "psa10": 117.83,
+          "g9": 28,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/ditto-v-sv118"
         },
         "SV119": {
           "name": "Ditto VMAX",
           "pcName": "Ditto VMAX",
-          "price": 14.99,
+          "price": 14.1,
           "variant": "Base",
           "all": {
-            "Base": 14.99
+            "Base": 14.1
           },
-          "psa10": 122.5,
-          "g9": 27,
+          "psa10": 119.99,
+          "g9": 23.66,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/ditto-vmax-sv119"
         },
         "SV120": {
           "name": "Dubwool V",
           "pcName": "Dubwool V",
-          "price": 1.42,
+          "price": 1.78,
           "variant": "Base",
           "all": {
-            "Base": 1.42
+            "Base": 1.78
           },
-          "psa10": 35.03,
-          "g9": 6.57,
+          "psa10": 35,
+          "g9": 6.39,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/dubwool-v-sv120"
         },
         "SV121": {
           "name": "Eternatus V",
           "pcName": "Eternatus V",
-          "price": 6.97,
+          "price": 6.5,
           "variant": "Base",
           "all": {
-            "Base": 6.97
+            "Base": 6.5
           },
-          "psa10": 79.83,
-          "g9": 22.19,
+          "psa10": 70,
+          "g9": 21.02,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/eternatus-v-sv121"
         },
         "SV122": {
           "name": "Eternatus VMAX",
           "pcName": "Eternatus VMAX",
-          "price": 6.42,
+          "price": 6.26,
           "variant": "Base",
           "all": {
-            "Base": 6.42
+            "Base": 6.26
           },
-          "psa10": 52,
-          "g9": 15,
+          "psa10": 51.5,
+          "g9": 22,
           "url": "https://www.pricecharting.com/game/pokemon-shining-fates/eternatus-vmax-sv122"
         }
       }
     },
     "crown-zenith": {
       "console": "/console/pokemon-crown-zenith",
-      "checked": "2026-09-23",
+      "checked": "2026-10-03",
       "total": 70,
       "priced": 70,
       "cards": {
         "GG01": {
           "name": "Hisuian Voltorb",
           "pcName": "Hisuian Voltorb",
-          "price": 3.26,
+          "price": 3.21,
           "variant": "Base",
           "all": {
-            "Base": 3.26
+            "Base": 3.21
           },
-          "psa10": 225.69,
-          "g9": 26.66,
+          "psa10": 242.44,
+          "g9": 26.51,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hisuian-voltorb-gg01"
         },
         "GG02": {
           "name": "Kricketune",
           "pcName": "Kricketune",
-          "price": 9.26,
+          "price": 8.41,
           "variant": "Base",
           "all": {
-            "Base": 9.26
+            "Base": 8.41
           },
-          "psa10": 180,
-          "g9": 19.02,
+          "psa10": 160,
+          "g9": 17.84,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/kricketune-gg02"
         },
         "GG03": {
           "name": "Magmortar",
           "pcName": "Magmortar",
-          "price": 12,
+          "price": 12.41,
           "variant": "Base",
           "all": {
-            "Base": 12
+            "Base": 12.41
           },
-          "psa10": 209.67,
-          "g9": 29.81,
+          "psa10": 211.06,
+          "g9": 29.9,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/magmortar-gg03"
         },
         "GG04": {
           "name": "Oricorio",
           "pcName": "Oricorio",
-          "price": 3.92,
+          "price": 3.9,
           "variant": "Base",
           "all": {
-            "Base": 3.92
+            "Base": 3.9
           },
-          "psa10": 181.64,
+          "psa10": 203.07,
           "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/oricorio-gg04"
         },
         "GG05": {
           "name": "Lapras",
           "pcName": "Lapras",
-          "price": 21.95,
+          "price": 20.43,
           "variant": "Base",
           "all": {
-            "Base": 21.95
+            "Base": 20.43
           },
-          "psa10": 275,
-          "g9": 37.49,
+          "psa10": 285.99,
+          "g9": 36.03,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/lapras-gg05"
         },
         "GG06": {
           "name": "Manaphy",
           "pcName": "Manaphy",
-          "price": 6.75,
+          "price": 5.12,
           "variant": "Base",
           "all": {
-            "Base": 6.75
+            "Base": 5.12
           },
-          "psa10": 189.99,
-          "g9": 29,
+          "psa10": 182.77,
+          "g9": 27.84,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/manaphy-gg06"
         },
         "GG07": {
           "name": "Keldeo",
           "pcName": "Keldeo",
-          "price": 17,
+          "price": 16.99,
           "variant": "Base",
           "all": {
-            "Base": 17
+            "Base": 16.99
           },
-          "psa10": 202.5,
+          "psa10": 206.25,
           "g9": 35,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/keldeo-gg07"
         },
         "GG08": {
           "name": "Electivire",
           "pcName": "Electivire",
-          "price": 9.97,
+          "price": 9.99,
           "variant": "Base",
           "all": {
-            "Base": 9.97
+            "Base": 9.99
           },
-          "psa10": 262,
-          "g9": 23.95,
+          "psa10": 242.01,
+          "g9": 27.56,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/electivire-gg08"
         },
         "GG09": {
           "name": "Toxtricity",
           "pcName": "Toxtricity",
-          "price": 4.15,
+          "price": 4,
           "variant": "Base",
           "all": {
-            "Base": 4.15
+            "Base": 4
           },
-          "psa10": 233.97,
-          "g9": 27.79,
+          "psa10": 213.75,
+          "g9": 25.99,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/toxtricity-gg09"
         },
         "GG10": {
           "name": "Mew",
           "pcName": "Mew",
-          "price": 61.52,
+          "price": 54.2,
           "variant": "Base",
           "all": {
-            "Base": 61.52
+            "Base": 54.2
           },
-          "psa10": 552.13,
-          "g9": 94.94,
+          "psa10": 527.59,
+          "g9": 88.99,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/mew-gg10"
         },
         "GG11": {
           "name": "Lunatone",
           "pcName": "Lunatone",
-          "price": 10.16,
+          "price": 10,
           "variant": "Base",
           "all": {
-            "Base": 10.16
+            "Base": 10
           },
-          "psa10": 182.5,
-          "g9": 22.23,
+          "psa10": 195.82,
+          "g9": 22.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/lunatone-gg11"
         },
         "GG12": {
           "name": "Deoxys",
           "pcName": "Deoxys",
-          "price": 17.12,
+          "price": 17.62,
           "variant": "Base",
           "all": {
-            "Base": 17.12
+            "Base": 17.62
           },
-          "psa10": 336.63,
-          "g9": 35.08,
+          "psa10": 320.5,
+          "g9": 31.92,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/deoxys-gg12"
         },
         "GG13": {
           "name": "Diancie",
           "pcName": "Diancie",
-          "price": 5.25,
+          "price": 4.8,
           "variant": "Base",
           "all": {
-            "Base": 5.25
+            "Base": 4.8
           },
-          "psa10": 140.35,
+          "psa10": 137.5,
           "g9": 20.25,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/diancie-gg13"
         },
         "GG14": {
           "name": "Comfey",
           "pcName": "Comfey",
-          "price": 2.76,
+          "price": 2.74,
           "variant": "Base",
           "all": {
-            "Base": 2.76
+            "Base": 2.74
           },
-          "psa10": 120,
-          "g9": 18.5,
+          "psa10": 115,
+          "g9": 16.42,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/comfey-gg14"
         },
         "GG15": {
           "name": "Solrock",
           "pcName": "Solrock",
-          "price": 6.5,
+          "price": 5.99,
           "variant": "Base",
           "all": {
-            "Base": 6.5
+            "Base": 5.99
           },
-          "psa10": 193.01,
-          "g9": 18.01,
+          "psa10": 189.9,
+          "g9": 20.02,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/solrock-gg15"
         },
         "GG16": {
           "name": "Absol",
           "pcName": "Absol",
-          "price": 10.07,
+          "price": 9.01,
           "variant": "Base",
           "all": {
-            "Base": 10.07
+            "Base": 9.01
           },
-          "psa10": 195,
-          "g9": 25.82,
+          "psa10": 170.19,
+          "g9": 23.4,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/absol-gg16"
         },
         "GG17": {
           "name": "Thievul",
           "pcName": "Thievul",
-          "price": 2.99,
+          "price": 2.87,
           "variant": "Base",
           "all": {
-            "Base": 2.99
+            "Base": 2.87
           },
-          "psa10": 121.8,
-          "g9": 17.79,
+          "psa10": 112.5,
+          "g9": 16.2,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/thievul-gg17"
         },
         "GG18": {
           "name": "Magnezone",
           "pcName": "Magnezone",
-          "price": 5.64,
+          "price": 4.23,
           "variant": "Base",
           "all": {
-            "Base": 5.64
+            "Base": 4.23
           },
-          "psa10": 160.32,
-          "g9": 19.51,
+          "psa10": 162.53,
+          "g9": 20.8,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/magnezone-gg18"
         },
         "GG19": {
           "name": "Altaria",
           "pcName": "Altaria",
-          "price": 14.77,
+          "price": 14,
           "variant": "Base",
           "all": {
-            "Base": 14.77
+            "Base": 14
           },
           "psa10": 303.92,
-          "g9": 23.39,
+          "g9": 25.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/altaria-gg19"
         },
         "GG20": {
           "name": "Latias",
           "pcName": "Latias",
-          "price": 18.89,
+          "price": 18.12,
           "variant": "Base",
           "all": {
-            "Base": 18.89
+            "Base": 18.12
           },
-          "psa10": 321.39,
-          "g9": 33.46,
+          "psa10": 317.43,
+          "g9": 35,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/latias-gg20"
         },
         "GG21": {
           "name": "Hisuian Goodra",
           "pcName": "Hisuian Goodra",
-          "price": 4.76,
+          "price": 4.81,
           "variant": "Base",
           "all": {
-            "Base": 4.76
+            "Base": 4.81
           },
-          "psa10": 130.09,
-          "g9": 22.42,
+          "psa10": 134.5,
+          "g9": 19.92,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hisuian-goodra-gg21"
         },
         "GG22": {
           "name": "Ditto",
           "pcName": "Ditto",
-          "price": 17.06,
+          "price": 16.84,
           "variant": "Base",
           "all": {
-            "Base": 17.06
+            "Base": 16.84
           },
-          "psa10": 505,
-          "g9": 47.68,
+          "psa10": 485,
+          "g9": 41.38,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/ditto-gg22"
         },
         "GG23": {
           "name": "Dunsparce",
           "pcName": "Dunsparce",
-          "price": 4.29,
+          "price": 4.26,
           "variant": "Base",
           "all": {
-            "Base": 4.29
+            "Base": 4.26
           },
-          "psa10": 116.01,
-          "g9": 21.72,
+          "psa10": 119.5,
+          "g9": 19.13,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/dunsparce-gg23"
         },
         "GG24": {
           "name": "Miltank",
           "pcName": "Miltank",
-          "price": 13.17,
+          "price": 12,
           "variant": "Base",
           "all": {
-            "Base": 13.17
+            "Base": 12
           },
-          "psa10": 316.18,
-          "g9": 27.49,
+          "psa10": 318.13,
+          "g9": 26.49,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/miltank-gg24"
         },
         "GG25": {
           "name": "Bibarel",
           "pcName": "Bibarel",
-          "price": 4,
+          "price": 3.85,
           "variant": "Base",
           "all": {
-            "Base": 4
+            "Base": 3.85
           },
-          "psa10": 187.26,
-          "g9": 20.39,
+          "psa10": 231.13,
+          "g9": 17.31,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/bibarel-gg25"
         },
         "GG26": {
           "name": "Riolu",
           "pcName": "Riolu",
-          "price": 11.67,
+          "price": 11,
           "variant": "Base",
           "all": {
-            "Base": 11.67
+            "Base": 11
           },
-          "psa10": 242.26,
-          "g9": 24.88,
+          "psa10": 241.08,
+          "g9": 25.94,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/riolu-gg26"
         },
         "GG27": {
           "name": "Swablu",
           "pcName": "Swablu",
-          "price": 6.23,
+          "price": 6.22,
           "variant": "Base",
           "all": {
-            "Base": 6.23
+            "Base": 6.22
           },
           "psa10": 155,
-          "g9": 19.94,
+          "g9": 20.2,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/swablu-gg27"
         },
         "GG28": {
           "name": "Duskull",
           "pcName": "Duskull",
-          "price": 6.16,
+          "price": 6,
           "variant": "Base",
           "all": {
-            "Base": 6.16
+            "Base": 6
           },
-          "psa10": 166,
-          "g9": 19.49,
+          "psa10": 168,
+          "g9": 19.4,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/duskull-gg28"
         },
         "GG29": {
           "name": "Bidoof",
           "pcName": "Bidoof",
-          "price": 7.1,
+          "price": 7.19,
           "variant": "Base",
           "all": {
-            "Base": 7.1
+            "Base": 7.19
           },
-          "psa10": 192.86,
-          "g9": 23.5,
+          "psa10": 181.25,
+          "g9": 21.46,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/bidoof-gg29"
         },
         "GG30": {
           "name": "Pikachu",
           "pcName": "Pikachu",
-          "price": 42.6,
+          "price": 41.7,
           "variant": "Base",
           "all": {
-            "Base": 42.6
+            "Base": 41.7
           },
-          "psa10": 517.5,
-          "g9": 73,
+          "psa10": 522.51,
+          "g9": 69.21,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/pikachu-gg30"
         },
         "GG31": {
           "name": "Turtwig",
           "pcName": "Turtwig",
-          "price": 10.98,
+          "price": 11,
           "variant": "Base",
           "all": {
-            "Base": 10.98
+            "Base": 11
           },
-          "psa10": 279.62,
+          "psa10": 238.18,
           "g9": 28,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/turtwig-gg31"
         },
         "GG32": {
           "name": "Paras",
           "pcName": "Paras",
-          "price": 9,
+          "price": 8.85,
           "variant": "Base",
           "all": {
-            "Base": 9
+            "Base": 8.85
           },
-          "psa10": 159.4,
-          "g9": 27.22,
+          "psa10": 150,
+          "g9": 22.64,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/paras-gg32"
         },
         "GG33": {
           "name": "Poochyena",
           "pcName": "Poochyena",
-          "price": 6.52,
+          "price": 5.87,
           "variant": "Base",
           "all": {
-            "Base": 6.52
+            "Base": 5.87
           },
-          "psa10": 220,
-          "g9": 23.89,
+          "psa10": 224.99,
+          "g9": 21.21,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/poochyena-gg33"
         },
         "GG34": {
           "name": "Mareep",
           "pcName": "Mareep",
-          "price": 10.32,
+          "price": 9,
           "variant": "Base",
           "all": {
-            "Base": 10.32
+            "Base": 9
           },
-          "psa10": 231.25,
-          "g9": 23.43,
+          "psa10": 228.96,
+          "g9": 23.75,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/mareep-gg34"
         },
         "GG35": {
           "name": "Leafeon VSTAR",
           "pcName": "Leafeon VSTAR",
-          "price": 80.19,
+          "price": 80.09,
           "variant": "Base",
           "all": {
-            "Base": 80.19
+            "Base": 80.09
           },
-          "psa10": 195.5,
-          "g9": 80.04,
+          "psa10": 190,
+          "g9": 80.83,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/leafeon-vstar-gg35"
         },
         "GG36": {
           "name": "Entei V",
           "pcName": "Entei V",
-          "price": 48.31,
+          "price": 49.95,
           "variant": "Base",
           "all": {
-            "Base": 48.31
+            "Base": 49.95
           },
-          "psa10": 190,
-          "g9": 57.51,
+          "psa10": 180.5,
+          "g9": 60,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/entei-v-gg36"
         },
         "GG37": {
           "name": "Simisear VSTAR",
           "pcName": "Simisear VSTAR",
-          "price": 28.66,
+          "price": 33,
           "variant": "Base",
           "all": {
-            "Base": 28.66
+            "Base": 33
           },
-          "psa10": 170,
-          "g9": 38.06,
+          "psa10": 175,
+          "g9": 36.29,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/simisear-vstar-gg37"
         },
         "GG38": {
           "name": "Suicune V",
           "pcName": "Suicune V",
-          "price": 60,
+          "price": 56,
           "variant": "Base",
           "all": {
-            "Base": 60
+            "Base": 56
           },
-          "psa10": 209.25,
-          "g9": 69.17,
+          "psa10": 196.5,
+          "g9": 64.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/suicune-v-gg38"
         },
         "GG39": {
           "name": "Lumineon V",
           "pcName": "Lumineon V",
-          "price": 22.99,
+          "price": 22.11,
           "variant": "Base",
           "all": {
-            "Base": 22.99
+            "Base": 22.11
           },
-          "psa10": 117.5,
-          "g9": 31.67,
+          "psa10": 119.99,
+          "g9": 29.99,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/lumineon-v-gg39"
         },
         "GG40": {
           "name": "Glaceon VSTAR",
           "pcName": "Glaceon VSTAR",
-          "price": 59.9,
+          "price": 60.18,
           "variant": "Base",
           "all": {
-            "Base": 59.9
+            "Base": 60.18
           },
-          "psa10": 175,
-          "g9": 66,
+          "psa10": 176.5,
+          "g9": 67.27,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/glaceon-vstar-gg40"
         },
         "GG41": {
           "name": "Raikou V",
           "pcName": "Raikou V",
-          "price": 43.76,
+          "price": 40.49,
           "variant": "Base",
           "all": {
-            "Base": 43.76
+            "Base": 40.49
           },
-          "psa10": 200,
-          "g9": 53.55,
+          "psa10": 190,
+          "g9": 57.77,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/raikou-v-gg41"
         },
         "GG42": {
           "name": "Zeraora VMAX",
           "pcName": "Zeraora VMAX",
-          "price": 26.53,
+          "price": 27.59,
           "variant": "Base",
           "all": {
-            "Base": 26.53
+            "Base": 27.59
           },
-          "psa10": 98.5,
+          "psa10": 94.35,
           "g9": 28.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/zeraora-vmax-gg42"
         },
@@ -2016,104 +2016,104 @@
           "all": {
             "Base": 25.23
           },
-          "psa10": 147.5,
-          "g9": 37.75,
+          "psa10": 140.51,
+          "g9": 32,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/zeraora-vstar-gg43"
         },
         "GG44": {
           "name": "Mewtwo VSTAR",
           "pcName": "Mewtwo VSTAR",
-          "price": 230,
+          "price": 231.42,
           "variant": "Base",
           "all": {
-            "Base": 230
+            "Base": 231.42
           },
-          "psa10": 555,
-          "g9": 270,
+          "psa10": 500,
+          "g9": 263,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/mewtwo-vstar-gg44"
         },
         "GG45": {
           "name": "Deoxys VMAX",
           "pcName": "Deoxys VMAX",
-          "price": 60.5,
+          "price": 56,
           "variant": "Base",
           "all": {
-            "Base": 60.5
+            "Base": 56
           },
-          "psa10": 170.4,
+          "psa10": 166.85,
           "g9": 70,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/deoxys-vmax-gg45"
         },
         "GG46": {
           "name": "Deoxys VSTAR",
           "pcName": "Deoxys VSTAR",
-          "price": 43.88,
+          "price": 49,
           "variant": "Base",
           "all": {
-            "Base": 43.88
+            "Base": 49
           },
-          "psa10": 210,
-          "g9": 57.94,
+          "psa10": 193.73,
+          "g9": 57.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/deoxys-vstar-gg46"
         },
         "GG47": {
           "name": "Hatterene VMAX",
           "pcName": "Hatterene VMAX",
-          "price": 8.72,
+          "price": 8.48,
           "variant": "Base",
           "all": {
-            "Base": 8.72
+            "Base": 8.48
           },
           "psa10": 64.99,
-          "g9": 23,
+          "g9": 22.87,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hatterene-vmax-gg47"
         },
         "GG48": {
           "name": "Zacian V",
           "pcName": "Zacian V",
-          "price": 28.17,
+          "price": 27.37,
           "variant": "Base",
           "all": {
-            "Base": 28.17
+            "Base": 27.37
           },
-          "psa10": 130.22,
-          "g9": 37.13,
+          "psa10": 138.68,
+          "g9": 36.31,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/zacian-v-gg48"
         },
         "GG49": {
           "name": "Drapion V",
           "pcName": "Drapion V",
-          "price": 12.99,
+          "price": 12.39,
           "variant": "Base",
           "all": {
-            "Base": 12.99
+            "Base": 12.39
           },
-          "psa10": 101.66,
-          "g9": 22.04,
+          "psa10": 103.93,
+          "g9": 24.12,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/drapion-v-gg49"
         },
         "GG50": {
           "name": "Darkrai VSTAR",
           "pcName": "Darkrai VStar",
-          "price": 92.2,
+          "price": 90,
           "variant": "Base",
           "all": {
-            "Base": 92.2
+            "Base": 90
           },
-          "psa10": 250.64,
-          "g9": 105.56,
+          "psa10": 245.25,
+          "g9": 101.56,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/darkrai-vstar-gg50"
         },
         "GG51": {
           "name": "Hisuian Samurott V",
           "pcName": "Hisuian Samurott V",
-          "price": 19.02,
+          "price": 17.12,
           "variant": "Base",
           "all": {
-            "Base": 19.02
+            "Base": 17.12
           },
-          "psa10": 102.76,
-          "g9": 30,
+          "psa10": 103.11,
+          "g9": 27.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hisuian-samurott-v-gg51"
         },
         "GG52": {
@@ -2124,67 +2124,67 @@
           "all": {
             "Base": 14
           },
-          "psa10": 92.15,
-          "g9": 25.43,
+          "psa10": 88.5,
+          "g9": 27.43,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hisuian-samurott-vstar-gg52"
         },
         "GG53": {
           "name": "Hoopa V",
           "pcName": "Hoopa V",
-          "price": 13.31,
+          "price": 12.6,
           "variant": "Base",
           "all": {
-            "Base": 13.31
+            "Base": 12.6
           },
-          "psa10": 101.45,
-          "g9": 26.41,
+          "psa10": 98.46,
+          "g9": 26.49,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hoopa-v-gg53"
         },
         "GG54": {
           "name": "Zamazenta V",
           "pcName": "Zamazenta V",
-          "price": 18.4,
+          "price": 17.87,
           "variant": "Base",
           "all": {
-            "Base": 18.4
+            "Base": 17.87
           },
-          "psa10": 102.31,
-          "g9": 28.75,
+          "psa10": 93.68,
+          "g9": 29.76,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/zamazenta-v-gg54"
         },
         "GG55": {
           "name": "Regigigas VSTAR",
           "pcName": "Regigigas VSTAR",
-          "price": 23.06,
+          "price": 24.82,
           "variant": "Base",
           "all": {
-            "Base": 23.06
+            "Base": 24.82
           },
-          "psa10": 128.75,
-          "g9": 31.07,
+          "psa10": 119.99,
+          "g9": 32.82,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/regigigas-vstar-gg55"
         },
         "GG56": {
           "name": "Hisuian Zoroark VSTAR",
           "pcName": "Hisuian Zoroark VSTAR",
-          "price": 48.7,
+          "price": 45.82,
           "variant": "Base",
           "all": {
-            "Base": 48.7
+            "Base": 45.82
           },
-          "psa10": 171.25,
-          "g9": 49.98,
+          "psa10": 163.13,
+          "g9": 49.18,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/hisuian-zoroark-vstar-gg56"
         },
         "GG57": {
           "name": "Adaman",
           "pcName": "Adaman",
-          "price": 5.23,
+          "price": 4.92,
           "variant": "Base",
           "all": {
-            "Base": 5.23
+            "Base": 4.92
           },
-          "psa10": 99.42,
+          "psa10": 87.48,
           "g9": 14.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/adaman-gg57"
         },
@@ -2196,77 +2196,77 @@
           "all": {
             "Base": 4
           },
-          "psa10": 71.75,
+          "psa10": 77.27,
           "g9": 16.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/cheren%27s-care-gg58"
         },
         "GG59": {
           "name": "Colress's Experiment",
           "pcName": "Colress's Experiment",
-          "price": 3.46,
+          "price": 3.49,
           "variant": "Base",
           "all": {
-            "Base": 3.46
+            "Base": 3.49
           },
-          "psa10": 45.96,
+          "psa10": 45.95,
           "g9": 14,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/colress%27s-experiment-gg59"
         },
         "GG60": {
           "name": "Cynthia's Ambition",
           "pcName": "Cynthia's Ambition",
-          "price": 25,
+          "price": 22.49,
           "variant": "Base",
           "all": {
-            "Base": 25
+            "Base": 22.49
           },
-          "psa10": 98,
+          "psa10": 99.99,
           "g9": 30,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/cynthia%27s-ambition-gg60"
         },
         "GG61": {
           "name": "Gardenia's Vigor",
           "pcName": "Gardenia's Vigor",
-          "price": 16.99,
+          "price": 16.58,
           "variant": "Base",
           "all": {
-            "Base": 16.99
+            "Base": 16.58
           },
           "psa10": 70.5,
-          "g9": 25,
+          "g9": 23.84,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/gardenia%27s-vigor-gg61"
         },
         "GG62": {
           "name": "Grant",
           "pcName": "Grant",
-          "price": 2.93,
+          "price": 2.53,
           "variant": "Base",
           "all": {
-            "Base": 2.93
+            "Base": 2.53
           },
-          "psa10": 61.39,
-          "g9": 16.01,
+          "psa10": 61,
+          "g9": 16.08,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/grant-gg62"
         },
         "GG63": {
           "name": "Irida",
           "pcName": "Irida",
-          "price": 7.75,
+          "price": 8.06,
           "variant": "Base",
           "all": {
-            "Base": 7.75
+            "Base": 8.06
           },
-          "psa10": 59,
+          "psa10": 59.99,
           "g9": 20.23,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/irida-gg63"
         },
         "GG64": {
           "name": "Melony",
           "pcName": "Melony",
-          "price": 7.83,
+          "price": 7.88,
           "variant": "Base",
           "all": {
-            "Base": 7.83
+            "Base": 7.88
           },
           "psa10": 55.98,
           "g9": 18,
@@ -2275,380 +2275,380 @@
         "GG65": {
           "name": "Raihan",
           "pcName": "Raihan",
-          "price": 5.19,
+          "price": 4.82,
           "variant": "Base",
           "all": {
-            "Base": 5.19
+            "Base": 4.82
           },
-          "psa10": 55.1,
-          "g9": 14.87,
+          "psa10": 54.3,
+          "g9": 14.96,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/raihan-gg65"
         },
         "GG66": {
           "name": "Roxanne",
           "pcName": "Roxanne",
-          "price": 6.19,
+          "price": 6,
           "variant": "Base",
           "all": {
-            "Base": 6.19
+            "Base": 6
           },
-          "psa10": 72.69,
-          "g9": 17.7,
+          "psa10": 74.68,
+          "g9": 18.61,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/roxanne-gg66"
         },
         "GG67": {
           "name": "Origin Forme Palkia VSTAR",
           "pcName": "Origin Forme Palkia VSTAR",
-          "price": 115,
+          "price": 103.4,
           "variant": "Base",
           "all": {
-            "Base": 115
+            "Base": 103.4
           },
-          "psa10": 310.5,
-          "g9": 114.89,
+          "psa10": 296.23,
+          "g9": 111.7,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/origin-forme-palkia-vstar-gg67"
         },
         "GG68": {
           "name": "Origin Forme Dialga VSTAR",
           "pcName": "Origin Forme Dialga VSTAR",
-          "price": 112.07,
+          "price": 115,
           "variant": "Base",
           "all": {
-            "Base": 112.07
+            "Base": 115
           },
-          "psa10": 296.07,
-          "g9": 122.29,
+          "psa10": 276,
+          "g9": 115.25,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/origin-forme-dialga-vstar-gg68"
         },
         "GG69": {
           "name": "Giratina VSTAR",
           "pcName": "Giratina VSTAR",
-          "price": 301.7,
+          "price": 273.5,
           "variant": "Base",
           "all": {
-            "Base": 301.7
+            "Base": 273.5
           },
-          "psa10": 590,
-          "g9": 294.5,
+          "psa10": 570.5,
+          "g9": 273.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/giratina-vstar-gg69"
         },
         "GG70": {
           "name": "Arceus VSTAR",
           "pcName": "Arceus VSTAR",
-          "price": 184.41,
+          "price": 163.47,
           "variant": "Base",
           "all": {
-            "Base": 184.41
+            "Base": 163.47
           },
-          "psa10": 370,
-          "g9": 195,
+          "psa10": 365.01,
+          "g9": 179.16,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/arceus-vstar-gg70"
         }
       }
     },
     "celebrations": {
       "console": "/console/pokemon-celebrations",
-      "checked": "2026-09-23",
+      "checked": "2026-10-03",
       "total": 25,
       "priced": 25,
       "cards": {
         "CC001": {
           "name": "Blastoise",
           "pcName": "Blastoise",
-          "price": 15.52,
+          "price": 15,
           "variant": "Base",
           "all": {
-            "Base": 15.52
+            "Base": 15
           },
-          "psa10": 119.95,
-          "g9": 43.67,
+          "psa10": 115,
+          "g9": 44.66,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/blastoise-2"
         },
         "CC002": {
           "name": "Charizard",
           "pcName": "Charizard",
-          "price": 158.92,
+          "price": 159.49,
           "variant": "Base",
           "all": {
-            "Base": 158.92
+            "Base": 159.49
           },
-          "psa10": 506.35,
-          "g9": 171.88,
+          "psa10": 485.32,
+          "g9": 172,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/charizard-4"
         },
         "CC003": {
           "name": "Venusaur",
           "pcName": "Venusaur",
-          "price": 10.82,
+          "price": 11.99,
           "variant": "Base",
           "all": {
-            "Base": 10.82
+            "Base": 11.99
           },
-          "psa10": 117.49,
-          "g9": 51.76,
+          "psa10": 114.99,
+          "g9": 45,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/venusaur-15"
         },
         "CC004": {
           "name": "Imposter Professor Oak",
           "pcName": "Imposter Professor Oak",
-          "price": 1.23,
+          "price": 1.49,
           "variant": "Base",
           "all": {
-            "Base": 1.23
+            "Base": 1.49
           },
-          "psa10": 54.19,
-          "g9": 15.71,
+          "psa10": 54.48,
+          "g9": 15.96,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/imposter-professor-oak-73"
         },
         "CC005": {
           "name": "Dark Gyarados",
           "pcName": "Dark Gyarados",
-          "price": 5.65,
+          "price": 5.96,
           "variant": "Base",
           "all": {
-            "Base": 5.65
+            "Base": 5.96
           },
-          "psa10": 90.59,
-          "g9": 30.47,
+          "psa10": 85,
+          "g9": 27.15,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/dark-gyarados-8"
         },
         "CC006": {
           "name": "Here Comes Team Rocket!",
           "pcName": "Here Comes Team Rocket",
-          "price": 1.85,
+          "price": 2,
           "variant": "Base",
           "all": {
-            "Base": 1.85
+            "Base": 2
           },
-          "psa10": 60.51,
-          "g9": 16.78,
+          "psa10": 57,
+          "g9": 15.61,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/here-comes-team-rocket-15"
         },
         "CC007": {
           "name": "Rocket's Zapdos",
           "pcName": "Rocket's Zapdos",
-          "price": 3.99,
+          "price": 4.11,
           "variant": "Base",
           "all": {
-            "Base": 3.99
+            "Base": 4.11
           },
-          "psa10": 72.5,
-          "g9": 30.38,
+          "psa10": 69.16,
+          "g9": 27.99,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/rocket%27s-zapdos-15"
         },
         "CC008": {
           "name": "_____'s Pikachu",
           "pcName": "Pikachu Birthday",
-          "price": 35,
+          "price": 30.76,
           "variant": "Base",
           "all": {
-            "Base": 35
+            "Base": 30.76
           },
-          "psa10": 201.75,
-          "g9": 66,
+          "psa10": 192.29,
+          "g9": 62.91,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/pikachu-birthday-24"
         },
         "CC009": {
           "name": "Cleffa",
           "pcName": "Cleffa",
-          "price": 2.87,
+          "price": 2.96,
           "variant": "Base",
           "all": {
-            "Base": 2.87
+            "Base": 2.96
           },
-          "psa10": 67.62,
-          "g9": 18.79,
+          "psa10": 64.48,
+          "g9": 24,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/cleffa-20"
         },
         "CC010": {
           "name": "Shining Magikarp",
           "pcName": "Shining Magikarp",
-          "price": 36.8,
+          "price": 32.34,
           "variant": "Base",
           "all": {
-            "Base": 36.8
+            "Base": 32.34
           },
-          "psa10": 150,
-          "g9": 49.67,
+          "psa10": 140,
+          "g9": 52.48,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/shining-magikarp-66"
         },
         "CC011": {
           "name": "Team Magma's Groudon",
           "pcName": "Team Magma's Groudon",
-          "price": 2.86,
+          "price": 2.03,
           "variant": "Base",
           "all": {
-            "Base": 2.86
+            "Base": 2.03
           },
-          "psa10": 91.84,
-          "g9": 23,
+          "psa10": 81.5,
+          "g9": 21.51,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/team-magma%27s-groudon-9"
         },
         "CC012": {
           "name": "Rocket's Admin.",
           "pcName": "Rocket's Admin.",
-          "price": 0.99,
+          "price": 1.5,
           "variant": "Base",
           "all": {
-            "Base": 0.99
+            "Base": 1.5
           },
-          "psa10": 61.47,
-          "g9": 19.99,
+          "psa10": 62.49,
+          "g9": 18.88,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/rocket%27s-admin-86"
         },
         "CC013": {
           "name": "Mew ex",
           "pcName": "Mew EX",
-          "price": 19.54,
+          "price": 18.49,
           "variant": "Base",
           "all": {
-            "Base": 19.54
+            "Base": 18.49
           },
-          "psa10": 158.75,
-          "g9": 40,
+          "psa10": 150.5,
+          "g9": 42.52,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/mew-ex-88"
         },
         "CC014": {
           "name": "Gardevoir ex",
           "pcName": "Gardevoir EX",
-          "price": 10.8,
+          "price": 10,
           "variant": "Base",
           "all": {
-            "Base": 10.8
+            "Base": 10
           },
-          "psa10": 80.54,
-          "g9": 31.29,
+          "psa10": 74.97,
+          "g9": 29.99,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/gardevoir-ex-93"
         },
         "CC015": {
           "name": "Umbreon ☆",
           "pcName": "Umbreon",
-          "price": 89.69,
+          "price": 83.69,
           "variant": "Base",
           "all": {
-            "Base": 89.69
+            "Base": 83.69
           },
-          "psa10": 390.89,
-          "g9": 119.27,
+          "psa10": 379,
+          "g9": 112.5,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/umbreon-17"
         },
         "CC016": {
           "name": "Claydol",
           "pcName": "Claydol",
-          "price": 0.64,
+          "price": 1.2,
           "variant": "Holo",
           "all": {
-            "Holo": 0.64
+            "Holo": 1.2
           },
-          "psa10": 49.93,
-          "g9": 27,
+          "psa10": 49.98,
+          "g9": 22.55,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/claydol-holo-15"
         },
         "CC017": {
           "name": "Luxray GL LV.X",
           "pcName": "Luxray GL LV.X",
-          "price": 4.18,
+          "price": 4.13,
           "variant": "Base",
           "all": {
-            "Base": 4.18
+            "Base": 4.13
           },
-          "psa10": 78.21,
-          "g9": 31.93,
+          "psa10": 80,
+          "g9": 33.5,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/luxray-gl-lvx-109"
         },
         "CC018": {
           "name": "Garchomp C LV.X",
           "pcName": "Garchomp C LV.X",
-          "price": 5.69,
+          "price": 5.77,
           "variant": "Base",
           "all": {
-            "Base": 5.69
+            "Base": 5.77
           },
-          "psa10": 82.36,
-          "g9": 27.87,
+          "psa10": 81.5,
+          "g9": 28.49,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/garchomp-c-lvx-145"
         },
         "CC019": {
           "name": "Donphan",
           "pcName": "Donphan",
-          "price": 2.25,
+          "price": 2.08,
           "variant": "Base",
           "all": {
-            "Base": 2.25
+            "Base": 2.08
           },
-          "psa10": 60.87,
-          "g9": 19.99,
+          "psa10": 72.3,
+          "g9": 21.79,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/donphan-107"
         },
         "CC020": {
           "name": "Reshiram",
           "pcName": "Reshiram",
-          "price": 15.12,
+          "price": 14.97,
           "variant": "Base",
           "all": {
-            "Base": 15.12
+            "Base": 14.97
           },
-          "psa10": 114.9,
-          "g9": 34.99,
+          "psa10": 101.53,
+          "g9": 39,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/reshiram-113"
         },
         "CC021": {
           "name": "Zekrom",
           "pcName": "Zekrom",
-          "price": 16.56,
+          "price": 15.99,
           "variant": "Base",
           "all": {
-            "Base": 16.56
+            "Base": 15.99
           },
-          "psa10": 125.25,
-          "g9": 43.3,
+          "psa10": 114,
+          "g9": 40.78,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/zekrom-114"
         },
         "CC022": {
           "name": "Mewtwo EX",
           "pcName": "Mewtwo EX",
-          "price": 12.86,
+          "price": 12.68,
           "variant": "Base",
           "all": {
-            "Base": 12.86
+            "Base": 12.68
           },
-          "psa10": 114.58,
+          "psa10": 115.75,
           "g9": 29.99,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/mewtwo-ex-54"
         },
         "CC023": {
           "name": "Xerneas EX",
           "pcName": "Xerneas EX",
-          "price": 4.83,
+          "price": 4.77,
           "variant": "Base",
           "all": {
-            "Base": 4.83
+            "Base": 4.77
           },
-          "psa10": 58.17,
-          "g9": 24.95,
+          "psa10": 56.11,
+          "g9": 25.17,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/xerneas-ex-97"
         },
         "CC024": {
           "name": "M Rayquaza EX",
           "pcName": "M Rayquaza EX",
-          "price": 42.5,
+          "price": 35.4,
           "variant": "Base",
           "all": {
-            "Base": 42.5
+            "Base": 35.4
           },
-          "psa10": 223.39,
-          "g9": 68.5,
+          "psa10": 192.5,
+          "g9": 69.39,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/m-rayquaza-ex-76"
         },
         "CC025": {
           "name": "Tapu Lele GX",
           "pcName": "Tapu Lele GX",
-          "price": 5,
+          "price": 5.31,
           "variant": "Base",
           "all": {
-            "Base": 5
+            "Base": 5.31
           },
-          "psa10": 67.5,
+          "psa10": 64.84,
           "g9": 29.99,
           "url": "https://www.pricecharting.com/game/pokemon-celebrations/tapu-lele-gx-60"
         }
