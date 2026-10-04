@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-03",
+  "checked": "2026-10-04",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1437,6 +1437,16 @@
       "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
     },
     {
+      "name": "Pikachu",
+      "n": "023",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "got": "2026-10-04",
+      "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
       "name": "Vulpix",
       "n": "009",
       "of": 128,
@@ -1477,6 +1487,16 @@
       "note": "The owner, 2 October 2026, in an updated master set list: added in that list and not in the binder before."
     },
     {
+      "name": "Xerneas",
+      "n": "076",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-10-04",
+      "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
       "name": "Gengar ex",
       "n": "090",
       "of": 128,
@@ -1495,6 +1515,16 @@
       "rarity": "Double Rare",
       "got": "2026-09-28",
       "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before."
+    },
+    {
+      "name": "Zamazenta",
+      "n": "107",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Rare",
+      "got": "2026-10-04",
+      "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before."
     },
     {
       "name": "Kommo-o",
@@ -1525,6 +1555,16 @@
       "rarity": "Classic Collection",
       "got": "2026-09-28",
       "note": "The owner, 28 September 2026, in an updated master set list (\"added some new cards I got today\"): added in that list and not in the binder before. The bottom half of the LEGEND whose top half, 99/102, was already in the binder, so the pair is now complete."
+    },
+    {
+      "name": "Magikarp",
+      "n": "203/193",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-04",
+      "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before. A Classic Collection reprint carrying its original set's number, 203/193, the only Magikarp in data/30th-checklist.json's Classic Collection, so nothing had to be disambiguated."
     }
   ],
   "_shotNote": [
