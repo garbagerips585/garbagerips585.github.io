@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-04",
+  "checked": "2026-10-05",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1387,6 +1387,16 @@
       "note": "The owner, 25 September 2026, in a second updated master set list the same day: added in that list and not in the binder before."
     },
     {
+      "name": "Chandelure",
+      "n": "137",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-10-05",
+      "note": "The owner, 5 October 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
       "name": "Salamence ex",
       "n": "156",
       "of": 128,
@@ -1658,6 +1668,15 @@
       "got": "2026-09-23",
       "pid": 713262,
       "note": "The owner, 23 September 2026: \"094 Aolan Exeggutor\" (a typo for Alolan). The Tech Sticker Collection's other promo, beside the Lucario 095 already in the binder. TCGplayer id read off its ME: Mega Evolution Promo listing, scan checked."
+    },
+    {
+      "name": "Nidorina",
+      "n": "101",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-10-05",
+      "note": "The owner, 5 October 2026, in an updated master set list: \"101 Nidorina\" with the \"(need)\" mark removed, so it is in the binder. data/30th.json's promo table files 101 as the Elite Trainer Box promo (a Pokemon Center stamped version in the Pokemon Center ETB); which version he has was not said, so none is claimed.",
+      "pid": 713260
     }
   ],
   "_jumboNote": [
