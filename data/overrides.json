@@ -2871,5 +2871,15 @@
       "phantasmal-flames"
     ],
     "setsWhy": "The title says \"Mega Evolution Power!\", which the taxonomy reads as the Mega Evolution SET. It is the series name on a Phantasmal Flames pack, which is the only set the owner named: \"Phantasmal Flames\"."
+  },
+  "XUPRTrC_bMc": {
+    "packNumber": 7,
+    "hasHit": false,
+    "sets": [
+      "mega-evolution"
+    ],
+    "packNumberWhy": "The owner, 5 October 2026: \"Single Booster Pack, Pack #7, hit no, Mega Evolution\". Follows Pack #6 (Qe4h_y9NaQ8, 21 September) in the same run of single Mega Evolution packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
+    "hasHitWhy": "\"hit no\" is his own word and the whole source. The title agrees (\"Hitless Pack! Back to the Bulk Pile\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "The owner named one set, \"Mega Evolution\", the base set of the series. Pinned so a series word in the title can never add a second set."
   }
 }
