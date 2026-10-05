@@ -901,20 +901,57 @@ The player on every rip page sits under a sealed booster pack that has to be
 ripped open. This is not just decoration: YouTube's poster frame is usually
 the pulled card, so the thumbnail spoils the video before you press play.
 
-Built from two `.pack-face` halves, each holding a full copy of the pack art
-and clipped with a jagged `clip-path` so together they read as one sealed
-pack. Click mounts the iframe immediately, then runs shake (0.26s) and tear
-(0.62s) over the top of the already-playing video.
-The sequence is driven by `animationend`, not by timers matching the CSS
+Built from two `.pack-face` halves, each holding a full copy of the pack art.
+**SINCE 5 OCTOBER 2026 IT TEARS ACROSS THE TOP SEAL, NOT DOWN THE MIDDLE.**
+The owner approved the redesign mockup: "use all of it, deploy the new rip site
+wide, yes i like the new Proposed look and animation, update site wide". At
+rest `.pack-l` is the whole pack (no seam) lying on a lit table
+(`--pk-table`, on `.pack::before`, in the site's greens) with a contact shadow
+off the art's alpha and the banner moved UNDER the bottom seal; on the click
+`.pack-l` becomes the strip above the crimp and `.pack-r` the body. Click mounts
+the iframe immediately, then ONE class, `.ripping`, schedules every phase by
+`animation-delay`: grip (0-160ms), nick and tear run (160-462), strip yanked
+off and flipped to its silver inside (462-800), body tugged, squeezed so card
+edges show in the mouth, then dropped out of frame (160-940), table fades
+(460-740). The full timeline is the header of the "pack rip" block in ui.css.
+The old two-step (`.shaking`, then `.tearing` on packShake's animationend) is
+gone: that main-thread hop fell exactly where the new iframe boots.
+The reveal is driven by `animationend`, not by timers matching the CSS
 durations, because background tabs clamp `setTimeout` and would desync the
-reveal from the tear. Generous fallback timers cover the case where the
-animation never fires. `prefers-reduced-motion` skips straight to the video.
+reveal from the tear. **tearL on `.pack-l` ends LAST (1.0s) and is the only end
+packplayer.js waits for**; tearR is 60ms shorter on purpose, and `.pack-l` also
+runs packShake first, which `after()` ignores BY NAME, so that name filter is
+load bearing now. Fallback 2200ms. `prefers-reduced-motion` skips straight to
+the video.
 
-The five `@keyframes` (packShake, packFade, tearL, tearR, packFlash) live in
-ui.css. They were referenced by name for a long time without existing, which
-is silent: a CSS animation naming missing keyframes never runs and never
-fires `animationend`, so the pack simply sat there. If the pack stops moving,
-check the keyframes are still present before anything else.
+**THE FACES ARE THE ART BOX.** Every tear percentage (`--tear:13.6%`, just
+under the crimp ribs, `--seal`, the foil and card-edge insets, the transform
+origins) is a percentage of the 9:16 artwork, measured on all 24 masters
+(silhouette x 7.3-92.7%, seal top 6.2%, ribs end 12.8%, 13.3% on 30th
+Celebration). Rather than re-derive them for each size the pack is drawn at,
+the faces are SIZED to the file's 9:16 shape and centred (`aspect-ratio`,
+`left:0;right:0;margin-inline:auto`, never `transform`, which belongs to the
+hover and the animations): 94% of the
+player's height on a rip page, the TILE's framing in `.tile-stage` so a tile's
+pack tears from where it was clicked. `.pack-flash` is the one layer outside a
+face and takes the same box. Change the art size by moving the face, never by
+`background-size` on `.pack-art`, or the tear stops lining up with the crimp.
+
+**TILES SHOW THE WHOLE PACK ABOVE THE BANNER** (the same redesign): the file is
+drawn at 1.0867x the room above the 44px banner, lifted 3.85% of it, which puts
+the silhouette across 94% of that room. `.pack--tile` and `.packshot` faces,
+`.hero-art img` and `.hofx-art img` all carry that sum; `sizes` is untouched,
+so no tile fetches a different file. The 404 page keeps the OLD vertical clip
+on purpose (its joke is the left half of a pack split down the middle), which
+is the only thing the base `.pack-l`/`.pack-r` polygons still serve.
+
+The EIGHT `@keyframes` (packShake, packFade, tearL, tearR, packFlash,
+tearFoil, tearSheen, packBack) live in ui.css. They were once referenced by
+name for a long time without existing, which is silent: a CSS animation naming
+missing keyframes never runs and never fires `animationend`, so the pack simply
+sat there. **scripts/check-build.py now fails the build** when any animation
+name used in public/assets/*.css or a page's inline style has no matching
+`@keyframes`. If the pack stops moving anyway, check the keyframes first.
 
 **BEFORE BELIEVING A PACK FAILURE YOU FOUND WHILE TESTING, CHECK YOUR
 HARNESS.** Driving many rip pages in one browser session produces false
@@ -2585,9 +2622,12 @@ every click: the tile fetched pitch-black-...pack.avif, the click asked for
 pitch-black-...pack.webp. Logged from the network before and after a real
 dispatched click. The `image-set()` in packs.css is what closes it, written as a
 SECOND declaration after the plain `url()` so that a browser too old to parse it
-drops that line and keeps the WebP; inverting those two would leave the pack a
-flat #161D26 rectangle, because `.pack-art::before` and `.pack-brand` are
-switched off in the same block.
+drops that line and keeps the WebP; inverting those two would leave an empty
+table where the pack should be (it was "a flat #161D26 rectangle" until the
+backdrop colour came out of packs.css on 5 October 2026, see The pack wrapper),
+because `.pack-art::before` and `.pack-brand` are switched off in the same
+block. `python3 scripts/build-packs.py --css-only` rewrites packs.css without
+re-encoding any image.
 
 **AND THE `<source>` ON A DEFERRED SLIDE HAS TO BE DEFERRED TOO.** A `<picture>`
 whose `<source>` matches loads that source even when the `<img>` carries no src

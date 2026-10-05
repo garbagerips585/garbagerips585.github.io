@@ -320,9 +320,10 @@
   function once(fn){ var done=false; return function(){ if(done) return; done=true; fn(); }; }
 
   // Wait for ONE named animation on an element. Without the name check any
-  // animationend bubbling up from a child would advance the sequence early;
-  // nothing does today, but adding a single animation anywhere inside the pack
-  // would silently start the tear mid-shake.
+  // animationend bubbling up from a child would advance the sequence early.
+  // Since 5 October 2026 that is not hypothetical: .pack-l runs packShake and
+  // then tearL, and the pseudo-elements inside the pack run four more, so
+  // without the name check the pack would be cleared 160ms into the grip.
   function after(el,name,fn){
     if(!el) return;
     el.addEventListener('animationend',function h(e){
@@ -348,15 +349,22 @@
        animation ended. Checked before the pack goes, since removing a focused
        element drops focus to <body> either way. */
     var clear=once(function(){ var a=document.activeElement, still=a===pack||a===document.body||!a; pack.remove(); focusPlayer(byKeyboard&&still); });
-    var tear=once(function(){
-      pack.classList.remove('shaking');
-      pack.classList.add('tearing');
-      after(face,'tearL',clear);
-      setTimeout(clear,1600);
-    });
-    pack.classList.add('shaking');
-    after(face,'packShake',tear);
-    setTimeout(tear,600);
+    /* ONE CLASS, EVERY PHASE SCHEDULED BY animation-delay (the pack redesign,
+       5 October 2026; the timeline is in the "pack rip" block of ui.css). The
+       grip, the tear and the drop all start in the frame the click lands, so
+       no main-thread hop sits between grip and tear. That hop used to be
+       packShake's animationend adding .tearing, and it falls inside the window
+       where the YouTube iframe this click just created is booting (frames drop
+       200-330ms after the click at 4x CPU): a stalled hop is a pack frozen
+       mid-rip.
+       tearL on .pack-l ends LAST (1.0s) and is the only end this waits for.
+       .pack-l also runs packShake first, which ends at 160ms; after() ignores
+       it by name, and that filter is now load bearing rather than defensive.
+       The fallback is 2200ms against a 1000ms rip: generous, because a
+       background tab clamps timers and the animation is the real signal. */
+    pack.classList.add('ripping');
+    after(face,'tearL',clear);
+    setTimeout(clear,2200);
   });
 
   // Hand focus to the player so the next Tab continues from the video rather

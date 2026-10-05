@@ -151,15 +151,9 @@
     if(reduced){ pack.remove(); focusPlayer(byKeyboard); return; }
     var face=pack.querySelector('.pack-l');
     var clear=once(function(){ var a=document.activeElement, still=a===pack||a===document.body||!a; pack.remove(); focusPlayer(byKeyboard&&still); });
-    var tear=once(function(){
-      pack.classList.remove('shaking');
-      pack.classList.add('tearing');
-      after(face,'tearL',clear);
-      setTimeout(clear,1600);
-    });
-    pack.classList.add('shaking');
-    after(face,'packShake',tear);
-    setTimeout(tear,600);
+    pack.classList.add('ripping');
+    after(face,'tearL',clear);
+    setTimeout(clear,2200);
   });
   function focusPlayer(yes){
     if(!yes) return;

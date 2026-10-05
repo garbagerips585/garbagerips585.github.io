@@ -16,7 +16,15 @@ image cannot be a <picture> and the pack wrapper on every rip page is one.
 
 Needs Pillow with AVIF support (11.x has it built in):
     python3 -m pip install --user Pillow
+
+    python3 scripts/build-packs.py --css-only
+
+rewrites packs.css from the masters' names WITHOUT re-encoding a single image,
+for a change to the CSS this writes (5 October 2026, when the backdrop came
+out). The encoder is deterministic, so a full run would rewrite the files byte
+for byte anyway, but it takes minutes and touches 150 files to prove it.
 """
+import sys
 import os
 from pathlib import Path
 
@@ -93,7 +101,16 @@ QUALITY = 78
 # here. If you ever add a fourth rendition, write both files or write neither.
 AVIF_QUALITY = 60
 AVIF_SPEED = 4
-BACKDROP = "#161D26"  # shows through the transparent margin around the pack
+# NO BACKDROP ANY MORE, 5 October 2026. This wrote `background-color:#161D26`
+# under every set's art, "to show through the transparent margin around the
+# pack". That margin is now deliberately TRANSPARENT: the pack is a pack-shaped
+# object lying on a lit table, and the table is drawn by ui.css (`--pk-table`,
+# on `.pack-player .pack::before`, `.pack--tile::before` and `.packshot::before`)
+# in the site's greens. #161D26 was a navy from the palette before Trubbish Deep
+# sitting inside a green frame, and painted on the FACES it made the torn strip
+# and the falling body fly off as dark rectangles instead of pack-shaped pieces.
+# Do not put a colour back here: it would paint over the table on every rip.
+CSS_ONLY = "--css-only" in sys.argv[1:]
 
 SRC.mkdir(parents=True, exist_ok=True)
 OUT.mkdir(parents=True, exist_ok=True)
@@ -132,21 +149,21 @@ def render(im, box, dest):
 done = []
 for m in masters:
     set_id = m.stem
-    im = Image.open(m)
-    if im.mode != "RGBA":
-        im = im.convert("RGBA")
     stem = OUT / f"{set_id}-garbage-rips-585-booster-pack"
-    size, kb, akb = render(im, TARGET, stem.with_suffix(".webp"))
-    tsize, tkb, atkb = render(im, TILE, Path(f"{stem}-tile.webp"))
-    msize, mkb, amkb = render(im, MID, Path(f"{stem}-mid.webp"))
-    done.append((set_id, size, kb, akb, m.stat().st_size / 1024,
-                 tsize, tkb, atkb, msize, mkb, amkb))
+    if not CSS_ONLY:
+        im = Image.open(m)
+        if im.mode != "RGBA":
+            im = im.convert("RGBA")
+        size, kb, akb = render(im, TARGET, stem.with_suffix(".webp"))
+        tsize, tkb, atkb = render(im, TILE, Path(f"{stem}-tile.webp"))
+        msize, mkb, amkb = render(im, MID, Path(f"{stem}-mid.webp"))
+        done.append((set_id, size, kb, akb, m.stat().st_size / 1024,
+                     tsize, tkb, atkb, msize, mkb, amkb))
 
     sel = f".pack--{set_id}"
     base = f"packs/{set_id}-garbage-rips-585-booster-pack"
     rules += [
         f"{sel} .pack-art{{",
-        f"  background-color:{BACKDROP};",
         f"  background-image:url('{base}.webp');",
         # THE SECOND background-image IS NOT A DUPLICATE AND THE PLAIN url()
         # ABOVE IT IS THE FALLBACK. A background cannot be a <picture>, so the
@@ -162,7 +179,8 @@ for m in masters:
         # Older browsers cannot parse the value, drop THIS declaration only, and
         # keep the url() above, which is the whole reason the two are written as
         # separate declarations rather than one. Getting that backwards would
-        # leave the pack a flat #161D26 rectangle on those browsers, because
+        # leave those browsers an EMPTY pack (just the table under it, since
+        # the backdrop colour came out on 5 October 2026), because
         # `.pack-art::before` and `.pack-brand` are switched off just below.
         f"  background-image:image-set(url('{base}.avif') type('image/avif'),"
         f"url('{base}.webp') type('image/webp'));",
@@ -236,6 +254,9 @@ rules += [
 ]
 
 CSS.write_text("\n".join(rules))
+if CSS_ONLY:
+    print(f"Wrote {CSS.relative_to(ROOT)} for {len(masters)} pack set(s); no image was re-encoded (--css-only).")
+    raise SystemExit(0)
 
 print(f"Wrote {len(done)} pack set(s), three renditions each in WebP and AVIF, "
       f"to {OUT.relative_to(ROOT)}/")

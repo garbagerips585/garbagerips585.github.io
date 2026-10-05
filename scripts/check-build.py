@@ -1544,6 +1544,100 @@ if _undef:
     )
 
 
+# AN ANIMATION THAT IS USED MUST HAVE ITS @keyframes.
+#
+# ADDED 5 October 2026 with the pack redesign, which took the rip from five
+# keyframes to eight. This exact fault shipped once and sat on every rip page
+# for months: the pack's animations were referenced BY NAME from ui.css and no
+# @keyframes block of that name existed anywhere in the repo. That is not an
+# error in any browser. An animation naming missing keyframes never runs and
+# never fires animationend, so the pack sat motionless over a playing video
+# while the fallback timers did all the work, and nothing anywhere said so.
+# It is the same shape as the undefined-variable check above: a name used in
+# one place and defined in another, with silence as the failure mode.
+#
+# Exact, not heuristic: every animation name in an `animation` shorthand or an
+# `animation-name` in public/assets/*.css (ui.css and packs.css are the ones
+# that matter) must match an @keyframes in those files, and every name in a
+# page's inline <style> or style="" must match one there OR in that same page.
+# Timing words, functions, counts and directions are not names and are skipped,
+# and so is any value carrying var(), which cannot be resolved statically.
+# PROVED BY BREAKING IT: renaming `@keyframes tearL` in the built ui.css makes
+# this fail naming tearL, and restoring it passes again.
+_ANIM_KW = {
+    "none", "initial", "inherit", "unset", "revert", "revert-layer", "auto",
+    "ease", "ease-in", "ease-out", "ease-in-out", "linear", "step-start", "step-end",
+    "infinite", "normal", "reverse", "alternate", "alternate-reverse",
+    "forwards", "backwards", "both", "running", "paused", "replace", "add", "accumulate",
+}
+_kf_def = _re.compile(r"@(?:-webkit-)?keyframes\s+[\"']?([A-Za-z_][\w-]*)")
+_anim_decl = _re.compile(r"(?<![\w-])(?:-webkit-)?animation(-name)?\s*:\s*([^;}\"]+)")
+
+
+def _anim_names(css):
+    """Every keyframes name an `animation` / `animation-name` declaration asks for."""
+    css = _re.sub(r"(?s)/\*.*?\*/", "", css)
+    out = set()
+    for _m in _anim_decl.finditer(css):
+        _val = _m.group(2).replace("!important", "")
+        if "var(" in _val:
+            continue
+        _parts, _depth, _cur = [], 0, ""
+        for _ch in _val:
+            if _ch == "(":
+                _depth += 1
+            elif _ch == ")":
+                _depth -= 1
+            if _ch == "," and _depth == 0:
+                _parts.append(_cur)
+                _cur = ""
+            else:
+                _cur += _ch
+        _parts.append(_cur)
+        for _part in _parts:
+            _part = _re.sub(r"[\w-]+\([^)]*\)", " ", _part)  # cubic-bezier(), steps(), linear()
+            for _tok in _part.split():
+                if _re.match(r"^[-+]?[\d.]", _tok) or _tok.lower() in _ANIM_KW:
+                    continue
+                if _re.match(r"^[A-Za-z_][\w-]*$", _tok):
+                    out.add(_tok)
+    return out
+
+
+_kf_global, _kf_used = set(), {}
+for _a in sorted(glob.glob("public/assets/*.css")):
+    try:
+        _t = open(_a, encoding="utf-8", errors="ignore").read()
+    except OSError:
+        continue
+    _kf_global |= set(_kf_def.findall(_t))
+    for _n in _anim_names(_t):
+        _kf_used.setdefault(_n, set()).add(_a.replace("public/", ""))
+_kf_missing = {k: v for k, v in _kf_used.items() if k not in _kf_global}
+for _f in sorted(glob.glob("public/**/*.html", recursive=True)):
+    _s = _read_page(_f)
+    _chunks = _re.findall(r"(?s)<style[^>]*>(.*?)</style>", _s) + _re.findall(r'style="([^"]*)"', _s)
+    if not any("animation" in _c for _c in _chunks):
+        continue
+    _local = set()
+    for _c in _chunks:
+        _local |= set(_kf_def.findall(_c))
+    for _c in _chunks:
+        for _n in _anim_names(_c):
+            if _n not in _kf_global and _n not in _local:
+                _kf_missing.setdefault(_n, set()).add(_f.replace("public/", ""))
+if _kf_missing:
+    _shout(
+        f"{len(_kf_missing)} CSS animation name(s) have NO @keyframes, so those animations never run "
+        "and never fire animationend (this is how the rip pack once sat frozen on every rip page): "
+        + "; ".join(f"{k} used in {len(v)} file(s), e.g. {sorted(v)[0]}" for k, v in sorted(_kf_missing.items()))
+        + ". Define the @keyframes (the pack's live in assets-source/ui.css, the pack rip block) "
+          "or fix the name, then re-run node scripts/build-all.mjs."
+    )
+else:
+    note(f"  keyframes: {len(_kf_global)} @keyframes in public/assets, every animation name resolves")
+
+
 # A DATE THE SITE SAYS IT READ SOMETHING ON CANNOT BE IN THE FUTURE.
 #
 # Thirty-eight scripts computed "today" as `new Date().toISOString().slice(0,10)`,
