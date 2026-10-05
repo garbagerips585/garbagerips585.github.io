@@ -996,7 +996,13 @@ const PACK_CLASS = /class="[^"]*(?:^|["\s])pack(?=[-\s"])/i;
 const PACK_RUNTIME = /\bdata-vcar\b|\bdata-packsrc\b|GRPack\.attach/;
 // One anchor to a rip page, up to its own </a>, containing artwork.
 const PACK_RIP_TILE = /<a\b[^>]*href="[^"]*\/rip\/[^"]*"[^>]*>(?:(?!<\/a>)[\s\S])*?(?:<img\b|class="[^"]*(?:^|["\s])pack[-\s"])/i;
-const PACKS_LINK = /[ \t]*<link rel="stylesheet" href="\/assets\/packs\.css\?v=[^"]*">\n?/;
+// THREE SHAPES SINCE 5 OCTOBER 2026, all removed: the plain render-blocking
+// link, the home page's non-blocking media="print" link, and its <noscript>
+// twin. The five pages that slice index.html's head inherit all three, and a
+// pattern that knew only the first, required "?v=" and stopped at the first
+// match left the other two behind, differently depending on whether the head
+// was sliced before or after stamp-assets ran, which CI's drift job caught.
+const PACKS_LINK = /[ \t]*(?:<noscript>)?<link rel="stylesheet" href="\/assets\/packs\.css(?:\?v=[^"]*)?"(?: media="print" onload="this\.media='all'")?>(?:<\/noscript>)?\n?/g;
 
 export function pageUsesPacksCSS(html) {
   return PACK_CLASS.test(html) || PACK_RUNTIME.test(html) || PACK_RIP_TILE.test(html);
