@@ -254,6 +254,10 @@ rules += [
 ]
 
 CSS.write_text("\n".join(rules))
+# The pack rip's rules are appended to this file by scripts/build-css.mjs from
+# assets-source/pack-rip.css (5 October 2026). This write drops them, so run
+# node scripts/build-css.mjs (or build-all.mjs) after; check-build.py fails
+# until you do.
 if CSS_ONLY:
     print(f"Wrote {CSS.relative_to(ROOT)} for {len(masters)} pack set(s); no image was re-encoded (--css-only).")
     raise SystemExit(0)

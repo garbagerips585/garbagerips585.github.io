@@ -946,7 +946,15 @@ on purpose (its joke is the left half of a pack split down the middle), which
 is the only thing the base `.pack-l`/`.pack-r` polygons still serve.
 
 The EIGHT `@keyframes` (packShake, packFade, tearL, tearR, packFlash,
-tearFoil, tearSheen, packBack) live in ui.css. They were once referenced by
+tearFoil, tearSheen, packBack) live in **assets-source/pack-rip.css**, with
+every other rip-only rule, since 5 October 2026 (the owner: "yes move the rip
+styles to packs.css"): in ui.css they cost 1.77KB gzipped, render blocking, on
+~1,000 pages that never show a pack. build-css.mjs strips that file into
+public/assets/packs.css between RIP:START and RIP:END, after build-packs.py's
+skins, and check-build.py fails if the block is missing or stale (a hand run of
+build-packs.py --css-only drops it; run build-css.mjs after). The resting look
+of tiles stays in ui.css because the home page paints its carousels before its
+non-blocking packs.css arrives. They were once referenced by
 name for a long time without existing, which is silent: a CSS animation naming
 missing keyframes never runs and never fires `animationend`, so the pack simply
 sat there. **scripts/check-build.py now fails the build** when any animation

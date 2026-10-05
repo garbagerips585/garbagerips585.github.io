@@ -541,6 +541,14 @@ if _r.returncode != 0:
         "build-all.mjs), and check you did not edit the generated ui.css by hand. "
         + (_r.stderr.strip() or _r.stdout.strip())[:300]
     )
+# THE PACK RIP IS IN packs.css SINCE 5 OCTOBER 2026 (assets-source/pack-rip.css,
+# written by build-css.mjs between RIP:START and RIP:END). A hand run of
+# build-packs.py --css-only rewrites packs.css without it, and then no page
+# names a rip animation at all, so the keyframes check below would pass on a
+# pack that never tears. This is the check that catches that.
+_r = _sp.run(["node", os.path.join(ROOT, "scripts/build-css.mjs"), "--check-packs"], capture_output=True, text=True)
+if _r.returncode != 0:
+    fail.append("packs.css: " + (_r.stderr.strip() or _r.stdout.strip())[:300])
 
 # ---------------------------------------------------------------------------
 # EVERY ASSET LINK IN THE BUILT TREE CARRIES A ?v=, AND IT MATCHES THE BYTES
