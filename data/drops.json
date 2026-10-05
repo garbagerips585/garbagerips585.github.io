@@ -138,12 +138,12 @@
     "information does not exist in machine-readable form because it does not",
     "exist in advance at all. Nobody knows, including the retailers."
   ],
-  "weekOf": "2026-09-28",
-  "weekEnds": "2026-10-04",
-  "compiled": "2026-09-28",
+  "weekOf": "2026-10-05",
+  "weekEnds": "2026-10-11",
+  "compiled": "2026-10-05",
   "source": {
     "name": "Community restock trackers",
-    "read": "2026-09-28",
+    "read": "2026-10-05",
     "note": "Stock tracking communities the owner follows, passed on as they were written. Not an announcement from any retailer, and not this site's own findings.",
     "url": null
   },
@@ -187,6 +187,10 @@
     "barnesandnoble": {
       "name": "Barnes & Noble",
       "kind": "Bookstore"
+    },
+    "academy": {
+      "name": "Academy Sports + Outdoors",
+      "kind": "Sporting goods"
     }
   },
   "drops": [
@@ -194,43 +198,43 @@
       "retailer": "pokemon-center",
       "channel": "online",
       "confidence": "pattern",
-      "what": "Be on alert for a Pokemon Center drop. The trackers say Delta Reign products are now loaded and expected to be available to preorder this week, and that they will pass on any indication of a drop ahead of time.",
+      "what": "Be on alert for a potential Pokemon Center drop. The trackers say we are in the official window where 30th Celebration Ultra Premium Collection preorders can go live, and that they will pass on any indication of a drop ahead of time.",
       "when": "The most common drop days are Monday to Wednesday, 11am to 2pm Eastern. That is a pattern people have noticed, not a schedule Pokemon Center publishes.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-09-30"
+        "from": "2026-10-05",
+        "to": "2026-10-07"
       },
       "expires": null,
       "notes": null
     },
     {
-      "retailer": "best-buy",
+      "retailer": "costco",
       "channel": "store",
-      "confidence": "window",
-      "what": "30th Celebration Booster Bundles and Mini Tins. The trackers say Best Buy will stock these nationwide on October 2.",
-      "when": "Friday, October 2, which is the release date for both products. Nationwide is the trackers' word: Best Buy has not published a list of stores.",
+      "confidence": "expected",
+      "what": "More regions and warehouses are expected to receive Ascended Heroes Mini Tins, in 10 pack and 5 pack bundles. 30th Celebration Elite Trainer Boxes and Booster Bundles could start showing up as early as this weekend, the trackers say.",
+      "when": "No day for the Mini Tins. As early as this weekend for the 30th Celebration products, which is an expectation, not a date Costco has published.",
       "window": {
-        "from": "2026-10-02",
-        "to": "2026-10-02"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": [
-        "The trackers say their own tooling shows how much stock your Best Buy will receive. That is their measurement rather than ours and we have not checked it."
+        "The trackers say they will keep monitoring changes and post any warehouse that shows Pokemon TCG stock in its system. That is their measurement rather than ours and we have not checked it."
       ]
     },
     {
       "retailer": "best-buy",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Destined Rivals Elite Trainer Boxes will continue to stock in store at select locations, alongside Ascended Heroes Large Tins.",
-      "when": "No day given. Select locations, through the week.",
+      "what": "More 30th Celebration products and Destined Rivals Elite Trainer Boxes will continue to stock in store at select locations through the week.",
+      "when": "No day given. Select stores, through the week.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": [
-        "The trackers say their tooling will tell you how many units each Best Buy near you is holding if you give it a zip code, so you can plan which shop to try. That is their measurement rather than ours and we have not checked it.",
+        "The trackers say their tooling will tell you how many units each Best Buy near you will have if you give it a zip code. That is their measurement rather than ours and we have not checked it.",
         "They add that their team will be checking through the week for other high demand items and updating stock counts as necessary."
       ]
     },
@@ -238,65 +242,11 @@
       "retailer": "target",
       "channel": "store",
       "confidence": "expected",
-      "what": "More 30th Celebration products are expected in store this week, alongside Ascended Heroes Large Tins, Chaos Rising, Pitch Black and First Partner products. For the 30th Celebration Booster Bundles and Mini Tins, select stores may put them out earlier with their usual restock; otherwise the trackers expect the majority on October 2.",
-      "when": "Store by store through the week, and October 2 for most of the Booster Bundles and Mini Tins. Neither is a date Target has published.",
+      "what": "More 30th Celebration products are expected in store this week, alongside Ascended Heroes Large Tins, Chaos Rising, Pitch Black and First Partner products.",
+      "when": "Store by store through the week. Target does not publish restock days.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
-      },
-      "expires": null,
-      "notes": null
-    },
-    {
-      "retailer": "walmart",
-      "channel": "store",
-      "confidence": "expected",
-      "what": "30th Celebration Booster Bundles and Mini Tins. Select stores may put these out earlier alongside their usual restock; otherwise the trackers expect the majority on October 2.",
-      "when": "October 2 for most stores, which is the release date. Anything earlier is store by store.",
-      "window": {
-        "from": "2026-10-02",
-        "to": "2026-10-02"
-      },
-      "expires": null,
-      "notes": null
-    },
-    {
-      "retailer": "barnesandnoble",
-      "channel": "store",
-      "confidence": "window",
-      "what": "Select Barnes & Noble stores will have 30th Celebration Booster Bundles and Mini Tins available on October 2, the trackers say.",
-      "when": "Friday, October 2, the release date. Select stores only, and the trackers do not say which.",
-      "window": {
-        "from": "2026-10-02",
-        "to": "2026-10-02"
-      },
-      "expires": null,
-      "notes": null
-    },
-    {
-      "retailer": "costco",
-      "channel": "store",
-      "confidence": "expected",
-      "what": "Ascended Heroes Elite Trainer Boxes and Mini Tins are practically done, with the trackers reporting 99% of warehouses showing no stock in the system. More Ascended Heroes Mini Tins are expected to stock nationwide in early October. A new product has also loaded that the trackers expect to be a 30th Celebration Elite Trainer Box plus Booster Bundle 2-pack.",
-      "when": "Early October for the Mini Tins, no day given. The 2-pack is an expectation from a new listing, with no date and no confirmation of what it is.",
-      "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
-      },
-      "expires": null,
-      "notes": [
-        "The trackers say they will keep updating their list of warehouses that show Pokemon TCG stock in the system."
-      ]
-    },
-    {
-      "retailer": "costco",
-      "channel": "online",
-      "confidence": "expected",
-      "what": "The trackers recommend being prepared for a potential online drop of Ascended Heroes Mini Tins sometime this week.",
-      "when": "No day given, just this week.",
-      "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": null
@@ -305,26 +255,52 @@
       "retailer": "sams-club",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Select clubs are continuing to randomly restock their second wave of Ascended Heroes Focused Fighters in store.",
-      "when": "No day, and the trackers are explicit about why: having it on hand does not mean a club will put it out that day. It is each individual store's decision when to stock it.",
+      "what": "Select clubs are continuing to randomly restock Ascended Heroes Focused Fighters in store.",
+      "when": "No day given. Random, club by club.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "expires": null,
+      "notes": null
+    },
+    {
+      "retailer": "dollar-general",
+      "channel": "store",
+      "confidence": "pattern",
+      "what": "Select stores are continuing to restock 30th Celebration products in store. The trackers also pass on a 25% off deal when you spend over $75.",
+      "when": "No day given. Select stores only.",
+      "window": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": [
-        "The trackers keep an updated list of which clubs have stock on hand and on order."
+        "The 25% off over $75 is the trackers' report of a Dollar General promotion. We have not read it on Dollar General's own site, so check the terms at the register."
       ]
+    },
+    {
+      "retailer": "academy",
+      "channel": "store",
+      "confidence": "pattern",
+      "what": "Select Academy Sports + Outdoors stores are continuing to restock 30th Celebration products in store.",
+      "when": "No day given. Select stores only.",
+      "window": {
+        "from": "2026-10-05",
+        "to": "2026-10-11"
+      },
+      "expires": null,
+      "notes": null
     },
     {
       "retailer": "target",
       "channel": "online",
-      "confidence": "pattern",
-      "what": "No products are loaded on the back end of Target at the moment. The trackers expect that to change as the week progresses, and say they will post the products once they load, ahead of time.",
-      "when": "No day given.",
+      "confidence": "expected",
+      "what": "More 30th Celebration products are expected to drop online this week. There is no drop date scheduled.",
+      "when": "The trackers say these drop at 3am Eastern on a random day. That is a pattern, not a time Target publishes.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": null
@@ -336,8 +312,8 @@
       "what": "Nothing is loaded on Walmart for an online raffle or for the usual Walmart Wednesday yet. The trackers are still expecting the usual weekly Walmart restock and say they will pass on any change.",
       "when": "Walmart Wednesday is a pattern people have noticed rather than a timetable Walmart publishes.",
       "window": {
-        "from": "2026-09-28",
-        "to": "2026-10-04"
+        "from": "2026-10-05",
+        "to": "2026-10-11"
       },
       "expires": null,
       "notes": null
