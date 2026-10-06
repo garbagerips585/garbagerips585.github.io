@@ -216,6 +216,72 @@ const AUDIT = `(() => {
     if (!clipped) out.overflow.push({ el: name(el), over, text: (el.textContent||'').trim().slice(0,60) });
   }
 
+  // SIZES THAT PICK THE WRONG FILE. A sizes attribute is a promise about a
+  // box that ui.css actually decides, and when the two drift apart nothing
+  // breaks: the page just downloads a bigger rendition than it draws. That is
+  // how the home page's trophy and its ten rip slides spent 6 October 2026
+  // taking the 560w pack (~60KB) into a 297-364px box at every DPR 1 desktop
+  // width, where the 400w one (~41KB) covers it: PageSpeed's "Improve image
+  // delivery", and the LCP image among them. Their declarations had been
+  // MEASURED, in August; the layout moved later and the numbers stayed.
+  // So this reads the declaration the way the browser does and asks the only
+  // question that costs anything: at DPR 1 or 2, does it choose a different
+  // file than the real box would? Over by a few pixels is not reported, since
+  // it lands on the same candidate. Under is reported too, because that one
+  // is a blurry picture rather than a heavy one.
+  {
+    const probe = document.createElement('div');
+    probe.style.cssText = 'position:absolute;visibility:hidden;height:0;pointer-events:none';
+    document.body.appendChild(probe);
+    const declared = (s) => {
+      for (const part of s.split(/,(?![^(]*\\))/)) {
+        const p = part.trim();
+        const m = p.match(/^(\\(.*\\))\\s+(.+)$/);
+        if (m && !matchMedia(m[1]).matches) continue;
+        probe.style.width = m ? m[2] : p;
+        return probe.getBoundingClientRect().width;
+      }
+      return 0;
+    };
+    for (const img of document.images) {
+      const src = img.parentElement && img.parentElement.tagName === 'PICTURE'
+        ? img.parentElement.querySelector('source') : null;
+      const attr = (el, a) => el && (el.getAttribute(a) || el.getAttribute('data-pack' + a));
+      const sizes = attr(src, 'sizes') || attr(img, 'sizes');
+      const set = attr(src, 'srcset') || attr(img, 'srcset');
+      if (!sizes || !set || /\\bauto\\b/.test(sizes)) continue;
+      const box = img.getBoundingClientRect().width;
+      if (!box) continue;
+      const ws = [...set.matchAll(/(\\d+)w/g)].map((m) => +m[1]).sort((a, b) => a - b);
+      if (ws.length < 2) continue;
+      // CHROMIUM'S OWN RULE, NOT "THE FIRST ONE BIG ENOUGH". Between two
+      // candidates it takes the smaller unless the screen's density reaches
+      // their geometric mean (HTMLSrcsetParser's selection logic), so a 279px
+      // box at DPR 2 gets the 560w file: 2.0 is under the 2.39 mean of 560 and 810.
+      // The naive rule reported that box as taking 810w; Chrome does not.
+      const pick = (slot, dpr) => {
+        const den = ws.map((w) => w / slot);
+        let i = 0;
+        for (; i < den.length - 1; i++) {
+          if (den[i + 1] < dpr) continue;
+          const gm = Math.sqrt(den[i] * den[i + 1]);
+          if ((dpr <= 1 && dpr > den[i]) || dpr >= gm) return ws[i + 1];
+          break;
+        }
+        return ws[i];
+      };
+      const d = declared(sizes);
+      for (const dpr of [1, 2]) {
+        const want = pick(box, dpr), got = pick(d, dpr);
+        if (want === got) continue;
+        out.images.push({ kind: got > want ? 'sizes-over' : 'sizes-under', el: name(img),
+          dpr, box: Math.round(box), declared: Math.round(d), takes: got, needs: want });
+        break;
+      }
+    }
+    probe.remove();
+  }
+
   // IMAGES. A loaded <img> with naturalWidth 0 is a 404 or a decode failure.
   // <picture> is checked separately because it does NOT fall back when a
   // matching <source> is dead: the browser commits to that source and paints

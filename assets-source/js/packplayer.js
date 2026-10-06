@@ -1523,14 +1523,40 @@
           var s = track.querySelector(".vcar-slide");
           hydrateSlides(car, s ? s.getBoundingClientRect().width + 16 : track.clientWidth);
         }, { passive: true });
-        window.addEventListener("resize", function () { syncCarousel(car); hydrateSlides(car, 0); });
-        syncCarousel(car);
         // First pass, no lead: a page load pays for the slides that are
         // actually on screen and nothing else. Desktop shows two or three, a
         // phone shows one, and this asks the laid-out track which it is.
-        hydrateSlides(car, 0);
+        //
+        // ASKED FROM A ResizeObserver, NOT STRAIGHT FROM boot(), SINCE 6
+        // OCTOBER 2026. Called at DOMContentLoaded, syncCarousel's first
+        // getBoundingClientRect made the browser lay out the whole home page
+        // inside this script, before it had painted anything: PageSpeed's
+        // "Forced reflow" blamed this file for 92ms on mobile and 72 on
+        // desktop, all of it one stall. An observer's first callback arrives
+        // after the browser's own layout and before the first paint, so the
+        // same reads cost nothing and .is-static still lands before anything
+        // is drawn, which is what keeps the bar from flashing and the page
+        // from shifting. It also fires whenever the track changes width, so
+        // it replaces the window resize listener that used to sit here.
+        if (track && window.ResizeObserver) trackRO().observe(track);
+        else {
+          window.addEventListener("resize", function () { syncCarousel(car); hydrateSlides(car, 0); });
+          syncCarousel(car);
+          hydrateSlides(car, 0);
+        }
       })(cars[i]);
     }
+  }
+  var vcarRO = null;
+  function trackRO() {
+    return vcarRO || (vcarRO = new ResizeObserver(function (entries) {
+      for (var k = 0; k < entries.length; k++) {
+        var car = entries[k].target.closest("[data-vcar]");
+        if (!car) continue;
+        syncCarousel(car);
+        hydrateSlides(car, 0);
+      }
+    }));
   }
 
   /* The registry that keeps a single embed live across the whole page.

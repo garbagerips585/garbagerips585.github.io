@@ -649,6 +649,27 @@ try {
 }
 const rawValue = (v) => HIT_VALUE[v.id] || 0;
 
+/* WHAT EACH PACK BOX ON THIS PAGE REALLY DRAWS AT, measured 6 October 2026
+ * off the built page (img getBoundingClientRect, 320 to 1920). Every clause is
+ * a straight line through the readings either side of it, rounded so it never
+ * declares less than the box: the phone is 206 at 320 and 290.4 at 412, capped
+ * at 303.2 from 429; 376.5 from 545 to 899; then Latest is 261.9 at 900, 300.9
+ * at 1000, 378.6 at 1199, 315.4 at 1200, 381.8 at 1399, 304.3 at 1400 and a
+ * flat 332.1 from 1500, while Greatest Hits is 325 at 900, 370.4 at 999, the
+ * same 300.7 to 378.3 from 1000, then 272.5 at 1200 rising to a flat 364.1
+ * from 1500, which is exactly the trophy beside it. The trophy's own string is
+ * on the .hofx picture. qa-sweep.mjs checks all three against the live box. */
+const HOFX_SIZES = "(max-width:424px) calc(85vw - 70px), (max-width:544px) calc(71.5vw - 63px), " +
+  "(max-width:640px) 413px, (max-width:1199px) 399px, (max-width:1499px) calc(30.6vw - 94px), 365px";
+const HERO_SIZES = {
+  latest: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:899px) 377px, " +
+    "(max-width:999px) calc(38.9vw - 88px), (max-width:1199px) calc(39vw - 89px), " +
+    "(max-width:1399px) calc(33.4vw - 85px), (max-width:1499px) calc(27.8vw - 85px), 333px",
+  hof: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:899px) 377px, " +
+    "(max-width:999px) calc(46vw - 89px), (max-width:1199px) calc(39vw - 89px), " +
+    "(max-width:1499px) calc(30.6vw - 94px), 365px",
+};
+
 /* THE MOST WANTED SCANS WERE A SINGLE 245w FILE WITH NO SRCSET AND NO SIZES,
  * SO THEY WERE SOFT ON EVERY RETINA SCREEN. Measured drawn width against the
  * device pixels needed: 148.2 CSS px at 390 (0.83x at DPR 2, 0.55x at DPR 3)
@@ -675,8 +696,12 @@ const rawValue = (v) => HIT_VALUE[v.id] || 0;
  * is also what a newly hunted card gets until sync-card-thumbs.mjs runs again.
  */
 const MW_SIZES =
-  "(min-width:1500px) 229px, (min-width:1300px) 219px, (min-width:1000px) 192px, " +
-  "(min-width:860px) 176px, (min-width:545px) 168px, " +
+  // RE-READ 6 OCTOBER 2026: 168 now holds to 999, then 176 at 1000 and 178.5
+  // at 1199, then a straight 178.7 at 1200 to 228.5 at 1499. The old 192 from
+  // 1000 sent a DPR 2 laptop at 1024 to the 420w scan for a box 310w covers,
+  // and the 176 rung at 860 described nothing any more.
+  "(min-width:1500px) 229px, (min-width:1200px) calc(16.7vw - 21px), (min-width:1000px) 179px, " +
+  "(min-width:545px) 168px, " +
   // UNDER 545 THE BOX IS A CLEAN 38vw AND A FLAT 41vw COST A WHOLE RUNG.
   // Measured at eight phone widths: 130 at 320, then 136.8/142.5/148.2/157.3/
   // 163.4 at 360/375/390/414/430, which is 38.0% of the viewport every time,
@@ -971,11 +996,25 @@ const hofHtml = hofPick
             // avoid it. avifPicture leaves every attribute above on the <img>
             // and adds one <source>, so the WebP is still what Safari 16.0-16.3
             // gets and fetchpriority still lands on the LCP element.
+            // RE-MEASURED 6 OCTOBER 2026 BECAUSE THE BOX HAD MOVED AND THIS HAD
+            // NOT. Everything above was true when written; since then the 2:3
+            // crop moved onto the art box and the img became absolute inside
+            // it, so the picture draws narrower than its frame. The old string
+            // declared 404 at 1280 and 464 at 1440 and 1920 for a box of 297,
+            // 346 and 364, which put every DPR 1 desktop on the 560w file
+            // (~60KB) where the 400w one (~41KB) covers it, and this is the LCP
+            // image: PageSpeed listed it under "Improve image delivery". The
+            // phone stop over-declared too once the 425 crop arrived: 295 at
+            // 430 against a 244 box. Read off the DOM now: 200.8 at 320, 278.7
+            // at 412, 243.8 at 430, 325.3 at 544, 413 from 545 to 640, 398.4
+            // from 641 to 1199, 272.5 at 1200, 345.8 at 1440, a flat 364.1
+            // from 1500. Each clause of HOFX_SIZES is the line through those,
+            // rounded up. qa-sweep.mjs now flags this string the day it drifts.
             const fs = faceSet(hofPick);
             return fs && packs.has(fs)
               ? avifPicture(`<img src="assets/packs/${fs}-garbage-rips-585-booster-pack.webp"
            srcset="assets/packs/${fs}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${fs}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${fs}-garbage-rips-585-booster-pack.webp 810w"
-           sizes="(max-width:544px) calc(78vw - 40px), (max-width:640px) 480px, (max-width:1199px) 464px, (max-width:1399px) 404px, 464px" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`)
+           sizes="${HOFX_SIZES}" alt="" fetchpriority="high" decoding="async" width="810" height="1440">`)
               : packs.has("default")
                 ? avifPicture(`<img src="assets/packs/default-garbage-rips-585-booster-pack.webp" alt="" fetchpriority="high" decoding="async">`)
                 : `<b>Garbage Rips</b>`;
@@ -1049,17 +1088,22 @@ function heroTile(v, opts) {
   const srcset = hasArt
     ? `assets/packs/${set}-garbage-rips-585-booster-pack-tile.webp 400w, assets/packs/${set}-garbage-rips-585-booster-pack-mid.webp 560w, assets/packs/${set}-garbage-rips-585-booster-pack.webp 810w`
     : "";
-  // 440px OVER-DECLARES AND IS KEPT ANYWAY, WHICH IS A TRADE AND NOT AN
-  // OVERSIGHT. The real box is 328 / 373 / 391, so an honest figure would pick
-  // the 400w tile at 1280 and 1440 and save another ~130KB at DPR 1 on top of
-  // what 560w already saves. Writing it honestly means writing ui.css's
-  // 1000/1200/1400 slide-count breakpoints a SECOND time, right here, which is
-  // exactly what the "NO MEDIA QUERY IN HERE" note below argues against: the
-  // two bands do not even share a count, and the copy goes silently soft the
-  // day ui.css's counts move. 560w wins at all three desktop widths with no
-  // breakpoints at all. If somebody later decides the extra 130KB is worth a
-  // duplicated breakpoint, the measured boxes are in the paragraph above.
-  const sizes = hasArt ? "(max-width:640px) 87vw, 440px" : "";
+  // THE TWO SHELVES DECLARE THEIR OWN BOXES SINCE 6 OCTOBER 2026, and the
+  // flat "(max-width:640px) 87vw, 440px" that used to sit here is gone. It was
+  // kept as a trade: honest numbers meant copying ui.css's slide-count
+  // breakpoints, and 560w "won at every desktop width" anyway. Both halves of
+  // that stopped being true. The boxes moved (297 at 1280 in Greatest Hits, 342
+  // in Latest, against the 328 this note recorded), so 440 now sent every DPR 1
+  // desktop to the 560w file for a box the 400w tile covers, ten slides a page;
+  // and at 412 the phone box is 290 against 87vw's 358, which is the 810w file
+  // (107KB) where 560w (68KB) does, on PageSpeed's own test phone. The copy of
+  // the breakpoints is the price, and the reason it is safe to pay now is
+  // qa-sweep.mjs: its sizes-over / sizes-under check reads each declaration
+  // the way Chromium does against the real box, so the day ui.css moves a
+  // count the sweep says so instead of the bytes going quietly up again.
+  // The numbers are getBoundingClientRect off the built page at 33 widths;
+  // see HERO_SIZES near the top of this file.
+  const sizes = hasArt ? (o.sizes || HERO_SIZES.latest) : "";
   const rest = `alt="" width="400" height="711" loading="lazy" decoding="async"`;
   // AVIF IN FRONT OF THE WEBP, AND IT IS THE ONE LEVER HERE THAT PAYS AT EVERY
   // DPR. The three widths above only help a screen whose box happens to fall in
@@ -1208,6 +1252,7 @@ ${list
           // have put a desktop's first slide behind JavaScript to buy zero
           // bytes. Do not add it back without a number.
           defer: i > 0,
+          sizes: o.sizes,
         })}</div>`)
         .join("\n")}
       </div>
@@ -1265,8 +1310,8 @@ const latestList = (() => {
 })();
 /* `band` names the carousel in its buttons: both said "Previous rip" and "Next
    rip", and a screen reader had no way to tell Greatest Hits from Latest rips. */
-const latestHtml = carousel(latestList, { dated: true, band: "Latest rips" });
-const hallHtml = carousel(hallList.slice(0, 5), { showSet: true, band: "Greatest Hits" });
+const latestHtml = carousel(latestList, { dated: true, band: "Latest rips", sizes: HERO_SIZES.latest });
+const hallHtml = carousel(hallList.slice(0, 5), { showSet: true, band: "Greatest Hits", sizes: HERO_SIZES.hof });
 
 const ordered = [...sets].sort((a, b) => String(b.released).localeCompare(String(a.released)));
 /* THE 30th CELEBRATION TILE, AND IT HAS TO BE HAND BUILT.

@@ -772,11 +772,25 @@
           var s = track.querySelector(".vcar-slide");
           hydrateSlides(car, s ? s.getBoundingClientRect().width + 16 : track.clientWidth);
         }, { passive: true });
-        window.addEventListener("resize", function () { syncCarousel(car); hydrateSlides(car, 0); });
-        syncCarousel(car);
-        hydrateSlides(car, 0);
+        if (track && window.ResizeObserver) trackRO().observe(track);
+        else {
+          window.addEventListener("resize", function () { syncCarousel(car); hydrateSlides(car, 0); });
+          syncCarousel(car);
+          hydrateSlides(car, 0);
+        }
       })(cars[i]);
     }
+  }
+  var vcarRO = null;
+  function trackRO() {
+    return vcarRO || (vcarRO = new ResizeObserver(function (entries) {
+      for (var k = 0; k < entries.length; k++) {
+        var car = entries[k].target.closest("[data-vcar]");
+        if (!car) continue;
+        syncCarousel(car);
+        hydrateSlides(car, 0);
+      }
+    }));
   }
   var live = null;
   function open(root, teardown) {
