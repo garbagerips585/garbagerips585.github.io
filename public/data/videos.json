@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 313670,
-    "subscribers": 414,
-    "videos": 365,
-    "readAt": "2026-10-05"
+    "views": 313787,
+    "subscribers": 415,
+    "videos": 366,
+    "readAt": "2026-10-06"
   },
-  "syncedAt": "2026-10-05",
+  "syncedAt": "2026-10-06",
   "videos": [
+    {
+      "id": "sioMdPu-izo",
+      "title": "30th Celebration Greninja Box Pack #1 ✨ | CONNECTING GALARIAN MEOWTH IR! 🐱",
+      "path": "rip/30th-celebration-greninja-box-pack-1-connecting-galarian-meo-sioMdPu-izo.html",
+      "published": "2026-10-06",
+      "publishedAt": "2026-10-06T10:11:26Z",
+      "duration": 28,
+      "views": 701,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": [],
+      "label": "30th Celebration ex Premium Collection"
+    },
     {
       "id": "XUPRTrC_bMc",
       "title": "Mega Evolution Pack #7 📉 | Hitless Pack! Back to the Bulk Pile 💀",
@@ -15,7 +34,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 603,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 929,
+      "views": 957,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-10-03",
       "publishedAt": "2026-10-03T11:05:18Z",
       "duration": 23,
-      "views": 984,
+      "views": 993,
       "vertical": true,
       "short": true,
       "sets": [
@@ -77,7 +96,7 @@
       "published": "2026-10-02",
       "publishedAt": "2026-10-02T10:44:39Z",
       "duration": 19,
-      "views": 1079,
+      "views": 1082,
       "vertical": true,
       "short": true,
       "sets": [
@@ -99,7 +118,7 @@
       "published": "2026-10-01",
       "publishedAt": "2026-10-01T10:32:19Z",
       "duration": 23,
-      "views": 1469,
+      "views": 1474,
       "vertical": true,
       "short": true,
       "sets": [
@@ -121,7 +140,7 @@
       "published": "2026-09-30",
       "publishedAt": "2026-09-30T10:23:12Z",
       "duration": 23,
-      "views": 37,
+      "views": 40,
       "vertical": true,
       "short": true,
       "sets": [
@@ -142,7 +161,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1344,
+      "views": 1346,
       "vertical": true,
       "short": true,
       "sets": [
@@ -163,7 +182,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1368,
+      "views": 1370,
       "vertical": true,
       "short": true,
       "sets": [
@@ -185,7 +204,7 @@
       "published": "2026-09-27",
       "publishedAt": "2026-09-27T11:44:28Z",
       "duration": 21,
-      "views": 1148,
+      "views": 1149,
       "vertical": true,
       "short": true,
       "sets": [
@@ -208,7 +227,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 1099,
+      "views": 1101,
       "vertical": true,
       "short": true,
       "sets": [
@@ -229,7 +248,7 @@
       "published": "2026-09-25",
       "publishedAt": "2026-09-25T16:57:19Z",
       "duration": 22,
-      "views": 913,
+      "views": 915,
       "vertical": true,
       "short": true,
       "sets": [
@@ -251,7 +270,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1266,
+      "views": 1270,
       "vertical": true,
       "short": true,
       "sets": [
@@ -272,7 +291,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 1092,
+      "views": 1093,
       "vertical": true,
       "short": true,
       "sets": [
@@ -294,7 +313,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 671,
+      "views": 675,
       "vertical": true,
       "short": true,
       "sets": [
@@ -315,7 +334,7 @@
       "published": "2026-09-21",
       "publishedAt": "2026-09-21T10:06:22Z",
       "duration": 23,
-      "views": 454,
+      "views": 456,
       "vertical": true,
       "short": true,
       "sets": [
@@ -336,7 +355,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1089,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
@@ -357,7 +376,7 @@
       "published": "2026-09-19",
       "publishedAt": "2026-09-19T10:35:14Z",
       "duration": 26,
-      "views": 921,
+      "views": 922,
       "vertical": true,
       "short": true,
       "sets": [
@@ -378,7 +397,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 930,
+      "views": 931,
       "vertical": true,
       "short": true,
       "sets": [
@@ -399,7 +418,7 @@
       "published": "2026-09-17",
       "publishedAt": "2026-09-17T12:10:38Z",
       "duration": 23,
-      "views": 946,
+      "views": 947,
       "vertical": true,
       "short": true,
       "sets": [
@@ -420,7 +439,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1278,
+      "views": 1279,
       "vertical": true,
       "short": true,
       "sets": [
@@ -441,7 +460,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T10:35:22Z",
       "duration": 24,
-      "views": 1013,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -462,7 +481,7 @@
       "published": "2026-09-15",
       "publishedAt": "2026-09-15T10:15:21Z",
       "duration": 19,
-      "views": 1079,
+      "views": 1080,
       "vertical": true,
       "short": true,
       "sets": [
@@ -485,7 +504,7 @@
       "published": "2026-09-14",
       "publishedAt": "2026-09-14T10:08:34Z",
       "duration": 25,
-      "views": 1133,
+      "views": 1137,
       "vertical": true,
       "short": true,
       "sets": [
@@ -506,7 +525,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1258,
+      "views": 1259,
       "vertical": true,
       "short": true,
       "sets": [
@@ -527,7 +546,7 @@
       "published": "2026-09-12",
       "publishedAt": "2026-09-12T10:37:02Z",
       "duration": 24,
-      "views": 1074,
+      "views": 1075,
       "vertical": true,
       "short": true,
       "sets": [
@@ -548,7 +567,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 935,
+      "views": 936,
       "vertical": true,
       "short": true,
       "sets": [
@@ -570,7 +589,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 1002,
+      "views": 1007,
       "vertical": true,
       "short": true,
       "sets": [
@@ -592,7 +611,7 @@
       "published": "2026-09-09",
       "publishedAt": "2026-09-09T10:13:37Z",
       "duration": 19,
-      "views": 52,
+      "views": 53,
       "vertical": true,
       "short": true,
       "sets": [
@@ -614,7 +633,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1584,
+      "views": 1585,
       "vertical": true,
       "short": true,
       "sets": [
@@ -635,7 +654,7 @@
       "published": "2026-09-07",
       "publishedAt": "2026-09-07T10:03:11Z",
       "duration": 19,
-      "views": 1191,
+      "views": 1192,
       "vertical": true,
       "short": true,
       "sets": [
@@ -679,7 +698,7 @@
       "published": "2026-09-05",
       "publishedAt": "2026-09-05T10:30:30Z",
       "duration": 25,
-      "views": 980,
+      "views": 981,
       "vertical": true,
       "short": true,
       "sets": [
@@ -700,7 +719,7 @@
       "published": "2026-09-04",
       "publishedAt": "2026-09-04T10:20:25Z",
       "duration": 21,
-      "views": 1168,
+      "views": 1169,
       "vertical": true,
       "short": true,
       "sets": [
@@ -722,7 +741,7 @@
       "published": "2026-09-03",
       "publishedAt": "2026-09-03T10:12:15Z",
       "duration": 20,
-      "views": 1434,
+      "views": 1435,
       "vertical": true,
       "short": true,
       "sets": [
@@ -743,7 +762,7 @@
       "published": "2026-09-02",
       "publishedAt": "2026-09-02T10:10:23Z",
       "duration": 51,
-      "views": 992,
+      "views": 993,
       "vertical": true,
       "short": true,
       "sets": [
@@ -765,7 +784,7 @@
       "published": "2026-09-01",
       "publishedAt": "2026-09-01T10:05:20Z",
       "duration": 21,
-      "views": 1277,
+      "views": 1278,
       "vertical": true,
       "short": true,
       "sets": [
@@ -798,7 +817,7 @@
       "published": "2026-08-31",
       "publishedAt": "2026-08-31T11:17:17Z",
       "duration": 18,
-      "views": 958,
+      "views": 961,
       "vertical": true,
       "short": true,
       "sets": [
@@ -864,7 +883,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1116,
+      "views": 1121,
       "vertical": true,
       "short": true,
       "sets": [
@@ -901,7 +920,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 995,
+      "views": 998,
       "vertical": true,
       "short": true,
       "sets": [
@@ -937,7 +956,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1242,
+      "views": 1243,
       "vertical": true,
       "short": true,
       "sets": [
@@ -970,7 +989,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1182,
+      "views": 1183,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1006,7 +1025,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 861,
+      "views": 863,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1040,7 +1059,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1022,
+      "views": 1025,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1073,7 +1092,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 972,
+      "views": 977,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1109,7 +1128,7 @@
       "published": "2026-08-22",
       "publishedAt": "2026-08-22T11:47:18Z",
       "duration": 20,
-      "views": 1134,
+      "views": 1135,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1143,7 +1162,7 @@
       "published": "2026-08-21",
       "publishedAt": "2026-08-21T12:14:12Z",
       "duration": 21,
-      "views": 901,
+      "views": 902,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1176,7 +1195,7 @@
       "published": "2026-08-20",
       "publishedAt": "2026-08-20T12:34:21Z",
       "duration": 24,
-      "views": 844,
+      "views": 846,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1212,7 +1231,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1059,
+      "views": 1062,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1245,7 +1264,7 @@
       "published": "2026-08-18",
       "publishedAt": "2026-08-18T10:04:29Z",
       "duration": 28,
-      "views": 1207,
+      "views": 1208,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1284,7 +1303,7 @@
       "published": "2026-08-17",
       "publishedAt": "2026-08-17T12:04:11Z",
       "duration": 20,
-      "views": 811,
+      "views": 813,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1317,7 +1336,7 @@
       "published": "2026-08-16",
       "publishedAt": "2026-08-16T13:13:06Z",
       "duration": 21,
-      "views": 929,
+      "views": 930,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1351,7 +1370,7 @@
       "published": "2026-08-15",
       "publishedAt": "2026-08-15T12:10:37Z",
       "duration": 19,
-      "views": 797,
+      "views": 798,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1384,7 +1403,7 @@
       "published": "2026-08-14",
       "publishedAt": "2026-08-14T12:25:27Z",
       "duration": 21,
-      "views": 1014,
+      "views": 1015,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1418,7 +1437,7 @@
       "published": "2026-08-13",
       "publishedAt": "2026-08-13T12:15:20Z",
       "duration": 20,
-      "views": 733,
+      "views": 735,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1454,7 +1473,7 @@
       "published": "2026-08-12",
       "publishedAt": "2026-08-12T12:28:06Z",
       "duration": 20,
-      "views": 674,
+      "views": 678,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1488,7 +1507,7 @@
       "published": "2026-08-11",
       "publishedAt": "2026-08-11T12:30:37Z",
       "duration": 18,
-      "views": 18,
+      "views": 20,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1555,7 +1574,7 @@
       "published": "2026-08-09",
       "publishedAt": "2026-08-09T12:14:28Z",
       "duration": 22,
-      "views": 689,
+      "views": 691,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1592,7 +1611,7 @@
       "published": "2026-08-08",
       "publishedAt": "2026-08-08T10:07:15Z",
       "duration": 23,
-      "views": 954,
+      "views": 955,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1626,7 +1645,7 @@
       "published": "2026-08-07",
       "publishedAt": "2026-08-07T10:05:16Z",
       "duration": 18,
-      "views": 654,
+      "views": 655,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1659,7 +1678,7 @@
       "published": "2026-08-06",
       "publishedAt": "2026-08-06T12:12:33Z",
       "duration": 23,
-      "views": 764,
+      "views": 765,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1693,7 +1712,7 @@
       "published": "2026-08-05",
       "publishedAt": "2026-08-05T11:58:19Z",
       "duration": 22,
-      "views": 784,
+      "views": 786,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1727,7 +1746,7 @@
       "published": "2026-08-04",
       "publishedAt": "2026-08-04T11:45:09Z",
       "duration": 21,
-      "views": 831,
+      "views": 832,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1761,7 +1780,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 663,
+      "views": 667,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1797,7 +1816,7 @@
       "published": "2026-08-02",
       "publishedAt": "2026-08-02T11:20:07Z",
       "duration": 22,
-      "views": 890,
+      "views": 891,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1834,7 +1853,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 954,
+      "views": 956,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1871,7 +1890,7 @@
       "published": "2026-07-31",
       "publishedAt": "2026-07-31T12:10:31Z",
       "duration": 22,
-      "views": 768,
+      "views": 769,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1905,7 +1924,7 @@
       "published": "2026-07-30",
       "publishedAt": "2026-07-30T11:57:02Z",
       "duration": 18,
-      "views": 843,
+      "views": 844,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1938,7 +1957,7 @@
       "published": "2026-07-29",
       "publishedAt": "2026-07-29T12:21:37Z",
       "duration": 29,
-      "views": 999,
+      "views": 1001,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1975,7 +1994,7 @@
       "published": "2026-07-28",
       "publishedAt": "2026-07-28T12:15:26Z",
       "duration": 25,
-      "views": 1002,
+      "views": 1005,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2012,7 +2031,7 @@
       "published": "2026-07-27",
       "publishedAt": "2026-07-27T12:10:04Z",
       "duration": 20,
-      "views": 859,
+      "views": 861,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2116,7 +2135,7 @@
       "published": "2026-07-24",
       "publishedAt": "2026-07-24T13:17:16Z",
       "duration": 19,
-      "views": 645,
+      "views": 647,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2149,7 +2168,7 @@
       "published": "2026-07-23",
       "publishedAt": "2026-07-23T12:23:31Z",
       "duration": 27,
-      "views": 1130,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2186,7 +2205,7 @@
       "published": "2026-07-22",
       "publishedAt": "2026-07-22T23:25:15Z",
       "duration": 20,
-      "views": 594,
+      "views": 596,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2220,7 +2239,7 @@
       "published": "2026-07-22",
       "publishedAt": "2026-07-22T12:25:38Z",
       "duration": 20,
-      "views": 695,
+      "views": 696,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2290,7 +2309,7 @@
       "published": "2026-07-21",
       "publishedAt": "2026-07-21T11:58:33Z",
       "duration": 21,
-      "views": 646,
+      "views": 647,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2324,7 +2343,7 @@
       "published": "2026-07-21",
       "publishedAt": "2026-07-21T00:15:31Z",
       "duration": 19,
-      "views": 656,
+      "views": 660,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2357,7 +2376,7 @@
       "published": "2026-07-20",
       "publishedAt": "2026-07-20T12:13:28Z",
       "duration": 22,
-      "views": 821,
+      "views": 823,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2391,7 +2410,7 @@
       "published": "2026-07-19",
       "publishedAt": "2026-07-19T23:55:38Z",
       "duration": 21,
-      "views": 684,
+      "views": 686,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2425,7 +2444,7 @@
       "published": "2026-07-19",
       "publishedAt": "2026-07-19T12:25:22Z",
       "duration": 20,
-      "views": 691,
+      "views": 694,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4032,7 +4051,7 @@
       "published": "2026-06-26",
       "publishedAt": "2026-06-26T23:47:01Z",
       "duration": 24,
-      "views": 17,
+      "views": 19,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4489,7 +4508,7 @@
       "published": "2026-06-20",
       "publishedAt": "2026-06-20T11:00:19Z",
       "duration": 20,
-      "views": 87,
+      "views": 88,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6136,7 +6155,7 @@
       "published": "2026-05-27",
       "publishedAt": "2026-05-27T10:37:39Z",
       "duration": 22,
-      "views": 1864,
+      "views": 1867,
       "vertical": true,
       "short": true,
       "sets": [
