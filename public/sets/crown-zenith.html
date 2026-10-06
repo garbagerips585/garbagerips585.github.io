@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://images.pokemontcg.io" crossorigin>
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=23cfdb0c">
+<link rel="stylesheet" href="/assets/ui.css?v=5963e9a7">
 <link rel="stylesheet" href="/assets/packs.css?v=857d015e">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -143,6 +143,8 @@ text-transform:uppercase;white-space:nowrap}
 .cc-cell .cc-rip{margin:-10px 0 8px}
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
+.chase-grid .chase-card{container-type:inline-size}
+@container (max-width:140px){.chase-card .nw{white-space:normal}}
 .chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
 .cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
 background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
@@ -243,6 +245,11 @@ grid-template-areas:"p nm nm pr" "p no rr rr";align-items:center;column-gap:10px
 .prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .prod-x{margin-top:2px}
 .prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+ul.prod-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){ul.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){ul.prod-grid{grid-template-columns:minmax(0,1fr)}}
+ul.prod-grid .prod-body{flex:1 1 0;container-type:inline-size}
+@container (max-width:260px){.prod-pc .nw,.prod-shops .nw{white-space:normal}}
 .prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
 .prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
 .prod-shops .prod-shop{display:block}
@@ -493,7 +500,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg69.avif"><img src="/assets/subset/swsh12pt5gg-gg69.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Giratina VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG69/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG69/GG70</span></div>
         <div class="pr">$255</div>
         <div class="pr10">PSA 10 $552<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -507,7 +514,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg44.avif"><img src="/assets/subset/swsh12pt5gg-gg44.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Mewtwo VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG44/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG44/GG70</span></div>
         <div class="pr">$232</div>
         <div class="pr10">PSA 10 $520<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -521,7 +528,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg70.avif"><img src="/assets/subset/swsh12pt5gg-gg70.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Arceus VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG70/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG70/GG70</span></div>
         <div class="pr">$172</div>
         <div class="pr10">PSA 10 $365<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -535,7 +542,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg68.avif"><img src="/assets/subset/swsh12pt5gg-gg68.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Origin Forme Dialga VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG68/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG68/GG70</span></div>
         <div class="pr">$118</div>
         <div class="pr10">PSA 10 $275<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -549,7 +556,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg67.avif"><img src="/assets/subset/swsh12pt5gg-gg67.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Origin Forme Palkia VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG67/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG67/GG70</span></div>
         <div class="pr">$102</div>
         <div class="pr10">PSA 10 $286<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -563,7 +570,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg50.avif"><img src="/assets/subset/swsh12pt5gg-gg50.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Darkrai VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG50/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG50/GG70</span></div>
         <div class="pr">$90.00</div>
         <div class="pr10">PSA 10 $245<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -577,7 +584,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg35.avif"><img src="/assets/subset/swsh12pt5gg-gg35.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Leafeon VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG35/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG35/GG70</span></div>
         <div class="pr">$82.84</div>
         <div class="pr10">PSA 10 $190<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -591,7 +598,7 @@ height:auto;min-height:44px;padding-block:6px}
         
         <picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg40.avif"><img src="/assets/subset/swsh12pt5gg-gg40.webp" alt="" loading="lazy" onerror="this.remove()" width="245" height="342"></picture>
         <div class="nm">Glaceon VSTAR</div>
-        <div class="rr">Galarian <span class="nw">Gallery&nbsp;&bull;&nbsp;GG40/GG70</span></div>
+        <div class="rr">Galarian <span class="nw">Gallery &bull;&nbsp;GG40/GG70</span></div>
         <div class="pr">$61.74</div>
         <div class="pr10">PSA 10 $170<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>

@@ -37,6 +37,19 @@ import { esc, shortDate, longDate, moneyCompact, moneyExact, rarityLabel, RARITY
 // spreadsheet fix rather than a missing file.
 import { noScanBox, NOSCAN_CSS, pinnedShot } from "../shared/card-scan.mjs";
 
+/* THE CHASE GRID'S CARD PICTURE, NOT ITS CELL, 6 October 2026. The old
+   "(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4),
+   (min-width:620px) 31vw, 46vw" was a cell's width, and the card inside is
+   26px narrower (10px padding and a 3px border each side); it also still
+   described ui.css's three columns to 899 after this file moved four across to
+   700. So a 1024 laptop declared 317 for a 208px card and took the 600w scan
+   where 245w covers it, on all 44 set pages. The grid is the wrap (100vw less
+   two 20px gutters, at most 1452) in 2, 3 then 4 columns with 14px gaps, so the
+   card is ((wrap - gaps) / columns) - 26. Read off the DOM: 107 at 320, 227 at
+   560, 158 at 620, 128.5 at 700, 207.5 at 1024, 326.5 from 1492. */
+const CHASE_SIZES = "(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), " +
+  "(max-width:1491px) calc(25vw - 46px), 327px";
+
 /* ------------------------------------------- the .mine tiles get a 600w rung
  *
  * THE SAME CARD WAS SHARP ON ITS RIP PAGE AND SOFT HERE, and the two grids are
@@ -4034,6 +4047,16 @@ const PAGE_CSS = `
    "Special Illustration Rare &bull; 121/088" is two lines on a phone, not three. */
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
+/* EXCEPT IN A CARD TOO NARROW FOR THE RUN, 6 October 2026. A companion
+   subset's run is long: "Collection &bull; 114/114" measures 139px and a card at
+   320 holds 107, so on /sets/celebrations.html, crown-zenith and shining-fates
+   the card pushed its column 5 to 12px past the screen (QA sweep, 320 only).
+   The card is an inline-size container (its width is already the column's,
+   width:100% in ui.css), which also stops its content from widening the
+   track, and under 141px the run may break where it has to. Wider cards keep
+   the two-line meta exactly as before. */
+.chase-grid .chase-card{container-type:inline-size}
+@container (max-width:140px){.chase-card .nw{white-space:normal}}
 /* The PSA 10 read date on a line of its own, so neither the figure nor the date
    breaks in the middle. */
 .chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
@@ -4197,6 +4220,26 @@ const PAGE_CSS = `
 .prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .prod-x{margin-top:2px}
 .prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+/* THE PRODUCT CARDS RAN OFF THE SCREEN ON 29 OF 30 SET PAGES, found by the QA
+   sweep on 6 October 2026: from 440 to 560 on nearly all of them, 320 and up to
+   680 on ascended-heroes and perfect-order, 920 to 960 on two. ui.css's tracks
+   are bare 1fr, whose minimum is a card's min-content, and a nowrap reading
+   such as "$12.99 assorted (1.3x) Aug 17, 2026" is wider than a card body, so
+   the track grew past the wrap (to 360px inside 280 at 320, 241px over at
+   440). Three changes, and the reason for each:
+   - minmax(0,1fr) holds every track to the wrap whatever is inside it;
+   - one column under 640, because two there left a 127px body at 560, which
+     is no width for a product name, a price and three shop readings;
+   - the body is an inline-size container, so a reading only gives up its
+     nowrap when the body really is too narrow for it (260px), instead of at
+     a guessed viewport width. That containment zeroes the body's own
+     content width, so it takes the row's remaining space with flex:1.
+   ul. for the specificity: ui.css's own media rules would otherwise tie. */
+ul.prod-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){ul.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){ul.prod-grid{grid-template-columns:minmax(0,1fr)}}
+ul.prod-grid .prod-body{flex:1 1 0;container-type:inline-size}
+@container (max-width:260px){.prod-pc .nw,.prod-shops .nw{white-space:normal}}
 .prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
 .prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
 .prod-shops .prod-shop{display:block}
@@ -4550,7 +4593,7 @@ function setPage(s) {
               time inside a control that had already named it. Chrome does not
               treat button descendants as presentational, so it really was
               announced. `onerror` removes the node, so no broken image is ever
-              left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"` : ""} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+              left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="${CHASE_SIZES}"` : ""} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         ${/* THE META LINE WRAPPED TO THREE LINES AT 390, 2 October 2026:
               "Special Illustration" / "Rare &bull;" / "121", because the mono
@@ -4567,7 +4610,10 @@ function setPage(s) {
           const r = esc(c.comp ? c.comp.label : rarityLabel(c.rarity) || "");
           const no = esc(numOf(s, c.number));
           const cut = r.lastIndexOf(" ");
-          return r ? `${cut > 0 ? `${r.slice(0, cut)} ` : ""}<span class="nw">${cut > 0 ? r.slice(cut + 1) : r}&nbsp;&bull;&nbsp;${no}</span>` : no;
+          // A PLAIN SPACE BEFORE THE BULLET, NOT &nbsp; (6 October 2026): inside .nw it
+          // still never breaks, and in a card too narrow for the run (the @container
+          // rule beside .chase-card .nw) it is the one place the run may break.
+          return r ? `${cut > 0 ? `${r.slice(0, cut)} ` : ""}<span class="nw">${cut > 0 ? r.slice(cut + 1) : r} &bull;&nbsp;${no}</span>` : no;
         })()}</div>
         <div class="pr">${moneyCompact(c.price)}</div>
         ${psa(c)

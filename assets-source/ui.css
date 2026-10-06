@@ -2697,6 +2697,14 @@ footer .soc svg{fill:var(--chrome-ink)}
 .set-index{display:grid;grid-template-columns:repeat(1,1fr);gap:14px;margin-top:24px}
 @media(min-width:560px){.set-index{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:900px){.set-index{grid-template-columns:repeat(3,1fr)}}
+/* A CARD MAY NOT WIDEN ITS COLUMN, 6 October 2026. A bare 1fr's minimum is
+   the card's min-content, and a wide logo (Pitch Black's runs to the 110px
+   cap) plus the title's longest word came to more than half the wrap at 560
+   to 580, so the two columns ran 25px past the screen on /sets/. min-width:0
+   holds the track, and the logo, not the words, gives up the room: it may
+   shrink to 48px and object-fit:contain keeps its shape. */
+.set-index > .set-card{min-width:0}
+.set-index .set-card img{flex:0 1 auto;min-width:48px}
 .set-card{
   display:flex;align-items:center;gap:14px;text-decoration:none;
   background:var(--paper-2);border:3px solid var(--keyline);border-radius:14px;

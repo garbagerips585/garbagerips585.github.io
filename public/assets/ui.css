@@ -828,6 +828,8 @@ section.band-gold .vid-title a:hover{color:var(--sky-deep)}
 @media(min-width:900px){
 .set-index{grid-template-columns:repeat(3,1fr)}
 }
+.set-index > .set-card{min-width:0}
+.set-index .set-card img{flex:0 1 auto;min-width:48px}
 .set-card{
   display:flex;align-items:center;gap:14px;text-decoration:none;
   background:var(--paper-2);border:3px solid var(--keyline);border-radius:14px;

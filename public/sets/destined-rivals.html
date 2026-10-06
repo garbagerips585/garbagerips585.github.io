@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=23cfdb0c">
+<link rel="stylesheet" href="/assets/ui.css?v=5963e9a7">
 <link rel="stylesheet" href="/assets/packs.css?v=857d015e">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -142,6 +142,8 @@ text-transform:uppercase;white-space:nowrap}
 .cc-cell .cc-rip{margin:-10px 0 8px}
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
+.chase-grid .chase-card{container-type:inline-size}
+@container (max-width:140px){.chase-card .nw{white-space:normal}}
 .chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
 .cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
 background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
@@ -242,6 +244,11 @@ grid-template-areas:"p nm nm pr" "p no rr rr";align-items:center;column-gap:10px
 .prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .prod-x{margin-top:2px}
 .prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+ul.prod-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){ul.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){ul.prod-grid{grid-template-columns:minmax(0,1fr)}}
+ul.prod-grid .prod-body{flex:1 1 0;container-type:inline-size}
+@container (max-width:260px){.prod-pc .nw,.prod-shops .nw{white-space:normal}}
 .prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
 .prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
 .prod-shops .prod-shop{display:block}
@@ -482,9 +489,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Team Rocket's Mewtwo ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/231/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/231/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/231/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/231/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/231/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/231/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Mewtwo ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;231/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;231/182</span></div>
         <div class="pr">$409</div>
         <div class="pr10">PSA 10 $932<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -496,9 +503,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Cynthia's Garchomp ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/232/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/232/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/232/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/232/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/232/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/232/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/232/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Cynthia's Garchomp ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;232/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;232/182</span></div>
         <div class="pr">$195</div>
         <div class="pr10">PSA 10 $400<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -510,9 +517,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Ethan's Ho-Oh ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/230/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/230/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/230/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/230/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/230/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/230/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/230/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Ethan's Ho-Oh ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;230/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;230/182</span></div>
         <div class="pr">$140</div>
         <div class="pr10">PSA 10 $332<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -524,9 +531,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Team Rocket's Moltres ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/229/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/229/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/229/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/229/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/229/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/229/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/229/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/229/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/229/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/229/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Moltres ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;229/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;229/182</span></div>
         <div class="pr">$81.00</div>
         <div class="pr10">PSA 10 $241<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -538,9 +545,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Team Rocket's Nidoking ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/233/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/233/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/233/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/233/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/233/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/233/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/233/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Nidoking ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;233/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;233/182</span></div>
         <div class="pr">$79.89</div>
         <div class="pr10">PSA 10 $210<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -552,9 +559,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Misty's Psyduck">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/193/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/193/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/193/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/193/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/193/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/193/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/193/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/193/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/193/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/193/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Misty's Psyduck</div>
-        <div class="rr">Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;193/182</span></div>
+        <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;193/182</span></div>
         <div class="pr">$55.79</div>
         <div class="pr10">PSA 10 $311<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -566,9 +573,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Team Rocket's Crobat ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/234/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/234/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/234/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/234/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/234/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/234/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/234/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/234/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/234/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/234/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Crobat ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;234/182</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;234/182</span></div>
         <div class="pr">$55.77</div>
         <div class="pr10">PSA 10 $135<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -580,9 +587,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026." data-rip="/rip/we-hit-team-rockets-mewtwo-ex-destined-rivals-pack-6-GK_IadR7G1g.html" data-rip-when="May 10, 2026"
         aria-label="Enlarge Team Rocket's Mewtwo ex, which we pulled on camera">
         <span class="cc-flag" aria-hidden="true">We pulled it</span>
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/240/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/240/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/240/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/240/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/240/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/240/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/240/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv10/240/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/240/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/240/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Mewtwo ex</div>
-        <div class="rr">Hyper <span class="nw">Rare&nbsp;&bull;&nbsp;240/182</span></div>
+        <div class="rr">Hyper <span class="nw">Rare &bull;&nbsp;240/182</span></div>
         <div class="pr">$52.98</div>
         <div class="pr10">PSA 10 $167<span class="pr10-d">read October 6, 2026</span></div>
       </button><a class="cc-rip" href="/rip/we-hit-team-rockets-mewtwo-ex-destined-rivals-pack-6-GK_IadR7G1g.html" aria-label="Watch the rip that pulled Team Rocket's Mewtwo ex, posted May 10, 2026">Watch us pull it &rarr;</a></div>

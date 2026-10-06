@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=23cfdb0c">
+<link rel="stylesheet" href="/assets/ui.css?v=5963e9a7">
 <link rel="stylesheet" href="/assets/packs.css?v=857d015e">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -142,6 +142,8 @@ text-transform:uppercase;white-space:nowrap}
 .cc-cell .cc-rip{margin:-10px 0 8px}
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
+.chase-grid .chase-card{container-type:inline-size}
+@container (max-width:140px){.chase-card .nw{white-space:normal}}
 .chase-card .pr10 .pr10-d{display:block;font-weight:400;color:var(--ink-2)}
 .cc-flag{position:absolute;top:-10px;left:10px;z-index:1;padding:4px 8px;border-radius:var(--r-pill);
 background:var(--ketchup-deep);color:var(--on-accent);font:700 var(--t-micro)/1 var(--mono);letter-spacing:.05em;
@@ -242,6 +244,11 @@ grid-template-areas:"p nm nm pr" "p no rr rr";align-items:center;column-gap:10px
 .prod-pc span,.prod-x{font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);letter-spacing:.03em}
 .prod-x{margin-top:2px}
 .prod-pc .nw,.prod-shops .nw{white-space:nowrap}
+ul.prod-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media(max-width:900px){ul.prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:639px){ul.prod-grid{grid-template-columns:minmax(0,1fr)}}
+ul.prod-grid .prod-body{flex:1 1 0;container-type:inline-size}
+@container (max-width:260px){.prod-pc .nw,.prod-shops .nw{white-space:normal}}
 .prod-shops{margin-top:6px;font-size:var(--t-sm);line-height:1.45;color:var(--ink-2)}
 .prod-shops .prod-k{display:block;font:700 var(--t-micro)/1.4 var(--mono);text-transform:uppercase;letter-spacing:.05em}
 .prod-shops .prod-shop{display:block}
@@ -483,9 +490,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Gastly">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/177/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/177/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/177/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/177/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/177/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/177/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/177/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Gastly</div>
-        <div class="rr">Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;177/162</span></div>
+        <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;177/162</span></div>
         <div class="pr">$89.30</div>
         <div class="pr10">PSA 10 $470<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -497,9 +504,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Raging Bolt ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/208/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/208/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/208/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/208/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/208/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/208/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/208/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/208/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/208/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/208/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Raging Bolt ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;208/162</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;208/162</span></div>
         <div class="pr">$60.00</div>
         <div class="pr10">PSA 10 $223<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -511,9 +518,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Morty's Conviction">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/211/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/211/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/211/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/211/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/211/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/211/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/211/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/211/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/211/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/211/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Morty's Conviction</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;211/162</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;211/162</span></div>
         <div class="pr">$53.00</div>
         <div class="pr10">PSA 10 $274<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -525,9 +532,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Gengar ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/193/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/193/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/193/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/193/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/193/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/193/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/193/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/193/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/193/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/193/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Gengar ex</div>
-        <div class="rr">Ultra <span class="nw">Rare&nbsp;&bull;&nbsp;193/162</span></div>
+        <div class="rr">Ultra <span class="nw">Rare &bull;&nbsp;193/162</span></div>
         <div class="pr">$49.38</div>
         <div class="pr10">PSA 10 $340<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -539,9 +546,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Sawsbuck">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/166/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/166/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/166/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/166/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/166/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/166/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/166/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/166/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/166/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/166/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Sawsbuck</div>
-        <div class="rr">Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;166/162</span></div>
+        <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;166/162</span></div>
         <div class="pr">$49.15</div>
         <div class="pr10">PSA 10 $258<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -553,9 +560,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Gouging Fire ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/204/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/204/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/204/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/204/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/204/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/204/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/204/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/204/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/204/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/204/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Gouging Fire ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;204/162</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;204/162</span></div>
         <div class="pr">$48.18</div>
         <div class="pr10">PSA 10 $155<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -567,9 +574,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Iron Crown ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/206/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/206/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/206/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/206/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/206/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/206/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/206/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/206/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/206/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/206/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Iron Crown ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;206/162</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;206/162</span></div>
         <div class="pr">$47.11</div>
         <div class="pr10">PSA 10 $155<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
@@ -581,9 +588,9 @@ height:auto;min-height:44px;padding-block:6px}
         data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read October 6, 2026. PSA 10: graded sales data from pricecharting.com, read October 6, 2026."
         aria-label="Enlarge Walking Wake ex">
         
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/205/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/205/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv05/205/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/205/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/205/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv05/205/low.avif 245w, https://assets.tcgdex.net/en/sv/sv05/205/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv05/205/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv05/205/low.webp 245w, https://assets.tcgdex.net/en/sv/sv05/205/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()" width="245" height="337"></picture>
         <div class="nm">Walking Wake ex</div>
-        <div class="rr">Special Illustration <span class="nw">Rare&nbsp;&bull;&nbsp;205/162</span></div>
+        <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;205/162</span></div>
         <div class="pr">$42.50</div>
         <div class="pr10">PSA 10 $153<span class="pr10-d">read October 6, 2026</span></div>
       </button></div>
