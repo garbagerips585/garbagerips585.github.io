@@ -274,6 +274,17 @@ const AUDIT = `(() => {
       for (const dpr of [1, 2]) {
         const want = pick(box, dpr), got = pick(d, dpr);
         if (want === got) continue;
+        // ONLY WHEN THE OTHER FILE WOULD ACTUALLY DO, which is what the first
+        // run over 392 pages taught. A rip page's hit card is a 188px box with
+        // only TCGdex's 245w and 600w behind it: declared 194, Chrome takes
+        // 600 at DPR 2, and by its own rule the true box "should" take 245,
+        // which is 0.65 of the 376 pixels it needs. That is a softer picture
+        // passed off as a saving, 144 times. So over is reported only when
+        // the smaller file still covers the box, and two candidates within
+        // 10% of each other (a set logo's 264w against 275w) are not a finding.
+        const lo = Math.min(want, got), hi = Math.max(want, got);
+        if (lo >= hi * 0.9) continue;
+        if (got > want && want < box * dpr) continue;
         out.images.push({ kind: got > want ? 'sizes-over' : 'sizes-under', el: name(img),
           dpr, box: Math.round(box), declared: Math.round(d), takes: got, needs: want });
         break;

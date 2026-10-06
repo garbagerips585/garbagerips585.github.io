@@ -449,11 +449,11 @@ function faceSet(v) {
  * img, exactly as before, and no .pack--img either, so packs.css leaves them
  * alone. That guard is the difference between this and a dead round trip.
  */
-const packMarkup = (setId) => `<span class="pack pack--${esc(setId)} pack--tile${
+const packMarkup = (setId, sizes = LIB_TILE_SIZES) => `<span class="pack pack--${esc(setId)} pack--tile${
   packsOnDisk.has(setId) ? " pack--img" : ""
 }" aria-hidden="true">
             <span class="pack-face pack-l">
-              <span class="pack-art">${packsOnDisk.has(setId) ? packTileImg(setId, LIB_TILE_SIZES) : ""}</span>
+              <span class="pack-art">${packsOnDisk.has(setId) ? packTileImg(setId, sizes) : ""}</span>
               <span class="pack-brand">${esc(setId === "default" ? "GARBAGE RIPS" : labelFor("sets", setId) || "GARBAGE RIPS")}<small>${
                 setId === "default" ? "585" : "GARBAGE RIPS 585"
               }</small></span>
@@ -538,12 +538,23 @@ const BASE_CSS = `
  * 0 before and after at 390, 768 and 1440.
  */
 const WALL_MAX_TILE = 400;
+// THE LADDER MOVED AND THIS TABLE DID NOT, exactly the coupling warned about
+// above. On 30 September 2026 the owner asked for playlists 3 across, and
+// ui.css's .wall--lib became 2 up to 640 and 3 from 641 at every width. The
+// old 4/5/6 rungs stayed here, so a four or five video playlist was FORCED to
+// 4 or 5 columns from 1081 or 1301 (repeat(n) out-ranks the 3) and drew
+// smaller tiles than every other playlist: pitch-black-single-pack-hunt,
+// journey-together and surging-sparks, found 6 October 2026 by qa-sweep.mjs's
+// sizes check reading 203px pack art at 1100 where the wall draws 285. With
+// the real ladder only a one or two video playlist gets a rule at all.
 const WALL_LADDER = [
   { cols: 3, from: 641 },
-  { cols: 4, from: 821 },
-  { cols: 5, from: 1081 },
-  { cols: 6, from: 1301 },
 ];
+// A ONE OR TWO VIDEO WALL IS CAPPED AT 400px A TRACK (above), so its pack art
+// stops at 339.9 from 641 rather than following the 3-across line. Measured on
+// the one-video Pitch Black hunt. No two video playlist exists to measure; it
+// gets the same cap, which can only over-declare, and the sweep will say so.
+const libSizesFor = (n) => n >= 3 ? LIB_TILE_SIZES : "(min-width:641px) 340px, calc(45.9vw - 50px)";
 
 const wallCss = (n) => {
   const step = WALL_LADDER.find((b) => b.cols > n);
@@ -717,7 +728,7 @@ function labelsFor(vids) {
  * @param oneSet  true when EVERY video on this page opens the same single set,
  *                which is 21 of the 22 pages. See below for what it drops.
  */
-function tile(v, labels, oneSet) {
+function tile(v, labels, oneSet, sizes) {
   const sets = v.sets || [];
   // THE SET NAME IS THE THIRD TIME THE PAGE SAYS IT AND IT WAS EATING THE ONE
   // THING ON THIS LINE THE READER CANNOT GET ANYWHERE ELSE.
@@ -753,7 +764,7 @@ function tile(v, labels, oneSet) {
   const pull = (v.pulls || [])[0];
   return `        <article class="v">
           <a class="art" href="/${esc(v.path)}" aria-label="Play ${esc(v.siteTitle || v.title)}" data-dur="${v.duration || 0}" data-views="${v.views || 0}"${v.vertical === false ? " data-wide" : ""}>
-            ${packMarkup(faceSet(v))}
+            ${packMarkup(faceSet(v), sizes)}
             ${pull ? `<span class="hit">${esc(pullLabel(pull, isJpSet((v.sets || [])[0])))}</span>` : ""}
             ${v.duration ? `<span class="dur">${clock(v.duration)}</span>` : ""}
             ${RIP_BANNER}
@@ -973,7 +984,7 @@ ${strip}
 ${WALL_H2}
 ${statLine(vids, newest)}
       <div class="wall wall--lib" data-riplb>
-${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels, Boolean(run.setId))).join("\n"); })()}
+${(() => { const labels = labelsFor(vids); return vids.map((v) => tile(v, labels, Boolean(run.setId), libSizesFor(vids.length))).join("\n"); })()}
       </div>
 ${nearby(run)}
       <p style="margin-top:var(--s5)">

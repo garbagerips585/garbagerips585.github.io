@@ -1420,9 +1420,16 @@ export function packTileImg(setId, sizes = "") {
     `<img class="pack-img" src="${base}.webp" alt="" width="400" height="711"` +
     ` loading="lazy" decoding="async"></picture>`;
 }
-/* The library wall's real tile width: 3 across from 641px inside the 1452px
-   wrap (473px at most), 2 across below. */
-export const LIB_TILE_SIZES = "(min-width:1300px) 473px, (min-width:641px) 31vw, 46vw";
+/* The library wall's pack art, which is NOT the tile's width. 3 across from
+   641px, 2 below, and since the whole-pack tiles of 5 October 2026 the
+   artwork sits inside the tile's frame rather than filling it, so the img
+   draws well under the column. The old "473px / 31vw / 46vw" was the column
+   and sent every DPR 1 desktop to the 560w file for a 389px picture at 1440,
+   and every 768 DPR 2 tablet to 560w for a 183px one. Read off the img on
+   6 October 2026: 96 at 320, 242.7 at 640, 147 at 641, 261.6 at 1024, 388.7
+   at 1440, a flat 407.1 from 1501. Each clause is the line through those,
+   rounded up. qa-sweep.mjs's sizes check is what found the drift. */
+export const LIB_TILE_SIZES = "(min-width:1501px) 408px, (min-width:641px) calc(30.3vw - 46px), calc(45.9vw - 50px)";
 
 /**
  * A meta description clipped to what a search result will actually show.
