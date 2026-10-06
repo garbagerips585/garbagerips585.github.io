@@ -2889,5 +2889,13 @@
       "30th-celebration"
     ],
     "setsWhy": "The owner named one set, \"30th Celebration\". Pinned so a series word in the title can never add a second set."
+  },
+  "MUTiE4hsMsM": {
+    "packNumber": 2,
+    "packNumberWhy": "The owner, 6 October 2026, for the rip uploaded 4 October: \"30th Celebration Knock Out Collection, Pack #2, Hit yes, Classic Collection N Trainer Card , 30th Celebration\". Pack 2 of the same 30th Celebration Knock Out Collection as Pack #1 (ZqGxmY2mc90, 2 October), and the last one: the collection holds 2 packs (data/pack-counts-current.json). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "30th-celebration"
+    ],
+    "setsWhy": "The owner named one set, \"30th Celebration\". Pinned so a series word in the title can never add a second set."
   }
 }

@@ -339,7 +339,16 @@ const scanBase = (localId) =>
 /* THE sizes EVERY CARD PICTURE DEFAULTS TO, a binder pocket's. The value and
    hit tiles are drawn two to three times larger than a pocket on a desktop and
    pass their own, or a DPR 1 laptop would stretch the 245w file across 240px. */
-const SIZES = "(max-width:544px) 30vw, 163px";
+/* RE-DERIVED 6 OCTOBER 2026 from the book's real pocket, which the old
+   "(max-width:544px) 30vw, 163px" no longer described: a pocket is a third of
+   the sheet less its 12px gaps and 12px of frame, and the sheet is the wrap
+   less 114px on a phone, a fixed 486px from 600 to 899, half the wrap less 110
+   once the book opens two pages at 900, and 404px from 1028. Read off the DOM:
+   48.7 at 320, 102 at 480, 142 from 600 to 899, 93.3 at 900, 114.5 from 1028.
+   The old figure declared 163 for that 114.5 on every desktop and 30vw (230)
+   for the 142 at 768. qa-sweep.mjs's sizes check is what found it. */
+const SIZES = "(max-width:599px) calc(33.34vw - 58px), (max-width:899px) 142px, " +
+  "(max-width:1027px) calc(16.67vw - 56px), 115px";
 const shotImg = (stem, name, sizes = SIZES) => {
   const d = shotDims[`${stem}.webp`];
   const img =
@@ -791,7 +800,38 @@ ${rows.join("\n")}
 /* THE PICTURE IS THE BUTTON THAT ENLARGES IT, and only the picture: the words
    under it are for reading, and a tile that opened on a tap anywhere would take
    a scroll that started on the name for a tap. */
-const TILE_SIZES = "(max-width:559px) 44vw, (max-width:899px) 19vw, 250px";
+/* A TILE'S PICTURE, WORKED OUT FROM THE GRID RATHER THAN GUESSED, 6 October
+   2026. The old flat "(max-width:559px) 44vw, (max-width:899px) 19vw, 250px"
+   declared 146px at 768 for a 206px hit (soft at DPR 1 and 2) and 250px at
+   1440 for a 159px one (the 600w scan where 245w covers it). Every tile grid
+   here lives in the same box, the wrap (100vw less two 20px gutters, at most
+   1452px), and a tile's picture is its column less 26px (12px padding and a
+   1px border each side). So the picture is ((wrap - gaps) / columns) - 26 at
+   every width, and only the column count changes: ui.css's auto-fill of
+   8.5rem below 700 (1, 2, 3, then 4 columns from 324, 472 and 620), then this
+   page's own counts, 12px gaps to 899 and 16px from 900. The hits pass their
+   --ht/--hd, so the declaration follows the hit count as it grows. Checked
+   against the DOM at 13 widths; qa-sweep.mjs's sizes check holds it there. */
+const tileSizes = (mid, wide) => {
+  const at = (n, gap) => {
+    const px = Math.floor((40 + (n - 1) * gap) / n + 26);
+    return `calc(${(Math.ceil(10000 / n) / 100)}vw - ${px}px)`;
+  };
+  const cap = Math.ceil((1452 - (wide - 1) * 16) / wide - 26);
+  return `(max-width:323px) ${at(1, 12)}, (max-width:471px) ${at(2, 12)}, (max-width:619px) ${at(3, 12)}, ` +
+    `(max-width:699px) ${at(4, 12)}, (max-width:899px) ${at(mid, 12)}, (max-width:1491px) ${at(wide, 16)}, ${cap}px`;
+};
+const TILE_SIZES = tileSizes(5, 5);
+/* THE RARITY ROW: 3 across under 1100 with the picture capped at 150px by
+   ui.css, 9 across from 1100, same wrap and the same 26px of tile. 59.3 at
+   320, 150 from 592 to 1099, 80.2 at 1100, 118 at 1440, 124.7 from 1492. */
+const RAR_SIZES = "(max-width:591px) calc(33.34vw - 47px), (max-width:1099px) 150px, " +
+  "(max-width:1491px) calc(11.12vw - 41px), 125px";
+/* THE HERO'S THREE CARDS, hidden under 1000 (the 1px is what keeps a phone
+   from fetching them). 131.3 from 1000 to 1141, then 11.5% of the viewport to
+   a 172.9 cap from 1504. The middle card is drawn smaller and takes the same
+   declaration, which over-declares it by a tenth. */
+const FAN_SIZES = "(max-width:999px) 1px, (max-width:1141px) 132px, (max-width:1503px) 11.5vw, 173px";
 const cardTile = (c, { showPrice = true } = {}) => {
   const pr = c.pr || priceOf(c);
   const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: TILE_SIZES });
@@ -2129,7 +2169,7 @@ ${rarityRows
          a page about card art. Each tile shows the dearest card of its rarity
          (or the first on the checklist where none is priced), and opens it. */
       const c = pricedCards.find((x) => x.rarity === name) || (checklist.cards || []).find((x) => x.rarity === name);
-      const pic = c ? pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: "(max-width:1099px) 28vw, 130px" }) : "";
+      const pic = c ? pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: RAR_SIZES }) : "";
       return `      <li>${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger (${esc(name)})">${pic}</button>` : ""}<b>${n}</b><span>${esc(name)}</span></li>`;
     }
   )
@@ -2288,6 +2328,15 @@ const setHits = (() => {
   rows.sort((a, b) => String(b.v.publishedAt ?? "").localeCompare(String(a.v.publishedAt ?? "")));
   return rows;
 })();
+/* COLUMNS THAT NEVER LEAVE ONE CARD ALONE, 29 September 2026: six across
+   drew the seventh hit by itself. The widest count from the list whose last
+   row is not a single card. Lifted out of the style attribute on 6 October
+   2026 so the pictures' sizes can follow the same two counts. */
+const HIT_COLS = (() => {
+  const n = setHits.length, pick = (cs) => cs.find((c) => n <= c || n % c !== 1) || cs[cs.length - 1];
+  return { hd: pick([7, 6, 5]), ht: pick([4, 3]) };
+})();
+const HIT_SIZES = tileSizes(HIT_COLS.ht, HIT_COLS.hd);
 
 const hitsBand = !setHits.length ? "" : `
 <section class="tight" id="hits">
@@ -2302,17 +2351,14 @@ const hitsBand = !setHits.length ? "" : `
       })()} This is a different list from the binder below: the binder is every
       card owned however it got there, and this is only what came out on camera.</p>
     <ol class="t30-cts t30-cts--hits" data-zg="hits" style="${(() => {
-      /* COLUMNS THAT NEVER LEAVE ONE CARD ALONE, 29 September 2026: six across
-         drew the seventh hit by itself. The widest count from the list whose
-         last row is not a single card. */
-      const n = setHits.length, pick = (cs) => cs.find((c) => n <= c || n % c !== 1) || cs[cs.length - 1];
-      return `--hd:${pick([7, 6, 5])};--ht:${pick([4, 3])}`;
+      /* The counts are HIT_COLS, worked out beside setHits. */
+      return `--hd:${HIT_COLS.hd};--ht:${HIT_COLS.ht}`;
     })()}">
 ${setHits
   .map(({ h, v, row, pr, promoPid }) => {
     /* No normalising here any more: dexLocalId() inside pictureFor() takes the
        number in either shape, which is the whole point of moving it there. */
-    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row: row || (promoPid ? { pid: promoPid } : null), section: row ? row.section : null, sizes: TILE_SIZES });
+    const pic = pictureFor(h.card, { n: row ? row.n : h.number, row: row || (promoPid ? { pid: promoPid } : null), section: row ? row.section : null, sizes: HIT_SIZES });
     /* THE FULL NUMBER FOR A CLASSIC COLLECTION CARD, because "69" on its own
        is not what the card says and is not unique in that section -- it holds
        two 11s and three 106s. Everything else is numbered in the 30th's own
@@ -2422,7 +2468,7 @@ function t30l(i){var k=i.closest&&i.closest(".t30-pk");if(k)k.classList.add("ld"
          cover a card's artwork. Desktop only: on a phone the value band is the
          next thing on screen anyway. */""}${pricedCards.length >= 3 ? `<div class="t30-fan">
       <ol data-zg="fan">
-${pricedCards.slice(0, 3).map((c) => `        <li>${`<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: "(max-width:999px) 1px, 150px" })}</button>`}</li>`).join("\n")}
+${pricedCards.slice(0, 3).map((c) => `        <li>${`<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: FAN_SIZES })}</button>`}</li>`).join("\n")}
       </ol>
       <p>The top three by raw price</p>
     </div>` : ""}

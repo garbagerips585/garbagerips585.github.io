@@ -2497,6 +2497,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 6 October 2026: \"30th Celebration Greninja ex Box, Pack #1, hit yes, Galarian Meowth - Single Gold Star - Illustration Rare , 30th Celebration\". 30th Celebration prints Galarian Meowth twice, 101 Common and 141 Illustration Rare, and the rarity chooses: a single gold star is the Illustration Rare symbol, so this is 141 (141/128 in the secret section). His typed rarity is the source and the number follows from it (rip-log rule: rarity beats number). The video title names the same card. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "MUTiE4hsMsM": [
+      {
+        "card": "N",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Classic Collection",
+        "number": "101/101",
+        "hallOfFame": false,
+        "handNote": "The owner, 6 October 2026: \"30th Celebration Knock Out Collection, Pack #2, Hit yes, Classic Collection N Trainer Card , 30th Celebration\". THE ONLY N IN THE SET: data/30th-checklist.json holds exactly one, the Classic Collection reprint at 101/101 (TCGplayer 716202), so nothing had to be disambiguated. The number is written whole because Classic Collection reprints keep their original set's numbering. The video title names the same card (\"GOLD GLITTER BORDER! Classic N Trainer!\"). Already in his binder since 16 September, so the binder does not change. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }
