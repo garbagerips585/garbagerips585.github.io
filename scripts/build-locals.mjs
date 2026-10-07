@@ -55,7 +55,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE, CONTACT_EMAIL, mailtoHref} from "../shared/site.mjs";
+import { SITE, CONTACT_EMAIL, mailtoHref, LISTING_FORM } from "../shared/site.mjs";
 import { SOCIALS, GLYPH } from "../shared/socials.mjs";
 // The overlay the show flyers open in. Shared rather than copied: see the note
 // at the top of shared/lightbox.mjs.
@@ -443,9 +443,9 @@ const earlyNote = (rows, noun) => {
   const pitch =
     {
       creators:
-        "Live in Western New York and make Pokemon content? Send us an email or a DM on socials with your info to get added to the page.",
+        "Live in Western New York and make Pokemon content? Fill out the short form below, or email or DM us, to get added to the page.",
       vendors:
-        "Are you a Pokemon vendor in the greater Western New York area? Email or DM us to get listed on this page.",
+        "Are you a Pokemon vendor in the greater Western New York area? Fill out the short form below, or email or DM us, to get listed on this page.",
     }[noun] ||
     "That is what we can actually point you at today rather than what we would like the page to look like, and it stays that way until somebody real goes on it.";
   const gap = thin
@@ -581,19 +581,21 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>How this list grows</p>
     <h2>How to get on <span class="hl">this page</span></h2>
-    <p class="lede" style="max-width:44em">There is no form, no fee and no application. Tell us you exist and we
-      will look you up and put you on. This list is short because nobody has been asked, not because anybody was
-      turned down.</p>
+    <p class="lede" style="max-width:44em">The quickest way is the form: about three minutes, with room for every
+      link and an upload for your ${esc(asset)} and flyers. There is no fee and no application, and email or a DM works
+      just as well. This list is short because nobody has been asked, not because anybody was turned down.</p>
     <p class="btn-row" style="margin:var(--s4) 0 var(--s2)">
+      <a class="btn btn-sky btn-sm" href="${esc(LISTING_FORM)}" rel="noopener" target="_blank">Fill out the form</a>
       ${/* SHORT LABELS IN THE BODY, NOT THE PROSE FROM THE BULLET ABOVE. The
             first version appended a colon to each `fields` sentence and produced
             "What you carry: singles, sealed, graded, all of it:" -- a line with
             two colons that reads as a broken template. The page explains; the
             email prompts. They are different jobs and now different strings. */ ""}
-      <a class="btn btn-sky btn-sm" href="${esc(mailtoHref(subject, [...emailFields.map((f) => `${f}: `), "", `(attach your ${asset})`]))}">Email your listing</a>
+      <a class="btn btn-ghost btn-sm" href="${esc(mailtoHref(subject, [...emailFields.map((f) => `${f}: `), "", `(attach your ${asset})`]))}">Email your listing</a>
     </p>
     <ul class="facts-list" style="max-width:44em">
-      <li><b>Send it however you like.</b> ${esc(sends)} Email is the surest one:
+      <li><b>Send it however you like.</b> The form asks you to sign in with Google, because that is what lets it
+        take your ${esc(asset)} and flyers as uploads; skip it if you would rather not. ${esc(sends)} Email works without any account:
         <a href="mailto:${esc(CONTACT_EMAIL)}">${esc(CONTACT_EMAIL)}</a>. It does not have to be you: if you buy from
         somebody good, or you watch somebody local, send them instead.</li>
       <li><b>Tell us ${esc(fields.length === 4 ? "these four things" : "these five things")}.</b> ${fields
@@ -609,8 +611,8 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
             deserves the emphasis, because it is the thing that makes a card on
             this page look like the business rather than like a row. */ ""}
       <li><b>Attach your ${esc(asset)}.</b> Any size, any format, straight off your phone is fine. It is what makes
-        your card here look like you rather than like a line in a list. Nothing is uploaded on this site: it rides
-        along on the email.</li>
+        your card here look like you rather than like a line in a list. Upload it on the form, or attach it to an
+        email. Nothing is uploaded to this site itself.</li>
       <li><b>We look before we list.</b> Every name here is a real ${esc(one)} and every handle here has been opened
         and checked, because a wrong handle sends somebody to a stranger. That is also why the list grows slowly:
         it moves at the speed of checking rather than the speed of asking.</li>

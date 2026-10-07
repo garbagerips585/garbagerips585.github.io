@@ -23,7 +23,7 @@ import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE, mailtoHref} from "../shared/site.mjs";
+import { SITE, mailtoHref, SHOW_FORM } from "../shared/site.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -1328,8 +1328,10 @@ ${(data.watchFor || []).length ? `
   <div class="wrap">
     <h2 id="missed">Know one we <span class="hl">missed</span>?</h2>
     <p class="lede" style="max-width:44em">This list is kept by hand, so it is only as good as what we can find. If you
-      run a show, or you have a flyer from a local Discord or a shop counter, send it over on any of the socials at the
-      bottom of the page and if we can confirm the date it goes up here. Flyers get shown in full.</p>
+      run a show, or you have a flyer from a local Discord or a shop counter, the show form takes every detail plus
+      the flyer and logo as uploads, in about three minutes. Email or any of the socials at the bottom of the page work
+      too. If we can confirm the date it goes up here, and flyers get shown in full.</p>
+    <p class="btn-row" style="margin:var(--s4) 0 var(--s2)"><a class="btn btn-sky btn-sm" href="${esc(SHOW_FORM)}" rel="noopener" target="_blank">Submit a show</a></p>
     <ul class="facts-list">
       ${/* THE AGGREGATORS ARE NAMED AND NO LONGER LINKED, on the owner's instruction:
          "we should remove any links going to outside sites that arent the official
@@ -1367,7 +1369,8 @@ ${(data.watchFor || []).length ? `
           somebody says so, and the flyer is the thing that makes a listing look
           like the event. The owner, 24 August 2026: "with shows I want them to send me
           flyers etc." */ ""}
-    <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> Send the date, the venue and what a
+    <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank">Use the show form</a>
+      (it asks you to sign in with Google so it can take the flyer), or send the date, the venue and what a
       table costs, and attach the flyer: <a href="${esc(mailtoHref("card show listing", ["Show name: ",
       "Date and times: ", "Venue and address: ", "Admission and table cost: ", "Website or socials: ", "",
       "(attach the flyer)"]))}">email the channel</a>. Listings are collected by hand and cost nothing.</p>

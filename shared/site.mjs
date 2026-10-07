@@ -97,3 +97,20 @@ export const mailtoHref = (subject, lines = []) => {
   ].filter(Boolean).join("&");
   return `mailto:${CONTACT_EMAIL}${q ? `?${q}` : ""}`;
 };
+
+/**
+ * THE TWO GOOGLE FORMS, 7 October 2026, and the "WHY NOT A FORM" note above is
+ * now half of the answer rather than all of it. The owner asked for "a simple
+ * form to fill out all their details ... upload their logo, their upcoming shows
+ * flyers", and chose Google Forms knowing its one cost: a file upload question
+ * makes the respondent sign in with Google. That is the trade the note above
+ * turned down when nobody had asked for a form; he has now asked for one. So the
+ * form leads and the mailto stays beside it, as the path for anybody without a
+ * Google account or who would rather just send an email.
+ *
+ * Both live in the garbagerips585@gmail.com account, built by an Apps Script
+ * there, each writing to its own response sheet; uploads land in that Drive.
+ * Nothing posts to this site: it is still static and still executes nothing.
+ */
+export const LISTING_FORM = "https://forms.gle/UeCL7PnfGdMuK9iw8";
+export const SHOW_FORM = "https://forms.gle/vqgw6p2ZXZdPEpd17";
