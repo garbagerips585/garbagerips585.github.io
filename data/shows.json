@@ -912,6 +912,10 @@
         {
           "name": "Roscoe's Card Finder",
           "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        },
+        {
+          "name": "PokeMail Club",
+          "confirmed": "PokeMail Club's own write-up, their own write-up, sent to the channel 7 October 2026 via the owner, lists this under UPCOMING SHOWS: \"Sat & Sun, Oct 10-11: Buffalo Primetime Sports Card Show, Kiernan Rec Center, 5795 Lewiston Rd, Niagara Falls, NY\". Matched by date and venue: their address is Niagara University's main street address and this row's is the organizer's for the same Kiernan Recreation Center on that campus, so the row's address is kept. Their flyer carries the same date."
         }
       ]
     },
@@ -942,6 +946,10 @@
         {
           "name": "Roscoe's Card Finder",
           "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        },
+        {
+          "name": "PokeMail Club",
+          "confirmed": "PokeMail Club's own write-up, their own write-up, sent to the channel 7 October 2026 via the owner, lists this under UPCOMING SHOWS: \"Sat & Sun, Oct 10-11: Buffalo Primetime Sports Card Show, Kiernan Rec Center, 5795 Lewiston Rd, Niagara Falls, NY\". Matched by date and venue: their address is Niagara University's main street address and this row's is the organizer's for the same Kiernan Recreation Center on that campus, so the row's address is kept. Their flyer carries the same date."
         }
       ]
     },
@@ -1262,6 +1270,10 @@
         {
           "name": "Roscoe's Card Finder",
           "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        },
+        {
+          "name": "PokeMail Club",
+          "confirmed": "PokeMail Club's own write-up, their own write-up, sent to the channel 7 October 2026 via the owner, lists this under UPCOMING SHOWS: \"Fri & Sat, Oct 23-24: Batavia Extreme Pokemon Show, Quality Inn & Suites, 8250 Park Rd, Batavia, NY\". Matched by date and street address. Their flyer carries the same date."
         }
       ]
     },
@@ -1369,6 +1381,10 @@
         {
           "name": "Roscoe's Card Finder",
           "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        },
+        {
+          "name": "PokeMail Club",
+          "confirmed": "PokeMail Club's own write-up, their own write-up, sent to the channel 7 October 2026 via the owner, lists this under UPCOMING SHOWS: \"Sat, Oct 31: RocPokéCon, Gordon Field House, 149 Lomb Memorial Dr, Rochester, NY\". Matched by date and street address. Their flyer carries the same date."
         }
       ],
       "flyer": "rocpokecon-2026-10-31.jpg",
@@ -2562,6 +2578,10 @@
         {
           "name": "Roscoe's Card Finder",
           "confirmed": "Roscoe's Card Finder's own upcoming-shows flyer, relayed by the owner 28 September 2026. The vendor speaking about their own circuit, the same kind of source as ROC_TCG's flyer of 22 September. Matched to this row by DATE AND VENUE, not by name: the flyer calls several of these by other names (\"Batavia Sports & TCG Card Show\", \"Kieran Center Card Show\", \"Northtowns Sports & TCG Card Show\", \"Xtreme Pokemon Show\")."
+        },
+        {
+          "name": "PokeMail Club",
+          "confirmed": "PokeMail Club's own write-up, their own write-up, sent to the channel 7 October 2026 via the owner, lists this under UPCOMING SHOWS: \"Fri & Sat, Oct 23-24: Batavia Extreme Pokemon Show, Quality Inn & Suites, 8250 Park Rd, Batavia, NY\". Matched by date and street address. Their flyer carries the same date."
         }
       ]
     },

@@ -18,7 +18,8 @@
     "THIS IS NOT A RANKING. Order is alphabetical by name, deliberately, so the",
     "page cannot read as a league table of local creators.",
     "",
-    "THE ORDER OF THIS ARRAY IS THE ORDER ON THE PAGE and it is hand picked, not alphabetical. The owner, August 24, 2026: TOAK Pulls first. The page used to say the order was alphabetical and always would be, which was true and is not any more, so that sentence was rewritten in build-locals.mjs in the same change rather than left standing as a promise the file breaks. What the page still promises, and what is still true, is that no placement is paid for."
+    "THE ORDER OF THIS ARRAY IS THE ORDER ON THE PAGE and it is hand picked, not alphabetical. The owner, August 24, 2026: TOAK Pulls first. The page used to say the order was alphabetical and always would be, which was true and is not any more, so that sentence was rewritten in build-locals.mjs in the same change rather than left standing as a promise the file breaks. What the page still promises, and what is still true, is that no placement is paid for.",
+    "`more` is a list of {\"label\", \"url\"} for a page that is none of the above and that they asked to have listed (PokeMail Club's giveaway calendar, 7 October 2026): https only, their label, never an invented one."
   ],
   "updated": "2026-09-08",
   "creators": [
@@ -65,6 +66,28 @@
       "logoW": 1080,
       "logoH": 951,
       "blurb": "Jake is a lifelong collector of all things nerdy who has been vending for over a year: Pokemon, One Piece, Magic, Lorcana, video games, plush and more. On TikTok he makes vendor card show content, the view from behind the table, and posts what he has picked up and where he is setting up next. Batavia, NY based, and he travels for it, as far as Pittsburgh and Ohio recently."
+    },
+    {
+      "name": "PokeMail Club",
+      "area": "Rochester, NY",
+      "does": "Short Pokemon videos: Guess that Pokemon, buying trips, packing the club's monthly mail and free card giveaways",
+      "doesNote": "The owner, 7 October 2026, adding them as a creator because they make great social content. The format is read off their own YouTube uploads (Data API, 7 October 2026): \"Guess that pokemon\", \"Let's go buy $15k in Pokemon\", \"POV: packing PokeMail\", \"Pokemon wheel spin\", \"Would you scream for a free Charizard\". Nothing here is a description they did not publish themselves.",
+      "instagram": "thepokemailclub",
+      "tiktok": "thepokemailclub",
+      "facebook": "p/PokeMail-Club-61578547573553",
+      "youtube": "pokemailclub",
+      "url": "https://pokemailclub.com",
+      "logo": "pokemail-club",
+      "logoNote": "Their logo, sent for this listing via the owner, 7 October 2026. Same file as their vendor card.",
+      "logoW": 1213,
+      "logoH": 445,
+      "blurb": "PokeMail Club is a monthly Pokemon card club from Rochester, NY, and the videos are the fun side of it: Guess that Pokemon, buying trips, packing up the club's monthly mail, wheel spins and free card giveaways, on TikTok, Instagram and YouTube. Members get a card in the mail every month along with The Rip Report, the club's own printed magazine. You will find them vending at shows around Western New York too.",
+      "more": [
+        {
+          "label": "Free giveaway",
+          "url": "https://pokemailclub.com/calendar"
+        }
+      ]
     }
   ]
 }

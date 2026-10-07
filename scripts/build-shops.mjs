@@ -210,6 +210,13 @@ const OUT_ARROW =
   `<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" ` +
   `fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
+/* THE LOGO BOX NEVER REACHES ITS 168px CEILING, 7 October 2026. The box is
+   clamp(96px,24cqw,168px), a share of the CARD, and the cards sit in a grid
+   narrow enough that it is the 96px floor at most widths read (320 to 1920 on /shops.html), 112.8 at 560, 132 at 640 and 101.6 at 1920. "(min-width:900px) 168px" sent every DPR 2
+   desktop to the 400w file for a ~95px picture (qa-sweep.mjs's sizes check).
+   132px is the widest box the layout draws; if a card ever grows, the sweep
+   will say so. */
+const SHOP_LOGO_SIZES = "132px";
 const cards = shops
   .map((s) => {
     const url = cleanUrl(s.url);
@@ -265,10 +272,10 @@ const cards = shops
               a ? ` data-imglb-avif="/${lgA}"` : ""
             } data-imglb-alt="${esc(s.name)} logo">`;
           })()}<picture>
-            ${avifSource(ROOT, "shops", s.logo, "(min-width:900px) 168px, 96px")}
+            ${avifSource(ROOT, "shops", s.logo, SHOP_LOGO_SIZES)}
             <img src="/assets/shops/${esc(s.logo)}-200.webp" alt="${esc(s.name)} logo" width="200" height="${
               Math.round(200 * (s.logoH || 1) / (s.logoW || 1))
-            }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
+            }" loading="lazy" decoding="async" srcset="/assets/shops/${esc(s.logo)}-200.webp 200w, /assets/shops/${esc(s.logo)}-400.webp 400w" sizes="${SHOP_LOGO_SIZES}">
           </picture>${existsSync(join(ROOT, "public", `assets/shops/${s.logo}-lg.webp`)) ? "</button>" : "</span>"}` : ""}
           <h2>${esc(s.name)}</h2>
           ${s.visited ? `<span class="shop-flag">Filmed here</span>` : ""}

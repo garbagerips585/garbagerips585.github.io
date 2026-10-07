@@ -26,7 +26,8 @@
     "`vouched` marks a vendor the owner has actually bought from. Only set it where that",
     "is true: the whole value of a local list is that it is not a directory.",
     "`name` IS A FOREIGN KEY. data/shows.json joins confirmed vendors to this file on name, so it must be unique here (the build throws on a duplicate) and renaming a vendor breaks every show that names them until those are updated. A `logo` requires `logoW`/`logoH` and its built renditions under public/assets/creators/, or the build fails: a logo goes up only where its owner sent it for this use, and the show card is a second use of that same permission.",
-    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026 and Skull & Bones Collectibles on 8 September 2026, which is what appending is supposed to do. ON 8 SEPTEMBER 2026 HE MOVED RocPokeCon TO LAST -- \"make roc pokemon the last vendor on this page\" -- so the order is now TOAK Pulls, Legends Card Shop, Pok.eJoe, Skull & Bones, RocPokeCon. The rule is still that the order here IS the page, and that it is his to set: do not re-sort this list by name, by date added, or by how many shows a vendor is confirmed at."
+    "THE ARRAY ORDER IS THE PAGE ORDER. build-locals.mjs renders this list as it stands and sorts it by nothing, so appending a vendor puts them last and reordering here is how the page is reordered. The owner set this order on 3 September 2026: TOAK Pulls, Legends Card Shop, RocPokeCon. Pok.eJoe Trading Cards was appended on 4 September 2026 and Skull & Bones Collectibles on 8 September 2026, which is what appending is supposed to do. ON 8 SEPTEMBER 2026 HE MOVED RocPokeCon TO LAST -- \"make roc pokemon the last vendor on this page\" -- so the order is now TOAK Pulls, Legends Card Shop, Pok.eJoe, Skull & Bones, RocPokeCon. The rule is still that the order here IS the page, and that it is his to set: do not re-sort this list by name, by date added, or by how many shows a vendor is confirmed at.",
+    "`more` is a list of {\"label\", \"url\"} for a page that is none of the above and that they asked to have listed (PokeMail Club's giveaway calendar, 7 October 2026): https only, their label, never an invented one."
   ],
   "updated": "2026-09-22",
   "vendors": [
@@ -162,6 +163,36 @@
       "flyerW": 440,
       "flyerH": 491,
       "flyerNote": "Their own October upcoming-shows flyer, relayed by the owner 28 September 2026. It is the source for all eight Roscoe's rows in data/shows.json and ADDED one show the calendar did not have: the Roc City Card Show on Sunday 18 October."
+    },
+    {
+      "name": "PokeMail Club",
+      "nameNote": "Written as their logo, flyer, Instagram, TikTok and Facebook all write it: two words, a capital M. Their write-up for this listing ran it together as \"PokemailClub\" (once \"PokémailClub\") and their site title is \"PokeMailClub\". This is a foreign key: data/shows.json and data/creators.json name it exactly so.",
+      "area": "Rochester, NY and Western New York",
+      "sells": "An online Pokemon shop and collector's club, at local shows and always buying",
+      "vouched": false,
+      "blurb": "PokeMail Club is an online Pokemon TCG shop based in Rochester, NY, built around a monthly club for collectors. Members get a card mailed to them every month to grow their collection, along with The Rip Report, the club's own printed magazine covering everything in the world of Pokemon: new sets, the market, pulls and the hobby at large. The site also has games where members can win real cards, from binder fillers up to big hits, and every card they win ships to their door. It's built for the everyday collector who wants to keep adding to their collection without overpaying. Off the screen, PokeMail Club is at local shows around Western New York, and they're always buying, so bring your cards by the table. They love the local vendor scene, and a good chunk of the cards that go out to members come straight from other vendors around Rochester, NY.",
+      "blurbNote": "Their own words, their own write-up, sent to the channel 7 October 2026 via the owner: the three paragraphs joined into one, the name written as nameNote explains, and \"around Rochester\" given its \", NY\". Nothing added. `sells` is their own tagline line. NOT VOUCHED: `vouched` means the owner has said he buys from them, and he has not said it here. That they buy from other local vendors is their claim about themselves and is in the blurb, not in this flag.",
+      "shows": "Shows around Rochester, NY, Batavia and the Niagara region, including RocPokéCon",
+      "url": "https://pokemailclub.com",
+      "more": [
+        {
+          "label": "Free giveaway",
+          "url": "https://pokemailclub.com/calendar"
+        }
+      ],
+      "instagram": "thepokemailclub",
+      "tiktok": "thepokemailclub",
+      "facebook": "p/PokeMail-Club-61578547573553",
+      "youtube": "pokemailclub",
+      "sourceNote": "Every link is from their own list. Checked 7 October 2026: pokemailclub.com and /calendar answer 200 (site title \"PokeMailClub, Monthly Pokemon Card Subscription\"); Instagram reads \"PokeMail Club (@thepokemailclub)\", 77 posts; TikTok reads \"PokeMail Club\", bio \"Pokemon cards delivered to your door\" linking Pokemailclub.com; YouTube @pokemailclub resolves through the Data API to channel UCMrl_YBzoH_KR3vDQ-no7uA, \"PokeMailClub\", 27 videos. Facebook was NOT checked, because it answers a real and a made-up profile url identically; it is their link as sent.",
+      "logo": "pokemail-club",
+      "logoNote": "Their logo, sent for this listing via the owner, 7 October 2026.",
+      "logoW": 1213,
+      "logoH": 445,
+      "flyer": "pokemail-club-shows.jpg",
+      "flyerW": 440,
+      "flyerH": 660,
+      "flyerNote": "Their own upcoming card shows flyer, sent via the owner 7 October 2026. It lists six shows; their write-up names the three they are confirmed at (Buffalo Prime Time 10-11 October, the Batavia Extreme Pokemon Show 23-24 October, RocPokéCon 31 October), and only those five show days carry them in data/shows.json. The other three on the flyer are listings, not a claim they will be there."
     }
   ]
 }

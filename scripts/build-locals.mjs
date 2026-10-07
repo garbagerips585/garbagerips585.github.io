@@ -228,6 +228,14 @@ const links = (o) => {
   // publishes: no site of their own, and their socials change. Labelled as what
   // it is rather than as a website, because it is a hub and not a shop.
   if (o.links) out.push(`<a class="loc-soc" href="${esc(o.links)}" rel="noopener" target="_blank" aria-label="${named("All their links", o.links)}">${OUT}All their links</a>`);
+  // `more` IS FOR A PAGE THAT IS NONE OF THE ABOVE and that the vendor asked to
+  // have listed, each with its own words for a label: PokeMail Club's free
+  // giveaway calendar, 7 October 2026, sent in their own list of socials. An
+  // https url only, and a label they gave, never one invented here.
+  for (const m of o.more || []) {
+    if (!m || !/^https:\/\//.test(m.url || "") || !m.label) throw new Error(`${o.name}: every "more" link needs an https url and a label`);
+    out.push(`<a class="loc-soc" href="${esc(m.url)}" rel="noopener" target="_blank" aria-label="${named(m.label, m.url)}">${OUT}${esc(m.label)}</a>`);
+  }
   return out.length ? `<p class="loc-socs">${out.join("")}</p>` : "";
 };
 
@@ -287,6 +295,13 @@ const lgFor = (o) => {
   const a = `assets/creators/${o.logo}-lg.avif`;
   return { w: `/${w}`, a: existsSync(join(ROOT, "public", a)) ? `/${a}` : "" };
 };
+/* THE LOGO BOX NEVER REACHES ITS 168px CEILING, 7 October 2026. The box is
+   clamp(96px,24cqw,168px), a share of the CARD, and the cards sit in a grid
+   narrow enough that it is the 96px floor at every width read (320 to 1920 on /vendors.html and /creators.html) except 112.8 at 560, where one wide column briefly holds. "(min-width:900px) 168px" sent every DPR 2
+   desktop to the 400w file for a ~95px picture (qa-sweep.mjs's sizes check).
+   113px is the widest box the layout draws; if a card ever grows, the sweep
+   will say so. */
+const LOGO_SIZES = "113px";
 const logoFor = (o) => o.logo
   ? `${(() => {
       const lg = lgFor(o);
@@ -296,10 +311,10 @@ const logoFor = (o) => o.logo
           } data-imglb-alt="${esc(o.name)} logo">`
         : `<span class="loc-logo">`;
     })()}<picture>
-            ${avifSource(ROOT, "creators", o.logo, "(min-width:900px) 168px, 96px")}
+            ${avifSource(ROOT, "creators", o.logo, LOGO_SIZES)}
             <img src="/assets/creators/${esc(o.logo)}-200.webp" alt="${esc(o.name)} logo" width="200" height="${
               Math.round(200 * (o.logoH || 1) / (o.logoW || 1))
-            }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="(min-width:900px) 168px, 96px">
+            }" loading="lazy" decoding="async" srcset="/assets/creators/${esc(o.logo)}-200.webp 200w, /assets/creators/${esc(o.logo)}-400.webp 400w" sizes="${LOGO_SIZES}">
           </picture>${lgFor(o) ? "</button>" : "</span>"}`
   : "";
 
