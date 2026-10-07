@@ -2897,5 +2897,15 @@
       "30th-celebration"
     ],
     "setsWhy": "The owner named one set, \"30th Celebration\". Pinned so a series word in the title can never add a second set."
+  },
+  "oZJLsfkxlmo": {
+    "packNumber": 16,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 7 October 2026: \"Single Booster Pack, Pack #16, Hit no, Destined Rivals\". Follows Pack #15 (v6i7wZBVCYg) in the same run of single Destined Rivals packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
+    "hasHitWhy": "\"Hit no\" is his own word and the whole source. The title agrees (\"Classic Garbage Rip\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "sets": [
+      "destined-rivals"
+    ],
+    "setsWhy": "The owner named one set, \"Destined Rivals\". Pinned so a series word in the title can never add a second set."
   }
 }
