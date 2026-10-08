@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:585cardz-batavia-2026-10-21@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261021T200000Z
+DTEND:20261022T000000Z
+SUMMARY:585Cardz Batavia Card & Collectibles Show
+LOCATION:Quality Inn\, 8250 Park Rd\, Batavia\, NY 14020
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-585cardz-batavia-2026-10-21
+URL:https://garbagerips.com/card-shows.html#s-585cardz-batavia-2026-10-21
+END:VEVENT
+END:VCALENDAR

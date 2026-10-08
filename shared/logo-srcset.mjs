@@ -40,7 +40,11 @@ import { esc } from "./format.mjs";
 export const avifSource = (root, dir, stem, sizes, widths = [200, 400]) => {
   const have = widths.filter((w) =>
     existsSync(join(root, "public", "assets", dir, `${stem}-${w}.avif`)));
-  if (!have.length) return "";
+  // NO SOURCE UNLESS THE SMALLEST RUNG IS THERE, 8 October 2026. When the
+  // 200w AVIF came out bigger than its WebP and was dropped (Legends Card
+  // Shop), this still wrote a <source> holding only 400w, and the browser took
+  // that 16.4KB file for a 34px logo instead of the 6.9KB 200w WebP under it.
+  if (!have.length || !have.includes(widths[0])) return "";
   const srcset = have.map((w) => `/assets/${esc(dir)}/${esc(stem)}-${w}.avif ${w}w`).join(", ");
   return `<source type="image/avif" srcset="${srcset}" sizes="${esc(sizes)}">`;
 };

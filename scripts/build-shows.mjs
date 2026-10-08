@@ -19,7 +19,7 @@
 // bug. The client pass is also why the empty state is written in HTML rather
 // than decided at build time.
 
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -477,6 +477,108 @@ const upcoming = (data.shows || [])
 // Free-to-enter count, from the same test the counter tile uses.
 const nFree = upcoming.filter((s) => String(s.admission || "").trim().toLowerCase() === "free").length;
 
+/* ---------------------------------------------- runs, days and far out --
+ *
+ * THE PHONE REDESIGN, 8 October 2026. The owner asked for the busiest page on
+ * the site to be "the best it can be on phones", five agents audited it, and he
+ * approved the mockup. Three of the changes are about how the list is CUT, and
+ * all three are decided here, at build time, from the data:
+ *
+ * - A MULTI-DAY SHOW IS ONE CARD. The file stores one row per day (Buffalo
+ *   Trading Card Con is three rows), which is right for the Event markup and
+ *   wrong for a reader: those repeats were 4,670px of a 41,718px page at 390.
+ *   A RUN is consecutive days with the same name and venue. Its fields come off
+ *   the first day, its hours are listed per day, and its vendors are the union
+ *   of every day's, because a vendor confirmed for Saturday is still at the show.
+ *   The JSON-LD keeps one Event per DAY and does not use runs at all.
+ * - THE LIST IS GROUPED BY DAY, NOT MONTH. 60 of 66 shows fall on a weekend and
+ *   the question is "what is on Saturday", which a month heading 13,000px tall
+ *   cannot answer.
+ * - ANYTHING MORE THAN FAR_DAYS OUT IS A ONE LINE ROW that opens to the full
+ *   card. Those were 29% of the page and are mostly next year's monthly repeats,
+ *   where the date, the name and the town are all anybody needs from a row. The
+ *   full card is still in the HTML inside the <details>, so nothing is hidden
+ *   from search or from a reader with no script.
+ */
+const FAR_DAYS = 60;
+const addDays = (iso, n) => new Date(Date.parse(iso + "T00:00:00Z") + n * 864e5).toISOString().slice(0, 10);
+const dayGap = (a, b) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 864e5);
+const WD3 = (iso) => weekday(iso).slice(0, 3);
+const MON3 = (iso) => MONTHS_LONG[Number(iso.slice(5, 7)) - 1].slice(0, 3);
+const DNUM = (iso) => Number(iso.slice(8, 10));
+
+function toRuns(list) {
+  const out = [], open = new Map();
+  for (const s of list) {
+    const k = `${s.name}|${s.venue}`, prev = open.get(k);
+    if (prev && dayGap(prev.days[prev.days.length - 1].date, s.date) === 1) {
+      prev.days.push(s);
+      prev.last = s.date;
+      for (const v of s.vendors || []) if (!prev.vendors.some((x) => x.name === v.name)) prev.vendors.push(v);
+      for (const f of ["flyer", "flyerW", "flyerH", "blurb", "url", "ticketUrl", "phone", "organiserUrl", "logo"]) {
+        if (!prev[f] && s[f]) prev[f] = s[f];
+      }
+      continue;
+    }
+    const r = { ...s, days: [s], last: s.date, vendors: [...(s.vendors || [])] };
+    open.set(k, r);
+    out.push(r);
+  }
+  return out;
+}
+const runs = toRuns(upcoming);
+const farFrom = addDays(TODAY, FAR_DAYS);
+const nearRuns = runs.filter((r) => r.date <= farFrom);
+const farRuns = runs.filter((r) => r.date > farFrom);
+const byDay = [];
+for (const r of nearRuns) {
+  let g = byDay.find((x) => x.date === r.date);
+  if (!g) byDay.push((g = { date: r.date, runs: [] }));
+  g.runs.push(r);
+}
+
+/* THE WEEKEND, Friday to Sunday. Monday to Thursday it is the coming one; from
+   Friday it starts today. The page script recomputes this on the reader's own
+   clock, so this copy only decides what a reader with no script sees. UTC day
+   arithmetic, because local noon arithmetic was a day out in EDT the first time
+   it was prototyped. */
+const weekendOf = (iso) => {
+  const d = new Date(iso + "T00:00:00Z").getUTCDay();
+  const fri = d === 0 ? addDays(iso, -2) : d === 6 ? addDays(iso, -1) : addDays(iso, (5 - d + 7) % 7);
+  return [fri < iso ? iso : fri, addDays(fri, 2)];
+};
+
+/* ONE LINE A READER CAN SCAN: hours, town, price. The town is the city field
+   AS PRINTED, so Rochester keeps its ", NY" exactly as everywhere else on the
+   site. A show that has not published its hours or its price says so in words
+   rather than with a pill that looks like a button: "Check the listing" sat on
+   18 cards that had no listing to check. */
+const hoursOf = (run) =>
+  run.days.length === 1
+    ? timeRange(run.days[0].start, run.days[0].end) || "Hours not published"
+    : run.days.map((d) => `${WD3(d.date)} ${timeRange(d.start, d.end) || "hours not published"}`).join(", ");
+const priceOf = (s) => {
+  if (s.admission) return s.admission;
+  const t = (s.tiers || []).map((x) => x.price).filter(Boolean);
+  if (!t.length) return null;
+  const n = (p) => parseFloat(String(p).replace(/[^0-9.]/g, "")) || 0;
+  return `From ${t.sort((a, b) => n(a) - n(b))[0]}`;
+};
+const longWhen = (run) => {
+  const a = run.days[0].date, b = run.days[run.days.length - 1].date;
+  const one = (iso) => `${weekday(iso)}, ${MONTHS_LONG[Number(iso.slice(5, 7)) - 1]} ${DNUM(iso)}`;
+  return a === b ? one(a) : `${one(a)} to ${one(b)}`;
+};
+const dirLink = (s) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(mapQuery(s))}`;
+const appleDirLink = (s) => `https://maps.apple.com/?daddr=${encodeURIComponent(mapQuery(s))}`;
+const townPt = (city) => (Array.isArray(towns[city]) ? towns[city] : null);
+const unitData = (s) => {
+  const pt = townPt(s.city), lastDay = s.days[s.days.length - 1];
+  return ` data-region="${esc(chipRegions(s).join(" "))}" data-date="${esc(s.date)}" data-last="${esc(s.last || s.date)}"` +
+    `${lastDay.end ? ` data-end="${esc(lastDay.end)}"` : ""}${pt ? ` data-lat="${pt[0]}" data-lon="${pt[1]}"` : ""}` +
+    `${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}${s.vendors?.length ? ' data-vendors="1"' : ""}`;
+};
+
 // Group by calendar month so the page reads like a calendar rather than a list.
 const byMonth = [];
 for (const s of upcoming) {
@@ -740,7 +842,10 @@ const flyerSrc = (s) => {
     return null;
   }
   const has = (r) => existsSync(join(ROOT, "public", r));
+  const t280 = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-280.$1");
+  const a280 = rel.replace(/\.(jpg|jpeg|png|webp)$/i, "-280.avif");
   return { thumb: `/${rel}`, full: `/${full}`,
+    t280: has(t280) ? `/${t280}` : "", avif280: has(a280) ? `/${a280}` : "",
     avif: has(avif) ? `/${avif}` : "", fullAvif: has(fullAvif) ? `/${fullAvif}` : "",
     w: s.flyerW || 0, h: s.flyerH || 0 };
 };
@@ -888,13 +993,23 @@ const ld = [
     location: {
       "@type": "Place",
       name: s.venue,
-      address: {
-        "@type": "PostalAddress",
-        ...(s.address ? { streetAddress: s.address.split(",")[0] } : {}),
-        addressLocality: bareCity(s.city),
-        addressRegion: "NY",
-        addressCountry: "US",
-      },
+      // READ OFF THE PRINTED ADDRESS, NOT ASSUMED, 8 October 2026. This
+      // hard-coded addressRegion "NY", so The Big Show told Google it was in
+      // "Harmony, PA, NY" and EC3CON in Uncasville, CT was filed under NY, and
+      // no Event carried the zip the card prints. The town, state and zip are
+      // the tail of every address in data/shows.json ("..., Lewiston, NY
+      // 14092"); a row without that tail keeps the old city-and-NY fallback.
+      address: (() => {
+        const m = /,\s*([^,]+),\s*([A-Z]{2})(?:\s+(\d{5}))?\s*$/.exec(s.address || "");
+        return {
+          "@type": "PostalAddress",
+          ...(s.address ? { streetAddress: s.address.split(",")[0] } : {}),
+          addressLocality: m ? m[1].trim() : bareCity(s.city),
+          addressRegion: m ? m[2] : "NY",
+          ...(m && m[3] ? { postalCode: m[3] } : {}),
+          addressCountry: "US",
+        };
+      })(),
     },
     // Offers only where a real price exists. A free show is price 0; a show with
     // ticket tiers lists each one; a show whose admission was never stated gets
@@ -1030,106 +1145,61 @@ ${MENU}
 // HTML comments, so a note that belongs to the BUILDER has to be a line comment
 // out here, or the dollar-brace block-comment-then-empty-string form used lower
 // down this file, and never an HTML comment inside a string that repeats.
-function showCard(s) {
+function showCard(input, opts = {}) {
+  /* A RUN OR A SINGLE ROW. The calendar passes runs (see toRuns); the archive
+     passes one row per day and keeps doing so, because a past show is looked up
+     by the day somebody went. */
+  const s = input.days ? input : { ...input, days: [input], last: input.date };
+  const first = s.days[0].date, last = s.days[s.days.length - 1].date;
+  const archive = !!opts.archive;
   const flyer = flyerSrc(s);
   /* THE LABEL IS THE ORGANIZER'S OWN FORMATTING AND THE HREF IS DIGITS, because
      a reader recognises the number as the one printed on the flyer while the
-     dialler only accepts E.164. Both come off ONE field so they cannot drift.
-     `who` is NOT in scope here -- logoFor() has one and this function does not,
-     which is how the first version of this threw on every card with a phone. */
+     dialler only accepts E.164. Both come off ONE field so they cannot drift. */
   const telHref = s.phone ? `tel:+1${String(s.phone).replace(/\D/g, "")}` : null;
   const telWho = s.organiser || s.name;
-  const soon = daysAway(s.date);
-  const d = new Date(s.date + "T12:00:00");
-  return `      <article class="show${s.featured ? " is-featured" : ""}" data-region="${esc(chipRegions(s).join(" "))}" data-date="${esc(s.date)}"${s.pokemon ? ' data-pokemon="1"' : ""}${s.admission === "Free" ? ' data-free="1"' : ""}>
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">${MONTHS_LONG[d.getMonth()].slice(0, 3)}</span>
-          <span class="show-day">${d.getDate()}</span>
-        </div>
-        <div class="show-body">
-          ${s.featured ? `<p class="show-flag">The big one</p>` : ""}
-          <div class="show-h">${logoFor(s)}<h3>${esc(s.name)}</h3></div>
-          <p class="show-meta">${esc(weekday(s.date))}${
-            timeRange(s.start, s.end) ? ` &bull; ${esc(timeRange(s.start, s.end))}` : ""
-          }</p>
-          <p class="show-where"><a class="venue-link" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}${s.address ? `, ${esc(s.address)}` : `, ${esc(s.city)} NY`}, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${
-            /* THE ADDRESS IS INSIDE THE LINK NOW, and it was deliberately outside
-               it a few hours ago, so here is the trade rather than a silent flip.
-               It was out because selecting text inside an anchor is awkward: a drag
-               starts a drag on the link, and a long press on a phone opens the
-               share sheet. The owner asked for it in anyway: "so the venue name and
-               address are links and will open your default maps app on whatever
-               platform you are on". That is the better trade now that the Apple
-               swap below actually lands people in the right app, and iOS puts Copy
-               on the share sheet regardless.
-               ONE ANCHOR AROUND BOTH, not two anchors to the same place: two would
-               read as two destinations to a screen reader and halve the tap target.
-               The anchor is display:block so the whole two-line run is the target,
-               which is the fix .show-links needed for the same reason. */ ""
-          }${s.address ? `<span class="show-addr">${esc(s.address)}</span>` : ""}</a></p>
-          <div class="show-tags">
-            ${/* THREE STATES, NOT TWO, ADDED 26 August 2026 AT THE OWNER'S INSTRUCTION.
-              This is a Pokemon site. He will happily list a sports show that has Pokemon on the floor, and he
-              does not want to send a reader on an hour's drive to a show that has none. `pokemon: true` has
-              always meant ALL-POKEMON and drives the counter tile; it could not say "sports show, Pokemon
-              definitely there", which is most of this calendar.
-              `pkmn: "some"` is that missing state, and it is only ever set where there is EVIDENCE: the
-              organiser's own flyer, the venue's listing, or the owner having stood in the room. Absent means we
-              have not confirmed it, and absent renders nothing rather than a guess dressed as a fact.
-              The reader is told what the marks mean under the calendar, so an unmarked show reads as
-              unconfirmed rather than as denied. */ ""}
-            ${s.pokemon
-              ? `<span class="chip pk">Pokemon show</span>`
-              : s.pkmn === "some"
-                ? `<span class="chip pk">Pokemon here too</span>`
-                : s.pkmn === "none"
-                  ? `<span class="chip pk-no">Sports only</span>`
-                  : `<span class="chip pk-un">Pokemon not confirmed</span>`}
-            ${soon ? `<span class="chip soon" data-soon>${esc(soon)}</span>` : ""}
-            ${/* THE DRIVE, ON EVERY OUT-OF-AREA SHOW, INCLUDING THE ONES NO CHIP CARRIES.
-              The badge is not the filter's label and must not be confused for it: Harmony
-              PA is 3h41m from Buffalo and shows this chip while qualifying for no city, so
-              a reader who finds it under All still learns the one fact that decides whether
-              they go. The owner's own framing when this was scoped: the drive is what
-              matters and the state line is incidental, which is why it says "about 2 hours
-              from Buffalo" and never "Pennsylvania".
-              "About" is doing real work -- see the _drives readme: two routing engines
-              disagreed by 21 minutes on the same road. */ ""}
-            ${(() => {
-              const dr = driveFor(s.city);
-              return dr ? `<span class="chip drive">Drive: ${esc(dr.label)} from ${esc(dr.anchorName)}</span>` : "";
-            })()}
-            ${/* THE ADMISSION CHIP IS SUPPRESSED WHERE THERE ARE TIERS, added 27 August
-              2026, and it is a de-duplication rather than a cut. A tiered show
-              prints every price WITH THE DOOR TIME IT BUYS a few lines below
-              this: "$20 Early VIP from 9am", "$5 General admission from 10am, 12
-              and under free". The chip could only ever repeat the headline one
-              and without the time, which is the half that matters when a show
-              has two doors, and RocPokeCon shipped exactly that confusion until
-              the tiers were added. Untiered shows, which is 63 of the 66, are
-              untouched and still carry the chip.
-              IT IS ALSO 29px OF THE 60 that had to come off the GI Cards card to
-              fit an iPhone with Safari's own chrome on screen: it was the third
-              chip, so it was wrapping the row onto a second line by itself. */ ""
-            }${(s.tiers || []).length ? "" : `<span class="chip">${s.admission ? esc(s.admission) : "Check the listing"}</span>`}${/* TABLE COUNT,
-              ADDED 26 August 2026, because it is the question the r/Rochester thread kept circling: is this show
-              worth the drive. Two commenters asked whether a show was any good and what the mix was, and the size
-              of the room is the fastest honest answer to both. It was already being written into blurbs by hand
-              ("160+ vendor tables" on RocPokeCon), which is where a fact goes to become unsearchable and to
-              disagree with itself. It is a field now. Absent on most shows, and absent renders nothing. */ ""}
-            ${s.tables ? `<span class="chip">${esc(String(s.tables))} tables</span>` : ""}
+  const price = priceOf(s);
+  /* THE UNIT ATTRIBUTES. Everything the page script filters, sorts or sweeps on
+     is on the element it hides, so the script never has to read card text. On a
+     far-out row the <details> is the unit and carries them instead, and the
+     archive's cards are not units at all. */
+  const cls = `show${s.featured ? " is-featured" : ""}`;
+  const open = opts.unit === false ? ` class="${cls}"`
+    : archive ? ` class="${cls}" data-date="${esc(first)}"`
+    : ` id="s-${esc(s.id)}" class="${cls} su"${unitData(s)}`;
+  const when = first === last
+    ? `<span class="show-wd">${WD3(first)}</span><span class="show-day">${DNUM(first)}</span><span class="show-mon">${MON3(first)}</span>`
+    : `<span class="show-wd">${WD3(first)}&ndash;${WD3(last)}</span><span class="show-day">${DNUM(first)}&ndash;${DNUM(last)}</span><span class="show-mon">${MON3(first) === MON3(last) ? MON3(first) : `${MON3(first)}&ndash;${MON3(last)}`}</span>`;
+  return `      <article${open}>
+          ${flyer ? `<button type="button" class="show-flyer" data-imglb="${esc(flyer.full)}" data-imglb-avif="${esc(flyer.fullAvif)}" data-imglb-alt="Flyer for ${esc(s.name)}, ${esc(longDate(first) || first)}">
+            <picture>${flyer.avif ? `<source type="image/avif" srcset="${flyer.avif280 ? `${esc(flyer.avif280)} 280w, ` : ""}${esc(flyer.avif)} 440w" sizes="(min-width:720px) 120px, 64px">` : ""}<img src="${esc(flyer.t280 || flyer.thumb)}" srcset="${flyer.t280 ? `${esc(flyer.t280)} 280w, ` : ""}${esc(flyer.thumb)} 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for ${esc(s.name)}, ${esc(longDate(first) || first)}. Opens larger"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>` : ""}
+        <div class="show-top">
+          <div class="show-when${first === last ? "" : " is-run"}" aria-hidden="true">${when}</div>
+          <div class="show-head">
+            ${s.featured ? `<p class="show-flag">The big one</p>` : ""}
+            <h3>${esc(s.name)}<span class="sr-only">, ${esc(longWhen(s))}</span></h3>
+            <p class="show-meta"><span>${esc(hoursOf(s))}</span><span class="show-town">${esc(s.city)}</span><span class="show-price${price ? "" : " is-none"}">${price ? esc(price) : "Price not published"}</span></p>
           </div>
-          ${/* THE `pkmnWhy` SENTENCE WAS PRINTED HERE AND IS NOT ANY MORE, 27 August
-             2026. The owner asked for it off two shows on the same day, an hour
-             apart, which is a preference rather than two corrections, and it was
-             also 63px of the 305 that had to come off a card to fit an iPhone
-             screen. THE FIELD IS NOT DELETED and must not be: `pkmn: "some"` is
-             only ever set where there is evidence, and pkmnWhy is where that
-             evidence is written down. It is a record now rather than a caption.
-             Putting it back is this one line. */ ""}${/* THE REASON, PRINTED. Every other
-            calendar asserts a category and leaves you to trust it. This one says WHY it believes Pokemon is or is not
-            there, in one line, per show: whose flyer, whose post, whose vendor list. It is also the honest way to
-            carry a weak claim, because "the regional calendar says so, single source" reads as exactly what it is. */ ""}
+        </div>
+        <div class="show-org">${logoFor(s)}<p class="show-where"><a class="venue-link" href="${esc(mapLink(s))}" data-map-apple="${esc(appleMapLink(s))}" rel="noopener" target="_blank" aria-label="${esc(s.venue)}${s.address ? `, ${esc(s.address)}` : `, ${esc(s.city)} NY`}, where ${esc(showRef(s))} is held, opens on ${esc(hostOf(mapLink(s)))}"><span class="show-venue">${esc(s.venue)}${s.address ? "" : `, ${esc(s.city)} NY`}</span>${s.address ? `<span class="show-addr">${esc(s.address)}</span>` : ""}</a></p></div>
+        <div class="show-tags">
+          ${s.pokemon
+            ? `<span class="chip pk">Pokemon show</span>`
+            : s.pkmn === "some"
+              ? `<span class="chip pk-some">Pokemon here too</span>`
+              : s.pkmn === "none"
+                ? `<span class="chip pk-no">Sports only</span>`
+                : `<span class="chip pk-un">Pokemon not confirmed</span>`}
+          ${archive ? "" : `<span class="chip soon" data-soon${daysAway(first) ? "" : " hidden"}>${esc(daysAway(first) || "")}</span>`}
+          ${(() => {
+            const dr = driveFor(s.city);
+            return dr ? `<span class="chip drive">Drive: ${esc(dr.label)} from ${esc(dr.anchorName)}</span>` : "";
+          })()}
+          ${s.tables ? `<span class="chip">${esc(String(s.tables))} tables</span>` : ""}
+          ${archive ? "" : `<span class="chip dist" data-dist hidden></span>`}
+        </div>
           ${s.blurb ? `<p class="show-blurb">${esc(s.blurb)}</p>` : ""}
           ${(s.tiers || []).length ? `<ul class="tiers">
             ${s.tiers.map((t) => `<li>
@@ -1140,115 +1210,133 @@ function showCard(s) {
           </ul>` : ""}
           ${s.warn ? `<p class="show-warn">${esc(s.warn)}</p>` : ""}
           ${s.vendors?.length ? `<div class="show-vend">
-            <p class="show-vend-h" id="sv-h-${esc(s.id)}">${s.date < TODAY ? "Vendors we confirmed" : "Confirmed vendors"}</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-${esc(s.id)}">${showVendors(s, s.date < TODAY)}</ul>
+            <p class="show-vend-h" id="sv-h-${esc(s.id)}${opts.unit === false ? "-x" : ""}">${archive ? "Vendors we confirmed" : "Confirmed vendors"}</p>
+            <ul class="show-vend-l" aria-labelledby="sv-h-${esc(s.id)}${opts.unit === false ? "-x" : ""}">${showVendors(s, archive)}</ul>
           </div>` : ""}
-          ${/* THE WHOLE PARAGRAPH IS CONDITIONAL, because it can now be empty. Every
-             show used to carry a url, so this <p> always had something in it. Cold
-             Front's does not: the organiser sent the flyer directly and the only
-             "listing" was a third-party aggregator page carrying less than the
-             flyer already shows, so the owner asked for the link to go. An empty
-             <p class="show-links"> is display:flex with a 10px top margin, so it
-             would have left a gap between the chips and the flyer that nothing on
-             the page could explain. */ ""}
+          ${archive ? "" : `<div class="show-acts">
+            <a class="act" href="${esc(dirLink(s))}" data-map-apple="${esc(appleDirLink(s))}" rel="noopener" target="_blank" aria-label="Directions to ${esc(s.venue)} for ${esc(showRef(s))}, opens on ${esc(hostOf(dirLink(s)))}">Directions</a>
+            <a class="act" href="/shows/ics/${esc(s.id)}.ics" aria-label="Add ${esc(showRef(s))} to your calendar">Calendar</a>
+            <button type="button" class="act" data-share="s-${esc(s.id)}" data-share-title="${esc(s.name)}, ${esc(longWhen(s))}" hidden>Share</button>
+          </div>`}
           ${s.ticketUrl || s.url || s.phone || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
             ${s.organiserUrl && s.organiserUrl !== s.url ? `<a href="${esc(s.organiserUrl)}" rel="noopener" target="_blank" aria-label="${esc(s.organiser && s.organiser !== s.name ? `${s.organiser}, who run ${showRef(s)}` : `The organizer of ${showRef(s)}`)}, opens on ${esc(hostOf(s.organiserUrl))}">${esc(s.organiser || "Organizer")}</a>` : ""}
-            ${s.phone ? `<a href="${esc(telHref)}" aria-label="Call or text ${esc(telWho)} about ${esc(showRef(s))} on ${esc(s.phone)}">Call or text ${esc(s.phone)}</a>` : ""}
+            ${s.phone ? `<a href="${esc(telHref)}" aria-label="Call or text ${esc(s.phone)}, ${esc(telWho)}, about ${esc(showRef(s))}">Call or text ${esc(s.phone)}</a>` : ""}
           </p>` : ""}
-        </div>
-        ${flyer ? `<button type="button" class="show-flyer" data-imglb="${esc(flyer.full)}" data-imglb-avif="${esc(flyer.fullAvif)}" data-imglb-alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}">
-          <picture>${flyer.avif ? `<source type="image/avif" srcset="${esc(flyer.avif)}">` : ""}
-          <img src="${esc(flyer.thumb)}" alt="Flyer for ${esc(s.name)}, ${esc(longDate(s.date) || s.date)}"${flyer.w && flyer.h ? ` width="${flyer.w}" height="${flyer.h}"` : ""} loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>` : ""}
       </article>`;
 }
+// THE PHONE LINK'S NAME NOW STARTS WITH ITS VISIBLE TEXT (WCAG 2.5.3): it was
+// "Call or text <organizer> about <show> on <number>" against a visible "Call or
+// text <number>". The calendar button is a plain internal link to a prebuilt .ics,
+// so it needs no script and no outbound label.
 const page = head + `
-<header class="set-hero">
+<header class="set-hero cs-hero">
   <div class="wrap">
     <span class="kicker">585 &bull; Get out of the house</span>
-    <h1>Card <span class="hl">shows</span> near Rochester, NY</h1>
-    <p class="lede" style="max-width:36em">Every card show we can find within driving distance of Rochester, NY, Buffalo
-      and Syracuse. Dates, times, where to park yourself, and what it costs to get in. Built because working this out
-      every month from six different Facebook pages is genuinely annoying.</p>
+    <h1>Card <span class="hl">shows</span> near Rochester,&nbsp;NY, Buffalo and Syracuse</h1>
+    <p class="lede">Every Pokemon and trading card show within a drive of Rochester,&nbsp;NY, Buffalo and Syracuse, collected by hand.</p>
   </div>
 </header>
-
-<section class="tight">
+${/* THE FIRST SCREEN IS THE CALENDAR NOW, 8 October 2026. At 390x844 the first
+     show card used to start at y=1,236, a screen and a half down, behind a
+     three-sentence lede, a breadcrumb, the "Next one up" slab and four stat
+     tiles, none of which a reader can act on. The slab and the tiles are gone:
+     the slab hid itself under every area filter and once advertised a show in
+     Pennsylvania, and the weekend strip below does its job better. The "last
+     checked" date is a quiet line rather than a big pink figure. */ ""}
+<section class="tight cs-top">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</nav>
-${next ? `
-    <a class="next-show" data-region="${esc(chipRegions(next).join(" "))}" data-date="${esc(next.date)}" href="${esc(next.url || "#list")}"${next.url ? ` rel="noopener" target="_blank" aria-label="Next one up: ${esc(showRef(next))} at ${esc(next.venue)}, ${esc(next.city)}, opens on ${esc(hostOf(next.url))}"` : ""}>
-      <span class="next-label">Next one up${daysAway(next.date) ? ` &bull; ${esc(daysAway(next.date))}` : ""}</span>
-      <span class="next-name">${esc(next.name)}</span>
-      <span class="next-meta">${esc(longDate(next.date) || next.date)}${
-        timeRange(next.start, next.end) ? `, ${esc(timeRange(next.start, next.end))}` : ""
-      } &bull; ${esc(next.venue)}, ${esc(next.city)}</span>
-    </a>` : ""}
-
-    <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n" data-fact="shows">${upcoming.length}</div><div class="l">Shows coming up</div></div>
-      <div class="fact"><div class="n" data-fact="pkmn">${pokemonCount}</div><div class="l">Pokemon shows</div>${/* WAS "All Pokemon shows" AND THE WORD ALL WAS DOING WORK IT COULD NOT
-        BACK. RIT's own listing calls RocPokeCon "centered around Pokemon but not exclusive to it" and names One
-        Piece and Magic; Buffalo Trading Card Con bills itself as a "Pokemon and TCG" convention. Neither is ALL
-        Pokemon. What they share, and what separates them from the rest of this page, is that Pokemon is the
-        billed subject and there are no sports. That is what the number counts, so that is what it says now. */ ""}</div>
-      <div class="fact"><div class="n" data-fact="free">${upcoming.filter((s) => s.admission === "Free").length}</div><div class="l">Free to get in</div></div>
-      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(data.checked) || data.checked)}</div><div class="l">Listings last checked</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="tight" id="list">
-  <div class="wrap">
-    <div class="rail">
-      <div class="rail-in" role="group" aria-label="Filter by area">
-        ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}"${r.id === "all" ? ' aria-current="true" aria-pressed="true"' : ' aria-pressed="false"'}>${esc(r.label)}</button>`).join("\n        ")}
+    ${/* THE FIND PANEL SHIPS HIDDEN AND THE SCRIPT REVEALS IT, because every
+          control in it needs the script, and a dead control is worse than none.
+          With no script the list below is complete and in date order. */ ""}
+    <div class="cs-find" id="csFind" hidden>
+      <form class="cs-near" id="csNear" role="search" aria-label="Find shows near you">
+        <label class="sr-only" for="csWhere">Zip code or town</label>
+        <input id="csWhere" type="text" placeholder="Zip or town" autocomplete="postal-code" enterkeyhint="search" spellcheck="false">
+        <button type="submit" class="btn btn-ghost btn-sm">Go</button>
+        <button type="button" class="btn btn-sky btn-sm" id="csLocate">Near me</button>
+      </form>
+      <p class="cs-hint" id="csHint" aria-live="polite"></p>
+      <div class="cs-group" role="group" aria-label="Area">
+        ${REGIONS.map((r) => `<button class="chip filt" type="button" data-region="${r.id}" aria-pressed="${r.id === "all"}">${esc(r.label)}</button>`).join("\n        ")}
+      </div>
+      <div class="cs-group" id="csDist" role="group" aria-label="Distance and order" hidden>
+        <button class="chip df" type="button" data-within="25" aria-pressed="false">Within 25 mi</button>
+        <button class="chip df" type="button" data-within="50" aria-pressed="false">Within 50 mi</button>
+        <button class="chip df" type="button" data-within="0" aria-pressed="true">Any distance</button>
+        <button class="chip sf" type="button" data-sort="near" aria-pressed="false">Nearest first</button>
       </div>
     </div>
+    <p class="cs-checked">Listings last checked ${esc(longDate(data.checked) || data.checked)}. <a href="/past-shows.html">Past shows</a> are kept on their own page, with the flyers.</p>
+  </div>
+</section>
+${(() => {
+  /* THE WEEKEND STRIP, which replaced "Next one up". Twelve tiles are built and
+     the script shows the ones inside this Friday to Sunday, or the next four if
+     the weekend is empty; the build makes the same call on its own clock for a
+     reader with no script. A tile is a link to its card on this page, so the
+     biggest tap targets at the top stay on the site. No flyer, no picture: a
+     tile without one is just the date, the name and the town. */
+  const [ws, we] = weekendOf(TODAY);
+  const tiles = runs.slice(0, 12);
+  const inWk = (r) => r.date <= we && r.last >= ws;
+  const anyWk = tiles.some(inWk);
+  const tileWhen = (r) => `${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}`;
+  return `
+<section class="tight cs-wk" aria-labelledby="csWkH">
+  <div class="wrap">
+    <h2 class="sec-label cs-wk-h" id="csWkH"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg><span id="csWkLbl">${anyWk ? "This weekend" : "Coming up next"}</span></h2>
+    <div class="wk-strip">
+${tiles.map((r, i) => {
+  const f = flyerSrc(r);
+  const show = anyWk ? inWk(r) : i < 4;
+  const p = priceOf(r);
+  return `      <a class="wk-tile" href="#s-${esc(r.id)}" data-date="${esc(r.date)}" data-last="${esc(r.last)}" data-region="${esc(chipRegions(r).join(" "))}"${townPt(r.city) ? ` data-lat="${townPt(r.city)[0]}" data-lon="${townPt(r.city)[1]}"` : ""}${show ? "" : " hidden"}>${f ? `<picture>${f.avif ? `<source type="image/avif" srcset="${f.avif280 ? `${esc(f.avif280)} 280w, ` : ""}${esc(f.avif)} 440w" sizes="160px">` : ""}<img src="${esc(f.t280 || f.thumb)}" srcset="${f.t280 ? `${esc(f.t280)} 280w, ` : ""}${esc(f.thumb)} 440w" sizes="160px" alt="" width="160" height="90" decoding="async"${i > 2 ? ' loading="lazy"' : ""}></picture>` : ""}<span class="wk-b"><span class="wk-d">${tileWhen(r)}</span><span class="wk-t">${esc(r.name)}</span><span class="wk-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span></a>`;
+}).join("\n")}
+    </div>
+  </div>
+</section>`;
+})()}
 
-    ${/* THE WAY IN TO THE ARCHIVE. It sits above the calendar rather than at the
-          foot of it, because the reader who wants it is looking for a show that
-          has already gone and would otherwise scroll seventeen months of
-          upcoming ones to find out there is a page for that. */ ""}<p class="shows-lede"><a href="/past-shows.html">Shows that have already happened</a> are kept on their own page, newest first, with the flyers.</p>
+<section class="tight" id="list">
+  <div class="rail cs-rail" id="csRail" hidden>
+    <div class="rail-in cs-q" role="group" aria-label="Filter shows">
+      <button class="chip qf" type="button" data-q="weekend" aria-pressed="false">This weekend</button>
+      <button class="chip qf" type="button" data-q="30" aria-pressed="false" aria-label="Next 30 days">30 days</button>
+      <button class="chip qf" type="button" data-q="free" aria-pressed="false" aria-label="Free entry">Free</button>
+      <button class="chip qf" type="button" data-q="pk" aria-pressed="false" aria-label="Pokemon shows">Pokemon</button>
+    </div>
+    <div class="cs-status"><span id="showCount" role="status"></span><button type="button" class="cs-clear" id="csClear" hidden>Clear all</button></div>
+  </div>
+  <div class="wrap">
     <div id="showList">
-${byMonth
+${byDay
   .map(
-    (g) => `    <div class="show-month" data-month="${esc(g.key)}">
-      <h2 class="show-mon-h">${esc(g.label)}</h2>
-${g.shows.map(showCard).join("\n")}
+    (g) => `    <div class="show-dayg" data-day="${esc(g.date)}">
+      <h2 class="show-day-h"><span>${esc(`${weekday(g.date)}, ${MONTHS_LONG[Number(g.date.slice(5, 7)) - 1]} ${DNUM(g.date)}`)}</span><span class="show-day-n">${g.runs.length} ${g.runs.length === 1 ? "show" : "shows"}</span></h2>
+${g.runs.map((r) => showCard(r)).join("\n")}
     </div>`
   )
   .join("\n")}
+${farRuns.length ? `    <div class="show-dayg show-further" id="further">
+      <h2 class="show-day-h"><span>Further out</span><span class="show-day-n">${farRuns.length} ${farRuns.length === 1 ? "show" : "shows"}</span></h2>
+${farRuns.map((r) => {
+  const p = priceOf(r);
+  return `      <details class="far su" id="s-${esc(r.id)}"${unitData(r)}>
+        <summary><span class="far-d">${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}</span><span class="far-t">${esc(r.name)}<span class="far-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span><span class="far-x" aria-hidden="true"></span></summary>
+${showCard(r, { unit: false })}
+      </details>`;
+}).join("\n")}
+    </div>` : ""}
     </div>
-    <!-- "or send us one" was here until 19 August 2026, and there was nowhere to
-         send it: the site has no mailto, no contact page and no form. The ask is
-         worth keeping, so it now names the route the rest of the site already
-         uses for exactly this. /rarity.html and /upcoming.html both end "say so
-         on any of the socials and it gets fixed", and /shops.html says "say
-         hello on any of the socials". The footer's four social buttons are that
-         route, and they are on this page too. Match those three if you edit
-         this: one wording for one action. -->
-    <p class="show-empty" id="showEmpty" hidden>No shows listed in that area yet. Try another area, or tell us about one on any of the socials.</p>
-    ${/* THE FILTER WAS COMPLETELY SILENT, 25 August 2026. Pressing a region
-          chip hid and showed shows with no announcement of any kind: no count,
-          no role, nothing. A sighted reader watches 22 shows become 5; a
-          screen reader reader hears the chip's own label and then silence, with
-          no way to know whether anything happened or how much is left.
-
-          #showEmpty could not cover it either. It carried no role and no
-          aria-live, so even the zero case -- the one it was written for --
-          appeared silently. That case is reachable: the past-date sweep in the
-          same script removes .show nodes at runtime, so a stale deploy can
-          empty a region that was full at build time.
-
-          /videos.html already does this correctly with #libCount, and this is
-          the same thing in the same shape. sr-only because the count is plain
-          on screen already; this is the non-visual half of a change that was
-          only ever visual. */ ""}
-    <p class="sr-only" id="showCount" role="status"></p>
+    <div id="showFlat" hidden></div>
+    <div class="show-empty" id="showEmpty" hidden>
+      <p>No shows match these filters.</p>
+      <p><button type="button" class="btn btn-ghost btn-sm" id="csClear2">Clear filters</button> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Know one we missed? Submit it on our Google Form, opens on forms.gle">Know one we missed? Submit it</a></p>
+    </div>
+    <p class="cs-submit"><b>Know a show we missed?</b> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Submit a show on our Google Form, opens on forms.gle">Submit it here</a>. It takes about three minutes, and you can upload the flyer.</p>
   </div>
 </section>
 ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
@@ -1281,6 +1369,20 @@ ${/* "ARE THESE SHOWS TO PURCHASE CARDS, SELL THEM OR BOTH?" -- asked on
         is the whole etiquette, and it is how you find the person holding the thing you want.</li>
       <li><b><span data-all="free">${nFree}</span> of the <span data-all="shows">${upcoming.length}</span> coming up are free to walk into.</b> Where a show has not published a
         price we say so rather than guess, so check the listing before you head out.</li>
+    </ul>
+    ${/* BEFORE YOU GO, 8 October 2026, from the redesign the owner approved. The
+          note above this section said nothing about what to bring is asserted
+          because none of it was established. Three things now are, and they are
+          written as advice rather than as facts about any one show: cash comes up
+          in every collector thread the research agent read (and a venue ATM's
+          fee with it), a budget for kids came from parents in the same threads,
+          and a zipped binder from a news story about a card stolen at a show.
+          Nothing here names a show, a price or a rule. */ ""}
+    <h3 class="cs-tips-h">Before you go</h3>
+    <ul class="cs-tips">
+      <li>Bring some cash. Plenty of tables take cards now, but not all of them, and an ATM at the venue usually charges a fee.</li>
+      <li>Agree on a budget with kids before you walk in. It is easy to spend it all at the first table.</li>
+      <li>Keep your own cards in a binder that zips or a case, especially in a busy room.</li>
     </ul>
     <p style="margin-top:var(--s4)"><a class="btn btn-sky btn-sm" href="/card-show-101.html">Card show 101: how it all
       works &rarr;</a></p>
@@ -1331,7 +1433,7 @@ ${(data.watchFor || []).length ? `
       run a show, or you have a flyer from a local Discord or a shop counter, the show form takes every detail plus
       the flyer and logo as uploads, in about three minutes. Email or any of the socials at the bottom of the page work
       too. If we can confirm the date it goes up here, and flyers get shown in full.</p>
-    <p class="btn-row" style="margin:var(--s4) 0 var(--s2)"><a class="btn btn-sky btn-sm" href="${esc(SHOW_FORM)}" rel="noopener" target="_blank">Submit a show</a></p>
+    <p class="btn-row" style="margin:var(--s4) 0 var(--s2)"><a class="btn btn-sky btn-sm" href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Submit a show on our Google Form, opens on forms.gle">Submit a show</a></p>
     <ul class="facts-list">
       ${/* THE AGGREGATORS ARE NAMED AND NO LONGER LINKED, on the owner's instruction:
          "we should remove any links going to outside sites that arent the official
@@ -1369,7 +1471,7 @@ ${(data.watchFor || []).length ? `
           somebody says so, and the flyer is the thing that makes a listing look
           like the event. The owner, 24 August 2026: "with shows I want them to send me
           flyers etc." */ ""}
-    <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank">Use the show form</a>
+    <p class="price-note" style="margin-top:var(--s4)"><b>Running a show?</b> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Use the show form, our Google Form, opens on forms.gle">Use the show form</a>
       (it asks you to sign in with Google so it can take the flyer), or send the date, the venue and what a
       table costs, and attach the flyer: <a href="${esc(mailtoHref("card show listing", ["Show name: ",
       "Date and times: ", "Venue and address: ", "Admission and table cost: ", "Website or socials: ", "",
@@ -1383,12 +1485,6 @@ ${footer("Show listings are collected by hand and change without notice. Check w
 <script>
 (function(){
 ${CLIENT_DAY_JS}
-  // APPLE PLATFORMS GET APPLE MAPS. See the note over appleMapLink. Progressive
-  // enhancement: the served href is the Google one and is correct with no script
-  // at all, so this only ever swaps a working link for a better-targeted one.
-  // The aria-label names the host it opens on, per the site's outbound rule, so
-  // the LABEL has to move with the href or the page starts lying to a screen
-  // reader about where it is sending them.
   try {
     var ua = navigator.userAgent || "";
     var apple = /iPhone|iPad|iPod/.test(ua) ||
@@ -1404,201 +1500,212 @@ ${CLIENT_DAY_JS}
       }
     }
   } catch (e) {}
-  // Belt and braces on dates. The build already dropped past shows, but a deploy
-  // can sit for a few days, and a card show calendar that lists yesterday is
-  // worse than no calendar at all.
-  // todayIso(), NOT localDay(): this block is a STRING and every name in it has
-  // to exist in the BROWSER. The 38-script sweep onto shared/today.mjs put a
-  // node import's name in here, so the page threw on its first statement and
-  // took the whole sweep with it -- past shows, empty months and the "next one
-  // up" slab all stayed. todayIso is from CLIENT_DAY_JS above, same local day.
   var today = todayIso();
-  document.querySelectorAll('.show').forEach(function(el){
-    if (el.dataset.date < today) el.remove();
-  });
-  document.querySelectorAll('.show-month').forEach(function(m){
-    if (!m.querySelector('.show')) m.remove();
-  });
-  /* THE SENTENCE IN "WHAT ACTUALLY HAPPENS" COUNTS WITH THE LIST TOO. The tiles
-     were recounted here and "42 of the 78 coming up are free" was not, so on a
-     stale deploy the two disagreed on the same screen. It counts every show
-     still ahead, whatever area chip is pressed, because the sentence is about
-     all of them. */
+  var now = new Date();
+  var nowHM = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+  function over(el){
+    var last = el.dataset.last || el.dataset.date;
+    if (last < today) return true;
+    return last === today && el.dataset.end && el.dataset.end <= nowHM;
+  }
+  [].slice.call(document.querySelectorAll('.su, .wk-tile')).forEach(function(el){ if (over(el)) el.remove(); });
+  document.querySelectorAll('.show-dayg').forEach(function(g){ if (!g.querySelector('.su')) g.remove(); });
   (function(){
-    var all = document.querySelectorAll('.show');
+    var all = document.querySelectorAll('.su');
     var free = 0; all.forEach(function(el){ if (el.dataset.free === '1') free++; });
     document.querySelectorAll('[data-all="shows"]').forEach(function(el){ el.textContent = all.length; });
     document.querySelectorAll('[data-all="free"]').forEach(function(el){ el.textContent = free; });
   })();
-  // The "next one up" slab is neither a .show nor a .show-month, so the sweep
-  // above walked straight past the single most prominent thing on the page. A
-  // stale deploy showed a date that had already been and gone, in the biggest
-  // type on the page, which is the exact failure this pass exists to prevent.
-  var next=document.querySelector('.next-show');
-  if(next && next.dataset.date && next.dataset.date < today){
-    var first=document.querySelector('.show');
-    if(first){
-      next.querySelector('.next-name').textContent=first.querySelector('h3').textContent;
-      var _v=first.querySelector('.show-venue'), _a=first.querySelector('.show-addr');
-      var _where=_v ? (_v.textContent + (_a ? ', ' + _a.textContent : '')) : first.querySelector('.show-where').textContent;
-      next.querySelector('.next-meta').textContent=first.querySelector('.show-meta').textContent
-        + ' \u2022 ' + _where;
-      var lbl=next.querySelector('.next-label');
-      if(lbl) lbl.textContent='Next one up';
-      var href=first.querySelector('.show-links a');
-      if(href) next.setAttribute('href', href.getAttribute('href'));
-      // AND THE DATE MOVES WITH IT. Without this the slab keeps the date of the
-      // show it just rolled past, so the countdown guard below never fires again
-      // and the label is stuck on a bare "Next one up" from then on. Never wrong,
-      // just quietly less useful, which is the kind of bug that survives.
-      if(first.dataset.date) next.dataset.date=first.dataset.date;
-      /* AND ITS AREA. This copied the date and not the region, so on a stale
-         deploy the hero repointed at a new show while keeping the old one's
-         chips. Today the hero IS the dual-region show, which makes it maximally
-         wrong: drop Waterloo and repoint to CollectorFest (roc), and the hero
-         still answers to "syracuse", advertising a Rochester show as "Next one
-         up" over a Syracuse list whose real next entry is a week later. That is
-         the exact failure the filter fix was written to remove, through the
-         other door. Cleared rather than left when the new card has none. */
-      if(first.dataset.region) next.dataset.region=first.dataset.region;
-      else next.removeAttribute('data-region');
+  function dn(iso){ return Date.parse(iso + 'T00:00:00Z') / 864e5; }
+  function isoOf(n){ return new Date(n * 864e5).toISOString().slice(0, 10); }
+  function dayWord(el){
+    var a = el.dataset.date, b = el.dataset.last || a;
+    if (a <= today && b >= today) return 'Today';
+    var away = dn(a) - dn(today);
+    return away === 1 ? 'Tomorrow' : away > 1 && away <= 7 ? 'In ' + away + ' days' : '';
+  }
+  document.querySelectorAll('.su').forEach(function(el){
+    var chip = el.querySelector('[data-soon]');
+    if (!chip) return;
+    var w = dayWord(el);
+    chip.textContent = w; chip.hidden = !w;
+  });
+  function weekend(){
+    var t = dn(today), d = new Date(today + 'T00:00:00Z').getUTCDay();
+    var fri = d === 0 ? t - 2 : d === 6 ? t - 1 : t + ((5 - d + 7) % 7);
+    return [isoOf(Math.max(fri, t)), isoOf(fri + 2)];
+  }
+  var WK = weekend(), D30 = [today, isoOf(dn(today) + 29)];
+  var R = 3958.8;
+  function rad(d){ return d * Math.PI / 180; }
+  function miles(a, b){
+    var dp = rad(b[0] - a[0]), dl = rad(b[1] - a[1]);
+    var h = Math.pow(Math.sin(dp / 2), 2) + Math.cos(rad(a[0])) * Math.cos(rad(b[0])) * Math.pow(Math.sin(dl / 2), 2);
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function miLabel(m){ return m < 5 ? 'Under 5 mi away' : Math.round(m / (m < 30 ? 1 : 5)) * (m < 30 ? 1 : 5) + ' mi away'; }
+  var S = { area: 'all', q: {}, from: null, label: '', within: 0, sort: 'soon' };
+  var list = document.getElementById('showList'), flat = document.getElementById('showFlat');
+  var empty = document.getElementById('showEmpty'), countEl = document.getElementById('showCount');
+  var hint = document.getElementById('csHint'), clearBtn = document.getElementById('csClear');
+  var rail = document.getElementById('csRail'), find = document.getElementById('csFind');
+  var distBox = document.getElementById('csDist'), input = document.getElementById('csWhere');
+  if (find) find.hidden = false;
+  if (rail) rail.hidden = false;
+  function inArea(el, area){ return area === 'all' || (' ' + (el.dataset.region || '') + ' ').indexOf(' ' + area + ' ') !== -1; }
+  function overlaps(el, w){ var a = el.dataset.date, b = el.dataset.last || a; return a <= w[1] && b >= w[0]; }
+  function distOf(el){ return S.from && el.dataset.lat ? miles(S.from, [+el.dataset.lat, +el.dataset.lon]) : null; }
+  var units = [].slice.call(document.querySelectorAll('.su'));
+  units.forEach(function(el, i){ el._home = el.parentNode; el._i = i; });
+  function keep(el){
+    if (!inArea(el, S.area)) return false;
+    if (S.q.weekend && !overlaps(el, WK)) return false;
+    if (S.q['30'] && !overlaps(el, D30)) return false;
+    if (S.q.free && el.dataset.free !== '1') return false;
+    if (S.q.pk && el.dataset.pokemon !== '1') return false;
+    if (S.from && S.within) { var m = distOf(el); if (m === null || m > S.within) return false; }
+    return true;
+  }
+  function apply(user){
+    var shown = 0;
+    units.forEach(function(el){
+      var ok = keep(el); el.hidden = !ok; if (ok) shown++;
+      var chip = el.querySelector('[data-dist]');
+      if (chip) { var m = distOf(el); chip.hidden = m === null; chip.textContent = m === null ? '' : miLabel(m); }
+    });
+    var nearMode = S.sort === 'near' && S.from;
+    if (nearMode) {
+      units.slice().sort(function(a, b){ return (distOf(a) || 1e9) - (distOf(b) || 1e9) || a._i - b._i; })
+        .forEach(function(el){ flat.appendChild(el); });
     } else {
-      next.remove();
+      units.forEach(function(el){ if (el.parentNode !== el._home) el._home.appendChild(el); });
+    }
+    flat.hidden = !nearMode; list.hidden = !!nearMode;
+    document.querySelectorAll('.show-dayg').forEach(function(g){
+      var n = g.querySelectorAll('.su:not([hidden])').length;
+      g.hidden = n === 0;
+      var c = g.querySelector('.show-day-n'); if (c) c.textContent = n + (n === 1 ? ' show' : ' shows');
+    });
+    if (empty) empty.hidden = shown > 0;
+    var tiles = [].slice.call(document.querySelectorAll('.wk-tile'));
+    function reach(t){ if (!inArea(t, S.area)) return false; if (S.from && S.within) { var m = distOf(t); return m !== null && m <= S.within; } return true; }
+    var wkTiles = tiles.filter(function(t){ return overlaps(t, WK) && reach(t); });
+    var lbl = document.getElementById('csWkLbl');
+    if (wkTiles.length) { tiles.forEach(function(t){ t.hidden = wkTiles.indexOf(t) === -1; }); if (lbl) lbl.textContent = 'This weekend'; }
+    else { var c4 = 0; tiles.forEach(function(t){ var ok = reach(t) && c4 < 4; if (ok) c4++; t.hidden = !ok; }); if (lbl) lbl.textContent = 'Coming up next'; }
+    var wkSec = document.querySelector('.cs-wk'); if (wkSec) wkSec.hidden = !tiles.some(function(t){ return !t.hidden; });
+    var parts = [];
+    if (S.area !== 'all') { var ab = document.querySelector('.chip.filt[data-region="' + S.area + '"]'); if (ab) parts.push('in ' + ab.textContent.trim()); }
+    if (S.q.weekend) parts.push('this weekend');
+    if (S.q['30']) parts.push('in the next 30 days');
+    if (S.q.free) parts.push('free to get in');
+    if (S.q.pk) parts.push('Pokemon shows');
+    if (S.from && S.within) parts.push('within ' + S.within + ' mi of ' + S.label);
+    var msg = shown === 0 ? 'No shows match' : shown + (shown === 1 ? ' show' : ' shows');
+    if (parts.length) msg += ' ' + parts.join(', ');
+    if (shown) msg += nearMode ? ', nearest first' : ', soonest first';
+    if (countEl) countEl.textContent = msg;
+    var active = S.area !== 'all' || Object.keys(S.q).some(function(k){ return S.q[k]; }) || S.from;
+    if (clearBtn) clearBtn.hidden = !active;
+    document.querySelectorAll('.chip.filt').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.region === S.area)); });
+    document.querySelectorAll('.chip.qf').forEach(function(b){ b.setAttribute('aria-pressed', String(!!S.q[b.dataset.q])); });
+    document.querySelectorAll('.chip.df').forEach(function(b){ b.setAttribute('aria-pressed', String(+b.dataset.within === S.within)); });
+    document.querySelectorAll('.chip.sf').forEach(function(b){ b.setAttribute('aria-pressed', String(S.sort === 'near')); });
+    if (distBox) distBox.hidden = !S.from;
+    try {
+      var p = new URLSearchParams();
+      if (S.area !== 'all') p.set('area', S.area);
+      Object.keys(S.q).forEach(function(k){ if (S.q[k]) p.set(k === '30' ? 'next30' : k, '1'); });
+      if (S.from && S.label && S.label !== 'your location') p.set('near', S.label);
+      if (S.from && S.within) p.set('within', String(S.within));
+      if (nearMode && S.label !== 'your location') p.set('sort', 'near');
+      var qs = p.toString();
+      history.replaceState(null, '', location.pathname + (qs ? '?' + qs : '') + location.hash);
+    } catch (e) {}
+    if (user) {
+      var top = document.getElementById('list').getBoundingClientRect().top;
+      var under = rail ? rail.getBoundingClientRect().bottom : 0;
+      if (top < under) window.scrollTo(0, window.scrollY + top - (parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--bar-h')) || 0));
     }
   }
-  // AND THE COUNTDOWN GOES STALE WITHOUT EVER GOING PAST. The block above only
-  // fires once the date has BEEN, so a page built on Wednesday still said
-  // "In 4 days" when a reader opened it on Friday: not wrong enough to trip any
-  // check, wrong enough to send somebody on the wrong day. The nightly rebuild
-  // normally hides this, and the nightly rebuild failed on 23 and 24 August.
-  // Recomputed here against the reader's own clock, mirroring daysAway() in the
-  // builder exactly: Today, Tomorrow, In N days up to seven, nothing after that.
-  // ONE FUNCTION, BECAUSE THE FIRST VERSION OF THIS FIXED ONE OF THE TWO PLACES
-  // AND SHIPPED. The hero slab got recomputed and the per-show chips did not, so
-  // a stale deploy would have said "Tomorrow" in the biggest type on the page and
-  // "In 4 days" on the listing card for the SAME SHOW, one screen apart. Worse
-  // than the staleness it replaced, because the page now disagrees with itself.
-  function dayWord(iso){
-    var away=Math.round((new Date(iso+'T12:00:00') - new Date(today+'T12:00:00'))/86400000);
-    if(away<0) return null;
-    return away===0 ? 'Today' : away===1 ? 'Tomorrow' : away<=7 ? 'In '+away+' days' : '';
+  function setRailH(){ if (rail) document.documentElement.style.setProperty('--rail-h', rail.offsetHeight + 'px'); }
+  setRailH();
+  try { new ResizeObserver(setRailH).observe(rail); } catch (e) {}
+  var places = null, loading = null;
+  function loadPlaces(){
+    if (places) return Promise.resolve(places);
+    if (!loading) loading = fetch('/data/places.json').then(function(r){ return r.json(); }).then(function(j){ places = j; return j; }).catch(function(){ places = { z: {}, t: {} }; return places; });
+    return loading;
   }
-  if(next && next.dataset.date && next.dataset.date >= today){
-    var lbl2=next.querySelector('.next-label');
-    if(lbl2){
-      var word=dayWord(next.dataset.date);
-      lbl2.textContent = 'Next one up' + (word ? ' \u2022 ' + word : '');
-    }
+  function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/,?\\s*(ny|new york)\\s*$/, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\\s+/g, ' ').trim(); }
+  function say(t){ if (hint) hint.textContent = t; }
+  function setFrom(pt, label){
+    S.from = pt; S.label = label;
+    if (!S.within) S.within = 50;
+    say('Distances are from ' + label + ', in a straight line to each show’s town.');
+    apply(true);
   }
-  // Every listing card's own chip, against the same clock and the same wording.
-  // A chip whose show is more than a week out loses the chip rather than keeping
-  // a stale one, which is what daysAway() does at build time.
-  document.querySelectorAll('.show[data-date]').forEach(function(el){
-    var chip=el.querySelector('[data-soon]');
-    if(!chip) return;
-    var word=dayWord(el.dataset.date);
-    if(!word) chip.remove(); else chip.textContent=word;
+  function resolve(q){
+    var raw = String(q || '').trim();
+    if (!raw) { say('Type a zip code or a town, or tap Near me.'); return Promise.resolve(); }
+    return loadPlaces().then(function(pl){
+      var zip = raw.match(/^\\d{5}/);
+      var pt = zip ? pl.z[zip[0]] : pl.t[norm(raw)];
+      if (!pt) { say('We do not have “' + raw + '” on file. Try a nearby town, a zip code in Western or Central New York, or tap Near me.'); return; }
+      setFrom(pt, zip ? zip[0] : raw.replace(/\\b\\w/g, function(c){ return c.toUpperCase(); }));
+    });
+  }
+  if (input) input.addEventListener('focus', loadPlaces, { once: true });
+  var nearForm = document.getElementById('csNear');
+  if (nearForm) nearForm.addEventListener('submit', function(e){ e.preventDefault(); resolve(input.value); });
+  var loc = document.getElementById('csLocate');
+  if (loc) loc.addEventListener('click', function(){
+    if (!navigator.geolocation) { say('Your browser cannot share a location here. Type a zip code or a town instead.'); return; }
+    say('Finding you…');
+    navigator.geolocation.getCurrentPosition(function(pos){
+      setFrom([pos.coords.latitude, pos.coords.longitude], 'your location');
+    }, function(){
+      say('We could not get your location. Type a zip code or a town instead.');
+      if (input) input.focus();
+    }, { maximumAge: 600000, timeout: 10000 });
   });
-
-${/* THE CALENDAR'S OWN CLIENT SWEEP WAS HERE and went with the calendar. It
-        removed a .cal-dot whose date had passed and re-derived .is-past on
-        every day cell against the reader's own clock. NOTHING REPLACES IT and
-        nothing needs to: there is no per-date mark left on this page that the
-        sweep above does not already reach. The map's marks are per-TOWN and a
-        town keeps its dot for as long as it has a show. THAT IS THE ONE THING
-        TO RE-READ IF THE MAP EVER GAINS A DATE.
-
-        The dot sizes and the counts in the labels ARE stamped at build time and
-        are not re-derived here, which is the same small staleness the map on
-        /shops.html carries and is bounded by the nightly rebuild. A count that
-        reads one high on a deploy that has stopped moving is a different order
-        of wrong from a date that has already been and gone, which is the one
-        unforgivable bug on this page and is what the sweep above is for.
-
-        THIS IS THE $-BRACE-COMMENT FORM AND NOT A // LINE, deliberately: this
-        block is inside the page template, so a note written as a JS comment
-        here SHIPS to every reader. The file's own header records that lesson
-        costing 23KB once. Notes that belong to the builder go in this form or
-        out of the template entirely. */ ""}
-
-  var empty = document.getElementById('showEmpty');
-  function apply(region){
-    document.querySelectorAll('.show').forEach(function(el){
-      // A SHOW CAN NOW BE IN TWO AREAS, so this matches a token rather than the
-      // whole attribute: data-region is "syracuse roc" for a town between them.
-      el.hidden = region !== 'all' &&
-        (' ' + (el.dataset.region || '') + ' ').indexOf(' ' + region + ' ') === -1;
-    });
-    var any = false;
-    document.querySelectorAll('.show-month').forEach(function(m){
-      var vis = m.querySelectorAll('.show:not([hidden])').length;
-      m.hidden = vis === 0;
-      if (vis) any = true;
-    });
-    if (empty) empty.hidden = any;
-    /* THE TILES AND THE HERO MOVE WITH THE LIST, and until now neither did.
-       "47 Free to get in" sat over the Syracuse list where nine of ten charge
-       at the door, which is a money claim a reader acts on; and the hero kept
-       advertising GI Cards in the largest type on the page after the Rochester
-       filter had removed it from the list underneath. The right number was
-       already being computed one line below for the screen-reader status, and
-       announced only to the readers who cannot see the tiles contradicting it. */
-    var shown = [].slice.call(document.querySelectorAll('.show:not([hidden])'));
-    var set = function(k, v){ var el = document.querySelector('[data-fact="' + k + '"]'); if (el) el.textContent = v; };
-    set('shows', shown.length);
-    set('pkmn', shown.filter(function(el){ return el.dataset.pokemon === '1'; }).length);
-    set('free', shown.filter(function(el){ return el.dataset.free === '1'; }).length);
-    var hero = document.querySelector('.next-show');
-    if (hero) hero.hidden = region !== 'all' &&
-      (' ' + (hero.dataset.region || '') + ' ').indexOf(' ' + region + ' ') === -1;
-    var countEl = document.getElementById('showCount');
-    if (countEl) {
-      var n = document.querySelectorAll('.show:not([hidden])').length;
-      // THE CHIP'S OWN WORDS, NOT THE REGION ID. The ids are 'roc', 'buffalo'
-      // and 'syracuse', so the id would announce "12 shows in roc". The button
-      // the reader just pressed already says "Rochester, NY".
-      var chip = document.querySelector('.chip.filt[data-region="' + region + '"]');
-      var where = region === 'all' || !chip ? '' : ' in ' + chip.textContent.trim();
-      // Built as one string and written once: the region is role="status",
-      // which is implicitly aria-atomic, so a half-built value would be read
-      // out on its way to the finished one.
-      countEl.textContent = n === 0
-        ? 'No shows' + where + '. ' + (empty ? empty.textContent : '')
-        : n + (n === 1 ? ' show' : ' shows') + where + '.';
-    }
-  }
-  document.querySelectorAll('.chip.filt').forEach(function(b){
+  document.querySelectorAll('.chip.filt').forEach(function(b){ b.addEventListener('click', function(){ S.area = b.dataset.region; apply(true); }); });
+  document.querySelectorAll('.chip.qf').forEach(function(b){ b.addEventListener('click', function(){
+    var k = b.dataset.q; S.q[k] = !S.q[k];
+    if (k === 'weekend' && S.q[k]) S.q['30'] = false;
+    if (k === '30' && S.q[k]) S.q.weekend = false;
+    apply(true);
+  }); });
+  document.querySelectorAll('.chip.df').forEach(function(b){ b.addEventListener('click', function(){ S.within = +b.dataset.within; apply(true); }); });
+  document.querySelectorAll('.chip.sf').forEach(function(b){ b.addEventListener('click', function(){ S.sort = S.sort === 'near' ? 'soon' : 'near'; apply(true); }); });
+  function clearAll(){ S = { area: 'all', q: {}, from: null, label: '', within: 0, sort: 'soon' }; if (input) input.value = ''; say(''); apply(true); }
+  if (clearBtn) clearBtn.addEventListener('click', clearAll);
+  var c2 = document.getElementById('csClear2'); if (c2) c2.addEventListener('click', clearAll);
+  document.querySelectorAll('[data-share]').forEach(function(b){
+    b.hidden = false;
     b.addEventListener('click', function(){
-      /* aria-pressed is the state a toggle button announces; aria-current on a
-         button exposes none in Chrome's tree. aria-current stays because the
-         shared .chip[aria-current] style is what paints the chosen chip. */
-      document.querySelectorAll('.chip.filt').forEach(function(o){ o.removeAttribute('aria-current'); o.setAttribute('aria-pressed','false'); });
-      b.setAttribute('aria-current','true'); b.setAttribute('aria-pressed','true');
-      apply(b.dataset.region);
+      var url = location.origin + location.pathname + '#' + b.dataset.share;
+      var done = function(t){ var o = b.textContent; b.textContent = t; setTimeout(function(){ b.textContent = o; }, 1800); };
+      if (navigator.share) { navigator.share({ title: b.dataset.shareTitle, url: url }).catch(function(){}); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); });
     });
   });
-  /* THE TOWN NAMES ON THE MAP KEY ARE BUTTONS NOW, 26 August 2026. The map
-     showed you where Batavia was and named its twelve shows, and then made you
-     go back up to the area buttons to actually see them. Clicking the town does
-     what the reader already expected clicking the town to do.
-     IT DRIVES THE EXISTING AREA FILTER rather than adding a town filter, because
-     the areas are what the list is grouped by, and a second filtering model on
-     one page is how two controls end up disagreeing about what is shown. So
-     Batavia selects Rochester, NY and the chip updates to match: the control that
-     moved is visibly the one you already had. */
-  /* THE FLYER OPENED IN A NEW TAB AND NOW OPENS IN PLACE, at the owner's
-     request. A flyer is the densest thing on a show listing -- date, hours,
-     admission, table price, the promoter's phone number -- and sending somebody
-     to a raw .jpg on its own tab to read it means they lose the calendar and
-     have to come back.
-     THE HANDLER MOVED TO shared/lightbox.mjs ON 27 AUGUST 2026 and did not
-     change on the way: same single node, same focus return, same Escape, same
-     refuse-Tab trap. It moved because the shop, vendor and creator logos open
-     in it now too, and four copies of a focus trap diverge. The organiser
-     logos on THIS page are openers as well, which is why the dialog's resting
-     label says flyer or logo rather than flyer. */
+  function openHash(){
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    var el = id && document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); }
+  }
+  window.addEventListener('hashchange', openHash);
+  openHash();
+  var qp = new URLSearchParams(location.search);
+  if (qp.get('area') && document.querySelector('.chip.filt[data-region="' + qp.get('area') + '"]')) S.area = qp.get('area');
+  ['weekend', 'free', 'pk'].forEach(function(k){ if (qp.get(k) === '1') S.q[k] = true; });
+  if (qp.get('next30') === '1') S.q['30'] = true;
+  if (/^(25|50)$/.test(qp.get('within') || '')) S.within = +qp.get('within');
+  if (qp.get('sort') === 'near') S.sort = 'near';
+  apply(false);
+  if (qp.get('near')) { if (input) input.value = qp.get('near'); resolve(qp.get('near')); }
 ${imgLbJs("Show flyer or logo")}
-  apply('all');
 })();
 </script>
 ${APP_JS}
@@ -1608,6 +1715,60 @@ ${APP_JS}
 
 await mkdir(join(ROOT, "public/assets/shows"), { recursive: true });
 await writeFile(join(ROOT, "public/card-shows.html"), page);
+
+/* ADD TO CALENDAR, 8 October 2026. One .ics per run, prebuilt, so the button is a
+   plain link that works with no script: iOS and macOS open it in Calendar, Android
+   hands it to whichever calendar app is installed. A multi-day run is one file
+   with one event per day, each with that day's own hours. A day with no published
+   start time is an ALL-DAY event rather than a guessed hour, and an end time is
+   only written when the show published one. Times are converted to UTC through
+   tzOffset(), the same offset the Event markup uses, so a reader in another zone
+   gets the right local time. DTSTAMP is the build day at midnight so the tree is
+   reproducible. The directory is cleared first, so a past show's file goes away
+   the night it drops off the calendar. */
+const ICS_DIR = join(ROOT, "public/shows/ics");
+await rm(ICS_DIR, { recursive: true, force: true });
+await mkdir(ICS_DIR, { recursive: true });
+const icsEsc = (t) => String(t ?? "").replace(/\\/g, "\\\\").replace(/;/g, "\\;").replace(/,/g, "\\,").replace(/\r?\n/g, "\\n");
+const icsFold = (line) => {
+  const out = [];
+  let cur = line;
+  while (Buffer.byteLength(cur) > 75) {
+    let n = 75;
+    while (Buffer.byteLength(cur.slice(0, n)) > 75) n--;
+    if (cur[n - 1] === "\\") n--; // never split an escape from what it escapes
+    out.push(cur.slice(0, n));
+    cur = " " + cur.slice(n);
+  }
+  out.push(cur);
+  return out.join("\r\n");
+};
+const icsUtc = (iso, hm) =>
+  new Date(`${iso}T${hm}:00${tzOffset(iso)}`).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+for (const r of runs) {
+  const events = r.days.map((d) => {
+    const lines = ["BEGIN:VEVENT", `UID:${d.id}@garbagerips.com`, `DTSTAMP:${TODAY.replace(/-/g, "")}T000000Z`];
+    if (d.start) {
+      lines.push(`DTSTART:${icsUtc(d.date, d.start)}`);
+      if (d.end) lines.push(`DTEND:${icsUtc(d.date, d.end)}`);
+    } else {
+      lines.push(`DTSTART;VALUE=DATE:${d.date.replace(/-/g, "")}`, `DTEND;VALUE=DATE:${addDays(d.date, 1).replace(/-/g, "")}`);
+    }
+    const p = priceOf(d);
+    lines.push(
+      `SUMMARY:${icsEsc(d.name)}`,
+      `LOCATION:${icsEsc([d.venue, d.address || d.city].filter(Boolean).join(", "))}`,
+      `DESCRIPTION:${icsEsc(`${p ? `Admission: ${p}` : "Admission not published"}\nDetails: ${SITE}/card-shows.html#s-${r.id}`)}`,
+      `URL:${SITE}/card-shows.html#s-${r.id}`,
+      "END:VEVENT",
+    );
+    return lines.map(icsFold).join("\r\n");
+  });
+  await writeFile(join(ICS_DIR, `${r.id}.ics`), [
+    "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Garbage Rips 585//Card shows//EN", "CALSCALE:GREGORIAN",
+    "METHOD:PUBLISH", ...events, "END:VCALENDAR", "",
+  ].join("\r\n"));
+}
 
 /* ------------------------------------------------------- /past-shows.html --
  *
@@ -1716,7 +1877,7 @@ ${pastByMonth
   .map(
     (g) => `    <div class="show-month" data-month="${esc(g.key)}">
       <h2 class="show-mon-h">${esc(g.label)}</h2>
-${g.shows.map((s) => (s.date < TODAY ? showCard(s) : `<div class="show-pending" hidden data-date="${esc(s.date)}">${showCard(s)}</div>`)).join("\n")}
+${g.shows.map((s) => (s.date < TODAY ? showCard(s, { archive: true }) : `<div class="show-pending" hidden data-date="${esc(s.date)}">${showCard(s, { archive: true })}</div>`)).join("\n")}
     </div>`
   )
   .join("\n")}

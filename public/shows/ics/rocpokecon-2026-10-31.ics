@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:rocpokecon-2026-10-31@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261031T110000Z
+DTEND:20261031T210000Z
+SUMMARY:RocPokéCon
+LOCATION:Gordon Field House at RIT\, 149 Lomb Memorial Drive\, Rochester\, 
+ NY 14623
+DESCRIPTION:Admission: $5 general\nDetails: https://garbagerips.com/card-sh
+ ows.html#s-rocpokecon-2026-10-31
+URL:https://garbagerips.com/card-shows.html#s-rocpokecon-2026-10-31
+END:VEVENT
+END:VCALENDAR

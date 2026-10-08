@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:collectorsfest-111-2026-10-18@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261018T133000Z
+DTEND:20261018T190000Z
+SUMMARY:Collectorsfest #111
+LOCATION:C&S Companies Science & Industry Building\, NYS Fairgrounds\, 581 
+ State Fair Blvd\, Syracuse\, NY 13209
+DESCRIPTION:Admission: $5 general\, cash only\nDetails: https://garbagerips
+ .com/card-shows.html#s-collectorsfest-111-2026-10-18
+URL:https://garbagerips.com/card-shows.html#s-collectorsfest-111-2026-10-18
+END:VEVENT
+END:VCALENDAR

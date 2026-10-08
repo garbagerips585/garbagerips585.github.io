@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mega-show-113-2026-12-05@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261205T143000Z
+DTEND:20261205T210000Z
+SUMMARY:Collector's Mega Show #113
+LOCATION:Horticultural Building\, NYS Fairgrounds\, 581 State Fair Blvd\, S
+ yracuse\, NY 13209
+DESCRIPTION:Admission: $5 general\nDetails: https://garbagerips.com/card-sh
+ ows.html#s-mega-show-113-2026-12-05
+URL:https://garbagerips.com/card-shows.html#s-mega-show-113-2026-12-05
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ec3con-2026-11-28@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261128T150000Z
+DTEND:20261128T230000Z
+SUMMARY:EC3CON: East Coast Collectibles Convention
+LOCATION:Earth Expo Center\, Mohegan Sun\, 1 Mohegan Sun Blvd\, Uncasville
+ \, CT 06382
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-ec3con-2026-11-28
+URL:https://garbagerips.com/card-shows.html#s-ec3con-2026-11-28
+END:VEVENT
+BEGIN:VEVENT
+UID:ec3con-2026-11-29@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261129T150000Z
+DTEND:20261129T210000Z
+SUMMARY:EC3CON: East Coast Collectibles Convention
+LOCATION:Earth Expo Center\, Mohegan Sun\, 1 Mohegan Sun Blvd\, Uncasville
+ \, CT 06382
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-ec3con-2026-11-28
+URL:https://garbagerips.com/card-shows.html#s-ec3con-2026-11-28
+END:VEVENT
+END:VCALENDAR

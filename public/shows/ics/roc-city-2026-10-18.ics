@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:roc-city-2026-10-18@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART;VALUE=DATE:20261018
+DTEND;VALUE=DATE:20261019
+SUMMARY:Roc City Card Show
+LOCATION:Basketball Plus\, 465 W Commercial St\, East Rochester\, NY 14445
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-roc-city-2026-10-18
+URL:https://garbagerips.com/card-shows.html#s-roc-city-2026-10-18
+END:VEVENT
+END:VCALENDAR

@@ -251,7 +251,12 @@ def flyers() -> None:
     for m in masters:
         im = ImageOps.exif_transpose(Image.open(m)).convert("RGB")
         w, h = im.size
-        for label, tw in (("", THUMB_W), ("-full", FULL_W)):
+        # "-280" ADDED 8 October 2026 for the card redesign: the card's flyer
+        # is a 64px thumbnail in its header and a 150px tile in the weekend
+        # strip now, so a DPR 1.75 or 2 phone needs 112 to 300 device pixels,
+        # and 440w was twice that. Measured over six flyers at the shipped
+        # quality: 440w 381KB, 280w 198KB. DPR 3 still takes the 440w.
+        for label, tw in (("", THUMB_W), ("-280", 280), ("-full", FULL_W)):
             tw = min(tw, w)
             th = max(1, round(tw * h / w))
             small = im.resize((tw, th), Image.LANCZOS)

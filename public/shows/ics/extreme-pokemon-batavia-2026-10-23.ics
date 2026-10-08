@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:extreme-pokemon-batavia-2026-10-23@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART;VALUE=DATE:20261023
+DTEND;VALUE=DATE:20261024
+SUMMARY:Extreme Pokemon Show
+LOCATION:Quality Inn\, 8250 Park Rd\, Batavia\, NY 14020
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-extreme-pokemon-batavia-2026-10-23
+URL:https://garbagerips.com/card-shows.html#s-extreme-pokemon-batavia-2026-
+ 10-23
+END:VEVENT
+BEGIN:VEVENT
+UID:extreme-pokemon-batavia-2026-10-24@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261024T140000Z
+DTEND:20261024T210000Z
+SUMMARY:Extreme Pokemon Show
+LOCATION:Quality Inn\, 8250 Park Rd\, Batavia\, NY 14020
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-extreme-pokemon-batavia-2026-10-23
+URL:https://garbagerips.com/card-shows.html#s-extreme-pokemon-batavia-2026-
+ 10-23
+END:VEVENT
+END:VCALENDAR

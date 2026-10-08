@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:rocpokecon-2027-03-06@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART;VALUE=DATE:20270306
+DTEND;VALUE=DATE:20270307
+SUMMARY:RocPokéCon
+LOCATION:Gordon Field House at RIT\, 149 Lomb Memorial Drive\, Rochester\, 
+ NY 14623
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-rocpokecon-2027-03-06
+URL:https://garbagerips.com/card-shows.html#s-rocpokecon-2027-03-06
+END:VEVENT
+END:VCALENDAR

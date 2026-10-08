@@ -585,7 +585,7 @@ const getListed = ({ noun, one, fields, emailFields, sends, asset, subject }) =>
       link and an upload for your ${esc(asset)} and flyers. There is no fee and no application, and email or a DM works
       just as well. This list is short because nobody has been asked, not because anybody was turned down.</p>
     <p class="btn-row" style="margin:var(--s4) 0 var(--s2)">
-      <a class="btn btn-sky btn-sm" href="${esc(LISTING_FORM)}" rel="noopener" target="_blank">Fill out the form</a>
+      <a class="btn btn-sky btn-sm" href="${esc(LISTING_FORM)}" rel="noopener" target="_blank" aria-label="Fill out the form to get listed, our Google Form, opens on forms.gle">Fill out the form</a>
       ${/* SHORT LABELS IN THE BODY, NOT THE PROSE FROM THE BULLET ABOVE. The
             first version appended a colon to each `fields` sentence and produced
             "What you carry: singles, sealed, graded, all of it:" -- a line with

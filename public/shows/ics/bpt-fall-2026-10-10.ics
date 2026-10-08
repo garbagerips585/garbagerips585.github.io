@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:bpt-fall-2026-10-10@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261010T140000Z
+DTEND:20261010T210000Z
+SUMMARY:Buffalo Prime Time Fall Sports & TCG Show
+LOCATION:Kiernan Recreation Center\, Niagara University\, 17 University Dr
+ \, Niagara University\, NY 14109
+DESCRIPTION:Admission: $5\, under 12 free\nDetails: https://garbagerips.com
+ /card-shows.html#s-bpt-fall-2026-10-10
+URL:https://garbagerips.com/card-shows.html#s-bpt-fall-2026-10-10
+END:VEVENT
+BEGIN:VEVENT
+UID:bpt-fall-2026-10-11@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261011T140000Z
+DTEND:20261011T190000Z
+SUMMARY:Buffalo Prime Time Fall Sports & TCG Show
+LOCATION:Kiernan Recreation Center\, Niagara University\, 17 University Dr
+ \, Niagara University\, NY 14109
+DESCRIPTION:Admission: $5\, under 12 free\nDetails: https://garbagerips.com
+ /card-shows.html#s-bpt-fall-2026-10-10
+URL:https://garbagerips.com/card-shows.html#s-bpt-fall-2026-10-10
+END:VEVENT
+END:VCALENDAR

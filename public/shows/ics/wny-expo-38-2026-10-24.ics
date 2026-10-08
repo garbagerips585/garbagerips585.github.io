@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:wny-expo-38-2026-10-24@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261024T150000Z
+DTEND:20261024T210000Z
+SUMMARY:The Ultimate Collectibles Show
+LOCATION:McKinley Mall\, 3701 McKinley Pkwy\, Blasdell\, NY 14219
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-wny-expo-38-2026-10-24
+URL:https://garbagerips.com/card-shows.html#s-wny-expo-38-2026-10-24
+END:VEVENT
+BEGIN:VEVENT
+UID:wny-expo-38-2026-10-25@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261025T150000Z
+DTEND:20261025T210000Z
+SUMMARY:The Ultimate Collectibles Show
+LOCATION:McKinley Mall\, 3701 McKinley Pkwy\, Blasdell\, NY 14219
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-wny-expo-38-2026-10-24
+URL:https://garbagerips.com/card-shows.html#s-wny-expo-38-2026-10-24
+END:VEVENT
+END:VCALENDAR

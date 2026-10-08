@@ -1,0 +1,28 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:the-big-show-2026-10-16@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261016T170000Z
+DTEND:20261016T230000Z
+SUMMARY:The Big Show
+LOCATION:Pittsburgh Event Center\, 232 Wise Road\, Harmony\, PA 16037
+DESCRIPTION:Admission: $5\, VIP $12 from 1pm\nDetails: https://garbagerips.
+ com/card-shows.html#s-the-big-show-2026-10-16
+URL:https://garbagerips.com/card-shows.html#s-the-big-show-2026-10-16
+END:VEVENT
+BEGIN:VEVENT
+UID:the-big-show-2026-10-17@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261017T130000Z
+DTEND:20261017T200000Z
+SUMMARY:The Big Show
+LOCATION:Pittsburgh Event Center\, 232 Wise Road\, Harmony\, PA 16037
+DESCRIPTION:Admission: $5\, VIP $12 from 9am\nDetails: https://garbagerips.
+ com/card-shows.html#s-the-big-show-2026-10-16
+URL:https://garbagerips.com/card-shows.html#s-the-big-show-2026-10-16
+END:VEVENT
+END:VCALENDAR

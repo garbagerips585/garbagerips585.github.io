@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:locks-lockport-2026-12-12@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261212T160000Z
+DTEND:20261212T210000Z
+SUMMARY:Collectibles at the Locks
+LOCATION:Three Ws TCG & More\, 54 Pine St\, Lockport\, NY 14094
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-locks-lockport-2026-12-12
+URL:https://garbagerips.com/card-shows.html#s-locks-lockport-2026-12-12
+END:VEVENT
+END:VCALENDAR

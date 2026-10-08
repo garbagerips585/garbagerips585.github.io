@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:collectorfest-jcc-2026-12-13@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261213T150000Z
+DTEND:20261213T190000Z
+SUMMARY:CollectorFest Monthly
+LOCATION:Louis S. Wolk JCC of Greater Rochester\, 1200 Edgewood Ave\, Roche
+ ster\, NY 14618
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-collectorfest-jcc-2026-12-13
+URL:https://garbagerips.com/card-shows.html#s-collectorfest-jcc-2026-12-13
+END:VEVENT
+END:VCALENDAR

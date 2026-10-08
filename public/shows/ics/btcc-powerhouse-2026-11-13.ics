@@ -1,0 +1,39 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:btcc-powerhouse-2026-11-13@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261113T220000Z
+DTEND:20261114T020000Z
+SUMMARY:Buffalo Trading Card Con
+LOCATION:The Powerhouse\, 140 Lee Street\, Buffalo\, NY 14210
+DESCRIPTION:Admission: $5 general\, cash only at the door\nDetails: https:/
+ /garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+URL:https://garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+END:VEVENT
+BEGIN:VEVENT
+UID:btcc-powerhouse-2026-11-14@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261114T150000Z
+DTEND:20261114T220000Z
+SUMMARY:Buffalo Trading Card Con
+LOCATION:The Powerhouse\, 140 Lee Street\, Buffalo\, NY 14210
+DESCRIPTION:Admission: $5 general\, cash only at the door\nDetails: https:/
+ /garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+URL:https://garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+END:VEVENT
+BEGIN:VEVENT
+UID:btcc-powerhouse-2026-11-15@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261115T150000Z
+DTEND:20261115T210000Z
+SUMMARY:Buffalo Trading Card Con
+LOCATION:The Powerhouse\, 140 Lee Street\, Buffalo\, NY 14210
+DESCRIPTION:Admission: $5 general\, cash only at the door\nDetails: https:/
+ /garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+URL:https://garbagerips.com/card-shows.html#s-btcc-powerhouse-2026-11-13
+END:VEVENT
+END:VCALENDAR

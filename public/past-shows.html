@@ -23,20 +23,21 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=5963e9a7"><style data-pcss>.show-mon-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s4);
+<link rel="stylesheet" href="/assets/ui.css?v=182022df"><style data-pcss>.show-mon-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s4);
   padding-bottom:6px;border-bottom:3px solid var(--keyline)}.show-when{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-width:58px;padding:8px 10px;background:var(--band-bg);color:var(--chrome-ink);
-  border-radius:var(--r-sm);
-}.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}.show-day{font:400 1.6rem/1 var(--display);margin-top:2px}.show-body{min-width:0}.show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink-2);margin-top:4px}.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}.show-where a .show-venue{text-decoration:underline}.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}.show-h{display:flex;align-items:center;gap:10px}.show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.show-flyer{display:block;background:var(--paper-3);border:2px solid var(--keyline);
-  padding:0;margin-top:var(--s4);margin-inline:auto;cursor:pointer;
-  border-radius:var(--r-sm);overflow:hidden;position:relative;width:100%;max-width:220px}.show-flyer-hint{display:block;margin-top:6px;font:400 var(--t-micro)/1.4 var(--body);color:var(--ink-2)}.img-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
+  width:52px;padding:7px 0;background:var(--band-bg);color:var(--chrome-ink);
+  border-radius:var(--r-sm);text-align:center
+}.show-wd{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--chrome-ink)}.show-day{font:400 1.5rem/1 var(--display);margin:3px 0 2px}.show-meta{font:700 .8125rem/1.45 var(--mono);letter-spacing:.02em;
+  text-transform:uppercase;color:var(--ink);margin-top:5px}.show-meta > span + span::before{content:"\00a0\00b7\00a0";color:var(--ink-2)}.show-price{color:var(--ketchup-deep)}.show-price.is-none{color:var(--ink-2)}.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}.show-where a .show-venue{text-decoration:underline}.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}.show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.show-flyer{display:block;background:var(--paper-3);border:2px solid var(--keyline);
+  padding:0;margin:0;cursor:zoom-in;
+  border-radius:var(--r-sm);overflow:hidden;position:relative;width:64px}.img-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
   display:flex;align-items:center;justify-content:center;padding:var(--s4)}.img-lb[hidden]{display:none}.img-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
   border:1px solid var(--hair);background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}.show-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);
-  margin-top:10px;max-width:52em}.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}.show-flyer{grid-column:1 / -1}@media(max-width:719px){.show-flyer{margin-top:6px;max-width:140px}}@media(min-width:720px){.show-flyer{grid-column:3;align-self:start}}.tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}.tier-name{font-weight:600;font-size:var(--t-sm)}.tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
-  letter-spacing:.04em}.tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}@media(max-width:719px){.tier-note{line-height:1.35}}@media(min-width:720px){.show:has(.show-flyer){grid-template-columns:auto 1fr 220px}.show-logo{width:80px;height:80px}}.show-vend{margin-top:var(--s3);background:var(--paper);border:1px solid var(--hair);
+  margin-top:10px;max-width:52em}.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}.tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}.tier-name{font-weight:600;font-size:var(--t-sm)}.tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
+  letter-spacing:.04em}.tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}@media(max-width:719px){.tier-note{line-height:1.35}}.show-top{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start}.show-flyer{float:right;margin:0 0 8px 12px}.show-head{min-width:0}.show-flyer-tag{position:absolute;left:0;right:0;bottom:0;background:rgba(9,18,13,.82);color:var(--chrome-ink);
+  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 0;text-align:center}.show-org{display:flex;align-items:center;gap:10px;margin-top:8px}.show-org .show-where{margin:0;min-width:0;flex:1 1 auto}.show-org .show-logo{width:44px;height:44px}.show-links{gap:6px var(--s4)}@media(min-width:720px){.show-top{grid-template-columns:64px minmax(0,1fr);gap:var(--s4)}.show-when{width:64px}.show-flyer{width:120px}}.show-vend{margin-top:var(--s3);background:var(--paper);border:1px solid var(--hair);
   border-radius:var(--r-sm);padding:10px 12px}.show-vend-h{font:700 var(--t-micro)/1 var(--mono);text-transform:uppercase;
   letter-spacing:.08em;color:var(--ink-2);margin:0 0 8px}.show-vend-l{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:10px 18px}.sv-link{display:flex;align-items:center;gap:9px;min-width:0;min-height:44px;
   text-decoration:none}.sv-link:hover .sv-id,.sv-link:focus-visible .sv-id{text-decoration:underline}.sv-logo{flex:none;width:34px;border-radius:var(--r-sm);overflow:hidden;
@@ -193,92 +194,82 @@
   <div id="showList">
     <div class="show-month" data-month="2026-10">
       <h2 class="show-mon-h">October 2026</h2>
-      <article class="show" data-region="buffalo" data-date="2026-10-04" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">4</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-10-04">
           
-          <div class="show-h"><h3>Collectibles at the Locks</h3></div>
-          <p class="show-meta">Sunday &bull; 11am to 4pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=54%20Pine%20St%2C%20Lockport%2C%20NY%2014094" data-map-apple="https://maps.apple.com/?q=54%20Pine%20St%2C%20Lockport%2C%20NY%2014094" rel="noopener" target="_blank" aria-label="Three Ws TCG &amp; More, 54 Pine St, Lockport, NY 14094, where Collectibles at the Locks, October 4, 2026 is held, opens on google.com"><span class="show-venue">Three Ws TCG &amp; More</span><span class="show-addr">54 Pine St, Lockport, NY 14094</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">4</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Collectibles at the Locks<span class="sr-only">, Sunday, October 4</span></h3>
+            <p class="show-meta"><span>11am to 4pm</span><span class="show-town">Lockport</span><span class="show-price">Free</span></p>
           </div>
-          
-          
-          
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=54%20Pine%20St%2C%20Lockport%2C%20NY%2014094" data-map-apple="https://maps.apple.com/?q=54%20Pine%20St%2C%20Lockport%2C%20NY%2014094" rel="noopener" target="_blank" aria-label="Three Ws TCG &amp; More, 54 Pine St, Lockport, NY 14094, where Collectibles at the Locks, October 4, 2026 is held, opens on google.com"><span class="show-venue">Three Ws TCG &amp; More</span><span class="show-addr">54 Pine St, Lockport, NY 14094</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
           
           
           
         </div>
-        
+          
+          
+          
+          
+          
+          
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-10-04" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">4</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-10-04">
           
-          <div class="show-h"><h3>Sports Card, Collectibles &amp; TCG Super Show</h3></div>
-          <p class="show-meta">Sunday &bull; 11am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 4, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">4</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            <span class="chip drive">Drive: about 2 hours from Buffalo</span>
-            <span class="chip">Free</span>
-            <span class="chip">200+ tables</span>
+            <h3>Sports Card, Collectibles &amp; TCG Super Show<span class="sr-only">, Sunday, October 4</span></h3>
+            <p class="show-meta"><span>11am to 3pm</span><span class="show-town">Erie</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 4, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          <span class="chip drive">Drive: about 2 hours from Buffalo</span>
+          <span class="chip">200+ tables</span>
+          
+        </div>
           <p class="show-blurb">The last day, and it is the SHORT one: doors 11am and everything is over at 3pm, four hours earlier than the Saturday. Worth knowing before a two and a half hour drive.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-millcreek-mall-2026-10-04">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-04"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-04"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
           </div>
           
           <p class="show-links">
             
             
             <a href="https://pittsburghcardshow.com" rel="noopener" target="_blank" aria-label="Pittsburgh Card Show, who run Sports Card, Collectibles &amp; TCG Super Show, October 4, 2026, opens on pittsburghcardshow.com">Pittsburgh Card Show</a>
-            <a href="tel:+17245574635" aria-label="Call or text Pittsburgh Card Show about Sports Card, Collectibles &amp; TCG Super Show, October 4, 2026 on 724-557-4635">Call or text 724-557-4635</a>
+            <a href="tel:+17245574635" aria-label="Call or text 724-557-4635, Pittsburgh Card Show, about Sports Card, Collectibles &amp; TCG Super Show, October 4, 2026">Call or text 724-557-4635</a>
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc" data-date="2026-10-04">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">4</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-10-04">
           
-          <div class="show-h"><h3>Roc City Card Show</h3></div>
-          <p class="show-meta">Sunday</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" data-map-apple="https://maps.apple.com/?q=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" rel="noopener" target="_blank" aria-label="Basketball Plus, 465 W Commercial St, East Rochester, NY 14445, where Roc City Card Show, October 4, 2026 is held, opens on google.com"><span class="show-venue">Basketball Plus</span><span class="show-addr">465 W Commercial St, East Rochester, NY 14445</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">4</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            
+            <h3>Roc City Card Show<span class="sr-only">, Sunday, October 4</span></h3>
+            <p class="show-meta"><span>Hours not published</span><span class="show-town">East Rochester</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" data-map-apple="https://maps.apple.com/?q=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" rel="noopener" target="_blank" aria-label="Basketball Plus, 465 W Commercial St, East Rochester, NY 14445, where Roc City Card Show, October 4, 2026 is held, opens on google.com"><span class="show-venue">Basketball Plus</span><span class="show-addr">465 W Commercial St, East Rochester, NY 14445</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">The Roc City Card Show back at Basketball Plus in East Rochester.</p>
           
           
@@ -288,29 +279,28 @@
           </div>
           
           
-        </div>
-        
       </article>
-      <article class="show" data-region="roc buffalo" data-date="2026-10-03" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">3</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>Batavia Sports Card, Toys &amp; Collectible Show</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-10-03">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/batavia-scts-monthly-full.jpg" data-imglb-avif="/assets/shows/batavia-scts-monthly-full.avif" data-imglb-alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/batavia-scts-monthly-280.avif 280w, /assets/shows/batavia-scts-monthly.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/batavia-scts-monthly-280.jpg" srcset="/assets/shows/batavia-scts-monthly-280.jpg 280w, /assets/shows/batavia-scts-monthly.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026. Opens larger" width="440" height="503" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">3</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Batavia Sports Card, Toys &amp; Collectible Show<span class="sr-only">, Saturday, October 3</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Batavia</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.</p>
           
           
@@ -323,153 +313,132 @@
             
             
             <a href="https://jcsportscollectibles.com" rel="noopener" target="_blank" aria-label="Jen Oberlies, JC's Cards and Collectibles, who run Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026, opens on jcsportscollectibles.com">Jen Oberlies, JC's Cards and Collectibles</a>
-            <a href="tel:+15853530834" aria-label="Call or text Jen Oberlies, JC's Cards and Collectibles about Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026 on 585-353-0834">Call or text 585-353-0834</a>
+            <a href="tel:+15853530834" aria-label="Call or text 585-353-0834, Jen Oberlies, JC's Cards and Collectibles, about Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026">Call or text 585-353-0834</a>
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/batavia-scts-monthly-full.jpg" data-imglb-avif="/assets/shows/batavia-scts-monthly-full.avif" data-imglb-alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/batavia-scts-monthly.avif">
-          <img src="/assets/shows/batavia-scts-monthly.jpg" alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, October 3, 2026" width="440" height="503" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-10-03" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">3</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-10-03">
           
-          <div class="show-h"><h3>Sports Card, Collectibles &amp; TCG Super Show</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 7pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 3, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">3</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            <span class="chip drive">Drive: about 2 hours from Buffalo</span>
-            <span class="chip">Free</span>
-            <span class="chip">200+ tables</span>
+            <h3>Sports Card, Collectibles &amp; TCG Super Show<span class="sr-only">, Saturday, October 3</span></h3>
+            <p class="show-meta"><span>10am to 7pm</span><span class="show-town">Erie</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 3, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          <span class="chip drive">Drive: about 2 hours from Buffalo</span>
+          <span class="chip">200+ tables</span>
+          
+        </div>
           <p class="show-blurb">The full Saturday, and the longest of the three days at nine hours. 200+ tables across the Center and Macy's Courts, free entry and free parking.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-millcreek-mall-2026-10-03">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-03"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-03"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
           </div>
           
           <p class="show-links">
             
             
             <a href="https://pittsburghcardshow.com" rel="noopener" target="_blank" aria-label="Pittsburgh Card Show, who run Sports Card, Collectibles &amp; TCG Super Show, October 3, 2026, opens on pittsburghcardshow.com">Pittsburgh Card Show</a>
-            <a href="tel:+17245574635" aria-label="Call or text Pittsburgh Card Show about Sports Card, Collectibles &amp; TCG Super Show, October 3, 2026 on 724-557-4635">Call or text 724-557-4635</a>
+            <a href="tel:+17245574635" aria-label="Call or text 724-557-4635, Pittsburgh Card Show, about Sports Card, Collectibles &amp; TCG Super Show, October 3, 2026">Call or text 724-557-4635</a>
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-10-02" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Oct</span>
-          <span class="show-day">2</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-10-02">
           
-          <div class="show-h"><h3>Sports Card, Collectibles &amp; TCG Super Show</h3></div>
-          <p class="show-meta">Friday &bull; 11am to 7pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 2, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Fri</span><span class="show-day">2</span><span class="show-mon">Oct</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            <span class="chip drive">Drive: about 2 hours from Buffalo</span>
-            <span class="chip">Free</span>
-            <span class="chip">200+ tables</span>
+            <h3>Sports Card, Collectibles &amp; TCG Super Show<span class="sr-only">, Friday, October 2</span></h3>
+            <p class="show-meta"><span>11am to 7pm</span><span class="show-town">Erie</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" data-map-apple="https://maps.apple.com/?q=5800%20Peach%20St%2C%20Erie%2C%20PA%2016565" rel="noopener" target="_blank" aria-label="Millcreek Mall, Center and Macy's Courts, 5800 Peach St, Erie, PA 16565, where Sports Card, Collectibles &amp; TCG Super Show, October 2, 2026 is held, opens on google.com"><span class="show-venue">Millcreek Mall, Center and Macy's Courts</span><span class="show-addr">5800 Peach St, Erie, PA 16565</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          <span class="chip drive">Drive: about 2 hours from Buffalo</span>
+          <span class="chip">200+ tables</span>
+          
+        </div>
           <p class="show-blurb">The Friday opening of a three day show in the mall's Center and Macy's Courts, 200+ tables. Free to get in and free to park. Sports, Pokemon, One Piece and TCG.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-millcreek-mall-2026-10-02">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-02"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-millcreek-mall-2026-10-02"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li></ul>
           </div>
           
           <p class="show-links">
             
             
             <a href="https://pittsburghcardshow.com" rel="noopener" target="_blank" aria-label="Pittsburgh Card Show, who run Sports Card, Collectibles &amp; TCG Super Show, October 2, 2026, opens on pittsburghcardshow.com">Pittsburgh Card Show</a>
-            <a href="tel:+17245574635" aria-label="Call or text Pittsburgh Card Show about Sports Card, Collectibles &amp; TCG Super Show, October 2, 2026 on 724-557-4635">Call or text 724-557-4635</a>
+            <a href="tel:+17245574635" aria-label="Call or text 724-557-4635, Pittsburgh Card Show, about Sports Card, Collectibles &amp; TCG Super Show, October 2, 2026">Call or text 724-557-4635</a>
           </p>
-        </div>
-        
       </article>
     </div>
     <div class="show-month" data-month="2026-09">
       <h2 class="show-mon-h">September 2026</h2>
-      <article class="show" data-region="roc" data-date="2026-09-27" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">27</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>CollectorFest Monthly</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 2pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" data-map-apple="https://maps.apple.com/?q=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" rel="noopener" target="_blank" aria-label="Louis S. Wolk JCC of Greater Rochester, 1200 Edgewood Ave, Rochester, NY 14618, where CollectorFest Monthly, September 27, 2026 is held, opens on google.com"><span class="show-venue">Louis S. Wolk JCC of Greater Rochester</span><span class="show-addr">1200 Edgewood Ave, Rochester, NY 14618</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-27">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorfest-jcc-2026-09-27-full.jpg" data-imglb-avif="/assets/shows/collectorfest-jcc-2026-09-27-full.avif" data-imglb-alt="Flyer for CollectorFest Monthly, September 27, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/collectorfest-jcc-2026-09-27-280.avif 280w, /assets/shows/collectorfest-jcc-2026-09-27.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/collectorfest-jcc-2026-09-27-280.jpg" srcset="/assets/shows/collectorfest-jcc-2026-09-27-280.jpg 280w, /assets/shows/collectorfest-jcc-2026-09-27.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for CollectorFest Monthly, September 27, 2026. Opens larger" width="440" height="569" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">27</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            <span class="chip">72 tables</span>
+            <h3>CollectorFest Monthly<span class="sr-only">, Sunday, September 27</span></h3>
+            <p class="show-meta"><span>10am to 2pm</span><span class="show-town">Rochester, NY</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" data-map-apple="https://maps.apple.com/?q=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" rel="noopener" target="_blank" aria-label="Louis S. Wolk JCC of Greater Rochester, 1200 Edgewood Ave, Rochester, NY 14618, where CollectorFest Monthly, September 27, 2026 is held, opens on google.com"><span class="show-venue">Louis S. Wolk JCC of Greater Rochester</span><span class="show-addr">1200 Edgewood Ave, Rochester, NY 14618</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">72 tables</span>
+          
+        </div>
           <p class="show-blurb">Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-collectorfest-jcc-2026-09-27">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-collectorfest-jcc-2026-09-27"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/legends-card-shop-400.avif 400w" sizes="34px"><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-collectorfest-jcc-2026-09-27"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
           </div>
           
           <p class="show-links">
             
             <a href="https://collectorfestmonthly.com" rel="noopener" target="_blank" aria-label="Official site for CollectorFest Monthly, September 27, 2026, opens on collectorfestmonthly.com">Official site</a>
             
-            <a href="tel:+15854146726" aria-label="Call or text Ernie Orlando, Ernie's Cards about CollectorFest Monthly, September 27, 2026 on (585) 414-6726">Call or text (585) 414-6726</a>
+            <a href="tel:+15854146726" aria-label="Call or text (585) 414-6726, Ernie Orlando, Ernie's Cards, about CollectorFest Monthly, September 27, 2026">Call or text (585) 414-6726</a>
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorfest-jcc-2026-09-27-full.jpg" data-imglb-avif="/assets/shows/collectorfest-jcc-2026-09-27-full.avif" data-imglb-alt="Flyer for CollectorFest Monthly, September 27, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/collectorfest-jcc-2026-09-27.avif">
-          <img src="/assets/shows/collectorfest-jcc-2026-09-27.jpg" alt="Flyer for CollectorFest Monthly, September 27, 2026" width="440" height="569" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-27">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">27</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-27">
           
-          <div class="show-h"><h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend</h3></div>
-          <p class="show-meta">Sunday &bull; 8am to 6pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 27, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">27</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk-un">Pokemon not confirmed</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            
+            <h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend<span class="sr-only">, Sunday, September 27</span></h3>
+            <p class="show-meta"><span>8am to 6pm</span><span class="show-town">Niagara Falls</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 27, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-un">Pokemon not confirmed</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.</p>
           
           <p class="show-warn">Confirm the venue before you go. The organizer's weekend page, which this listing's venue and hours were read from, has come down, and its new event listings now say Venue TBA.</p>
@@ -481,61 +450,56 @@
             <a href="https://www.excaliburevents.net" rel="noopener" target="_blank" aria-label="Excalibur Events, LLC, who run Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 27, 2026, opens on excaliburevents.net">Excalibur Events, LLC</a>
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc buffalo" data-date="2026-09-26" data-pokemon="1" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">26</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-26">
           
-          <div class="show-h"><h3>Extreme Pokemon Show</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 5pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Extreme Pokemon Show, September 26, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">26</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon show</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Extreme Pokemon Show<span class="sr-only">, Saturday, September 26</span></h3>
+            <p class="show-meta"><span>10am to 5pm</span><span class="show-town">Batavia</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Extreme Pokemon Show, September 26, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk">Pokemon show</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">An all Pokemon show at the Batavia Quality Inn, free in, with food on site.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-extreme-pokemon-batavia-2026-09-26">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-extreme-pokemon-batavia-2026-09-26"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-roc-tcg" aria-label="ROC_TCG, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/roc-tcg-200.avif 200w, /assets/creators/roc-tcg-400.avif 400w" sizes="34px"><img src="/assets/creators/roc-tcg-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/roc-tcg-200.webp 200w, /assets/creators/roc-tcg-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">ROC_TCG</span></a><span class="sv-src">Slabs, raw cards and sealed, in person at shows</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-extreme-pokemon-batavia-2026-09-26"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-roc-tcg" aria-label="ROC_TCG, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/roc-tcg-200.avif 200w, /assets/creators/roc-tcg-400.avif 400w" sizes="34px"><img src="/assets/creators/roc-tcg-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/roc-tcg-200.webp 200w, /assets/creators/roc-tcg-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">ROC_TCG</span></a><span class="sv-src">Slabs, raw cards and sealed, in person at shows</span></li></ul>
           </div>
           
           
-        </div>
-        
       </article>
-      <article class="show" data-region="syracuse" data-date="2026-09-26">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">26</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>1st Annual Fall Fest</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=4980%20NY-233%2C%20Westmoreland%2C%20NY%2013490" data-map-apple="https://maps.apple.com/?q=4980%20NY-233%2C%20Westmoreland%2C%20NY%2013490" rel="noopener" target="_blank" aria-label="Elevate CNY Sports Complex, 4980 NY-233, Westmoreland, NY 13490, where 1st Annual Fall Fest, September 26, 2026 is held, opens on google.com"><span class="show-venue">Elevate CNY Sports Complex</span><span class="show-addr">4980 NY-233, Westmoreland, NY 13490</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-26">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/fall-fest-2026-09-26-full.jpg" data-imglb-avif="/assets/shows/fall-fest-2026-09-26-full.avif" data-imglb-alt="Flyer for 1st Annual Fall Fest, September 26, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/fall-fest-2026-09-26-280.avif 280w, /assets/shows/fall-fest-2026-09-26.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/fall-fest-2026-09-26-280.jpg" srcset="/assets/shows/fall-fest-2026-09-26-280.jpg 280w, /assets/shows/fall-fest-2026-09-26.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for 1st Annual Fall Fest, September 26, 2026. Opens larger" width="440" height="665" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">26</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            
-            <span class="chip">100 tables</span>
+            <h3>1st Annual Fall Fest<span class="sr-only">, Saturday, September 26</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Westmoreland</span><span class="show-price">$2</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=4980%20NY-233%2C%20Westmoreland%2C%20NY%2013490" data-map-apple="https://maps.apple.com/?q=4980%20NY-233%2C%20Westmoreland%2C%20NY%2013490" rel="noopener" target="_blank" aria-label="Elevate CNY Sports Complex, 4980 NY-233, Westmoreland, NY 13490, where 1st Annual Fall Fest, September 26, 2026 is held, opens on google.com"><span class="show-venue">Elevate CNY Sports Complex</span><span class="show-addr">4980 NY-233, Westmoreland, NY 13490</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">100 tables</span>
+          
+        </div>
           <p class="show-blurb">A first year show, and the flyer says 100 tables are expected rather than booked.</p>
           <ul class="tiers">
             <li>
@@ -553,33 +517,25 @@
           
           
           
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/fall-fest-2026-09-26-full.jpg" data-imglb-avif="/assets/shows/fall-fest-2026-09-26-full.avif" data-imglb-alt="Flyer for 1st Annual Fall Fest, September 26, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/fall-fest-2026-09-26.avif">
-          <img src="/assets/shows/fall-fest-2026-09-26.jpg" alt="Flyer for 1st Annual Fall Fest, September 26, 2026" width="440" height="665" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-26">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">26</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-26">
           
-          <div class="show-h"><h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend</h3></div>
-          <p class="show-meta">Saturday &bull; 8am to 9pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 26, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">26</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk-un">Pokemon not confirmed</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            
+            <h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend<span class="sr-only">, Saturday, September 26</span></h3>
+            <p class="show-meta"><span>8am to 9pm</span><span class="show-town">Niagara Falls</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 26, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-un">Pokemon not confirmed</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.</p>
           
           <p class="show-warn">Confirm the venue before you go. The organizer's weekend page, which this listing's venue and hours were read from, has come down, and its new event listings now say Venue TBA.</p>
@@ -591,29 +547,25 @@
             <a href="https://www.excaliburevents.net" rel="noopener" target="_blank" aria-label="Excalibur Events, LLC, who run Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 26, 2026, opens on excaliburevents.net">Excalibur Events, LLC</a>
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-25">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">25</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-25">
           
-          <div class="show-h"><h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend</h3></div>
-          <p class="show-meta">Friday &bull; 3pm to 9pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 25, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Fri</span><span class="show-day">25</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk-un">Pokemon not confirmed</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            
+            <h3>Excalibur Events: Niagara Falls Premodern/Pauper Weekend<span class="sr-only">, Friday, September 25</span></h3>
+            <p class="show-meta"><span>3pm to 9pm</span><span class="show-town">Niagara Falls</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" data-map-apple="https://maps.apple.com/?q=101%20Old%20Falls%20St%2C%20Niagara%20Falls%2C%20NY%2014303" rel="noopener" target="_blank" aria-label="Niagara Falls Convention Center, 101 Old Falls St, Niagara Falls, NY 14303, where Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 25, 2026 is held, opens on google.com"><span class="show-venue">Niagara Falls Convention Center</span><span class="show-addr">101 Old Falls St, Niagara Falls, NY 14303</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-un">Pokemon not confirmed</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">The Friday is the vendor evening rather than a tournament day: the hall is open 3pm to 9pm and the mains do not start until Saturday. A collector on r/Buffalo, who found these hours, cautions that there is no guarantee every vendor is set up that night and suggests asking Card Garden or Rochester CCG first. A Magic: The Gathering tournament weekend, not a walk-in card show, and it is here because of the vendor hall: Card Garden, Rochester CCG, The Mana Mart and The Slaughterhouse Games are all listed. Playing costs $90 for the Premodern main and $70 for the Legacy. Excalibur publish no price for walking in just to browse, so check before you drive.</p>
           
           <p class="show-warn">Confirm the venue before you go. The organizer's weekend page, which this listing's venue and hours were read from, has come down, and its new event listings now say Venue TBA.</p>
@@ -625,107 +577,93 @@
             <a href="https://www.excaliburevents.net" rel="noopener" target="_blank" aria-label="Excalibur Events, LLC, who run Excalibur Events: Niagara Falls Premodern/Pauper Weekend, September 25, 2026, opens on excaliburevents.net">Excalibur Events, LLC</a>
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc buffalo" data-date="2026-09-23" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">23</span>
+      <article class="show" data-date="2026-09-23">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/585cardz-batavia-monthly-full.jpg" data-imglb-avif="/assets/shows/585cardz-batavia-monthly-full.avif" data-imglb-alt="Flyer for 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/585cardz-batavia-monthly-280.avif 280w, /assets/shows/585cardz-batavia-monthly.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/585cardz-batavia-monthly-280.jpg" srcset="/assets/shows/585cardz-batavia-monthly-280.jpg 280w, /assets/shows/585cardz-batavia-monthly.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026. Opens larger" width="440" height="656" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Wed</span><span class="show-day">23</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
+            
+            <h3>585Cardz Batavia Card &amp; Collectibles Show<span class="sr-only">, Wednesday, September 23</span></h3>
+            <p class="show-meta"><span>4pm to 8pm</span><span class="show-town">Batavia</span><span class="show-price">Free</span></p>
+          </div>
         </div>
-        <div class="show-body">
-          
-          <div class="show-h"><button type="button" class="show-logo" aria-label="Enlarge the 585Cardz logo" data-imglb="/assets/shows/585cardz-lg.webp" data-imglb-avif="/assets/shows/585cardz-lg.avif" data-imglb-alt="585Cardz logo"><picture>
+        <div class="show-org"><button type="button" class="show-logo" aria-label="Enlarge the 585Cardz logo" data-imglb="/assets/shows/585cardz-lg.webp" data-imglb-avif="/assets/shows/585cardz-lg.avif" data-imglb-alt="585Cardz logo"><picture>
             <source type="image/avif" srcset="/assets/shows/585cardz-200.avif 200w, /assets/shows/585cardz-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
             <img src="/assets/shows/585cardz-200.webp" alt="585Cardz Batavia Card &amp; Collectibles Show logo" width="200" height="178" loading="lazy" decoding="async" srcset="/assets/shows/585cardz-200.webp 200w, /assets/shows/585cardz-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
-          </picture></button><h3>585Cardz Batavia Card &amp; Collectibles Show</h3></div>
-          <p class="show-meta">Wednesday &bull; 4pm to 8pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p>
-          <div class="show-tags">
-            
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
-          </div>
+          </picture></button><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A weeknight show, and almost everything else on this page is a weekend. If your Saturdays and Sundays are already spoken for, this is the one that fits.</p>
           
           
           
           
           
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/585cardz-batavia-monthly-full.jpg" data-imglb-avif="/assets/shows/585cardz-batavia-monthly-full.avif" data-imglb-alt="Flyer for 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/585cardz-batavia-monthly.avif">
-          <img src="/assets/shows/585cardz-batavia-monthly.jpg" alt="Flyer for 585Cardz Batavia Card &amp; Collectibles Show, September 23, 2026" width="440" height="656" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-20" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">20</span>
+      <article class="show" data-date="2026-09-20">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/cold-front-2026-09-20-full.jpg" data-imglb-avif="/assets/shows/cold-front-2026-09-20-full.avif" data-imglb-alt="Flyer for Cold Front Cards Show, September 20, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/cold-front-2026-09-20-280.avif 280w, /assets/shows/cold-front-2026-09-20.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/cold-front-2026-09-20-280.jpg" srcset="/assets/shows/cold-front-2026-09-20-280.jpg 280w, /assets/shows/cold-front-2026-09-20.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Cold Front Cards Show, September 20, 2026. Opens larger" width="440" height="660" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">20</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
+            
+            <h3>Cold Front Cards Show<span class="sr-only">, Sunday, September 20</span></h3>
+            <p class="show-meta"><span>10:30am to 3:30pm</span><span class="show-town">Niagara Falls</span><span class="show-price">Free</span></p>
+          </div>
         </div>
-        <div class="show-body">
-          
-          <div class="show-h"><button type="button" class="show-logo" aria-label="Enlarge the Cold Front Cards logo" data-imglb="/assets/shows/cold-front-cards-lg.webp" data-imglb-alt="Cold Front Cards logo"><picture>
+        <div class="show-org"><button type="button" class="show-logo" aria-label="Enlarge the Cold Front Cards logo" data-imglb="/assets/shows/cold-front-cards-lg.webp" data-imglb-alt="Cold Front Cards logo"><picture>
             <source type="image/avif" srcset="/assets/shows/cold-front-cards-200.avif 200w, /assets/shows/cold-front-cards-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
             <img src="/assets/shows/cold-front-cards-200.webp" alt="Cold Front Cards Show logo" width="200" height="179" loading="lazy" decoding="async" srcset="/assets/shows/cold-front-cards-200.webp 200w, /assets/shows/cold-front-cards-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
-          </picture></button><h3>Cold Front Cards Show</h3></div>
-          <p class="show-meta">Sunday &bull; 10:30am to 3:30pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2176%20Liberty%20Dr%2C%20Niagara%20Falls%2C%20NY%2014304" data-map-apple="https://maps.apple.com/?q=2176%20Liberty%20Dr%2C%20Niagara%20Falls%2C%20NY%2014304" rel="noopener" target="_blank" aria-label="Frontier Firehall, 2176 Liberty Dr, Niagara Falls, NY 14304, where Cold Front Cards Show, September 20, 2026 is held, opens on google.com"><span class="show-venue">Frontier Firehall</span><span class="show-addr">2176 Liberty Dr, Niagara Falls, NY 14304</span></a></p>
-          <div class="show-tags">
-            
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            <span class="chip">60+ tables</span>
-          </div>
+          </picture></button><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2176%20Liberty%20Dr%2C%20Niagara%20Falls%2C%20NY%2014304" data-map-apple="https://maps.apple.com/?q=2176%20Liberty%20Dr%2C%20Niagara%20Falls%2C%20NY%2014304" rel="noopener" target="_blank" aria-label="Frontier Firehall, 2176 Liberty Dr, Niagara Falls, NY 14304, where Cold Front Cards Show, September 20, 2026 is held, opens on google.com"><span class="show-venue">Frontier Firehall</span><span class="show-addr">2176 Liberty Dr, Niagara Falls, NY 14304</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
           
-          
-          
-          
-          
+          <span class="chip">60+ tables</span>
           
         </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/cold-front-2026-09-20-full.jpg" data-imglb-avif="/assets/shows/cold-front-2026-09-20-full.avif" data-imglb-alt="Flyer for Cold Front Cards Show, September 20, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/cold-front-2026-09-20.avif">
-          <img src="/assets/shows/cold-front-2026-09-20.jpg" alt="Flyer for Cold Front Cards Show, September 20, 2026" width="440" height="660" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
+          
+          
+          
+          
+          
+          
       </article>
-      <article class="show" data-region="roc" data-date="2026-09-20">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">20</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-20">
           
-          <div class="show-h"><h3>Flower City Comic Con</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 5pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 20, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">20</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">$25 pre-sale, $30 at the door</span>
-            
+            <h3>Flower City Comic Con<span class="sr-only">, Sunday, September 20</span></h3>
+            <p class="show-meta"><span>10am to 5pm</span><span class="show-town">Rochester, NY</span><span class="show-price">$25 pre-sale, $30 at the door</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 20, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-flower-city-comic-con-2026-09-20">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-20"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/legends-card-shop-400.avif 400w" sizes="34px"><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-20"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
           </div>
           
           <p class="show-links">
@@ -734,66 +672,61 @@
             
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc" data-date="2026-09-20" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">20</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-20">
           
-          <div class="show-h"><h3>Roc City Card Show</h3></div>
-          <p class="show-meta">Sunday &bull; 9am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" data-map-apple="https://maps.apple.com/?q=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" rel="noopener" target="_blank" aria-label="Basketball Plus, 465 W Commercial St, East Rochester, NY 14445, where Roc City Card Show, September 20, 2026 is held, opens on google.com"><span class="show-venue">Basketball Plus</span><span class="show-addr">465 W Commercial St, East Rochester, NY 14445</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">20</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Roc City Card Show<span class="sr-only">, Sunday, September 20</span></h3>
+            <p class="show-meta"><span>9am to 3pm</span><span class="show-town">East Rochester</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" data-map-apple="https://maps.apple.com/?q=465%20W%20Commercial%20St%2C%20East%20Rochester%2C%20NY%2014445" rel="noopener" target="_blank" aria-label="Basketball Plus, 465 W Commercial St, East Rochester, NY 14445, where Roc City Card Show, September 20, 2026 is held, opens on google.com"><span class="show-venue">Basketball Plus</span><span class="show-addr">465 W Commercial St, East Rochester, NY 14445</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A monthly show in East Rochester, about ten minutes out from the city, in the rear building at Basketball Plus. Free to get in and free to park, sports and Pokemon side by side, with raffles and giveaways on the day. It starts at 9am, which is an hour earlier than most of the shows on this page.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-roc-city-2026-09-20">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-roc-city-2026-09-20"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-roc-city-2026-09-20"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li></ul>
           </div>
           
           <p class="show-links">
             
             <a href="https://solo.to/roccitycardshow" rel="noopener" target="_blank" aria-label="Listing and details for Roc City Card Show, September 20, 2026, opens on solo.to">Listing &amp; details</a>
             
-            <a href="tel:+15859443347" aria-label="Call or text Roc City Card Show about Roc City Card Show, September 20, 2026 on 585-944-3347">Call or text 585-944-3347</a>
+            <a href="tel:+15859443347" aria-label="Call or text 585-944-3347, Roc City Card Show, about Roc City Card Show, September 20, 2026">Call or text 585-944-3347</a>
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="syracuse" data-date="2026-09-19" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">19</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>CNY Collector's Expo</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3:30pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=170%20North%20St%2C%20Dryden%2C%20NY%2013053" data-map-apple="https://maps.apple.com/?q=170%20North%20St%2C%20Dryden%2C%20NY%2013053" rel="noopener" target="_blank" aria-label="TC3 Field House, 170 North St, Dryden, NY 13053, where CNY Collector's Expo, September 19, 2026 is held, opens on google.com"><span class="show-venue">TC3 Field House</span><span class="show-addr">170 North St, Dryden, NY 13053</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-19">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/cny-collectors-expo-2026-09-19-full.jpg" data-imglb-avif="/assets/shows/cny-collectors-expo-2026-09-19-full.avif" data-imglb-alt="Flyer for CNY Collector's Expo, September 19, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/cny-collectors-expo-2026-09-19-280.avif 280w, /assets/shows/cny-collectors-expo-2026-09-19.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/cny-collectors-expo-2026-09-19-280.jpg" srcset="/assets/shows/cny-collectors-expo-2026-09-19-280.jpg 280w, /assets/shows/cny-collectors-expo-2026-09-19.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for CNY Collector's Expo, September 19, 2026. Opens larger" width="440" height="594" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">19</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            
-            <span class="chip">150 tables</span>
+            <h3>CNY Collector's Expo<span class="sr-only">, Saturday, September 19</span></h3>
+            <p class="show-meta"><span>10am to 3:30pm</span><span class="show-town">Dryden</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=170%20North%20St%2C%20Dryden%2C%20NY%2013053" data-map-apple="https://maps.apple.com/?q=170%20North%20St%2C%20Dryden%2C%20NY%2013053" rel="noopener" target="_blank" aria-label="TC3 Field House, 170 North St, Dryden, NY 13053, where CNY Collector's Expo, September 19, 2026 is held, opens on google.com"><span class="show-venue">TC3 Field House</span><span class="show-addr">170 North St, Dryden, NY 13053</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">150 tables</span>
+          
+        </div>
           <p class="show-blurb">Sponsored by Southern Tier Sports Corner, who also run the vendor floor.</p>
           <ul class="tiers">
             <li>
@@ -816,39 +749,31 @@
             <a href="https://www.atlanticcardpromotions.com" rel="noopener" target="_blank" aria-label="Atlantic Card Promotions, who run CNY Collector's Expo, September 19, 2026, opens on atlanticcardpromotions.com">Atlantic Card Promotions</a>
             
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/cny-collectors-expo-2026-09-19-full.jpg" data-imglb-avif="/assets/shows/cny-collectors-expo-2026-09-19-full.avif" data-imglb-alt="Flyer for CNY Collector's Expo, September 19, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/cny-collectors-expo-2026-09-19.avif">
-          <img src="/assets/shows/cny-collectors-expo-2026-09-19.jpg" alt="Flyer for CNY Collector's Expo, September 19, 2026" width="440" height="594" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="roc" data-date="2026-09-19">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">19</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-19">
           
-          <div class="show-h"><h3>Flower City Comic Con</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 7pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 19, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">19</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">$30 pre-sale, $35 at the door</span>
-            
+            <h3>Flower City Comic Con<span class="sr-only">, Saturday, September 19</span></h3>
+            <p class="show-meta"><span>10am to 7pm</span><span class="show-town">Rochester, NY</span><span class="show-price">$30 pre-sale, $35 at the door</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 19, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-flower-city-comic-con-2026-09-19">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-19"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/legends-card-shop-400.avif 400w" sizes="34px"><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-19"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
           </div>
           
           <p class="show-links">
@@ -857,29 +782,25 @@
             
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-19" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">19</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-19">
           
-          <div class="show-h"><h3>Niagara Vault Expo</h3></div>
-          <p class="show-meta">Saturday &bull; 8:30am to 2pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2748%20Military%20Rd%2C%20Niagara%20Falls%2C%20NY%2014304" data-map-apple="https://maps.apple.com/?q=2748%20Military%20Rd%2C%20Niagara%20Falls%2C%20NY%2014304" rel="noopener" target="_blank" aria-label="St. Leo Church Bingo Hall, 2748 Military Rd, Niagara Falls, NY 14304, where Niagara Vault Expo, September 19, 2026 is held, opens on google.com"><span class="show-venue">St. Leo Church Bingo Hall</span><span class="show-addr">2748 Military Rd, Niagara Falls, NY 14304</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">19</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Niagara Vault Expo<span class="sr-only">, Saturday, September 19</span></h3>
+            <p class="show-meta"><span>8:30am to 2pm</span><span class="show-town">Niagara Falls</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2748%20Military%20Rd%2C%20Niagara%20Falls%2C%20NY%2014304" data-map-apple="https://maps.apple.com/?q=2748%20Military%20Rd%2C%20Niagara%20Falls%2C%20NY%2014304" rel="noopener" target="_blank" aria-label="St. Leo Church Bingo Hall, 2748 Military Rd, Niagara Falls, NY 14304, where Niagara Vault Expo, September 19, 2026 is held, opens on google.com"><span class="show-venue">St. Leo Church Bingo Hall</span><span class="show-addr">2748 Military Rd, Niagara Falls, NY 14304</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A free morning show in the church bingo hall, and an early one: doors 8:30am and done by 2pm. The listing asks, without requiring it, that you bring a non-perishable food item for the church's food pantry.</p>
           
           
@@ -889,37 +810,33 @@
             
             
             
-            <a href="tel:+17169135219" aria-label="Call or text Niagara Vault Expo about Niagara Vault Expo, September 19, 2026 on 716-913-5219">Call or text 716-913-5219</a>
+            <a href="tel:+17169135219" aria-label="Call or text 716-913-5219, Niagara Vault Expo, about Niagara Vault Expo, September 19, 2026">Call or text 716-913-5219</a>
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc" data-date="2026-09-18">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">18</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-18">
           
-          <div class="show-h"><h3>Flower City Comic Con</h3></div>
-          <p class="show-meta">Friday &bull; 3pm to 8pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 18, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Fri</span><span class="show-day">18</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">$20 pre-sale, $23 at the door</span>
-            
+            <h3>Flower City Comic Con<span class="sr-only">, Friday, September 18</span></h3>
+            <p class="show-meta"><span>3pm to 8pm</span><span class="show-town">Rochester, NY</span><span class="show-price">$20 pre-sale, $23 at the door</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=880%20Elmgrove%20Rd%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Total Sports Experience, 880 Elmgrove Rd, Rochester, NY 14624, where Flower City Comic Con, September 18, 2026 is held, opens on google.com"><span class="show-venue">Total Sports Experience</span><span class="show-addr">880 Elmgrove Rd, Rochester, NY 14624</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A comic con rather than a card show, and it is here for the same reason the Excalibur weekend is: the vendor hall. Two Pokemon vendors are confirmed in the room, Legends Card Shop and TOAK Pulls, both of whom put it on their own upcoming dates. Three days, and the Friday is the short one at 3pm to 8pm. Ages 10 and under get in free, 11 to 14 pay less, and a weekend pass is $60 pre-sale. Parking is free on site.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-flower-city-comic-con-2026-09-18">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-18"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/legends-card-shop-400.avif 400w" sizes="34px"><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-flower-city-comic-con-2026-09-18"><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-pok-ejoe-trading-cards" aria-label="Pok.eJoe Trading Cards, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/pok-ejoe-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/pok-ejoe-200.webp 200w, /assets/creators/pok-ejoe-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Pok.eJoe Trading Cards</span></a><span class="sv-src">Raw singles vintage, mid era and modern, plus PSA graded slabs</span></li></ul>
           </div>
           
           <p class="show-links">
@@ -928,68 +845,62 @@
             
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc" data-date="2026-09-13" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">13</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>Arch Angels Collectors Show</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2400%20Chili%20Ave%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=2400%20Chili%20Ave%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Archangel School, 2400 Chili Ave, Rochester, NY 14624, where Arch Angels Collectors Show, September 13, 2026 is held, opens on google.com"><span class="show-venue">Archangel School</span><span class="show-addr">2400 Chili Ave, Rochester, NY 14624</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-13">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/arch-angel-2026-09-13-full.jpg" data-imglb-avif="/assets/shows/arch-angel-2026-09-13-full.avif" data-imglb-alt="Flyer for Arch Angels Collectors Show, September 13, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/arch-angel-2026-09-13-280.avif 280w, /assets/shows/arch-angel-2026-09-13.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/arch-angel-2026-09-13-280.jpg" srcset="/assets/shows/arch-angel-2026-09-13-280.jpg 280w, /assets/shows/arch-angel-2026-09-13.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Arch Angels Collectors Show, September 13, 2026. Opens larger" width="727" height="824" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">13</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Arch Angels Collectors Show<span class="sr-only">, Sunday, September 13</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Rochester, NY</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2400%20Chili%20Ave%2C%20Rochester%2C%20NY%2014624" data-map-apple="https://maps.apple.com/?q=2400%20Chili%20Ave%2C%20Rochester%2C%20NY%2014624" rel="noopener" target="_blank" aria-label="Archangel School, 2400 Chili Ave, Rochester, NY 14624, where Arch Angels Collectors Show, September 13, 2026 is held, opens on google.com"><span class="show-venue">Archangel School</span><span class="show-addr">2400 Chili Ave, Rochester, NY 14624</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A charity show for Archangel School, run by the people behind the Batavia shows. Free to get in, and the promoter bills vintage and modern sports cards, Pokemon and non-sports cards. Food and refreshments are on site and are sold, not free. Six foot vendor tables are $40, and the number to call about one is on the flyer.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-arch-angel-2026-09-13">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-arch-angel-2026-09-13"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/skull-and-bones-collectibles-400.avif 400w" sizes="34px"><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-arch-angel-2026-09-13"><li class="sv"><a class="sv-link" href="/vendors.html#v-skull-bones-collectibles" aria-label="Skull &amp; Bones Collectibles, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/skull-and-bones-collectibles-200.webp" alt="" width="34" height="34" loading="lazy" decoding="async" srcset="/assets/creators/skull-and-bones-collectibles-200.webp 200w, /assets/creators/skull-and-bones-collectibles-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Skull &amp; Bones Collectibles</span></a><span class="sv-src">Buy, sell and trade, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-jakes-place" aria-label="Jake's Place, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/jakes-place-200.webp" alt="" width="34" height="30" loading="lazy" decoding="async" srcset="/assets/creators/jakes-place-200.webp 200w, /assets/creators/jakes-place-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Jake's Place</span></a><span class="sv-src">Pokemon, One Piece, Magic, Lorcana, video games, plush and more</span></li></ul>
           </div>
           
           
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/arch-angel-2026-09-13-full.jpg" data-imglb-avif="/assets/shows/arch-angel-2026-09-13-full.avif" data-imglb-alt="Flyer for Arch Angels Collectors Show, September 13, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/arch-angel-2026-09-13.avif">
-          <img src="/assets/shows/arch-angel-2026-09-13.jpg" alt="Flyer for Arch Angels Collectors Show, September 13, 2026" width="727" height="824" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="syracuse" data-date="2026-09-13">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">13</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><button type="button" class="show-logo" aria-label="Enlarge the CNY Promotions logo" data-imglb="/assets/shows/cny-promotions-lg.webp" data-imglb-avif="/assets/shows/cny-promotions-lg.avif" data-imglb-alt="CNY Promotions logo"><picture>
-            <source type="image/avif" srcset="/assets/shows/cny-promotions-400.avif 400w" sizes="(min-width:720px) 80px, 56px">
-            <img src="/assets/shows/cny-promotions-200.webp" alt="Collectorsfest #110 logo" width="200" height="83" loading="lazy" decoding="async" srcset="/assets/shows/cny-promotions-200.webp 200w, /assets/shows/cny-promotions-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
-          </picture></button><h3>Collectorsfest #110</h3></div>
-          <p class="show-meta">Sunday &bull; 9:30am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=581%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" data-map-apple="https://maps.apple.com/?q=581%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" rel="noopener" target="_blank" aria-label="C&amp;S Companies Science &amp; Industry Building, NYS Fairgrounds, 581 State Fair Blvd, Syracuse, NY 13209, where Collectorsfest #110, September 13, 2026 is held, opens on google.com"><span class="show-venue">C&amp;S Companies Science &amp; Industry Building, NYS Fairgrounds</span><span class="show-addr">581 State Fair Blvd, Syracuse, NY 13209</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-13">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorsfest-110-2026-09-13-full.jpg" data-imglb-avif="/assets/shows/collectorsfest-110-2026-09-13-full.avif" data-imglb-alt="Flyer for Collectorsfest #110, September 13, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/collectorsfest-110-2026-09-13-280.avif 280w, /assets/shows/collectorsfest-110-2026-09-13.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/collectorsfest-110-2026-09-13-280.jpg" srcset="/assets/shows/collectorsfest-110-2026-09-13-280.jpg 280w, /assets/shows/collectorsfest-110-2026-09-13.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Collectorsfest #110, September 13, 2026. Opens larger" width="440" height="570" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">13</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            
-            <span class="chip">120 tables</span>
+            <h3>Collectorsfest #110<span class="sr-only">, Sunday, September 13</span></h3>
+            <p class="show-meta"><span>9:30am to 3pm</span><span class="show-town">Syracuse</span><span class="show-price">$5 general, cash only</span></p>
           </div>
+        </div>
+        <div class="show-org"><button type="button" class="show-logo" aria-label="Enlarge the CNY Promotions logo" data-imglb="/assets/shows/cny-promotions-lg.webp" data-imglb-avif="/assets/shows/cny-promotions-lg.avif" data-imglb-alt="CNY Promotions logo"><picture>
+            
+            <img src="/assets/shows/cny-promotions-200.webp" alt="Collectorsfest #110 logo" width="200" height="83" loading="lazy" decoding="async" srcset="/assets/shows/cny-promotions-200.webp 200w, /assets/shows/cny-promotions-400.webp 400w" sizes="(min-width:720px) 80px, 56px">
+          </picture></button><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=581%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" data-map-apple="https://maps.apple.com/?q=581%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" rel="noopener" target="_blank" aria-label="C&amp;S Companies Science &amp; Industry Building, NYS Fairgrounds, 581 State Fair Blvd, Syracuse, NY 13209, where Collectorsfest #110, September 13, 2026 is held, opens on google.com"><span class="show-venue">C&amp;S Companies Science &amp; Industry Building, NYS Fairgrounds</span><span class="show-addr">581 State Fair Blvd, Syracuse, NY 13209</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">120 tables</span>
+          
+        </div>
           <p class="show-blurb">Held in the Science and Industry Building at the Fairgrounds, not in Liverpool. The promoter bills it as Central New York's premier and largest sports cards, memorabilia and TCG collectible show, and the flyer says all 120 tables are sold out.</p>
           <ul class="tiers">
             <li>
@@ -1007,124 +918,103 @@
           
           
           
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorsfest-110-2026-09-13-full.jpg" data-imglb-avif="/assets/shows/collectorsfest-110-2026-09-13-full.avif" data-imglb-alt="Flyer for Collectorsfest #110, September 13, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/collectorsfest-110-2026-09-13.avif">
-          <img src="/assets/shows/collectorsfest-110-2026-09-13.jpg" alt="Flyer for Collectorsfest #110, September 13, 2026" width="440" height="570" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-12" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">12</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-12">
           
-          <div class="show-h"><h3>Northtowns Card &amp; Memorabilia Show</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=6525%20Ward%20Rd%2C%20Sanborn%2C%20NY%2014132" data-map-apple="https://maps.apple.com/?q=6525%20Ward%20Rd%2C%20Sanborn%2C%20NY%2014132" rel="noopener" target="_blank" aria-label="American Legion, 6525 Ward Rd, Sanborn, NY 14132, where Northtowns Card &amp; Memorabilia Show, September 12, 2026 is held, opens on google.com"><span class="show-venue">American Legion</span><span class="show-addr">6525 Ward Rd, Sanborn, NY 14132</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">12</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Northtowns Card &amp; Memorabilia Show<span class="sr-only">, Saturday, September 12</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Sanborn</span><span class="show-price">Free</span></p>
           </div>
-          
-          
-          
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=6525%20Ward%20Rd%2C%20Sanborn%2C%20NY%2014132" data-map-apple="https://maps.apple.com/?q=6525%20Ward%20Rd%2C%20Sanborn%2C%20NY%2014132" rel="noopener" target="_blank" aria-label="American Legion, 6525 Ward Rd, Sanborn, NY 14132, where Northtowns Card &amp; Memorabilia Show, September 12, 2026 is held, opens on google.com"><span class="show-venue">American Legion</span><span class="show-addr">6525 Ward Rd, Sanborn, NY 14132</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
           
           
           
         </div>
-        
+          
+          
+          
+          
+          
+          
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-12" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">12</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-12">
           
-          <div class="show-h"><h3>Buffalo Sports Card Convention</h3></div>
-          <p class="show-meta">Saturday &bull; 9:30am to 2:30pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=445%20Columbia%20Ave%2C%20Depew%2C%20NY%2014043" data-map-apple="https://maps.apple.com/?q=445%20Columbia%20Ave%2C%20Depew%2C%20NY%2014043" rel="noopener" target="_blank" aria-label="Polish Falcons Club, 445 Columbia Ave, Depew, NY 14043, where Buffalo Sports Card Convention, September 12, 2026 is held, opens on google.com"><span class="show-venue">Polish Falcons Club</span><span class="show-addr">445 Columbia Ave, Depew, NY 14043</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">12</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Buffalo Sports Card Convention<span class="sr-only">, Saturday, September 12</span></h3>
+            <p class="show-meta"><span>9:30am to 2:30pm</span><span class="show-town">Depew</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=445%20Columbia%20Ave%2C%20Depew%2C%20NY%2014043" data-map-apple="https://maps.apple.com/?q=445%20Columbia%20Ave%2C%20Depew%2C%20NY%2014043" rel="noopener" target="_blank" aria-label="Polish Falcons Club, 445 Columbia Ave, Depew, NY 14043, where Buffalo Sports Card Convention, September 12, 2026 is held, opens on google.com"><span class="show-venue">Polish Falcons Club</span><span class="show-addr">445 Columbia Ave, Depew, NY 14043</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">A free Buffalo-area show that draws 350 to 500 people through the door, with TCG and sports side by side.</p>
           
           
           
           
           
-        </div>
-        
       </article>
-      <article class="show" data-region="syracuse" data-date="2026-09-06">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">6</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>Prime Time Trading Card Show</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 5pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1002%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" data-map-apple="https://maps.apple.com/?q=1002%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" rel="noopener" target="_blank" aria-label="Venue at Lakeside, 1002 State Fair Blvd, Syracuse, NY 13209, where Prime Time Trading Card Show, September 6, 2026 is held, opens on google.com"><span class="show-venue">Venue at Lakeside</span><span class="show-addr">1002 State Fair Blvd, Syracuse, NY 13209</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-06">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/prime-time-2026-09-06-full.jpg" data-imglb-avif="/assets/shows/prime-time-2026-09-06-full.avif" data-imglb-alt="Flyer for Prime Time Trading Card Show, September 6, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/prime-time-2026-09-06-280.avif 280w, /assets/shows/prime-time-2026-09-06.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/prime-time-2026-09-06-280.jpg" srcset="/assets/shows/prime-time-2026-09-06-280.jpg 280w, /assets/shows/prime-time-2026-09-06.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Prime Time Trading Card Show, September 6, 2026. Opens larger" width="440" height="551" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">6</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            <span class="chip">50 tables</span>
+            <h3>Prime Time Trading Card Show<span class="sr-only">, Sunday, September 6</span></h3>
+            <p class="show-meta"><span>10am to 5pm</span><span class="show-town">Syracuse</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1002%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" data-map-apple="https://maps.apple.com/?q=1002%20State%20Fair%20Blvd%2C%20Syracuse%2C%20NY%2013209" rel="noopener" target="_blank" aria-label="Venue at Lakeside, 1002 State Fair Blvd, Syracuse, NY 13209, where Prime Time Trading Card Show, September 6, 2026 is held, opens on google.com"><span class="show-venue">Venue at Lakeside</span><span class="show-addr">1002 State Fair Blvd, Syracuse, NY 13209</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">50 tables</span>
+          
+        </div>
           <p class="show-blurb">A TCG show rather than a sports show. Children 5 and under get in free and there is an early bird from 9am, but the flyer prints no adult price. Fifty vendor tables, and the flyer is still asking for vendors. The organizer publishes on Instagram as @primetimetcgshow.</p>
           
           
           
           
           
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/prime-time-2026-09-06-full.jpg" data-imglb-avif="/assets/shows/prime-time-2026-09-06-full.avif" data-imglb-alt="Flyer for Prime Time Trading Card Show, September 6, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/prime-time-2026-09-06.avif">
-          <img src="/assets/shows/prime-time-2026-09-06.jpg" alt="Flyer for Prime Time Trading Card Show, September 6, 2026" width="440" height="551" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-09-06">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">6</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-09-06">
           
-          <div class="show-h"><h3>Buffalo Prime Time Sports Card Show</h3></div>
-          <p class="show-meta">Sunday &bull; 9:30am to 4pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2040%20Walden%20Ave%2C%20Buffalo%2C%20NY%2014225" data-map-apple="https://maps.apple.com/?q=2040%20Walden%20Ave%2C%20Buffalo%2C%20NY%2014225" rel="noopener" target="_blank" aria-label="M Hotel, 2040 Walden Ave, Buffalo, NY 14225, where Buffalo Prime Time Sports Card Show, September 6, 2026 is held, opens on google.com"><span class="show-venue">M Hotel</span><span class="show-addr">2040 Walden Ave, Buffalo, NY 14225</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">6</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">$5, under 12 free</span>
-            
+            <h3>Buffalo Prime Time Sports Card Show<span class="sr-only">, Sunday, September 6</span></h3>
+            <p class="show-meta"><span>9:30am to 4pm</span><span class="show-town">Buffalo</span><span class="show-price">$5, under 12 free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=2040%20Walden%20Ave%2C%20Buffalo%2C%20NY%2014225" data-map-apple="https://maps.apple.com/?q=2040%20Walden%20Ave%2C%20Buffalo%2C%20NY%2014225" rel="noopener" target="_blank" aria-label="M Hotel, 2040 Walden Ave, Buffalo, NY 14225, where Buffalo Prime Time Sports Card Show, September 6, 2026 is held, opens on google.com"><span class="show-venue">M Hotel</span><span class="show-addr">2040 Walden Ave, Buffalo, NY 14225</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           
           
           
@@ -1134,31 +1024,30 @@
             
             
             <a href="https://www.facebook.com/people/Buffalo-Prime-Time-Sport-Card-Show/61590952058837/" rel="noopener" target="_blank" aria-label="Buffalo Prime Time Sport Card Show, who run Buffalo Prime Time Sports Card Show, September 6, 2026, opens on facebook.com">Buffalo Prime Time Sport Card Show</a>
-            <a href="tel:+17164657736" aria-label="Call or text Buffalo Prime Time Sport Card Show about Buffalo Prime Time Sports Card Show, September 6, 2026 on 716-465-7736">Call or text 716-465-7736</a>
+            <a href="tel:+17164657736" aria-label="Call or text 716-465-7736, Buffalo Prime Time Sport Card Show, about Buffalo Prime Time Sports Card Show, September 6, 2026">Call or text 716-465-7736</a>
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="roc buffalo" data-date="2026-09-05" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Sep</span>
-          <span class="show-day">5</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>Batavia Sports Card, Toys &amp; Collectible Show</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-09-05">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/batavia-scts-monthly-full.jpg" data-imglb-avif="/assets/shows/batavia-scts-monthly-full.avif" data-imglb-alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/batavia-scts-monthly-280.avif 280w, /assets/shows/batavia-scts-monthly.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/batavia-scts-monthly-280.jpg" srcset="/assets/shows/batavia-scts-monthly-280.jpg 280w, /assets/shows/batavia-scts-monthly.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026. Opens larger" width="440" height="503" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">5</span><span class="show-mon">Sep</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            
+            <h3>Batavia Sports Card, Toys &amp; Collectible Show<span class="sr-only">, Saturday, September 5</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Batavia</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" data-map-apple="https://maps.apple.com/?q=8250%20Park%20Rd%2C%20Batavia%2C%20NY%2014020" rel="noopener" target="_blank" aria-label="Quality Inn, 8250 Park Rd, Batavia, NY 14020, where Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026 is held, opens on google.com"><span class="show-venue">Quality Inn</span><span class="show-addr">8250 Park Rd, Batavia, NY 14020</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">Batavia is the halfway point between Rochester, NY and Buffalo, about 40 minutes out the Thruway. The larger of the two we go to, with more vendors, and Pokemon dealers set up alongside the sports tables. The drive is what gets you dealers from both cities in one room.</p>
           
           
@@ -1168,79 +1057,66 @@
             
             
             <a href="https://jcsportscollectibles.com" rel="noopener" target="_blank" aria-label="Jen Oberlies, JC's Cards and Collectibles, who run Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026, opens on jcsportscollectibles.com">Jen Oberlies, JC's Cards and Collectibles</a>
-            <a href="tel:+15853530834" aria-label="Call or text Jen Oberlies, JC's Cards and Collectibles about Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026 on 585-353-0834">Call or text 585-353-0834</a>
+            <a href="tel:+15853530834" aria-label="Call or text 585-353-0834, Jen Oberlies, JC's Cards and Collectibles, about Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026">Call or text 585-353-0834</a>
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/batavia-scts-monthly-full.jpg" data-imglb-avif="/assets/shows/batavia-scts-monthly-full.avif" data-imglb-alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/batavia-scts-monthly.avif">
-          <img src="/assets/shows/batavia-scts-monthly.jpg" alt="Flyer for Batavia Sports Card, Toys &amp; Collectible Show, September 5, 2026" width="440" height="503" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
     </div>
     <div class="show-month" data-month="2026-08">
       <h2 class="show-mon-h">August 2026</h2>
-      <article class="show" data-region="roc" data-date="2026-08-30" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Aug</span>
-          <span class="show-day">30</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>CollectorFest Monthly</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 2pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" data-map-apple="https://maps.apple.com/?q=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" rel="noopener" target="_blank" aria-label="Louis S. Wolk JCC of Greater Rochester, 1200 Edgewood Ave, Rochester, NY 14618, where CollectorFest Monthly, August 30, 2026 is held, opens on google.com"><span class="show-venue">Louis S. Wolk JCC of Greater Rochester</span><span class="show-addr">1200 Edgewood Ave, Rochester, NY 14618</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-08-30">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorfest-jcc-2026-08-30-full.jpg" data-imglb-avif="/assets/shows/collectorfest-jcc-2026-08-30-full.avif" data-imglb-alt="Flyer for CollectorFest Monthly, August 30, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/collectorfest-jcc-2026-08-30-280.avif 280w, /assets/shows/collectorfest-jcc-2026-08-30.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/collectorfest-jcc-2026-08-30-280.jpg" srcset="/assets/shows/collectorfest-jcc-2026-08-30-280.jpg 280w, /assets/shows/collectorfest-jcc-2026-08-30.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for CollectorFest Monthly, August 30, 2026. Opens larger" width="440" height="525" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">30</span><span class="show-mon">Aug</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            <span class="chip">72 tables</span>
+            <h3>CollectorFest Monthly<span class="sr-only">, Sunday, August 30</span></h3>
+            <p class="show-meta"><span>10am to 2pm</span><span class="show-town">Rochester, NY</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" data-map-apple="https://maps.apple.com/?q=1200%20Edgewood%20Ave%2C%20Rochester%2C%20NY%2014618" rel="noopener" target="_blank" aria-label="Louis S. Wolk JCC of Greater Rochester, 1200 Edgewood Ave, Rochester, NY 14618, where CollectorFest Monthly, August 30, 2026 is held, opens on google.com"><span class="show-venue">Louis S. Wolk JCC of Greater Rochester</span><span class="show-addr">1200 Edgewood Ave, Rochester, NY 14618</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">72 tables</span>
+          
+        </div>
           <p class="show-blurb">Free Monthly 72-table show, lots of great Pokemon vendors, and a good mix of vintage and modern sports cards and collectibles, plus there is a giveaway at noon.</p>
           
           
           <div class="show-vend">
             <p class="show-vend-h" id="sv-h-collectorfest-jcc-2026-08-30">Vendors we confirmed</p>
-            <ul class="show-vend-l" aria-labelledby="sv-h-collectorfest-jcc-2026-08-30"><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/legends-card-shop-400.avif 400w" sizes="34px"><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li></ul>
+            <ul class="show-vend-l" aria-labelledby="sv-h-collectorfest-jcc-2026-08-30"><li class="sv"><a class="sv-link" href="/vendors.html#v-toak-pulls" aria-label="TOAK Pulls, on the vendors page"><span class="sv-logo"><picture><source type="image/avif" srcset="/assets/creators/toak-pulls-200.avif 200w, /assets/creators/toak-pulls-400.avif 400w" sizes="34px"><img src="/assets/creators/toak-pulls-200.webp" alt="" width="34" height="42" loading="lazy" decoding="async" srcset="/assets/creators/toak-pulls-200.webp 200w, /assets/creators/toak-pulls-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">TOAK Pulls</span></a><span class="sv-src">Sealed, singles and graded slabs, in person at shows</span></li><li class="sv"><a class="sv-link" href="/vendors.html#v-legends-card-shop" aria-label="Legends Card Shop, on the vendors page"><span class="sv-logo"><picture><img src="/assets/creators/legends-card-shop-200.webp" alt="" width="34" height="28" loading="lazy" decoding="async" srcset="/assets/creators/legends-card-shop-200.webp 200w, /assets/creators/legends-card-shop-400.webp 400w" sizes="34px"></picture></span><span class="sv-id">Legends Card Shop</span></a><span class="sv-src">Modern and vintage singles, slabs, plushies and pins, in person at shows</span></li></ul>
           </div>
           
           <p class="show-links">
             
             <a href="https://collectorfestmonthly.com" rel="noopener" target="_blank" aria-label="Official site for CollectorFest Monthly, August 30, 2026, opens on collectorfestmonthly.com">Official site</a>
             
-            <a href="tel:+15854146726" aria-label="Call or text Ernie Orlando, Ernie's Cards about CollectorFest Monthly, August 30, 2026 on (585) 414-6726">Call or text (585) 414-6726</a>
+            <a href="tel:+15854146726" aria-label="Call or text (585) 414-6726, Ernie Orlando, Ernie's Cards, about CollectorFest Monthly, August 30, 2026">Call or text (585) 414-6726</a>
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/collectorfest-jcc-2026-08-30-full.jpg" data-imglb-avif="/assets/shows/collectorfest-jcc-2026-08-30-full.avif" data-imglb-alt="Flyer for CollectorFest Monthly, August 30, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/collectorfest-jcc-2026-08-30.avif">
-          <img src="/assets/shows/collectorfest-jcc-2026-08-30.jpg" alt="Flyer for CollectorFest Monthly, August 30, 2026" width="440" height="525" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-08-30" data-free="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Aug</span>
-          <span class="show-day">30</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-08-30">
           
-          <div class="show-h"><h3>Dave &amp; Adam's Card Show</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8075%20Sheridan%20Dr%2C%20Williamsville%2C%20NY%2014221" data-map-apple="https://maps.apple.com/?q=8075%20Sheridan%20Dr%2C%20Williamsville%2C%20NY%2014221" rel="noopener" target="_blank" aria-label="Dave &amp; Adam's, 8075 Sheridan Dr, Williamsville, NY 14221, where Dave &amp; Adam's Card Show, August 30, 2026 is held, opens on google.com"><span class="show-venue">Dave &amp; Adam's</span><span class="show-addr">8075 Sheridan Dr, Williamsville, NY 14221</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">30</span><span class="show-mon">Aug</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            <span class="chip">Free</span>
-            <span class="chip">70+ tables</span>
+            <h3>Dave &amp; Adam's Card Show<span class="sr-only">, Sunday, August 30</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Williamsville</span><span class="show-price">Free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=8075%20Sheridan%20Dr%2C%20Williamsville%2C%20NY%2014221" data-map-apple="https://maps.apple.com/?q=8075%20Sheridan%20Dr%2C%20Williamsville%2C%20NY%2014221" rel="noopener" target="_blank" aria-label="Dave &amp; Adam's, 8075 Sheridan Dr, Williamsville, NY 14221, where Dave &amp; Adam's Card Show, August 30, 2026 is held, opens on google.com"><span class="show-venue">Dave &amp; Adam's</span><span class="show-addr">8075 Sheridan Dr, Williamsville, NY 14221</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          <span class="chip">70+ tables</span>
+          
+        </div>
           
           
           
@@ -1252,29 +1128,28 @@
             
             
           </p>
-        </div>
-        
       </article>
-      <article class="show" data-region="syracuse roc" data-date="2026-08-29">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Aug</span>
-          <span class="show-day">29</span>
-        </div>
-        <div class="show-body">
-          
-          <div class="show-h"><h3>GI Cards Sports Cards and Collectibles Show #6</h3></div>
-          <p class="show-meta">Saturday &bull; 10am to 3pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1133%20NY-414%2C%20Waterloo%2C%20NY%2013165" data-map-apple="https://maps.apple.com/?q=1133%20NY-414%2C%20Waterloo%2C%20NY%2013165" rel="noopener" target="_blank" aria-label="del Lago Casino Ballroom, 1133 NY-414, Waterloo, NY 13165, where GI Cards Sports Cards and Collectibles Show #6, August 29, 2026 is held, opens on google.com"><span class="show-venue">del Lago Casino Ballroom</span><span class="show-addr">1133 NY-414, Waterloo, NY 13165</span></a></p>
-          <div class="show-tags">
+      <article class="show" data-date="2026-08-29">
+          <button type="button" class="show-flyer" data-imglb="/assets/shows/gi-cards-del-lago-2026-08-29-full.jpg" data-imglb-avif="/assets/shows/gi-cards-del-lago-2026-08-29-full.avif" data-imglb-alt="Flyer for GI Cards Sports Cards and Collectibles Show #6, August 29, 2026">
+            <picture><source type="image/avif" srcset="/assets/shows/gi-cards-del-lago-2026-08-29-280.avif 280w, /assets/shows/gi-cards-del-lago-2026-08-29.avif 440w" sizes="(min-width:720px) 120px, 64px"><img src="/assets/shows/gi-cards-del-lago-2026-08-29-280.jpg" srcset="/assets/shows/gi-cards-del-lago-2026-08-29-280.jpg 280w, /assets/shows/gi-cards-del-lago-2026-08-29.jpg 440w" sizes="(min-width:720px) 120px, 64px" alt="Flyer for GI Cards Sports Cards and Collectibles Show #6, August 29, 2026. Opens larger" width="1325" height="2048" loading="lazy" decoding="async"></picture>
+            <span class="show-flyer-tag" aria-hidden="true">Flyer</span>
+          </button>
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sat</span><span class="show-day">29</span><span class="show-mon">Aug</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon here too</span>
-            
-            
-            
-            
-            
+            <h3>GI Cards Sports Cards and Collectibles Show #6<span class="sr-only">, Saturday, August 29</span></h3>
+            <p class="show-meta"><span>10am to 3pm</span><span class="show-town">Waterloo</span><span class="show-price">$5, 12 and under free</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=1133%20NY-414%2C%20Waterloo%2C%20NY%2013165" data-map-apple="https://maps.apple.com/?q=1133%20NY-414%2C%20Waterloo%2C%20NY%2013165" rel="noopener" target="_blank" aria-label="del Lago Casino Ballroom, 1133 NY-414, Waterloo, NY 13165, where GI Cards Sports Cards and Collectibles Show #6, August 29, 2026 is held, opens on google.com"><span class="show-venue">del Lago Casino Ballroom</span><span class="show-addr">1133 NY-414, Waterloo, NY 13165</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk-some">Pokemon here too</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">Sports cards, Pokemon, Magic and One Piece. Dealer tables are $40, and the number to book one is on the flyer.</p>
           <ul class="tiers">
             <li>
@@ -1297,41 +1172,31 @@
             <a href="https://gicardsny.com" rel="noopener" target="_blank" aria-label="GI Cards and Collectibles, who run GI Cards Sports Cards and Collectibles Show #6, August 29, 2026, opens on gicardsny.com">GI Cards and Collectibles</a>
             
           </p>
-        </div>
-        <button type="button" class="show-flyer" data-imglb="/assets/shows/gi-cards-del-lago-2026-08-29-full.jpg" data-imglb-avif="/assets/shows/gi-cards-del-lago-2026-08-29-full.avif" data-imglb-alt="Flyer for GI Cards Sports Cards and Collectibles Show #6, August 29, 2026">
-          <picture><source type="image/avif" srcset="/assets/shows/gi-cards-del-lago-2026-08-29.avif">
-          <img src="/assets/shows/gi-cards-del-lago-2026-08-29.jpg" alt="Flyer for GI Cards Sports Cards and Collectibles Show #6, August 29, 2026" width="1325" height="2048" loading="lazy" decoding="async"></picture>
-          <span class="show-flyer-hint">Tap to enlarge</span>
-        </button>
       </article>
-      <article class="show" data-region="buffalo" data-date="2026-08-16" data-pokemon="1">
-        <div class="show-when" aria-hidden="true">
-          <span class="show-mon">Aug</span>
-          <span class="show-day">16</span>
-        </div>
-        <div class="show-body">
+      <article class="show" data-date="2026-08-16">
           
-          <div class="show-h"><h3>PokeKon Fest</h3></div>
-          <p class="show-meta">Sunday &bull; 10am to 5pm</p>
-          <p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Niagara%20Falls%20Hotel%20Niagara%20Falls%20NY" data-map-apple="https://maps.apple.com/?q=Sheraton%20Niagara%20Falls%20Hotel%20Niagara%20Falls%20NY" rel="noopener" target="_blank" aria-label="Sheraton Niagara Falls Hotel, Niagara Falls NY, where PokeKon Fest, August 16, 2026 is held, opens on google.com"><span class="show-venue">Sheraton Niagara Falls Hotel, Niagara Falls NY</span></a></p>
-          <div class="show-tags">
+        <div class="show-top">
+          <div class="show-when" aria-hidden="true"><span class="show-wd">Sun</span><span class="show-day">16</span><span class="show-mon">Aug</span></div>
+          <div class="show-head">
             
-            <span class="chip pk">Pokemon show</span>
-            
-            
-            
-            <span class="chip">Check the listing</span>
-            
+            <h3>PokeKon Fest<span class="sr-only">, Sunday, August 16</span></h3>
+            <p class="show-meta"><span>10am to 5pm</span><span class="show-town">Niagara Falls</span><span class="show-price is-none">Price not published</span></p>
           </div>
+        </div>
+        <div class="show-org"><p class="show-where"><a class="venue-link" href="https://www.google.com/maps/search/?api=1&amp;query=Sheraton%20Niagara%20Falls%20Hotel%20Niagara%20Falls%20NY" data-map-apple="https://maps.apple.com/?q=Sheraton%20Niagara%20Falls%20Hotel%20Niagara%20Falls%20NY" rel="noopener" target="_blank" aria-label="Sheraton Niagara Falls Hotel, Niagara Falls NY, where PokeKon Fest, August 16, 2026 is held, opens on google.com"><span class="show-venue">Sheraton Niagara Falls Hotel, Niagara Falls NY</span></a></p></div>
+        <div class="show-tags">
+          <span class="chip pk">Pokemon show</span>
           
+          
+          
+          
+        </div>
           <p class="show-blurb">All Pokemon show, so the whole floor is our cards rather than a couple of tables tolerated in a corner.</p>
           
           
           
           
           
-        </div>
-        
       </article>
     </div>
   </div>

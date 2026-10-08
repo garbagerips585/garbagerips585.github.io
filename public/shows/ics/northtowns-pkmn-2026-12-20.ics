@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:northtowns-pkmn-2026-12-20@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261220T150000Z
+DTEND:20261220T200000Z
+SUMMARY:Northtowns Pokemon & TCG Card Show
+LOCATION:American Legion\, 6525 Ward Rd\, Sanborn\, NY 14132
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-northtowns-pkmn-2026-12-20
+URL:https://garbagerips.com/card-shows.html#s-northtowns-pkmn-2026-12-20
+END:VEVENT
+END:VCALENDAR

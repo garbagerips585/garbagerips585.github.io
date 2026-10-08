@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:pokekon-rochester-2027-01-09@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270109T150000Z
+DTEND:20270109T220000Z
+SUMMARY:PokeKon Fest Rochester
+LOCATION:RIT Inn & Conference Center\, 5257 West Henrietta Road\, Henrietta
+ \, NY 14467
+DESCRIPTION:Admission: $20\, under 11 free\nDetails: https://garbagerips.co
+ m/card-shows.html#s-pokekon-rochester-2027-01-09
+URL:https://garbagerips.com/card-shows.html#s-pokekon-rochester-2027-01-09
+END:VEVENT
+END:VCALENDAR

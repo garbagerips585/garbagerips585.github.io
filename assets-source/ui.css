@@ -3903,40 +3903,41 @@ html:has(.gpf,.rail,.ev-find,.vg-rail,.t30-clf) :focus{scroll-margin-top:calc(va
    whether it is worth the drive.
    -------------------------------------------------------------------------- */
 
-/* The next show, given its own slab at the top. On a calendar the single most
-   asked question is "when is the next one", so it is answered before any list. */
-.next-show{
-  display:block;background:var(--band-bg);color:var(--chrome-ink);border-radius:var(--r);
-  padding:var(--s5);box-shadow:0 4px 0 var(--gold-deep),var(--lift);
-}
-.next-show:hover{background:color-mix(in srgb,var(--band-bg) 84%,var(--page))}
-.next-label{display:block;font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;
-  text-transform:uppercase;color:var(--gold)}
-.next-name{display:block;font:400 var(--t-l)/1.15 var(--display);margin:8px 0 6px}
-.next-meta{display:block;font-size:var(--t-sm);color:var(--foot-ink)}
-
+/* "NEXT ONE UP" WAS A SLAB HERE UNTIL 8 October 2026. It hid itself under every
+   area filter and once advertised a show in Pennsylvania; the weekend strip
+   (.wk-strip, in the redesign block below) took its job. */
 .show-mon-h{font:400 var(--t-m)/1.2 var(--display);margin:var(--s6) 0 var(--s4);
   padding-bottom:6px;border-bottom:3px solid var(--keyline)}
 
 /* Date block, then everything else. The flyer drops below on a phone and sits
    beside the text once there is room for it. */
 .show{
-  display:grid;grid-template-columns:auto 1fr;gap:var(--s4);align-items:start;
   background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s4);margin-bottom:var(--s4);box-shadow:var(--lift);
 }
 .show[hidden]{display:none}
 .show-when{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
-  min-width:58px;padding:8px 10px;background:var(--band-bg);color:var(--chrome-ink);
-  border-radius:var(--r-sm);
+  width:52px;padding:7px 0;background:var(--band-bg);color:var(--chrome-ink);
+  border-radius:var(--r-sm);text-align:center
 }
-.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--gold)}
-.show-day{font:400 1.6rem/1 var(--display);margin-top:2px}
+/* THE WEEKDAY IS IN THE DATE BLOCK NOW, 8 October 2026, so a reader scanning
+   down the left edge can find the Saturdays. The month was teal (--gold), which
+   is a route colour on a mark that goes nowhere; it is ink now. */
+.show-wd{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--chrome-ink)}
+.show-day{font:400 1.5rem/1 var(--display);margin:3px 0 2px}
+.show-when.is-run .show-day{font-size:1rem;line-height:1.2}
 .show-body{min-width:0}
-.show-body h3{font:400 var(--t-m)/1.2 var(--display)}
-.show-meta{font:700 var(--t-micro)/1.5 var(--mono);letter-spacing:.04em;
-  text-transform:uppercase;color:var(--ink-2);margin-top:4px}
+.show-body h3,.show-head h3{font:400 var(--t-m)/1.15 var(--display)}
+/* ONE SCAN LINE: hours, town, price. It was 11px and the smallest text on the
+   card while answering "when does it open"; it is 13px now and in ink. The price
+   is pink because every price on this site is. */
+.show-meta{font:700 .8125rem/1.45 var(--mono);letter-spacing:.02em;
+  text-transform:uppercase;color:var(--ink);margin-top:5px}
+.show-meta > span + span::before{content:"\00a0\00b7\00a0";color:var(--ink-2)}
+.show-price{color:var(--ketchup-deep)}
+.show-price.is-none{color:var(--ink-2)}
 /* The venue link IS the whole paragraph, not a phrase inside a sentence, so
    WCAG 2.5.8's inline-link exemption does not cover it: a single-line one
    measured 17.5px tall. Vertical padding on an inline element grows the hit
@@ -4069,8 +4070,8 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
    the inner hairline is dropped, and the hover moves to the button, which is the
    element that actually carries a border now. */
 .show-flyer{display:block;background:var(--paper-3);border:2px solid var(--keyline);
-  padding:0;margin-top:var(--s4);margin-inline:auto;cursor:pointer;
-  border-radius:var(--r-sm);overflow:hidden;position:relative;width:100%;max-width:220px}
+  padding:0;margin:0;cursor:zoom-in;
+  border-radius:var(--r-sm);overflow:hidden;position:relative;width:64px}
 .show-flyer img{display:block;width:100%;height:auto}
 .show-flyer-hint{display:block;margin-top:6px;font:400 var(--t-micro)/1.4 var(--body);color:var(--ink-2)}
 .show-flyer:hover,.show-flyer:focus-visible{border-color:var(--ink)}
@@ -4093,7 +4094,11 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .img-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
   border:1px solid var(--hair);background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}
 .img-lb-x:hover,.img-lb-x:focus-visible{border-color:var(--ink)}
-.chip.pk{background:var(--gold);border-color:var(--keyline);color:var(--on-accent)}
+/* POKEMON MARKS ARE INFORMATION, NOT ROUTES, so neither is teal any more (8
+   October 2026: a teal-filled pill read as a button beside the real ones). A
+   Pokemon show is a solid ink tag; "Pokemon here too" an outlined one. */
+.chip.pk{background:var(--ink);border-color:var(--ink);color:var(--on-accent)}
+.chip.pk-some{background:transparent;border-color:var(--keyline);color:var(--ink)}
 .chip.soon{background:var(--ketchup);border-color:var(--keyline);color:var(--on-alert)}
 /* THE DRIVE CHIP IS INFORMATION, NOT AN ACCENT, so it takes a surface and ink
    rather than teal or pink. It sits in the same row as `Pokemon here too`
@@ -4125,7 +4130,7 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
    flyer for this show listing". margin-inline is a no-op on a desktop, where the
    flyer is placed in its own 220px column and already fills it, so this needs no
    breakpoint of its own. */
-.show-flyer{grid-column:1 / -1}
+/* The flyer is a thumbnail in the card's header row now (see .show-top). */
 /* And closer to the listing it belongs to. --s4 left a 32px run of empty green
    between the last line of the card and the flyer, which on a card whose whole
    point is the flyer read as a gap rather than as spacing. PHONE ONLY: on a
@@ -4159,8 +4164,7 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
      full 1024px flyer is one tap away, which is the reason this is the lever
      that loses least. If a later editor widens it again, re-measure the GI Cards
      card at 390 before believing it still fits. */
-  .show-flyer{margin-top:6px;max-width:140px}
-  .show{gap:8px;padding:12px}
+  .show{padding:12px}
   /* THE PRICE TIERS ARE THE TALLEST BLOCK ON ANY CARD THAT HAS THEM, measured at
      390: 214px on RocPokeCon and 135 on Buffalo TCG Con, more than the flyer
      costs. Each tier is a padded well and a long note wraps onto its own grid
@@ -4177,7 +4181,7 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
      change to them moved nothing, which is the only way this shows up. They are
      re-declared after the base rules now. */
 }
-.show-flyer img{display:block;width:100%;height:auto;max-height:520px;object-fit:contain}
+.show-flyer img{display:block;width:100%;height:auto;max-height:96px;object-fit:cover;object-position:top}
 
 .show-empty{color:var(--ink-2);padding:var(--s6) 0}
 
@@ -4190,9 +4194,6 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
   letter-spacing:.04em}
 
 @media(min-width:720px){
-  .show{grid-template-columns:auto 1fr 220px}
-  .show-flyer{grid-column:3;align-self:start}
-  .show-flyer img{max-height:300px}
   .watch-list{grid-template-columns:1fr 1fr}
 }
 
@@ -4234,6 +4235,135 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
 .show-links a.tickets{background:var(--gold);color:var(--on-accent);border:2px solid var(--keyline);
   border-radius:999px;padding:0 16px;box-shadow:0 3px 0 var(--gold-deep)}
 .show-links a.tickets:hover{background:var(--mustard);color:var(--on-accent);text-decoration:none}
+/* A CARD IS LANDED ON BY HASH from three places: a weekend tile, a shared link
+   and the far rows. The page has THREE sticky layers above it (the bar, the
+   filter rail and the day heading), and the site-wide [id] rule only knows
+   about the first, so a tile tap put the card's top 72px under the rail.
+   Measured 8 October 2026 at 390: a far row opened from its hash at y=72 with
+   the rail ending at 132. */
+.su{scroll-margin-top:calc(var(--bar-h) + var(--rail-h,0px) + 56px)}
+
+/* ===================================================== card show redesign
+   8 October 2026. The owner asked for the site's busiest page to be "the best
+   it can be on phones"; five agents audited it and he approved the mockup. Every
+   rule here is phone first. The numbers that drove it, measured at 390x844: the
+   first card started at y=1,236, the page was 41,718px, the Syracuse chip sat off
+   the right edge, and the time was the smallest text on a card.
+
+   THE CARD'S HEADER ROW: date, title and scan line, and the flyer as a 64px
+   thumbnail at the right. A card with no flyer has no flyer column at all. */
+.show-top{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start}
+/* THE FLYER FLOATS, IT IS NOT A GRID COLUMN. It was the header's third column,
+   and at 720 and up a 170px flyer in a ~90px header row left 130px of empty
+   card under the title before the venue could start. Floated first in the card,
+   the header grid, the venue row and the tag row (all block formatting
+   contexts) narrow beside it and the blurb wraps round it, so the space it
+   takes is used. The vendors box and the buttons clear it, because a bordered
+   box running under a picture looks like a mistake, and the card is flow-root
+   so a flyer taller than a short archive card cannot hang out of the bottom. */
+.show{display:flow-root}
+.show-flyer{float:right;margin:0 0 8px 12px}
+.show-vend,.show-acts,.tiers{clear:both}
+.show-head{min-width:0}
+.show-flyer-tag{position:absolute;left:0;right:0;bottom:0;background:rgba(9,18,13,.82);color:var(--chrome-ink);
+  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 0;text-align:center}
+.show-org{display:flex;align-items:center;gap:10px;margin-top:8px}
+.show-org .show-where{margin:0;min-width:0;flex:1 1 auto}
+.show-org .show-logo{width:44px;height:44px}
+.show-org .show-logo img{max-width:44px;max-height:44px}
+/* INFO TAGS ARE NOT BUTTONS: square-ish, small, no pointer, no hover. */
+.show-tags .chip{border-radius:var(--r-sm);font:700 var(--t-micro)/1.2 var(--mono);letter-spacing:.04em;
+  text-transform:uppercase;cursor:default;padding:5px 8px}
+.show-tags .chip:hover{border-color:inherit}
+.chip.dist{background:transparent;border-style:dashed;border-color:var(--keyline);color:var(--ink)}
+.show-tags .chip[hidden]{display:none}
+/* THE ACTION BAR: equal outlined pills, so the row reads as controls, not as a
+   ragged run of teal words 60px apart. */
+.show-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}
+.act{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;
+  border:1.5px solid var(--sky-deep);border-radius:var(--r-pill);background:transparent;
+  color:var(--sky-deep);font:700 var(--t-sm)/1.1 var(--body);padding:0 10px;text-decoration:none;cursor:pointer}
+.act:hover,.act:focus-visible{background:var(--sky);border-color:var(--sky);color:var(--on-accent)}
+.act[hidden]{display:none}
+.show-links{gap:6px var(--s4)}
+@media(min-width:720px){
+  .show-top{grid-template-columns:64px minmax(0,1fr);gap:var(--s4)}
+  .show-when{width:64px}
+  .show-flyer{width:120px}
+  .show-flyer img{max-height:170px}
+}
+/* THE DAY HEADERS STICK UNDER THE FILTER BAR, so a reader halfway down knows
+   which day they are in. --rail-h is set by the page script from the bar's real
+   height; without a script the bar is hidden and the offset is the site bar. */
+.show-dayg[hidden]{display:none}
+.show-day-h{position:sticky;top:calc(var(--bar-h) + var(--rail-h,0px));z-index:5;display:flex;
+  justify-content:space-between;align-items:baseline;gap:var(--s3);margin:var(--s5) 0 var(--s3);padding:10px 12px;
+  background:var(--chrome-bg);border:1px solid var(--hair);border-radius:var(--r-sm);
+  font:700 var(--t-sm)/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}
+.show-day-n{color:var(--ink-2);font-size:var(--t-micro);white-space:nowrap}
+/* FURTHER OUT: one line per show, opening to the full card. */
+.far{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--lift)}
+.far[hidden]{display:none}
+.far > summary{list-style:none;display:grid;grid-template-columns:76px minmax(0,1fr) 20px;gap:10px;align-items:center;
+  padding:10px 12px;min-height:52px;cursor:pointer}
+.far > summary::-webkit-details-marker{display:none}
+.far-d{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ketchup-deep);text-transform:uppercase;letter-spacing:.03em}
+.far-t{font-weight:700;min-width:0}
+.far-m{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}
+.far-x::before{content:"+";font:700 1.2rem/1 var(--mono);color:var(--sky-deep)}
+.far[open] .far-x::before{content:"\2212"}
+.far[open] > summary{border-bottom:1px solid var(--hair)}
+.far .show{margin:0;border:0;box-shadow:none;border-radius:0 0 var(--r) var(--r)}
+.far > summary:focus-visible{outline:3px solid var(--ketchup);outline-offset:2px;border-radius:var(--r)}
+/* THE FIND PANEL AND THE FILTER BAR. */
+.cs-hero .lede{max-width:34em}
+/* THE HEADER IS SMALLER ON A PHONE, because what is under it is the point. */
+@media(max-width:719px){
+  header.cs-hero{padding-block:var(--s4) var(--s4)}
+  .cs-hero h1{font-size:1.65rem;line-height:1.15;margin-top:var(--s2)}
+  .cs-hero .lede{font-size:var(--t-sm);margin-top:var(--s2)}
+}
+section.cs-top{padding-block:var(--s3) var(--s2)}
+.cs-find{display:grid;gap:10px;margin-top:var(--s3)}
+.cs-find[hidden],.cs-group[hidden],.cs-wk[hidden]{display:none}
+.cs-near{display:flex;gap:8px}
+.cs-near input{flex:1 1 auto;min-width:0;height:44px;border-radius:var(--r-pill);border:1.5px solid var(--keyline);
+  background:var(--paper);color:var(--ink);font:600 1rem var(--body);padding:0 16px}
+.cs-near input::placeholder{color:var(--ink-2)}
+.cs-near input:focus-visible{outline:3px solid var(--ketchup);outline-offset:2px}
+.cs-near .btn{flex:none;min-height:44px}
+.cs-hint{font-size:var(--t-sm);line-height:1.4;color:var(--ketchup-deep)}
+.cs-hint:empty{display:none}
+.cs-group{display:flex;flex-wrap:wrap;gap:8px}
+.cs-checked{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2)}
+.cs-rail .rail-in{flex-wrap:wrap;overflow:visible;min-height:0;padding-bottom:4px}
+.cs-rail .rail-in{gap:6px}
+.cs-rail .chip{height:36px;padding:0 12px;font-size:.8125rem}
+.cs-status{max-width:1500px;margin:0 auto;padding:0 var(--gut) 8px;display:flex;justify-content:space-between;
+  align-items:center;gap:var(--s3);font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}
+.cs-clear{background:none;border:0;padding:6px 0;min-height:32px;font:700 var(--t-micro)/1 var(--mono);color:var(--sky-deep);
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}
+.cs-clear[hidden]{display:none}
+#list{padding-top:0}
+.cs-submit{margin-top:var(--s5);font-size:var(--t-sm);color:var(--ink-2)}
+.cs-tips-h{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s5)}
+.cs-tips{margin:8px 0 0 1.2em;display:grid;gap:6px;font-size:var(--t-sm);color:var(--ink-2);max-width:44em}
+/* THE WEEKEND STRIP, which replaced "Next one up". A horizontal row of tiles
+   that scrolls inside itself, with a visible scrollbar so it reads as more. */
+section.cs-wk{padding-block:var(--s2) var(--s2)}
+.cs-wk-h{margin-bottom:10px}
+.wk-strip{display:grid;align-items:start;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);gap:10px;overflow-x:auto;
+  scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
+.wk-tile{scroll-snap-align:start;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+  overflow:hidden;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;min-width:0}
+.wk-tile[hidden]{display:none}
+.wk-tile:hover,.wk-tile:focus-visible{border-color:var(--sky-deep)}
+.wk-tile picture,.wk-tile img{display:block;width:100%;height:90px;object-fit:cover;object-position:top}
+.wk-b{display:grid;gap:3px;padding:8px 10px 10px}
+.wk-d{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ketchup-deep);text-transform:uppercase;letter-spacing:.04em}
+.wk-t{font:400 .95rem/1.15 var(--display);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.wk-m{font:700 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}
+@media(min-width:720px){.wk-strip{grid-auto-columns:200px}}
 
 /* English set checklists carry a price, which the imported ones do not. Rarity
    drops to its own row under the name rather than fighting the price for the
@@ -4505,34 +4635,17 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
    Desktop and tablet fixes from the QA sweep.
    -------------------------------------------------------------------------- */
 
-/* Every show card reserved a 220px flyer column whether or not it had a flyer,
-   and none of the 23 currently do. At 768 that squeezed the body copy to 328px
-   and left a 253px empty gutter; crossing the 720px breakpoint made cards 27%
-   TALLER to make room for nothing. The column now only exists when there is
-   actually a flyer in the card. */
+/* THE CARD CAP, 980px from 720 up. It began as the cap on a three-column card
+   grid ("1fr ate the whole viewport": a 1,392px card with the flyer marooned
+   400px from its text, and the owner asked for it narrower). The 8 October 2026
+   redesign made the card a block with its own header row, so the grid columns,
+   the 220px flyer track and the 80px desktop logo that lived here are gone:
+   the logo is 44px beside the venue at every width and the flyer is sized in
+   the card block above. The cap stays, and the day headings, the far rows and
+   the empty state take the same measure, or at 1440 each 980px card sat under
+   a 1,392px heading. */
 @media(min-width:720px){
-  /* A CAP, BECAUSE 1fr ATE THE WHOLE VIEWPORT. At 1440 the card measured 1392px
-     and the grid resolved to 58px 1048px 220px, so the body column was over a
-     thousand pixels wide while the prose inside it stops at its own measure. The
-     flyer was not "on the right", it was marooned: 400-odd pixels of empty green
-     between the last word and the picture that belongs to it. The owner: "move the
-     flyers over to left closer to the show information, the overall container can
-     be smaller so its not so wide on the screen." 980 leaves the body about 640,
-     which is a comfortable measure, and puts the flyer next to the text it
-     illustrates rather than at the far edge of the monitor. */
-  .show{grid-template-columns:auto 1fr;max-width:980px}
-  .show:has(.show-flyer){grid-template-columns:auto 1fr 220px}
-  /* BIGGER ON A DESKTOP, on the owner's ask. This breaks the site's own "a logo is
-     56px wherever it appears" rule on this page only, and it is worth it here:
-     these are the organisers' own marks and the card has room for them. The
-     `sizes` on the <img> moves with it, or a 80px box asks for 240 device pixels
-     at DPR 3 against a 200w file and the logo goes soft. */
-  .show-logo{width:80px;height:80px}
-  /* THE IMG CARRIES ITS OWN CAP AND THE BOX ALONE DOES NOTHING. .show-logo img
-     is max-width:56px, so growing only the flex box left an 80px box with a
-     56px picture centred in it: measured 80x80 against a drawn 56x50. Both
-     move or neither does. */
-  .show-logo img{max-width:80px;max-height:80px}
+  .show,.show-day-h,.far,.show-empty{max-width:980px}
 }
 
 /* Real and Fake are a comparison and had the room to sit side by side, but the
