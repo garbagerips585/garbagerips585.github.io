@@ -1166,7 +1166,7 @@ function showCard(input, opts = {}) {
   const cls = `show${s.featured ? " is-featured" : ""}`;
   const open = opts.unit === false ? ` class="${cls}"`
     : archive ? ` class="${cls}" data-date="${esc(first)}"`
-    : ` id="s-${esc(s.id)}" class="${cls} su"${unitData(s)}`;
+    : ` id="s-${esc(s.id)}" class="${cls} cs-unit"${unitData(s)}`;
   const when = first === last
     ? `<span class="show-wd">${WD3(first)}</span><span class="show-day">${DNUM(first)}</span><span class="show-mon">${MON3(first)}</span>`
     : `<span class="show-wd">${WD3(first)}&ndash;${WD3(last)}</span><span class="show-day">${DNUM(first)}&ndash;${DNUM(last)}</span><span class="show-mon">${MON3(first) === MON3(last) ? MON3(first) : `${MON3(first)}&ndash;${MON3(last)}`}</span>`;
@@ -1214,9 +1214,9 @@ function showCard(input, opts = {}) {
             <ul class="show-vend-l" aria-labelledby="sv-h-${esc(s.id)}${opts.unit === false ? "-x" : ""}">${showVendors(s, archive)}</ul>
           </div>` : ""}
           ${archive ? "" : `<div class="show-acts">
-            <a class="act" href="${esc(dirLink(s))}" data-map-apple="${esc(appleDirLink(s))}" rel="noopener" target="_blank" aria-label="Directions to ${esc(s.venue)} for ${esc(showRef(s))}, opens on ${esc(hostOf(dirLink(s)))}">Directions</a>
-            <a class="act" href="/shows/ics/${esc(s.id)}.ics" aria-label="Add ${esc(showRef(s))} to your calendar">Calendar</a>
-            <button type="button" class="act" data-share="s-${esc(s.id)}" data-share-title="${esc(s.name)}, ${esc(longWhen(s))}" hidden>Share</button>
+            <a class="show-act" href="${esc(dirLink(s))}" data-map-apple="${esc(appleDirLink(s))}" rel="noopener" target="_blank" aria-label="Directions to ${esc(s.venue)} for ${esc(showRef(s))}, opens on ${esc(hostOf(dirLink(s)))}">Directions</a>
+            <a class="show-act" href="/shows/ics/${esc(s.id)}.ics" aria-label="Add ${esc(showRef(s))} to your calendar">Calendar</a>
+            <button type="button" class="show-act" data-share="s-${esc(s.id)}" data-share-title="${esc(s.name)}, ${esc(longWhen(s))}" hidden>Share</button>
           </div>`}
           ${s.ticketUrl || s.url || s.phone || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
@@ -1293,7 +1293,7 @@ ${tiles.map((r, i) => {
   const f = flyerSrc(r);
   const show = anyWk ? inWk(r) : i < 4;
   const p = priceOf(r);
-  return `      <a class="wk-tile" href="#s-${esc(r.id)}" data-date="${esc(r.date)}" data-last="${esc(r.last)}" data-region="${esc(chipRegions(r).join(" "))}"${townPt(r.city) ? ` data-lat="${townPt(r.city)[0]}" data-lon="${townPt(r.city)[1]}"` : ""}${show ? "" : " hidden"}>${f ? `<picture>${f.avif ? `<source type="image/avif" srcset="${f.avif280 ? `${esc(f.avif280)} 280w, ` : ""}${esc(f.avif)} 440w" sizes="160px">` : ""}<img src="${esc(f.t280 || f.thumb)}" srcset="${f.t280 ? `${esc(f.t280)} 280w, ` : ""}${esc(f.thumb)} 440w" sizes="160px" alt="" width="160" height="90" decoding="async"${i > 2 ? ' loading="lazy"' : ""}></picture>` : ""}<span class="wk-b"><span class="wk-d">${tileWhen(r)}</span><span class="wk-t">${esc(r.name)}</span><span class="wk-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span></a>`;
+  return `      <a class="wk-tile" href="#s-${esc(r.id)}" data-date="${esc(r.date)}" data-last="${esc(r.last)}" data-region="${esc(chipRegions(r).join(" "))}"${townPt(r.city) ? ` data-lat="${townPt(r.city)[0]}" data-lon="${townPt(r.city)[1]}"` : ""}${show ? "" : " hidden"}>${f ? `<picture>${f.avif ? `<source type="image/avif" srcset="${f.avif280 ? `${esc(f.avif280)} 280w, ` : ""}${esc(f.avif)} 440w" sizes="(min-width:720px) 200px, 44vw">` : ""}<img src="${esc(f.t280 || f.thumb)}" srcset="${f.t280 ? `${esc(f.t280)} 280w, ` : ""}${esc(f.thumb)} 440w" sizes="(min-width:720px) 200px, 44vw" alt="" width="160" height="90" decoding="async"${i > 2 ? ' loading="lazy"' : ""}></picture>` : ""}<span class="wk-b"><span class="wk-d">${tileWhen(r)}</span><span class="wk-t">${esc(r.name)}</span><span class="wk-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span></a>`;
 }).join("\n")}
     </div>
   </div>
@@ -1324,7 +1324,7 @@ ${farRuns.length ? `    <div class="show-dayg show-further" id="further">
       <h2 class="show-day-h"><span>Further out</span><span class="show-day-n">${farRuns.length} ${farRuns.length === 1 ? "show" : "shows"}</span></h2>
 ${farRuns.map((r) => {
   const p = priceOf(r);
-  return `      <details class="far su" id="s-${esc(r.id)}"${unitData(r)}>
+  return `      <details class="cs-far cs-unit" id="s-${esc(r.id)}"${unitData(r)}>
         <summary><span class="far-d">${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}</span><span class="far-t">${esc(r.name)}<span class="far-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span><span class="far-x" aria-hidden="true"></span></summary>
 ${showCard(r, { unit: false })}
       </details>`;
@@ -1508,10 +1508,10 @@ ${CLIENT_DAY_JS}
     if (last < today) return true;
     return last === today && el.dataset.end && el.dataset.end <= nowHM;
   }
-  [].slice.call(document.querySelectorAll('.su, .wk-tile')).forEach(function(el){ if (over(el)) el.remove(); });
-  document.querySelectorAll('.show-dayg').forEach(function(g){ if (!g.querySelector('.su')) g.remove(); });
+  [].slice.call(document.querySelectorAll('.cs-unit, .wk-tile')).forEach(function(el){ if (over(el)) el.remove(); });
+  document.querySelectorAll('.show-dayg').forEach(function(g){ if (!g.querySelector('.cs-unit')) g.remove(); });
   (function(){
-    var all = document.querySelectorAll('.su');
+    var all = document.querySelectorAll('.cs-unit');
     var free = 0; all.forEach(function(el){ if (el.dataset.free === '1') free++; });
     document.querySelectorAll('[data-all="shows"]').forEach(function(el){ el.textContent = all.length; });
     document.querySelectorAll('[data-all="free"]').forEach(function(el){ el.textContent = free; });
@@ -1524,7 +1524,7 @@ ${CLIENT_DAY_JS}
     var away = dn(a) - dn(today);
     return away === 1 ? 'Tomorrow' : away > 1 && away <= 7 ? 'In ' + away + ' days' : '';
   }
-  document.querySelectorAll('.su').forEach(function(el){
+  document.querySelectorAll('.cs-unit').forEach(function(el){
     var chip = el.querySelector('[data-soon]');
     if (!chip) return;
     var w = dayWord(el);
@@ -1555,7 +1555,7 @@ ${CLIENT_DAY_JS}
   function inArea(el, area){ return area === 'all' || (' ' + (el.dataset.region || '') + ' ').indexOf(' ' + area + ' ') !== -1; }
   function overlaps(el, w){ var a = el.dataset.date, b = el.dataset.last || a; return a <= w[1] && b >= w[0]; }
   function distOf(el){ return S.from && el.dataset.lat ? miles(S.from, [+el.dataset.lat, +el.dataset.lon]) : null; }
-  var units = [].slice.call(document.querySelectorAll('.su'));
+  var units = [].slice.call(document.querySelectorAll('.cs-unit'));
   units.forEach(function(el, i){ el._home = el.parentNode; el._i = i; });
   function keep(el){
     if (!inArea(el, S.area)) return false;
@@ -1582,7 +1582,7 @@ ${CLIENT_DAY_JS}
     }
     flat.hidden = !nearMode; list.hidden = !!nearMode;
     document.querySelectorAll('.show-dayg').forEach(function(g){
-      var n = g.querySelectorAll('.su:not([hidden])').length;
+      var n = g.querySelectorAll('.cs-unit:not([hidden])').length;
       g.hidden = n === 0;
       var c = g.querySelector('.show-day-n'); if (c) c.textContent = n + (n === 1 ? ' show' : ' shows');
     });
