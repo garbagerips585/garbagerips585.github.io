@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:poke-buffalo-elma-2027-05-01@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270501T140000Z
+DTEND:20270501T210000Z
+SUMMARY:Poké Buffalo
+LOCATION:Sahlen's Sports Park\, 7070 Seneca St\, Elma\, NY 14059
+DESCRIPTION:Admission: $5\, kids 12 and under free\nDetails: https://garbag
+ erips.com/card-shows.html#s-poke-buffalo-elma-2027-05-01
+URL:https://garbagerips.com/card-shows.html#s-poke-buffalo-elma-2027-05-01
+END:VEVENT
+END:VCALENDAR

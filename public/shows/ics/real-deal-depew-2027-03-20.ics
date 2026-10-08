@@ -1,0 +1,30 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:real-deal-depew-2027-03-20@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270320T140000Z
+DTEND:20270320T210000Z
+SUMMARY:Real Deal Buffalo Sports Card & Memorabilia Show
+LOCATION:The Grapevine Banquet & Event Center\, 333 Dick Rd\, Depew\, NY 14
+ 043
+DESCRIPTION:Admission: $2\nDetails: https://garbagerips.com/card-shows.html
+ #s-real-deal-depew-2027-03-20
+URL:https://garbagerips.com/card-shows.html#s-real-deal-depew-2027-03-20
+END:VEVENT
+BEGIN:VEVENT
+UID:real-deal-depew-2027-03-21@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270321T140000Z
+DTEND:20270321T210000Z
+SUMMARY:Real Deal Buffalo Sports Card & Memorabilia Show
+LOCATION:The Grapevine Banquet & Event Center\, 333 Dick Rd\, Depew\, NY 14
+ 043
+DESCRIPTION:Admission: $2\nDetails: https://garbagerips.com/card-shows.html
+ #s-real-deal-depew-2027-03-20
+URL:https://garbagerips.com/card-shows.html#s-real-deal-depew-2027-03-20
+END:VEVENT
+END:VCALENDAR

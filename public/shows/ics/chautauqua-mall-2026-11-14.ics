@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:chautauqua-mall-2026-11-14@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261114T150000Z
+DTEND:20261114T230000Z
+SUMMARY:Chautauqua Mall Sports Cards & TCG Show
+LOCATION:Chautauqua Mall\, 318 E Fairmount Ave\, Lakewood\, NY 14750
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-chautauqua-mall-2026-11-14
+URL:https://garbagerips.com/card-shows.html#s-chautauqua-mall-2026-11-14
+END:VEVENT
+END:VCALENDAR

@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:rawdawgz-olean-2026-11-14@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261114T150000Z
+DTEND:20261114T210000Z
+SUMMARY:RawDawgz Sports Card Turkey Day Showdown
+LOCATION:Westons Mills Fire Department\, 1310 Olean-Portville Rd\, Olean\, 
+ NY 14760
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-rawdawgz-olean-2026-11-14
+URL:https://garbagerips.com/card-shows.html#s-rawdawgz-olean-2026-11-14
+END:VEVENT
+END:VCALENDAR

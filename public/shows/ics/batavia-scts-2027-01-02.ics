@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:batavia-scts-2027-01-02@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270102T150000Z
+DTEND:20270102T200000Z
+SUMMARY:Batavia Sports Card\, Toys & Collectible Show
+LOCATION:Quality Inn\, 8250 Park Rd\, Batavia\, NY 14020
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-batavia-scts-2027-01-02
+URL:https://garbagerips.com/card-shows.html#s-batavia-scts-2027-01-02
+END:VEVENT
+END:VCALENDAR

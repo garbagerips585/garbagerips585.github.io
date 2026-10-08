@@ -6,13 +6,13 @@ METHOD:PUBLISH
 BEGIN:VEVENT
 UID:golden-saucer-nf-2026-12-05@garbagerips.com
 DTSTAMP:20261008T000000Z
-DTSTART;VALUE=DATE:20261205
-DTEND;VALUE=DATE:20261206
+DTSTART:20261205T150000Z
+DTEND:20261205T220000Z
 SUMMARY:Golden Saucer Gaming Expo
 LOCATION:Fashion Outlets of Niagara Falls\, 1900 Military Rd\, Niagara Fall
  s\, NY 14304
-DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
- shows.html#s-golden-saucer-nf-2026-12-05
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-golden-saucer-nf-2026-12-05
 URL:https://garbagerips.com/card-shows.html#s-golden-saucer-nf-2026-12-05
 END:VEVENT
 END:VCALENDAR

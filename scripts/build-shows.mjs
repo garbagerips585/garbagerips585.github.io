@@ -1444,7 +1444,7 @@ ${(data.watchFor || []).length ? `
          cardshows.io: every date, time, venue and address it gave us is printed
          on the card above, which is exactly the /decks.html argument. The credit
          is owed and is kept, in full, with the date it was read. */ ""}
-      <li>Dates and times come from public listings, mostly ${(data.sources || []).map((s) => esc(s.name)).join(" and ")}, read ${esc(longDate(data.checked) || data.checked)}.</li>
+      <li>Dates and times come from public listings, mostly ${((a) => (a.length > 2 ? `${a.slice(0, -1).join(", ")} and ${a[a.length - 1]}` : a.join(" and ")))((data.sources || []).map((s) => esc(s.name)))}, read ${esc(longDate(data.checked) || data.checked)}.</li>
       <li><strong>Always check the listing before you drive.</strong> Small shows move, sell out of tables, or get called off, and a page like this is a starting point rather than a promise.</li>
       <li>We are not the organizer of any of these and we do not take a cut. It is just a list.</li>
       <li>Shows in the Southern Tier are left off on purpose. They show up in the same feeds but they are closer to Binghamton than to any of these three cities.</li>

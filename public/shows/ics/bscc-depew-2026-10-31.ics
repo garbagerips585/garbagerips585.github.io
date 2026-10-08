@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:bscc-depew-2026-10-31@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20261031T133000Z
+DTEND:20261031T183000Z
+SUMMARY:Buffalo Sports Card Convention
+LOCATION:Polish Falcons Club\, 445 Columbia Ave\, Depew\, NY 14043
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-bscc-depew-2026-10-31
+URL:https://garbagerips.com/card-shows.html#s-bscc-depew-2026-10-31
+END:VEVENT
+END:VCALENDAR

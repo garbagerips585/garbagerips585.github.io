@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:814-card-show-2027-10-23@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20271023T120000Z
+DTEND:20271023T210000Z
+SUMMARY:814 Card Show
+LOCATION:St. Gregory School\, 140 W Main St\, North East\, PA 16428
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-814-card-show-2027-10-23
+URL:https://garbagerips.com/card-shows.html#s-814-card-show-2027-10-23
+END:VEVENT
+END:VCALENDAR

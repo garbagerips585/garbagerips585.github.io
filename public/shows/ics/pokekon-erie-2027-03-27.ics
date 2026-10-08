@@ -1,0 +1,18 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:pokekon-erie-2027-03-27@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART:20270327T140000Z
+DTEND:20270327T210000Z
+SUMMARY:PokeKon-Fest Erie
+LOCATION:Ambassador Banquet & Conference Center\, 7794 Peach Street\, Erie
+ \, PA 16509
+DESCRIPTION:Admission: $20\, kids under 11 free\nDetails: https://garbageri
+ ps.com/card-shows.html#s-pokekon-erie-2027-03-27
+URL:https://garbagerips.com/card-shows.html#s-pokekon-erie-2027-03-27
+END:VEVENT
+END:VCALENDAR

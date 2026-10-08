@@ -1,0 +1,32 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:syracuse-collectors-con-2027-04-03@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART;VALUE=DATE:20270403
+DTEND;VALUE=DATE:20270404
+SUMMARY:Syracuse Collectors Con
+LOCATION:Center of Progress Building\, NYS Fairgrounds\, 581 State Fair Blv
+ d\, Syracuse\, NY 13209
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-syracuse-collectors-con-2027-04-03
+URL:https://garbagerips.com/card-shows.html#s-syracuse-collectors-con-2027-
+ 04-03
+END:VEVENT
+BEGIN:VEVENT
+UID:syracuse-collectors-con-2027-04-04@garbagerips.com
+DTSTAMP:20261008T000000Z
+DTSTART;VALUE=DATE:20270404
+DTEND;VALUE=DATE:20270405
+SUMMARY:Syracuse Collectors Con
+LOCATION:Center of Progress Building\, NYS Fairgrounds\, 581 State Fair Blv
+ d\, Syracuse\, NY 13209
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-syracuse-collectors-con-2027-04-03
+URL:https://garbagerips.com/card-shows.html#s-syracuse-collectors-con-2027-
+ 04-03
+END:VEVENT
+END:VCALENDAR
