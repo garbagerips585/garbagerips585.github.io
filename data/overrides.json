@@ -2907,5 +2907,13 @@
       "destined-rivals"
     ],
     "setsWhy": "The owner named one set, \"Destined Rivals\". Pinned so a series word in the title can never add a second set."
+  },
+  "DCQKbd_q0tA": {
+    "packNumber": 2,
+    "packNumberWhy": "The owner, 8 October 2026: \"30th Celebration Greninja ex Box,Pack #2, hit yes, Toxtricity - Single Gold Star - Illustration Rare, 30th Celebration\". The second pack of the 30th Celebration Greninja ex Box (pack 1 is sioMdPu-izo). Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "30th-celebration"
+    ],
+    "setsWhy": "The owner named one set, \"30th Celebration\". Pinned so a series word in the title can never add a second set."
   }
 }
