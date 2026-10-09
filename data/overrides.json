@@ -2915,5 +2915,13 @@
       "30th-celebration"
     ],
     "setsWhy": "The owner named one set, \"30th Celebration\". Pinned so a series word in the title can never add a second set."
+  },
+  "UyK9H44SW2w": {
+    "packNumber": 13,
+    "packNumberWhy": "The owner, 9 October 2026: \"Single booster pack, Pack #13, Hit yes, Iono's Wattrell - Single Gold Star - Illustration Rare, Ascended Heroes\". Follows Pack #12 (xgiGQfjOYQ8, 1 October) in the same run of single Ascended Heroes packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "ascended-heroes"
+    ],
+    "setsWhy": "The owner named one set, \"Ascended Heroes\". Pinned so a word in the title can never add a second set."
   }
 }
