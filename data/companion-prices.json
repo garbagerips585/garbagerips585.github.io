@@ -1500,7 +1500,7 @@
     },
     "crown-zenith": {
       "console": "/console/pokemon-crown-zenith",
-      "checked": "2026-10-08",
+      "checked": "2026-10-09",
       "total": 70,
       "priced": 70,
       "cards": {
@@ -1711,13 +1711,13 @@
         "GG18": {
           "name": "Magnezone",
           "pcName": "Magnezone",
-          "price": 4.95,
+          "price": 4.98,
           "variant": "Base",
           "all": {
-            "Base": 4.95
+            "Base": 4.98
           },
-          "psa10": 162.53,
-          "g9": 20.8,
+          "psa10": 169.5,
+          "g9": 20.16,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/magnezone-gg18"
         },
         "GG19": {
@@ -1735,12 +1735,12 @@
         "GG20": {
           "name": "Latias",
           "pcName": "Latias",
-          "price": 17.8,
+          "price": 17.74,
           "variant": "Base",
           "all": {
-            "Base": 17.8
+            "Base": 17.74
           },
-          "psa10": 324.38,
+          "psa10": 305,
           "g9": 38.46,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/latias-gg20"
         },
@@ -1891,13 +1891,13 @@
         "GG33": {
           "name": "Poochyena",
           "pcName": "Poochyena",
-          "price": 5.79,
+          "price": 6,
           "variant": "Base",
           "all": {
-            "Base": 5.79
+            "Base": 6
           },
-          "psa10": 224.99,
-          "g9": 21.21,
+          "psa10": 237.49,
+          "g9": 20.14,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/poochyena-gg33"
         },
         "GG34": {
@@ -1963,13 +1963,13 @@
         "GG39": {
           "name": "Lumineon V",
           "pcName": "Lumineon V",
-          "price": 21.81,
+          "price": 22,
           "variant": "Base",
           "all": {
-            "Base": 21.81
+            "Base": 22
           },
-          "psa10": 115.77,
-          "g9": 29.99,
+          "psa10": 112.18,
+          "g9": 31,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/lumineon-v-gg39"
         },
         "GG40": {
@@ -2095,13 +2095,13 @@
         "GG50": {
           "name": "Darkrai VSTAR",
           "pcName": "Darkrai VStar",
-          "price": 90,
+          "price": 89.89,
           "variant": "Base",
           "all": {
-            "Base": 90
+            "Base": 89.89
           },
           "psa10": 245.25,
-          "g9": 101.56,
+          "g9": 97.45,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/darkrai-vstar-gg50"
         },
         "GG51": {
@@ -2311,25 +2311,25 @@
         "GG68": {
           "name": "Origin Forme Dialga VSTAR",
           "pcName": "Origin Forme Dialga VSTAR",
-          "price": 118,
+          "price": 106.61,
           "variant": "Base",
           "all": {
-            "Base": 118
+            "Base": 106.61
           },
-          "psa10": 275,
-          "g9": 114.08,
+          "psa10": 263.75,
+          "g9": 112.5,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/origin-forme-dialga-vstar-gg68"
         },
         "GG69": {
           "name": "Giratina VSTAR",
           "pcName": "Giratina VSTAR",
-          "price": 276.99,
+          "price": 270.49,
           "variant": "Base",
           "all": {
-            "Base": 276.99
+            "Base": 270.49
           },
-          "psa10": 551.85,
-          "g9": 267.53,
+          "psa10": 520,
+          "g9": 265,
           "url": "https://www.pricecharting.com/game/pokemon-crown-zenith/giratina-vstar-gg69"
         },
         "GG70": {
@@ -2348,7 +2348,7 @@
     },
     "celebrations": {
       "console": "/console/pokemon-celebrations",
-      "checked": "2026-10-08",
+      "checked": "2026-10-09",
       "total": 25,
       "priced": 25,
       "cards": {

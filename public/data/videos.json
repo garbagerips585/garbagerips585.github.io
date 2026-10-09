@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 318405,
-    "subscribers": 416,
-    "videos": 368,
-    "readAt": "2026-10-08"
+    "views": 318426,
+    "subscribers": 417,
+    "videos": 369,
+    "readAt": "2026-10-09"
   },
-  "syncedAt": "2026-10-08",
+  "syncedAt": "2026-10-09",
   "videos": [
+    {
+      "id": "UyK9H44SW2w",
+      "title": "Ascended Heroes Pack #13 🔥 | Most Colorful Hit in the Set?! Iono’s Wattrel IR! ⚡",
+      "path": "rip/ascended-heroes-pack-13-most-colorful-hit-in-the-set-ionos-w-UyK9H44SW2w.html",
+      "published": "2026-10-09",
+      "publishedAt": "2026-10-09T10:42:35Z",
+      "duration": 25,
+      "views": 20,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Ascended Heroes Pack"
+    },
     {
       "id": "DCQKbd_q0tA",
       "title": "30th Celebration Greninja Box Pack #2 🔥 | BACK-TO-BACK HITS! Heavy Metal Toxtricity IR! 🎸",
@@ -15,7 +34,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 572,
+      "views": 887,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-10-07",
       "publishedAt": "2026-10-07T10:21:27Z",
       "duration": 25,
-      "views": 1106,
+      "views": 1137,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2176,
+      "views": 2299,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +98,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1038,
+      "views": 1046,
       "vertical": true,
       "short": true,
       "sets": [
@@ -101,7 +120,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1008,
+      "views": 1009,
       "vertical": true,
       "short": true,
       "sets": [
@@ -274,7 +293,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 1106,
+      "views": 1108,
       "vertical": true,
       "short": true,
       "sets": [
@@ -423,7 +442,7 @@
       "published": "2026-09-19",
       "publishedAt": "2026-09-19T10:35:14Z",
       "duration": 26,
-      "views": 925,
+      "views": 926,
       "vertical": true,
       "short": true,
       "sets": [
@@ -930,7 +949,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1123,
+      "views": 1127,
       "vertical": true,
       "short": true,
       "sets": [
@@ -967,7 +986,7 @@
       "published": "2026-08-28",
       "publishedAt": "2026-08-28T11:48:15Z",
       "duration": 20,
-      "views": 997,
+      "views": 998,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1072,7 +1091,7 @@
       "published": "2026-08-25",
       "publishedAt": "2026-08-25T11:58:34Z",
       "duration": 19,
-      "views": 863,
+      "views": 865,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1139,7 +1158,7 @@
       "published": "2026-08-23",
       "publishedAt": "2026-08-23T12:40:33Z",
       "duration": 21,
-      "views": 976,
+      "views": 977,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1278,7 +1297,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1064,
+      "views": 1065,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1863,7 +1882,7 @@
       "published": "2026-08-02",
       "publishedAt": "2026-08-02T11:20:07Z",
       "duration": 22,
-      "views": 891,
+      "views": 892,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1900,7 +1919,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 958,
+      "views": 960,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2598,7 +2617,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 652,
+      "views": 658,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2634,7 +2653,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T13:15:11Z",
       "duration": 19,
-      "views": 771,
+      "views": 772,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2671,7 +2690,7 @@
       "published": "2026-07-16",
       "publishedAt": "2026-07-16T23:34:19Z",
       "duration": 21,
-      "views": 990,
+      "views": 991,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2705,7 +2724,7 @@
       "published": "2026-07-16",
       "publishedAt": "2026-07-16T12:16:38Z",
       "duration": 21,
-      "views": 775,
+      "views": 776,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2738,7 +2757,7 @@
       "published": "2026-07-15",
       "publishedAt": "2026-07-15T23:55:00Z",
       "duration": 22,
-      "views": 775,
+      "views": 776,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2775,7 +2794,7 @@
       "published": "2026-07-15",
       "publishedAt": "2026-07-15T12:25:26Z",
       "duration": 22,
-      "views": 926,
+      "views": 927,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2812,7 +2831,7 @@
       "published": "2026-07-14",
       "publishedAt": "2026-07-14T23:35:19Z",
       "duration": 23,
-      "views": 784,
+      "views": 785,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2848,7 +2867,7 @@
       "published": "2026-07-14",
       "publishedAt": "2026-07-14T12:08:07Z",
       "duration": 20,
-      "views": 811,
+      "views": 812,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2882,7 +2901,7 @@
       "published": "2026-07-13",
       "publishedAt": "2026-07-13T23:48:25Z",
       "duration": 24,
-      "views": 864,
+      "views": 865,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2919,7 +2938,7 @@
       "published": "2026-07-13",
       "publishedAt": "2026-07-13T11:55:02Z",
       "duration": 20,
-      "views": 630,
+      "views": 631,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2953,7 +2972,7 @@
       "published": "2026-07-12",
       "publishedAt": "2026-07-12T23:58:39Z",
       "duration": 21,
-      "views": 719,
+      "views": 720,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2990,7 +3009,7 @@
       "published": "2026-07-12",
       "publishedAt": "2026-07-12T11:59:28Z",
       "duration": 22,
-      "views": 709,
+      "views": 710,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3027,7 +3046,7 @@
       "published": "2026-07-11",
       "publishedAt": "2026-07-11T23:57:08Z",
       "duration": 20,
-      "views": 845,
+      "views": 846,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3166,7 +3185,7 @@
       "published": "2026-07-09",
       "publishedAt": "2026-07-09T23:58:23Z",
       "duration": 24,
-      "views": 542,
+      "views": 543,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3891,7 +3910,7 @@
       "published": "2026-06-29",
       "publishedAt": "2026-06-29T23:06:17Z",
       "duration": 25,
-      "views": 48,
+      "views": 49,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4902,7 +4921,7 @@
       "published": "2026-06-15",
       "publishedAt": "2026-06-15T10:08:22Z",
       "duration": 25,
-      "views": 988,
+      "views": 989,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7138,7 +7157,7 @@
       "published": "2026-05-13",
       "publishedAt": "2026-05-13T23:16:00Z",
       "duration": 48,
-      "views": 604,
+      "views": 606,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11107,7 +11126,7 @@
       "published": "2026-03-08",
       "publishedAt": "2026-03-08T11:09:00Z",
       "duration": 36,
-      "views": 1393,
+      "views": 1394,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11845,7 +11864,7 @@
       "published": "2026-02-15",
       "publishedAt": "2026-02-15T15:00:39Z",
       "duration": 18,
-      "views": 458,
+      "views": 459,
       "vertical": true,
       "short": true,
       "sets": [
