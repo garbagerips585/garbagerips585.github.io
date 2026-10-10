@@ -2923,5 +2923,13 @@
       "ascended-heroes"
     ],
     "setsWhy": "The owner named one set, \"Ascended Heroes\". Pinned so a word in the title can never add a second set."
+  },
+  "BvnrfvDoaZ0": {
+    "packNumber": 3,
+    "packNumberWhy": "The owner, 10 October 2026: \"30th Celebration Greninja ex Box,Pack #3, hit yes, Jirachi ex , Double Gold Star - Special Illustration Rare, 30th Celebration\". The third pack of the 30th Celebration Greninja ex Box (pack 1 sioMdPu-izo, pack 2 DCQKbd_q0tA). The video title (\"Pulled Avery's Jirachi SIR\") names neither the box nor the pack, so this override is the only thing that places it. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "30th-celebration"
+    ],
+    "setsWhy": "The owner named one set, \"30th Celebration\". Pinned because the title names no set at all."
   }
 }
