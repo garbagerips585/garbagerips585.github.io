@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-05",
+  "checked": "2026-10-10",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -476,6 +476,16 @@
       "setCode": "30C",
       "section": "main",
       "rarity": "Common"
+    },
+    {
+      "name": "Deino",
+      "n": "097",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-10-10",
+      "note": "The owner, 10 October 2026, in an updated master set list: added in that list and not in the binder before. His list heads the main set \"94 of 98\" and the whole binder \"158 of 199\" but itemizes 95 main set numbers, 097 among them; the itemized list is taken as the source and the headings as not yet updated, which makes the binder 159."
     },
     {
       "name": "Zweilous",
