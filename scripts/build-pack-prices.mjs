@@ -315,14 +315,15 @@ const etbDearest = etbSets.filter((r) => {
   return r.kinds["Elite Trainer Box"].each >= Math.max(...vals);
 });
 const etbCheapest = etbSets.filter((r) => r.best.kind === "Elite Trainer Box");
-if (etbCheapest.length) {
-  // Not a failure, but the copy below says "never the cheapest" and would
-  // become false. Better to stop the build than to print it.
-  throw new Error(
-    `The Elite Trainer Box is now the cheapest pack in ${etbCheapest.length} set(s) ` +
-      `(${etbCheapest.map((r) => r.name).join(", ")}). Rewrite the ETB section: it says never.`,
-  );
-}
+// THIS USED TO THROW, and it was right to: the copy said "never the cheapest"
+// and a page that cannot say it any more should stop rather than print it. It
+// stopped the nightly two nights running, 10 and 11 October 2026, when the
+// Prismatic Evolutions ETB became that set's cheapest pack. Every sentence that
+// made the claim now reads etbCheapest instead, so the page says "only in X"
+// when that is true and "never" when that is, and there is nothing left to stop.
+const etbCheapestNames = ((a) => (a.length > 2 ? `${a.slice(0, -1).join(", ")} and ${a[a.length - 1]}` : a.join(" and ")))(
+  etbCheapest.map((r) => r.name)
+);
 
 // The two ends of the table, checked rather than described. Both clauses below
 // are only written if the data still says them, because "the cheapest sets are
@@ -586,8 +587,12 @@ const FAQ = faqBlock(
     ],
     [
       "Is an Elite Trainer Box worth it?",
-      `Purely as packs, no. Across the ${etbSets.length} sets priced here the Elite Trainer Box is never the cheapest pack in its ` +
-        `set, it is the priciest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
+      (etbCheapest.length
+        ? `Purely as packs, rarely. Across the ${etbSets.length} sets priced here the Elite Trainer Box is the cheapest pack in its ` +
+          `set in only ${etbCheapest.length === 1 ? "one" : etbCheapest.length}, ${etbCheapestNames}. It is`
+        : `Purely as packs, no. Across the ${etbSets.length} sets priced here the Elite Trainer Box is never the cheapest pack in its ` +
+          `set, it is`) +
+        ` the priciest option on the row in ${etbDearest.length} of them, and it runs a median of ${x(etbMedian)} the cheapest ` +
         `pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so ` +
         `whether that gap is worth paying is a question about the accessories rather than about the cards.`,
     ],
@@ -991,12 +996,13 @@ ${COLUMNS.map(
          "All 22 sets on this page" told a reader the page held 22 while the
          title, the description and the stat block all said 28. Both numbers
          are computed, so the sentence now states the fraction it means. */ ""}
-    <p class="lede w40">${etbSets.length} of the ${rows.length} sets on this page sell an Elite Trainer Box, and in not
-      one of them is it the cheapest pack. In ${etbDearest.length} of the ${etbSets.length} it is the priciest thing on the
+    <p class="lede w40">${etbSets.length} of the ${rows.length} sets on this page sell an Elite Trainer Box, and ${etbCheapest.length
+      ? `it is the cheapest pack in only ${etbCheapest.length === 1 ? "one of them" : `${etbCheapest.length} of them`}, ${esc(etbCheapestNames)}.`
+      : "in not one of them is it the cheapest pack."} In ${etbDearest.length} of the ${etbSets.length} it is the priciest thing on the
       row. Measured against the cheapest pack in its own set it runs a median of ${x(etbMedian)}.</p>
     <div class="facts">
       <div class="fact"><div class="n">${x(etbMedian)}</div><div class="l">Median ETB pack against the cheapest pack in the same set</div></div>
-      <div class="fact"><div class="n">${x(etbBest.x)}</div><div class="l">Closest it gets (${esc(etbBest.set.name)})</div></div>
+      <div class="fact"><div class="n">${x(etbBest.x)}</div><div class="l">${etbBest.x <= 1 ? "Where it is the cheapest pack" : "Closest it gets"} (${esc(etbBest.set.name)})</div></div>
       <div class="fact"><div class="n">${x(etbWorst.x)}</div><div class="l">Furthest apart (${esc(etbWorst.set.name)})</div></div>
       <div class="fact"><div class="n">${etbDearest.length} of ${etbSets.length}</div><div class="l">Sets where the ETB is the priciest pack on the row</div></div>
     </div>
@@ -1004,7 +1010,7 @@ ${COLUMNS.map(
       Elite Trainer Box also carries sleeves, dice, a promo card, dividers and the box itself, and we have no source for
       what any of that is worth, so we do not subtract a made up number from the price to make the comparison look
       better. If you want the sleeves, the premium may be the cheapest sleeves you will buy. If you want packs, there is
-      a cheaper way to get them in every set on this page.</p>
+      a cheaper way to get them in every set on this page${etbCheapest.length ? ` except ${esc(etbCheapestNames)}` : ""}.</p>
   </div>
 </section>
 
