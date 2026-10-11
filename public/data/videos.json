@@ -1,13 +1,34 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 319866,
+    "views": 321090,
     "subscribers": 419,
-    "videos": 370,
-    "readAt": "2026-10-10"
+    "videos": 371,
+    "readAt": "2026-10-11"
   },
-  "syncedAt": "2026-10-10",
+  "syncedAt": "2026-10-11",
   "videos": [
+    {
+      "id": "gXDLCLsEydg",
+      "title": "Phantasmal Flames Pack #16 🔥 | Insane Pink & Purple Mismagius ex! 💖💜",
+      "path": "rip/phantasmal-flames-pack-16-insane-pink-purple-mismagius-ex-gXDLCLsEydg.html",
+      "published": "2026-10-11",
+      "publishedAt": "2026-10-11T11:21:08Z",
+      "duration": 23,
+      "views": 9,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "phantasmal-flames"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "packNumber": 16,
+      "packs": 1,
+      "label": "Phantasmal Flames Pack - Pack 16"
+    },
     {
       "id": "BvnrfvDoaZ0",
       "title": "Pulled Avery’s Jirachi SIR… 🕊️🌠",
@@ -15,7 +36,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 989,
+      "views": 1040,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +57,7 @@
       "published": "2026-10-09",
       "publishedAt": "2026-10-09T10:42:35Z",
       "duration": 25,
-      "views": 26,
+      "views": 27,
       "vertical": true,
       "short": true,
       "sets": [
@@ -57,7 +78,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 917,
+      "views": 965,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +99,7 @@
       "published": "2026-10-07",
       "publishedAt": "2026-10-07T10:21:27Z",
       "duration": 25,
-      "views": 1218,
+      "views": 1270,
       "vertical": true,
       "short": true,
       "sets": [
@@ -100,7 +121,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2530,
+      "views": 2533,
       "vertical": true,
       "short": true,
       "sets": [
@@ -143,7 +164,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1011,
+      "views": 1013,
       "vertical": true,
       "short": true,
       "sets": [
@@ -656,7 +677,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 937,
+      "views": 943,
       "vertical": true,
       "short": true,
       "sets": [
@@ -678,7 +699,7 @@
       "published": "2026-09-10",
       "publishedAt": "2026-09-10T10:21:32Z",
       "duration": 23,
-      "views": 1009,
+      "views": 1010,
       "vertical": true,
       "short": true,
       "sets": [
@@ -808,7 +829,7 @@
       "published": "2026-09-04",
       "publishedAt": "2026-09-04T10:20:25Z",
       "duration": 21,
-      "views": 1169,
+      "views": 1170,
       "vertical": true,
       "short": true,
       "sets": [
@@ -972,7 +993,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1127,
+      "views": 1128,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1078,7 +1099,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1184,
+      "views": 1186,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1148,7 +1169,7 @@
       "published": "2026-08-24",
       "publishedAt": "2026-08-24T12:22:06Z",
       "duration": 18,
-      "views": 1025,
+      "views": 1026,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1320,7 +1341,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1066,
+      "views": 1069,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1942,7 +1963,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 961,
+      "views": 965,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4668,7 +4689,7 @@
       "published": "2026-06-19",
       "publishedAt": "2026-06-19T10:20:17Z",
       "duration": 22,
-      "views": 88,
+      "views": 89,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7454,7 +7475,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T00:37:00Z",
       "duration": 29,
-      "views": 929,
+      "views": 931,
       "vertical": true,
       "short": true,
       "sets": [

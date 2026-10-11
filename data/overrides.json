@@ -2931,5 +2931,13 @@
       "30th-celebration"
     ],
     "setsWhy": "The owner named one set, \"30th Celebration\". Pinned because the title names no set at all."
+  },
+  "gXDLCLsEydg": {
+    "packNumber": 16,
+    "packNumberWhy": "The owner, 11 October 2026: \"Single Booster Pack, Pack#16, Hit yes, Mismagius ex - Double Silver Star - Ultra Rare , Phantasmal Flames\". Follows Pack #15 (_9Cc1U43S5A, 3 October) in the same run of single Phantasmal Flames packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "phantasmal-flames"
+    ],
+    "setsWhy": "The owner named one set, \"Phantasmal Flames\". Pinned so a series word in a title can never add a second set, which happened on pack 15."
   }
 }
