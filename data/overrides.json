@@ -2939,5 +2939,13 @@
       "phantasmal-flames"
     ],
     "setsWhy": "The owner named one set, \"Phantasmal Flames\". Pinned so a series word in a title can never add a second set, which happened on pack 15."
+  },
+  "B-zVdn5vjso": {
+    "packNumber": 4,
+    "packNumberWhy": "The owner, 12 October 2026: \"30th Celebration Greninja ex Box, Pack #4, Hit yes, Zapdos - Single Gold Star - Illustration Rare, 30th Celebration\". The fourth pack of the 30th Celebration Greninja ex Box (packs 1 to 3 are sioMdPu-izo, DCQKbd_q0tA and BvnrfvDoaZ0, all hits, which is the title's \"4-FOR-4\"). The title names neither the box nor the pack, so this override is the only thing that places it. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "30th-celebration"
+    ],
+    "setsWhy": "The owner named one set, \"30th Celebration\". Pinned because the title names no set at all."
   }
 }

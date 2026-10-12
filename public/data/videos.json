@@ -1,13 +1,34 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 321090,
-    "subscribers": 419,
-    "videos": 371,
-    "readAt": "2026-10-11"
+    "views": 321166,
+    "subscribers": 420,
+    "videos": 372,
+    "readAt": "2026-10-12"
   },
-  "syncedAt": "2026-10-11",
+  "syncedAt": "2026-10-12",
   "videos": [
+    {
+      "id": "B-zVdn5vjso",
+      "title": "We Went 4-FOR-4 on Hits in ONE Box?! ⚡🤯",
+      "path": "rip/we-went-4-for-4-on-hits-in-one-box-B-zVdn5vjso.html",
+      "published": "2026-10-12",
+      "publishedAt": "2026-10-12T10:06:15Z",
+      "duration": 30,
+      "views": 702,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": [],
+      "packNumber": 4,
+      "packs": 1,
+      "label": "30th Celebration ex Premium Collection - Pack 4"
+    },
     {
       "id": "gXDLCLsEydg",
       "title": "Phantasmal Flames Pack #16 🔥 | Insane Pink & Purple Mismagius ex! 💖💜",
@@ -36,7 +57,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1040,
+      "views": 1055,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +99,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 965,
+      "views": 983,
       "vertical": true,
       "short": true,
       "sets": [
@@ -99,7 +120,7 @@
       "published": "2026-10-07",
       "publishedAt": "2026-10-07T10:21:27Z",
       "duration": 25,
-      "views": 1270,
+      "views": 1269,
       "vertical": true,
       "short": true,
       "sets": [
@@ -142,7 +163,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1047,
+      "views": 1048,
       "vertical": true,
       "short": true,
       "sets": [
@@ -164,7 +185,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1013,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -380,7 +401,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1276,
+      "views": 1277,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1890,7 +1911,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 667,
+      "views": 669,
       "vertical": true,
       "short": true,
       "sets": [
