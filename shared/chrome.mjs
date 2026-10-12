@@ -699,7 +699,14 @@ export const NAV = [
  * row arithmetic in .nav-links is untouched and the phone is unaffected either
  * way: the bar drops to the hamburger below 900 and none of these five render.
  */
-export const BAR_LINKS = ["/videos.html", "/hall.html", "/rochester.html", "/cards.html", "/start.html"];
+/* RESTOCKS JOINS AS A SIXTH, 12 October 2026, on the owner's ask: "lets also make
+ * sure the weekly retail store drops is page linked in the main nav and footer
+ * nav too". It was already in the menu and the footer under its NAV label, so
+ * the bar is the one surface it was missing from. It goes LAST because it comes
+ * after Start here in NAV, which keeps the bar a subset in the menu's order.
+ * Being sixth means it is one of the links the max-width:1099 rule hides, so
+ * between 900 and 1099 the bar is unchanged, and a phone is unaffected. */
+export const BAR_LINKS = ["/videos.html", "/hall.html", "/rochester.html", "/cards.html", "/start.html", "/drops.html"];
 
 /** Every [href, label] in NAV, flattened, in order. */
 export const NAV_LINKS = NAV.flatMap(([, links]) => links);
