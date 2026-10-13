@@ -2,12 +2,31 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 321166,
-    "subscribers": 420,
-    "videos": 372,
-    "readAt": "2026-10-12"
+    "subscribers": 419,
+    "videos": 373,
+    "readAt": "2026-10-13"
   },
-  "syncedAt": "2026-10-12",
+  "syncedAt": "2026-10-13",
   "videos": [
+    {
+      "id": "79QR-6lfFMs",
+      "title": "Pack #8 Reminded Us Why We’re Called Garbage Rips 🗑️💀",
+      "path": "rip/pack-8-reminded-us-why-were-called-garbage-rips-79QR-6lfFMs.html",
+      "published": "2026-10-13",
+      "publishedAt": "2026-10-13T10:18:16Z",
+      "duration": 22,
+      "views": 749,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "mega-evolution"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Mega Evolution Pack"
+    },
     {
       "id": "B-zVdn5vjso",
       "title": "We Went 4-FOR-4 on Hits in ONE Box?! ⚡🤯",
@@ -15,7 +34,7 @@
       "published": "2026-10-12",
       "publishedAt": "2026-10-12T10:06:15Z",
       "duration": 30,
-      "views": 917,
+      "views": 946,
       "vertical": true,
       "short": true,
       "sets": [
@@ -36,7 +55,7 @@
       "published": "2026-10-11",
       "publishedAt": "2026-10-11T11:21:08Z",
       "duration": 23,
-      "views": 14,
+      "views": 17,
       "vertical": true,
       "short": true,
       "sets": [
@@ -57,7 +76,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1060,
+      "views": 1082,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-10-09",
       "publishedAt": "2026-10-09T10:42:35Z",
       "duration": 25,
-      "views": 29,
+      "views": 30,
       "vertical": true,
       "short": true,
       "sets": [
@@ -99,7 +118,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 984,
+      "views": 985,
       "vertical": true,
       "short": true,
       "sets": [
@@ -142,7 +161,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2534,
+      "views": 2536,
       "vertical": true,
       "short": true,
       "sets": [
@@ -163,7 +182,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1050,
+      "views": 1051,
       "vertical": true,
       "short": true,
       "sets": [
@@ -227,7 +246,7 @@
       "published": "2026-10-02",
       "publishedAt": "2026-10-02T10:44:39Z",
       "duration": 19,
-      "views": 1094,
+      "views": 1095,
       "vertical": true,
       "short": true,
       "sets": [
@@ -292,7 +311,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1349,
+      "views": 1350,
       "vertical": true,
       "short": true,
       "sets": [
@@ -358,7 +377,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 1108,
+      "views": 1109,
       "vertical": true,
       "short": true,
       "sets": [
@@ -401,7 +420,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1277,
+      "views": 1279,
       "vertical": true,
       "short": true,
       "sets": [
@@ -656,7 +675,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1260,
+      "views": 1261,
       "vertical": true,
       "short": true,
       "sets": [
@@ -807,7 +826,7 @@
       "published": "2026-09-06",
       "publishedAt": "2026-09-06T10:45:02Z",
       "duration": 25,
-      "views": 1144,
+      "views": 1145,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1120,7 +1139,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1186,
+      "views": 1187,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1362,7 +1381,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1069,
+      "views": 1070,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5018,7 +5037,7 @@
       "published": "2026-06-14",
       "publishedAt": "2026-06-14T23:38:36Z",
       "duration": 22,
-      "views": 1112,
+      "views": 1115,
       "vertical": true,
       "short": true,
       "sets": [
