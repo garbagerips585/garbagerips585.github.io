@@ -7356,10 +7356,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/mega-greninja-ex-100"
         },
         "101": {
-          "price": 3.66,
+          "price": 4.39,
           "variant": "Base",
           "all": {
-            "Base": 3.66
+            "Base": 4.39
           },
           "psa10": 57.5,
           "g9": 17.5,
@@ -7536,13 +7536,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/mega-dragalge-ex-118"
         },
         "119": {
-          "price": 44.02,
+          "price": 44.99,
           "variant": "Base",
           "all": {
-            "Base": 44.02
+            "Base": 44.99
           },
-          "psa10": 149.36,
-          "g9": 48.46,
+          "psa10": 137.8,
+          "g9": 45.93,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/cinccino-ex-119"
         },
         "120": {
@@ -7579,7 +7579,7 @@
           "price": 1.49,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.14,
+            "Base": 0.15,
             "Reverse Holo": 1.49
           },
           "psa10": 37.12,
@@ -7590,7 +7590,7 @@
           "price": 1.26,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
+            "Base": 0.33,
             "Reverse Holo": 1.26
           },
           "psa10": 35.97,
@@ -7630,13 +7630,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/chespin-reverse-holo-5"
         },
         "006": {
-          "price": 1.49,
+          "price": 1.45,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.49,
+            "Reverse Holo": 1.45,
             "Base": 0.28
           },
-          "psa10": 37.12,
+          "psa10": 37.11,
           "g9": 11.99,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/quilladin-reverse-holo-6"
         },
@@ -7645,7 +7645,7 @@
           "variant": "Base",
           "all": {
             "Base": 0.99,
-            "Reverse Holo": 0.65
+            "Reverse Holo": 0.93
           },
           "psa10": 31.91,
           "g9": 10.53,
@@ -7655,7 +7655,7 @@
           "price": 1.58,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.4,
+            "Base": 0.66,
             "Reverse Holo": 1.58
           },
           "psa10": 37.55,
@@ -7685,21 +7685,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/ho-oh-10"
         },
         "011": {
-          "price": 1.55,
+          "price": 1.44,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.78,
-            "Reverse Holo": 1.55
+            "Reverse Holo": 1.44
           },
-          "psa10": 37.6,
-          "g9": 12.12,
+          "psa10": 37.4,
+          "g9": 12.07,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/fennekin-reverse-holo-11"
         },
         "012": {
           "price": 0.84,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.41,
+            "Base": 0.44,
             "Reverse Holo": 0.84
           },
           "psa10": 35.45,
@@ -7722,7 +7722,7 @@
           "price": 0.37,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
+            "Base": 0.34,
             "Reverse Holo": 0.37
           },
           "psa10": 32.82,
@@ -7751,14 +7751,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/remoraid-reverse-holo-16"
         },
         "017": {
-          "price": 1.51,
+          "price": 1.46,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 1.51
+            "Reverse Holo": 1.46
           },
-          "psa10": 37.22,
-          "g9": 12.01,
+          "psa10": 37.21,
+          "g9": 12.02,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/octillery-reverse-holo-17"
         },
         "018": {
@@ -7777,7 +7777,7 @@
           "variant": "Base",
           "all": {
             "Base": 0.99,
-            "Reverse Holo": 0.4
+            "Reverse Holo": 0.5
           },
           "psa10": 32.58,
           "g9": 11,
@@ -7798,7 +7798,7 @@
           "price": 1.15,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.84,
+            "Base": 0.79,
             "Reverse Holo": 1.15
           },
           "psa10": 34.63,
@@ -7852,7 +7852,7 @@
           "price": 1.29,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.05,
+            "Base": 0.04,
             "Reverse Holo": 1.29
           },
           "psa10": 36.16,
@@ -7962,7 +7962,7 @@
           "price": 1.49,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.53,
+            "Base": 0.7,
             "Reverse Holo": 1.49
           },
           "psa10": 36.69,
@@ -7973,11 +7973,11 @@
           "price": 1.19,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.3,
+            "Base": 0.23,
             "Reverse Holo": 1.19
           },
-          "psa10": 36.17,
-          "g9": 11.72,
+          "psa10": 35.68,
+          "g9": 11.59,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/meowstic-reverse-holo-37"
         },
         "038": {
@@ -8003,11 +8003,11 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/trevenant-reverse-holo-39"
         },
         "040": {
-          "price": 0.76,
+          "price": 0.59,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.21,
-            "Reverse Holo": 0.76
+            "Reverse Holo": 0.59
           },
           "psa10": 33.63,
           "g9": 11.01,
@@ -8071,7 +8071,7 @@
           "price": 1.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.06,
+            "Base": 0.09,
             "Reverse Holo": 1.4
           },
           "psa10": 36.69,
@@ -8079,14 +8079,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/baltoy-reverse-holo-46"
         },
         "047": {
-          "price": 1.04,
+          "price": 1.13,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.3,
-            "Reverse Holo": 1.04
+            "Reverse Holo": 1.13
           },
-          "psa10": 35.26,
-          "g9": 11.47,
+          "psa10": 34.97,
+          "g9": 11.39,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/claydol-reverse-holo-47"
         },
         "048": {
@@ -8103,7 +8103,7 @@
           "price": 0.47,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.22,
+            "Base": 0.18,
             "Reverse Holo": 0.47
           },
           "psa10": 32.58,
@@ -8126,7 +8126,7 @@
           "variant": "Base",
           "all": {
             "Base": 1.42,
-            "Reverse Holo": 0.7,
+            "Reverse Holo": 1.14,
             "Holo": 0.82
           },
           "psa10": 36.78,
@@ -8134,21 +8134,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/crobat-51"
         },
         "052": {
-          "price": 0.33,
+          "price": 0.29,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 0.33
+            "Reverse Holo": 0.29
           },
-          "psa10": 32.48,
-          "g9": 10.69,
+          "psa10": 31.58,
+          "g9": 10.44,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/qwilfish-reverse-holo-52"
         },
         "053": {
           "price": 1.37,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.15,
+            "Base": 0.16,
             "Reverse Holo": 1.37
           },
           "psa10": 36.54,
@@ -8159,7 +8159,7 @@
           "price": 1.19,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.1,
+            "Base": 0.17,
             "Reverse Holo": 1.19
           },
           "psa10": 35.69,
@@ -8188,25 +8188,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/trubbish-reverse-holo-56"
         },
         "057": {
-          "price": 1.4,
+          "price": 1.36,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.24,
-            "Reverse Holo": 1.4
+            "Reverse Holo": 1.36
           },
-          "psa10": 37.17,
-          "g9": 12,
+          "psa10": 36.69,
+          "g9": 11.87,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/garbodor-reverse-holo-57"
         },
         "058": {
-          "price": 0.95,
+          "price": 0.54,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.2,
-            "Reverse Holo": 0.95
+            "Reverse Holo": 0.54
           },
-          "psa10": 34.49,
-          "g9": 11.25,
+          "psa10": 34.54,
+          "g9": 11.27,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/skrelp-reverse-holo-58"
         },
         "059": {
@@ -8243,21 +8243,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/metagross-reverse-holo-61"
         },
         "062": {
-          "price": 0.26,
+          "price": 0.3,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.26,
+            "Reverse Holo": 0.3,
             "Base": 0.11
           },
-          "psa10": 30.91,
-          "g9": 10.25,
+          "psa10": 31.24,
+          "g9": 10.35,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/ferroseed-reverse-holo-62"
         },
         "063": {
           "price": 0.58,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.11,
+            "Base": 0.14,
             "Reverse Holo": 0.58
           },
           "psa10": 32.87,
@@ -8299,7 +8299,7 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.23,
+            "Base": 0.25,
             "Reverse Holo": 0.4
           },
           "psa10": 31.91,
@@ -8307,10 +8307,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/sliggoo-reverse-holo-67"
         },
         "068": {
-          "price": 3.5,
+          "price": 3.66,
           "variant": "Base",
           "all": {
-            "Base": 3.5,
+            "Base": 3.66,
             "Holo": 0.99,
             "Reverse Holo": 0.94
           },
@@ -8322,7 +8322,7 @@
           "price": 1.54,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.21,
+            "Base": 0.63,
             "Reverse Holo": 1.54
           },
           "psa10": 37.07,
@@ -8344,7 +8344,7 @@
           "price": 1.15,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.2,
+            "Base": 0.21,
             "Reverse Holo": 1.15
           },
           "psa10": 35.49,
@@ -8395,33 +8395,33 @@
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/ange-floette-reverse-holo-75"
         },
         "076": {
-          "price": 0.43,
+          "price": 0.44,
           "variant": "Base",
           "all": {
-            "Base": 0.43,
+            "Base": 0.44,
             "Reverse Holo": 0.4
           },
-          "psa10": 32.34,
-          "g9": 10.65,
+          "psa10": 32.05,
+          "g9": 10.57,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/az%27s-tranquility-76"
         },
         "077": {
-          "price": 1.39,
+          "price": 1.42,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.39,
-            "Base": 0.4
+            "Reverse Holo": 1.42,
+            "Base": 0.58
           },
           "psa10": 14,
-          "g9": 11.85,
+          "g9": 11.86,
           "url": "https://www.pricecharting.com/game/pokemon-chaos-rising/emma-reverse-holo-77"
         },
         "078": {
-          "price": 0.36,
+          "price": 0.32,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.31,
-            "Reverse Holo": 0.36
+            "Base": 0.3,
+            "Reverse Holo": 0.32
           },
           "psa10": 31.72,
           "g9": 10.48,
@@ -8453,7 +8453,7 @@
           "price": 1.32,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.4,
+            "Base": 0.56,
             "Reverse Holo": 1.32
           },
           "psa10": 36.93,
@@ -8464,7 +8464,7 @@
           "price": 1.34,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.8,
+            "Base": 0.99,
             "Reverse Holo": 1.34
           },
           "psa10": 36.41,
@@ -12864,20 +12864,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/medicham-reverse-holo-100"
         },
         "101": {
-          "price": 1.31,
+          "price": 1.11,
           "variant": "Base",
           "all": {
-            "Base": 1.31
+            "Base": 1.11
           },
           "psa10": 34.47,
-          "g9": 12.3,
+          "g9": 12.4,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/regirock-ex-101"
         },
         "102": {
-          "price": 0.5,
+          "price": 0.52,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.5,
+            "Reverse Holo": 0.52,
             "Base": 0.4
           },
           "psa10": 32.16,
@@ -12889,20 +12889,20 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.8,
-            "Base": 0.7
+            "Base": 0.79
           },
           "psa10": 33.46,
           "g9": 15.54,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-gabite-reverse-holo-103"
         },
         "104": {
-          "price": 1.88,
+          "price": 1.69,
           "variant": "Base",
           "all": {
-            "Base": 1.88
+            "Base": 1.69
           },
           "psa10": 34.37,
-          "g9": 14.26,
+          "g9": 14.28,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-garchomp-ex-104"
         },
         "105": {
@@ -12917,10 +12917,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/hippopotas-reverse-holo-105"
         },
         "106": {
-          "price": 0.4,
+          "price": 0.39,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.4,
+            "Reverse Holo": 0.39,
             "Base": 0.22
           },
           "psa10": 31.73,
@@ -12931,7 +12931,7 @@
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.2,
+            "Base": 0.17,
             "Reverse Holo": 0.25
           },
           "psa10": 30.95,
@@ -12943,21 +12943,21 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.4
+            "Base": 0.34
           },
           "psa10": 31.73,
           "g9": 13.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/mudsdale-reverse-holo-108"
         },
         "109": {
-          "price": 0.59,
+          "price": 0.57,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.59,
-            "Base": 0.25
+            "Reverse Holo": 0.57,
+            "Base": 0.1
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 32.55,
+          "g9": 10.88,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-toedscool-reverse-holo-109"
         },
         "110": {
@@ -12967,8 +12967,8 @@
             "Reverse Holo": 1.19,
             "Base": 0.29
           },
-          "psa10": 34.54,
-          "g9": 11.56,
+          "psa10": 35.14,
+          "g9": 11.77,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-toedscruel-reverse-holo-110"
         },
         "111": {
@@ -12983,25 +12983,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cornerstone-mask-ogerpon-reverse-holo-111"
         },
         "112": {
-          "price": 0.23,
+          "price": 0.22,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.21,
-            "Reverse Holo": 0.23
+            "Reverse Holo": 0.22
           },
-          "psa10": 31.08,
+          "psa10": 30.99,
           "g9": 14.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-ekans-reverse-holo-112"
         },
         "113": {
-          "price": 1.25,
+          "price": 0.7,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.25,
-            "Base": 0.33
+            "Reverse Holo": 0.7,
+            "Base": 0.3
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 35.4,
+          "g9": 11.85,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-arbok-reverse-holo-113"
         },
         "114": {
@@ -13027,14 +13027,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidorina-reverse-holo-115"
         },
         "116": {
-          "price": 1,
+          "price": 0.62,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 1
+            "Reverse Holo": 0.62
           },
-          "psa10": 32.68,
-          "g9": 10.92,
+          "psa10": 34.32,
+          "g9": 11.48,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidoqueen-reverse-holo-116"
         },
         "117": {
@@ -13060,13 +13060,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidorino-reverse-holo-118"
         },
         "119": {
-          "price": 1.38,
+          "price": 1.5,
           "variant": "Base",
           "all": {
-            "Base": 1.38
+            "Base": 1.5
           },
           "psa10": 37,
-          "g9": 14.99,
+          "g9": 14.25,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidoking-ex-119"
         },
         "120": {
@@ -13092,20 +13092,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-golbat-reverse-holo-121"
         },
         "122": {
-          "price": 1.51,
+          "price": 1.74,
           "variant": "Base",
           "all": {
-            "Base": 1.51
+            "Base": 1.74
           },
           "psa10": 35,
-          "g9": 14.96,
+          "g9": 14.98,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-crobat-ex-122"
         },
         "123": {
-          "price": 0.53,
+          "price": 0.87,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.53,
+            "Reverse Holo": 0.87,
             "Base": 0.25
           },
           "psa10": 32.29,
@@ -13146,10 +13146,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-weezing-126"
         },
         "127": {
-          "price": 0.68,
+          "price": 0.69,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.68,
+            "Reverse Holo": 0.69,
             "Base": 0.4
           },
           "psa10": 220,
@@ -13161,7 +13161,7 @@
           "variant": "Base",
           "all": {
             "Base": 0.87,
-            "Reverse Holo": 0.4
+            "Reverse Holo": 0.53
           },
           "psa10": 53.5,
           "g9": 15,
@@ -13204,7 +13204,7 @@
           "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.28,
+            "Base": 0.4,
             "Reverse Holo": 0.99
           },
           "psa10": 34.28,
@@ -13245,45 +13245,45 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/marnie%27s-morgrem-reverse-holo-135"
         },
         "136": {
-          "price": 1.57,
+          "price": 1.21,
           "variant": "Base",
           "all": {
-            "Base": 1.57
+            "Base": 1.21
           },
           "psa10": 33.61,
           "g9": 13,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/marnie%27s-grimmsnarl-ex-136"
         },
         "137": {
-          "price": 1.58,
+          "price": 1.61,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.58,
+            "Reverse Holo": 1.61,
             "Base": 0.99
           },
-          "psa10": 36.83,
+          "psa10": 36.82,
           "g9": 12.75,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/marnie%27s-morpeko-reverse-holo-137"
         },
         "138": {
-          "price": 0.45,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.15,
-            "Reverse Holo": 0.45
+            "Reverse Holo": 0.4
           },
           "psa10": 99,
-          "g9": 10.59,
+          "g9": 10.67,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-maschiff-reverse-holo-138"
         },
         "139": {
-          "price": 1.56,
+          "price": 1,
           "variant": "Base",
           "all": {
-            "Base": 1.56
+            "Base": 1
           },
           "psa10": 38,
-          "g9": 7.97,
+          "g9": 7.86,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-mabosstiff-ex-139"
         },
         "140": {
@@ -13342,21 +13342,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/steven%27s-metang-144"
         },
         "145": {
-          "price": 1.44,
+          "price": 1.68,
           "variant": "Base",
           "all": {
-            "Base": 1.44
+            "Base": 1.68
           },
           "psa10": 44,
           "g9": 15.4,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/steven%27s-metagross-ex-145"
         },
         "146": {
-          "price": 0.97,
+          "price": 0.45,
           "variant": "Base",
           "all": {
-            "Base": 0.97,
-            "Reverse Holo": 0.32
+            "Base": 0.45,
+            "Reverse Holo": 0.4
           },
           "psa10": 50,
           "g9": 11.25,
@@ -13392,60 +13392,60 @@
             "Reverse Holo": 0.99
           },
           "psa10": 84,
-          "g9": 24.65,
+          "g9": 24.67,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-meowth-149"
         },
         "150": {
-          "price": 1.57,
+          "price": 1.48,
           "variant": "Base",
           "all": {
-            "Base": 1.57
+            "Base": 1.48
           },
           "psa10": 47.25,
           "g9": 17.63,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-persian-ex-150"
         },
         "151": {
-          "price": 0.5,
+          "price": 0.58,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.5,
+            "Reverse Holo": 0.58,
             "Base": 0.25
           },
-          "psa10": 31.9,
+          "psa10": 32.16,
           "g9": 29.97,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/kangaskhan-reverse-holo-151"
         },
         "152": {
-          "price": 0.48,
-          "variant": "Reverse Holo",
+          "price": 0.5,
+          "variant": "Base",
           "all": {
             "Reverse Holo": 0.48,
-            "Base": 0.25
+            "Base": 0.5
           },
           "psa10": 31.08,
           "g9": 10.37,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/tauros-reverse-holo-152"
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/tauros-152"
         },
         "153": {
-          "price": 0.55,
+          "price": 0.52,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.49,
-            "Reverse Holo": 0.55
+            "Base": 0.4,
+            "Reverse Holo": 0.52
           },
           "psa10": 79,
           "g9": 66,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-porygon-reverse-holo-153"
         },
         "154": {
-          "price": 0.7,
+          "price": 0.5,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.7,
+            "Reverse Holo": 0.5,
             "Base": 0.33
           },
-          "psa10": 31.73,
+          "psa10": 33.02,
           "g9": 12,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-porygon2-reverse-holo-154"
         },
@@ -13453,7 +13453,7 @@
           "price": 0.75,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.66,
+            "Base": 0.74,
             "Reverse Holo": 0.75
           },
           "psa10": 91.43,
@@ -13475,7 +13475,7 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.15,
+            "Base": 0.13,
             "Reverse Holo": 0.4
           },
           "psa10": 31.73,
@@ -13487,7 +13487,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.53,
-            "Base": 0.06
+            "Base": 0.08
           },
           "psa10": 31.08,
           "g9": 10.37,
@@ -13497,7 +13497,7 @@
           "price": 0.93,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.31,
+            "Base": 0.4,
             "Reverse Holo": 0.93
           },
           "psa10": 34.28,
@@ -13505,10 +13505,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-greedent-reverse-holo-159"
         },
         "160": {
-          "price": 0.27,
+          "price": 0.22,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.27,
+            "Reverse Holo": 0.22,
             "Base": 0.05
           },
           "psa10": 75,
@@ -13531,65 +13531,65 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.25
+            "Base": 0.27
           },
           "psa10": 31.73,
           "g9": 10.59,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-power-weight-reverse-holo-162"
         },
         "163": {
-          "price": 0.38,
+          "price": 0.35,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.38,
+            "Reverse Holo": 0.35,
             "Base": 0.2
           },
-          "psa10": 31.08,
-          "g9": 10.37,
+          "psa10": 31.64,
+          "g9": 10.56,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/emcee%27s-hype-reverse-holo-163"
         },
         "164": {
-          "price": 1,
-          "variant": "Base",
-          "all": {
-            "Base": 1,
-            "Reverse Holo": 0.99
-          },
-          "psa10": 32.16,
-          "g9": 10.74,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/energy-recycler-164"
-        },
-        "165": {
-          "price": 0.63,
+          "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.63,
+            "Base": 0.92,
+            "Reverse Holo": 0.99
+          },
+          "psa10": 34.28,
+          "g9": 11.47,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/energy-recycler-reverse-holo-164"
+        },
+        "165": {
+          "price": 0.54,
+          "variant": "Base",
+          "all": {
+            "Reverse Holo": 0.4,
             "Base": 0.54
           },
-          "psa10": 31.12,
-          "g9": 13.34,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-adventure-reverse-holo-165"
+          "psa10": 55.26,
+          "g9": 19.95,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-adventure-165"
         },
         "166": {
-          "price": 0.36,
+          "price": 0.33,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.3,
-            "Reverse Holo": 0.36
+            "Reverse Holo": 0.33
           },
-          "psa10": 31.12,
-          "g9": 10.39,
+          "psa10": 31.55,
+          "g9": 10.53,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/granite-cave-reverse-holo-166"
         },
         "167": {
-          "price": 0.32,
+          "price": 0.29,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.24,
-            "Reverse Holo": 0.32
+            "Reverse Holo": 0.29
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 31.38,
+          "g9": 10.47,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/judge-reverse-holo-167"
         },
         "168": {
@@ -13626,21 +13626,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-archer-reverse-holo-170"
         },
         "171": {
-          "price": 0.67,
+          "price": 0.5,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.67,
+            "Reverse Holo": 0.5,
             "Base": 0.44
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 32.89,
+          "g9": 10.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-ariana-reverse-holo-171"
         },
         "172": {
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.24,
+            "Base": 0.25,
             "Reverse Holo": 0.4
           },
           "psa10": 31.73,
@@ -13659,15 +13659,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-factory-reverse-holo-173"
         },
         "174": {
-          "price": 1.19,
-          "variant": "Reverse Holo",
+          "price": 0.99,
+          "variant": "Base",
           "all": {
-            "Base": 0.62,
-            "Reverse Holo": 1.19
+            "Base": 0.99,
+            "Reverse Holo": 0.99
           },
-          "psa10": 31.73,
-          "g9": 9.36,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-giovanni-reverse-holo-174"
+          "psa10": 116,
+          "g9": 97,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-giovanni-174"
         },
         "175": {
           "price": 0.4,
@@ -13681,14 +13681,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-great-ball-reverse-holo-175"
         },
         "176": {
-          "price": 1.12,
+          "price": 1.13,
           "variant": "Base",
           "all": {
             "Reverse Holo": 0.99,
-            "Base": 1.12
+            "Base": 1.13
           },
-          "psa10": 33.76,
-          "g9": 11.29,
+          "psa10": 34.84,
+          "g9": 11.66,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-petrel-176"
         },
         "177": {
@@ -13751,60 +13751,60 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.69,
-            "Base": 0.45
+            "Base": 0.41
           },
           "psa10": 32.98,
           "g9": 11.02,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-energy-reverse-holo-182"
         },
         "183": {
-          "price": 3.8,
+          "price": 4.31,
           "variant": "Base",
           "all": {
-            "Base": 3.8
+            "Base": 4.31
           },
-          "psa10": 77.3,
-          "g9": 17.59,
+          "psa10": 67.37,
+          "g9": 17.94,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/yanma-183"
         },
         "184": {
-          "price": 11.42,
+          "price": 10.75,
           "variant": "Base",
           "all": {
-            "Base": 11.42
+            "Base": 10.75
           },
-          "psa10": 144.09,
-          "g9": 21.8,
+          "psa10": 142.5,
+          "g9": 18.11,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-roserade-184"
         },
         "185": {
-          "price": 10.73,
+          "price": 11.12,
           "variant": "Base",
           "all": {
-            "Base": 10.73
+            "Base": 11.12
           },
-          "psa10": 103.6,
+          "psa10": 103.57,
           "g9": 21.28,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/shaymin-185"
         },
         "186": {
-          "price": 3.49,
+          "price": 2.85,
           "variant": "Base",
           "all": {
-            "Base": 3.49
+            "Base": 2.85
           },
-          "psa10": 85.56,
+          "psa10": 85.73,
           "g9": 14.15,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/crustle-186"
         },
         "187": {
-          "price": 5.45,
+          "price": 4.76,
           "variant": "Base",
           "all": {
-            "Base": 5.45
+            "Base": 4.76
           },
-          "psa10": 78.27,
-          "g9": 20,
+          "psa10": 82.98,
+          "g9": 19.87,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-spidops-187"
         },
         "188": {
@@ -13813,8 +13813,8 @@
           "all": {
             "Base": 4.18
           },
-          "psa10": 66.15,
-          "g9": 18.62,
+          "psa10": 66.64,
+          "g9": 18.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/hydrapple-188"
         },
         "189": {
@@ -13828,120 +13828,120 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/rapidash-189"
         },
         "190": {
-          "price": 21.28,
+          "price": 20,
           "variant": "Base",
           "all": {
-            "Base": 21.28
+            "Base": 20
           },
-          "psa10": 257.42,
+          "psa10": 260.5,
           "g9": 38,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-typhlosion-190"
         },
         "191": {
-          "price": 11,
+          "price": 10.99,
           "variant": "Base",
           "all": {
-            "Base": 11
+            "Base": 10.99
           },
-          "psa10": 142.4,
-          "g9": 26.09,
+          "psa10": 139.19,
+          "g9": 27,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-houndoom-191"
         },
         "192": {
-          "price": 10.2,
+          "price": 9.92,
           "variant": "Base",
           "all": {
-            "Base": 10.2
+            "Base": 9.92
           },
-          "psa10": 149.09,
-          "g9": 22.99,
+          "psa10": 140,
+          "g9": 22.78,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/blaziken-192"
         },
         "193": {
-          "price": 48,
+          "price": 48.61,
           "variant": "Base",
           "all": {
-            "Base": 48
+            "Base": 48.61
           },
           "psa10": 320,
-          "g9": 59.38,
+          "g9": 59.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-psyduck-193"
         },
         "194": {
-          "price": 22.93,
+          "price": 25.18,
           "variant": "Base",
           "all": {
-            "Base": 22.93
+            "Base": 25.18
           },
-          "psa10": 247.99,
-          "g9": 37.97,
+          "psa10": 244.17,
+          "g9": 39.63,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-lapras-194"
         },
         "195": {
-          "price": 5.34,
+          "price": 5.6,
           "variant": "Base",
           "all": {
-            "Base": 5.34
+            "Base": 5.6
           },
           "psa10": 72,
-          "g9": 18.99,
+          "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/clamperl-195"
         },
         "196": {
-          "price": 3.38,
+          "price": 4.55,
           "variant": "Base",
           "all": {
-            "Base": 3.38
+            "Base": 4.55
           },
-          "psa10": 64.29,
-          "g9": 15.99,
+          "psa10": 65.5,
+          "g9": 16.22,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/electrike-196"
         },
         "197": {
-          "price": 4,
+          "price": 3.99,
           "variant": "Base",
           "all": {
-            "Base": 4
+            "Base": 3.99
           },
-          "psa10": 72.21,
-          "g9": 17.66,
+          "psa10": 77.36,
+          "g9": 16,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/rotom-197"
         },
         "198": {
-          "price": 3.67,
+          "price": 3.35,
           "variant": "Base",
           "all": {
-            "Base": 3.67
+            "Base": 3.35
           },
-          "psa10": 93.45,
-          "g9": 17.51,
+          "psa10": 92.48,
+          "g9": 16.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-orbeetle-198"
         },
         "199": {
-          "price": 7.34,
+          "price": 8.31,
           "variant": "Base",
           "all": {
-            "Base": 7.34
+            "Base": 8.31
           },
           "psa10": 106.62,
-          "g9": 21.7,
+          "g9": 22.04,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-weezing-199"
         },
         "200": {
-          "price": 7.99,
+          "price": 6.99,
           "variant": "Base",
           "all": {
-            "Base": 7.99
+            "Base": 6.99
           },
-          "psa10": 102.05,
-          "g9": 19.46,
+          "psa10": 98.46,
+          "g9": 21.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-murkrow-200"
         },
         "201": {
-          "price": 5,
+          "price": 5.35,
           "variant": "Base",
           "all": {
-            "Base": 5
+            "Base": 5.35
           },
           "psa10": 108.64,
           "g9": 21.1,
@@ -13953,205 +13953,205 @@
           "all": {
             "Base": 5.5
           },
-          "psa10": 90.07,
-          "g9": 16.94,
+          "psa10": 89.76,
+          "g9": 19.87,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-raticate-202"
         },
         "203": {
-          "price": 20,
+          "price": 19.72,
           "variant": "Base",
           "all": {
-            "Base": 20
+            "Base": 19.72
           },
           "psa10": 196,
-          "g9": 34.15,
+          "g9": 34.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-meowth-203"
         },
         "204": {
-          "price": 10.24,
+          "price": 9.85,
           "variant": "Base",
           "all": {
-            "Base": 10.24
+            "Base": 9.85
           },
-          "psa10": 170,
+          "psa10": 162.75,
           "g9": 21.28,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/kangaskhan-204"
         },
         "205": {
-          "price": 3.69,
+          "price": 2.93,
           "variant": "Base",
           "all": {
-            "Base": 3.69
+            "Base": 2.93
           },
           "psa10": 45.38,
-          "g9": 18.05,
+          "g9": 18.08,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-greedent-205"
         },
         "206": {
-          "price": 1.48,
+          "price": 2.17,
           "variant": "Base",
           "all": {
-            "Base": 1.48
+            "Base": 2.17
           },
-          "psa10": 32.5,
-          "g9": 20.85,
+          "psa10": 34.75,
+          "g9": 23.85,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/yanmega-ex-206"
         },
         "207": {
-          "price": 2.45,
+          "price": 2.38,
           "variant": "Base",
           "all": {
-            "Base": 2.45
+            "Base": 2.38
           },
           "psa10": 34.65,
           "g9": 27,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arboliva-ex-207"
         },
         "208": {
-          "price": 6.1,
+          "price": 5.32,
           "variant": "Base",
           "all": {
-            "Base": 6.1
+            "Base": 5.32
           },
-          "psa10": 71.66,
-          "g9": 22.99,
+          "psa10": 68.5,
+          "g9": 23.21,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-moltres-ex-208"
         },
         "209": {
-          "price": 5.51,
+          "price": 5.94,
           "variant": "Base",
           "all": {
-            "Base": 5.51
+            "Base": 5.94
           },
-          "psa10": 59,
-          "g9": 21.12,
+          "psa10": 55.2,
+          "g9": 20.8,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-ho-oh-ex-209"
         },
         "210": {
-          "price": 1.89,
+          "price": 2.01,
           "variant": "Base",
           "all": {
-            "Base": 1.89
+            "Base": 2.01
           },
           "psa10": 34,
           "g9": 25,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cetitan-ex-210"
         },
         "211": {
-          "price": 1.75,
+          "price": 1.99,
           "variant": "Base",
           "all": {
-            "Base": 1.75
+            "Base": 1.99
           },
           "psa10": 43.77,
-          "g9": 14.87,
+          "g9": 14.81,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/dondozo-ex-211"
         },
         "212": {
-          "price": 2.62,
+          "price": 2.64,
           "variant": "Base",
           "all": {
-            "Base": 2.62
+            "Base": 2.64
           },
-          "psa10": 50,
+          "psa10": 51.15,
           "g9": 17.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/electivire-ex-212"
         },
         "213": {
-          "price": 18.52,
+          "price": 19.26,
           "variant": "Base",
           "all": {
-            "Base": 18.52
+            "Base": 19.26
           },
-          "psa10": 109.98,
-          "g9": 39,
+          "psa10": 105,
+          "g9": 39.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-mewtwo-ex-213"
         },
         "214": {
-          "price": 1.82,
+          "price": 2.46,
           "variant": "Base",
           "all": {
-            "Base": 1.82
+            "Base": 2.46
           },
           "psa10": 49.99,
-          "g9": 19.1,
+          "g9": 19.13,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/regirock-ex-214"
         },
         "215": {
-          "price": 4.97,
+          "price": 5.08,
           "variant": "Base",
           "all": {
-            "Base": 4.97
+            "Base": 5.08
           },
-          "psa10": 64.5,
-          "g9": 20.35,
+          "psa10": 61.04,
+          "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-garchomp-ex-215"
         },
         "216": {
-          "price": 4.33,
+          "price": 4.79,
           "variant": "Base",
           "all": {
-            "Base": 4.33
+            "Base": 4.79
           },
-          "psa10": 58.43,
-          "g9": 21,
+          "psa10": 55,
+          "g9": 21.88,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidoking-ex-216"
         },
         "217": {
-          "price": 2.83,
+          "price": 2.99,
           "variant": "Base",
           "all": {
-            "Base": 2.83
+            "Base": 2.99
           },
           "psa10": 48.99,
-          "g9": 19.7,
+          "g9": 19.81,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-crobat-ex-217"
         },
         "218": {
-          "price": 2.49,
+          "price": 1.99,
           "variant": "Base",
           "all": {
-            "Base": 2.49
+            "Base": 1.99
           },
-          "psa10": 35.75,
-          "g9": 19.99,
+          "psa10": 38.77,
+          "g9": 17.3,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-mabosstiff-ex-218"
         },
         "219": {
-          "price": 4.87,
+          "price": 5.25,
           "variant": "Base",
           "all": {
-            "Base": 4.87
+            "Base": 5.25
           },
-          "psa10": 54.31,
-          "g9": 22.05,
+          "psa10": 52.18,
+          "g9": 22.07,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-persian-ex-219"
         },
         "220": {
-          "price": 3.49,
+          "price": 2.8,
           "variant": "Base",
           "all": {
-            "Base": 3.49
+            "Base": 2.8
           },
           "psa10": 42.75,
           "g9": 18,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/emcee%27s-hype-220"
         },
         "221": {
-          "price": 3.9,
+          "price": 3.32,
           "variant": "Base",
           "all": {
-            "Base": 3.9
+            "Base": 3.32
           },
-          "psa10": 44,
-          "g9": 17.29,
+          "psa10": 42,
+          "g9": 16,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-adventure-221"
         },
         "222": {
-          "price": 2.5,
+          "price": 2.46,
           "variant": "Base",
           "all": {
-            "Base": 2.5
+            "Base": 2.46
           },
           "psa10": 33,
           "g9": 14.25,
@@ -14163,108 +14163,108 @@
           "all": {
             "Base": 2.77
           },
-          "psa10": 44.17,
-          "g9": 14.74,
+          "psa10": 44.24,
+          "g9": 14.79,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-archer-223"
         },
         "224": {
-          "price": 4.49,
+          "price": 4.17,
           "variant": "Base",
           "all": {
-            "Base": 4.49
+            "Base": 4.17
           },
-          "psa10": 40,
+          "psa10": 39.99,
           "g9": 19,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-ariana-224"
         },
         "225": {
-          "price": 6.04,
+          "price": 6.24,
           "variant": "Base",
           "all": {
-            "Base": 6.04
+            "Base": 6.24
           },
-          "psa10": 54.99,
+          "psa10": 54.36,
           "g9": 18.77,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-giovanni-225"
         },
         "226": {
-          "price": 9.71,
+          "price": 9.72,
           "variant": "Base",
           "all": {
-            "Base": 9.71
+            "Base": 9.72
           },
           "psa10": 36.41,
           "g9": 13.8,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-petrel-226"
         },
         "227": {
-          "price": 3.51,
+          "price": 3.5,
           "variant": "Base",
           "all": {
-            "Base": 3.51
+            "Base": 3.5
           },
           "psa10": 43.75,
-          "g9": 13.85,
+          "g9": 13.72,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-proton-227"
         },
         "228": {
-          "price": 17.84,
+          "price": 17.61,
           "variant": "Base",
           "all": {
-            "Base": 17.84
+            "Base": 17.61
           },
-          "psa10": 69.07,
-          "g9": 29.74,
+          "psa10": 65,
+          "g9": 29.33,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/yanmega-ex-228"
         },
         "229": {
-          "price": 71.8,
+          "price": 80.93,
           "variant": "Base",
           "all": {
-            "Base": 71.8
+            "Base": 80.93
           },
-          "psa10": 226.16,
-          "g9": 84,
+          "psa10": 232.76,
+          "g9": 79.26,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-moltres-ex-229"
         },
         "230": {
-          "price": 136.25,
+          "price": 139.51,
           "variant": "Base",
           "all": {
-            "Base": 136.25
+            "Base": 139.51
           },
-          "psa10": 318,
+          "psa10": 300,
           "g9": 151,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-ho-oh-ex-230"
         },
         "231": {
-          "price": 399.95,
+          "price": 387.71,
           "variant": "Base",
           "all": {
-            "Base": 399.95
+            "Base": 387.71
           },
-          "psa10": 907.5,
-          "g9": 440,
+          "psa10": 920.5,
+          "g9": 437,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-mewtwo-ex-231"
         },
         "232": {
-          "price": 180.95,
+          "price": 181.02,
           "variant": "Base",
           "all": {
-            "Base": 180.95
+            "Base": 181.02
           },
-          "psa10": 400,
+          "psa10": 391.05,
           "g9": 201,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-garchomp-ex-232"
         },
         "233": {
-          "price": 80.77,
+          "price": 78.28,
           "variant": "Base",
           "all": {
-            "Base": 80.77
+            "Base": 78.28
           },
-          "psa10": 209.82,
-          "g9": 100.7,
+          "psa10": 222.69,
+          "g9": 99.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-nidoking-ex-233"
         },
         "234": {
@@ -14278,72 +14278,72 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-crobat-ex-234"
         },
         "235": {
-          "price": 20.95,
+          "price": 19.99,
           "variant": "Base",
           "all": {
-            "Base": 20.95
+            "Base": 19.99
           },
-          "psa10": 67.5,
-          "g9": 27,
+          "psa10": 65,
+          "g9": 26,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arven%27s-mabosstiff-ex-235"
         },
         "236": {
-          "price": 31.23,
+          "price": 30.39,
           "variant": "Base",
           "all": {
-            "Base": 31.23
+            "Base": 30.39
           },
-          "psa10": 113.48,
-          "g9": 40.75,
+          "psa10": 125.65,
+          "g9": 41.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-adventure-236"
         },
         "237": {
-          "price": 19.68,
+          "price": 18.45,
           "variant": "Base",
           "all": {
-            "Base": 19.68
+            "Base": 18.45
           },
-          "psa10": 60,
+          "psa10": 59.53,
           "g9": 27.37,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-ariana-237"
         },
         "238": {
-          "price": 26.76,
+          "price": 26.64,
           "variant": "Base",
           "all": {
-            "Base": 26.76
+            "Base": 26.64
           },
-          "psa10": 80.84,
-          "g9": 30.62,
+          "psa10": 78.09,
+          "g9": 30.56,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-giovanni-238"
         },
         "239": {
-          "price": 21.89,
+          "price": 21.16,
           "variant": "Base",
           "all": {
-            "Base": 21.89
+            "Base": 21.16
           },
-          "psa10": 73.72,
-          "g9": 32.46,
+          "psa10": 76.91,
+          "g9": 31.84,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-ho-oh-ex-239"
         },
         "240": {
-          "price": 50.33,
+          "price": 49.31,
           "variant": "Base",
           "all": {
-            "Base": 50.33
+            "Base": 49.31
           },
-          "psa10": 156.73,
-          "g9": 63,
+          "psa10": 161.35,
+          "g9": 62.01,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-mewtwo-ex-240"
         },
         "241": {
-          "price": 29.14,
+          "price": 27.89,
           "variant": "Base",
           "all": {
-            "Base": 29.14
+            "Base": 27.89
           },
-          "psa10": 90,
+          "psa10": 90.93,
           "g9": 29.98,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-garchomp-ex-241"
         },
@@ -14358,20 +14358,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-crobat-ex-242"
         },
         "243": {
-          "price": 7.47,
+          "price": 7.13,
           "variant": "Base",
           "all": {
-            "Base": 7.47
+            "Base": 7.13
           },
           "psa10": 50,
-          "g9": 21,
+          "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/jamming-tower-243"
         },
         "244": {
-          "price": 6.69,
+          "price": 7.28,
           "variant": "Base",
           "all": {
-            "Base": 6.69
+            "Base": 7.28
           },
           "psa10": 40,
           "g9": 18.4,
@@ -14400,10 +14400,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/yanma-reverse-holo-2"
         },
         "003": {
-          "price": 0.9,
+          "price": 1.18,
           "variant": "Base",
           "all": {
-            "Base": 0.9
+            "Base": 1.18
           },
           "psa10": 39.99,
           "g9": 15.75,
@@ -14416,8 +14416,8 @@
             "Reverse Holo": 0.23,
             "Base": 0.25
           },
-          "psa10": 31.17,
-          "g9": 10.4,
+          "psa10": 31.08,
+          "g9": 10.37,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/pineco-4"
         },
         "005": {
@@ -14432,14 +14432,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/shroomish-5"
         },
         "006": {
-          "price": 0.39,
+          "price": 0.32,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.21,
-            "Reverse Holo": 0.39
+            "Reverse Holo": 0.32
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 31.68,
+          "g9": 10.58,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/breloom-reverse-holo-6"
         },
         "007": {
@@ -14447,21 +14447,21 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.46,
-            "Base": 0.35
+            "Base": 0.34
           },
           "psa10": 31.64,
           "g9": 10.56,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-roselia-reverse-holo-7"
         },
         "008": {
-          "price": 1,
+          "price": 1.25,
           "variant": "Base",
           "all": {
-            "Base": 1,
-            "Reverse Holo": 0.53
+            "Base": 1.25,
+            "Reverse Holo": 0.48
           },
-          "psa10": 33.72,
-          "g9": 11.27,
+          "psa10": 34.32,
+          "g9": 11.48,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-roserade-8"
         },
         "009": {
@@ -14469,18 +14469,18 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.49,
-            "Base": 0.23
+            "Base": 0.25
           },
           "psa10": 31.73,
           "g9": 10.59,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/mow-rotom-reverse-holo-9"
         },
         "010": {
-          "price": 1.26,
+          "price": 1.18,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.26,
-            "Base": 0.94
+            "Reverse Holo": 1.18,
+            "Base": 0.85
           },
           "psa10": 35,
           "g9": 11.87,
@@ -14498,26 +14498,26 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/dwebble-reverse-holo-11"
         },
         "012": {
-          "price": 0.7,
-          "variant": "Reverse Holo",
+          "price": 0.84,
+          "variant": "Base",
           "all": {
-            "Base": 0.56,
-            "Reverse Holo": 0.7
+            "Base": 0.84,
+            "Reverse Holo": 0.62
           },
-          "psa10": 31.73,
-          "g9": 10.59,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/crustle-reverse-holo-12"
+          "psa10": 100,
+          "g9": 13.5,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/crustle-12"
         },
         "013": {
-          "price": 0.4,
-          "variant": "Reverse Holo",
+          "price": 0.45,
+          "variant": "Base",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.25
+            "Base": 0.45
           },
-          "psa10": 33.02,
-          "g9": 11.04,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/fomantis-reverse-holo-13"
+          "psa10": 60.14,
+          "g9": 10.37,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/fomantis-13"
         },
         "014": {
           "price": 0.4,
@@ -14526,8 +14526,8 @@
             "Reverse Holo": 0.4,
             "Base": 0.4
           },
-          "psa10": 31.81,
-          "g9": 10.62,
+          "psa10": 31.73,
+          "g9": 10.59,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/lurantis-reverse-holo-14"
         },
         "015": {
@@ -14535,7 +14535,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.13
+            "Base": 0.09
           },
           "psa10": 30.99,
           "g9": 10.34,
@@ -14564,14 +14564,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/dipplin-17"
         },
         "018": {
-          "price": 0.99,
+          "price": 1,
           "variant": "Base",
           "all": {
-            "Base": 0.99,
+            "Base": 1,
             "Reverse Holo": 0.7
           },
-          "psa10": 172.19,
-          "g9": 11.05,
+          "psa10": 34.27,
+          "g9": 11.47,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/hydrapple-18"
         },
         "019": {
@@ -14593,8 +14593,8 @@
             "Holo": 0.4,
             "Reverse Holo": 0.99
           },
-          "psa10": 33.67,
-          "g9": 11.26,
+          "psa10": 34.27,
+          "g9": 11.47,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-spidops-reverse-holo-20"
         },
         "021": {
@@ -14602,7 +14602,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.5,
-            "Base": 0.4
+            "Base": 0.31
           },
           "psa10": 32.38,
           "g9": 14.89,
@@ -14641,13 +14641,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/rellor-reverse-holo-24"
         },
         "025": {
-          "price": 1,
+          "price": 1.26,
           "variant": "Base",
           "all": {
-            "Base": 1
+            "Base": 1.26
           },
-          "psa10": 35.12,
-          "g9": 15.76,
+          "psa10": 34.73,
+          "g9": 15.68,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/rabsca-ex-25"
         },
         "026": {
@@ -14657,40 +14657,40 @@
             "Reverse Holo": 0.56,
             "Base": 0.33
           },
-          "psa10": 32.16,
-          "g9": 10.74,
+          "psa10": 32.42,
+          "g9": 10.83,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/teal-mask-ogerpon-reverse-holo-26"
         },
         "027": {
-          "price": 0.6,
-          "variant": "Base",
-          "all": {
-            "Reverse Holo": 0.55,
-            "Base": 0.6
-          },
-          "psa10": 31.73,
-          "g9": 15.5,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/growlithe-27"
-        },
-        "028": {
-          "price": 1.08,
+          "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.77,
-            "Reverse Holo": 1.08
+            "Reverse Holo": 0.99,
+            "Base": 0.65
           },
-          "psa10": 75,
-          "g9": 13.4,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arcanine-reverse-holo-28"
+          "psa10": 269,
+          "g9": 10.82,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/growlithe-reverse-holo-27"
+        },
+        "028": {
+          "price": 0.97,
+          "variant": "Base",
+          "all": {
+            "Base": 0.97,
+            "Reverse Holo": 0.78
+          },
+          "psa10": 33.32,
+          "g9": 11.14,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arcanine-28"
         },
         "029": {
-          "price": 0.61,
+          "price": 1.05,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.59,
-            "Reverse Holo": 0.61
+            "Reverse Holo": 1.05
           },
-          "psa10": 32.64,
+          "psa10": 32.63,
           "g9": 10.9,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ponyta-reverse-holo-29"
         },
@@ -14699,7 +14699,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.8,
-            "Base": 0.55
+            "Base": 0.46
           },
           "psa10": 69.99,
           "g9": 20,
@@ -14716,34 +14716,34 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-moltres-ex-31"
         },
         "032": {
-          "price": 0.99,
+          "price": 0.69,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.27,
-            "Reverse Holo": 0.99
+            "Base": 0.4,
+            "Reverse Holo": 0.69
           },
           "psa10": 152.5,
           "g9": 18.76,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-cyndaquil-reverse-holo-32"
         },
         "033": {
-          "price": 0.6,
+          "price": 0.55,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.31,
-            "Reverse Holo": 0.6
+            "Reverse Holo": 0.55
           },
-          "psa10": 32.59,
+          "psa10": 150,
           "g9": 15.48,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-quilava-reverse-holo-33"
         },
         "034": {
-          "price": 1.45,
+          "price": 1.4,
           "variant": "Holo",
           "all": {
-            "Base": 1.3,
-            "Holo": 1.45,
-            "Reverse Holo": 0.79
+            "Base": 1.23,
+            "Holo": 1.4,
+            "Reverse Holo": 1.2
           },
           "psa10": 160,
           "g9": 14.07,
@@ -14761,14 +14761,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-slugma-reverse-holo-35"
         },
         "036": {
-          "price": 0.35,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.33,
-            "Reverse Holo": 0.35
+            "Base": 0.32,
+            "Reverse Holo": 0.4
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 31.51,
+          "g9": 10.52,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-magcargo-reverse-holo-36"
         },
         "037": {
@@ -14778,29 +14778,29 @@
             "Base": 0.22,
             "Reverse Holo": 0.5
           },
-          "psa10": 31.12,
-          "g9": 10.39,
+          "psa10": 32.16,
+          "g9": 10.74,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-houndour-reverse-holo-37"
         },
         "038": {
           "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.5,
+            "Base": 0.33,
             "Reverse Holo": 0.99
           },
           "psa10": 138.5,
-          "g9": 10.73,
+          "g9": 11.47,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-houndoom-reverse-holo-38"
         },
         "039": {
-          "price": 1.76,
+          "price": 1.17,
           "variant": "Base",
           "all": {
-            "Base": 1.76
+            "Base": 1.17
           },
-          "psa10": 47.5,
-          "g9": 19.79,
+          "psa10": 47.75,
+          "g9": 19.78,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-ho-oh-ex-39"
         },
         "040": {
@@ -14819,20 +14819,20 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.3
+            "Base": 0.27
           },
           "psa10": 59.95,
           "g9": 19.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/combusken-reverse-holo-41"
         },
         "042": {
-          "price": 0.99,
+          "price": 1.19,
           "variant": "Base",
           "all": {
-            "Base": 0.99,
+            "Base": 1.19,
             "Reverse Holo": 0.58
           },
-          "psa10": 50,
+          "psa10": 112,
           "g9": 19.97,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/blaziken-42"
         },
@@ -14852,76 +14852,76 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.73,
-            "Base": 0.38
+            "Base": 0.3
           },
           "psa10": 33.15,
           "g9": 11.08,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/hearthflame-mask-ogerpon-reverse-holo-44"
         },
         "045": {
-          "price": 2.25,
+          "price": 1.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 1.61,
-            "Reverse Holo": 2.25
+            "Base": 1.1,
+            "Reverse Holo": 1.99
           },
           "psa10": 309,
           "g9": 37.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-psyduck-reverse-holo-45"
         },
         "046": {
-          "price": 0.7,
-          "variant": "Reverse Holo",
+          "price": 0.4,
+          "variant": "Base",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 0.7
+            "Reverse Holo": 0.4
           },
-          "psa10": 120,
-          "g9": 10.59,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-staryu-reverse-holo-46"
+          "psa10": 127,
+          "g9": 19.49,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-staryu-46"
         },
         "047": {
-          "price": 0.46,
+          "price": 1.04,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.4,
-            "Reverse Holo": 0.46
+            "Base": 0.83,
+            "Reverse Holo": 1.04
           },
           "psa10": 48,
           "g9": 40,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-starmie-reverse-holo-47"
         },
         "048": {
-          "price": 1.13,
+          "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.99,
-            "Reverse Holo": 1.13
+            "Base": 0.75,
+            "Reverse Holo": 0.99
           },
-          "psa10": 69.01,
+          "psa10": 350,
           "g9": 28.99,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-magikarp-reverse-holo-48"
         },
         "049": {
-          "price": 1.98,
+          "price": 2.99,
           "variant": "Base",
           "all": {
-            "Base": 1.98,
-            "Holo": 1.75,
-            "Reverse Holo": 1.82
+            "Base": 2.99,
+            "Holo": 1.42,
+            "Reverse Holo": 0.97
           },
           "psa10": 292,
-          "g9": 22.5,
+          "g9": 19.76,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-gyarados-49"
         },
         "050": {
-          "price": 0.91,
+          "price": 1.23,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.6,
-            "Reverse Holo": 0.91
+            "Reverse Holo": 1.23
           },
-          "psa10": 76.34,
+          "psa10": 76.08,
           "g9": 33.75,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/misty%27s-lapras-reverse-holo-50"
         },
@@ -14930,7 +14930,7 @@
           "variant": "Base",
           "all": {
             "Base": 3.19,
-            "Holo": 1.4,
+            "Holo": 1.23,
             "Reverse Holo": 1.66
           },
           "psa10": 130,
@@ -14949,13 +14949,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-feebas-reverse-holo-52"
         },
         "053": {
-          "price": 1.04,
+          "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.4,
-            "Reverse Holo": 1.04
+            "Base": 0.6,
+            "Reverse Holo": 0.99
           },
-          "psa10": 33.5,
+          "psa10": 34.49,
           "g9": 20,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cynthia%27s-milotic-reverse-holo-53"
         },
@@ -14988,20 +14988,20 @@
             "Base": 0.4,
             "Reverse Holo": 0.4
           },
-          "psa10": 31.86,
+          "psa10": 31.73,
           "g9": 7.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/gorebyss-56"
         },
         "057": {
-          "price": 0.35,
-          "variant": "Base",
+          "price": 0.29,
+          "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.25,
-            "Base": 0.35
+            "Reverse Holo": 0.29,
+            "Base": 0.25
           },
-          "psa10": 67.5,
-          "g9": 26.99,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/buizel-57"
+          "psa10": 31.08,
+          "g9": 17.5,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/buizel-reverse-holo-57"
         },
         "058": {
           "price": 0.4,
@@ -15015,14 +15015,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/floatzel-reverse-holo-58"
         },
         "059": {
-          "price": 1.15,
+          "price": 1.24,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.15,
-            "Base": 0.51
+            "Reverse Holo": 1.24,
+            "Base": 0.52
           },
-          "psa10": 33.07,
-          "g9": 11.05,
+          "psa10": 34.97,
+          "g9": 11.71,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/snover-reverse-holo-59"
         },
         "060": {
@@ -15030,7 +15030,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.18
+            "Base": 0.32
           },
           "psa10": 32.16,
           "g9": 10.74,
@@ -15052,18 +15052,18 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.25,
-            "Base": 0.23
+            "Base": 0.25
           },
           "psa10": 31.43,
           "g9": 10.49,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/arrokuda-reverse-holo-62"
         },
         "063": {
-          "price": 0.4,
+          "price": 0.42,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.4,
-            "Base": 0.31
+            "Reverse Holo": 0.42,
+            "Base": 0.3
           },
           "psa10": 31.73,
           "g9": 10.59,
@@ -15076,8 +15076,8 @@
             "Reverse Holo": 0.28,
             "Base": 0.09
           },
-          "psa10": 31.04,
-          "g9": 10.36,
+          "psa10": 31.21,
+          "g9": 10.42,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cetoddle-reverse-holo-64"
         },
         "065": {
@@ -15087,14 +15087,14 @@
             "Base": 1.5
           },
           "psa10": 29.95,
-          "g9": 10.52,
+          "g9": 10.51,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/cetitan-ex-65"
         },
         "066": {
-          "price": 1.54,
+          "price": 1.41,
           "variant": "Base",
           "all": {
-            "Base": 1.54
+            "Base": 1.41
           },
           "psa10": 34.95,
           "g9": 17,
@@ -15105,7 +15105,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.4,
-            "Base": 0.2
+            "Base": 0.21
           },
           "psa10": 31.73,
           "g9": 10.59,
@@ -15116,7 +15116,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.45,
-            "Base": 0.14
+            "Base": 0.15
           },
           "psa10": 31.94,
           "g9": 10,
@@ -15128,27 +15128,27 @@
           "all": {
             "Base": 1.37
           },
-          "psa10": 43.61,
+          "psa10": 43.56,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/electivire-ex-69"
         },
         "070": {
-          "price": 1.66,
+          "price": 1.44,
           "variant": "Base",
           "all": {
-            "Base": 1.66,
-            "Reverse Holo": 0.99
+            "Base": 1.44,
+            "Reverse Holo": 0.79
           },
-          "psa10": 108.07,
-          "g9": 15.83,
+          "psa10": 108.14,
+          "g9": 15.67,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-zapdos-70"
         },
         "071": {
-          "price": 1.37,
+          "price": 1.1,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 1,
-            "Reverse Holo": 1.37
+            "Base": 1.07,
+            "Reverse Holo": 1.1
           },
           "psa10": 68,
           "g9": 20,
@@ -15172,19 +15172,19 @@
             "Base": 0.25,
             "Reverse Holo": 0.99
           },
-          "psa10": 32.16,
+          "psa10": 34.27,
           "g9": 6.13,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-flaaffy-reverse-holo-73"
         },
         "074": {
-          "price": 0.95,
+          "price": 0.85,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.27,
-            "Reverse Holo": 0.95
+            "Base": 0.25,
+            "Reverse Holo": 0.85
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 34.1,
+          "g9": 11.41,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-ampharos-reverse-holo-74"
         },
         "075": {
@@ -15210,32 +15210,32 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/manectric-reverse-holo-76"
         },
         "077": {
-          "price": 0.66,
+          "price": 0.99,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.66,
+            "Reverse Holo": 0.99,
             "Base": 0.25
           },
-          "psa10": 31.94,
-          "g9": 10.67,
+          "psa10": 32.85,
+          "g9": 10.98,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/rotom-reverse-holo-77"
         },
         "078": {
-          "price": 0.5,
+          "price": 0.7,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 0.5
+            "Reverse Holo": 0.7
           },
-          "psa10": 32.51,
-          "g9": 10.86,
+          "psa10": 32.16,
+          "g9": 10.74,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/zeraora-reverse-holo-78"
         },
         "079": {
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.14,
+            "Base": 0.22,
             "Reverse Holo": 0.25
           },
           "psa10": 31.3,
@@ -15243,32 +15243,32 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-drowzee-reverse-holo-79"
         },
         "080": {
-          "price": 0.76,
+          "price": 0.45,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.37,
-            "Reverse Holo": 0.76
+            "Reverse Holo": 0.45
           },
-          "psa10": 31.64,
-          "g9": 10.56,
+          "psa10": 33.28,
+          "g9": 11.13,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-hypno-reverse-holo-80"
         },
         "081": {
-          "price": 2.76,
+          "price": 2.12,
           "variant": "Base",
           "all": {
-            "Base": 2.76
+            "Base": 2.12
           },
-          "psa10": 74.5,
-          "g9": 18.95,
+          "psa10": 76.5,
+          "g9": 20.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-mewtwo-ex-81"
         },
         "082": {
-          "price": 0.99,
+          "price": 1.13,
           "variant": "Base",
           "all": {
-            "Base": 0.99,
-            "Reverse Holo": 0.88
+            "Base": 1.13,
+            "Reverse Holo": 0.74
           },
           "psa10": 59.56,
           "g9": 22,
@@ -15278,33 +15278,33 @@
           "price": 0.29,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.23,
+            "Base": 0.24,
             "Reverse Holo": 0.29
           },
-          "psa10": 30.73,
-          "g9": 10.25,
+          "psa10": 31.25,
+          "g9": 10.43,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/steven%27s-baltoy-reverse-holo-83"
         },
         "084": {
-          "price": 0.64,
+          "price": 0.7,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.64,
+            "Reverse Holo": 0.7,
             "Base": 0.24
           },
-          "psa10": 32.12,
-          "g9": 10.73,
+          "psa10": 32.76,
+          "g9": 10.95,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/steven%27s-claydol-reverse-holo-84"
         },
         "085": {
-          "price": 0.29,
+          "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.29,
+            "Reverse Holo": 0.25,
             "Base": 0.25
           },
-          "psa10": 31.04,
-          "g9": 10.36,
+          "psa10": 31.25,
+          "g9": 10.43,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-chingling-reverse-holo-85"
         },
         "086": {
@@ -15319,14 +15319,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/steven%27s-carbink-reverse-holo-86"
         },
         "087": {
-          "price": 1.5,
+          "price": 1.71,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 1.42,
-            "Reverse Holo": 1.5
+            "Base": 0.82,
+            "Reverse Holo": 1.71
           },
           "psa10": 165,
-          "g9": 20.15,
+          "g9": 15.61,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-mimikyu-reverse-holo-87"
         },
         "088": {
@@ -15341,14 +15341,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-dottler-reverse-holo-88"
         },
         "089": {
-          "price": 0.65,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.65,
+            "Reverse Holo": 0.4,
             "Base": 0.13
           },
-          "psa10": 31.73,
-          "g9": 10.59,
+          "psa10": 32.81,
+          "g9": 10.96,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-orbeetle-reverse-holo-89"
         },
         "090": {
@@ -15358,7 +15358,7 @@
             "Reverse Holo": 0.5,
             "Base": 0.29
           },
-          "psa10": 32.46,
+          "psa10": 32.16,
           "g9": 13,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/mankey-reverse-holo-90"
         },
@@ -15367,7 +15367,7 @@
           "variant": "Base",
           "all": {
             "Base": 0.37,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.33
           },
           "psa10": 31.43,
           "g9": 10.49,
@@ -15378,22 +15378,22 @@
           "variant": "Base",
           "all": {
             "Base": 1,
-            "Reverse Holo": 1
+            "Reverse Holo": 0.99
           },
           "psa10": 49.99,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/annihilape-92"
         },
         "093": {
-          "price": 0.25,
-          "variant": "Base",
+          "price": 0.83,
+          "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
-            "Reverse Holo": 0.25
+            "Base": 0.8,
+            "Reverse Holo": 0.83
           },
-          "psa10": 59.95,
-          "g9": 10.37,
-          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-sudowoodo-93"
+          "psa10": 78,
+          "g9": 65.25,
+          "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/ethan%27s-sudowoodo-reverse-holo-93"
         },
         "094": {
           "price": 0.47,
@@ -15423,20 +15423,20 @@
           "all": {
             "Base": 0.94,
             "Reverse Holo": 1.7,
-            "Holo": 1.16
+            "Holo": 1.44
           },
           "psa10": 282.06,
           "g9": 18.5,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/team-rocket%27s-tyranitar-reverse-holo-96"
         },
         "097": {
-          "price": 0.26,
+          "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.13,
-            "Reverse Holo": 0.26
+            "Reverse Holo": 0.25
           },
-          "psa10": 31.17,
+          "psa10": 31.12,
           "g9": 10.01,
           "url": "https://www.pricecharting.com/game/pokemon-destined-rivals/nosepass-reverse-holo-97"
         },
@@ -15468,7 +15468,7 @@
     },
     "journey-together": {
       "console": "/console/pokemon-journey-together",
-      "checked": "2026-10-12",
+      "checked": "2026-10-13",
       "cards": {
         "100": {
           "price": 0.37,
@@ -15482,14 +15482,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/lokix-reverse-holo-100"
         },
         "101": {
-          "price": 0.36,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.13,
-            "Reverse Holo": 0.36
+            "Reverse Holo": 0.4
           },
-          "psa10": 31.11,
-          "g9": 10.39,
+          "psa10": 31.53,
+          "g9": 10.54,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/bombirdier-reverse-holo-101"
         },
         "102": {
@@ -15602,21 +15602,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-zacian-ex-111"
         },
         "112": {
-          "price": 0.35,
+          "price": 0.3,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.35,
+            "Reverse Holo": 0.3,
             "Base": 0.18
           },
-          "psa10": 31.66,
-          "g9": 10.59,
+          "psa10": 31.49,
+          "g9": 10.53,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/bagon-reverse-holo-112"
         },
         "113": {
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.29,
+            "Base": 0.26,
             "Reverse Holo": 0.4
           },
           "psa10": 31.7,
@@ -15634,15 +15634,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/salamence-ex-114"
         },
         "115": {
-          "price": 0.35,
-          "variant": "Base",
+          "price": 0.77,
+          "variant": "Reverse Holo",
           "all": {
             "Base": 0.35,
-            "Reverse Holo": 0.28
+            "Reverse Holo": 0.77
           },
-          "psa10": 31.36,
-          "g9": 10.48,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/druddigon-115"
+          "psa10": 31.19,
+          "g9": 12,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/druddigon-reverse-holo-115"
         },
         "116": {
           "price": 0.99,
@@ -15710,14 +15710,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/dudunsparce-ex-121"
         },
         "122": {
-          "price": 0.53,
+          "price": 0.72,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 0.53
+            "Reverse Holo": 0.72
           },
-          "psa10": 31.7,
-          "g9": 10.6,
+          "psa10": 32.25,
+          "g9": 10.8,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/kecleon-reverse-holo-122"
         },
         "123": {
@@ -15791,10 +15791,10 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
+            "Base": 0.28,
             "Reverse Holo": 0.4
           },
-          "psa10": 32.13,
+          "psa10": 31.7,
           "g9": 7.5,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/komala-reverse-holo-129"
         },
@@ -15810,14 +15810,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/drampa-reverse-holo-130"
         },
         "131": {
-          "price": 0.5,
+          "price": 0.7,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 0.5
+            "Reverse Holo": 0.7
           },
-          "psa10": 31.7,
-          "g9": 17.94,
+          "psa10": 32.13,
+          "g9": 17.86,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/skwovet-reverse-holo-131"
         },
         "132": {
@@ -15854,36 +15854,36 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-corvisquire-reverse-holo-134"
         },
         "135": {
-          "price": 0.4,
+          "price": 0.44,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.4,
+            "Reverse Holo": 0.44,
             "Base": 0.28
           },
-          "psa10": 30.94,
+          "psa10": 31.7,
           "g9": 5.5,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-wooloo-reverse-holo-135"
         },
         "136": {
-          "price": 0.4,
+          "price": 0.39,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.4,
+            "Reverse Holo": 0.39,
             "Base": 0.29
           },
           "psa10": 31.7,
-          "g9": 13.81,
+          "g9": 13.8,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-dubwool-reverse-holo-136"
         },
         "137": {
-          "price": 0.29,
+          "price": 0.35,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.29,
+            "Reverse Holo": 0.35,
             "Base": 0.25
           },
-          "psa10": 31.45,
-          "g9": 10.51,
+          "psa10": 31.23,
+          "g9": 10.44,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/cramorant-reverse-holo-137"
         },
         "138": {
@@ -15921,14 +15921,14 @@
         },
         "141": {
           "price": 0.25,
-          "variant": "Reverse Holo",
+          "variant": "Base",
           "all": {
-            "Reverse Holo": 0.25,
+            "Reverse Holo": 0.21,
             "Base": 0.25
           },
-          "psa10": 31.7,
-          "g9": 9.96,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/squawkabilly-reverse-holo-141"
+          "psa10": 31.06,
+          "g9": 10.38,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/squawkabilly-141"
         },
         "142": {
           "price": 0.22,
@@ -15946,7 +15946,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.56,
-            "Base": 0.4
+            "Base": 0.36
           },
           "psa10": 33.7,
           "g9": 10,
@@ -15964,14 +15964,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/black-belt%27s-training-reverse-holo-144"
         },
         "145": {
-          "price": 0.48,
+          "price": 0.74,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 0.48
+            "Reverse Holo": 0.74
           },
-          "psa10": 32.08,
-          "g9": 10.74,
+          "psa10": 32.04,
+          "g9": 10.73,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/black-belt%27s-training-reverse-holo-145"
         },
         "146": {
@@ -16001,17 +16001,17 @@
           "variant": "Base",
           "all": {
             "Base": 0.26,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.23
           },
           "psa10": 31.49,
           "g9": 10.53,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-choice-band-148"
         },
         "149": {
-          "price": 0.28,
+          "price": 0.47,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.28,
+            "Reverse Holo": 0.47,
             "Base": 0.2
           },
           "psa10": 31.19,
@@ -16030,13 +16030,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/levincia-150"
         },
         "151": {
-          "price": 0.53,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.53,
+            "Reverse Holo": 0.4,
             "Base": 0.25
           },
-          "psa10": 31.06,
+          "psa10": 32.25,
           "g9": 14.65,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/lillie%27s-pearl-reverse-holo-151"
         },
@@ -16063,14 +16063,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/n%27s-pp-up-reverse-holo-153"
         },
         "154": {
-          "price": 0.26,
+          "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.26,
+            "Reverse Holo": 0.25,
             "Base": 0.15
           },
-          "psa10": 31.4,
-          "g9": 10.5,
+          "psa10": 31.11,
+          "g9": 10.39,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/postwick-reverse-holo-154"
         },
         "155": {
@@ -16124,7 +16124,7 @@
             "Reverse Holo": 1.69,
             "Base": 0.72
           },
-          "psa10": 37.2,
+          "psa10": 37.19,
           "g9": 12.55,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/spiky-energy-reverse-holo-159"
         },
@@ -16446,8 +16446,8 @@
             "Reverse Holo": 0.41,
             "Base": 0.3
           },
-          "psa10": 32.26,
-          "g9": 10.8,
+          "psa10": 31.74,
+          "g9": 10.62,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/metapod-reverse-holo-2"
         },
         "003": {
@@ -16462,21 +16462,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/butterfree-reverse-holo-3"
         },
         "004": {
-          "price": 0.57,
-          "variant": "Reverse Holo",
+          "price": 0.4,
+          "variant": "Base",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 0.57
+            "Reverse Holo": 0.35
           },
-          "psa10": 33.74,
-          "g9": 11.33,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/paras-reverse-holo-4"
+          "psa10": 31.7,
+          "g9": 10.6,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/paras-4"
         },
         "005": {
           "price": 0.66,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.28,
+            "Base": 0.25,
             "Reverse Holo": 0.66
           },
           "psa10": 32.34,
@@ -16484,14 +16484,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/parasect-reverse-holo-5"
         },
         "006": {
-          "price": 0.22,
+          "price": 0.33,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.22,
-            "Base": 0.1
+            "Reverse Holo": 0.33,
+            "Base": 0.14
           },
-          "psa10": 31.23,
-          "g9": 10.44,
+          "psa10": 30.94,
+          "g9": 10.33,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/petilil-reverse-holo-6"
         },
         "007": {
@@ -16528,11 +16528,11 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/karrablast-reverse-holo-9"
         },
         "010": {
-          "price": 0.4,
+          "price": 0.3,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.19,
-            "Reverse Holo": 0.4
+            "Reverse Holo": 0.3
           },
           "psa10": 31.7,
           "g9": 10.6,
@@ -16582,43 +16582,43 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/durant-reverse-holo-14"
         },
         "015": {
-          "price": 0.73,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.73,
+            "Reverse Holo": 0.4,
             "Base": 0.25
           },
-          "psa10": 33.11,
+          "psa10": 33.1,
           "g9": 11.1,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/virizion-reverse-holo-15"
         },
         "016": {
-          "price": 1.1,
+          "price": 1.34,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.4,
-            "Reverse Holo": 1.1
+            "Base": 1.03,
+            "Reverse Holo": 1.34
           },
-          "psa10": 22.74,
+          "psa10": 22.73,
           "g9": 13.99,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/sprigatito-reverse-holo-16"
         },
         "017": {
-          "price": 0.65,
-          "variant": "Reverse Holo",
+          "price": 0.99,
+          "variant": "Base",
           "all": {
-            "Base": 0.4,
-            "Reverse Holo": 0.65
+            "Base": 0.99,
+            "Reverse Holo": 0.97
           },
           "psa10": 31.7,
-          "g9": 7.5,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/floragato-reverse-holo-17"
+          "g9": 10.6,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/floragato-17"
         },
         "018": {
-          "price": 0.51,
+          "price": 0.75,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.51,
+            "Reverse Holo": 0.75,
             "Base": 0.5
           },
           "psa10": 32.17,
@@ -16637,10 +16637,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/nymble-reverse-holo-19"
         },
         "020": {
-          "price": 0.56,
+          "price": 0.5,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.56,
+            "Reverse Holo": 0.5,
             "Base": 0.2
           },
           "psa10": 25,
@@ -16659,14 +16659,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/magmortar-reverse-holo-21"
         },
         "022": {
-          "price": 0.5,
+          "price": 1.14,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.5,
+            "Reverse Holo": 1.14,
             "Base": 0.25
           },
-          "psa10": 32.98,
-          "g9": 11.06,
+          "psa10": 32.13,
+          "g9": 10.76,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/torchic-reverse-holo-22"
         },
         "023": {
@@ -16691,13 +16691,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/blaziken-ex-24"
         },
         "025": {
-          "price": 0.37,
+          "price": 0.61,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.37,
+            "Reverse Holo": 0.61,
             "Base": 0.27
           },
-          "psa10": 31.58,
+          "psa10": 31.57,
           "g9": 10.56,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/torkoal-reverse-holo-25"
         },
@@ -16713,14 +16713,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/n%27s-darumaka-reverse-holo-26"
         },
         "027": {
-          "price": 0.4,
+          "price": 0.39,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.4,
+            "Reverse Holo": 0.39,
             "Base": 0.19
           },
-          "psa10": 31.83,
-          "g9": 10.65,
+          "psa10": 31.7,
+          "g9": 10.6,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/n%27s-darmanitan-reverse-holo-27"
         },
         "028": {
@@ -16766,13 +16766,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/volcanion-ex-31"
         },
         "032": {
-          "price": 0.87,
+          "price": 0.86,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.87,
+            "Reverse Holo": 0.86,
             "Base": 0.82
           },
-          "psa10": 32.6,
+          "psa10": 33.7,
           "g9": 13.4,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/articuno-reverse-holo-32"
         },
@@ -16846,7 +16846,7 @@
           "price": 0.26,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.08,
+            "Base": 0.09,
             "Reverse Holo": 0.26
           },
           "psa10": 31.23,
@@ -16876,14 +16876,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/wailord-41"
         },
         "042": {
-          "price": 0.43,
+          "price": 0.44,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.43,
+            "Reverse Holo": 0.44,
             "Base": 0.4
           },
-          "psa10": 32.13,
-          "g9": 10.75,
+          "psa10": 31.83,
+          "g9": 10.65,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/regice-reverse-holo-42"
         },
         "043": {
@@ -16897,10 +16897,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/veluza-ex-43"
         },
         "044": {
-          "price": 0.2,
+          "price": 0.19,
           "variant": "Base",
           "all": {
-            "Base": 0.2,
+            "Base": 0.19,
             "Reverse Holo": 0.18
           },
           "psa10": 30.85,
@@ -16908,13 +16908,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/alolan-geodude-44"
         },
         "045": {
-          "price": 0.65,
+          "price": 0.61,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.65,
-            "Base": 0.22
+            "Reverse Holo": 0.61,
+            "Base": 0.16
           },
-          "psa10": 31.7,
+          "psa10": 32.76,
           "g9": 7.5,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/alolan-graveler-reverse-holo-45"
         },
@@ -16941,14 +16941,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/iono%27s-voltorb-reverse-holo-47"
         },
         "048": {
-          "price": 0.5,
+          "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.5,
+            "Reverse Holo": 0.4,
             "Base": 0.4
           },
           "psa10": 32.13,
-          "g9": 10.75,
+          "g9": 10.76,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/iono%27s-electrode-reverse-holo-48"
         },
         "049": {
@@ -17008,7 +17008,7 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.36,
+            "Base": 0.31,
             "Reverse Holo": 0.4
           },
           "psa10": 56,
@@ -17055,7 +17055,7 @@
             "Base": 0.29,
             "Reverse Holo": 0.53
           },
-          "psa10": 32,
+          "psa10": 32.25,
           "g9": 5.5,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/mr-mime-reverse-holo-58"
         },
@@ -17071,15 +17071,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/shuppet-reverse-holo-59"
         },
         "060": {
-          "price": 0.44,
-          "variant": "Base",
+          "price": 1.06,
+          "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.41,
+            "Reverse Holo": 1.06,
             "Base": 0.44
           },
-          "psa10": 32.13,
-          "g9": 16,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/banette-60"
+          "psa10": 31.74,
+          "g9": 10.62,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/banette-reverse-holo-60"
         },
         "061": {
           "price": 0.27,
@@ -17093,11 +17093,11 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/beldum-reverse-holo-61"
         },
         "062": {
-          "price": 0.5,
+          "price": 0.52,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.19,
-            "Reverse Holo": 0.5
+            "Reverse Holo": 0.52
           },
           "psa10": 32.13,
           "g9": 10.76,
@@ -17126,14 +17126,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/n%27s-sigilyph-reverse-holo-64"
         },
         "065": {
-          "price": 0.67,
+          "price": 0.81,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.67,
+            "Reverse Holo": 0.81,
             "Base": 0.2
           },
-          "psa10": 31.87,
-          "g9": 10.66,
+          "psa10": 32.85,
+          "g9": 11.01,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/oricorio-reverse-holo-65"
         },
         "066": {
@@ -17159,14 +17159,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/lillie%27s-ribombee-67"
         },
         "068": {
-          "price": 0.8,
+          "price": 0.61,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.24,
-            "Reverse Holo": 0.8
+            "Base": 0.4,
+            "Reverse Holo": 0.61
           },
-          "psa10": 31.62,
-          "g9": 10.57,
+          "psa10": 33.4,
+          "g9": 11.21,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/lillie%27s-comfey-reverse-holo-68"
         },
         "069": {
@@ -17186,26 +17186,26 @@
             "Base": 0.17,
             "Reverse Holo": 0.27
           },
-          "psa10": 31.57,
-          "g9": 10.56,
+          "psa10": 31.15,
+          "g9": 10.41,
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/dhelmise-reverse-holo-70"
         },
         "071": {
-          "price": 0.4,
-          "variant": "Reverse Holo",
-          "all": {
-            "Reverse Holo": 0.4,
-            "Base": 0.02
-          },
-          "psa10": 32.09,
-          "g9": 10.74,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/impidimp-reverse-holo-71"
-        },
-        "072": {
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.25,
+            "Base": 0.02
+          },
+          "psa10": 31.7,
+          "g9": 10.6,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/impidimp-reverse-holo-71"
+        },
+        "072": {
+          "price": 0.28,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 0.28,
             "Base": 0.25
           },
           "psa10": 31.06,
@@ -17358,7 +17358,7 @@
           "variant": "Base",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.23
           },
           "psa10": 31.06,
           "g9": 10.38,
@@ -17376,15 +17376,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/hop%27s-sandaconda-reverse-holo-87"
         },
         "088": {
-          "price": 0.35,
-          "variant": "Reverse Holo",
+          "price": 0.4,
+          "variant": "Base",
           "all": {
-            "Base": 0.21,
+            "Base": 0.4,
             "Reverse Holo": 0.35
           },
-          "psa10": 31.49,
-          "g9": 10.53,
-          "url": "https://www.pricecharting.com/game/pokemon-journey-together/toedscool-reverse-holo-88"
+          "psa10": 30.89,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-journey-together/toedscool-88"
         },
         "089": {
           "price": 0.4,
@@ -17474,10 +17474,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-journey-together/n%27s-purrloin-96"
         },
         "097": {
-          "price": 0.99,
+          "price": 1.1,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.99,
+            "Reverse Holo": 1.1,
             "Base": 0.83
           },
           "psa10": 30,
@@ -25050,10 +25050,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/arboliva-104"
         },
         "105": {
-          "price": 2.78,
+          "price": 2.73,
           "variant": "Base",
           "all": {
-            "Base": 2.78
+            "Base": 2.73
           },
           "psa10": 61,
           "g9": 15,
@@ -25090,12 +25090,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/rellor-108"
         },
         "109": {
-          "price": 39.29,
+          "price": 38.53,
           "variant": "Base",
           "all": {
-            "Base": 39.29
+            "Base": 38.53
           },
-          "psa10": 230.75,
+          "psa10": 236.75,
           "g9": 48,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charmander-109"
         },
@@ -25120,20 +25120,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-tauros-111"
         },
         "112": {
-          "price": 13.45,
+          "price": 13.85,
           "variant": "Base",
           "all": {
-            "Base": 13.45
+            "Base": 13.85
           },
-          "psa10": 206.49,
+          "psa10": 208.53,
           "g9": 34,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/entei-112"
         },
         "113": {
-          "price": 2.67,
+          "price": 2.75,
           "variant": "Base",
           "all": {
-            "Base": 2.67
+            "Base": 2.75
           },
           "psa10": 73.25,
           "g9": 25,
@@ -25160,32 +25160,32 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/armarouge-115"
         },
         "116": {
-          "price": 18.75,
+          "price": 18.63,
           "variant": "Base",
           "all": {
-            "Base": 18.75
+            "Base": 18.63
           },
           "psa10": 221.5,
           "g9": 38,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/slowpoke-116"
         },
         "117": {
-          "price": 17.2,
+          "price": 17.04,
           "variant": "Base",
           "all": {
-            "Base": 17.2
+            "Base": 17.04
           },
           "psa10": 189.33,
-          "g9": 40,
+          "g9": 43,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/slowbro-117"
         },
         "118": {
-          "price": 6.8,
+          "price": 6.36,
           "variant": "Base",
           "all": {
-            "Base": 6.8
+            "Base": 6.36
           },
-          "psa10": 49.07,
+          "psa10": 52.69,
           "g9": 22.99,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/staryu-118"
         },
@@ -25230,13 +25230,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wugtrio-122"
         },
         "123": {
-          "price": 5,
+          "price": 4.84,
           "variant": "Base",
           "all": {
-            "Base": 5
+            "Base": 4.84
           },
-          "psa10": 52.13,
-          "g9": 18.46,
+          "psa10": 52.2,
+          "g9": 18.58,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/finizen-123"
         },
         "124": {
@@ -25250,10 +25250,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/palafin-124"
         },
         "125": {
-          "price": 2.98,
+          "price": 2.94,
           "variant": "Base",
           "all": {
-            "Base": 2.98
+            "Base": 2.94
           },
           "psa10": 355,
           "g9": 36,
@@ -25270,50 +25270,50 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/dondozo-126"
         },
         "127": {
-          "price": 7.41,
+          "price": 7.39,
           "variant": "Base",
           "all": {
-            "Base": 7.41
+            "Base": 7.39
           },
-          "psa10": 102.5,
+          "psa10": 97.5,
           "g9": 26,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/tatsugiri-127"
         },
         "128": {
-          "price": 3.97,
+          "price": 3.87,
           "variant": "Base",
           "all": {
-            "Base": 3.97
+            "Base": 3.87
           },
-          "psa10": 124.54,
+          "psa10": 124.24,
           "g9": 14.5,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/frigibax-128"
         },
         "129": {
-          "price": 4.22,
+          "price": 4,
           "variant": "Base",
           "all": {
-            "Base": 4.22
+            "Base": 4
           },
           "psa10": 43.75,
           "g9": 24.72,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/arctibax-129"
         },
         "130": {
-          "price": 4.45,
+          "price": 4.9,
           "variant": "Base",
           "all": {
-            "Base": 4.45
+            "Base": 4.9
           },
-          "psa10": 105.27,
+          "psa10": 105.28,
           "g9": 10.28,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/baxcalibur-130"
         },
         "131": {
-          "price": 70.79,
+          "price": 70,
           "variant": "Base",
           "all": {
-            "Base": 70.79
+            "Base": 70
           },
           "psa10": 721,
           "g9": 101.85,
@@ -25340,13 +25340,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/voltorb-133"
         },
         "134": {
-          "price": 4.37,
+          "price": 4.28,
           "variant": "Base",
           "all": {
-            "Base": 4.37
+            "Base": 4.28
           },
           "psa10": 86.49,
-          "g9": 40.08,
+          "g9": 39.83,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/electrode-134"
         },
         "135": {
@@ -25370,10 +25370,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/luxio-136"
         },
         "137": {
-          "price": 11.13,
+          "price": 11.47,
           "variant": "Base",
           "all": {
-            "Base": 11.13
+            "Base": 11.47
           },
           "psa10": 197.21,
           "g9": 38.53,
@@ -25410,10 +25410,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/toxel-140"
         },
         "141": {
-          "price": 4.09,
+          "price": 4.17,
           "variant": "Base",
           "all": {
-            "Base": 4.09
+            "Base": 4.17
           },
           "psa10": 66,
           "g9": 20,
@@ -25450,20 +25450,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pawmot-144"
         },
         "145": {
-          "price": 3,
+          "price": 3.02,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 3.02
           },
           "psa10": 58.18,
-          "g9": 15.14,
+          "g9": 15.15,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wattrel-145"
         },
         "146": {
-          "price": 2.18,
+          "price": 2.15,
           "variant": "Base",
           "all": {
-            "Base": 2.18
+            "Base": 2.15
           },
           "psa10": 119.19,
           "g9": 10.51,
@@ -25475,7 +25475,7 @@
           "all": {
             "Base": 6.59
           },
-          "psa10": 83.03,
+          "psa10": 82.97,
           "g9": 22,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wigglytuff-147"
         },
@@ -25540,13 +25540,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/ralts-153"
         },
         "154": {
-          "price": 7.71,
+          "price": 8,
           "variant": "Base",
           "all": {
-            "Base": 7.71
+            "Base": 8
           },
           "psa10": 92.73,
-          "g9": 22.84,
+          "g9": 23.04,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/kirlia-154"
         },
         "155": {
@@ -25565,35 +25565,35 @@
           "all": {
             "Base": 4.29
           },
-          "psa10": 110.05,
+          "psa10": 110.03,
           "g9": 12.5,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/drifblim-156"
         },
         "157": {
-          "price": 5.25,
+          "price": 5.12,
           "variant": "Base",
           "all": {
-            "Base": 5.25
+            "Base": 5.12
           },
           "psa10": 36.44,
           "g9": 10.5,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/mime-jr-157"
         },
         "158": {
-          "price": 5.94,
+          "price": 5.87,
           "variant": "Base",
           "all": {
-            "Base": 5.94
+            "Base": 5.87
           },
-          "psa10": 119.86,
-          "g9": 15.45,
+          "psa10": 119.37,
+          "g9": 15.9,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/spiritomb-158"
         },
         "159": {
-          "price": 4.28,
+          "price": 4.05,
           "variant": "Base",
           "all": {
-            "Base": 4.28
+            "Base": 4.05
           },
           "psa10": 75.9,
           "g9": 18.51,
@@ -25620,13 +25620,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/dachsbun-161"
         },
         "162": {
-          "price": 11.13,
+          "price": 11.41,
           "variant": "Base",
           "all": {
-            "Base": 11.13
+            "Base": 11.41
           },
-          "psa10": 172.47,
-          "g9": 19.54,
+          "psa10": 172.49,
+          "g9": 19.52,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/ceruledge-162"
         },
         "163": {
@@ -25656,7 +25656,7 @@
             "Base": 8
           },
           "psa10": 56,
-          "g9": 25,
+          "g9": 24.76,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/tinkatink-165"
         },
         "166": {
@@ -25706,7 +25706,7 @@
             "Base": 4.61
           },
           "psa10": 140,
-          "g9": 19.49,
+          "g9": 19.42,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/primeape-170"
         },
         "171": {
@@ -25720,20 +25720,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/annihilape-171"
         },
         "172": {
-          "price": 3.8,
+          "price": 4.45,
           "variant": "Base",
           "all": {
-            "Base": 3.8
+            "Base": 4.45
           },
-          "psa10": 74.04,
+          "psa10": 73.92,
           "g9": 19.73,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-tauros-172"
         },
         "173": {
-          "price": 12.11,
+          "price": 12.99,
           "variant": "Base",
           "all": {
-            "Base": 12.11
+            "Base": 12.99
           },
           "psa10": 139.82,
           "g9": 34.35,
@@ -25750,10 +25750,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/lucario-174"
         },
         "175": {
-          "price": 7.08,
+          "price": 6.97,
           "variant": "Base",
           "all": {
-            "Base": 7.08
+            "Base": 6.97
           },
           "psa10": 42,
           "g9": 40,
@@ -25840,10 +25840,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/weavile-183"
         },
         "184": {
-          "price": 9.13,
+          "price": 9.11,
           "variant": "Base",
           "all": {
-            "Base": 9.13
+            "Base": 9.11
           },
           "psa10": 110.25,
           "g9": 25.51,
@@ -25865,7 +25865,7 @@
           "all": {
             "Base": 3
           },
-          "psa10": 126.38,
+          "psa10": 125.69,
           "g9": 21,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/bisharp-186"
         },
@@ -25880,10 +25880,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/kingambit-187"
         },
         "188": {
-          "price": 2.19,
+          "price": 2.08,
           "variant": "Base",
           "all": {
-            "Base": 2.19
+            "Base": 2.08
           },
           "psa10": 50.26,
           "g9": 27.3,
@@ -25910,12 +25910,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/grafaiai-190"
         },
         "191": {
-          "price": 10,
+          "price": 9.95,
           "variant": "Base",
           "all": {
-            "Base": 10
+            "Base": 9.95
           },
-          "psa10": 120.93,
+          "psa10": 120,
           "g9": 26,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/scizor-191"
         },
@@ -25950,10 +25950,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/noibat-194"
         },
         "195": {
-          "price": 2.62,
+          "price": 2.6,
           "variant": "Base",
           "all": {
-            "Base": 2.62
+            "Base": 2.6
           },
           "psa10": 61,
           "g9": 14.85,
@@ -25970,22 +25970,22 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pidgey-196"
         },
         "197": {
-          "price": 5.53,
+          "price": 5.23,
           "variant": "Base",
           "all": {
-            "Base": 5.53
+            "Base": 5.23
           },
           "psa10": 68.71,
-          "g9": 19.52,
+          "g9": 19.51,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pidgeotto-197"
         },
         "198": {
-          "price": 21.99,
+          "price": 21.97,
           "variant": "Base",
           "all": {
-            "Base": 21.99
+            "Base": 21.97
           },
-          "psa10": 203.59,
+          "psa10": 203.33,
           "g9": 40,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/jigglypuff-198"
         },
@@ -26000,13 +26000,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/doduo-199"
         },
         "200": {
-          "price": 4.35,
+          "price": 4.4,
           "variant": "Base",
           "all": {
-            "Base": 4.35
+            "Base": 4.4
           },
-          "psa10": 60.84,
-          "g9": 16.91,
+          "psa10": 60.66,
+          "g9": 17.08,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/dodrio-200"
         },
         "201": {
@@ -26040,20 +26040,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wingull-203"
         },
         "204": {
-          "price": 3.12,
+          "price": 3.15,
           "variant": "Base",
           "all": {
-            "Base": 3.12
+            "Base": 3.15
           },
           "psa10": 65,
-          "g9": 23.33,
+          "g9": 22.44,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pelipper-204"
         },
         "205": {
-          "price": 4,
+          "price": 3.49,
           "variant": "Base",
           "all": {
-            "Base": 4
+            "Base": 3.49
           },
           "psa10": 59.95,
           "g9": 21.75,
@@ -26075,15 +26075,15 @@
           "all": {
             "Base": 15
           },
-          "psa10": 147.85,
-          "g9": 28.42,
+          "psa10": 146.86,
+          "g9": 32,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/lechonk-207"
         },
         "208": {
-          "price": 4.61,
+          "price": 3.81,
           "variant": "Base",
           "all": {
-            "Base": 4.61
+            "Base": 3.81
           },
           "psa10": 200.78,
           "g9": 14.25,
@@ -26110,22 +26110,22 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/maushold-210"
         },
         "211": {
-          "price": 3.68,
+          "price": 3.45,
           "variant": "Base",
           "all": {
-            "Base": 3.68
+            "Base": 3.45
           },
           "psa10": 100,
           "g9": 33,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/flamigo-211"
         },
         "212": {
-          "price": 1.17,
+          "price": 1.13,
           "variant": "Base",
           "all": {
-            "Base": 1.17
+            "Base": 1.13
           },
-          "psa10": 40.13,
+          "psa10": 40.07,
           "g9": 18.88,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/forretress-ex-212"
         },
@@ -26160,12 +26160,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/alakazam-ex-215"
         },
         "216": {
-          "price": 33.81,
+          "price": 33,
           "variant": "Base",
           "all": {
-            "Base": 33.81
+            "Base": 33
           },
-          "psa10": 314.1,
+          "psa10": 324.52,
           "g9": 60,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/mew-ex-216"
         },
@@ -26190,10 +26190,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/glimmora-ex-218"
         },
         "219": {
-          "price": 3.12,
+          "price": 3.37,
           "variant": "Base",
           "all": {
-            "Base": 3.12
+            "Base": 3.37
           },
           "psa10": 81.96,
           "g9": 22,
@@ -26215,18 +26215,18 @@
           "all": {
             "Base": 3
           },
-          "psa10": 73.2,
-          "g9": 18.16,
+          "psa10": 73.35,
+          "g9": 18.15,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pidgeot-ex-221"
         },
         "222": {
-          "price": 3,
+          "price": 3.14,
           "variant": "Base",
           "all": {
-            "Base": 3
+            "Base": 3.14
           },
-          "psa10": 69.99,
-          "g9": 22.97,
+          "psa10": 72,
+          "g9": 22.5,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wigglytuff-ex-222"
         },
         "223": {
@@ -26250,32 +26250,32 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wugtrio-224"
         },
         "225": {
-          "price": 2.23,
+          "price": 2.87,
           "variant": "Base",
           "all": {
-            "Base": 2.23
+            "Base": 2.87
           },
-          "psa10": 60,
-          "g9": 17.47,
+          "psa10": 62,
+          "g9": 16.86,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/palafin-225"
         },
         "226": {
-          "price": 3.55,
+          "price": 3.44,
           "variant": "Base",
           "all": {
-            "Base": 3.55
+            "Base": 3.44
           },
           "psa10": 65,
-          "g9": 20.75,
+          "g9": 19.67,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pawmi-226"
         },
         "227": {
-          "price": 1.06,
+          "price": 1.19,
           "variant": "Base",
           "all": {
-            "Base": 1.06
+            "Base": 1.19
           },
-          "psa10": 34.25,
+          "psa10": 33.5,
           "g9": 9.96,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/clive-227"
         },
@@ -26300,23 +26300,23 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/nemona-229"
         },
         "230": {
-          "price": 1.84,
+          "price": 1.27,
           "variant": "Base",
           "all": {
-            "Base": 1.84
+            "Base": 1.27
           },
-          "psa10": 35.21,
+          "psa10": 35.76,
           "g9": 8.76,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-student-230"
         },
         "231": {
-          "price": 1.63,
+          "price": 1,
           "variant": "Base",
           "all": {
-            "Base": 1.63
+            "Base": 1
           },
           "psa10": 29.99,
-          "g9": 10,
+          "g9": 9.1,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-student-231"
         },
         "232": {
@@ -26350,32 +26350,32 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charizard-ex-234"
         },
         "235": {
-          "price": 9.58,
+          "price": 9.19,
           "variant": "Base",
           "all": {
-            "Base": 9.58
+            "Base": 9.19
           },
           "psa10": 42.06,
-          "g9": 21.12,
+          "g9": 21.26,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/arven-235"
         },
         "236": {
-          "price": 23.1,
+          "price": 23.93,
           "variant": "Base",
           "all": {
-            "Base": 23.1
+            "Base": 23.93
           },
-          "psa10": 146.26,
+          "psa10": 129.69,
           "g9": 39.23,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/clive-236"
         },
         "237": {
-          "price": 24.8,
+          "price": 23.23,
           "variant": "Base",
           "all": {
-            "Base": 24.8
+            "Base": 23.23
           },
-          "psa10": 64.25,
+          "psa10": 69.75,
           "g9": 29.55,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/iono-237"
         },
@@ -26410,12 +26410,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/wo-chien-ex-240"
         },
         "241": {
-          "price": 11.48,
+          "price": 11,
           "variant": "Base",
           "all": {
-            "Base": 11.48
+            "Base": 11
           },
-          "psa10": 109,
+          "psa10": 104.74,
           "g9": 27.99,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/chi-yu-ex-241"
         },
@@ -26430,10 +26430,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/chien-pao-ex-242"
         },
         "243": {
-          "price": 14.48,
+          "price": 14.45,
           "variant": "Base",
           "all": {
-            "Base": 14.48
+            "Base": 14.45
           },
           "psa10": 150,
           "g9": 22.2,
@@ -26450,24 +26450,24 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/ting-lu-ex-244"
         },
         "245": {
-          "price": 12.79,
+          "price": 12.77,
           "variant": "Base",
           "all": {
-            "Base": 12.79
+            "Base": 12.77
           },
           "psa10": 129.99,
-          "g9": 20.78,
+          "g9": 20.81,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/koraidon-ex-245"
         },
         "001": {
-          "price": 0.13,
+          "price": 0.1,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.04,
-            "Reverse Holo": 0.13
+            "Reverse Holo": 0.1
           },
           "psa10": 21.97,
-          "g9": 10.31,
+          "g9": 10.22,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pineco-reverse-holo-1"
         },
         "002": {
@@ -26485,10 +26485,10 @@
           "variant": "Base",
           "all": {
             "Base": 0.26,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.2
           },
-          "psa10": 30.47,
-          "g9": 10.21,
+          "psa10": 31.02,
+          "g9": 10.45,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/maractus-3"
         },
         "004": {
@@ -26503,10 +26503,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/toedscool-reverse-holo-4"
         },
         "005": {
-          "price": 0.62,
+          "price": 0.64,
           "variant": "Base",
           "all": {
-            "Base": 0.62
+            "Base": 0.64
           },
           "psa10": 27.51,
           "g9": 15.4,
@@ -26523,33 +26523,33 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/espathra-ex-6"
         },
         "007": {
-          "price": 0.37,
+          "price": 0.38,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.3,
-            "Reverse Holo": 0.37
+            "Reverse Holo": 0.38
           },
           "psa10": 100,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charmander-reverse-holo-7"
         },
         "008": {
-          "price": 0.52,
+          "price": 0.69,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.52,
-            "Base": 0.49
+            "Reverse Holo": 0.69,
+            "Base": 0.66
           },
           "psa10": 50.99,
           "g9": 22.75,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charmeleon-reverse-holo-8"
         },
         "009": {
-          "price": 0.3,
+          "price": 0.46,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.09,
-            "Reverse Holo": 0.3
+            "Reverse Holo": 0.46
           },
           "psa10": 20.96,
           "g9": 8.95,
@@ -26582,7 +26582,7 @@
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.03,
+            "Base": 0.07,
             "Reverse Holo": 0.25
           },
           "psa10": 31.3,
@@ -26590,25 +26590,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/camerupt-reverse-holo-12"
         },
         "013": {
-          "price": 0.51,
+          "price": 0.57,
           "variant": "Base",
           "all": {
-            "Base": 0.51,
+            "Base": 0.57,
             "Reverse Holo": 0.2
           },
-          "psa10": 32.39,
+          "psa10": 32,
           "g9": 15,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/heat-rotom-13"
         },
         "014": {
-          "price": 0.16,
+          "price": 0.38,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.03,
-            "Reverse Holo": 0.16
+            "Reverse Holo": 0.38
           },
           "psa10": 35.97,
-          "g9": 10.51,
+          "g9": 10.27,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charcadet-reverse-holo-14"
         },
         "015": {
@@ -26634,26 +26634,26 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/lapras-reverse-holo-16"
         },
         "017": {
-          "price": 0.25,
+          "price": 0.3,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.14,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.3
           },
           "psa10": 26.49,
           "g9": 9.98,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/frigibax-reverse-holo-17"
         },
         "018": {
-          "price": 1,
-          "variant": "Base",
+          "price": 0.98,
+          "variant": "Reverse Holo",
           "all": {
-            "Base": 1,
+            "Base": 0.62,
             "Reverse Holo": 0.98
           },
-          "psa10": 78,
-          "g9": 19.95,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pikachu-18"
+          "psa10": 180,
+          "g9": 18.99,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pikachu-reverse-holo-18"
         },
         "019": {
           "price": 0.9,
@@ -26668,11 +26668,11 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/raichu-holo-19"
         },
         "020": {
-          "price": 0.21,
+          "price": 0.13,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.05,
-            "Reverse Holo": 0.21
+            "Reverse Holo": 0.13
           },
           "psa10": 24.95,
           "g9": 9.95,
@@ -26693,7 +26693,7 @@
           "price": 0.18,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.04,
+            "Base": 0.06,
             "Reverse Holo": 0.18
           },
           "psa10": 14.98,
@@ -26701,14 +26701,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/kilowattrel-reverse-holo-22"
         },
         "023": {
-          "price": 0.19,
+          "price": 0.24,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.08,
-            "Reverse Holo": 0.19
+            "Reverse Holo": 0.24
           },
           "psa10": 18.95,
-          "g9": 10.26,
+          "g9": 10.33,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/exeggcute-reverse-holo-23"
         },
         "024": {
@@ -26734,25 +26734,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/natu-25"
         },
         "026": {
-          "price": 0.4,
+          "price": 0.45,
           "variant": "Base",
           "all": {
-            "Reverse Holo": 0.24,
-            "Base": 0.4
+            "Reverse Holo": 0.25,
+            "Base": 0.45
           },
-          "psa10": 30.98,
-          "g9": 10.43,
+          "psa10": 31.57,
+          "g9": 10.69,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/xatu-26"
         },
         "027": {
-          "price": 0.16,
+          "price": 0.5,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.1,
-            "Reverse Holo": 0.16
+            "Base": 0.11,
+            "Reverse Holo": 0.5
           },
           "psa10": 24.24,
-          "g9": 10.29,
+          "g9": 10.27,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/ralts-reverse-holo-27"
         },
         "028": {
@@ -26780,7 +26780,7 @@
           "price": 0.33,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
+            "Base": 0.27,
             "Reverse Holo": 0.33
           },
           "psa10": 31.14,
@@ -26788,26 +26788,26 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/chimecho-reverse-holo-30"
         },
         "031": {
-          "price": 0.29,
-          "variant": "Base",
+          "price": 0.25,
+          "variant": "Reverse Holo",
           "all": {
-            "Base": 0.29,
-            "Reverse Holo": 0.24
+            "Base": 0.16,
+            "Reverse Holo": 0.25
           },
-          "psa10": 31.37,
-          "g9": 10.6,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/mime-jr-31"
+          "psa10": 34.95,
+          "g9": 10.41,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/mime-jr-reverse-holo-31"
         },
         "032": {
           "price": 0.13,
-          "variant": "Reverse Holo",
+          "variant": "Base",
           "all": {
-            "Base": 0.04,
+            "Base": 0.13,
             "Reverse Holo": 0.13
           },
-          "psa10": 17.98,
-          "g9": 10.26,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/woobat-reverse-holo-32"
+          "psa10": 30.16,
+          "g9": 10.07,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/woobat-32"
         },
         "033": {
           "price": 0.25,
@@ -26821,15 +26821,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/swoobat-reverse-holo-33"
         },
         "034": {
-          "price": 0.14,
-          "variant": "Base",
+          "price": 0.21,
+          "variant": "Reverse Holo",
           "all": {
             "Base": 0.14,
-            "Reverse Holo": 0.12
+            "Reverse Holo": 0.21
           },
-          "psa10": 30.59,
-          "g9": 10.26,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/cottonee-34"
+          "psa10": 33.95,
+          "g9": 14.99,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/cottonee-reverse-holo-34"
         },
         "035": {
           "price": 0.18,
@@ -26854,13 +26854,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/dedenne-reverse-holo-36"
         },
         "037": {
-          "price": 0.98,
+          "price": 1.17,
           "variant": "Base",
           "all": {
             "Reverse Holo": 0.41,
-            "Base": 0.98
+            "Base": 1.17
           },
-          "psa10": 48.91,
+          "psa10": 48.9,
           "g9": 26,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/mimikyu-37"
         },
@@ -26868,7 +26868,7 @@
           "price": 0.68,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.15,
+            "Base": 0.4,
             "Reverse Holo": 0.68
           },
           "psa10": 32.75,
@@ -26937,8 +26937,8 @@
             "Base": 0.15,
             "Reverse Holo": 0.14
           },
-          "psa10": 30.9,
-          "g9": 10.39,
+          "psa10": 30.59,
+          "g9": 10.26,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/gimmighoul-44"
         },
         "045": {
@@ -26975,22 +26975,22 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/annihilape-47"
         },
         "048": {
-          "price": 0.5,
-          "variant": "Base",
+          "price": 0.55,
+          "variant": "Reverse Holo",
           "all": {
             "Base": 0.5,
-            "Reverse Holo": 0.39
+            "Reverse Holo": 0.55
           },
-          "psa10": 30.98,
-          "g9": 10.43,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/phanpy-48"
+          "psa10": 34.47,
+          "g9": 10.67,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/phanpy-reverse-holo-48"
         },
         "049": {
-          "price": 0.25,
+          "price": 0.15,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.06,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.15
           },
           "psa10": 25.95,
           "g9": 10.43,
@@ -27000,7 +27000,7 @@
           "price": 0.2,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.03,
+            "Base": 0.05,
             "Reverse Holo": 0.2
           },
           "psa10": 17.98,
@@ -27008,15 +27008,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/barboach-reverse-holo-50"
         },
         "051": {
-          "price": 0.17,
-          "variant": "Reverse Holo",
+          "price": 0.15,
+          "variant": "Base",
           "all": {
             "Base": 0.15,
-            "Reverse Holo": 0.17
+            "Reverse Holo": 0.15
           },
-          "psa10": 17.97,
-          "g9": 8.95,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/clobbopus-reverse-holo-51"
+          "psa10": 31.45,
+          "g9": 10.63,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/clobbopus-51"
         },
         "052": {
           "price": 0.28,
@@ -27050,10 +27050,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/charizard-ex-54"
         },
         "055": {
-          "price": 0.25,
+          "price": 0.31,
           "variant": "Base",
           "all": {
-            "Base": 0.25,
+            "Base": 0.31,
             "Reverse Holo": 0.22
           },
           "psa10": 58.53,
@@ -27072,21 +27072,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/haunter-reverse-holo-56"
         },
         "057": {
-          "price": 2.6,
+          "price": 2.47,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 1.77,
-            "Reverse Holo": 2.6
+            "Base": 1.5,
+            "Reverse Holo": 2.47
           },
           "psa10": 274.38,
-          "g9": 24.88,
+          "g9": 24.9,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/gengar-reverse-holo-57"
         },
         "058": {
           "price": 0.22,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.19,
+            "Base": 0.2,
             "Reverse Holo": 0.22
           },
           "psa10": 33.95,
@@ -27104,11 +27104,11 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-clodsire-ex-59"
         },
         "060": {
-          "price": 0.25,
+          "price": 0.23,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.11,
-            "Reverse Holo": 0.25
+            "Reverse Holo": 0.23
           },
           "psa10": 20.99,
           "g9": 7.95,
@@ -27140,7 +27140,7 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.09,
+            "Base": 0.08,
             "Reverse Holo": 0.4
           },
           "psa10": 16.48,
@@ -27170,12 +27170,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/revavroom-reverse-holo-65"
         },
         "066": {
-          "price": 1.26,
+          "price": 1.47,
           "variant": "Base",
           "all": {
-            "Base": 1.26
+            "Base": 1.47
           },
-          "psa10": 26.57,
+          "psa10": 26.53,
           "g9": 14,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/iron-treads-ex-66"
         },
@@ -27194,7 +27194,7 @@
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.14,
+            "Base": 0.16,
             "Reverse Holo": 0.25
           },
           "psa10": 22.95,
@@ -27235,14 +27235,14 @@
         },
         "072": {
           "price": 0.18,
-          "variant": "Reverse Holo",
+          "variant": "Base",
           "all": {
-            "Base": 0.15,
+            "Base": 0.18,
             "Reverse Holo": 0.18
           },
-          "psa10": 18.97,
-          "g9": 9.98,
-          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/oinkologne-reverse-holo-72"
+          "psa10": 30.59,
+          "g9": 10.26,
+          "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/oinkologne-72"
         },
         "073": {
           "price": 0.74,
@@ -27256,21 +27256,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/tandemaus-reverse-holo-73"
         },
         "074": {
-          "price": 0.7,
+          "price": 1.01,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.49,
-            "Reverse Holo": 0.7
+            "Base": 0.5,
+            "Reverse Holo": 1.01
           },
           "psa10": 32.75,
           "g9": 11.2,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/maushold-reverse-holo-74"
         },
         "075": {
-          "price": 1.18,
+          "price": 0.78,
           "variant": "Base",
           "all": {
-            "Base": 1.18
+            "Base": 0.78
           },
           "psa10": 49.97,
           "g9": 10.28,
@@ -27299,14 +27299,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/atticus-reverse-holo-77"
         },
         "078": {
-          "price": 0.22,
+          "price": 0.23,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.12,
-            "Reverse Holo": 0.22
+            "Reverse Holo": 0.23
           },
           "psa10": 21.97,
-          "g9": 10.43,
+          "g9": 10.38,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/clive-reverse-holo-78"
         },
         "079": {
@@ -27339,14 +27339,14 @@
             "Reverse Holo": 0.26
           },
           "psa10": 28.95,
-          "g9": 11.01,
+          "g9": 10.45,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/moonlit-hill-reverse-holo-81"
         },
         "082": {
           "price": 0.17,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.08,
+            "Base": 0.1,
             "Reverse Holo": 0.17
           },
           "psa10": 34.95,
@@ -27398,13 +27398,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/paldean-student-reverse-holo-86"
         },
         "087": {
-          "price": 0.19,
+          "price": 0.18,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.15,
-            "Reverse Holo": 0.19
+            "Reverse Holo": 0.18
           },
-          "psa10": 30.9,
+          "psa10": 30.75,
           "g9": 9.98,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/professor%27s-research-reverse-holo-87"
         },
@@ -27423,7 +27423,7 @@
           "price": 0.61,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.42,
+            "Base": 0.34,
             "Reverse Holo": 0.61
           },
           "psa10": 21,
@@ -27445,7 +27445,7 @@
           "price": 0.57,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.26,
+            "Base": 0.49,
             "Reverse Holo": 0.57
           },
           "psa10": 28.04,
@@ -27473,20 +27473,20 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/gloom-93"
         },
         "094": {
-          "price": 7.78,
+          "price": 7.85,
           "variant": "Base",
           "all": {
-            "Base": 7.78
+            "Base": 7.85
           },
-          "psa10": 105.98,
+          "psa10": 109.46,
           "g9": 34,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/vileplume-94"
         },
         "095": {
-          "price": 10.25,
+          "price": 10.33,
           "variant": "Base",
           "all": {
-            "Base": 10.25
+            "Base": 10.33
           },
           "psa10": 151.87,
           "g9": 25,
@@ -27503,10 +27503,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/hoppip-96"
         },
         "097": {
-          "price": 3.1,
+          "price": 3.11,
           "variant": "Base",
           "all": {
-            "Base": 3.1
+            "Base": 3.11
           },
           "psa10": 40,
           "g9": 16.52,
@@ -27523,13 +27523,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/jumpluff-98"
         },
         "099": {
-          "price": 2.72,
+          "price": 2.54,
           "variant": "Base",
           "all": {
-            "Base": 2.72
+            "Base": 2.54
           },
           "psa10": 79.96,
-          "g9": 27.06,
+          "g9": 27.19,
           "url": "https://www.pricecharting.com/game/pokemon-paldean-fates/pineco-99"
         }
       },
@@ -33103,7 +33103,7 @@
     },
     "pitch-black": {
       "console": "/console/pokemon-pitch-black",
-      "checked": "2026-10-12",
+      "checked": "2026-10-13",
       "cards": {
         "100": {
           "price": 3.16,
@@ -33216,13 +33216,13 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/iron-defender-110"
         },
         "111": {
-          "price": 12.1,
+          "price": 11.99,
           "variant": "Base",
           "all": {
-            "Base": 12.1
+            "Base": 11.99
           },
-          "psa10": 276,
-          "g9": 51.13,
+          "psa10": 275,
+          "g9": 18.04,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/misty%27s-vitality-111"
         },
         "112": {
@@ -33316,24 +33316,24 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/mega-darkrai-ex-120"
         },
         "001": {
-          "price": 1.6,
+          "price": 1.5,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.6,
-            "Base": 0.18
+            "Reverse Holo": 1.5,
+            "Base": 0.1
           },
-          "psa10": 37.79,
+          "psa10": 37.78,
           "g9": 12.1,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/tropius-reverse-holo-1"
         },
         "002": {
-          "price": 1.31,
+          "price": 1.4,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.09,
-            "Reverse Holo": 1.31
+            "Reverse Holo": 1.4
           },
-          "psa10": 36.38,
+          "psa10": 36.37,
           "g9": 11.72,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/grubbin-reverse-holo-2"
         },
@@ -33359,14 +33359,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/lurantis-ex-4"
         },
         "005": {
-          "price": 1.39,
+          "price": 1.5,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.73,
-            "Reverse Holo": 1.39
+            "Reverse Holo": 1.5
           },
-          "psa10": 35.74,
-          "g9": 11.55,
+          "psa10": 36.75,
+          "g9": 11.83,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/poltchageist-reverse-holo-5"
         },
         "006": {
@@ -33385,7 +33385,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.5,
-            "Base": 0.17
+            "Base": 0.25
           },
           "psa10": 31.94,
           "g9": 10.53,
@@ -33402,14 +33402,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/mega-delphox-ex-8"
         },
         "009": {
-          "price": 1.48,
+          "price": 1.3,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.48,
+            "Reverse Holo": 1.3,
             "Base": 0.04
           },
-          "psa10": 36.91,
-          "g9": 11.86,
+          "psa10": 37.19,
+          "g9": 11.94,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/sizzlipede-reverse-holo-9"
         },
         "010": {
@@ -33424,14 +33424,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/centiskorch-reverse-holo-10"
         },
         "011": {
-          "price": 1.19,
+          "price": 1.46,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.27,
-            "Reverse Holo": 1.19
+            "Reverse Holo": 1.46
           },
-          "psa10": 35.69,
-          "g9": 11.53,
+          "psa10": 35.78,
+          "g9": 11.56,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/charcadet-reverse-holo-11"
         },
         "012": {
@@ -33463,7 +33463,7 @@
             "Base": 0.15,
             "Reverse Holo": 1.5
           },
-          "psa10": 37.3,
+          "psa10": 37.29,
           "g9": 11.97,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/seaking-reverse-holo-14"
         },
@@ -33493,9 +33493,9 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 1.35,
-            "Base": 0.7
+            "Base": 0.42
           },
-          "psa10": 36.57,
+          "psa10": 36.56,
           "g9": 11.77,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/relicanth-reverse-holo-17"
         },
@@ -33511,14 +33511,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/popplio-reverse-holo-18"
         },
         "019": {
-          "price": 1.41,
+          "price": 1.43,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.41,
+            "Reverse Holo": 1.43,
             "Base": 0.4
           },
-          "psa10": 37.69,
-          "g9": 12.07,
+          "psa10": 36.85,
+          "g9": 11.85,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/brionne-reverse-holo-19"
         },
         "020": {
@@ -33555,14 +33555,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/palafin-reverse-holo-22"
         },
         "023": {
-          "price": 1.49,
+          "price": 1.44,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.11,
-            "Reverse Holo": 1.49
+            "Reverse Holo": 1.44
           },
-          "psa10": 37.25,
-          "g9": 11.95,
+          "psa10": 37.24,
+          "g9": 11.96,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/electrike-reverse-holo-23"
         },
         "024": {
@@ -33594,8 +33594,8 @@
             "Base": 0.23,
             "Reverse Holo": 1.49
           },
-          "psa10": 37.78,
-          "g9": 12.1,
+          "psa10": 37.24,
+          "g9": 11.96,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/vikavolt-reverse-holo-26"
         },
         "027": {
@@ -33670,7 +33670,7 @@
             "Reverse Holo": 1.29,
             "Base": 0.4
           },
-          "psa10": 36.28,
+          "psa10": 36.27,
           "g9": 11.69,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/shuppet-reverse-holo-33"
         },
@@ -33686,10 +33686,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/banette-reverse-holo-34"
         },
         "035": {
-          "price": 2.38,
+          "price": 2.75,
           "variant": "Base",
           "all": {
-            "Base": 2.38,
+            "Base": 2.75,
             "Reverse Holo": 1.65,
             "Holo": 0.69
           },
@@ -33698,14 +33698,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/spiritomb-35"
         },
         "036": {
-          "price": 1.44,
+          "price": 1.34,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 1.44
+            "Reverse Holo": 1.34
           },
-          "psa10": 37.25,
-          "g9": 11.95,
+          "psa10": 37,
+          "g9": 11.89,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/litwick-reverse-holo-36"
         },
         "037": {
@@ -33806,25 +33806,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/rampardos-ex-45"
         },
         "046": {
-          "price": 1.73,
+          "price": 1.77,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.51,
-            "Reverse Holo": 1.73
+            "Reverse Holo": 1.77
           },
-          "psa10": 38.42,
+          "psa10": 38.41,
           "g9": 12.27,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/drilbur-reverse-holo-46"
         },
         "047": {
-          "price": 1.39,
+          "price": 1.49,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.21,
-            "Reverse Holo": 1.39
+            "Reverse Holo": 1.49
           },
-          "psa10": 37.15,
-          "g9": 11.93,
+          "psa10": 36.75,
+          "g9": 11.83,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/koraidon-reverse-holo-47"
         },
         "048": {
@@ -33849,14 +33849,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/vullaby-reverse-holo-49"
         },
         "050": {
-          "price": 1.29,
+          "price": 1.22,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.23,
-            "Reverse Holo": 1.29
+            "Reverse Holo": 1.22
           },
-          "psa10": 35.79,
-          "g9": 11.56,
+          "psa10": 36.27,
+          "g9": 11.69,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/mandibuzz-reverse-holo-50"
         },
         "051": {
@@ -33893,14 +33893,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/nickit-reverse-holo-53"
         },
         "054": {
-          "price": 1.41,
+          "price": 1.44,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.41,
+            "Reverse Holo": 1.44,
             "Base": 0.4
           },
-          "psa10": 37.3,
-          "g9": 11.97,
+          "psa10": 36.85,
+          "g9": 11.85,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/thievul-reverse-holo-54"
         },
         "055": {
@@ -33964,8 +33964,8 @@
             "Reverse Holo": 1.33,
             "Base": 0.27
           },
-          "psa10": 36.86,
-          "g9": 11.85,
+          "psa10": 36.46,
+          "g9": 11.75,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/skarmory-reverse-holo-60"
         },
         "061": {
@@ -33992,14 +33992,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/bastiodon-reverse-holo-62"
         },
         "063": {
-          "price": 1.42,
+          "price": 1.35,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.09,
-            "Reverse Holo": 1.42
+            "Reverse Holo": 1.35
           },
-          "psa10": 36.66,
-          "g9": 11.8,
+          "psa10": 36.9,
+          "g9": 11.87,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/bronzor-reverse-holo-63"
         },
         "064": {
@@ -34030,8 +34030,8 @@
             "Reverse Holo": 1.49,
             "Base": 0.17
           },
-          "psa10": 37.64,
-          "g9": 12.06,
+          "psa10": 37.24,
+          "g9": 11.96,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/pikipek-reverse-holo-66"
         },
         "067": {
@@ -34052,8 +34052,8 @@
             "Base": 0.4,
             "Reverse Holo": 1.49
           },
-          "psa10": 37.25,
-          "g9": 11.95,
+          "psa10": 37.24,
+          "g9": 11.96,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/toucannon-reverse-holo-68"
         },
         "069": {
@@ -34190,25 +34190,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/misty%27s-vitality-reverse-holo-80"
         },
         "081": {
-          "price": 1.49,
+          "price": 1.54,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.25,
-            "Reverse Holo": 1.49
+            "Reverse Holo": 1.54
           },
-          "psa10": 37.25,
-          "g9": 11.95,
+          "psa10": 37.24,
+          "g9": 11.96,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/rust-syndicate-grunt-reverse-holo-81"
         },
         "082": {
-          "price": 0.97,
+          "price": 1.09,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.29,
-            "Reverse Holo": 0.97
+            "Base": 0.47,
+            "Reverse Holo": 1.09
           },
-          "psa10": 34.82,
-          "g9": 11.3,
+          "psa10": 34.71,
+          "g9": 11.27,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/tremendous-bomb-reverse-holo-82"
         },
         "083": {
@@ -34223,15 +34223,15 @@
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/shadowy-darkness-energy-83"
         },
         "084": {
-          "price": 1.39,
+          "price": 1.34,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.4,
             "Holo": 0.4,
-            "Reverse Holo": 1.39
+            "Reverse Holo": 1.34
           },
           "psa10": 36.76,
-          "g9": 11.82,
+          "g9": 11.83,
           "url": "https://www.pricecharting.com/game/pokemon-pitch-black/voltaic-lightning-energy-reverse-holo-84"
         },
         "085": {
@@ -43103,7 +43103,7 @@
           "price": 0.35,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.19,
+            "Base": 0.15,
             "Reverse Holo": 0.35
           },
           "psa10": 31.42,
@@ -43111,21 +43111,21 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dartrix-reverse-holo-4"
         },
         "005": {
-          "price": 0.48,
+          "price": 0.17,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.15,
-            "Reverse Holo": 0.48
+            "Reverse Holo": 0.17
           },
-          "psa10": 31.01,
+          "psa10": 31.94,
           "g9": 7.75,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/decidueye-reverse-holo-5"
         },
         "006": {
-          "price": 0.67,
+          "price": 0.33,
           "variant": "Base",
           "all": {
-            "Base": 0.67,
+            "Base": 0.33,
             "Reverse Holo": 0.31
           },
           "psa10": 29.99,
@@ -43144,22 +43144,22 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/houndour-reverse-holo-7"
         },
         "008": {
-          "price": 0.4,
+          "price": 0.31,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.15,
-            "Reverse Holo": 0.4
+            "Reverse Holo": 0.31
           },
           "psa10": 34.99,
           "g9": 29,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/houndoom-reverse-holo-8"
         },
         "009": {
-          "price": 0.66,
+          "price": 0.39,
           "variant": "Base",
           "all": {
-            "Base": 0.66,
-            "Reverse Holo": 0.4
+            "Base": 0.39,
+            "Reverse Holo": 0.34
           },
           "psa10": 120,
           "g9": 3.63,
@@ -43188,25 +43188,25 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/seadra-reverse-holo-11"
         },
         "012": {
-          "price": 1.05,
+          "price": 1.41,
           "variant": "Base",
           "all": {
-            "Base": 1.05
+            "Base": 1.41
           },
-          "psa10": 54,
-          "g9": 9.85,
+          "psa10": 54.5,
+          "g9": 9.77,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/kingdra-ex-12"
         },
         "013": {
-          "price": 0.13,
-          "variant": "Base",
+          "price": 0.25,
+          "variant": "Reverse Holo",
           "all": {
             "Base": 0.13,
-            "Reverse Holo": 0.11
+            "Reverse Holo": 0.25
           },
-          "psa10": 30.4,
-          "g9": 10.16,
-          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/sneasel-13"
+          "psa10": 30.44,
+          "g9": 10.18,
+          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/sneasel-reverse-holo-13"
         },
         "014": {
           "price": 0.17,
@@ -43220,23 +43220,23 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/weavile-reverse-holo-14"
         },
         "015": {
-          "price": 0.94,
+          "price": 1,
           "variant": "Base",
           "all": {
-            "Base": 0.94
+            "Base": 1
           },
           "psa10": 31.5,
-          "g9": 7.38,
+          "g9": 7.44,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/revavroom-ex-15"
         },
         "016": {
-          "price": 0.23,
+          "price": 0.7,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.23,
-            "Base": 0.1
+            "Reverse Holo": 0.7,
+            "Base": 0.36
           },
-          "psa10": 32.23,
+          "psa10": 30.93,
           "g9": 9,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/drowzee-reverse-holo-16"
         },
@@ -43244,7 +43244,7 @@
           "price": 0.25,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.2,
+            "Base": 0.1,
             "Reverse Holo": 0.25
           },
           "psa10": 34.25,
@@ -43274,14 +43274,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dusclops-reverse-holo-19"
         },
         "020": {
-          "price": 0.75,
+          "price": 1.25,
           "variant": "Base",
           "all": {
-            "Base": 0.75,
+            "Base": 1.25,
             "Reverse Holo": 0.4
           },
           "psa10": 18.74,
-          "g9": 11,
+          "g9": 9.79,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dusknoir-20"
         },
         "021": {
@@ -43292,19 +43292,19 @@
             "Reverse Holo": 0.21
           },
           "psa10": 51,
-          "g9": 9.99,
+          "g9": 9.97,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/cresselia-21"
         },
         "022": {
-          "price": 1.53,
-          "variant": "Base",
+          "price": 1.11,
+          "variant": "Reverse Holo",
           "all": {
-            "Base": 1.53,
-            "Reverse Holo": 1.23
+            "Base": 1.1,
+            "Reverse Holo": 1.11
           },
-          "psa10": 33.75,
-          "g9": 28.69,
-          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/sylveon-22"
+          "psa10": 100,
+          "g9": 12.28,
+          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/sylveon-reverse-holo-22"
         },
         "023": {
           "price": 0.23,
@@ -43340,14 +43340,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/bloodmoon-ursaluna-reverse-holo-25"
         },
         "026": {
-          "price": 0.87,
+          "price": 0.47,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.4,
-            "Reverse Holo": 0.87
+            "Reverse Holo": 0.47
           },
           "psa10": 45,
-          "g9": 33.89,
+          "g9": 30.09,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/slither-wing-reverse-holo-26"
         },
         "027": {
@@ -43366,7 +43366,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 0.25,
-            "Base": 0.2
+            "Base": 0.22
           },
           "psa10": 31.01,
           "g9": 10.41,
@@ -43384,10 +43384,10 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/crobat-reverse-holo-29"
         },
         "030": {
-          "price": 0.5,
+          "price": 0.4,
           "variant": "Base",
           "all": {
-            "Base": 0.5,
+            "Base": 0.4,
             "Reverse Holo": 0.4
           },
           "psa10": 25,
@@ -43398,7 +43398,7 @@
           "price": 0.4,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.25,
+            "Base": 0.15,
             "Reverse Holo": 0.4
           },
           "psa10": 31.62,
@@ -43417,14 +43417,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/zoroark-32"
         },
         "033": {
-          "price": 0.54,
+          "price": 0.75,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 0.54,
+            "Reverse Holo": 0.75,
             "Base": 0.14
           },
-          "psa10": 31.66,
-          "g9": 10.66,
+          "psa10": 32.18,
+          "g9": 10.88,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/inkay-reverse-holo-33"
         },
         "034": {
@@ -43442,7 +43442,7 @@
           "price": 0.69,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.11,
+            "Base": 0.14,
             "Reverse Holo": 0.69
           },
           "psa10": 34.95,
@@ -43460,44 +43460,44 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/okidogi-ex-36"
         },
         "037": {
-          "price": 0.91,
+          "price": 0.99,
           "variant": "Base",
           "all": {
-            "Base": 0.91
+            "Base": 0.99
           },
           "psa10": 36.22,
           "g9": 9.99,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/munkidori-ex-37"
         },
         "038": {
-          "price": 4,
+          "price": 3.63,
           "variant": "Base",
           "all": {
-            "Base": 4
+            "Base": 3.63
           },
           "psa10": 23.5,
           "g9": 6.02,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/fezandipiti-ex-38"
         },
         "039": {
-          "price": 5.48,
+          "price": 5.39,
           "variant": "Base",
           "all": {
-            "Base": 5.48
+            "Base": 5.39
           },
           "psa10": 35,
           "g9": 7.88,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/pecharunt-ex-39"
         },
         "040": {
-          "price": 1.51,
+          "price": 1.47,
           "variant": "Reverse Holo",
           "all": {
-            "Reverse Holo": 1.51,
+            "Reverse Holo": 1.47,
             "Base": 0.65
           },
           "psa10": 72,
-          "g9": 12.58,
+          "g9": 12.45,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/genesect-reverse-holo-40"
         },
         "041": {
@@ -43578,14 +43578,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/kyurem-reverse-holo-47"
         },
         "048": {
-          "price": 1.09,
+          "price": 1.12,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.65,
-            "Reverse Holo": 1.09
+            "Base": 0.5,
+            "Reverse Holo": 1.12
           },
-          "psa10": 177.34,
-          "g9": 26.94,
+          "psa10": 160.87,
+          "g9": 27.12,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/meowth-reverse-holo-48"
         },
         "049": {
@@ -43655,14 +43655,14 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/academy-at-night-reverse-holo-54"
         },
         "055": {
-          "price": 1.59,
+          "price": 1.72,
           "variant": "Reverse Holo",
           "all": {
             "Base": 0.3,
-            "Reverse Holo": 1.59
+            "Reverse Holo": 1.72
           },
-          "psa10": 36.44,
-          "g9": 12.57,
+          "psa10": 36.43,
+          "g9": 12.58,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/binding-mochi-reverse-holo-55"
         },
         "056": {
@@ -43670,7 +43670,7 @@
           "variant": "Reverse Holo",
           "all": {
             "Reverse Holo": 1.4,
-            "Base": 0.38
+            "Base": 0.2
           },
           "psa10": 13.66,
           "g9": 10.75,
@@ -43680,7 +43680,7 @@
           "price": 1.75,
           "variant": "Reverse Holo",
           "all": {
-            "Base": 0.5,
+            "Base": 0.47,
             "Reverse Holo": 1.75
           },
           "psa10": 37.08,
@@ -43688,12 +43688,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/colress%27s-tenacity-reverse-holo-57"
         },
         "058": {
-          "price": 0.88,
+          "price": 0.79,
           "variant": "Base",
           "all": {
-            "Base": 0.88
+            "Base": 0.79
           },
-          "psa10": 34.76,
+          "psa10": 34.66,
           "g9": 11.25,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dangerous-laser-58"
         },
@@ -43709,12 +43709,12 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/janine%27s-secret-art-reverse-holo-59"
         },
         "060": {
-          "price": 1.4,
+          "price": 1.94,
           "variant": "Base",
           "all": {
-            "Base": 1.4
+            "Base": 1.94
           },
-          "psa10": 26.85,
+          "psa10": 27.08,
           "g9": 11.75,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/neutralization-zone-60"
         },
@@ -43725,15 +43725,15 @@
             "Base": 0.4,
             "Reverse Holo": 1.92
           },
-          "psa10": 38.06,
-          "g9": 13.22,
+          "psa10": 37.76,
+          "g9": 13.12,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/night-stretcher-reverse-holo-61"
         },
         "062": {
-          "price": 0.92,
+          "price": 0.57,
           "variant": "Base",
           "all": {
-            "Base": 0.92
+            "Base": 0.57
           },
           "psa10": 24.99,
           "g9": 7.96,
@@ -43762,53 +43762,53 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/xerosic%27s-machinations-reverse-holo-64"
         },
         "065": {
-          "price": 10.49,
+          "price": 10.93,
           "variant": "Base",
           "all": {
-            "Base": 10.49
+            "Base": 10.93
           },
           "psa10": 65,
-          "g9": 24.88,
+          "g9": 24.87,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/tapu-bulu-65"
         },
         "066": {
-          "price": 50,
+          "price": 46.82,
           "variant": "Base",
           "all": {
-            "Base": 50
+            "Base": 46.82
           },
-          "psa10": 197.83,
-          "g9": 55,
+          "psa10": 192.7,
+          "g9": 54.99,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/houndoom-66"
         },
         "067": {
-          "price": 39.81,
+          "price": 38.5,
           "variant": "Base",
           "all": {
-            "Base": 39.81
+            "Base": 38.5
           },
-          "psa10": 197.52,
-          "g9": 54.18,
+          "psa10": 192.97,
+          "g9": 53.84,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/horsea-67"
         },
         "068": {
-          "price": 45.8,
+          "price": 40.27,
           "variant": "Base",
           "all": {
-            "Base": 45.8
+            "Base": 40.27
           },
-          "psa10": 223.31,
-          "g9": 48.16,
+          "psa10": 196.68,
+          "g9": 50,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/duskull-68"
         },
         "069": {
-          "price": 28.98,
+          "price": 24,
           "variant": "Base",
           "all": {
-            "Base": 28.98
+            "Base": 24
           },
-          "psa10": 168.51,
-          "g9": 39.99,
+          "psa10": 162.54,
+          "g9": 39.98,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dusclops-69"
         },
         "070": {
@@ -43817,18 +43817,18 @@
           "all": {
             "Base": 30.23
           },
-          "psa10": 120,
-          "g9": 34.99,
+          "psa10": 118.5,
+          "g9": 34.69,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/dusknoir-70"
         },
         "071": {
-          "price": 25,
+          "price": 24.51,
           "variant": "Base",
           "all": {
-            "Base": 25
+            "Base": 24.51
           },
           "psa10": 185,
-          "g9": 34,
+          "g9": 35.5,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/cresselia-71"
         },
         "072": {
@@ -43838,24 +43838,24 @@
             "Base": 26.7
           },
           "psa10": 151.25,
-          "g9": 44,
+          "g9": 45,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/munkidori-72"
         },
         "073": {
-          "price": 11.79,
+          "price": 10.89,
           "variant": "Base",
           "all": {
-            "Base": 11.79
+            "Base": 10.89
           },
           "psa10": 74.99,
-          "g9": 18,
+          "g9": 19,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/fezandipiti-73"
         },
         "074": {
-          "price": 14.62,
+          "price": 15,
           "variant": "Base",
           "all": {
-            "Base": 14.62
+            "Base": 15
           },
           "psa10": 146.93,
           "g9": 24.81,
@@ -43872,102 +43872,102 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/zorua-75"
         },
         "076": {
-          "price": 16.05,
+          "price": 16.04,
           "variant": "Base",
           "all": {
-            "Base": 16.05
+            "Base": 16.04
           },
           "psa10": 109.25,
           "g9": 26.65,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/cufant-76"
         },
         "077": {
-          "price": 14.96,
+          "price": 15.59,
           "variant": "Base",
           "all": {
-            "Base": 14.96
+            "Base": 15.59
           },
           "psa10": 92.09,
           "g9": 26.49,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/fraxure-77"
         },
         "078": {
-          "price": 66.16,
+          "price": 60.58,
           "variant": "Base",
           "all": {
-            "Base": 66.16
+            "Base": 60.58
           },
-          "psa10": 262.57,
-          "g9": 70,
+          "psa10": 269.08,
+          "g9": 68.81,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/persian-78"
         },
         "079": {
-          "price": 24.5,
+          "price": 23.27,
           "variant": "Base",
           "all": {
-            "Base": 24.5
+            "Base": 23.27
           },
           "psa10": 186.18,
-          "g9": 49.64,
+          "g9": 49.1,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/bewear-79"
         },
         "080": {
-          "price": 3.99,
+          "price": 3.76,
           "variant": "Base",
           "all": {
-            "Base": 3.99
+            "Base": 3.76
           },
           "psa10": 57.5,
           "g9": 18.26,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/kingdra-ex-80"
         },
         "081": {
-          "price": 1.94,
+          "price": 1.69,
           "variant": "Base",
           "all": {
-            "Base": 1.94
+            "Base": 1.69
           },
-          "psa10": 31.55,
+          "psa10": 31.53,
           "g9": 15.21,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/revavroom-ex-81"
         },
         "082": {
-          "price": 2.47,
-          "variant": "Base",
-          "all": {
-            "Base": 2.47
-          },
-          "psa10": 57.49,
-          "g9": 14.35,
-          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/okidogi-ex-82"
-        },
-        "083": {
           "price": 2.56,
           "variant": "Base",
           "all": {
             "Base": 2.56
           },
-          "psa10": 41.48,
+          "psa10": 57.49,
+          "g9": 14.32,
+          "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/okidogi-ex-82"
+        },
+        "083": {
+          "price": 2.22,
+          "variant": "Base",
+          "all": {
+            "Base": 2.22
+          },
+          "psa10": 41.43,
           "g9": 15.5,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/munkidori-ex-83"
         },
         "084": {
-          "price": 11,
+          "price": 10.84,
           "variant": "Base",
           "all": {
-            "Base": 11
+            "Base": 10.84
           },
-          "psa10": 32.5,
+          "psa10": 35.07,
           "g9": 12.5,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/fezandipiti-ex-84"
         },
         "085": {
-          "price": 7.74,
+          "price": 7.07,
           "variant": "Base",
           "all": {
-            "Base": 7.74
+            "Base": 7.07
           },
-          "psa10": 39.96,
+          "psa10": 38,
           "g9": 22,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/pecharunt-ex-85"
         },
@@ -43982,73 +43982,73 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/cassiopeia-86"
         },
         "087": {
-          "price": 6.13,
+          "price": 6.14,
           "variant": "Base",
           "all": {
-            "Base": 6.13
+            "Base": 6.14
           },
-          "psa10": 46.34,
+          "psa10": 48.15,
           "g9": 12.1,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/colress%27s-tenacity-87"
         },
         "088": {
-          "price": 5.71,
+          "price": 5.7,
           "variant": "Base",
           "all": {
-            "Base": 5.71
+            "Base": 5.7
           },
           "psa10": 28,
           "g9": 15.5,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/janine%27s-secret-art-88"
         },
         "089": {
-          "price": 7.61,
+          "price": 7.33,
           "variant": "Base",
           "all": {
-            "Base": 7.61
+            "Base": 7.33
           },
-          "psa10": 29.21,
+          "psa10": 29.2,
           "g9": 8.66,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/xerosic%27s-machinations-89"
         },
         "090": {
-          "price": 18.48,
+          "price": 18.12,
           "variant": "Base",
           "all": {
-            "Base": 18.48
+            "Base": 18.12
           },
           "psa10": 103.69,
           "g9": 27.49,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/okidogi-ex-90"
         },
         "091": {
-          "price": 16.99,
+          "price": 16.92,
           "variant": "Base",
           "all": {
-            "Base": 16.99
+            "Base": 16.92
           },
-          "psa10": 100,
-          "g9": 22.83,
+          "psa10": 107.75,
+          "g9": 19.99,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/munkidori-ex-91"
         },
         "092": {
-          "price": 35.5,
+          "price": 33.66,
           "variant": "Base",
           "all": {
-            "Base": 35.5
+            "Base": 33.66
           },
-          "psa10": 80.5,
+          "psa10": 82.38,
           "g9": 32.08,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/fezandipiti-ex-92"
         },
         "093": {
-          "price": 19.87,
+          "price": 21.39,
           "variant": "Base",
           "all": {
-            "Base": 19.87
+            "Base": 21.39
           },
-          "psa10": 83.74,
-          "g9": 22.68,
+          "psa10": 83.72,
+          "g9": 25.8,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/pecharunt-ex-93"
         },
         "094": {
@@ -44062,23 +44062,23 @@
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/cassiopeia-94"
         },
         "095": {
-          "price": 21.23,
+          "price": 20.88,
           "variant": "Base",
           "all": {
-            "Base": 21.23
+            "Base": 20.88
           },
           "psa10": 56.06,
           "g9": 26.33,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/pecharunt-ex-95"
         },
         "096": {
-          "price": 16.38,
+          "price": 16.33,
           "variant": "Base",
           "all": {
-            "Base": 16.38
+            "Base": 16.33
           },
           "psa10": 57.26,
-          "g9": 43.33,
+          "g9": 43.36,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/earthen-vessel-96"
         },
         "097": {
@@ -44087,25 +44087,25 @@
           "all": {
             "Base": 19.47
           },
-          "psa10": 43.11,
+          "psa10": 42.81,
           "g9": 29,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/powerglass-97"
         },
         "098": {
-          "price": 56.38,
+          "price": 55.97,
           "variant": "Base",
           "all": {
-            "Base": 56.38
+            "Base": 55.97
           },
-          "psa10": 74.96,
-          "g9": 45.07,
+          "psa10": 74.97,
+          "g9": 45.29,
           "url": "https://www.pricecharting.com/game/pokemon-shrouded-fable/basic-darkness-energy-98"
         },
         "099": {
-          "price": 30.44,
+          "price": 30.3,
           "variant": "Base",
           "all": {
-            "Base": 30.44
+            "Base": 30.3
           },
           "psa10": 42.36,
           "g9": 22.24,

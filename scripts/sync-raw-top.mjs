@@ -127,6 +127,16 @@ const VERDICTS = {
   "10466811": { card: false, name: "2019 Fall Collectors Chest", why: "a sealed chest, not a card" },
   "13645269": { card: false, name: "Towering Splash GX Box", why: "a sealed box, not a card" },
   "9808318": { card: false, name: "Blister Pack", why: "sealed packaging, not a card" },
+  // Entered the window on the full refresh of 13 October 2026.
+  "14218938": { card: false, name: "Theme Deck [Mind Machine]", why: "a sealed theme deck, not a card" },
+  "14659371": { card: false, name: "3-Pack Blister [Carnivine]", why: "sealed packaging, not a card" },
+  "14659368": { card: false, name: "3-Pack Blister [Dusknoir]", why: "sealed packaging, not a card" },
+  "14659370": { card: false, name: "3-Pack Blister [Magnezone]", why: "sealed packaging, not a card" },
+  "7953764": { card: false, name: "Blister Pack", why: "sealed packaging, not a card" },
+  // "Set" in the name is the toothbrush set it came with. The product page
+  // carries a collector number (71/BW) and the full graded ladder, Ungraded
+  // through PSA 10, which sealed product never has: checked 13 October 2026.
+  "14305643": { card: true, name: "Umbreon [Eevee 2080 Toothbrush Set] #71/BW", why: "a Korean promo card packed with a toothbrush set" },
   // Entered the window on the 22 August 2026 crawl at $4,305, which would have
   // put a sealed box at number 24 on a page titled "most valuable raw cards".
   // Judged from PriceCharting's own product page rather than from the name:
