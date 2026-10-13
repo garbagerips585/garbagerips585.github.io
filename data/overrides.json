@@ -2947,5 +2947,15 @@
       "30th-celebration"
     ],
     "setsWhy": "The owner named one set, \"30th Celebration\". Pinned because the title names no set at all."
+  },
+  "79QR-6lfFMs": {
+    "packNumber": 8,
+    "hasHit": false,
+    "sets": [
+      "mega-evolution"
+    ],
+    "packNumberWhy": "The owner, 13 October 2026: \"Single Booster Pack, Pack#8, hit no, Mega Evolution\". Follows Pack #7 (XUPRTrC_bMc, 5 October) in the same run of single Mega Evolution packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
+    "hasHitWhy": "\"hit no\" is his own word and the whole source. The title agrees (\"Reminded Us Why We're Called Garbage Rips\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "The owner named one set, \"Mega Evolution\". Pinned because the title names no set at all."
   }
 }

@@ -15,7 +15,7 @@
       "published": "2026-10-13",
       "publishedAt": "2026-10-13T10:18:16Z",
       "duration": 22,
-      "views": 749,
+      "views": 805,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Mega Evolution Pack"
+      "hasHit": false,
+      "packNumber": 8,
+      "packs": 1,
+      "label": "Mega Evolution Pack - Pack 8"
     },
     {
       "id": "B-zVdn5vjso",
@@ -161,7 +164,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2536,
+      "views": 2537,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2003,7 +2006,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 965,
+      "views": 966,
       "vertical": true,
       "short": true,
       "sets": [
