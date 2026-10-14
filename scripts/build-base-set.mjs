@@ -107,6 +107,20 @@ const exp = JSON.parse(await readFile(join(ROOT, "public/data/expansions.json"),
 const { verified } = gradedGate(tg);
 const missingPrice = [];
 
+/* THE RAW LIST'S EXCLUSIONS COUNT HERE TOO, added 14 October 2026.
+ * data/top-graded.json's double read re-reads the PSA 10 column, so a row that
+ * passes the gate above has a verified PSA 10 and NOTHING ELSE verified. The
+ * 13 October crawl read 1st Edition Charizard's Ungraded cell at $10,100 off
+ * the listing and $12,706 off the product page, and data/top-raw.json records
+ * it under `excluded` with "the row is published nowhere until a later crawl
+ * reads it the same way twice". /most-valuable-cards.html honored that; this
+ * page printed the $10,100 as the card's ungraded worth. So an Ungraded figure
+ * whose card sits in that list is withheld here and the row says why. */
+let rawExcluded = [];
+try {
+  rawExcluded = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8")).excluded || [];
+} catch { /* no raw list on disk: nothing to withhold */ }
+
 /**
  * One PriceCharting row, by set and printing name, or null with the reason
  * recorded. Matched on the exact strings PriceCharting publishes, never on a
@@ -128,6 +142,11 @@ function priceRow(ref) {
       `${ref.set} / ${ref.name}: rank ${c.rank} was not double-read (${v?.status || "outside the verified range"})`,
     );
     return null;
+  }
+  const held = rawExcluded.find((x) => x.set === ref.set && x.name === ref.name);
+  if (held) {
+    missingPrice.push(`${ref.set} / ${ref.name}: Ungraded withheld, data/top-raw.json excludes it (${held.decided || "no date"})`);
+    return { ...c, imgOk: v.imgOk, ungraded: null, ungradedHeld: held.public || "its two reads disagreed" };
   }
   return { ...c, imgOk: v.imgOk };
 }
@@ -645,10 +664,11 @@ function priceCard(r) {
         ${
           p
             ? `<span class="bs-p-nums">
-          <span class="bs-p-n"><b>${moneyCompact(p.ungraded)}</b> <span class="bs-u">Ungraded</span></span>
-          <span class="bs-p-n">${moneyCompact(p.g9)} <span class="bs-u">Grade 9</span></span>
-          <span class="bs-p-n">${moneyCompact(p.psa10)} <span class="bs-u">PSA 10</span></span>
-        </span>`
+          ${p.ungraded ? `<span class="bs-p-n"><b>${moneyCompact(p.ungraded)}</b> <span class="bs-u">Ungraded</span></span>` : ""}
+          ${p.g9 ? `<span class="bs-p-n">${moneyCompact(p.g9)} <span class="bs-u">Grade 9</span></span>` : ""}
+          ${p.psa10 ? `<span class="bs-p-n">${moneyCompact(p.psa10)} <span class="bs-u">PSA 10</span></span>` : ""}
+        </span>${p.ungradedHeld ? `
+        <span class="bs-p-none">No ungraded figure: ${esc(p.ungradedHeld)}.</span>` : ""}`
             : `<span class="bs-p-none">No double-read figure for this printing, so none is printed.</span>`
         }
       </span>
@@ -811,6 +831,9 @@ function stampTable() {
 
   const ratios = [];
   const line = (label, a, b) => {
+    // A cell with a withheld figure on either side is left out rather than
+    // printed with a blank (14 October 2026; see rawExcluded above).
+    if (!a || !b) return "";
     const m = a && b ? a / b : null;
     if (m) ratios.push(m);
     return `<span class="bs-cmp-cell">
@@ -869,6 +892,13 @@ const first = d.runs.find((r) => r.id === "first")?.price;
 const shad = d.runs.find((r) => r.id === "shadowless")?.price;
 const unl = d.runs.find((r) => r.id === "unlimited")?.price;
 const mult = (a, b) => (a && b ? `${(a / b).toFixed(1)}x` : null);
+// The four print-run multiples, each only where both of its figures exist.
+const worthFacts = [
+  [mult(first?.ungraded, unl?.ungraded), "1st Edition over Unlimited, ungraded"],
+  [mult(shad?.ungraded, unl?.ungraded), "Shadowless over Unlimited, ungraded"],
+  [mult(first?.psa10, unl?.psa10), "1st Edition over Unlimited, PSA 10"],
+  [mult(shad?.psa10, unl?.psa10), "Shadowless over Unlimited, PSA 10"],
+].filter(([n]) => n);
 
 const read = longDate(tg.checked);
 const readShort = shortDate(tg.checked);
@@ -920,16 +950,27 @@ const FAQ = faqBlock(
     // ranked the same card at $10,000, and a reader who saw only the snippet had
     // nothing to tell them the two were measuring different things. The
     // qualifying clause is inside the answer text for that reason, not beside it.
+    /* EACH FIGURE ONLY WHERE IT EXISTS, 14 October 2026. Shadowless (rank
+       196) and Unlimited sit outside the double-read top 120, so `shad` and
+       `unl` are null, and basis.both is empty today; the answer printed "at
+       against  for the Unlimited printing ... was ," in the visible FAQ AND in
+       the FAQPage JSON-LD, which Google can show on its own. The sentence is
+       now built from the figures that exist and says so when none does. */
     [
       "Is shadowless worth more than unlimited?",
-      `Yes, and the gap is clearest on ungraded copies. PriceCharting's price guide, read ${readShort}, put an ungraded Shadowless Base Set Charizard at ${moneyCompact(
-        shad?.ungraded,
-      )} against ${moneyCompact(unl?.ungraded)} for the Unlimited printing of the same card. ` +
-        `Those are price guide values. A marketplace measures something different: TCGplayer's market price for the same ungraded Shadowless Charizard, read ${
-          basis.tcgRead
-        }, was ${
-          basis.both[0] ? `$${basis.both[0].market.toLocaleString("en-US")}` : ""
-        }, because Market Price is what recently sold on that one marketplace while a guide value is computed across the wider set of sales PriceCharting tracks. Neither figure is the other's correction.`,
+      (() => {
+        const pcPart = shad?.ungraded && unl?.ungraded
+          ? `PriceCharting's price guide, read ${readShort}, put an ungraded Shadowless Base Set Charizard at ${moneyCompact(shad.ungraded)} against ${moneyCompact(unl.ungraded)} for the Unlimited printing of the same card. Those are price guide values. `
+          : "";
+        const tcg = basis.both[0];
+        const tcgPart = tcg
+          ? `${pcPart ? "A marketplace measures something different: " : ""}TCGplayer's market price for an ungraded Shadowless Charizard, read ${basis.tcgRead}, was $${tcg.market.toLocaleString("en-US")}${pcPart ? ", because Market Price is what recently sold on that one marketplace while a guide value is computed across the wider set of sales PriceCharting tracks. Neither figure is the other's correction." : "."}`
+          : "";
+        return `Yes. Shadowless was the earlier of the two print runs, and the gap is clearest on ungraded copies. ` +
+          (pcPart || tcgPart
+            ? `${pcPart}${tcgPart}`
+            : `This page only prints a figure that two separate reads agreed on, and neither printing of the Charizard has one yet, so no price is quoted here.`);
+      })().trim(),
     ],
     [
       "Are 1st Edition cards shadowless?",
@@ -1663,25 +1704,26 @@ ${d.runs.map(priceCard).join("\n")}
           so there is no longer a page here to send anybody to and the sentence
           would have been false. The wording still comes out of
           shared/price-basis.mjs, which is where the figures are resolved. */ ""}
-    <p class="bs-p2 bs-basis"><b>Why a marketplace says ${esc(
-      `$${basis.both[0] ? basis.both[0].market.toLocaleString("en-US") : ""}`
+    ${/* ONLY WITH A MARKETPLACE FIGURE TO EXPLAIN (14 October 2026). With
+          basis.both empty the heading read "Why a marketplace says $ for this
+          card." over an empty sentence. */ ""}${basis.both[0] && BASIS_TEXT ? `<p class="bs-p2 bs-basis"><b>Why a marketplace says ${esc(
+      `$${basis.both[0].market.toLocaleString("en-US")}`
     )} for this card.</b>
       ${esc(BASIS_TEXT)} Every raw price on this site is the guide value, including
       <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>, so the two never disagree
-      from one of our pages to the next.</p>
-    ${
-      first && unl
+      from one of our pages to the next.</p>` : ""}
+    ${/* A FACT WITHOUT BOTH SIDES IS LEFT OUT, not printed as an empty box
+          (14 October 2026): a withheld Ungraded figure made mult() null. */ ""}${(() => {
+      const facts = worthFacts;
+      return facts.length
         ? `<div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${esc(mult(first.ungraded, unl.ungraded) || "")}</div><div class="l">1st Edition over Unlimited, ungraded</div></div>
-      <div class="fact"><div class="n">${esc(mult(shad?.ungraded, unl.ungraded) || "")}</div><div class="l">Shadowless over Unlimited, ungraded</div></div>
-      <div class="fact"><div class="n">${esc(mult(first.psa10, unl.psa10) || "")}</div><div class="l">1st Edition over Unlimited, PSA 10</div></div>
-      <div class="fact"><div class="n">${esc(mult(shad?.psa10, unl.psa10) || "")}</div><div class="l">Shadowless over Unlimited, PSA 10</div></div>
+      ${facts.map(([n, l]) => `<div class="fact"><div class="n">${esc(n)}</div><div class="l">${esc(l)}</div></div>`).join("\n      ")}
     </div>`
-        : ""
-    }
-    <p class="bs-p2" style="margin-top:20px">${esc(d.worth.note)} Look at those four numbers together rather than
+        : "";
+    })()}
+    <p class="bs-p2" style="margin-top:20px">${esc(d.worth.note)}${worthFacts.length === 4 ? ` Look at those four numbers together rather than
       at the biggest one: the print run shows up hard in the ungraded column and almost vanishes in PSA 10, where
-      a handful of sales is doing all the work.</p>
+      a handful of sales is doing all the work.` : ""}</p>
     ${
       sealedPack
         ? `<p class="bs-p2">And the packs themselves are their own market. TCGplayer's market price for a single

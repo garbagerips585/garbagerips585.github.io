@@ -519,6 +519,15 @@ const pool = top.map((c) => [
 const jsonIsland = (v) => JSON.stringify(v).replace(/</g, "\\u003c");
 
 const topValue = moneyRound(top[0].ungraded);
+// THE NUMBER ONE'S NAME COMES FROM THE SAME ROW AS ITS PRICE, 14 October 2026.
+// The lede hard-coded "Illustrator Pikachu" beside the computed figure, and the
+// 13 October crawl moved Illustrator Pikachu off the raw list (PriceCharting
+// now shows no Ungraded price for it) and put Master's Scroll at $57,355 in its
+// place, so the page named one card at another card's price. PriceCharting's
+// title carries the printing in brackets and the number after a "#"; the
+// sentence wants the card, so both are dropped here and the set is kept.
+const topName = String(top[0].name).replace(/\s*\[[^\]]*\]/g, "").replace(/\s*#\S+$/, "").trim();
+const topLabel = `${topName}${top[0].set ? ` (${top[0].set})` : ""}`;
 const hundredth = moneyRound(top[POOL_SIZE - 1].ungraded);
 const readOn = longDate(raw.checked) || raw.checked;
 
@@ -1527,8 +1536,8 @@ ${MENU}
           it.</p></noscript>
 
         <p class="lede cm-lede">Cards face down, tap two, keep the ones that match. The twist is the deck: every card in
-          it is one of the ${POOL_SIZE} most valuable ungraded Pokemon cards there are, from a ${esc(topValue)} Illustrator
-          Pikachu down to a ${esc(hundredth)} hundredth place. Most of them you will never see in a shop.</p>
+          it is one of the ${POOL_SIZE} most valuable ungraded Pokemon cards there are, from a ${esc(topValue)}
+          ${esc(topLabel)} down to a ${esc(hundredth)} hundredth place. Most of them you will never see in a shop.</p>
 
         <div class="cm-how">
           <p><b>How it works.</b> Tap a card to turn it over, then tap a second one. A pair stays up and pays out in the
