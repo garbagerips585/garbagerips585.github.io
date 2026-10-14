@@ -4,6 +4,14 @@
 //
 //   node scripts/sync-first-partner.mjs            crawl, verify, write
 //   node scripts/sync-first-partner.mjs --report   read the cache, write nothing
+//   node scripts/sync-first-partner.mjs --refresh  re-read the PRICES, keep the cached images
+//
+// --refresh, added 14 October 2026. The cache below never expires, so a plain
+// re-run read the 19 August pages back off disk and re-stamped them with
+// today's date: the run LOOKED like a refresh and moved no figure. With the
+// flag the listing and product pages (about 5 + 27 requests at 1.1s) are
+// fetched again and overwrite their cache entries; the images, which do not
+// change, still come off disk.
 //
 // Writes data/first-partner.json and mirrors the official card images into
 // public/assets/first-partner/. Then: node scripts/build-first-partner.mjs.
@@ -120,6 +128,7 @@ const CACHE = join(ROOT, ".cache/pricecharting-promo");
 const IMGDIR = join(ROOT, "public/assets/first-partner");
 const OUT = join(ROOT, "data/first-partner.json");
 const REPORT = process.argv.includes("--report");
+const REFRESH = process.argv.includes("--refresh");
 
 const CONSOLE_PATH = "/console/pokemon-promo";
 const PC = "https://www.pricecharting.com";
@@ -238,10 +247,14 @@ const norm = (x) => String(x || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 async function cached(url, key, { binary = false } = {}) {
   await mkdir(CACHE, { recursive: true });
   const file = join(CACHE, `${key}-${createHash("sha1").update(url).digest("hex").slice(0, 12)}${binary ? ".bin" : ".html"}`);
-  try {
-    await stat(file);
-    return binary ? readFile(file) : readFile(file, "utf8");
-  } catch {}
+  // PRICES ARE RE-READ UNDER --refresh, PICTURES NEVER ARE: see the header.
+  const reread = REFRESH && !REPORT && !binary && /^(list|prod)-/.test(key);
+  if (!reread) {
+    try {
+      await stat(file);
+      return binary ? readFile(file) : readFile(file, "utf8");
+    } catch {}
+  }
   if (REPORT) return binary ? null : "__NOCACHE__";
   await sleep(1100); // one request a second against somebody else's server
   const r = await fetch(url, { headers: { "user-agent": UA, referer: PC + CONSOLE_PATH } });
@@ -487,6 +500,16 @@ async function main() {
   if (REPORT) {
     console.log(JSON.stringify(doc, null, 1).slice(0, 2000));
     return;
+  }
+  // NEVER WRITE FEWER MATCHES OVER MORE, added 14 October 2026 with --refresh.
+  // A listing walk that is refused halfway (a 429, an outage) finds fewer of
+  // the 27 and would otherwise overwrite good figures with blanks under a
+  // fresh date. Same rule the 30th syncs and sync-cards.mjs keep.
+  const prevDoc = JSON.parse(await readFile(OUT, "utf8").catch(() => "null"));
+  const matched = (cards) => (cards || []).filter((r) => r.pc).length;
+  if (prevDoc && matched(prevDoc.cards) > matched(out) && !process.argv.includes("--force")) {
+    console.error(`REFUSING to write ${matched(out)} matched cards over ${matched(prevDoc.cards)}. Re-run with --force if the drop is real.`);
+    process.exit(1);
   }
   await writeFile(OUT, JSON.stringify(doc, null, 1) + "\n");
   console.log(`wrote ${OUT}`);
