@@ -158,6 +158,15 @@ const unwiki = (s) =>
         .replace(/\s{2,}/g, " ")
         .trim();
 
+// THE COMPANY'S NAME IN THE SITE'S SPELLING. (14 October 2026.) The source
+// writes the credit as "The Pokémon Company", so this page printed it 75 times
+// while every other page on the site, footer included, says "The Pokemon
+// Company". Only the company credit is normalized: game titles stay verbatim.
+const company = (s) => {
+  const t = unwiki(s);
+  return t == null ? t : t.replace(/Pokémon Company/g, "Pokemon Company");
+};
+
 const segmentsOf = (field) => (field ? unwiki(field).split(" | ").map(parseSegment) : []);
 
 const MON_SHORT = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
@@ -449,8 +458,8 @@ function row(g) {
         <dl>
           <dt>Released</dt><dd>${regionLines(g) || "<span class='vg-undated'>Not published</span>"}</dd>
           <dt>Kind</dt><dd>${esc(unwiki(g.category) || "Not published")}, ${esc(unwiki(g.generation_label))}</dd>
-          <dt>Developer</dt><dd>${esc(unwiki(g.developer) || "Not published")}</dd>
-          <dt>Publisher</dt><dd>${esc(unwiki(g.publisher) || "Not published")}</dd>
+          <dt>Developer</dt><dd>${esc(company(g.developer) || "Not published")}</dd>
+          <dt>Publisher</dt><dd>${esc(company(g.publisher) || "Not published")}</dd>
           ${
             g.status
               ? `<dt>Status</dt><dd>${esc(g.status.note)} <span class="vg-quote">Bulbapedia: &ldquo;${esc(

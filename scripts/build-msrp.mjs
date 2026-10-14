@@ -1489,8 +1489,8 @@ ${blank.map(blankRow).join("\n")}
           line sells at $179.99, is not: nothing there is an outlier, so it sits in the list below with the
           spread instead of a number. Five and five is the same answer, which is why Tech Sticker
           Collections carry none either.</p>
-        <p>Nothing here says what is inside a pack or how likely anything is to be in it. This site never
-          states pull rates, because The Pokemon Company does not publish them.</p>
+        <p>Nothing here says what is inside a pack or how likely anything is to be in it. We only print a
+          pull rate The Pokemon Company has confirmed, and it rarely publishes one.</p>
 
         <h3>The rest of the money questions</h3>
         <p>What one pack works out at across every set is on <a href="/pack-prices.html">pack prices</a>,

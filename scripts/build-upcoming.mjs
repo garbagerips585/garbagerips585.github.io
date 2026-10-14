@@ -109,9 +109,18 @@ const hostOf = (u) => {
   }
 };
 
+// TCGPLAYER'S OWN TYPOS, CORRECTED ON DISPLAY ONLY. (14 October 2026.) Its
+// listing reads "Delta Reign Single Pack Blister [Spitzee]" while the product
+// list on this same page, from TPCi, says Spritzee, so the misspelling read as
+// ours. preorders.json keeps the listing verbatim; only the printed name and its
+// aria-label change. Exact Pokemon names only, so a fix cannot spread.
+const LISTING_TYPOS = [[/\bSpitzee\b/g, "Spritzee"]];
+const listingName = (n) => LISTING_TYPOS.reduce((t, [re, to]) => t.replace(re, to), String(n || ""));
+
 function preorderBand(setName) {
-  const e = preorders[setName];
-  if (!e?.products?.length && !e?.chase?.length) return "";
+  const e0 = preorders[setName];
+  if (!e0?.products?.length && !e0?.chase?.length) return "";
+  const e = { ...e0, products: (e0.products || []).map((p) => ({ ...p, name: listingName(p.name) })) };
   const worst = e.products.filter((p) => p.overMsrp).sort((a, b) => b.overMsrp - a.overMsrp)[0];
 
   const prods = e.products.slice(0, 9).map((p) => `        <li class="po">

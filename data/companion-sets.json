@@ -207,6 +207,10 @@
     },
     "swsh12tg": {
       "parentApiId": "swsh12"
+    },
+    "me55c": {
+      "parentApiId": "me55",
+      "_note": "Added 14 October 2026 when the API first listed 30th Celebration. The parent HAS a guide (/30th-celebration.html), but it is not in sets.json and so has no slug for the block above to key on; build-expansions.mjs links it by apiId."
     }
   }
 }

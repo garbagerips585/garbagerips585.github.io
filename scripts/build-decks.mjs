@@ -81,7 +81,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
-import { loadDecks, checkSetMap } from "../shared/decks.mjs";
+import { loadDecks, checkSetMap, corpusWindow } from "../shared/decks.mjs";
 
 // WHEN THE TCG LIVE RULES ABOVE WERE READ, and it is deliberately NOT
 // d.checked. That one is the decklist corpus date, which moves every time the
@@ -258,10 +258,12 @@ function listBlock(deck, i) {
 // Page.
 // ---------------------------------------------------------------------------
 
+// DATED, NOT "CURRENT". (14 October 2026.) The corpus window goes in the meta
+// and the lede, not only the footnote, because the decks are only as current as
+// the last sync and a set can become legal after it. See corpusWindow().
 const desc =
-  `The ${decks.length} most played Pokemon decks in Standard, each with a free decklist ` +
-  `you can download and paste straight into Pokemon TCG Live. Usage measured over ` +
-  `${corpus.lists} tournament decklists.`;
+  `The ${decks.length} most played Pokemon decks in Standard in the ${src.setLabel} era ` +
+  `(${corpusWindow(d)}), each with a free decklist to paste into Pokemon TCG Live.`;
 
 const deckCards = decks
   .map((deck, i) => {
@@ -719,7 +721,8 @@ ${MENU}
       <p class="lede dk-lede">Every deck below comes with the real decklist, in the exact text format
         <b>Pokemon TCG Live's deck importer takes</b>. Copy it or download the file, hit Import Deck in the
         client, paste, done. The same 60 cards is a legal deck in the paper game too, because they are
-        the same game.</p>
+        the same game. These are the decks played most from ${esc(corpusWindow(d))}, in the
+        ${esc(src.setLabel)} era, so a set that became legal after that is not in them yet.</p>
 
       <div class="dk-fmt">
         <h2>The format these decks are legal in</h2>

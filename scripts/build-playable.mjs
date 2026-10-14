@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 // Build /top-100-playable.html: the 100 cards played most in the current
-// Standard format.
+// Standard format. (14 October 2026: the reader copy no longer says "current";
+// it names the corpus window and era from corpusWindow() in shared/decks.mjs,
+// because the corpus is only as current as its last sync.)
 //
 //   node scripts/build-playable.mjs
 //
@@ -73,7 +75,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
-import { loadDecks, checkSetMap, rankCards } from "../shared/decks.mjs";
+import { loadDecks, checkSetMap, rankCards, corpusWindow } from "../shared/decks.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { d, resolve, byKey } = await loadDecks();
@@ -175,8 +177,8 @@ const rows = top
 // ---------------------------------------------------------------------------
 
 const desc =
-  `The 100 Pokemon cards played most in the current Standard format, counted across ` +
-  `${lists} tournament decklists. Ranked by how many decks play them, not by price.`;
+  `The 100 Pokemon cards played most in Standard in the ${src.setLabel} era, counted across ` +
+  `${lists} tournament decklists from ${corpusWindow(d)}.`;
 
 const ld = [
   {
@@ -352,7 +354,8 @@ ${MENU}
       <h1>The 100 most <span class="hl">played</span> cards in Standard</h1>
       <p class="lede">Not the most expensive cards. The ones that actually go in decks. Counted one by one
         across <b>${lists} tournament decklists</b>, so the order comes from arithmetic you can check rather
-        than from anybody's opinion.</p>
+        than from anybody's opinion. The lists were played from ${esc(corpusWindow(d))}, in the
+        ${esc(src.setLabel)} era, so a set that became legal after that is not counted yet.</p>
 
       <p class="pl-jump"><a href="#method">How this was counted</a></p>
 

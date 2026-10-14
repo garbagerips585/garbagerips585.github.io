@@ -778,7 +778,7 @@ ${types
             ? `${meas.unique_pokemon_cards_with_a_type.toLocaleString("en-US")} unique Pokemon cards with a printed type were counted. `
             : ""
         }Every percentage on this page is about what is <b>printed on cards</b>. None of it is about what comes out
-          of a pack. We do not publish pull rates, because The Pokemon Company does not publish them either.</p>
+          of a pack. We only print a pull rate The Pokemon Company has confirmed, and it rarely publishes one.</p>
         <h3 style="margin-top:var(--s5)">What this page does not know</h3>
         <ul class="ty-open">
 ${OPEN.map((q) => `          <li>${q}</li>`).join("\n")}
