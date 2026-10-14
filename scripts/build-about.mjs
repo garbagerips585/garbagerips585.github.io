@@ -377,7 +377,7 @@ const GUIDES = [
     [
       ["/videos.html", "Every rip", `All ${num(videos.length)} of them, filterable by set and by what kind of product it was.`],
       ["/hall.html", "The Card Hall of Fame", "Every card that has come out of a pack on this channel. Nothing hand-picked."],
-      ["/luck.html", "What actually came out", "Observed results from the rips, broken down by set and product. Not pull rates: nobody publishes those and this site never states them."],
+      ["/luck.html", "What actually came out", "Observed results from the rips, broken down by set and product. Not pull rates: we only print one The Pokemon Company has confirmed, and it rarely publishes any."],
       ["/wanted.html", "Most wanted", "The cards we are hunting right now."],
       ["/playlists.html", "Playlists", `${num(playlistCount)} runs, each one playable in order on this site with its total runtime on the front.`],
       ["/openings/", "Sealed products opened", "One page per kind of box, with every rip of it in one place."],
@@ -915,7 +915,7 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           they get the same airtime as the hits. That is where the line every video opens with
           comes from: <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
 
-        <p>Then the wrappers go in the bin, and the bin is the other half of the channel. There
+        <p>Then the wrappers go in the trash, and the trash is the other half of the channel. There
           is a Trubbish trash can on the desk and every rip ends the same way: the empties, the
           packaging and the bulk get fed to him on camera. It happens in every single video, and
           it is one of the things people show up for.</p>
@@ -1012,8 +1012,11 @@ ${jump.map(([id, label]) => `          <li><a href="#${id}">${esc(label)}</a></l
           ones, which is where to go if you want a person to explain it rather than a page.</p>
 
         <h3>Two things worth knowing before you spend</h3>
-        <p>Nobody publishes pull rates. Not Pokemon, not us. Anybody quoting you the odds of a
-          good card is guessing, and this site never states them. What it has instead is
+        ${/* 14 October 2026: this read "Nobody publishes pull rates ... this site
+              never states them", which predates the 11 September 2026 sourcing
+              rule and contradicted this page's own method list and FAQ lower
+              down. Now worded to the rule: printed only when TPCi confirms one. */ ""}<p>The Pokemon Company rarely publishes pull rates, and we only print one it has confirmed.
+          Most odds you see quoted are a guess or one big opening. What this site has instead is
           <a href="/luck.html">what actually came out</a>, which counts the results of every pack
           opened on this channel and says in as many words that observed results are not odds.</p>
 
