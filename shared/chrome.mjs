@@ -1583,9 +1583,14 @@ export const footer = (extra = "") => `<footer>
     ${FOOT_NAV}
     ${FOOT_SUB}
     <div class="foot-social">
-${SOCIALS.map(
+${/* A NEW TAB, LIKE SUBSCRIBE AND COLLECTR BESIDE THEM, 14 October 2026. These
+      four were the only outbound links in the footer that opened in the same
+      tab, with no rel, and nothing anywhere argued for that: a QA sweep found
+      it and nobody could say why. They take the shape every other outbound
+      link on the site has now: rel="noopener", target="_blank" and the
+      "opens on <host>" label they already carried. */ ""}${SOCIALS.map(
   ([cls, label, href]) =>
-    `      <a class="soc ${cls}" href="${href}" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><svg aria-hidden="true"><use href="#i-${cls}"/></svg></a>`
+    `      <a class="soc ${cls}" href="${href}" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><svg aria-hidden="true"><use href="#i-${cls}"/></svg></a>`
 ).join("\n")}
     </div>
     <p class="foot-collectr"><a href="${COLLECTR}" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>

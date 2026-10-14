@@ -540,7 +540,7 @@ const seriesBlock = (s) => {
   <p class="fp-regions">${s.regions.map((r) => `<span>${esc(r)}</span>`).join("")}</p>
   <p class="fp-9">Nine promos: ${list.map((c) => esc(c.name)).join(", ")}.</p>
   ${cost.raw != null ? `<p class="fp-cost">All nine as loose singles: <b>${usd(cost.raw)}</b></p>` : ""}
-  <p class="fp-src"><a href="${esc(s.gallery)}" rel="nofollow noopener" aria-label="Series ${s.n} product gallery, opens on pokemon.com">Official gallery on pokemon.com</a></p>
+  <p class="fp-src"><a href="${esc(s.gallery)}" rel="nofollow noopener" target="_blank" aria-label="Series ${s.n} product gallery, opens on pokemon.com">Official gallery on pokemon.com</a></p>
 </article>`;
 };
 
@@ -951,7 +951,7 @@ ${pulls
           rather than loaded from pokemon.com's servers.</li>
         <li><b>The prices.</b> PriceCharting, read ${esc(longDate(doc.checked))}, twice per figure
           from two different pages and only published where the two readings agreed.
-          <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>
+          <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>
         <li><b>The box price.</b> Our own readings, dated above, because no official page publishes
           one for this product.</li>
       </ul>
