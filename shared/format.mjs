@@ -1485,7 +1485,28 @@ export function clipMeta(s, n = 158) {
   // stop it loses the Galarian Gallery clause entirely, which is the single most
   // useful thing that page's description says.
   if (whole.length >= Math.max(96, n * 0.62)) return whole;
-  return t.slice(0, n - 3).replace(/\s\S*$/, "").replace(/[.…\s]+$/, "") + "...";
+  // A CLEAN BOUNDARY, NOT JUST A WORD BOUNDARY. (14 October 2026.) Cutting at
+  // the last space shipped 28 indexable descriptions ending on a dangling word:
+  // "...and the Garbage Plate the...", "...165 across 78 sets, 20 with a...",
+  // "...which department it files them under,...". So: prefer the last clause
+  // break (a comma, semicolon or colon followed by a space, never the comma in
+  // 5,396) when it keeps most of the budget, then peel off any trailing
+  // function word and stray punctuation, which a reader takes as a sentence
+  // that was going somewhere.
+  const wordCut = t.slice(0, n - 3).replace(/\s\S*$/, "");
+  let cut = wordCut;
+  const clause = Math.max(cut.lastIndexOf(", "), cut.lastIndexOf("; "), cut.lastIndexOf(": "));
+  if (clause >= n * 0.7) cut = cut.slice(0, clause);
+  const DANGLING =
+    /\s+(?:a|an|the|and|or|but|nor|of|to|with|from|by|on|in|at|for|as|that|what|which|who|where|when|how|than|into|its|their|our|your|his|her|my|this|these|those|every|each|some|any|both|such|more|most|about|after|before|between|across|through|per|via|is|are|was|were|be|so|if|not)$/i;
+  for (let prev = ""; prev !== cut; ) {
+    prev = cut;
+    cut = cut.replace(/[\s,;:.…\u2013\u2014-]+$/, "").replace(DANGLING, "");
+  }
+  // Never let the peeling eat the description: a pathological string of
+  // function words falls back to the plain word cut.
+  if (cut.length < n * 0.4) cut = wordCut.replace(/[.…\s]+$/, "");
+  return cut + "...";
 }
 
 /**
