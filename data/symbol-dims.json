@@ -14,7 +14,7 @@
     "",
     "The file lives at public/assets/symbols/<id>-pokemon-tcg-set-symbol.webp."
   ],
-  "syncedAt": "2026-10-13",
+  "syncedAt": "2026-10-14",
   "box": 48,
   "symbols": {
     "base1": [
@@ -710,6 +710,14 @@
       21
     ],
     "me5": [
+      38,
+      21
+    ],
+    "me55": [
+      38,
+      21
+    ],
+    "me55c": [
       38,
       21
     ]

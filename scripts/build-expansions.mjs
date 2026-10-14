@@ -35,12 +35,23 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, shortDate, longDate, noValue } from "../shared/format.mjs";
+import { setGuideHref } from "../shared/paths.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 const { sets, seriesOrder, syncedAt } = JSON.parse(
   await readFile(join(ROOT, "public/data/expansions.json"), "utf8")
 );
+
+// GUIDES THAT ARE NOT IN sets.json. (14 October 2026.) The sync writes a row's
+// slug from public/data/sets.json, and 30th Celebration's guide is built from its
+// own data files, so the row arrived with slug null: no link, not underlined, and
+// not counted in "of these have a guide" while the set had a guide and 14 rips.
+// Keyed by apiId, given here rather than in the sync so /what-set.html, which
+// counts sets.json checklists off the same field, is not changed by it. Links go
+// through setGuideHref() because this guide lives at the root, not under /sets/.
+const GUIDE_NOT_IN_SETS_JSON = { me55: "30th-celebration" };
+for (const s of sets) if (!s.slug && GUIDE_NOT_IN_SETS_JSON[s.apiId]) s.slug = GUIDE_NOT_IN_SETS_JSON[s.apiId];
 
 // RIP COUNTS ARE COMPUTED HERE, NOT READ FROM THE SNAPSHOT.
 //
@@ -118,7 +129,9 @@ try {
   // as a set that stands alone rather than as one nobody got round to.
   for (const [apiId, c] of Object.entries(doc.noGuide || {})) {
     const parent = byApiId.get(c.parentApiId);
-    companionByApiId.set(apiId, { parentName: parent?.name, parentSlug: null, parentPresent: Boolean(parent) });
+    // parent?.slug, not null: 30th Celebration is a noGuide parent only because it
+    // has no sets.json slug, and it gains one above. (14 October 2026.)
+    companionByApiId.set(apiId, { parentName: parent?.name, parentSlug: parent?.slug || null, parentPresent: Boolean(parent) });
   }
   const bad = [];
   for (const [apiId, c] of companionByApiId) {
@@ -374,7 +387,7 @@ function eraTable(e) {
     .map((s) => {
       const cc = cardCount(s);
       const name = s.slug
-        ? `<a href="/sets/${s.slug}.html">${esc(s.name)}</a>`
+        ? `<a href="${esc(setGuideHref(s.slug))}">${esc(s.name)}</a>`
         : esc(s.name);
       const comp = companionByApiId.get(s.apiId);
       return `        <tr${s.slug ? ' class="xp-mine"' : ""}>
@@ -393,7 +406,7 @@ function eraTable(e) {
               comp
                 ? ` <span class="xp-sub">part of ${
                     comp.parentSlug
-                      ? `<a href="/sets/${esc(comp.parentSlug)}.html">${esc(comp.parentName)}</a>`
+                      ? `<a href="${esc(setGuideHref(comp.parentSlug))}">${esc(comp.parentName)}</a>`
                       : esc(comp.parentName)
                   }</span>`
                 : ""

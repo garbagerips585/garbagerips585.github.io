@@ -51,6 +51,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, shortDate, clipMeta} from "../shared/format.mjs";
+import { setGuideHref } from "../shared/paths.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -118,7 +119,25 @@ if (all.length < 150) {
 const main = all.filter((s) => !s.promo);
 const promo = all.filter((s) => s.promo);
 
+// COMPANION SUBSETS WITH NO PRINTED TOTAL ARE LEFT OUT, NOT FATAL. (14 October
+// 2026.) The API's first listing of 30th Celebration: Classic Collection (me55c)
+// carries printedTotal null, and this guard threw on it, which is the correct
+// reaction to a broken main set and the wrong one to a reprint subset: those
+// cards carry their original numbers, so there is no "/N" on them for this page
+// to look up. Only rows data/companion-sets.json already names as somebody's
+// subset get the pass; a main set with no total still stops the build.
+let companionApiIds = new Set();
+try {
+  const doc = JSON.parse(await readFile(join(ROOT, "data/companion-sets.json"), "utf8"));
+  for (const c of Object.values(doc.sets || {})) if (c && c.apiId) companionApiIds.add(c.apiId);
+  for (const k of Object.keys(doc.noGuide || {})) companionApiIds.add(k);
+} catch {
+  /* absent: every row must carry a total, as before */
+}
+const noTotal = all.filter((s) => !Number.isInteger(s.printedTotal) && companionApiIds.has(s.apiId));
+for (const s of noTotal) main.splice(main.indexOf(s), 1);
 for (const s of all) {
+  if (noTotal.includes(s)) continue;
   if (!Number.isInteger(s.printedTotal) || s.printedTotal < 1) {
     throw new Error(`${s.name} has printedTotal ${s.printedTotal}; the index is keyed on that number.`);
   }
@@ -273,6 +292,11 @@ function secretChart(rows, noneCount) {
 }
 
 const guideFor = new Map(all.filter((s) => s.slug).map((s) => [s.apiId, s.slug]));
+// 30th Celebration has a guide but no row in sets.json (its checklist lives in
+// its own data files), so the sync writes it no slug. Linked here by apiId so the
+// /128 lookup reaches /30th-celebration.html; deliberately NOT added to
+// withGuide below, which counts the checklists sets.json holds. (14 October 2026.)
+if (all.some((s) => s.apiId === "me55") && !guideFor.has("me55")) guideFor.set("me55", "30th-celebration");
 const withGuide = all.filter((s) => s.slug);
 
 // INDEXED IS `main`, NOT `all`. Both this line and the kicker below said
@@ -602,7 +626,7 @@ const style = `
 const setLine = (s) => {
   const slug = guideFor.get(s.apiId);
   const name = slug
-    ? `<a href="/sets/${esc(slug)}.html">${esc(s.name)}</a>`
+    ? `<a href="${esc(setGuideHref(slug))}">${esc(s.name)}</a>`
     : `<span>${esc(s.name)}</span>`;
   return `<li class="ws-set">${symbolImg(s)}
         ${name} <span class="ws-yr">${esc(String(s.released).slice(0, 4))} &bull; ${esc(s.series)}</span>${
@@ -857,7 +881,7 @@ ${APP_JS}
 
 await writeFile(join(ROOT, "public/what-set.html"), page);
 console.log(`Wrote public/what-set.html
-  ${all.length} sets indexed, ${main.length} main and ${promo.length} promo
+  ${all.length} sets read, ${main.length} main indexed, ${promo.length} promo${noTotal.length ? `, ${noTotal.length} subset with no printed total (${noTotal.map((x) => x.apiId).join(", ")})` : ""}
   ${totals.length} distinct set sizes, ${unique.length} pointing at one set, ${shared.length} shared
   busiest size /${worst}, used by ${worstSets.length} sets
   ${secretTotal} cards above their set total across ${withSecrets.length} checklists`);
