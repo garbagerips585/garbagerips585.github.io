@@ -71,10 +71,22 @@ import { socialLinks, GLYPH } from "../shared/socials.mjs";
    mid-path on a phone. Same-site only, relative, so every click stays on the
    site; anything else stays text. Runs on escaped text, so the only markup it
    can meet is its own. */
+/* A MOVED PAGE IS LINKED WHERE IT LIVES NOW, 14 October 2026. Thirteen rip
+   descriptions name garbagerips.com/sets/30th-celebration.html, which is the
+   noindex meta-refresh stub build-30th.mjs keeps for people arriving from
+   YouTube; linking it from our own pages put every click through an extra hop
+   on a noindex page. The stub stays (YouTube still links it); this map only
+   rewrites the link, href and visible path both, so the text never names a
+   different page from the one it opens. Add a row here when a page moves and
+   leaves a stub behind. */
+const MOVED = new Map([["/sets/30th-celebration.html", "/30th-celebration.html"]]);
 const linkOwn = (html) =>
   html.replace(/https?:\/\/(?:www\.)?garbagerips\.com(\/[^\s<"']*)?/g, (m, path = "/") => {
     const trail = (path.match(/[.,;:!?)]+$/) || [""])[0];
-    const p = trail ? path.slice(0, -trail.length) : path;
+    let p = trail ? path.slice(0, -trail.length) : path;
+    const cut = p.search(/[?#]/);
+    const bare = cut < 0 ? p : p.slice(0, cut);
+    if (MOVED.has(bare)) p = MOVED.get(bare) + (cut < 0 ? "" : p.slice(cut));
     return `<a href="${p || "/"}">garbagerips.com${p === "/" ? "" : p}</a>${trail}`;
   });
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
