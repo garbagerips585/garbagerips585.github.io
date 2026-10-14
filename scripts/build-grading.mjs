@@ -324,8 +324,16 @@ const verdictRow = (r) => `        <li class="gr">
           <span class="gr-net ${r.netPsa > 0 ? "up" : "down"}">${r.netPsa > 0 ? "+" : ""}${moneyExact(r.netPsa)}<em>after fees</em></span>
         </li>`;
 
+// THE RIVALS ARE LISTED FROM THE DATA. (14 October 2026.) This was typed as
+// "PSA against CGC, BGS and TAG" and SGC, the fifth company the page and the
+// home tool card both count, was left out of the one line a search result shows.
+// Short names, so "Beckett (BGS)" prints as BGS the way the line always had it.
+const rivals = g.companies
+  .filter((c) => c.id !== "psa")
+  .map((c) => (/\(([A-Z]+)\)/.exec(c.name) || [, c.name])[1]);
+const rivalList = rivals.length > 1 ? `${rivals.slice(0, -1).join(", ")} and ${rivals.at(-1)}` : rivals.join("");
 const desc =
-  `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against CGC, BGS and TAG, ` +
+  `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against ${rivalList}, ` +
   `and the break even math on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
 
 const FAQ = faqBlock(
