@@ -47,6 +47,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { localDay } from "../shared/today.mjs";
+import { gradedGate } from "../shared/graded-gate.mjs";
 import {
   BAR,
   MENU,
@@ -210,6 +211,36 @@ try {
 } catch {}
 const PRICE = new Map(Object.entries(prices.cards || {}));
 const priceOf = (c) => PRICE.get(`${c.section}|${c.n}`) || null;
+/* THE RGB MEWS HAVE A PUBLISHABLE PRICE NOW, 14 October 2026, and this page
+   said they had none. Their rows read "No price yet" and the FAQ said they are
+   "left out of every price list here" while /most-valuable-cards.html ranked
+   all three ($3,567 to $4,298) off data/top-raw.json, where the 13 October
+   crawl read each one the SAME on both the listing and the product page. The
+   September figure moved between reads; this one did not, so the old reason
+   for printing none no longer holds.
+   WHAT DOES NOT CHANGE: they stay OUT of `pricedCards`, so out of the top ten,
+   the value bands and the "most valuable card" answer. Those exclusions were
+   argued on the leak (the first copies surfaced before release through a
+   source that may have been stolen) and that argument is untouched. The figure
+   is printed on their own checklist rows, through the same double-read gate
+   /most-valuable-cards.html is held to, and the FAQ says where they stand. */
+const RGB_SHOWN = new Map();
+let rgbRead = null;
+try {
+  const rawTop = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
+  const { verified } = gradedGate(rawTop, "data/top-raw.json", "scripts/verify-raw-top.mjs");
+  for (const c of US.cards || []) {
+    const row = (rawTop.cards || []).find((r) => r.set === "30th Celebration" && r.name === `Mew ${c.n}`);
+    const v = row ? verified.get(row.rank) : null;
+    if (row && typeof row.ungraded === "number" && v?.cols?.ungraded?.status === "agree") {
+      RGB_SHOWN.set(`secret|${c.n}`, { raw: row.ungraded, psa10: null, g9: null, pc: row.url || null });
+      rgbRead = rawTop.checked || null;
+    }
+  }
+} catch { /* no raw list, or it fails its own gate: the rows say "No price yet" as before */ }
+/** A checklist row's displayed price: the set's own file, then a gated RGB Mew figure. */
+const shownPriceOf = (c) => priceOf(c) || RGB_SHOWN.get(`${c.section}|${c.n}`) || null;
+const rgbVals = [...RGB_SHOWN.values()].map((x) => x.raw).sort((a, b) => a - b);
 /* EVERY PRICED CARD, DEAREST FIRST. `raw` is PriceCharting's Ungraded figure,
    which other pages on this site call raw NM. Sorting on raw and NOT on psa10
    is build-pages.mjs's own recorded rule: a graded figure is a different number
@@ -833,7 +864,7 @@ const RAR_SIZES = "(max-width:591px) calc(33.34vw - 47px), (max-width:1099px) 15
    declaration, which over-declares it by a tenth. */
 const FAN_SIZES = "(max-width:999px) 1px, (max-width:1141px) 132px, (max-width:1503px) 11.5vw, 173px";
 const cardTile = (c, { showPrice = true } = {}) => {
-  const pr = c.pr || priceOf(c);
+  const pr = c.pr || shownPriceOf(c);
   const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, sizes: TILE_SIZES });
   return `        <li class="t30-ct${pic ? "" : " nopic"}">
           ${pic ? `<button type="button" class="t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : ""}
@@ -2201,7 +2232,7 @@ ${rarityRows
 const clRank = new Map(pricedCards.map((c, i) => [clKey(c.section, c.n), i + 1]));
 const clOwned = new Set(owned.map((c) => clKey(c.section, c.n || "")));
 const clRow = (c) => {
-  const k = clKey(c.section, c.n), pr = priceOf(c), have = clOwned.has(k), ill = illOf(c.section, c.n);
+  const k = clKey(c.section, c.n), pr = shownPriceOf(c), have = clOwned.has(k), ill = illOf(c.section, c.n);
   const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true });
   return `      <li class="t30-row${have ? " is-have" : ""}" data-s="${esc(c.section)}"${have ? ' data-have="1"' : ""} style="--rank:${clRank.get(k) || 9999}">
         ${pic ? `<button type="button" class="t30-rt t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : `<span class="t30-rt"></span>`}
@@ -2671,7 +2702,9 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
       ${pricedCards[0] ? `<dt>What is the most valuable 30th Celebration card?</dt>
       <dd>${esc(pricedCards[0].name)} (#${esc(pocketNum(pricedCards[0].section, pricedCards[0].n))}), at ${esc(moneyExact(pricedCards[0].pr.raw))}
         raw on PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}, among the cards with a published price.
-        The three RGB Mews sell for far more and are left out of every price list here: the first copies surfaced through a leak before release. <a href="#values">The top ten</a>.</dd>` : ""}
+        ${rgbVals.length
+          ? `The three RGB Mews are worth far more, ${esc(moneyRound(rgbVals[0]))} to ${esc(moneyRound(rgbVals[rgbVals.length - 1]))} raw on the same guide, read ${esc(longDate(rgbRead))}, and appear on <a href="/most-valuable-cards.html">the most valuable cards list</a>. They are priced on their own rows here but not ranked, because the first copies surfaced through a leak before release.`
+          : `The three RGB Mews are left out of this ranking: the first copies surfaced through a leak before release.`} <a href="#values">The top ten</a>.</dd>` : ""}
       <dt>Can you play the Classic Collection cards in tournaments?</dt>
       <dd>${esc(doc.set.classicLegality)}</dd>
       <dt>Are there official pull rates?</dt>
@@ -3269,7 +3302,7 @@ ${APP_JS_NO_PACKPLAYER}
      round its words read. "This half" shows the one card on its own. */
   var lgv = "both", lgLast = null;
   function num$(v) { return v ? parseFloat(String(v).replace(/[^0-9.]/g, "")) || 0 : 0; }
-  function fmt$(v, cents) { return "$" + (cents ? v.toFixed(2) : Math.round(v)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+  function fmt$(v, cents) { return "$" + (cents ? v.toFixed(2) : Math.round(v)).toString().replace(/\\B(?=(\\d{3})+(?!\\d))/g, ","); }
   function legend(b, d, anim) {
     var top = d.lg === "T";
     var me = { num: d.num, big: d.big, raw: d.raw, psa: d.psa, own: !!d.own, half: top ? "Top" : "Bottom", cur: true };
