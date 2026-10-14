@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://garbagerips.com/assets/og-image.jpg?v=c1eb6b4c">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Trubbish sitting on a Rochester sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
+<meta property="og:image:alt" content="Trubbish sitting on a Rochester, NY sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Garbage Rips 585 | Pokemon Pack Rips from the 585">
 <meta name="twitter:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
@@ -63,7 +63,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=29a4c056"><style data-pcss>.wall > .brk{margin-bottom:calc(var(--s4) * -1)}.tools{padding:var(--s6) 0 var(--s7)}.wall:has(.vcar) > .brk{margin-bottom:var(--s3)}</style>
+<link rel="stylesheet" href="/assets/ui.css?v=0a81dcae"><style data-pcss>.tools{padding:var(--s6) 0 var(--s7)}.wall:has(.vcar) > .brk{margin-bottom:var(--s3)}</style>
 <!-- packs.css IS BACK, 5 October 2026, and it is NOT render blocking. The note
      that stood here said 0 of its 98 selectors match "verified in a browser after
      JS", and that check ran BEFORE A CLICK: every tile on this page plays in place,
@@ -164,14 +164,15 @@
 .vcar .hero-art,
 .vcar .tile-stage{max-width:440px}
 }
-@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}}
+@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}
+.vcar-slide{flex:0 0 min(520px,calc(100% - 3 * var(--s4)));scroll-snap-align:start}
+.vcar .vcar-bar{max-width:520px}}
 @media(min-width:900px) and (max-width:999px){
 .vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
 .vcar .hero{max-width:none;margin:0;padding:var(--s4)}
 .vcar .hero-art,
 .vcar .tile-stage{max-width:none}
 .vcar .vcar-bar{justify-content:flex-start}
-.hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
 }
 @media(max-width:544px){
 .hof .shelf{display:none}
@@ -233,6 +234,7 @@ main{padding-top:0}
 .about-side{position:sticky;top:calc(var(--bar-h) + var(--s4));display:flex;
   flex-direction:column;gap:var(--s4)}
 @media(max-width:900px){.about-side{position:static}}
+@media(max-height:1099px){.about-side{position:static}}
 .about-card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}
 .about-card h3{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--ink-2);
@@ -605,8 +607,8 @@ main{padding-top:0}
 <main id="main" tabindex="-1" class="about-page">
   <div class="wrap">
     <div class="brk"><h1>About <span class="hl">Garbage Rips 585</span></h1><span class="ln"></span>
-      <a href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1"
-        aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe &rarr;</a></div>
+      <a href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank"
+        aria-label="Subscribe on YouTube to Garbage Rips 585. Opens YouTube.">Subscribe &rarr;</a></div>
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / About</nav>
     <p class="about-lede">Garbage Rips 585 is a Pokemon card channel from Rochester, New York.
       One guy, a camera and a pile of packs. Every rip ever filmed has its own page on this site,
@@ -657,7 +659,7 @@ main{padding-top:0}
           they get the same airtime as the hits. That is where the line every video opens with
           comes from: <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
 
-        <p>Then the wrappers go in the bin, and the bin is the other half of the channel. There
+        <p>Then the wrappers go in the trash, and the trash is the other half of the channel. There
           is a Trubbish trash can on the desk and every rip ends the same way: the empties, the
           packaging and the bulk get fed to him on camera. It happens in every single video, and
           it is one of the things people show up for.</p>
@@ -767,8 +769,8 @@ main{padding-top:0}
           ones, which is where to go if you want a person to explain it rather than a page.</p>
 
         <h3>Two things worth knowing before you spend</h3>
-        <p>Nobody publishes pull rates. Not Pokemon, not us. Anybody quoting you the odds of a
-          good card is guessing, and this site never states them. What it has instead is
+        <p>The Pokemon Company rarely publishes pull rates, and we only print one it has confirmed.
+          Most odds you see quoted are a guess or one big opening. What this site has instead is
           <a href="/luck.html">what actually came out</a>, which counts the results of every pack
           opened on this channel and says in as many words that observed results are not odds.</p>
 
@@ -944,7 +946,7 @@ main{padding-top:0}
             <ul class="about-glist">
               <li><a href="/videos.html"><b>Every rip</b><span>All 374 of them, filterable by set and by what kind of product it was.</span></a></li>
               <li><a href="/hall.html"><b>The Card Hall of Fame</b><span>Every card that has come out of a pack on this channel. Nothing hand-picked.</span></a></li>
-              <li><a href="/luck.html"><b>What actually came out</b><span>Observed results from the rips, broken down by set and product. Not pull rates: nobody publishes those and this site never states them.</span></a></li>
+              <li><a href="/luck.html"><b>What actually came out</b><span>Observed results from the rips, broken down by set and product. Not pull rates: we only print one The Pokemon Company has confirmed, and it rarely publishes any.</span></a></li>
               <li><a href="/wanted.html"><b>Most wanted</b><span>The cards we are hunting right now.</span></a></li>
               <li><a href="/playlists.html"><b>Playlists</b><span>22 runs, each one playable in order on this site with its total runtime on the front.</span></a></li>
               <li><a href="/openings/"><b>Sealed products opened</b><span>One page per kind of box, with every rip of it in one place.</span></a></li>
@@ -1027,10 +1029,10 @@ main{padding-top:0}
         <div class="about-card">
           <h3>Find us</h3>
           <div class="about-socials">
-            <a href="https://www.youtube.com/@GarbageRips585" rel="me" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><i style="--pip:#FF0033"></i>YouTube</a>
-            <a href="https://www.instagram.com/garbagerips585/" rel="me" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><i style="--pip:#BC1888"></i>Instagram</a>
-            <a href="https://www.tiktok.com/@garbagerips585" rel="me" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><i style="--pip:#FFFFFF"></i>TikTok</a>
-            <a href="https://www.facebook.com/GarbageRips585" rel="me" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><i style="--pip:#1877F2"></i>Facebook</a>
+            <a href="https://www.youtube.com/@GarbageRips585" rel="me noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><i style="--pip:#FF0033"></i>YouTube</a>
+            <a href="https://www.instagram.com/garbagerips585/" rel="me noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><i style="--pip:#BC1888"></i>Instagram</a>
+            <a href="https://www.tiktok.com/@garbagerips585" rel="me noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><i style="--pip:#FFFFFF"></i>TikTok</a>
+            <a href="https://www.facebook.com/GarbageRips585" rel="me noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><i style="--pip:#1877F2"></i>Facebook</a>
           </div>
         </div>
       </aside>
@@ -1141,16 +1143,16 @@ main{padding-top:0}
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY &bull; <a href="/privacy.html">Privacy</a><br>
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
   </div>
 </footer>
 
-<script src="/assets/app.js?v=67b4bdd8" defer></script>
+<script src="/assets/app.js?v=dc78bd06" defer></script>
 </body>
 </html>

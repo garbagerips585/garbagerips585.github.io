@@ -228,6 +228,15 @@
       if (Date.now() - (lb.__openedAt || 0) < 700) return;
       if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
     });
+    var wrap = document.createElement("span");
+    wrap.className = "rip-lb-wrap";
+    wrap.tabIndex = 0;
+    wrap.setAttribute("style", "position:absolute;left:0;bottom:0;width:1px;height:1px;overflow:hidden;opacity:0");
+    wrap.addEventListener("focus", function () {
+      var f = lbFocusables();
+      if (f.length) f[0].focus();
+    });
+    lb.appendChild(wrap);
     document.body.appendChild(lb);
     return lb;
   }
@@ -236,6 +245,7 @@
       .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
       .filter(function (n) {
         if (n.hidden || n.offsetParent === null) return false;
+        if (n.classList.contains("rip-lb-wrap")) return false;
         return getComputedStyle(n).visibility !== "hidden";
       });
   }
@@ -279,7 +289,7 @@
     }
     var host = buildHost(id, t.title, t.skin, "rip-stage", t.secs);
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
-    lb.appendChild(host);
+    lb.insertBefore(host, lb.querySelector(".rip-lb-wrap"));
     open(host, function () {
       if (host.__packDispose) host.__packDispose();
       if (host.parentNode) host.parentNode.removeChild(host);
@@ -742,6 +752,7 @@
     var step = slide.getBoundingClientRect().width + 16;
     var n = track.querySelectorAll(".vcar-slide").length;
     var i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    if (track.scrollLeft > 2 && track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) i = n - 1;
     var out = car.querySelector("[data-vcar-i]");
     var next = String(i + 1);
     if (out && out.textContent !== next) out.textContent = next;

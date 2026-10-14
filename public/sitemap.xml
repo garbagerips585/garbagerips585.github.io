@@ -1300,6 +1300,12 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://garbagerips.com/pokemon/igglybuff.html</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://garbagerips.com/pokemon/togepi.html</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -2657,6 +2663,12 @@
   </url>
   <url>
     <loc>https://garbagerips.com/pokemon/cherubi.html</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://garbagerips.com/pokemon/cherrim.html</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
@@ -4439,6 +4451,12 @@
   </url>
   <url>
     <loc>https://garbagerips.com/pokemon/lycanroc.html</loc>
+    <lastmod>2026-10-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://garbagerips.com/pokemon/wishiwashi.html</loc>
     <lastmod>2026-10-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>

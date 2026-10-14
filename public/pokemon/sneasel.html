@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=29a4c056">
+<link rel="stylesheet" href="/assets/ui.css?v=0a81dcae">
 <style>.is-over{display:none!important}
 .chase-card .rr a,.flat-item span a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;padding:6px 0}
 .poke-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px var(--s3);margin:var(--s4) 0 0}
@@ -45,6 +45,18 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+@media(max-width:479px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-wrap:nowrap}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:0 1 112px;min-width:0}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:100%;padding-inline:4px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage img{width:min(72px,100%);height:auto;aspect-ratio:1}
+}
+@media(max-width:359px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-direction:column;align-items:flex-start}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:none}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:112px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-arrow{width:112px;justify-content:center;transform:rotate(90deg)}
+}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
 @media(min-width:900px){.dx-eff{grid-template-columns:1fr 1fr}}
 .dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
@@ -269,7 +281,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="182" data-price="$3.88"
         data-set="Paldean Fates"
         aria-label="Enlarge Sneasel, Paldean Fates 182">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/182/low.avif 245w, https://assets.tcgdex.net/en/sv/sv04.5/182/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv04.5/182/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv04.5/182/low.webp 245w, https://assets.tcgdex.net/en/sv/sv04.5/182/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/182/low.avif 245w, https://assets.tcgdex.net/en/sv/sv04.5/182/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv04.5/182/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv04.5/182/low.webp 245w, https://assets.tcgdex.net/en/sv/sv04.5/182/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Paldean Fates &bull; 182</div>
         <div class="rr">Shiny Rare</div>
@@ -281,7 +293,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="128" data-price="$0.87"
         data-set="Destined Rivals"
         aria-label="Enlarge Team Rocket's Sneasel, Destined Rivals 128">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/128/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/128/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/128/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/128/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/128/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv10/128/low.avif 245w, https://assets.tcgdex.net/en/sv/sv10/128/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv10/128/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv10/128/low.webp 245w, https://assets.tcgdex.net/en/sv/sv10/128/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Team Rocket's Sneasel</div>
         <div class="rr">Destined Rivals &bull; 128</div>
         <div class="rr">Rare</div>
@@ -293,7 +305,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="013" data-price="$0.25"
         data-set="Shrouded Fable"
         aria-label="Enlarge Sneasel, Shrouded Fable 013">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/013/low.avif 245w, https://assets.tcgdex.net/en/sv/sv06.5/013/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv06.5/013/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv06.5/013/low.webp 245w, https://assets.tcgdex.net/en/sv/sv06.5/013/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv06.5/013/low.avif 245w, https://assets.tcgdex.net/en/sv/sv06.5/013/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv06.5/013/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv06.5/013/low.webp 245w, https://assets.tcgdex.net/en/sv/sv06.5/013/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Shrouded Fable &bull; 013</div>
         <div class="rr">Common</div>
@@ -305,7 +317,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="044" data-price="$0.25"
         data-set="Ascended Heroes"
         aria-label="Enlarge Sneasel, Ascended Heroes 044">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/044/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/044/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/044/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/044/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/044/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02.5/044/low.avif 245w, https://assets.tcgdex.net/en/me/me02.5/044/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me02.5/044/low.webp" srcset="https://assets.tcgdex.net/en/me/me02.5/044/low.webp 245w, https://assets.tcgdex.net/en/me/me02.5/044/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Ascended Heroes &bull; 044</div>
         <div class="rr">Common</div>
@@ -317,7 +329,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="30" data-price="$0.25"
         data-set="Chilling Reign"
         aria-label="Enlarge Sneasel, Chilling Reign 30">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/30/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh6/30/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh6/30/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh6/30/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh6/30/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh6/30/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh6/30/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh6/30/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh6/30/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh6/30/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Chilling Reign &bull; 30</div>
         <div class="rr">Common</div>
@@ -329,7 +341,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="133" data-price="$0.17"
         data-set="Paldea Evolved"
         aria-label="Enlarge Sneasel, Paldea Evolved 133">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/133/low.avif 245w, https://assets.tcgdex.net/en/sv/sv02/133/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv02/133/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv02/133/low.webp 245w, https://assets.tcgdex.net/en/sv/sv02/133/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv02/133/low.avif 245w, https://assets.tcgdex.net/en/sv/sv02/133/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv02/133/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv02/133/low.webp 245w, https://assets.tcgdex.net/en/sv/sv02/133/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Paldea Evolved &bull; 133</div>
         <div class="rr">Common</div>
@@ -341,7 +353,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="061" data-price="$0.14"
         data-set="Prismatic Evolutions"
         aria-label="Enlarge Sneasel, Prismatic Evolutions 061">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/061/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08.5/061/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv08.5/061/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08.5/061/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08.5/061/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/061/low.avif 245w, https://assets.tcgdex.net/en/sv/sv08.5/061/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv08.5/061/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv08.5/061/low.webp 245w, https://assets.tcgdex.net/en/sv/sv08.5/061/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Prismatic Evolutions &bull; 061</div>
         <div class="rr">Common</div>
@@ -399,259 +411,259 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/110/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/110/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/110/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/110/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Aquapolis &bull; 110</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/092/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/092/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/092/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/092/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Hisuian Sneasel</div>
         <div class="rr">Astral Radiance &bull; 092</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/086/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/086/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh9/086/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh9/086/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Brilliant Stars &bull; 086</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/85/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm3/85/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm3/85/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Burning Shadows &bull; 85</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/86/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/86/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm7/86/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm7/86/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Celestial Storm &bull; 86</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/43/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Cosmic Eclipse &bull; 43</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/100/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/100/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp1/100/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp1/100/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Diamond &amp; Pearl &bull; 100</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/50/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/50/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/50/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/50/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Flashfire &bull; 50</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/51/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy2/51/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy2/51/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Flashfire &bull; 51</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/065/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/065/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM8b/065/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM8b/065/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">GXウルトラシャイニー</span> &bull; 065</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/120/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/120/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp6/120/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp6/120/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Legends Awakened &bull; 120</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/020/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/mep/020/low.avif"><img src="https://assets.tcgdex.net/en/me/mep/020/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">MEP Black Star Promos &bull; 020</div>
         <div class="rr">Promo</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/25/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/25/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo1/25/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo1/25/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Neo Genesis &bull; 25</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/24/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo3/24/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo3/24/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Neo Revelation &bull; 24</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/69/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/69/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw4/69/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw4/69/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Next Destinies &bull; 69</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/65/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw9/65/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw9/65/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Plasma Freeze &bull; 65</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/103/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex1/103/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex1/103/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel ex</div>
         <div class="rr">Ruby &amp; Sapphire &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/098/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/098/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A2/098/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A2/098/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Space-Time Smackdown &bull; 098</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/60/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy11/60/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy11/60/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Steam Siege &bull; 60</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/073/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/073/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12a/073/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12a/073/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">TAG TEAM GX タッグオールスターズ</span> &bull; 073</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/103/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/103/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex7/103/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex7/103/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Rocket's Sneasel ex</div>
         <div class="rr">Team Rocket Returns &bull; 103</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/73/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm5/73/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm5/73/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Ultra Prism &bull; 73</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/68/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/68/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/68/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/68/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Undaunted &bull; 68</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/131/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/131/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm11/131/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm11/131/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Unified Minds &bull; 131</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/115/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/115/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/115/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/115/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 115</div>
         <div class="rr">One Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/229/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/229/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/229/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/229/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 229</div>
         <div class="rr">One Shiny</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/027/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/027/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM5S/027/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM5S/027/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">ウルトラサン</span> &bull; 027</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/050/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2D/050/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2D/050/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">クレイバースト</span> &bull; 050</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/062/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/062/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S9/062/low.avif"><img src="https://assets.tcgdex.net/ja/S/S9/062/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">スターバース</span> &bull; 062</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/042/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/042/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/042/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/042/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">スペースジャグラー</span> &bull; 042</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM6b/037/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM6b/037/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">チャンピオンロード</span> &bull; 037</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/007/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/007/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM11b/007/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM11b/007/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">ドリームリーグ</span> &bull; 007</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/013/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV6a/013/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV6a/013/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">ナイトワンダラー</span> &bull; 013</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/119/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/119/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/119/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">レイジングサーフ</span> &bull; 119</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/289/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/289/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/289/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/289/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">レイジングサーフ</span> &bull; 289</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/072/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/072/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV10/072/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV10/072/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">ロケット団の栄光</span> &bull; 072</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/011/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/011/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6K/011/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6K/011/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sneasel</div>
         <div class="rr"><span lang="ja">漆黒のガイスト</span> &bull; 011</div>
         <div class="rr">Common</div>
@@ -840,10 +852,10 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     
@@ -886,23 +898,37 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     var all=document.createElement('button'); all.type='button';
     wrap.appendChild(note); wrap.appendChild(more); wrap.appendChild(all);
     box.parentNode.insertBefore(wrap, box.nextSibling);
-    function paint(){
+    /* THE LAST PRESS DELETES THE BUTTON IT WAS PRESSED ON. (14 October 2026)
+       "Show all" and the final "Show N more" remove this whole row, and focus
+       fell to <body>, sending a keyboard or screen reader user back to the top
+       of the page. If focus was in the row, it moves to the first item the
+       press revealed, the same landing /videos.html gives "Load 48 more". */
+    function paint(from){
       items.forEach(function(el,i){ el.classList.toggle('is-over', i>=shown); });
       var left=items.length-shown;
-      if(left<=0){ wrap.remove(); return; }
+      if(left<=0){
+        var had=wrap.contains(document.activeElement), it=items[from];
+        wrap.remove();
+        if(had&&it){
+          var t=it.matches('a[href],button')?it:it.querySelector('a[href],button');
+          if(!t){ t=it; t.setAttribute('tabindex','-1'); }
+          t.focus();
+        }
+        return;
+      }
       note.textContent='Showing '+shown+' of '+items.length+' '+noun;
       more.textContent='Show '+Math.min(step,left)+' more';
       all.textContent='Show all '+items.length;
       all.hidden = left<=step;
     }
-    more.addEventListener('click',function(){ shown+=step; paint(); });
-    all.addEventListener('click',function(){ shown=items.length; paint(); });
+    more.addEventListener('click',function(){ var f=shown; shown+=step; paint(f); });
+    all.addEventListener('click',function(){ var f=shown; shown=items.length; paint(f); });
     paint();
   }
   document.querySelectorAll('.chase-grid').forEach(function(g){ clamp(g,12,24,'cards'); });
   document.querySelectorAll('.flat-list').forEach(function(l){ clamp(l,20,40,'printings'); });
 })();
 </script>
-<script src="/assets/app.js?v=67b4bdd8" defer></script>
+<script src="/assets/app.js?v=dc78bd06" defer></script>
 </body>
 </html>

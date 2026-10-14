@@ -60,6 +60,7 @@
     var bestKey = opts.key + ":best";
     var bestSprintKey = opts.key + ":bestSprint";
     var advance = null;
+    var holdTimer = null;
     var advanceReadyAt = 0;
     var SKIP_GUARD = 350;
     var hints = 3;
@@ -172,7 +173,8 @@
       if (q.reveal) q.reveal(dom.stage);
       var moved = false;
       var hold = sprint ? (right ? 700 : 1500) : (right ? 2200 : 4000);
-      var timer = setTimeout(go, hold);
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(go, hold);
       advanceReadyAt = Date.now() + SKIP_GUARD;
       if (hints > 0) {
         hints--;
@@ -181,12 +183,13 @@
       }
       advance = function () {
         if (moved || Date.now() < advanceReadyAt) return;
-        clearTimeout(timer);
+        clearTimeout(holdTimer);
         go();
       };
       function go() {
         if (moved) return;
         moved = true;
+        holdTimer = null;
         advance = null;
         dom.skip.hidden = true;
         dom.skip.setAttribute("aria-hidden", "true");
@@ -201,6 +204,8 @@
     function endSprint() {
       clearInterval(tick);
       tick = null;
+      clearTimeout(holdTimer);
+      holdTimer = null;
       advance = null;
       dom.skip.hidden = true;
       dom.skip.setAttribute("aria-hidden", "true");
@@ -241,6 +246,8 @@
       score = 0;
       asked = 0;
       upcoming = null;
+      clearTimeout(holdTimer);
+      holdTimer = null;
       advance = null;
       dom.streak.textContent = "0";
       showRun();
@@ -298,6 +305,8 @@
         dead = true;
         clearInterval(tick);
         tick = null;
+        clearTimeout(holdTimer);
+        holdTimer = null;
         advance = null;
         if (sprint && score > store.get(bestSprintKey, 0)) store.set(bestSprintKey, score);
         document.removeEventListener("keydown", onKey);

@@ -516,6 +516,7 @@
         if (btn) btn.setAttribute("aria-expanded", "true");
         f.dataset.byFocus = byFocus ? "1" : "";
       }
+      var pressedIn = null;
       facets.forEach(function (f) {
         var btn = f.querySelector(".facet-more");
         if (btn) {
@@ -533,9 +534,14 @@
         f.addEventListener("focusout", function (e) {
           if (!f.dataset.byFocus) return;
           if (e.relatedTarget && f.contains(e.relatedTarget)) return;
+          if (pressedIn === f) return;
           close(f);
         });
+        f.addEventListener("pointerdown", function () { pressedIn = f; });
       });
+      function released() { pressedIn = null; }
+      document.addEventListener("pointerup", released, true);
+      document.addEventListener("pointercancel", released, true);
       document.addEventListener("keydown", function (e) {
         if (e.key !== "Escape") return;
         facets.forEach(function (f) {

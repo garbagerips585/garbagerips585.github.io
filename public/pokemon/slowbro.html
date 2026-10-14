@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=29a4c056">
+<link rel="stylesheet" href="/assets/ui.css?v=0a81dcae">
 <style>.is-over{display:none!important}
 .chase-card .rr a,.flat-item span a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;padding:6px 0}
 .poke-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px var(--s3);margin:var(--s4) 0 0}
@@ -45,6 +45,18 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+@media(max-width:479px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-wrap:nowrap}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:0 1 112px;min-width:0}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:100%;padding-inline:4px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage img{width:min(72px,100%);height:auto;aspect-ratio:1}
+}
+@media(max-width:359px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-direction:column;align-items:flex-start}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:none}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:112px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-arrow{width:112px;justify-content:center;transform:rotate(90deg)}
+}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
 @media(min-width:900px){.dx-eff{grid-template-columns:1fr 1fr}}
 .dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
@@ -269,7 +281,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="117" data-price="$17.04"
         data-set="Paldean Fates"
         aria-label="Enlarge Slowbro, Paldean Fates 117">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.avif 245w, https://assets.tcgdex.net/en/sv/sv04.5/117/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp 245w, https://assets.tcgdex.net/en/sv/sv04.5/117/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.avif 245w, https://assets.tcgdex.net/en/sv/sv04.5/117/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv04.5/117/low.webp 245w, https://assets.tcgdex.net/en/sv/sv04.5/117/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Paldean Fates &bull; 117</div>
         <div class="rr">Shiny Rare</div>
@@ -281,7 +293,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="090" data-price="$8.00"
         data-set="Pitch Black"
         aria-label="Enlarge Slowbro, Pitch Black 090">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/090/low.avif 245w, https://assets.tcgdex.net/en/me/me05/090/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/090/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/090/low.webp 245w, https://assets.tcgdex.net/en/me/me05/090/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/090/low.avif 245w, https://assets.tcgdex.net/en/me/me05/090/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/090/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/090/low.webp 245w, https://assets.tcgdex.net/en/me/me05/090/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pitch Black &bull; 090</div>
         <div class="rr">Illustration Rare</div>
@@ -293,7 +305,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="031" data-price="$1.83"
         data-set="Pitch Black"
         aria-label="Enlarge Mega Slowbro ex, Pitch Black 031">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/031/low.avif 245w, https://assets.tcgdex.net/en/me/me05/031/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/031/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/031/low.webp 245w, https://assets.tcgdex.net/en/me/me05/031/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/031/low.avif 245w, https://assets.tcgdex.net/en/me/me05/031/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/031/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/031/low.webp 245w, https://assets.tcgdex.net/en/me/me05/031/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Mega Slowbro ex</div>
         <div class="rr">Pitch Black &bull; 031</div>
         <div class="rr">Double Rare</div>
@@ -305,7 +317,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="020" data-price="$1.47"
         data-set="Pokémon GO"
         aria-label="Enlarge Slowbro, Pokémon GO 020">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh10.5/020/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh10.5/020/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.avif 245w, https://assets.tcgdex.net/en/swsh/swsh10.5/020/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp" srcset="https://assets.tcgdex.net/en/swsh/swsh10.5/020/low.webp 245w, https://assets.tcgdex.net/en/swsh/swsh10.5/020/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pokémon GO &bull; 020</div>
         <div class="rr">Uncommon</div>
@@ -317,7 +329,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="030" data-price="$1.47"
         data-set="Pitch Black"
         aria-label="Enlarge Slowbro, Pitch Black 030">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/030/low.avif 245w, https://assets.tcgdex.net/en/me/me05/030/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/030/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/030/low.webp 245w, https://assets.tcgdex.net/en/me/me05/030/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me05/030/low.avif 245w, https://assets.tcgdex.net/en/me/me05/030/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/me/me05/030/low.webp" srcset="https://assets.tcgdex.net/en/me/me05/030/low.webp 245w, https://assets.tcgdex.net/en/me/me05/030/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Pitch Black &bull; 030</div>
         <div class="rr">Uncommon</div>
@@ -329,7 +341,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="043" data-price="$1.37"
         data-set="Scarlet &amp; Violet"
         aria-label="Enlarge Slowbro, Scarlet &amp; Violet 043">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/043/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv01/043/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/043/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/043/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv01/043/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/043/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/043/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Scarlet &amp; Violet &bull; 043</div>
         <div class="rr">Rare</div>
@@ -341,7 +353,7 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
         data-number="080" data-price="$0.41"
         data-set="151"
         aria-label="Enlarge Slowbro, 151 080">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/080/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/080/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.avif 245w, https://assets.tcgdex.net/en/sv/sv03.5/080/high.avif 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw"><img src="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv03.5/080/low.webp 245w, https://assets.tcgdex.net/en/sv/sv03.5/080/high.webp 600w" sizes="(min-width:1500px) 327px, (min-width:900px) calc((100vw - 88px) / 4), (min-width:620px) 31vw, 46vw" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">151 &bull; 080</div>
         <div class="rr">Uncommon</div>
@@ -399,189 +411,189 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/33/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/33/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard2/33/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard2/33/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Aquapolis &bull; 33</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/92/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/92/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh5/92/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh5/92/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Galarian Slowbro</div>
         <div class="rr">Battle Styles &bull; 92</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/20/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy9/20/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy9/20/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">BREAKpoint &bull; 20</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/24/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw5/24/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw5/24/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Dark Explorers &bull; 24</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/99/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/99/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/99/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/99/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Galarian Slowbro V</div>
         <div class="rr">Darkness Ablaze &bull; 99</div>
         <div class="rr">Holo Rare V</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/26/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/26/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/26/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro EX</div>
         <div class="rr">Evolutions &bull; 26</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy12/27/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy12/27/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">M Slowbro EX</div>
         <div class="rr">Evolutions &bull; 27</div>
         <div class="rr">Ultra Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/14/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex6/14/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex6/14/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">FireRed &amp; LeafGreen &bull; 14</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/43/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base3/43/low.avif"><img src="https://assets.tcgdex.net/en/base/base3/43/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Fossil &bull; 43</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/119/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/119/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A1/119/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A1/119/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Genetic Apex &bull; 119</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/54/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/54/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp4/54/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp4/54/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Great Encounters &bull; 54</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/49/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm2/49/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm2/49/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Guardians Rising &bull; 49</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/60/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/gym/gym1/60/low.avif"><img src="https://assets.tcgdex.net/en/gym/gym1/60/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Sabrina's Slowbro</div>
         <div class="rr">Gym Heroes &bull; 60</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/52/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/52/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss1/52/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss1/52/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">HeartGold SoulSilver &bull; 52</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/8/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/8/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/lc/lc/8/low.avif"><img src="https://assets.tcgdex.net/en/lc/lc/8/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Legendary Collection &bull; 8</div>
         <div class="rr">Holo Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/51/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/51/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/51/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/51/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Light Slowbro</div>
         <div class="rr">Neo Destiny &bull; 51</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/12/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/12/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/12/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Team Rocket &bull; 12</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/29/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/29/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/base/base5/29/low.avif"><img src="https://assets.tcgdex.net/en/base/base5/29/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Slowbro</div>
         <div class="rr">Team Rocket &bull; 29</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/43/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm10/43/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm10/43/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Unbroken Bonds &bull; 43</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss3/38/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss3/38/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Undaunted &bull; 38</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/13/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/13/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/13/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/13/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr">Unseen Forces &bull; 13</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/020/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV1V/020/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV1V/020/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><a href="/sets/ja-violet-ex.html"><span lang="ja">バイオレットex</span></a> &bull; 020</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/012/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/012/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM9b/012/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM9b/012/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><span lang="ja">フルメタルウォール</span> &bull; 012</div>
         <div class="rr">Rare</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/080/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV2a/080/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV2a/080/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><span lang="ja">ポケモンカード151</span> &bull; 080</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/037/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/037/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/037/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><span lang="ja">レイジングサーフ</span> &bull; 037</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/220/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/220/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SV/SV4a/220/low.avif"><img src="https://assets.tcgdex.net/ja/SV/SV4a/220/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><span lang="ja">レイジングサーフ</span> &bull; 220</div>
         
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/041/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S5I/041/low.avif"><img src="https://assets.tcgdex.net/ja/S/S5I/041/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Slowbro</div>
         <div class="rr"><span lang="ja">一撃マスター</span> &bull; 041</div>
         <div class="rr">Uncommon</div>
@@ -785,10 +797,10 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     
@@ -831,23 +843,37 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     var all=document.createElement('button'); all.type='button';
     wrap.appendChild(note); wrap.appendChild(more); wrap.appendChild(all);
     box.parentNode.insertBefore(wrap, box.nextSibling);
-    function paint(){
+    /* THE LAST PRESS DELETES THE BUTTON IT WAS PRESSED ON. (14 October 2026)
+       "Show all" and the final "Show N more" remove this whole row, and focus
+       fell to <body>, sending a keyboard or screen reader user back to the top
+       of the page. If focus was in the row, it moves to the first item the
+       press revealed, the same landing /videos.html gives "Load 48 more". */
+    function paint(from){
       items.forEach(function(el,i){ el.classList.toggle('is-over', i>=shown); });
       var left=items.length-shown;
-      if(left<=0){ wrap.remove(); return; }
+      if(left<=0){
+        var had=wrap.contains(document.activeElement), it=items[from];
+        wrap.remove();
+        if(had&&it){
+          var t=it.matches('a[href],button')?it:it.querySelector('a[href],button');
+          if(!t){ t=it; t.setAttribute('tabindex','-1'); }
+          t.focus();
+        }
+        return;
+      }
       note.textContent='Showing '+shown+' of '+items.length+' '+noun;
       more.textContent='Show '+Math.min(step,left)+' more';
       all.textContent='Show all '+items.length;
       all.hidden = left<=step;
     }
-    more.addEventListener('click',function(){ shown+=step; paint(); });
-    all.addEventListener('click',function(){ shown=items.length; paint(); });
+    more.addEventListener('click',function(){ var f=shown; shown+=step; paint(f); });
+    all.addEventListener('click',function(){ var f=shown; shown=items.length; paint(f); });
     paint();
   }
   document.querySelectorAll('.chase-grid').forEach(function(g){ clamp(g,12,24,'cards'); });
   document.querySelectorAll('.flat-list').forEach(function(l){ clamp(l,20,40,'printings'); });
 })();
 </script>
-<script src="/assets/app.js?v=67b4bdd8" defer></script>
+<script src="/assets/app.js?v=dc78bd06" defer></script>
 </body>
 </html>

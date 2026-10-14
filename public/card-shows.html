@@ -23,28 +23,25 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=29a4c056"><style data-pcss>@media(max-width:700px){.rail-in{padding:var(--s2) var(--gut);min-height:60px}}.show-when{
+<link rel="stylesheet" href="/assets/ui.css?v=0a81dcae"><style data-pcss>@media(max-width:700px){.rail-in{padding:var(--s2) var(--gut);min-height:60px}}.show-when{
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   width:52px;padding:7px 0;background:var(--band-bg);color:var(--chrome-ink);
   border-radius:var(--r-sm);text-align:center
 }.show-wd{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase}.show-mon{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--chrome-ink)}.show-day{font:400 1.5rem/1 var(--display);margin:3px 0 2px}.show-when.is-run .show-day{font-size:1rem;line-height:1.2}.show-meta{font:700 .8125rem/1.45 var(--mono);letter-spacing:.02em;
-  text-transform:uppercase;color:var(--ink);margin-top:5px}.show-meta > span + span::before{content:" \00b7\00a0";color:var(--ink-2)}.show-price{color:var(--ketchup-deep)}.show-price.is-none{color:var(--ink-2)}.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}.show-where a .show-venue{text-decoration:underline}.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}.show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.show-flyer{display:block;background:var(--paper-3);border:2px solid var(--keyline);
+  text-transform:uppercase;color:var(--ink);margin-top:5px}.show-meta > span + span::before{content:"\00a0\00b7\0020";color:var(--ink-2)}.show-price{color:var(--ketchup-deep)}.show-price.is-none{color:var(--ink-2)}.show-where{font-size:var(--t-sm);margin-top:6px;margin-bottom:2px}.show-where a .show-venue{text-decoration:underline}.show-addr{display:block;margin-top:2px;font:400 var(--t-sm)/1.4 var(--body);color:var(--ink-2)}.show-logo{flex:0 0 auto;width:56px;height:56px;display:flex;align-items:center;justify-content:center}button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}.show-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}.show-flyer{display:block;background:var(--paper-3);border:2px solid var(--keyline);
   padding:0;margin:0;cursor:zoom-in;
   border-radius:var(--r-sm);overflow:hidden;position:relative;width:64px}.img-lb{position:fixed;inset:0;z-index:200;background:rgba(9,18,13,.94);
   display:flex;align-items:center;justify-content:center;padding:var(--s4)}.img-lb[hidden]{display:none}.img-lb-x{position:absolute;top:var(--s3);right:var(--s3);width:48px;height:48px;border-radius:50%;
   border:1px solid var(--hair);background:var(--card);color:var(--ink);font-size:28px;line-height:1;cursor:pointer}.show-warn{font:700 var(--t-micro)/1.7 var(--mono);color:var(--plum);
   background:var(--lilac-pale);border-radius:var(--r-sm);padding:var(--s3);
-  margin-top:10px;max-width:52em}.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}.show-empty{color:var(--ink-2);padding:var(--s6) 0}.show.is-featured{border-color:var(--gold-deep);box-shadow:0 4px 0 var(--gold-deep),var(--lift)}.show.is-featured .show-when .show-mon{color:var(--on-alert)}.show-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+  margin-top:10px;max-width:52em}.show-links{display:flex;flex-wrap:wrap;gap:var(--s4);margin-top:10px}.show-empty{color:var(--ink-2);padding:var(--s6) 0}.show.is-featured .show-when .show-mon{color:var(--on-alert)}.show-flag{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
   color:var(--ketchup-deep);margin-bottom:4px}.tier-price{font:400 1.05rem/1 var(--display);color:var(--ketchup-deep)}.tier-name{font-weight:600;font-size:var(--t-sm)}.tier-from{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.04em}.tier-note{grid-column:2;font-size:var(--t-micro);color:var(--ink-2);line-height:1.5}@media(max-width:719px){.tier-note{line-height:1.35}}.cs-unit{scroll-margin-top:calc(var(--bar-h) + var(--rail-h,0px) + 56px)}.show-top{display:grid;grid-template-columns:52px minmax(0,1fr);gap:10px;align-items:start}.show-flyer{float:right;margin:0 0 8px 12px}.show-head{min-width:0}.show-flyer-tag{position:absolute;left:0;right:0;bottom:0;background:rgba(9,18,13,.82);color:var(--chrome-ink);
-  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 0;text-align:center}.show-org{display:flex;align-items:center;gap:10px;margin-top:8px}.show-org .show-where{margin:0;min-width:0;flex:1 1 auto}.show-org .show-logo{width:44px;height:44px}.show-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.show-act{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;
+  font:700 9px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:4px 0;text-align:center}.show-org{display:flex;align-items:center;gap:10px;margin-top:8px}.show-acts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.show-act{min-height:44px;display:flex;align-items:center;justify-content:center;text-align:center;
   border:1.5px solid var(--sky-deep);border-radius:var(--r-pill);background:transparent;
-  color:var(--sky-deep);font:700 var(--t-sm)/1.1 var(--body);padding:0 10px;text-decoration:none;cursor:pointer}.show-act[hidden]{display:none}.show-links{gap:6px var(--s4)}@media(min-width:720px){.show-top{grid-template-columns:64px minmax(0,1fr);gap:var(--s4)}.show-when{width:64px}.show-flyer{width:120px}}.show-dayg[hidden]{display:none}.show-day-h{position:sticky;top:calc(var(--bar-h) + var(--rail-h,0px));z-index:5;display:flex;
-  justify-content:space-between;align-items:baseline;gap:var(--s3);margin:var(--s5) 0 var(--s3);padding:10px 12px;
-  background:var(--chrome-bg);border:1px solid var(--hair);border-radius:var(--r-sm);
-  font:700 var(--t-sm)/1.2 var(--mono);letter-spacing:.04em;text-transform:uppercase;color:var(--ink)}.show-day-n{color:var(--ink-2);font-size:var(--t-micro);white-space:nowrap}.cs-far{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);margin-bottom:8px;box-shadow:var(--lift)}.cs-far[hidden]{display:none}.cs-far > summary::-webkit-details-marker{display:none}.far-d{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ketchup-deep);text-transform:uppercase;letter-spacing:.03em}.far-t{font-weight:700;min-width:0}.far-m{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}.cs-far[open] .far-x::before{content:"\2212"}.cs-far .show{margin:0;border:0;box-shadow:none;border-radius:0 0 var(--r) var(--r)}.cs-find{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:var(--s3)}.cs-find[hidden],.cs-group[hidden],.cs-wk[hidden]{display:none}.cs-near{display:flex;gap:8px}.cs-near input::placeholder{color:var(--ink-2)}.cs-hint{font-size:var(--t-sm);line-height:1.4;color:var(--ketchup-deep)}.cs-group{display:flex;flex-wrap:wrap;gap:8px}.cs-checked{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2)}.cs-rail .rail-in{flex-wrap:wrap;overflow:visible;min-height:0;padding-bottom:4px}.cs-rail .rail-in{gap:6px}.cs-status{max-width:1500px;margin:0 auto;padding:0 var(--gut) 8px;display:flex;justify-content:space-between;
+  color:var(--sky-deep);font:700 var(--t-sm)/1.1 var(--body);padding:0 10px;text-decoration:none;cursor:pointer}.show-act[hidden]{display:none}.show-links{gap:6px var(--s4)}@media(min-width:720px){.show-top{grid-template-columns:64px minmax(0,1fr);gap:var(--s4)}.show-when{width:64px}.show-flyer{width:120px}}.show-dayg[hidden]{display:none}.show-day-n{color:var(--ink-2);font-size:var(--t-micro);white-space:nowrap}.cs-far[hidden]{display:none}.cs-far > summary::-webkit-details-marker{display:none}.far-d{font:700 var(--t-micro)/1.3 var(--mono);color:var(--ketchup-deep);text-transform:uppercase;letter-spacing:.03em}.far-t{font-weight:700;min-width:0}.far-m{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}.cs-far[open] .far-x::before{content:"\2212"}.cs-find{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:var(--s3)}.cs-find[hidden],.cs-group[hidden],.cs-wk[hidden]{display:none}.cs-near{display:flex;gap:8px}.cs-near input::placeholder{color:var(--ink-2)}.cs-hint{font-size:var(--t-sm);line-height:1.4;color:var(--ketchup-deep)}.cs-group{display:flex;flex-wrap:wrap;gap:8px}.cs-checked{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2)}.cs-rail .rail-in{gap:6px}.cs-status{max-width:1500px;margin:0 auto;padding:0 var(--gut) 8px;display:flex;justify-content:space-between;
   align-items:center;gap:var(--s3);font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2)}.cs-clear{background:none;border:0;padding:6px 0;min-height:32px;font:700 var(--t-micro)/1 var(--mono);color:var(--sky-deep);
-  text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}.cs-clear[hidden]{display:none}.cs-submit{margin-top:var(--s5);font-size:var(--t-sm);color:var(--ink-2)}.cs-tips-h{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s5)}.cs-tips{margin:8px 0 0 1.2em;display:grid;gap:6px;font-size:var(--t-sm);color:var(--ink-2);max-width:44em}.cs-wk-h{margin-bottom:10px}.wk-strip{display:grid;align-items:start;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);gap:10px;overflow-x:auto;
+  text-decoration:underline;text-underline-offset:3px;cursor:pointer;white-space:nowrap}.cs-clear[hidden]{display:none}.cs-submit{margin-top:var(--s5);font-size:var(--t-sm);color:var(--ink-2)}.cs-tips-h{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s5)}.cs-tips{margin:8px 0 0 1.2em;display:grid;gap:6px;font-size:var(--t-sm);color:var(--ink-2);max-width:44em}.cs-wk-h{margin-bottom:10px}.wk-strip{display:grid;align-items:stretch;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);gap:10px;overflow-x:auto;
   scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}.wk-tile{scroll-snap-align:start;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   overflow:hidden;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;min-width:0}.wk-tile[hidden]{display:none}.wk-b{display:grid;gap:3px;padding:8px 10px 10px}.wk-d{font:700 var(--t-micro)/1.2 var(--mono);color:var(--ketchup-deep);text-transform:uppercase;letter-spacing:.04em}.wk-t{font:400 .95rem/1.15 var(--display);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.wk-m{font:700 var(--t-micro)/1.35 var(--mono);color:var(--ink-2);text-transform:uppercase;letter-spacing:.03em}@media(min-width:720px){.wk-strip{grid-auto-columns:200px}}.loc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px;
@@ -4341,10 +4338,10 @@
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     
@@ -4513,7 +4510,7 @@
     if (!loading) loading = fetch('/data/places.json').then(function(r){ return r.json(); }).then(function(j){ places = j; return j; }).catch(function(){ places = { z: {}, t: {} }; return places; });
     return loading;
   }
-  function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/,?\s*(ny|new york)\s*$/, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
+  function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/(,\s*|\s+)(ny|new york)\s*$/, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); }
   function say(t){ if (hint) hint.textContent = t; }
   function setFrom(pt, label){
     S.from = pt; S.label = label;
@@ -4528,7 +4525,15 @@
       var zip = raw.match(/^\d{5}/);
       var pt = zip ? pl.z[zip[0]] : pl.t[norm(raw)];
       if (!pt) { say('We do not have “' + raw + '” on file. Try a nearby town, a zip code in Western or Central New York, or tap Near me.'); return; }
-      setFrom(pt, zip ? zip[0] : raw.replace(/\b\w/g, function(c){ return c.toUpperCase(); }));
+      // Title-case the town but keep a trailing state as the abbreviation it
+      // is (14 October 2026): "batavia, ny" was coming out "Batavia, Ny" in the
+      // hint and in the shared ?near= URL. norm() above already strips the
+      // state for the lookup itself, so this only touches what is shown.
+      // Both patterns need a comma or a space before the state: with ",?" alone
+      // they also ate the end of Allegany, Bethany, Harmony, North Harmony and
+      // Oriskany, so those five towns were "not on file" and would have been
+      // shown as "Allega, NY".
+      setFrom(pt, zip ? zip[0] : raw.replace(/\b\w/g, function(c){ return c.toUpperCase(); }).replace(/(,\s*|\s+)(ny|new york)\s*$/i, ', NY').replace(/^Rochester$/, 'Rochester, NY'));
     });
   }
   if (input) input.addEventListener('focus', loadPlaces, { once: true });
@@ -4561,7 +4566,11 @@
     b.hidden = false;
     b.addEventListener('click', function(){
       var url = location.origin + location.pathname + '#' + b.dataset.share;
-      var done = function(t){ var o = b.textContent; b.textContent = t; setTimeout(function(){ b.textContent = o; }, 1800); };
+      // The label is read once per button and a pending reset is cleared first
+      // (14 October 2026): a second click inside 1.8s saved "Link copied" as the
+      // original, and the button kept saying it for good.
+      if (b.__was == null) b.__was = b.textContent;
+      var done = function(t){ b.textContent = t; clearTimeout(b.__reset); b.__reset = setTimeout(function(){ b.textContent = b.__was; }, 1800); };
       if (navigator.share) { navigator.share({ title: b.dataset.shareTitle, url: url }).catch(function(){}); return; }
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); });
     });
@@ -4639,6 +4648,6 @@
 
 })();
 </script>
-<script src="/assets/app.js?v=67b4bdd8" defer></script>
+<script src="/assets/app.js?v=dc78bd06" defer></script>
 </body>
 </html>

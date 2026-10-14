@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://assets.tcgdex.net">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=29a4c056">
+<link rel="stylesheet" href="/assets/ui.css?v=0a81dcae">
 <style>.is-over{display:none!important}
 .chase-card .rr a,.flat-item span a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;padding:6px 0}
 .poke-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px var(--s3);margin:var(--s4) 0 0}
@@ -46,6 +46,18 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+@media(max-width:479px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-wrap:nowrap}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:0 1 112px;min-width:0}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:100%;padding-inline:4px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage img{width:min(72px,100%);height:auto;aspect-ratio:1}
+}
+@media(max-width:359px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-direction:column;align-items:flex-start}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:none}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:112px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-arrow{width:112px;justify-content:center;transform:rotate(90deg)}
+}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
 @media(min-width:900px){.dx-eff{grid-template-columns:1fr 1fr}}
 .dx-eff li{display:flex;flex-wrap:wrap;gap:var(--s2);align-items:baseline;
@@ -280,147 +292,147 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       Printings whose name we could not translate are left out rather than shown under a name we guessed at.</p>
     <div class="chase-grid">
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/123/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/123/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh10/123/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh10/123/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Astral Radiance &bull; 123</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/122/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/122/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/xy/xy8/122/low.avif"><img src="https://assets.tcgdex.net/en/xy/xy8/122/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">BREAKthrough &bull; 122</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/37/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/37/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/col/col1/37/low.avif"><img src="https://assets.tcgdex.net/en/col/col1/37/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Call of Legends &bull; 37</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/172/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/172/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sm/sm12/172/low.avif"><img src="https://assets.tcgdex.net/en/sm/sm12/172/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Cosmic Eclipse &bull; 172</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/139/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh3/139/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh3/139/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Darkness Ablaze &bull; 139</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/127/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/127/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh7/127/low.avif"><img src="https://assets.tcgdex.net/en/swsh/swsh7/127/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Evolving Skies &bull; 127</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC16/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC16/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw11/RC16/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw11/RC16/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Legendary Treasures &bull; RC16</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/38/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/dp/dp2/38/low.avif"><img src="https://assets.tcgdex.net/en/dp/dp2/38/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Mysterious Treasures &bull; 38</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/21/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/21/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo4/21/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo4/21/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Dark Ursaring</div>
         <div class="rr">Neo Destiny &bull; 21</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/15/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/15/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/15/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/15/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Neo Discovery &bull; 15</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/34/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/neo/neo2/34/low.avif"><img src="https://assets.tcgdex.net/en/neo/neo2/34/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Neo Discovery &bull; 34</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/76/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/76/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/bw/bw10/76/low.avif"><img src="https://assets.tcgdex.net/en/bw/bw10/76/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Plasma Blast &bull; 76</div>
         <div class="rr">Uncommon</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/061/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/061/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4a/061/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4a/061/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Secluded Springs &bull; 061</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/110/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/110/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ecard/ecard3/110/low.avif"><img src="https://assets.tcgdex.net/en/ecard/ecard3/110/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Skyridge &bull; 110</div>
         <div class="rr">Common</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/27/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/27/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/27/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/27/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Unleashed &bull; 27</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/89/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/89/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/hgss/hgss2/89/low.avif"><img src="https://assets.tcgdex.net/en/hgss/hgss2/89/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Unleashed &bull; 89</div>
         <div class="rr">Rare PRIME</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/18/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/18/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/ex/ex10/18/low.avif"><img src="https://assets.tcgdex.net/en/ex/ex10/18/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Unseen Forces &bull; 18</div>
         <div class="rr">Rare</div>
         
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/146/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/146/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/tcgp/A4/146/low.avif"><img src="https://assets.tcgdex.net/en/tcgp/A4/146/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr">Wisdom of Sea and Sky &bull; 146</div>
         <div class="rr">Two Diamond</div>
         <div class="rr">TCG Pocket, digital</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/078/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/078/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/SM/SM12/078/low.avif"><img src="https://assets.tcgdex.net/ja/SM/SM12/078/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr"><span lang="ja">オルタージェネシス</span> &bull; 078</div>
         <div class="rr">Uncommon</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S10P/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S10P/056/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr"><span lang="ja">スペースジャグラー</span> &bull; 056</div>
         <div class="rr">Common</div>
         <div class="rr">Japanese</div>
       </div>
       <div class="chase-card is-flat">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/056/low.webp" onerror="this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/ja/S/S6H/056/low.avif"><img src="https://assets.tcgdex.net/ja/S/S6H/056/low.webp" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" alt="" loading="lazy" decoding="async" width="245" height="337"></picture>
         <div class="nm">Ursaring</div>
         <div class="rr"><span lang="ja">白銀のランス</span> &bull; 056</div>
         <div class="rr">Uncommon</div>
@@ -589,10 +601,10 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p class="foot-collectr"><a href="https://app.getcollectr.com/showcase/profile/563e3401-e88d-48fe-b42f-8f9816dd7f5a" rel="noopener" target="_blank" aria-label="See the whole collection on Collectr, opens on their site">See the whole collection on Collectr &rarr;</a></p>
     
@@ -635,23 +647,37 @@ border-radius:var(--r-sm);padding:8px 10px;color:var(--ink);text-decoration:none
     var all=document.createElement('button'); all.type='button';
     wrap.appendChild(note); wrap.appendChild(more); wrap.appendChild(all);
     box.parentNode.insertBefore(wrap, box.nextSibling);
-    function paint(){
+    /* THE LAST PRESS DELETES THE BUTTON IT WAS PRESSED ON. (14 October 2026)
+       "Show all" and the final "Show N more" remove this whole row, and focus
+       fell to <body>, sending a keyboard or screen reader user back to the top
+       of the page. If focus was in the row, it moves to the first item the
+       press revealed, the same landing /videos.html gives "Load 48 more". */
+    function paint(from){
       items.forEach(function(el,i){ el.classList.toggle('is-over', i>=shown); });
       var left=items.length-shown;
-      if(left<=0){ wrap.remove(); return; }
+      if(left<=0){
+        var had=wrap.contains(document.activeElement), it=items[from];
+        wrap.remove();
+        if(had&&it){
+          var t=it.matches('a[href],button')?it:it.querySelector('a[href],button');
+          if(!t){ t=it; t.setAttribute('tabindex','-1'); }
+          t.focus();
+        }
+        return;
+      }
       note.textContent='Showing '+shown+' of '+items.length+' '+noun;
       more.textContent='Show '+Math.min(step,left)+' more';
       all.textContent='Show all '+items.length;
       all.hidden = left<=step;
     }
-    more.addEventListener('click',function(){ shown+=step; paint(); });
-    all.addEventListener('click',function(){ shown=items.length; paint(); });
+    more.addEventListener('click',function(){ var f=shown; shown+=step; paint(f); });
+    all.addEventListener('click',function(){ var f=shown; shown=items.length; paint(f); });
     paint();
   }
   document.querySelectorAll('.chase-grid').forEach(function(g){ clamp(g,12,24,'cards'); });
   document.querySelectorAll('.flat-list').forEach(function(l){ clamp(l,20,40,'printings'); });
 })();
 </script>
-<script src="/assets/app.js?v=67b4bdd8" defer></script>
+<script src="/assets/app.js?v=dc78bd06" defer></script>
 </body>
 </html>
