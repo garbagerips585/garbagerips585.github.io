@@ -914,8 +914,12 @@ ${footer(priceFooter("Fan made, not official."))}
     }
     return PRICEMAP;
   }
+  // The lookahead is \\d DOUBLED because this script lives in a template
+  // literal, where a single backslash is eaten and the page received /^0+(?=d)/,
+  // which strips nothing (14 October 2026). Harmless only because both sides
+  // of the join happened to write numbers the same way.
   function key3(name,set,num){
-    return String(name).toLowerCase()+'|'+String(set).toLowerCase()+'|'+String(num).replace(/^0+(?=\d)/,'');
+    return String(name).toLowerCase()+'|'+String(set).toLowerCase()+'|'+String(num).replace(/^0+(?=\\d)/,'');
   }
 
   function run(){

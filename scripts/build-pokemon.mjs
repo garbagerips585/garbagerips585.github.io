@@ -1878,17 +1878,31 @@ ${footer(priceFooter("Pokedex data and artwork from PokeAPI. Fan made, not offic
     var all=document.createElement('button'); all.type='button';
     wrap.appendChild(note); wrap.appendChild(more); wrap.appendChild(all);
     box.parentNode.insertBefore(wrap, box.nextSibling);
-    function paint(){
+    /* THE LAST PRESS DELETES THE BUTTON IT WAS PRESSED ON. (14 October 2026)
+       "Show all" and the final "Show N more" remove this whole row, and focus
+       fell to <body>, sending a keyboard or screen reader user back to the top
+       of the page. If focus was in the row, it moves to the first item the
+       press revealed, the same landing /videos.html gives "Load 48 more". */
+    function paint(from){
       items.forEach(function(el,i){ el.classList.toggle('is-over', i>=shown); });
       var left=items.length-shown;
-      if(left<=0){ wrap.remove(); return; }
+      if(left<=0){
+        var had=wrap.contains(document.activeElement), it=items[from];
+        wrap.remove();
+        if(had&&it){
+          var t=it.matches('a[href],button')?it:it.querySelector('a[href],button');
+          if(!t){ t=it; t.setAttribute('tabindex','-1'); }
+          t.focus();
+        }
+        return;
+      }
       note.textContent='Showing '+shown+' of '+items.length+' '+noun;
       more.textContent='Show '+Math.min(step,left)+' more';
       all.textContent='Show all '+items.length;
       all.hidden = left<=step;
     }
-    more.addEventListener('click',function(){ shown+=step; paint(); });
-    all.addEventListener('click',function(){ shown=items.length; paint(); });
+    more.addEventListener('click',function(){ var f=shown; shown+=step; paint(f); });
+    all.addEventListener('click',function(){ var f=shown; shown=items.length; paint(f); });
     paint();
   }
   document.querySelectorAll('.chase-grid').forEach(function(g){ clamp(g,12,24,'cards'); });
