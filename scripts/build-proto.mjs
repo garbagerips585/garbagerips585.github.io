@@ -658,15 +658,22 @@ const rawValue = (v) => HIT_VALUE[v.id] || 0;
  * flat 332.1 from 1500, while Greatest Hits is 325 at 900, 370.4 at 999, the
  * same 300.7 to 378.3 from 1000, then 272.5 at 1200 rising to a flat 364.1
  * from 1500, which is exactly the trophy beside it. The trophy's own string is
- * on the .hofx picture. qa-sweep.mjs checks all three against the live box. */
+ * on the .hofx picture. qa-sweep.mjs checks all three against the live box.
+ *
+ * GREATEST HITS MOVED ON 14 OCTOBER 2026. The trophy-and-shelf layout now
+ * starts at 700 rather than 1200, so from 700 to 1199 the trophy and the
+ * shelf slide beside it measure 219.7 at 700, 243.6 at 760, 272 at 822 and a
+ * flat 272.6 from 823 to 1199 (read off the built page). Both strings declare
+ * 273px there; the old 377 and 399 fetched the 810w file where 560w covers a
+ * retina screen. Latest did not move and its string is unchanged. */
 const HOFX_SIZES = "(max-width:424px) calc(85vw - 70px), (max-width:544px) calc(71.5vw - 63px), " +
-  "(max-width:640px) 413px, (max-width:1199px) 399px, (max-width:1499px) calc(30.6vw - 94px), 365px";
+  "(max-width:640px) 413px, (max-width:699px) 399px, (max-width:1199px) 273px, (max-width:1499px) calc(30.6vw - 94px), 365px";
 const HERO_SIZES = {
   latest: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:899px) 377px, " +
     "(max-width:999px) calc(38.9vw - 88px), (max-width:1199px) calc(39vw - 89px), " +
     "(max-width:1399px) calc(33.4vw - 85px), (max-width:1499px) calc(27.8vw - 85px), 333px",
-  hof: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:899px) 377px, " +
-    "(max-width:999px) calc(46vw - 89px), (max-width:1199px) calc(39vw - 89px), " +
+  hof: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:699px) 377px, " +
+    "(max-width:1199px) 273px, " +
     "(max-width:1499px) calc(30.6vw - 94px), 365px",
 };
 
