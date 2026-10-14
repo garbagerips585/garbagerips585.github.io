@@ -800,6 +800,32 @@ width:112px;padding:var(--s2);background:var(--card);border:1px solid var(--hair
 .dx-stage span{font:400 var(--t-micro)/1.2 var(--body);color:var(--ink-2)}
 .dx-stage[aria-current]{border-width:3px;border-color:var(--keyline)}
 .dx-arrow{font:700 1.1rem/1 var(--body);color:var(--ink-2)}
+/* THREE-STAGE LINES DANGLED AN ARROW ON A PHONE, 14 October 2026. Three 112px
+   stages, two arrows and four gaps need 402px and a 390 phone has 350, so the
+   line wrapped after the SECOND stage and left its arrow hanging at the end of
+   row 1 pointing at nothing (Charmander, Charmeleon, ->, then Charizard alone
+   on row 2), on every straight three-stage line at 360 to 440. Below 480 a
+   straight line now shares the row: each stage takes a third, never more than
+   its 112px, and the image shrinks with it if it has to. Under 360 even a
+   shared row is too tight for the names, so the line turns vertical with the
+   arrows pointing down rather than wrapping at all.
+   SCOPED TO STRAIGHT LINES ON PURPOSE: :has(> li:nth-child(5)) is three stages
+   (stage, arrow, stage, arrow, stage) and :not(:has(.dx-stage + .dx-stage))
+   excludes every branching family, whose multi-stage li has to keep wrapping
+   on its own row (the Eevee note above this block). Two-stage lines already
+   fit one row at 320 and are not touched. */
+@media(max-width:479px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-wrap:nowrap}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:0 1 112px;min-width:0}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:100%;padding-inline:4px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage img{width:min(72px,100%);height:auto;aspect-ratio:1}
+}
+@media(max-width:359px){
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)){flex-direction:column;align-items:flex-start}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) > li:not(.dx-arrow){flex:none}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-stage{width:112px}
+.dx-evo:has(> li:nth-child(5)):not(:has(.dx-stage + .dx-stage)) .dx-arrow{width:112px;justify-content:center;transform:rotate(90deg)}
+}
 .dx-eff{display:grid;gap:var(--s2);margin-top:var(--s4);list-style:none}
 /* AT MOST FIVE ROWS AND EVERY ONE OF THEM WAS 1,392px WIDE AT 1440, on all
    1,025 species pages, holding "x2" and up to six type names: the content

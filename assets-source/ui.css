@@ -355,6 +355,21 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--page);color:var(--ink);font:400 17px/1.55 var(--body)}
+/* HEADINGS BALANCE THEIR LINES, 14 October 2026. Nothing in this file set
+   text-wrap on a heading (the pack banner further down was the only text-wrap
+   at all), so every wrapped heading broke greedily and left its last word alone
+   on a line: a QA sweep of 91 pages counted 839 single-word heading lines across
+   eight widths, 218 at 390, and 51 of them were a bare number, "Destined Rivals
+   Pack - Pack / 6" on the home page and "Perfect Order Pack - Pack / 14" down
+   /videos.html and the playlists. balance evens the lines instead, which keeps
+   "Pack 14" together without touching a builder. It is a no-op on one line and
+   ignored by browsers without it, so the worst case is the old wrap.
+   THE CLAMPED TILE TITLES ARE IN THE LIST ON PURPOSE AND WERE CHECKED: balance
+   reflows the lines the clamp then counts, so it can only change WHICH words
+   land on the visible lines, never how many lines show. Counted on /videos.html
+   and the Hits Only playlist at 320, 390 and 768 before and after; see the
+   .v h3 note for the numbers. */
+h1,h2,h3,h4,.vid-title,.pl-title,.hofx-t{text-wrap:balance}
 img{max-width:100%;height:auto;display:block}
 /* Card scans are served as <picture>, WebP with an AVIF source in front of it
    (see avifPicture in shared/format.mjs). display:contents takes the <picture>
@@ -1184,6 +1199,29 @@ main{padding:var(--s4) 0 var(--s6)}
 /* On a narrow phone the one-line caption cut 33 of 48 ("SINGLE PACK • 1.1K…");
    two lines there instead of an ellipsis. */
 @media(max-width:400px){.v p{white-space:normal;overflow:visible}}
+/* THE CLAMP WAS CUTTING THE ONE PART OF THE TITLE THAT TELLS TILES APART,
+   14 October 2026. At 390 four adjacent tiles read "30th Celebration ex Premium
+   Collection - Pa..." and nothing else: the collection name is shared, the pack
+   number is the only difference, and two lines of a 169px tile end before it.
+   Measured before: 4 of 48 tiles clipped on /videos.html at 390 and 6 at 320,
+   11 and 18 of 81 on the Hits Only playlist, every one of them losing its
+   "Pack N". From 601 up nothing needs a third line (0 clipped at 768).
+   So a phone gets a THIRD line, and only as a cap: min-height stays 2.64em,
+   so a two-line title is the height it always was and nothing reserves an
+   empty line on the 44 tiles that never need one. The row still lines up
+   because .wall is a grid and its rows grow to the tallest tile; the caption
+   under a two-line title is pushed to the tile's foot (margin-top:auto) so
+   every meta line in a row sits on one baseline, which is what the min-height
+   above was protecting. */
+@media(max-width:600px){
+  .v h3{-webkit-line-clamp:3;line-clamp:3}
+  .v p{margin-top:auto}
+}
+/* A 134px tile at 320 needs a fourth for the longest collection names ("First
+   Partner Illustration Collection (Series 1) Box 5 - Pack 1", 2 of 81 tiles on
+   the Hits Only playlist). After this, 0 tiles hide their pack number at 320,
+   390, 768 or 1440 on /videos.html, that playlist or the rip rails. */
+@media(max-width:359px){.v h3{-webkit-line-clamp:4;line-clamp:4}}
 
 /* ---------- the filtered grid arrives ----------
    Tapping a set chip on /videos.html rebuilds this whole grid synchronously
@@ -1429,6 +1467,12 @@ footer p{font:700 var(--t-micro)/1.7 var(--mono);color:var(--ink-2);letter-spaci
    elsewhere. Headings are not in the measure block's :is() list, so the h2 form
    was never capped and never off center; `p` alone covers every case. */
 .empty p{margin-inline:auto}
+/* THE SAME FAULT ON /hall.html's HEADER, 14 October 2026. .chof-head is
+   text-align:center inside a 44em box, and its two paragraphs are capped by the
+   measure block, so both sat flush left with their lines centred in the
+   narrower block: 68 and 122px left of centre at 1440. The measure moving down
+   to 600 brought it to tablets (54 and 108px at 768), which is how it was found. */
+.chof-head > p{margin-inline:auto}
 
 /* Screen-reader-only, for labels that would otherwise be missing. */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;
@@ -2376,6 +2420,15 @@ footer .soc svg{fill:var(--chrome-ink)}
 .vid{display:flex;flex-direction:column;gap:9px;min-width:0}
 .vid-title{font-size:.88rem;font-weight:600;line-height:1.32;color:var(--ink);
   display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* THREE LINES ON THE RIP RAILS, 14 October 2026, for the reason given at .v h3:
+   these are the owner's YouTube titles verbatim ("Ascended Heroes Booster Bundle
+   #2 | Pack #1 (First Pack Magic?!)"), and two lines of a 133 to 214px tile cut
+   the pack number on 3 of 6 rail tiles at 320 to 768 and on 1 at 1440. A cap,
+   not a reservation: one-line and two-line titles keep their height, and the
+   date under a shorter title drops to the tile's foot so a row's dates share a
+   line. */
+.vid-title{-webkit-line-clamp:3;line-clamp:3}
+.vid > .vid-meta{margin-top:auto}
 .vid-title a{text-decoration:none}
 .vid-title a:hover{color:var(--sky-deep)}
 .vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}.band-navy .vid-title a:hover{color:var(--mustard)}.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
@@ -2460,9 +2513,16 @@ footer .soc svg{fill:var(--chrome-ink)}
    keeps one rhythm rather than gaining a number of its own. Note the 6px hard
    shadow: it hangs below the box, so the gap a reader SEES under this block is
    24 - 6 = 18, which is why the value above it is the larger of the two. */
+/* 14 October 2026: AND IT IS CAPPED NOW. It is a div with pre-wrap, so the
+   measure block's main :is(p,...) never reached it, and it ran the whole right
+   column: 968px and 104 characters a line at 1440, 1028px and 138 at 1920, on
+   every rip page, directly under a .rip-src card that stops at 578px (34em of
+   17px). 38em of this box's own .95rem is 577.6px, so the two stacked boxes
+   share a right edge and the text lands near 68 characters a line. Below about
+   620px the column is narrower than the cap and nothing changes on a phone. */
 .rip-desc{white-space:pre-wrap;background:var(--paper-2);border:3px solid var(--keyline);
   border-radius:12px;padding:20px 22px;box-shadow:0 6px 0 var(--trubbish);font-size:.95rem;
-  margin-top:var(--s5)}
+  margin-top:var(--s5);max-width:38em}
 /* The site's own URLs in a description are links (build-pages.mjs linkOwn):
    teal, a route, and allowed to break anywhere so a long path wraps on a phone. */
 .rip-desc a{color:var(--sky-deep);overflow-wrap:anywhere;text-decoration:underline;text-underline-offset:2px}
@@ -3935,11 +3995,20 @@ html:has(.gpf,.rail,.ev-find,.vg-rail,.t30-clf) :focus{scroll-margin-top:calc(va
    is pink because every price on this site is. */
 .show-meta{font:700 .8125rem/1.45 var(--mono);letter-spacing:.02em;
   text-transform:uppercase;color:var(--ink);margin-top:5px}
-/* A PLAIN SPACE BEFORE THE DOT, a non-breaking one after it. With nbsp on both
+/* A NON-BREAKING SPACE BEFORE THE DOT, a plain one after it. With nbsp on both
    sides the three spans were one word ("PUBLISHED·HENRIETTA·PRICE", 238px)
-   and ran 13px off a 320px screen; now the line can break before a dot and the
-   dot stays with the word it introduces. */
-.show-meta > span + span::before{content:" \00b7\00a0";color:var(--ink-2)}
+   and ran 13px off a 320px screen, so one side has to be breakable.
+   14 October 2026: IT WAS THE OTHER SIDE, and that is corrected here. With the
+   plain space BEFORE the dot the line broke there, so every wrapped meta line
+   began with the separator: "· SYRACUSE · $5", "· FREE", "· HARMONY, PA" on 4
+   of the first 8 cards at 390. A separator belongs to the end of the line it
+   separates, so the dot is now glued to the word before it and the break falls
+   after it. The 320px overflow fix holds: there is still one break point
+   between every pair of spans. THE TRAILING SPACE IS WRITTEN \0020 AND MUST
+   BE: a literal space straight after a hex escape is swallowed as the escape's
+   terminator, so "\00b7 " renders as a bare dot with no space and no break
+   point after it ("4PM ·HARMONY"). */
+.show-meta > span + span::before{content:"\00a0\00b7\0020";color:var(--ink-2)}
 .show-price{color:var(--ketchup-deep)}
 .show-price.is-none{color:var(--ink-2)}
 /* The venue link IS the whole paragraph, not a phrase inside a sentence, so
@@ -4359,7 +4428,11 @@ section.cs-top{padding-block:var(--s3) var(--s2)}
    that scrolls inside itself, with a visible scrollbar so it reads as more. */
 section.cs-wk{padding-block:var(--s2) var(--s2)}
 .cs-wk-h{margin-bottom:10px}
-.wk-strip{display:grid;align-items:start;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);gap:10px;overflow-x:auto;
+/* 14 October 2026: align-items was start, so a tile with a flyer stood 176px
+   tall beside 89px tiles without one, and the strip was ragged at every width.
+   stretch makes every tile in the strip the strip's height; a flyer-less tile
+   keeps its text at the top, where the date sits on every other tile. */
+.wk-strip{display:grid;align-items:stretch;grid-auto-flow:column;grid-auto-columns:minmax(150px,44%);gap:10px;overflow-x:auto;
   scroll-snap-type:x mandatory;padding-bottom:8px;scrollbar-width:thin}
 .wk-tile{scroll-snap-align:start;background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   overflow:hidden;color:var(--ink);text-decoration:none;display:flex;flex-direction:column;min-width:0}
@@ -4606,6 +4679,11 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
 .tool:hover .tool-t{color:var(--sky-deep)}
 .tool-d{display:block;font-size:var(--t-sm);color:var(--ink-2);line-height:1.5;margin-top:6px}
 @media(min-width:560px){ .tool-grid{grid-template-columns:repeat(2,1fr)} }
+/* An odd count in two columns left the last card alone beside an empty cell
+   ("Shops & where to play" at 768, 11 cards). 14 October 2026: in the two
+   column range only, an odd last card takes the whole row; an even count, or
+   any count at three and four columns, is untouched. */
+@media(min-width:560px) and (max-width:899px){ .tool-grid > :last-child:nth-child(odd){grid-column:1/-1} }
 @media(min-width:900px){ .tool-grid{grid-template-columns:repeat(3,1fr)} }
 @media(min-width:1200px){ .tool-grid{grid-template-columns:repeat(4,1fr)} }
 
@@ -4650,9 +4728,26 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
    the logo is 44px beside the venue at every width and the flyer is sized in
    the card block above. The cap stays, and the day headings, the far rows and
    the empty state take the same measure, or at 1440 each 980px card sat under
-   a 1,392px heading. */
+   a 1,392px heading.
+   14 October 2026: AND THE COLUMN IS CENTRED. Capped with no auto margin it sat
+   flush left under a centred hero, with an empty right-hand column beside it
+   for the whole 16,000px list: 412px at 1440, 472 at 1920. margin-inline:auto
+   centres it wherever the wrap is wider than 980 and computes to 0 wherever it
+   is not, so nothing under 1028px moves. The submit line at the list's foot
+   takes the same column, and the filter chips and the status line above the
+   list are held to the same 980 (plus the gutters their own padding adds), so
+   the rail's first chip and the "N shows" count start on the cards' left edge
+   instead of 206px left of it. The .rail background still runs edge to edge;
+   only its contents are capped. The 980 itself is the owner's and is unchanged. */
 @media(min-width:720px){
-  .show,.show-day-h,.cs-far,.show-empty{max-width:980px}
+  .show,.show-day-h,.cs-far,.show-empty,#list .cs-submit{max-width:980px;margin-inline:auto}
+  .cs-rail .rail-in,.cs-rail .cs-status{max-width:calc(980px + 2 * var(--gut))}
+  /* The two bands between the hero and the list take the column too: the
+     crumbs, the zip search and its area chips, and the weekend strip, which
+     otherwise ran 1,392px wide directly above a centred 980px list and read as
+     a second, left-aligned page. The strip scrolls inside itself, so a
+     narrower one shows fewer tiles, not smaller ones. */
+  .cs-top .wrap > *,.cs-wk .wrap > *{max-width:980px;margin-inline:auto}
 }
 
 /* Real and Fake are a comparison and had the room to sit side by side, but the
@@ -4888,9 +4983,18 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
    brief for this pass was 1440 and not regressing anything narrower, and
    widening the range widens the blast radius. Lower the 1000 when somebody
    has time to re-measure the tablet range properly.
+   14 October 2026: LOWERED TO 600, and re-measured as that sentence asked. A QA
+   sweep of 91 pages found prose over 88 characters a line on 18 pages at 600,
+   54 at 768 and 58 at 900, up to 141 (p.rt-src at 768), so the gap was the
+   worst-read range on the site rather than a safe one. 600 is where a 36em
+   column first has slack beside it: under it the content box is already
+   narrower than the cap and the rule computes to nothing. The two named list
+   caps and the lede family at the end of the file moved down with it, because
+   they are this same rule for elements it cannot reach by tag. The page-level
+   two-column blocks that opt out are unaffected, being later in the cascade.
    ========================================================================== */
 :root{--measure:36em}
-@media(min-width:1000px){
+@media(min-width:600px){
   main :is(p,dd,blockquote,figcaption){max-width:var(--measure)}
 }
 
@@ -4923,8 +5027,9 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
    The page-level two-column blocks in build-set-pages.mjs, build-complete.mjs
    and build-pack-prices.mjs are in a <style> that lands after this whole file,
    so their max-width:none above 1200px still wins and those pages keep the
-   layout they measured. */
-@media(min-width:1000px){
+   layout they measured.
+   14 October 2026: min-width:600 now, with the measure block above. */
+@media(min-width:600px){
   .facts-list li{max-width:var(--measure)}
   /* THE SECOND NAMED LIST, and it is here rather than in a general li rule for
      the reason set out in the measure block: capping list items has to be a
@@ -5991,8 +6096,15 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    with the shelf, the heading and every other band, which is what makes the
    section read as part of the page rather than as a floating object. Below 641
    the phone layout owns it and above 1199 the two-column rule sets its own
-   margin, so this is scoped to exactly the range that was wrong. */
-@media(min-width:641px) and (max-width:1199px){
+   margin, so this is scoped to exactly the range that was wrong.
+   14 October 2026: THE RANGE IS NOW 641 TO 699. Lining the trophy up on the left
+   fixed the indent and exposed the other half of the same problem: a 520px card
+   pinned left in a wider band leaves the band's right side EMPTY, measured as a
+   885px tall void of 224px at 768, 456 at 1024 and 655 at 1199. From 700 the
+   Greatest Hits band is two columns instead (the block below that says "1200 IS
+   THE FLOOR", which now says 700 and why), so this rule only has the sliver
+   where a second column would make every pack smaller than a phone's. */
+@media(min-width:641px) and (max-width:699px){
   .hofx{margin-inline:0 auto}
 }
 
@@ -6394,7 +6506,9 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    narrower than the same card gets on a 390px phone. A band that shows three
    videos by making all three smaller than the phone does is not a better desktop
    layout. Under 1200 the trophy stays stacked above the row exactly as before,
-   and only the Latest band's slide count changes. */
+   and only the Latest band's slide count changes.
+   (No longer the floor since 14 October 2026: two columns start at 700, and
+   the end of the next comment has the measurements that moved it.) */
 /* THE COLUMN IS DERIVED NOW RATHER THAN PICKED, AND TWO PICKED NUMBERS ARE
    WHAT MADE THE BAND RAGGED. 460 and 520 were chosen for the trophy's share of
    the band, and a share is not a size: the trophy's artwork is its column less
@@ -6448,10 +6562,39 @@ inherited from the UA default, so the promotion moves nothing on screen. */
    sounds like. The 1200 paragraph above worries about the two right-hand cards
    dropping under the 366px card a 390px phone gets. They already had: at 1200
    the picked numbers gave a 322px card holding 288px of art. Derived, that
-   same width gives 360.7px and 326.7px. Nothing here moves the 1200 floor. */
-@media(min-width:1200px){
+   same width gives 360.7px and 326.7px. Nothing here moves the 1200 floor.
+   14 October 2026: THE TWO-COLUMN LAYOUT STARTS AT 700 NOW, because the
+   stacked layout under 1200 was not the safe default the paragraphs above
+   assumed. It was a 520px trophy pinned left in a band up to 1,151px wide: a
+   void beside it of 224px at 768, 456 at 1024 (iPad landscape, a whole first
+   screen of one card and an empty half page) and 655 at 1199, 885px tall every
+   time. The 1200 rule below is untouched, formula and all; what changed is
+   that 700 to 1199 now runs the SAME grid with fewer slides in the right
+   column, and it meets the 1200 rule without a step:
+     - 700 to 822: ONE slide beside the trophy, the pager for the rest. Solved
+       the same way as the three-pack column, for one slide instead of two:
+           trophy art = L - 2(4px) - 2(var(--s5))
+           slide art  = (W - var(--s6) - L) - 2(1px) - 2(var(--s4))
+       equal when 2L = W - var(--s6) - 2(var(--s4)) + 2(var(--s5)) + 6px.
+     - 823 to 1199: L stops at --hof-cap, the value the 1200 formula gives at
+       its own floor (W = 1200 less the two gutters, so L = 382.67px), and the
+       slides stop at the matching card width (L less 22px). The right column
+       keeps growing, so it shows 1.17 slides at 900, 1.44 at 1000 and 2.00 at
+       1199: the next card is cut by the band's edge, the same "the row
+       continues" read as the desktop fractions, and at 1200 it IS the
+       three-pack layout. One pack size from 823 to 1200 instead of a cliff.
+   THE COST, measured on the pack image (the 9:16 file inside the 2:3 box):
+   220px at 700, 247 at 768 and 275 from 823 to 1199, where a 390px phone's
+   trophy is 260 and the old stacked trophy was 398. So 700 to 790 packs are up
+   to 15% narrower than the phone's, which is the thing the 1200 paragraph
+   feared; it is taken knowingly, because the alternative at those widths is
+   one bigger pack beside a 140 to 224px void, and the band now shows two packs
+   where it showed one. Below 700 the old stacked layout stays (the 641-699
+   rule above). */
+@media(min-width:700px){
   .hof .wrap{display:grid;
-    grid-template-columns:minmax(0,calc((100% - var(--s6) - 5 * var(--s4) + 4 * var(--s5) + 12px) / 3)) minmax(0,1fr);
+    --hof-cap:calc((1200px - 2 * var(--gut) - var(--s6) - 5 * var(--s4) + 4 * var(--s5) + 12px) / 3);
+    grid-template-columns:minmax(0,min(calc((100% - var(--s6) - 2 * var(--s4) + 2 * var(--s5) + 6px) / 2),var(--hof-cap))) minmax(0,1fr);
     gap:var(--s6);
     /* stretch, NOT start, and the sentence this replaces is quoted above.
        "The two columns are different heights by design" IS the complaint: it
@@ -6529,7 +6672,22 @@ inherited from the UA default, so the promotion moves nothing on screen. */
      At exactly two they fill the column edge to edge, and packplayer.js hides
      the bar through .is-static because there is genuinely nothing to page to.
      If more hits get tagged it becomes an ordinary 2-up carousel and the bar
-     comes back on its own. */
+     comes back on its own.
+     14 October 2026: that is the 1200-and-up half, now in the block after this
+     one. Under 1200 a slide is the trophy-matched card width or the whole
+     column, whichever is narrower (see the 700 note above this block).
+     The card also has to drop the 520px cap, the margin and the var(--s5)
+     padding build-proto.mjs's homeCss gives every .vcar card from 545 to 899,
+     or the 1px + var(--s4) frame the formula assumes is not the frame on the
+     page. .hof .vcar .hero outranks homeCss's .vcar .hero, so this holds even
+     though that <style> comes later. */
+  .hof .vcar-slide{flex:0 0 min(100%,calc(var(--hof-cap) - 2 * var(--s5) + 2 * var(--s4) - 6px));scroll-snap-align:start}
+  .hof .vcar .hero{max-width:none;margin:0;padding:var(--s4)}
+  .hof .vcar .hero-art,
+  .hof .vcar .tile-stage{max-width:none}
+}
+@media(min-width:1200px){
+  .hof .wrap{grid-template-columns:minmax(0,calc((100% - var(--s6) - 5 * var(--s4) + 4 * var(--s5) + 12px) / 3)) minmax(0,1fr)}
   .hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
 }
 /* THERE WAS A min-width:1400 STEP HERE and it is deliberately gone rather than
@@ -6974,8 +7132,12 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    and the position is what makes these win at all: they are the same
    specificity as the rules they correct, so ONLY being later does it. Do not
    move this block up.
-   ========================================================================== */
-@media(min-width:1000px){
+   14 October 2026: THE PROMISE ABOVE WAS RETIRED ON PURPOSE, with the measure
+   block's breakpoint. 600 to 999 ran these at up to 95 characters (.show-blurb
+   at 768) beside a shared rule that now caps plain paragraphs there, so this
+   block follows it down to 600. Its position at the end of the file is still
+   load bearing and is unchanged. */
+@media(min-width:600px){
   .lede,.pdex-lede,.prod-lede,.intl-lede,.s101-lede,.w-lede,.shops-lede,
   .show-blurb,.fk-golden p,.fk-how,.fk-why,.fk-caveat,.fk-fig figcaption,
   .fk-no-item p,.fk-see-b,.st-body p,.gcalc-note{max-width:var(--measure)}

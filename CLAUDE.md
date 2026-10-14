@@ -3284,7 +3284,9 @@ ALL `min-width`, so nothing a phone or a tablet renders changed. Three things:
   count across the range swings the pack from 359px to 478px wide.
 - Greatest Hits becomes two columns at 1200: the trophy on the left, the rest
   of the hits beside it. That band was 2,105px tall to show one pack and one
-  video and is now 1,109px at 1500 showing three.
+  video and is now 1,109px at 1500 showing three. **SINCE 14 OCTOBER 2026 THE
+  TWO COLUMNS START AT 700**, see "the gap below 1200" at the end of this
+  section.
 - Most wanted's tiles grow to fill their row instead of stopping at 168px.
 
 THE TROPHY COLUMN IS NO LONGER "a fixed 460 to 520px" AND THIS BULLET SAID SO
@@ -3361,6 +3363,26 @@ written to match. Measured, one slide of the Latest band:
 
 Nothing outside 545..999 moves. 390, 414, 500, 544, 1000, 1200, 1280, 1440 and
 1920 were re-measured after and are identical to the pixel.
+
+THE GAP BELOW 1200, FIXED 14 OCTOBER 2026 (QA pass). Under 1200 the trophy was a
+520px card pinned left (`margin-inline:0 auto`, 641-1199) and the band's right
+side was EMPTY: an 885px tall void of 224px at 768, 456 at 1024, 655 at 1199.
+Now, in ui.css's Greatest Hits block (min-width:700) and nowhere else:
+- 641-699 keeps the stacked, left-pinned trophy (the old rule, narrowed).
+- 700-822: trophy beside ONE shelf slide, column derived so both packs are one
+  width (`2L = W - s6 - 2*s4 + 2*s5 + 6px`), the pager pages to the rest.
+- 823-1199: the trophy column stops at `--hof-cap` (the 1200 formula at its own
+  floor, 382.67px) and slides stop at the matching card width, so the right
+  column shows 1.17 slides at 900, 1.44 at 1000, 2.00 at 1199, and at 1200 it
+  IS the three-pack layout: no step at the boundary.
+- Pack image width: 220px at 700, 247 at 768, 272.6 from 823 to 1200 (the old
+  stacked trophy was 398, a 390 phone's is 260). Bottoms and artwork tops equal
+  to 0.0px at 700, 768, 822, 823, 900, 999, 1000, 1024, 1199, 1200; 1280, 1440
+  and 1920 unchanged to the pixel; phone (<545) untouched.
+- homeCss: the 900-999 `.hof .vcar-slide{...2}` line is gone, and the Latest
+  band at 641-899 now has a slide of `min(520px, track - 48px)` with snap at
+  start, so the next card peeks into what was 200px of empty band (184px of it
+  at 768) and the pager is held to the card's 520px so it centres under it.
 
 The banner art is the header, not a mid-page strip. Do not overlay copy on
 it: Trubbish sits dead centre in the source image, so any scrim wide enough

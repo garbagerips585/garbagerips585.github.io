@@ -1578,8 +1578,13 @@ const STYLE = `
    and its answer adjacent and gives the caption a readable measure, and the
    caption has real work to do here: it names the set the box actually is, which
    is the condition of using one set's product to illustrate a type at all. */
-.op-shot{display:flex;gap:var(--s4);align-items:center;margin:0 0 var(--s5);
-  max-width:46em;border:3px solid var(--keyline);border-radius:12px;background:var(--card);
+/* 14 October 2026: 36em and fit-content rather than 46em, and a top margin.
+   At 1024 the box was 786px wide holding an 88px photo and a caption that
+   stopped near 480, so most of a bordered card was empty, and it sat 6px under
+   the lede (349 against 343) with no space at all. It now hugs its caption up
+   to the shared prose measure and stands var(--s4) clear of the lede. */
+.op-shot{display:flex;gap:var(--s4);align-items:center;margin:var(--s4) 0 var(--s5);
+  width:fit-content;max-width:36em;border:3px solid var(--keyline);border-radius:12px;background:var(--card);
   box-shadow:var(--hard-lg);padding:var(--s3) var(--s4)}
 /* Product photography arrives on a white background, so the tile is white
    rather than the page cream. Same reasoning and the same 88px box as

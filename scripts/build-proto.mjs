@@ -3279,16 +3279,34 @@ ${BRAND_STYLE_MIN}
 .vcar .tile-stage{max-width:440px}
 }
 /* FROM 641 THE SHELF LINES UP ON THE LEFT, like the trophy above it (ui.css
-   .hofx, margin-inline:0 auto in 641-1199). Centred here and left there, the
-   Greatest Hits and Latest cards sat 100px in from the trophy at 768. */
-@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}}
+   .hofx, margin-inline:0 auto in 641-699 since 14 October 2026, two columns
+   from 700). Centred here and left there, the
+   Greatest Hits and Latest cards sat 100px in from the trophy at 768.
+   14 October 2026: AND THE SLIDE IS NOW THE CARD'S WIDTH, NOT THE TRACK'S. The
+   slide was the full track (720px at 768) holding a 520px card pinned left, so
+   the next slide began past the track's edge (x=760 against 744): 200px of
+   empty band to the right, no part of the next card in it, nothing saying the
+   row scrolls, and the pager centred under all 720px sat 100px right of the
+   card it drives. min(520px, track less 48px) keeps the card exactly as wide as
+   before and puts the next card in that gap (184px of it at 768, 65 at 641,
+   315 at 899), the same "the row continues" peek the desktop fractions give.
+   Snap goes to start for the reason ui.css gives at 1000: centring parks the
+   run half a card in once two are visible. The bar is held to the card's 520
+   so its centre IS the card's centre. Greatest Hits from 700 overrides the
+   slide with 100% at higher specificity in ui.css (its two-column block). */
+@media(min-width:641px) and (max-width:899px){.vcar .hero{margin:0}
+.vcar-slide{flex:0 0 min(520px,calc(100% - 3 * var(--s4)));scroll-snap-align:start}
+.vcar .vcar-bar{max-width:520px}}
+/* 14 October 2026: the .hof .vcar-slide{...(100% - var(--s4)) / 2} line that
+   ended this block is gone. Greatest Hits is two columns from 700 now (ui.css),
+   with slides sized to match the trophy's pack below 1200, and this line, later
+   in the cascade at equal specificity, would have squeezed two into that column. */
 @media(min-width:900px) and (max-width:999px){
 .vcar-slide{flex:0 0 calc((100% - 2 * var(--s4)) / 2.35);scroll-snap-align:start}
 .vcar .hero{max-width:none;margin:0;padding:var(--s4)}
 .vcar .hero-art,
 .vcar .tile-stage{max-width:none}
 .vcar .vcar-bar{justify-content:flex-start}
-.hof .vcar-slide{flex:0 0 calc((100% - var(--s4)) / 2)}
 }
 @media(max-width:544px){
 .hof .shelf{display:none}
@@ -3538,6 +3556,10 @@ main{padding-top:0}
  *   gives the arrows a quarter of a card to travel. At 2 they fill the shelf
  *   edge to edge and packplayer.js hides the bar through .is-static, which is
  *   the same answer the min-width:1200 block reaches.
+ *   (14 October 2026: that fifth rule is gone. From 700 Greatest Hits is the
+ *   trophy beside the shelf, set in ui.css, and below 1200 the shelf's slides
+ *   are sized to match the trophy's pack, so the "exactly 2" now lives in
+ *   ui.css's min-width:1200 block only.)
  */
 
 // Regions that live on videos.html / playlists.html and NOT on index.html, so
