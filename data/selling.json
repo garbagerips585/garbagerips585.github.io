@@ -500,7 +500,7 @@
           "what": "Buyer Protection fee, paid by the buyer",
           "rate": "3.6%",
           "appliesTo": "the item price and buyer-paid shipping",
-          "note": "Introduced on the same day the old buyer fee was removed, January 6 2025. It is not taken from the seller, but it is what the buyer actually spends, and this file records the buyer-paid premium at every other venue for exactly that reason."
+          "note": "Introduced on the same day the old buyer fee was removed, January 6 2025. It is not taken from the seller, but it is what the buyer actually spends, and this page records the buyer-paid premium at every other venue for exactly that reason."
         }
       ],
       "payout": "Buyers have 72 hours from delivery to rate the order, after which the funds release to the seller's balance. Standard direct deposit is free; Instant Pay to a debit card costs $3.",
@@ -806,7 +806,7 @@
           "what": "Fixed-price commission, by TOTAL MONTHLY SALES",
           "rate": "$0.00-$4.99: 75%. $5.00-$24.99: 50%. $25.00-$49.99: 35%. $50.00-$99.99: 27%. $100.00-$199.99: 23%. $200.00-$299.99: 20%. $300.00-$499.99: 18%. $500.00-$999.99: 17%. $1,000.00-$1,499.99: 16%. $1,500 and above: 15%.",
           "appliesTo": "The seller's total sales for the month, not the individual sale",
-          "note": "THE RATE IS SET BY YOUR MONTH, NOT BY THE CARD. Sell $4 in a month and they take 75% of it. Sell $1,500 and they take 15%. Nothing else in this file works this way."
+          "note": "THE RATE IS SET BY YOUR MONTH, NOT BY THE CARD. Sell $4 in a month and they take 75% of it. Sell $1,500 and they take 15%. No other venue on this page works this way."
         },
         {
           "what": "How expensive cards are counted into that table",
@@ -959,7 +959,7 @@
           "what": "FAQ index only; the fee answers are behind links that did not resolve to content."
         }
       ],
-      "note": "UNVERIFIED ON FEES, deliberately. Heritage publishes no seller's commission or buyer's premium on any of the consignment pages that could be reached, and ha.com/c/ref/terms-and-conditions.zx, where the auction terms live, refused the browser on two attempts. Secondary sources state figures for Heritage. None of them are in this file. If a number is wanted, it has to come from a consignment director or from the terms page directly.",
+      "note": "UNVERIFIED ON FEES, deliberately. Heritage publishes no seller's commission or buyer's premium on any of the consignment pages that could be reached, and ha.com/c/ref/terms-and-conditions.zx, where the auction terms live, refused the browser on two attempts. Secondary sources state figures for Heritage. None of them are on this page. If a number is wanted, it has to come from a consignment director or from the terms page directly.",
       "group": "consign"
     },
     {
@@ -1024,13 +1024,13 @@
           "what": "Admission",
           "rate": "Varies by show, and some do not state it",
           "appliesTo": "Getting in the door",
-          "note": "shows.json records admission per event where the listing states it, and shows 'Check the listing' where it does not, rather than guessing."
+          "note": "Our card show listings record admission per event where the organizer states it, and say 'Check the listing' where it does not, rather than guessing."
         },
         {
           "what": "Table rental",
           "rate": "Not recorded",
           "appliesTo": "Setting up as a vendor",
-          "note": "Table prices are set per show by the organizer and are not published on most listings. No figure is recorded. The organizer url on each event in shows.json is where to ask."
+          "note": "Table prices are set per show by the organizer and are not published on most listings. No figure is recorded. The organizer link on each event in our card show listings is where to ask."
         }
       ],
       "payout": "Immediately, at the show.",

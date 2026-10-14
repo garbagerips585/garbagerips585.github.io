@@ -22,7 +22,7 @@
     "official": "oversize",
     "hobby": "jumbo",
     "japan": "ジャンボカード",
-    "note": "TPCi's own retail copy says oversize -- pokemon.com product listings read \"1 foil oversize card\" and Pokemon Center runs an Oversize Card Sets category. The hobby says jumbo, and so does Bulbapedia, whose article is titled Jumbo cards and calls oversize the occasional alternative. Japan's official site uses ジャンボカード in product names. Both words are correct; they map to company usage and community usage, and this page uses jumbo because that is what a reader searches for."
+    "note": "TPCi's own retail copy says oversize: pokemon.com product listings read \"1 foil oversize card\" and Pokemon Center runs an Oversize Card Sets category. The hobby says jumbo, and so does Bulbapedia, whose article is titled Jumbo cards and calls oversize the occasional alternative. Japan's official site uses ジャンボカード in product names. Both words are correct; they map to company usage and community usage, and this page uses jumbo because that is what a reader searches for."
   },
   "size": {
     "standard": "63 x 88 mm (2.5 x 3.5 in)",
@@ -111,7 +111,7 @@
   "historyNote": "A retailer blog dates the first jumbo to a 2000 Base Set Pikachu. That is wrong, and it is wrong in an interesting way: it misses three years of Japanese CoroCoro inserts because it is only looking at English releases.",
   "counts": {
     "official": null,
-    "note": "Nobody publishes a total -- not The Pokemon Company, not TPCi. The three biggest public counts measure different things and none is official: Bulbapedia's list of international jumbos holds 395 entries and leaves out Japanese magazine jumbos; its jumbo category holds 409 pages including Japanese ones; and TCGplayer's jumbo group holds 345 products, filed its own way. About 89% of Bulbapedia's names appear in TCGplayer's group, and neither list contains the other."
+    "note": "Nobody publishes a total, not even The Pokemon Company. The three biggest public counts measure different things and none is official: Bulbapedia's list of international jumbos holds 395 entries and leaves out Japanese magazine jumbos; its jumbo category holds 409 pages including Japanese ones; and TCGplayer's jumbo group holds 345 products, filed its own way. About 89% of Bulbapedia's names appear in TCGplayer's group, and neither list contains the other."
   },
   "images": {
     "note": "The card pictures on this page have OVERSIZE CARD stamped across them, and that is not our doing. TCGplayer watermarks its oversize scans, and it is the only site with jumbo pictures at any scale: 328 of the 345 products in its group have one, and roughly 96% of those carry the diagonal band. TCGdex, which supplies every other card picture on this site, has no jumbo pictures at all. So the choice was a stamped picture or none, and a stamped picture still shows you which card it is."

@@ -458,12 +458,12 @@
   },
   "conflicts": [
     {
-      "what": "Beckett runs two live scale pages that disagree at the top grades. The current one gives Pristine 10 as 50/50 front and 55/45 or better on the back; an older one gives 60/40 on the back and describes Gem Mint 9.5 as 50/50 one way and 55/45 the other. This file follows the current page.",
+      "what": "Beckett runs two live scale pages that disagree at the top grades. The current one gives Pristine 10 as 50/50 front and 55/45 or better on the back; an older one gives 60/40 on the back and describes Gem Mint 9.5 as 50/50 one way and 55/45 the other. This page follows the current one.",
       "use": "https://www.beckett.com/grading",
       "ignore": "https://www.beckett.com/grading/scale"
     },
     {
-      "what": "PSA's glossary and PSA's standards page disagree on front centering by a whole grade, and in more than one place: the glossary gives Near Mint 7 as no worse than 75/25 against the standards page's 70/30, and Near Mint-Mint 8 as 70/30 against 65/35. The glossary reads like it is one grade shifted throughout. This file follows the standards page everywhere.",
+      "what": "PSA's glossary and PSA's standards page disagree on front centering by a whole grade, and in more than one place: the glossary gives Near Mint 7 as no worse than 75/25 against the standards page's 70/30, and Near Mint-Mint 8 as 70/30 against 65/35. The glossary reads like it is one grade shifted throughout. This page follows the standards page everywhere.",
       "use": "https://www.psacard.com/gradingstandards",
       "ignore": "https://www.psacard.com/resources/lingo"
     }

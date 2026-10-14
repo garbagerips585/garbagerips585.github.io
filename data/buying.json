@@ -779,7 +779,7 @@
       "limits": [
         "Amazon says it sometimes limits quantities on certain items, that limits may apply across multiple orders sharing an account, card, billing or shipping address, and that it reserves the right to restrict purchases by dealers or resellers. Nothing specific to trading cards is published."
       ],
-      "note": "PARTIAL, and deliberately so. The one number every reader expects on this page, the free shipping threshold, is the one Amazon does not publish. That absence was verified twice on Amazon's own page rather than assumed, and it is the reason this file's sourcing rule exists.",
+      "note": "PARTIAL, and deliberately so. The one number every reader expects on this page, the free shipping threshold, is the one Amazon does not publish. That absence was verified twice on Amazon's own page rather than assumed, and it is the reason this page only prints a cost the venue states on its own pages.",
       "sources": [
         {
           "url": "https://www.amazon.com/gp/help/customer/display.html?nodeId=GZXW7X6AKTHNUP6H",
