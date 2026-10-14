@@ -1375,7 +1375,7 @@ const style = `
 .pc-best{display:block;border-top:1px dashed var(--hair);padding-top:var(--s3)}
 .pc-best em{display:block;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
   font-style:normal;letter-spacing:.06em;text-transform:uppercase}
-.pc-best a{display:inline-block;min-height:24px;font:600 var(--t-sm)/1.4 var(--body);color:var(--sky-deep)}
+.pc-best a{display:inline-block;min-height:24px;min-width:24px;font:600 var(--t-sm)/1.4 var(--body);color:var(--sky-deep)}
 .pc-best a:hover,.pc-best a:focus-visible{text-decoration:underline}
 .pc-best b{display:inline;font:700 var(--t-sm)/1.4 var(--body);color:var(--ketchup-deep);margin-left:6px}
 .pc-best i{display:block;font:400 var(--t-micro)/1.3 var(--body);color:var(--ink-2);font-style:normal;margin-top:2px}
