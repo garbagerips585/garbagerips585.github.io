@@ -872,10 +872,16 @@ document.querySelectorAll('.dk-copy').forEach(function (b) {
     /* The aria-label is what a screen reader reads, and it named the button
        while textContent changed underneath, so "Copied" was never heard. Both
        change, and both come back. */
-    var was = b.textContent, wasLabel = b.getAttribute('aria-label');
+    /* THE ORIGINAL IS READ ONCE PER BUTTON, NOT PER CLICK. (14 October 2026)
+       A second click inside the 2.4s read "Copied, now paste it into Live" as
+       the label to restore, so after a quick double click the button said
+       Copied for good. The pending reset is cleared before a new one is armed
+       for the same reason. */
+    if (b.__was == null) { b.__was = b.textContent; b.__wasLabel = b.getAttribute('aria-label'); }
     function say(t) {
       b.textContent = t; b.setAttribute('aria-label', t);
-      setTimeout(function () { b.textContent = was; b.setAttribute('aria-label', wasLabel); }, 2400);
+      clearTimeout(b.__reset);
+      b.__reset = setTimeout(function () { b.textContent = b.__was; b.setAttribute('aria-label', b.__wasLabel); }, 2400);
     }
     function fallback() {
       var r = document.createRange(); r.selectNodeContents(el);
