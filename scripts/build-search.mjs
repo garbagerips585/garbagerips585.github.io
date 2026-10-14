@@ -176,8 +176,11 @@ const PAGES = [
   // what things actually sell for, this one is the retail figure to measure that
   // against. The two are one keystroke apart in this list and must not read alike.
   ["/msrp.html", "MSRP: what it should cost", "Retail prices for every sealed product, so you can check what a shop is asking"],
-  ["/pack-prices.html", "Pack prices by set", "What one pack costs, box against bundle against loose"],
-  ["/how-many-packs.html", "How many packs are in it?", "Every sealed product biggest to smallest, and how the counts changed"],
+  // "BOOSTER BOX" IS SPELLED OUT IN BOTH (14 October 2026). It is the most
+  // asked-about sealed product and neither line named it, so the query
+  // answered "Nothing matched" while these two pages cover it 36 and 20 times.
+  ["/pack-prices.html", "Pack prices by set", "What one pack costs, booster box against bundle against loose"],
+  ["/how-many-packs.html", "How many packs are in it?", "Every sealed product from booster box down to blister, and how the counts changed"],
   ["/what-set.html", "What set is my card from?", "Look up the number printed after the slash"],
   ["/luck.html", "How our luck is going", "What actually comes out of the packs"],
   ["/upcoming.html", "Coming next", "Upcoming sets and preorder prices"],
@@ -332,6 +335,14 @@ const index = {
    * nobody types those. labelFor() is the same translation /videos.html uses for
    * its filter chips, so a search and a chip mean the same thing by the same
    * word. The raw id is kept alongside, because "etb" IS typed.
+   *
+   * 14 OCTOBER 2026: THE PARAGRAPH ABOVE WAS TRUE OF THE INTENT AND NOT OF THE
+   * CODE. labelFor takes (group, id) and was being called labelFor(x), so it
+   * looked the slug up in a group named after itself, found nothing, and
+   * returned the slug: every row said "etb etb", "elite trainer box" found 1
+   * rip while "etb" found 63, "booster box" found nothing at all, and pulls
+   * were never expanded either, so "double rare" was matching titles only.
+   * The group is passed now, for products and pulls.
    */
   rips: videos.map((v) => [
     v.title,
@@ -339,8 +350,8 @@ const index = {
     v.published,
     [
       ...(v.sets || []).map((x) => `${x} ${setNameById.get(x) || ""}`),
-      ...(v.products || []).map((x) => `${x} ${labelFor(x) || ""}`),
-      ...(v.pulls || []),
+      ...(v.products || []).map((x) => `${x} ${labelFor("products", x) || ""}`),
+      ...(v.pulls || []).map((x) => `${x} ${labelFor("pulls", x) || ""}`),
       v.hitCard || "",
     ]
       .join(" ")
@@ -520,8 +531,10 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   // subIdx says WHICH field holds the searchable extra text, because the lists
   // do not agree: pages and sets carry a subtitle at [2], rips carry the
   // published DATE there and their tags at [3]. Scoring a date was harmless and
-  // useless; this is what makes "elite trainer box" reach the 58 rips tagged
-  // with it rather than the 3 that happen to spell it in the title.
+  // useless; this is what makes "elite trainer box" reach every rip tagged etb
+  // rather than the few that happen to spell it in the title. (It did not until
+  // 14 October 2026: field [3] carried the bare slug, see the rips note in
+  // build-search.mjs. "elite trainer box" found 1 rip and "etb" found 63.)
   function hits(list, terms, limit, subIdx){
     var si = subIdx === undefined ? 2 : subIdx;
     var scored=[], i, j, row, sc, t, ok;
