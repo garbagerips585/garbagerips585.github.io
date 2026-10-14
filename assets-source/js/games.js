@@ -145,6 +145,16 @@
      * goes straight to the next question. Null the rest of the time, which is
      * what makes "tap to move on" safe to wire to the whole game block. */
     var advance = null;
+    /* The pending end-of-hold timer for the answer on screen, kept out here so
+       endSprint() and start() can cancel it. (14 October 2026) It used to be a
+       local inside answer(), and nothing could reach it: when the clock ran out
+       during a sprint's 700/1500ms feedback hold, endSprint() drew "N right in
+       60 seconds / Go again" and then the orphaned timer fired go(), whose
+       `sprint && deadline` guard was already false because endSprint() had
+       flipped `sprint`, so a fresh normal-mode question wiped the result panel
+       and its announcement 0.7-1.5s later. In a sprint the hold is a large
+       share of every question, so a real minute often ended inside one. */
+    var holdTimer = null;
     /* A tap landing sooner than this is the answering tap itself, arriving at
      * the container a fraction after it left the button. It also swallows an
      * accidental double tap, so a fast thumb cannot skip a question it never
@@ -384,7 +394,8 @@
       // of the mode and it is opt-in, so a longer hold there would break the
       // thing somebody chose. Outside Sprint nothing is being raced.
       var hold = sprint ? (right ? 700 : 1500) : (right ? 2200 : 4000);
-      var timer = setTimeout(go, hold);
+      clearTimeout(holdTimer);
+      holdTimer = setTimeout(go, hold);
       advanceReadyAt = Date.now() + SKIP_GUARD;
       if (hints > 0) {
         hints--;
@@ -397,12 +408,13 @@
       }
       advance = function () {
         if (moved || Date.now() < advanceReadyAt) return;
-        clearTimeout(timer);
+        clearTimeout(holdTimer);
         go();
       };
       function go() {
         if (moved) return;
         moved = true;
+        holdTimer = null;
         advance = null;
         dom.skip.hidden = true;
         dom.skip.setAttribute("aria-hidden", "true");
@@ -418,6 +430,8 @@
     function endSprint() {
       clearInterval(tick);
       tick = null;
+      clearTimeout(holdTimer);
+      holdTimer = null;
       advance = null;
       dom.skip.hidden = true;
       dom.skip.setAttribute("aria-hidden", "true");
@@ -482,6 +496,8 @@
       score = 0;
       asked = 0;
       upcoming = null;
+      clearTimeout(holdTimer);
+      holdTimer = null;
       advance = null;
       dom.streak.textContent = "0";
       showRun();
@@ -600,6 +616,8 @@
         dead = true;
         clearInterval(tick);
         tick = null;
+        clearTimeout(holdTimer);
+        holdTimer = null;
         advance = null;
         if (sprint && score > store.get(bestSprintKey, 0)) store.set(bestSprintKey, score);
         document.removeEventListener("keydown", onKey);
