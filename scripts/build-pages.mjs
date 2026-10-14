@@ -43,7 +43,8 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE, drop
 import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
+import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
 import { norm } from "../shared/intl-printing.mjs";
@@ -365,8 +366,12 @@ const HIT_CORPUS = await loadCorpus(ROOT, Object.values(HITS).flat().map((c) => 
 // the sourcing note under this list already reads "PSA 10 prices come from
 // PriceCharting's guide too", which was written about a column that was being
 // filled by pokemonpricetracker.com.
-const psaFor = (setId, n, name, setName) =>
-  gradedFor.price(setId, n, { name, setName });
+// Every caller is pricing a LOGGED PULL in resolveHits, so the chain is told so
+// and refuses a checklist figure for a printing the row did not name (Bidoof
+// Pokemon GO #059's Reverse Holo $1,150; see offPrinting() in
+// shared/graded-price.mjs, 14 October 2026).
+const psaFor = (setId, n, name, setName, variant = null) =>
+  gradedFor.price(setId, n, { name, setName, logged: true, variant });
 
 // ===========================================================================
 // THE SECOND CHECKLIST. THE NOTE BELOW resolveHits SAID READING IT "BUYS THIS
@@ -576,6 +581,11 @@ const intlChecklist = (setId) => {
  * module, because it was the other half of the copy.
  */
 
+// THE COMPANION SUBSETS, 14 October 2026: a hit in the Galarian Gallery, Shiny
+// Vault or Classic Collection is in no cards file, so Paras GG32 printed the
+// rip log's frozen $9.26 and "No PSA 10 price" over data/companion-prices.json's
+// $8.00 and $157.50. See shared/companion-cards.mjs.
+const COMPANIONS = await loadCompanionCards(ROOT);
 const cardCache = new Map();
 async function resolveHits(vid) {
   const out = [];
@@ -607,6 +617,11 @@ async function resolveHits(vid) {
       // missing. See shared/first-partner.mjs for why the join is on `printing`
       // and not on the card name.
       const fp = firstPartner.priceForHit(h) || thirtiethPrice(h);
+      const promoRaw = gradedFor.rawForHit(h, {
+        name: h.card,
+        setName: h.setName || fp?.setName || (pm && pm.s) || null,
+        number: h.number || fp?.number || (pm && pm.i) || null,
+      });
       out.push({
         // THE SET NAME COMES BACK FROM THE SAME RECORD AS THE NUMBER, and until
         // 21 August 2026 it did not, which is why one hit card on the site
@@ -663,16 +678,23 @@ async function resolveHits(vid) {
         // pages printed "No market price". The owner's TCGplayer links gave each one a
         // market figure; typed into the My Hits tab, it lands here. Last in the
         // chain, because it is frozen and the two above it are not.
-        price: typeof h.price === "number" ? h.price
-          : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+        /* 14 OCTOBER 2026: THE FRESHER READ FIRST, the hand figure behind it.
+           `rawForHit` in shared/graded-price.mjs is the one chain all three
+           renderers call, so this page, /hall.html and /luck.html cannot print
+           the Costco Mega Charizard X ex at three prices again ($38.75 from 13
+           August here while graded.json read $30.18 on 13 October). */
+        price: promoRaw?.price ?? fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
         /* THE SHARED GRADED CHAIN FIRST, as /hall.html does: data/graded.json
            holds PriceCharting reads for twelve promos, newer than the figures
            typed onto the hit rows, and the rip page never asked it. A frozen
            number should lose to a fresh one and win against nothing. */
         psa10: psaFor(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null)
           ?? (typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null),
-        priceSource: h.priceSource || (fp && (fp.price != null || fp.psa10 != null) ? fp.source : null),
-        priceAsOf: h.priceAsOf || (fp && (fp.price != null || fp.psa10 != null) ? fp.asOf : null),
+        // THE STAMP FOLLOWS THE RAW FIGURE THAT WON, never the hand row's date
+        // over a graded.json figure. The PSA 10 above comes off the same
+        // graded.json read wherever this does, so one date covers both.
+        priceSource: promoRaw?.source || h.priceSource || (fp && (fp.price != null || fp.psa10 != null) ? fp.source : null),
+        priceAsOf: promoRaw?.asOf || h.priceAsOf || (fp && (fp.price != null || fp.psa10 != null) ? fp.asOf : null),
         promo: true, unresolved: !pm && !fp,
       });
       continue;
@@ -810,6 +832,7 @@ async function resolveHits(vid) {
     // gating the pin on an unresolved row left the one card it was added for
     // still drawing a grey box. It is keyed on the printing that won, so it
     // cannot change which card the row names.
+    const comp = !m && !intl ? companionForHit(COMPANIONS, h) : null;
     const artFrom = m ? (m.img || backfill) : sub?.img;
     const pin = artFrom
       ? null
@@ -852,7 +875,12 @@ async function resolveHits(vid) {
       // rendition, which the lightbox wants instead of a `/high.webp` built off
       // a TCGdex base that does not exist for this card.
       imgLarge: pin?.image || null,
-      price: m && typeof m.price === "number" ? m.price
+      // rawForPull, NOT m.price, since 14 October 2026: where the checklist's
+      // figure is a printing the row did not name (it carries the DEAREST of
+      // them, see shared/graded-price.mjs), the standard printing's figure is
+      // used instead, or none and the chain falls through.
+      price: m && rawForPull(m, h) != null ? rawForPull(m, h)
+        : comp?.price != null ? comp.price
         : sub && typeof sub.price === "number" ? sub.price
         : /* A 30th Classic Collection card is in no cards file (see
            shared/thirtieth-prices.mjs), so `m` never answers for one. */
@@ -866,8 +894,8 @@ async function resolveHits(vid) {
       /* No checklist row (Victini SVP #208, Galarian Perrserker V LOR #129):
          the shared chain can still answer on the hit's own number and name,
          and /hall.html already printed its figure while this page printed none. */
-      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName)
-        : !m && !intl ? (thirtiethPrice(h)?.psa10 ?? (h.number ? psaFor(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName) : null))
+      psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName, h.variant || null)
+        : !m && !intl ? (thirtiethPrice(h)?.psa10 ?? (h.number ? psaFor(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName) : null) ?? comp?.psa10 ?? null)
         : null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
@@ -2375,8 +2403,8 @@ ${
       PSA 10 prices come from PriceCharting's guide too, ${esc(
         readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
       )}, and only exist for some cards, so the
-      line is shown where we have one and left off where we do not. Promos are not in that feed at all: where a promo carries a price it was
-      read by hand from the source named under it, on the date shown, and it does not refresh overnight like the rest. We do not sell cards.</p>`
+      line is shown where we have one and left off where we do not. Promos have no set checklist: a promo's price is PriceCharting's
+      own read of that card where we hold one, otherwise a figure read by hand, and the source and date are named under it. We do not sell cards.</p>`
       : ""}
   </div>
 </section>`

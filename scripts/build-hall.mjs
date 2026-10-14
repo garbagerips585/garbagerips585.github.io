@@ -27,7 +27,8 @@ import { SITE } from "../shared/site.mjs";
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
+import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { readSpan } from "../shared/card-prices.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
@@ -138,6 +139,22 @@ try {
 let derivedFromHits = false;
 let hitsLedger = null;
 const firstPartner = await loadFirstPartner();
+// The promo raw chain, shared with build-pages.mjs and build-luck.mjs. See
+// `rawForHit` in shared/graded-price.mjs (14 October 2026).
+const { rawForHit } = await loadGradedPrices();
+// THE COMPANION SUBSETS (Galarian Gallery, Shiny Vault, Classic Collection),
+// 14 October 2026. Paras GG32 printed a frozen rip-log $9.26 and "No PSA 10
+// price" here while data/companion-prices.json held $8.00 and $157.50 read on
+// 13 October. See shared/companion-cards.mjs.
+const COMPANIONS = await loadCompanionCards(ROOT);
+const compFields = (h) => {
+  const c = companionForHit(COMPANIONS, h);
+  if (!c) return { raw: null, psa: {} };
+  return {
+    raw: c.price,
+    psa: c.psa10 != null ? { _psa10: c.psa10, _psa10AsOf: c.subset.checked, _psa10Source: c.subset.source, _psa10Url: c.url } : {},
+  };
+};
 if (!hall.length) {
   const hits = JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8")).videos || {};
   /* The printings corpus, loaded once, and only the shards these card names
@@ -290,6 +307,11 @@ if (!hall.length) {
         // printed in its own headline stat. First occurrence wins, same as
         // below, so the plaque links the first rip the card came out of.
         const pkey = `promo-${String(h.card).toLowerCase()}-${h.number || fp?.number || ""}`;
+        const promoRaw = rawForHit(h, {
+          name: h.card,
+          setName: h.setName || fp?.setName || promoArt?.setName || null,
+          number: h.number || fp?.number || promoArt?.n || null,
+        });
         if (seen.has(pkey)) { repeats++; continue; }
         seen.add(pkey);
         // `_img` WAS HARDCODED null AND THE SCANS EXISTED THE WHOLE TIME.
@@ -309,7 +331,16 @@ if (!hall.length) {
           // `h.rawNm` LAST, for the reason spelled out at the corpus branch below:
           // a promo has no price in any live feed, so the sheet's own column is the
           // only figure there is. It sits behind both live sources, never in front.
-          _raw: typeof h.price === "number" ? h.price : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+          // 14 OCTOBER 2026: THE FRESHER READ BEFORE THE HAND ONE. `rawForHit`
+          // puts data/graded.json's 13 October ungraded figure ahead of a row's
+          // own 13 August `price` (Mega Charizard X ex MEP 023: $30.18, not
+          // $38.75). The hand figure is still the fallback, then the promo file,
+          // then rawNm.
+          _raw: promoRaw?.price ?? fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+          // The raw figure's own read date, for the page's raw span below. It
+          // used to borrow `_psa10AsOf`, which is the hand row's date even when
+          // the PSA 10 on the plaque came from graded.json.
+          _rawAsOf: promoRaw?.asOf || (fp?.price != null ? fp.asOf : null) || null,
           _rarity: h.rarity || "Black Star Promo",
           _psa10: typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null,
           // The rip log stores ONE source, date and url per promo entry and
@@ -495,7 +526,10 @@ const norm = (x) =>
             // sets at all, so ten cards the owner sent TCGplayer links for on 23 August 2026
             // had a scan, a number and no money. Typed into the sheet, it reaches the
             // page. Frozen beats nothing; it does not beat fresh.
-            _raw: sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+            // The companion subset's PriceCharting figure first where the card
+            // is in one (14 October 2026), then the corpus, then the sheet.
+            _raw: compFields(h).raw ?? sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+            ...compFields(h).psa,
             _rarity: sub.rarity || h.rarity || null,
             _setName: sub.setName || h.setName || null,
           });
@@ -646,7 +680,9 @@ const norm = (x) =>
               // Same as the branch above: the corpus carries no prices, so the
             // sheet's own Raw NM column is the last resort and the only figure
             // Silver Tempest, Lost Origin and the promo sets have.
-            _raw: sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+            // Companion subset first (14 October 2026); see the branch above.
+            _raw: compFields(h).raw ?? sub.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+              ...compFields(h).psa,
               _rarity: sub.rarity || h.rarity || null,
               _setName: sub.setName || h.setName || null,
             });
@@ -700,8 +736,14 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
         // The intl guides carry no prices at all by design, so every Japanese
         // and Korean hit on this page reaches here with `m.price` null. The
         // sheet's Raw NM column is the only figure those cards will ever have.
-        _raw: typeof m.price === "number" ? m.price
-          : thirtiethPrice(h)?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+        // rawForPull, not m.price (14 October 2026): a checklist figure for a
+        // printing the row did not name gives way to the standard printing's.
+        // See offPrinting() in shared/graded-price.mjs.
+        _raw: rawForPull(m, h)
+          ?? thirtiethPrice(h)?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null),
+        // The row's own printing, so the graded join in resolve() below can
+        // refuse a figure for a different one.
+        _variant: h.variant || null,
         /* A 30th CLASSIC COLLECTION CARD is joined in from the checklist above
            with no money on it, and the graded resolver is keyed on the numbered
            set, so its PSA 10 arrives this way or not at all. Same four fields
@@ -890,7 +932,7 @@ function resolve(c) {
      this printing" -- the fix setsAgree() made for them never ran. The join for
      a promo is on name, set name and number, none of which needs a set id. */
   const shared = c.number
-    ? gradedResolve(c.set || null, c.number, { name: c.name, setName })
+    ? gradedResolve(c.set || null, c.number, { name: c.name, setName, logged: true, variant: c._variant || null })
     : null;
 
   const psaChain = [
@@ -1356,7 +1398,7 @@ const rawSpanTxt = readSpan([
   JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8").catch(() => "{}")).pricesChecked || null,
   JSON.parse(await readFile(join(ROOT, "data/hits.json"), "utf8").catch(() => "{}")).checked || null,
   JSON.parse(await readFile(join(ROOT, "data/first-partner.json"), "utf8").catch(() => "{}")).checked || null,
-  ...rawCards.map((c) => c.psa10AsOf).filter(Boolean),
+  ...rawCards.map((c) => c._rawAsOf || c.psa10AsOf).filter(Boolean),
 ]);
 const psaNote = gradedCards.length
   ? ` PSA 10 FROM ${psaSources.join(" AND ").toUpperCase()}${psaSpanTxt ? `, ${psaSpanTxt.toUpperCase()}` : ""},` +

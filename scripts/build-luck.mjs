@@ -78,8 +78,10 @@ import { labelFor } from "../shared/taxonomy.mjs";
 // .mjs exists because ten builders each held a private copy of the sourcing
 // sentence and the source moved under all ten. This page prints both, so it
 // calls both.
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
+import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
+import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { priceNote, priceFooter } from "../shared/card-prices.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -487,8 +489,9 @@ const packsKnown = judged.filter(packsIn).length;
 //
 // THE PSA 10 FIGURE COMES OUT OF shared/graded-price.mjs AND IS NOT LOOKED UP
 // HERE AT ALL. One call, one chain, the same one every other page takes.
-const { resolve: psaResolve } = await loadGradedPrices();
+const { resolve: psaResolve, rawForHit } = await loadGradedPrices();
 const firstPartner = await loadFirstPartner();
+const COMPANIONS = await loadCompanionCards(ROOT);
 
 const cardsBySet = new Map();
 try {
@@ -539,17 +542,43 @@ let cardRows = 0;
       // readme: TCGdex publishes no pricing for promo sets, so the rip log is
       // the only copy, and shared/first-partner.mjs is the join for the three
       // that also appear in an illustration collection.
-      if (!h.set) {
-        const fp = firstPartner.priceForHit(h);
+      /* 14 OCTOBER 2026, THREE CHANGES SO THIS PAGE READS A PROMO THE WAY
+         build-pages.mjs AND build-hall.mjs DO, because it did not and the same
+         card printed $177 here and $140 there.
+           - `h.promo || !h.set`, the test both of those files use. The 30th
+             Celebration Greninja ex promo carries a set, so `!h.set` alone sent
+             it to that set's checklist, where two Greninja ex (021, 148) made it
+             "ambiguous" and it lost the price data/30th-prices.json holds.
+           - PSA 10 through the shared chain (psaResolve) FIRST and the hand
+             figure behind it. This page read `h.psa10` first: the Costco Mega
+             Charizard X ex MEP 023 row's 13 August $176.57 beat graded.json's
+             13 October $139.99, while the hall and the rip page printed $140.
+           - Raw through `rawForHit`, shared/graded-price.mjs's one chain for
+             promo raw figures: the fresher read wins, the hand figure falls back.
+         The source and date now come back with the figure that won, so the PSA
+         10 sourcing line below covers promos as well. */
+      if (h.promo || !h.set) {
+        const fp = firstPartner.priceForHit(h) || thirtiethPrice(h);
+        const number = h.number || fp?.number || null;
+        const pSet = h.setName || fp?.setName || null;
         // ...AND WHERE IT DOES NOT, the sheet's Raw NM column does. Five promos
         // had no `price` of their own until the owner sent TCGplayer links on 23
         // August 2026, so they counted as pulls with no value anywhere on this
         // page. Behind both live sources, never in front; same order as
         // build-pages.mjs and build-hall.mjs.
-        const raw = typeof h.price === "number" ? h.price
-          : fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null);
-        const psa = typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null;
-        cardLedger.push({ ...base, set: null, number: h.number || fp?.number || null, raw, psa, promo: true });
+        const fresh = rawForHit(h, { name: h.card, setName: pSet, number });
+        const raw = fresh?.price ?? fp?.price ?? (typeof h.rawNm === "number" ? h.rawNm : null);
+        const g = number ? psaResolve(null, number, { name: h.card, setName: pSet }) : null;
+        const psa = g?.price ?? (typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null);
+        const psaSource = g?.price != null ? g.source ?? null
+          : typeof h.psa10 === "number" ? h.priceSource || null
+          // Both promo files are PriceCharting; one spells it "PriceCharting",
+          // so it is written in the domain form every other source line uses.
+          : fp?.psa10 != null ? "pricecharting.com" : null;
+        const psaAsOf = g?.price != null ? g.asOf ?? null
+          : typeof h.psa10 === "number" ? h.priceAsOf || null
+          : fp?.psa10 != null ? fp.asOf || null : null;
+        cardLedger.push({ ...base, set: null, number, raw, psa, psaSource, psaAsOf, promo: true });
         continue;
       }
       // THE THREE "no value" EXITS BELOW NOW CARRY THE SHEET'S OWN FIGURE.
@@ -562,7 +591,19 @@ let cardRows = 0;
       const doc = cardsBySet.get(h.set);
       if (!doc?.cards?.length) { cardDrops.noChecklist++; cardLedger.push({ ...base, set: h.set, number: h.number || null, raw: sheetRaw, psa: null }); continue; }
       const same = doc.cards.filter((c) => nrm(c.name) === nrm(h.card));
-      if (!same.length) { cardDrops.notOnChecklist++; cardLedger.push({ ...base, set: h.set, number: h.number || null, raw: sheetRaw, psa: null }); continue; }
+      // A 30th CELEBRATION CLASSIC COLLECTION card is in no cards file by design
+      // (see shared/thirtieth-prices.mjs); the hall and the rip pages price it
+      // from data/30th-prices.json and this page now does too (14 October 2026).
+      if (!same.length) {
+        cardDrops.notOnChecklist++;
+        // And a companion subset card (Paras GG32 in the Galarian Gallery) from
+        // data/companion-prices.json, as the hall and its rip page now do.
+        const cp = companionForHit(COMPANIONS, h);
+        const tp = thirtiethPrice(h) || (cp ? { price: cp.price, psa10: cp.psa10, asOf: cp.subset.checked } : null);
+        cardLedger.push({ ...base, set: h.set, number: h.number || null, raw: tp?.price ?? sheetRaw,
+          psa: tp?.psa10 ?? null, psaSource: tp?.psa10 != null ? "pricecharting.com" : null, psaAsOf: tp?.psa10 != null ? tp.asOf || null : null });
+        continue;
+      }
       // REVERTED with build-pages.mjs and build-hall.mjs on 23 August 2026, and
       // the reason it stays reverted has since been fixed at the source: the
       // number was DERIVED whenever the My Hits Number column was blank, and
@@ -576,7 +617,12 @@ let cardRows = 0;
       const exact = want ? same.filter((c) => nrm(c.rarity) === want) : [];
       const m = exact.length === 1 ? exact[0] : (!exact.length && same.length === 1 ? same[0] : null);
       if (!m) { cardDrops.ambiguousPrinting++; cardLedger.push({ ...base, set: h.set, number: null, raw: sheetRaw, psa: null }); continue; }
-      const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set });
+      // `logged` and the row's `variant` (14 October 2026): a checklist figure
+      // for a printing the row did not name is refused, which is what took
+      // Bidoof's Reverse Holo $1,150 out of "Best PSA 10". See offPrinting()
+      // in shared/graded-price.mjs.
+      const g = psaResolve(h.set, m.n, { name: m.name, setName: setName[h.set] || h.setName || h.set, logged: true, variant: h.variant || null });
+      const pullRaw = rawForPull(m, h);
       cardLedger.push({
         ...base,
         name: m.name,
@@ -584,7 +630,7 @@ let cardRows = 0;
         setName: setName[h.set] || h.setName || null,
         number: m.n,
         rarity: m.rarity || h.rarity || null,
-        raw: typeof m.price === "number" && m.price > 0 ? m.price : null,
+        raw: typeof pullRaw === "number" && pullRaw > 0 ? pullRaw : null,
         psa: g && typeof g.price === "number" ? g.price : null,
         // WHO SAID SO AND WHEN, CARRIED WITH THE FIGURE. The resolver hands
         // both back in the same call that produced the number, and this file

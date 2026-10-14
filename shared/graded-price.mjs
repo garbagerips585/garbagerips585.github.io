@@ -75,6 +75,42 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /** The ten-sale floor, exported so a builder cannot quietly pick its own. */
 export const MIN_SALES = 10;
 
+/* WHICH PRINTING A CHECKLIST FIGURE IS FOR, added 14 October 2026.
+ *
+ * A checklist row carries ONE price per collector number, and where the number
+ * is printed more than once sync-pricecharting-cards.mjs takes the DEAREST
+ * printing and names it in `variant`. Bidoof, Pokemon GO #059, is "Reverse
+ * Holo": `price` 1.72 and `psa10` 1150 are the Reverse Holo's, `all.Base` is
+ * 1.15. The /pokemon/ pages say so ("the figure is the priciest of them").
+ * /hall.html and /luck.html did not, and turned that $1,150 into "the best
+ * graded card" the channel has pulled, while the rip log row says Common with
+ * no printing named and its own raw figure is $0.57.
+ *
+ * So a LOGGED PULL only takes a checklist figure whose printing it can stand
+ * behind: a standard printing (Base, Holo, none named), or the printing the
+ * row itself names in `variant`. Anything else is a different printing of the
+ * right card, which is the case the load-bearing number check above exists
+ * for, and the answer is the same: drop it rather than print it. */
+const canonPrinting = (v) => String(v || "").toLowerCase().replace(/[^a-z]/g, "").replace(/holo$/, "");
+const STANDARD_PRINTINGS = new Set(["", "base", "normal", "unlimited"]);
+/** True when a checklist figure is for a printing the logged row did not name. */
+export function offPrinting(cardVariant, rowVariant = null) {
+  const v = canonPrinting(cardVariant);
+  if (STANDARD_PRINTINGS.has(v)) return false;
+  return canonPrinting(rowVariant) !== v;
+}
+/**
+ * The raw figure a checklist row can honestly put behind a logged pull: its own
+ * `price` where that is the row's printing, otherwise the standard printing's
+ * figure out of `all`, otherwise null.
+ */
+export function rawForPull(card, hit = null) {
+  if (!card || typeof card.price !== "number") return null;
+  if (!offPrinting(card.variant, hit?.variant)) return card.price;
+  const base = card.all?.Base ?? card.all?.Normal ?? card.all?.Holo;
+  return typeof base === "number" ? base : null;
+}
+
 // Same folding sync-pricecharting.mjs uses, for the same reason: accents have
 // to go before the strip or "Pokémon GO" and "Pokemon GO" never meet.
 const pcNorm = (x) =>
@@ -148,6 +184,8 @@ export async function loadGradedPrices() {
         if (typeof c?.psa10 !== "number" || !c.psa10) continue;
         const rec = {
           psa10: c.psa10,
+          // Which printing the figure is for; see offPrinting() above.
+          variant: c.variant || null,
           url: c.pcUrl || null,
           source: doc.priceSource || "pricecharting.com",
           asOf: doc.pricesChecked || null,
@@ -259,7 +297,11 @@ export async function loadGradedPrices() {
    * including when the ten-sale floor had just thrown it away. The source is
    * recorded by whoever supplies the figure, in the same expression.
    */
-  function resolve(setId, number, { name = null, setName = null } = {}) {
+  // `logged: true` is a pricing of a pull out of data/hits.json, and then a
+  // checklist figure for a printing the row did not name is refused (see
+  // offPrinting() at the top of this file). `variant` is the row's own printing.
+  function resolve(setId, number, { name = null, setName = null, logged = false, variant = null } = {}) {
+    const pccFits = (rec) => rec && !(logged && offPrinting(rec.variant, variant));
     const manualRec = at(psa10.prices, setId, number) ?? at(psa10, setId, number);
     const manual = gnum(manualRec);
     if (manual) {
@@ -285,7 +327,7 @@ export async function loadGradedPrices() {
        $14). Same source, so the fresher read is simply the better one; tier 2
        still answers wherever the nightly has no row, which is every promo. */
     const pccEarly = at(pcCards, setId, number);
-    if (hit && pccEarly && typeof pccEarly.psa10 === "number" && pccEarly.asOf && pc.checked && pccEarly.asOf > pc.checked) {
+    if (hit && pccFits(pccEarly) && typeof pccEarly.psa10 === "number" && pccEarly.asOf && pc.checked && pccEarly.asOf > pc.checked) {
       return { price: pccEarly.psa10, from: "pricecharting", source: pccEarly.source, asOf: pccEarly.asOf, url: pccEarly.url, sales: null };
     }
     if (hit) {
@@ -304,7 +346,7 @@ export async function loadGradedPrices() {
 
     // TIER 3: the same PriceCharting figure /grading.html has always used.
     const pcc = at(pcCards, setId, number);
-    if (pcc) {
+    if (pccFits(pcc)) {
       return {
         price: pcc.psa10,
         from: "pricecharting",
@@ -331,6 +373,54 @@ export async function loadGradedPrices() {
     };
   }
 
+  /**
+   * PriceCharting's UNGRADED figure for one printing out of data/graded.json,
+   * or null. Same join as `pricecharting()` above, number check and all; it
+   * only reads the other column.
+   */
+  function ungraded(name, setName, number) {
+    if (!name || !setName || number == null) return null;
+    for (const rec of pcByName.get(pcNorm(name)) || []) {
+      if (typeof rec.ungraded !== "number") continue;
+      if (!setsAgree(rec.set, setName)) continue;
+      const got = /#\s*(\d+)/.exec(rec.matched || "");
+      if (!got || pcNum(got[1]) !== pcNum(number)) continue;
+      return { price: rec.ungraded, source: pc.source || "pricecharting.com", asOf: pc.checked || null, url: rec.url || null };
+    }
+    return null;
+  }
+
+  /**
+   * THE RAW FIGURE FOR A PROMO HIT, ONE CHAIN FOR ALL THREE RENDERERS. Added
+   * 14 October 2026.
+   *
+   * A promo has no checklist, so its raw price used to be the figure typed onto
+   * its data/hits.json row, and each of build-pages.mjs, build-hall.mjs and
+   * build-luck.mjs read that first. The Costco Mega Charizard X ex MEP 023 row
+   * says $38.75 and $176.57, read 13 August; data/graded.json read the SAME
+   * PriceCharting page on 13 October at $30.18 and $139.99. The rip page and
+   * the hall took the fresh PSA 10 and the stale raw, /luck.html took both
+   * stale, so one card printed $140 on two pages and $177 on a third.
+   *
+   * SO THE FRESHER READ WINS, and the hand figure is the fallback rather than
+   * the override. That is the order CLAUDE.md gives for every price on the site
+   * ("a frozen number should lose to a fresh one and win against nothing"). The
+   * hand figure still wins where it is the NEWER read of the two, or where
+   * graded.json holds no row for the printing at all. A hand figure with no
+   * date loses to a dated one.
+   *
+   * Returns { price, source, asOf, url, from } with `from` either
+   * "pricecharting" (graded.json) or "log" (the hit row), or null.
+   */
+  function rawForHit(h, { name = null, setName = null, number = null } = {}) {
+    const fresh = ungraded(name || h?.card, setName || h?.setName, number ?? h?.number);
+    const hand = typeof h?.price === "number"
+      ? { price: h.price, source: h.priceSource || null, asOf: h.priceAsOf || null, url: h.priceUrl || null, from: "log" }
+      : null;
+    if (fresh && (!hand || !hand.asOf || (fresh.asOf && fresh.asOf >= hand.asOf))) return { ...fresh, from: "pricecharting" };
+    return hand;
+  }
+
   /** Just the figure, for the callers that only print one. */
   const price = (setId, number, opts) => resolve(setId, number, opts)?.price ?? null;
 
@@ -340,5 +430,5 @@ export async function loadGradedPrices() {
     return { asOf: r?.asOf || null, source: r?.source || null, url: r?.url || null };
   };
 
-  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp };
+  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp, ungraded, rawForHit };
 }
