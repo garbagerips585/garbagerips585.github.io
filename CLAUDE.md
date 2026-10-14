@@ -1121,7 +1121,10 @@ Two constraints that shape these pages:
   the chase grid, the rarity ladder, the value band and the checklist. ONE
   SOURCE PER PAGE, so the top of the page cannot disagree with the bottom of
   it. `sets.json` still supplies the counts, the dates and the rarity ladder's
-  shape, and `data/chase-tcg.json` now supplies nothing but TCGplayer links.
+  shape, and `data/chase-tcg.json` now supplies nothing but TCGplayer links,
+  and since 14 October 2026 only for the few rows TCGdex prices: a card's
+  "Check current price" goes to the PriceCharting page its printed price came
+  from (`pcUrl`), because the link follows the price.
   Do not reintroduce a second price feed to a page that already has one: 22 of
   28 guides once priced their own chase card twice, and on Ascended Heroes the
   second feed named the wrong card entirely.

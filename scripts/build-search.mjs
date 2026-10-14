@@ -19,6 +19,7 @@
 // blended list buries two of them under whichever matched a string better.
 
 import { readFile, writeFile, readdir } from "node:fs/promises";
+import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -397,7 +398,7 @@ const nCardsText = nCards.toLocaleString("en-US");
 // one read as a typo sitting between two that were not.
 const nDexText = index.pokemon.length.toLocaleString("en-US");
 
-const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides and every reference page.`;
+const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length + GUIDES_OUTSIDE_SETS.length} set guides and every reference page.`;
 
 const page = `<!DOCTYPE html>
 <html lang="en">
@@ -444,7 +445,7 @@ ${MENU}
     <p class="cq-status" id="sqStatus" aria-live="polite"></p>
     <div id="sqOut"></div>
     <div id="sqEmpty">
-      <p class="cq-head">Searches ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length} set guides,
+      <p class="cq-head">Searches ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length + GUIDES_OUTSIDE_SETS.length} set guides,
         ${nDexText} Pokemon and every guide on the site.</p>
       <div class="set-index" style="margin-top:var(--s5)">
         ${PAGES.slice(0, 8)
@@ -798,5 +799,5 @@ await writeFile(join(ROOT, "public/search.html"), page);
 }
 
 console.log(`Wrote public/search.html and public/data/site-index.json
-  ${index.rips.length} rips, ${index.sets.length} set guides, ${index.pokemon.length} Pokemon, ${index.pages.length} pages
+  ${index.rips.length} rips, ${index.sets.length + GUIDES_OUTSIDE_SETS.length} set guides, ${index.pokemon.length} Pokemon, ${index.pages.length} pages
   ${total} entries in the site index, plus ${nCardsText} cards loaded on demand`);

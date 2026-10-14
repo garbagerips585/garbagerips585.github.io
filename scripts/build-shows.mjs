@@ -1660,7 +1660,7 @@ ${CLIENT_DAY_JS}
       // they also ate the end of Allegany, Bethany, Harmony, North Harmony and
       // Oriskany, so those five towns were "not on file" and would have been
       // shown as "Allega, NY".
-      setFrom(pt, zip ? zip[0] : raw.replace(/\\b\\w/g, function(c){ return c.toUpperCase(); }).replace(/(,\\s*|\\s+)(ny|new york)\\s*$/i, ', NY'));
+      setFrom(pt, zip ? zip[0] : raw.replace(/\\b\\w/g, function(c){ return c.toUpperCase(); }).replace(/(,\\s*|\\s+)(ny|new york)\\s*$/i, ', NY').replace(/^Rochester$/, 'Rochester, NY'));
     });
   }
   if (input) input.addEventListener('focus', loadPlaces, { once: true });

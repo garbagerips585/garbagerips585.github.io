@@ -12,6 +12,7 @@
 // not a fact about anything.
 
 import { readFile, writeFile } from "node:fs/promises";
+import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -32,7 +33,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // The same count /sets/ actually publishes, computed the same way the home
 // page computes it. This said 23 (the English sets only) while the home page
 // said 36 for the identical destination.
-const guideCount = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.length +
+const guideCount = GUIDES_OUTSIDE_SETS.length + JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets.length +
   Object.keys(
     JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8")).sets || {},
   ).length;

@@ -746,9 +746,10 @@ export const SUBSCRIBE =
  * before and passes now, because "Subscribe" is still the first word.
  *
  * If you are tempted to restore the smoother English, don't -- re-read the
- * paragraph above. Two more copies of this string live outside this file, on
- * controls that show only "Subscribe" and therefore do not fail: line ~1443 of
- * scripts/build-pages.mjs and line ~766 of scripts/build-about.mjs.
+ * paragraph above. One more copy of this string lives outside this file, on a
+ * control that shows only "Subscribe" and therefore does not fail: line ~1443
+ * of scripts/build-pages.mjs. build-about.mjs imported SUB_LABEL instead of
+ * keeping its own copy on 14 October 2026.
  */
 export const SUB_LABEL =
   "Subscribe on YouTube to Garbage Rips 585. Opens YouTube.";

@@ -16,6 +16,7 @@
 // start", and it is the one thing no other page can say.
 
 import { readFile, writeFile } from "node:fs/promises";
+import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -153,7 +154,7 @@ const STEPS = [
   {
     n: 2,
     q: "What am I actually looking at?",
-    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length} English guides with full checklists${nIntl ? `, plus ${nIntl} imported ones` : ""}.`,
+    a: `Rarity symbols, what the little marks in the corner mean, and why two cards of the same Pokemon can be worth a dollar and a thousand dollars. Then the set itself: ${sets.length + GUIDES_OUTSIDE_SETS.length} English guides with full checklists${nIntl ? `, plus ${nIntl} imported ones` : ""}.`,
     href: "/rarity.html",
     cta: "Rarity guide",
     // THE THIRD ONE IS FOR THE CARD THAT IS NOT A TCG CARD AT ALL. This rung is
