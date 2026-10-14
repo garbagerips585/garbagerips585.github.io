@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://garbagerips.com/assets/og-image.jpg?v=c1eb6b4c">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Trubbish sitting on a Rochester sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
+<meta property="og:image:alt" content="Trubbish sitting on a Rochester, NY sidewalk next to a Garbage Plate and two packs of Garbage Rips 585 cards">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Garbage Rips 585 | Pokemon Pack Rips from the 585">
 <meta name="twitter:description" content="Pokemon card pack openings fueled by plate grease and good vibes. Watch on YouTube, TikTok, Instagram, and Facebook.">
@@ -720,7 +720,7 @@ main{padding-top:0}
       <source type="image/webp" sizes="(min-width:1180px) 569px, (min-width:861px) calc(52.5vw - 50px), calc(100vw - 48px)"
               srcset="assets/banner-trubbish-760.webp 760w, assets/banner-trubbish-1300.webp 1300w">
       <img class="banner" src="assets/banner-trubbish.jpg" width="1300" height="725"
-           alt="Trubbish on a Rochester sidewalk with a plate and Garbage Rips card packs"
+           alt="Trubbish on a Rochester, NY sidewalk with a plate and Garbage Rips card packs"
            loading="lazy" decoding="async">
     </picture>
     <div>
@@ -735,10 +735,10 @@ main{padding-top:0}
       <p>The name is a Garbage Plate, the meal Rochester, NY invented and nobody else understands.
         The mascot is a Pokemon made of trash. <b>Garbage Rips Only! Let&rsquo;s Go!</b></p>
       <div class="socials">
-        <a href="https://www.youtube.com/@GarbageRips585" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><i style="--pip:#FF0033"></i>YouTube</a>
-        <a href="https://www.instagram.com/garbagerips585/" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><i style="--pip:#BC1888"></i>Instagram</a>
-        <a href="https://www.tiktok.com/@garbagerips585" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><i style="--pip:#F4F1E2"></i>TikTok</a>
-        <a href="https://www.facebook.com/GarbageRips585" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><i style="--pip:#1877F2"></i>Facebook</a>
+        <a href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><i style="--pip:#FF0033"></i>YouTube</a>
+        <a href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><i style="--pip:#BC1888"></i>Instagram</a>
+        <a href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><i style="--pip:#F4F1E2"></i>TikTok</a>
+        <a href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><i style="--pip:#1877F2"></i>Facebook</a>
       </div>
     </div>
   </div>
@@ -1317,10 +1317,10 @@ main{padding-top:0}
       and the wrappers go to the Trubbish can.</p>
     <!--FOOT_SUB:END-->
     <div class="foot-social">
-      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
-      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
-      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" aria-label="TikTok"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
-      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
+      <a class="soc yt" href="https://www.youtube.com/@GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on YouTube, opens on youtube.com"><svg aria-hidden="true"><use href="#i-yt"/></svg></a>
+      <a class="soc ig" href="https://www.instagram.com/garbagerips585/" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Instagram, opens on instagram.com"><svg aria-hidden="true"><use href="#i-ig"/></svg></a>
+      <a class="soc tt" href="https://www.tiktok.com/@garbagerips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on TikTok, opens on tiktok.com"><svg aria-hidden="true"><use href="#i-tt"/></svg></a>
+      <a class="soc fb" href="https://www.facebook.com/GarbageRips585" rel="noopener" target="_blank" aria-label="Garbage Rips 585 on Facebook, opens on facebook.com"><svg aria-hidden="true"><use href="#i-fb"/></svg></a>
     </div>
     <p>&copy; <span id="year">2026</span> Garbage Rips 585 &bull; Made in the Flower City &bull; Rochester, NY &bull; <a href="/privacy.html">Privacy</a><br>
     Card and sticker art by Unableplacebo. Fan content. Not affiliated with The Pokemon Company or Nintendo.</p>
@@ -1352,7 +1352,16 @@ main{padding-top:0}
   // otherwise be told a three day old rip landed today, which is the same bug
   // pointing the other way. The build day is the floor, so the worst this pass
   // can do is leave the server's own answer alone.
-  var floor = stamp ? Date.parse(stamp.getAttribute("data-built") + "T00:00:00Z") : NaN;
+  //
+  // 14 OCTOBER 2026: THE FLOOR WAS COMPUTED AND NEVER USED. `now` was worked
+  // out here and then todayLocal() and todayIso() each read the raw clock with
+  // new Date(), so a reader whose clock said the 8th, on a page built on the
+  // 13th, saw YESTERDAY, 2 DAYS AGO, 3 DAYS AGO and 4 DAYS AGO all rewritten to
+  // TODAY. Both now start from `now`. The floor is also the build day's LOCAL
+  // midnight rather than UTC's, so it compares like for like with localDay();
+  // at UTC midnight it sat on the previous evening west of Greenwich and could
+  // still let a slow clock read the build day as the day before.
+  var floor = stamp ? localDay(stamp.getAttribute("data-built")) : NaN;
   var now = Math.max(Date.now(), floor || 0);
   var day = 86400000;
 
@@ -1368,11 +1377,11 @@ main{padding-top:0}
     return new Date(+p[0], +p[1] - 1, +p[2]).getTime();
   }
   function todayLocal() {
-    var n = new Date();
+    var n = new Date(now);
     return new Date(n.getFullYear(), n.getMonth(), n.getDate()).getTime();
   }
   function todayIso() {
-    var n = new Date();
+    var n = new Date(now);
     var m = n.getMonth() + 1, d = n.getDate();
     return n.getFullYear() + "-" + (m < 10 ? "0" : "") + m + "-" + (d < 10 ? "0" : "") + d;
   }
