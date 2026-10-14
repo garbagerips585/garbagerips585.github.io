@@ -1037,6 +1037,8 @@
         f.dataset.byFocus = byFocus ? "1" : "";
       }
 
+      // The facet a pointer is currently pressed inside, if any. See focusout.
+      var pressedIn = null;
       facets.forEach(function (f) {
         var btn = f.querySelector(".facet-more");
         if (btn) {
@@ -1068,9 +1070,23 @@
         f.addEventListener("focusout", function (e) {
           if (!f.dataset.byFocus) return;
           if (e.relatedTarget && f.contains(e.relatedTarget)) return;
+          // A POINTER PRESSED INSIDE IS NOT LEAVING. (14 October 2026) Safari
+          // and iOS do not focus a button on click, so a press on a chip blurs
+          // the focused one with relatedTarget null, which read here as focus
+          // leaving the panel: it closed on mousedown and the click that
+          // followed landed on nothing (QA, Safari emulated: a keyboard-opened
+          // set panel, then a click on its 10th chip, left the filter unset).
+          // Chromium focuses the clicked chip, so relatedTarget is inside and
+          // this never mattered there. Clicks outside are still closed by the
+          // document pointerdown handler below.
+          if (pressedIn === f) return;
           close(f);
         });
+        f.addEventListener("pointerdown", function () { pressedIn = f; });
       });
+      function released() { pressedIn = null; }
+      document.addEventListener("pointerup", released, true);
+      document.addEventListener("pointercancel", released, true);
 
       // Escape closes and hands focus back to the toggle, which is where the
       // reader was before the panel took over.
