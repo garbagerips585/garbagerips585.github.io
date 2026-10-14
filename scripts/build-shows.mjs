@@ -1637,7 +1637,7 @@ ${CLIENT_DAY_JS}
     if (!loading) loading = fetch('/data/places.json').then(function(r){ return r.json(); }).then(function(j){ places = j; return j; }).catch(function(){ places = { z: {}, t: {} }; return places; });
     return loading;
   }
-  function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/,?\\s*(ny|new york)\\s*$/, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\\s+/g, ' ').trim(); }
+  function norm(s){ return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/(,\\s*|\\s+)(ny|new york)\\s*$/, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\\s+/g, ' ').trim(); }
   function say(t){ if (hint) hint.textContent = t; }
   function setFrom(pt, label){
     S.from = pt; S.label = label;
@@ -1652,7 +1652,15 @@ ${CLIENT_DAY_JS}
       var zip = raw.match(/^\\d{5}/);
       var pt = zip ? pl.z[zip[0]] : pl.t[norm(raw)];
       if (!pt) { say('We do not have “' + raw + '” on file. Try a nearby town, a zip code in Western or Central New York, or tap Near me.'); return; }
-      setFrom(pt, zip ? zip[0] : raw.replace(/\\b\\w/g, function(c){ return c.toUpperCase(); }));
+      // Title-case the town but keep a trailing state as the abbreviation it
+      // is (14 October 2026): "batavia, ny" was coming out "Batavia, Ny" in the
+      // hint and in the shared ?near= URL. norm() above already strips the
+      // state for the lookup itself, so this only touches what is shown.
+      // Both patterns need a comma or a space before the state: with ",?" alone
+      // they also ate the end of Allegany, Bethany, Harmony, North Harmony and
+      // Oriskany, so those five towns were "not on file" and would have been
+      // shown as "Allega, NY".
+      setFrom(pt, zip ? zip[0] : raw.replace(/\\b\\w/g, function(c){ return c.toUpperCase(); }).replace(/(,\\s*|\\s+)(ny|new york)\\s*$/i, ', NY'));
     });
   }
   if (input) input.addEventListener('focus', loadPlaces, { once: true });
@@ -1685,7 +1693,11 @@ ${CLIENT_DAY_JS}
     b.hidden = false;
     b.addEventListener('click', function(){
       var url = location.origin + location.pathname + '#' + b.dataset.share;
-      var done = function(t){ var o = b.textContent; b.textContent = t; setTimeout(function(){ b.textContent = o; }, 1800); };
+      // The label is read once per button and a pending reset is cleared first
+      // (14 October 2026): a second click inside 1.8s saved "Link copied" as the
+      // original, and the button kept saying it for good.
+      if (b.__was == null) b.__was = b.textContent;
+      var done = function(t){ b.textContent = t; clearTimeout(b.__reset); b.__reset = setTimeout(function(){ b.textContent = b.__was; }, 1800); };
       if (navigator.share) { navigator.share({ title: b.dataset.shareTitle, url: url }).catch(function(){}); return; }
       if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); });
     });
