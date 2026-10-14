@@ -1372,6 +1372,11 @@ const t30Tile = await (async () => {
         </a>`;
 })();
 
+// THE COMPANION SUBSETS COUNT TOWARD "TOP CARD", 14 October 2026. Crown
+// Zenith's tile read "Top card $232 PSA 10" while its guide and /sets/ named
+// Giratina VSTAR GG69 at $267 / $510 out of the Galarian Gallery; Shining
+// Fates and Celebrations had the same gap. See shared/companion-cards.mjs.
+const COMPANION_SETS = await (await import("../shared/companion-cards.mjs")).loadCompanionCards(ROOT);
 const setsHtml = (
   await Promise.all(
     ordered.map(async (s) => {
@@ -1427,14 +1432,22 @@ const setsHtml = (
       // the same checklist this reads the figure out of.
       const topRow = top ? cardRow(topDoc, top.number) : null;
       const topRaw = typeof topRow?.price === "number" && topRow.price > 0 ? topRow.price : top?.price || null;
-      const topVal = topPsa || topRaw || null;
-      if (topPsa) addPsa(setsLedger, gradedStamp(s.id, top.number, top.name, s.name || setLabel(s.id)));
+      // A companion card wins when its RAW figure beats the checklist's top,
+      // which is the same score the checklist pick above uses.
+      const comp = COMPANION_SETS.get(s.id);
+      const compTop = comp ? comp.cards.filter((c) => c.price).sort((a, b) => b.price - a.price)[0] || null : null;
+      const useComp = compTop && compTop.price > (topRaw || 0);
+      const topVal = useComp ? compTop.psa10 || compTop.price : topPsa || topRaw || null;
+      const showPsa = useComp ? Boolean(compTop.psa10) : Boolean(topPsa);
+      if (useComp && compTop.psa10) addPsa(setsLedger, { source: comp.source, asOf: comp.checked, url: compTop.url });
+      else if (useComp) addRaw(setsLedger, { priceSource: comp.source, pricesChecked: comp.checked, checked: comp.checked }, null, s.id);
+      else if (topPsa) addPsa(setsLedger, gradedStamp(s.id, top.number, top.name, s.name || setLabel(s.id)));
       else if (topRaw) addRaw(setsLedger, topRow ? topDoc : null, topRow, s.id);
       return `        <a class="set" href="/sets/${s.id}.html">
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
           <span class="set-meta">${esc(bits.join(" · "))}</span>
-          ${topVal ? `<span class="set-top">Top card ${moneyCompact(topVal)}${topPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
+          ${topVal ? `<span class="set-top">Top card ${moneyCompact(topVal)}${showPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
           ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
         </a>`;
     })

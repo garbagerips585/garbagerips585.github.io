@@ -56,6 +56,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, moneyRound, moneyCompact, imgDims, avifPicture, clipMeta} from "../shared/format.mjs";
+import { loadCompanionCards } from "../shared/companion-cards.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const { sets } = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
@@ -92,6 +93,19 @@ function floorPrice(c) {
 function listedFloor(c) {
   return typeof c.low === "number" && c.low > 0 ? c.low : floorPrice(c);
 }
+
+// THE COMPANION SUBSETS ARE PART OF THE MASTER SET, 14 October 2026. Crown
+// Zenith's Galarian Gallery, Shining Fates' Shiny Vault and Celebrations'
+// Classic Collection come out of the same packs and are filed separately by the
+// card databases, so the cards files hold none of them. This page called Crown
+// Zenith's master set $270, "everything, secret rares included", when the
+// Galarian Gallery alone is $2,091, and named a $41 Pikachu as its priciest
+// card beside a $267 Giratina VSTAR; the one-card paragraph said Mew was 48% of
+// a Celebrations master set that is really about $597. The set guides have
+// counted them since 2 October. Base and bulk do NOT change: a subset card is
+// not numbered within the printed total, so it is never in the base set.
+const COMPANIONS = await loadCompanionCards(ROOT);
+const companionNames = [];
 
 const rows = [];
 // NO SEPARATE `checked` HERE ANY MORE. It held the checklist's date and the two
@@ -163,11 +177,29 @@ for (const f of (await readdir(join(ROOT, "public/data/cards"))).sort()) {
       };
   }
 
+  const comp = COMPANIONS.get(doc.set);
+  if (comp) {
+    // "Crown Zenith's" but "Celebrations'" and "Shining Fates'".
+    companionNames.push(`${set.name}${/s$/.test(set.name) ? "'" : "'s"} ${comp.label}`);
+    for (const c of comp.cards) {
+      const p = floorPrice(c);
+      if (p === null) { missing += 1; continue; }
+      tiers.master += p;
+      // No listing figure is held for a subset card, so its listed floor is its
+      // market floor: the same fallback listedFloor() gives any unlisted card.
+      floors.master += p;
+      counts.master += 1;
+      // No TCGdex scan exists for these (see companion-sets.json), so a subset
+      // card that tops its set renders caption only, which oneCard() handles.
+      if (!top || p > top.price) top = { name: c.name, n: c.printed, rarity: null, price: p, img: null, subset: comp.label };
+    }
+  }
+
   rows.push({
     id: doc.set,
     name: set.name,
     released: set.released,
-    total: doc.cards.length,
+    total: doc.cards.length + (comp ? comp.cards.length : 0),
     official,
     ...tiers,
     counts,
@@ -318,7 +350,7 @@ const oneCard = (r) => {
     : "";
   return `<li class="cs-one${src ? " has-art" : ""}">
         ${art}
-        <div class="cs-one-b"><strong>${esc(r.name)}.</strong> ${esc(r.top.name)} is ${moneyRound(r.top.price)} of a
+        <div class="cs-one-b"><strong>${esc(r.name)}.</strong> ${esc(r.top.name)}${r.top.subset ? ` (${esc(r.top.subset)})` : ""} is ${moneyRound(r.top.price)} of a
         ${moneyRound(r.master)} master set, which is ${pct(r.topShare)} of it. The other ${r.counts.master - 1} cards
         come to ${moneyRound(r.master - r.top.price)} between them.</div>
       </li>`;
@@ -458,7 +490,7 @@ const row = (r) => `<tr${r.missing ? ' class="cc-part"' : ""}>
   <td class="num">${moneyRound(r.bulk)}<span class="cc-n">${r.counts.bulk} cards</span></td>
   <td class="num"><strong>${moneyRound(r.base)}</strong><span class="cc-n">${r.counts.base} cards</span></td>
   <td class="num">${moneyRound(r.master)}<span class="cc-n">${r.counts.master} cards</span></td>
-  <td class="cc-top">${esc(r.top?.name || "")}<span class="cc-n">${moneyRound(r.top?.price)}, ${pct(r.topShare)} of the master set</span></td>
+  <td class="cc-top">${esc(r.top?.name || "")}${r.top?.subset ? ` <span class="cc-yr">${esc(r.top.subset)}</span>` : ""}<span class="cc-n">${moneyRound(r.top?.price)}, ${pct(r.topShare)} of the master set</span></td>
 </tr>`;
 
 const page = `<!DOCTYPE html>
@@ -583,7 +615,7 @@ ${MENU}
       <article class="gc">
         <h3>The master set</h3>
         <p class="gc-price">${moneyCompact(rows.reduce((n, r) => n + r.master, 0) / rows.length)}<span> average per set</span></p>
-        <p class="gc-note">Everything, secret rares included. Several times the base set in every case, and in some
+        <p class="gc-note">Everything, secret rares included${companionNames.length ? `, and the subsets that come out of the same packs but are filed separately: ${esc(companionNames.join(", ").replace(/, ([^,]*)$/, " and $1"))}` : ""}. Several times the base set in every case, and in some
           sets a single card is more than a quarter of the bill on its own. Worth knowing that most master-set
           collectors also chase every reverse holo, which is a further tier again and not costed here.</p>
       </article>
