@@ -80,6 +80,24 @@
   }
   function cmd(func,args){ post({event:'command',func:func,args:args||[],id:1,channel:'widget'}); }
   function listen(){ post({event:'listening',id:1,channel:'widget'}); }
+  // GA4 AND "a.getDuration is not a function" (measured 14 October 2026).
+  // GA4's Enhanced Measurement "Video engagement" loads YouTube's IFrame API
+  // and wraps every enablejsapi=1 iframe in its own YT.Player. When a playing
+  // embed is swapped for another (a rail tile, an end card's Next), the new
+  // iframe's first messages arrive under id 1 and land on GA's player for the
+  // iframe that was just removed; GA's player for the new one never gets
+  // initialDelivery, so its onStateChange handler calls a getDuration it was
+  // never given. 5 errors on 3 rip pages, none of them ours.
+  // A DISTINCT ID IS NOT THE FIX, so the ids above stay 1. Tried widgetid=585
+  // and id:585: the embed re-addresses its whole stream to whichever client
+  // said "listening" last, so GA's id and ours take turns owning it, the error
+  // still fired (1 in 3 pages), and the hero's own onStateChange went missing
+  // from the trace, which is the signal the mute-then-unmute handshake waits
+  // for. Nothing here depends on the id anyway: onMsg filters by e.source.
+  // The clean fix is an admin toggle, not code: GA4 > Admin > Data streams >
+  // the web stream > Enhanced measurement > untick "Video engagement". The
+  // site loses nothing it uses; GA's video events on these embeds were
+  // unreliable for the same reason.
 
   function mount(){
     if(mounted) return;
@@ -549,6 +567,35 @@
       if (Date.now() - (lb.__openedAt || 0) < 700) return;
       if (e.target === lb || e.target.closest(".rip-lb-x")) closeLb();
     });
+    /* THE WAY BACK OUT OF THE VIDEO. (14 October 2026) The trap below can only
+       wrap at its own ends, and the iframe was its last stop: once Tab went
+       into YouTube, every key went to YouTube's document, so onLbKey never saw
+       Tab or Escape again. Seven Tabs through the player's own controls and
+       the browser walked off the end of the page onto <body>, outside a dialog
+       that claims aria-modal, with Escape dead the whole way (measured on
+       /videos.html and playlist pages, 390 and 1280).
+
+       This is the next stop in the document after the player, so leaving
+       YouTube forwards lands HERE, in a document we can hear, and it hands
+       focus straight to the first control in the bar. The player stays
+       reachable by keyboard, which is the point the note above lbFocusables
+       makes and still true; what changed is that it is no longer a dead end.
+       Escape still cannot be heard while focus is INSIDE the iframe -- no page
+       can see keys in a cross-origin document -- but the cycle now always
+       comes back to Like and Close, where it works.
+
+       Positioned absolutely so it takes no part in the column's flex gap, and
+       excluded from lbFocusables by class so the wrap arithmetic ignores it.
+       Stages are inserted BEFORE it (mountOverlayStage), so it stays last. */
+    var wrap = document.createElement("span");
+    wrap.className = "rip-lb-wrap";
+    wrap.tabIndex = 0;
+    wrap.setAttribute("style", "position:absolute;left:0;bottom:0;width:1px;height:1px;overflow:hidden;opacity:0");
+    wrap.addEventListener("focus", function () {
+      var f = lbFocusables();
+      if (f.length) f[0].focus();
+    });
+    lb.appendChild(wrap);
     document.body.appendChild(lb);
     return lb;
   }
@@ -563,6 +610,7 @@
       .call(lb.querySelectorAll('button, iframe, a[href], [tabindex]:not([tabindex="-1"])'))
       .filter(function (n) {
         if (n.hidden || n.offsetParent === null) return false;
+        if (n.classList.contains("rip-lb-wrap")) return false;
         // The finished player is hidden under the end card. It keeps its
         // offsetParent, so without this it stayed in the wrap-around arithmetic
         // as a stop the browser will never actually give focus to.
@@ -636,7 +684,8 @@
        TRUE: that video is in OVERRIDES as pillarboxed, so its own page gets
        rip-player--crop and only the overlay goes wide. */
     if (a.closest("[data-wide]")) host.querySelector(".rip-player").classList.add("rip-player--wide");
-    lb.appendChild(host);
+    // Before the focus sentinel, never after it: see .rip-lb-wrap in ensureLb.
+    lb.insertBefore(host, lb.querySelector(".rip-lb-wrap"));
 
     open(host, function () {
       if (host.__packDispose) host.__packDispose();
@@ -1463,6 +1512,13 @@
     var step = slide.getBoundingClientRect().width + 16;
     var n = track.querySelectorAll(".vcar-slide").length;
     var i = Math.min(n - 1, Math.max(0, Math.round(track.scrollLeft / step)));
+    // AT THE END THE COUNTER NAMES THE LAST SLIDE. (14 October 2026) The sum
+    // above counts the slide at the LEFT edge, which is right on a phone where
+    // one slide fills the track, and wrong wherever two or three show at once:
+    // paged to the end with Next disabled, it read "4 / 5" from 1000 to 1920
+    // and "3 / 5" on the Latest band at 1280+, while slides 4 and 5 were the
+    // ones fully on screen. Same 2px of slack as atEnd below.
+    if (track.scrollLeft > 2 && track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) i = n - 1;
     // ONLY WRITE WHEN IT CHANGES. This ran on every scroll event and assigning
     // textContent replaces the node even when the value is identical, so one
     // arrow press mutated a polite live region 28 times in under a second, the
