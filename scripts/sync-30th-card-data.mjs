@@ -85,18 +85,64 @@ if (!src.length) {
   process.exit(1);
 }
 
+/* THE CATEGORY, added 14 October 2026, because every other cards file carries
+   `cat` and build-pokemon.mjs files a card under a species only when
+   `cat === "Pokemon"`. Without it all 158 cards were invisible to the 1,026
+   /pokemon/ pages: /pokemon/jirachi.html named Radiant Jirachi at $2.67 as its
+   priciest while Jirachi ex #155, pulled on camera, sat at $48.99 here.
+   The set detail above carries no category and the per-card endpoint would be
+   158 requests, so it comes from TCGdex's GraphQL endpoint, which answers the
+   whole set in two pages of 100. A failure there is NOT fatal: the previous
+   file's `cat` is carried over card by card, and a card with neither is left
+   without one (and so stays off /pokemon/), never guessed. */
+const prevDoc = JSON.parse(await readFile(OUT, "utf8").catch(() => "null"));
+const catBy = new Map();
+for (const c of prevDoc?.cards || []) if (c.cat) catBy.set(num(c.n), c.cat);
+let catSource = "carried over from the previous file";
+try {
+  const fresh = new Map();
+  for (let page = 1; page <= 5; page++) {
+    const r = await fetch("https://api.tcgdex.net/v2/graphql", {
+      method: "POST",
+      headers: { "content-type": "application/json", accept: "application/json" },
+      body: JSON.stringify({
+        query: `{ cards(filters:{id:"${TD.set}-"}, pagination:{page:${page},count:100}) { id localId category } }`,
+      }),
+    });
+    if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    const j = await r.json();
+    if (j.errors?.length) throw new Error(j.errors[0].message);
+    const got = j.data?.cards || [];
+    // The filter is a substring match, so `30th-` also returns `30th-c-...`,
+    // the Classic Collection, whose renumbered 001-030 would collide with the
+    // main set's. Only `30th-<digits>` is this set.
+    const re = new RegExp(`^${TD.set}-\\d+$`);
+    for (const c of got) if (re.test(c.id) && c.category) fresh.set(num(c.localId), c.category);
+    if (got.length < 100) break;
+  }
+  if (fresh.size) {
+    for (const [k, v] of fresh) catBy.set(k, v);
+    catSource = `TCGdex GraphQL, ${fresh.size} cards`;
+  }
+} catch (e) {
+  console.error(`  category lookup failed (${e.message}); keeping the previous file's categories`);
+}
+
 const cards = [];
-let noRarity = 0, noPrice = 0;
+let noRarity = 0, noPrice = 0, noCat = 0;
 for (const c of src) {
   const k = num(c.localId);
   const pr = priceBy.get(k);
   const rarity = rarityBy.get(k) || null;
   if (!rarity) noRarity++;
   if (!pr) noPrice++;
+  const cat = catBy.get(k) || null;
+  if (!cat) noCat++;
   cards.push({
     n: c.localId,
     name: c.name,
     ...(rarity ? { rarity } : {}),
+    ...(cat ? { cat } : {}),
     /* THE IMAGE IS A BASE WITH NO SUFFIX, which is the shape every other cards
        file uses and the shape build-pages.mjs expects: it appends /low.webp or
        /high.webp itself. Writing a full url here would produce
@@ -112,7 +158,7 @@ for (const c of src) {
 /* NEVER WRITE A SHORTER LIST OVER A LONGER ONE. Same rule as the other two 30th
    syncs, and sync-cards.mjs has its own version of it for the same recorded
    reason: a source answering thin must not silently replace a good file. */
-const prev = JSON.parse(await readFile(OUT, "utf8").catch(() => "null"));
+const prev = prevDoc;
 if (prev && Array.isArray(prev.cards) && cards.length < prev.cards.length) {
   console.error(
     `REFUSING to write ${cards.length} cards over the committed ${prev.cards.length}.`
@@ -149,4 +195,5 @@ await writeFile(OUT, JSON.stringify({
 console.log(`Wrote public/data/cards/${SLUG}.json  ${cards.length} cards`);
 console.log(`  without a rarity: ${noRarity}`);
 console.log(`  without a price:  ${noPrice}`);
+console.log(`  without a category: ${noCat}  (categories: ${catSource})`);
 console.log(`  with a PSA 10:    ${cards.filter((c) => typeof c.psa10 === "number").length}`);

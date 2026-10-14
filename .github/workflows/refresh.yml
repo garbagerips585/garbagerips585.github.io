@@ -260,6 +260,23 @@ jobs:
       - name: Card prices out of the refreshed pages
         run: node scripts/sync-pricecharting-cards.mjs
 
+      # 30th CELEBRATION, added 14 October 2026. The set is in no TCGdex set
+      # sync-cards.mjs can reach and in no console refresh-prices.mjs reads, so
+      # it has its own two scripts and until today they ran only by hand. The
+      # 13 October "full refresh" missed them and the same card printed three
+      # prices from three dates (Jirachi ex 155: $67.33 on the set page, $65.67
+      # on its rip page, $48.99 in graded.json). Two console pages plus eight
+      # promo pages at 1.1s, then one TCGdex set read and two GraphQL pages.
+      # continue-on-error like the prices step: a refused read keeps the last
+      # good file (both scripts refuse to write a thinner one) and its own date.
+      - name: 30th Celebration prices
+        continue-on-error: true
+        run: node scripts/sync-30th-prices.mjs
+
+      - name: 30th Celebration card file
+        continue-on-error: true
+        run: node scripts/sync-30th-card-data.mjs
+
       - name: Card checklists and prices
         run: node scripts/sync-cards.mjs --prices --rotate
 
