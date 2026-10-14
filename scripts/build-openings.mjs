@@ -601,6 +601,20 @@ const ANSWERS = {
     // The data file asks for "as of the January 2025 release" rather than
     // implying a live line, and names that release in its source title.
     if (!(k.sources || []).some((s) => /Jan 2025/.test(s.title || ""))) return null;
+    // NOT "THE NEWEST EDITION" ANY MORE. (14 October 2026.) The tail said the
+    // January 2025 release "was the newest edition on pokemon.com when the count
+    // was read", which was true on August 15, 2026 and read as a present-tense
+    // claim on a page that lists the channel opening the 30th Celebration
+    // Knock Out Collection in October. That edition is in data/30th.json, from
+    // TPCi's own product lineup, so it is named off that record and its
+    // different contents said, rather than the old line left to contradict the
+    // rip list below it. No record, no sentence.
+    const ko30 = (T30?.products || []).find((p) => p.name === "Knock Out Collection");
+    const ko30Line =
+      ko30 && num(ko30.packs) && ko30.note
+        ? `The 30th Celebration edition that followed in ${new Date(`${ko30.date}T12:00:00Z`).toLocaleDateString("en-US", { month: "long", year: "numeric", timeZone: "UTC" })} ` +
+          `also holds ${ko30.packs} packs, and lists ${String(ko30.note).replace(/^A /, "a ").replace(/\.$/, "")} with them.`
+        : "";
     return {
       recs: [k],
       text:
@@ -608,9 +622,7 @@ const ANSWERS = {
         `a sticker sheet and a code card, as of the January 2025 release.`,
       // Kept from USUALLY. It is the owner's line, not the data file's, and is
       // flagged for him rather than dropped.
-      tail:
-        "That was the newest edition on pokemon.com when the count was read. They turn up at Target and " +
-        "Walmart more than anywhere else.",
+      tail: [ko30Line, "They turn up at Target and Walmart more than anywhere else."].filter(Boolean).join(" "),
     };
   },
   "ex-premium": () => {
