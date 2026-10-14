@@ -1340,7 +1340,9 @@ function checklistBand(s, cls, pulled = new Map()) {
   // Prismatic Evolutions, measured) and an outbound link into 180 pop-ups where
   // the page has argued for eight. "Every click stays on the site."
   const chaseNos = new Set((s.chase || []).map((x) => cardNumKey(x.number)));
-  const urls = new Map(Object.entries(chaseLinks[s.id]?.links || {}).filter(([n]) => chaseNos.has(n)));
+  // Which HOST the link goes to is cardPriceLink()'s business since 14 October
+  // 2026 (the price's own source); which ROWS get one is still this filter.
+  const urls = new Map([...chaseNos].map((n) => [n, cardPriceLink(s.id, n)]).filter(([, u]) => u));
   // THE PSA 10 SOURCE SENTENCE, ONCE. Nearly every row has a graded figure
   // (177 of 180 on Prismatic Evolutions) and nearly all of them share one feed
   // and one read date, so writing the sentence on each row was 4KB gzipped of
@@ -1446,7 +1448,8 @@ function checklistBand(s, cls, pulled = new Map()) {
             // common row pays nothing for them: a PSA 10 figure (with its own
             // source sentence, because the list's shared one names only the raw
             // feed), the rip that pulled it, and the TCGplayer link the chase
-            // grid's pop-up already offers. Same calls zoomData() makes.
+            // grid's pop-up already offers (to the price's own source since 14
+            // October 2026, see cardPriceLink). Same calls zoomData() makes.
             const psa = gradedPrice(s.id, k, c.name, s.name);
             const psaSrc = psa ? psaSentence(c) : null;
             const rips = pulled.get(k) || [];
@@ -1566,7 +1569,11 @@ function subsetBand(s, cls, pulled = new Map()) {
             // script exists to avoid. These are the same figures the row
             // prints, so the pop-up cannot disagree with the row.
             const nm = r.image
-              ? `<button class="cl-zm cs-zm" type="button" data-img="${esc(r.imageLarge || r.image)}" data-name="${esc(r.name)}" data-rarity="${esc([label, rl].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}" data-number="${esc(r.printed)}" data-price="${esc(price)}"${
+              // data-avif, 14 October 2026: the local 600w AVIF the chase
+              // grid's buttons already carry. Without it a tap here downloaded
+              // the 1.2MB remote PNG for all 192 rows, which is the download
+              // sync-subset-scans.py exists to remove.
+              ? `<button class="cl-zm cs-zm" type="button" data-img="${esc(r.imageLarge || r.image)}"${r.imageAvif ? ` data-avif="${esc(r.imageAvif)}"` : ""} data-name="${esc(r.name)}" data-rarity="${esc([label, rl].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}" data-number="${esc(r.printed)}" data-price="${esc(price)}"${
                   r.psa10 ? ` data-psa10="${esc(moneyCompact(r.psa10))}"` : ""}${
                   rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""
                 } aria-label="Enlarge ${esc(r.name)} ${esc(r.printed)}">${esc(r.name)}</button>`
@@ -1821,9 +1828,31 @@ try {
 } catch {
   /* run: node scripts/sync-chase.mjs */
 }
+/* THE LINK FOLLOWS THE PRICE, 14 October 2026. Every card's "Check current
+   price" link (the pop-up's button, a no-scan row's link) used to come from
+   data/chase-tcg.json and go to TCGplayer, while the figure printed beside it
+   is PriceCharting's ungraded guide value (5,552 of the 5,554 checklist rows,
+   and every subset row). That is the citation-to-the-wrong-page CLAUDE.md's
+   sixth exception calls worse than no link, and a QA sweep found it on all 29
+   guides. The link now goes where the price came from: the row's own `pcUrl`
+   (written by the PriceCharting sync, the exact product page the figure was
+   read off), or for a subset card companion-prices.json's `url`. TCGplayer is
+   kept ONLY for a row TCGdex priced (`src: "tcgdex"`, whose prices are
+   TCGplayer's), which is two Energy cards today. The "eight chase cards only"
+   rule above is unchanged: this picks the host, not which cards get a link. */
+const pcRowIx = new Map();
+function cardPriceLink(setId, n) {
+  if (!pcRowIx.has(setId)) pcRowIx.set(setId, new Map((checklists[setId]?.cards || []).map((c) => [cardNumKey(c.n), c])));
+  const row = pcRowIx.get(setId).get(n);
+  if (!row) return null;
+  if (row.src === "tcgdex") return chaseLinks[setId]?.links?.[n] || null;
+  return row.pcUrl || null;
+}
+/** The subset card's PriceCharting page, off the same reading as its price. */
+const compPriceLink = (setId, key) => compPrices.sets?.[setId]?.cards?.[key]?.url || null;
+/** "pricecharting.com" for an aria-label's "opens on", from the link itself. */
+const linkHost = (u) => (/pricecharting\.com/.test(u) ? "pricecharting.com" : /tcgplayer\./.test(u) ? "tcgplayer.com" : new URL(u).hostname.replace(/^www\./, ""));
 for (const st of sets) {
-  // Keyed the way cardNumKey writes them, which is how the sync wrote them.
-  const urls = new Map(Object.entries(chaseLinks[st.id]?.links || {}));
 
   const doc = checklists[st.id];
   const priced = (doc?.cards || []).filter((c) => typeof c.price === "number" && c.price > 0);
@@ -1860,7 +1889,7 @@ for (const st of sets) {
       price: c.price,
       image: base ? `${base}/low.webp` : pin ? pin.thumb : null,
       imageLarge: base ? `${base}/high.webp` : pin ? pin.image : null,
-      url: urls.get(n) || null,
+      url: cardPriceLink(st.id, n),
     };
   });
   const fromComp = (comp?.priced || []).map((r) => ({
@@ -1871,7 +1900,9 @@ for (const st of sets) {
     image: r.image,
     imageLarge: r.imageLarge,
     imageAvif: r.imageAvif,
-    url: null,
+    // A subset card in the eight gets the same link a checklist card does,
+    // to the PriceCharting page its price was read off. 14 October 2026.
+    url: compPriceLink(st.id, r.key),
     comp: r,
   }));
   // The whole ranked list is kept for the hero's three, which want the top
@@ -2321,8 +2352,11 @@ const setTitle = (name) => {
   return rich.length <= MAX_TITLE ? rich : `${name} Set Guide${BRAND}`;
 };
 
+// TCGplayer urls only, 14 October 2026: card links can now be PriceCharting
+// pages (cardPriceLink), and wrapping one in TCGplayer's affiliate redirect
+// would send the reader to the wrong site.
 const affLink = (url) =>
-  affOn ? aff.tcgplayer.linkTemplate.replace("{url}", encodeURIComponent(url)) : url;
+  affOn && /^https:\/\/(www\.)?tcgplayer\.com\//.test(url) ? aff.tcgplayer.linkTemplate.replace("{url}", encodeURIComponent(url)) : url;
 
 const ripsBySet = {};
 for (const v of videos) for (const s of v.sets || []) ripsBySet[s] = (ripsBySet[s] || 0) + 1;
@@ -3207,7 +3241,9 @@ function derivedFacts(s) {
   }
   const rips = ripsBySet[s.id];
   if (rips) {
-    out.push(`We have ripped <b>${rips} ${rips === 1 ? "video" : "videos"}</b> worth of this set on the channel.`);
+    // "We have ripped 1 video worth of this set" was missing its possessive
+    // on all 29 guides; the count is of rips, so it says rips. 14 October 2026.
+    out.push(`We have <b>${rips} ${rips === 1 ? "rip" : "rips"}</b> of this set on the channel.`);
   }
   return out;
 }
@@ -4377,7 +4413,7 @@ function rarityPic(s, key, pulled) {
   const card = {
     name: c.name, number: n, rarity: c.rarity, price: c.price,
     image: pin ? pin.thumb : `${c.img}/low.webp`, imageLarge: pin ? pin.image : `${c.img}/high.webp`,
-    url: chaseLinks[s.id]?.links?.[n] || null,
+    url: cardPriceLink(s.id, n),
   };
   return `<button class="rar-pic rar-zm" type="button"${zoomData(s, card, pulled)}
           aria-label="Enlarge ${esc(c.name)} ${esc(numOf(s, n))}, the ${typeof c.price === "number" ? "most valuable" : "first"} ${esc(key)} card">${avifPicture(`<img src="${card.image}" alt="" loading="lazy" decoding="async" onerror="this.remove()"${imgDims(card.image)}>`)}</button>`;
@@ -4642,7 +4678,7 @@ function setPage(s) {
               on Celebrations' Mew 25, which is that set's own chase card, so
               the least useful accessible name on the page belongs to its most
               important row. */ ""}${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank"
-          aria-label="Check the current price of ${esc(c.name)} ${esc(numOf(s, c.number))}, opens on tcgplayer.com">Check current price</a>` : ""}${
+          aria-label="Check the current price of ${esc(c.name)} ${esc(numOf(s, c.number))}, opens on ${linkHost(c.url)}">Check current price</a>` : ""}${
           (pulled.get(cardNumKey(c.number)) || []).length ? ripLinks(pulled.get(cardNumKey(c.number)), esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}
       </li>`).join("\n      ")}
     </ul>
@@ -4660,7 +4696,7 @@ function setPage(s) {
       const span = inGrid ? readSpan([priceRead(stamps), sub.read]) : null;
       return `${esc(priceNote(stamps, span && /between/.test(span) ? { readPhrase: span } : {}))} ${
         sub
-          ? `These are the eight dearest of the ${s.total} rows in the checklist further down and the ${sub.rows.length} in the ${esc(sub.rows[0].label)} list, sorted by price, so they agree with both by construction.${
+          ? `These are the eight priciest of the ${s.total} rows in the checklist further down and the ${sub.rows.length} in the ${esc(sub.rows[0].label)} list, sorted by price, so they agree with both by construction.${
               inGrid
                 ? ` ${inGrid === s.chase.length ? `All ${inGrid} are ${esc(sub.rows[0].label)} cards` : `${inGrid === 1 ? "The one" : `The ${inGrid}`} labeled ${esc(sub.rows[0].label)} ${inGrid === 1 ? "is" : "are"} from that subset`}${
                     span && /between/.test(span) ? `, ${esc(readSpan([sub.read]))}` : ""}.`
@@ -5283,7 +5319,7 @@ ${body}
       <p class="lbx-src" id="lbSrc"></p>
       <p class="lbx-alts" id="lbAlts" hidden></p>
       <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
-      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" hidden>Check current price</a></div>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on pricecharting.com" hidden>Check current price</a></div>
     </div>
   </div>
 </div>
@@ -5367,8 +5403,17 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
       var a=$('lbRipA'); a.href=d.rip;
       a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
     }
+    // THE BUTTON NAMES WHERE IT GOES, 14 October 2026: a new tab and an
+    // aria-label ending "opens on <host>", like every other outbound link, and
+    // the host read off the link itself, which follows the price shown
+    // (cardPriceLink in the builder): PriceCharting, or TCGplayer for the rare
+    // row TCGdex priced.
     var u=$('lbUrl');
-    if(d.url){u.href=d.url;u.hidden=false;}else{u.hidden=true;}
+    if(d.url){
+      var pc=d.url.indexOf('pricecharting.com')>-1;
+      u.href=d.url;u.hidden=false;
+      u.setAttribute('aria-label','Check the current price of '+d.name+' '+d.number+' on '+(pc?'PriceCharting, opens on pricecharting.com':'TCGplayer, opens on tcgplayer.com'));
+    }else{u.hidden=true;}
     $('lbNav').hidden=list.length<2;
     $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
   }
@@ -5464,7 +5509,11 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
       var pic=document.createElement('picture'), src=document.createElement('source'), img=document.createElement('img');
       src.type='image/avif'; src.srcset=base+no+'/low.avif';
       img.src=base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
-      img.onerror=function(){ if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
+      // A FAILED AVIF IS NOT A MISSING SCAN, 14 October 2026: TCGdex lacks
+      // the .avif for a few cards whose .webp exists, and a failed <source>
+      // fires error on the img without trying its src. Drop the source and
+      // retry the webp first; only a second failure means "No scan".
+      img.onerror=function(){ if(src.parentNode){ src.parentNode.removeChild(src); img.src=img.src; return; } if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
       pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
       li.insertBefore(b, li.firstChild);
     });

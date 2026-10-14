@@ -1317,7 +1317,9 @@ export function avifPicture(img, opts) {
          high.avif  11 of 12 never answer; one patient request sat 60s and
                     returned 504, and the retry hung again
 
-     A 404 would be harmless here, because the <img> fires error and
+     (THE NEXT SENTENCE WAS WRONG, corrected 14 October 2026: a 404 was NOT
+     harmless. See the note at the foot of this function.) A 404 would be
+     harmless here, because the <img> fires error and
      onerror="this.remove()" cleans up. A hang fires nothing: the picture element
      has already committed to the AVIF source, so the reader gets an empty frame
      for a full minute and THEN loses the image entirely when the 504 lands. That
@@ -1334,9 +1336,28 @@ export function avifPicture(img, opts) {
   if (packs && (tcgdex || /https?:\/\//.test(cand))) return img;
   const sizes = attr(A.sizes);
   const avif = cand.replace(/\.webp/g, ".avif");
+  /* A MISSING AVIF DELETED A SCAN THAT EXISTS, 14 October 2026. "THE AVIF
+     ALWAYS EXISTS" above was measured on 533 urls and is false at 28,784: a QA
+     probe of every TCGdex AVIF the built tree emits found 10 that 404 while the
+     .webp beside them answers 200 (ja SV1S/036, SV5K/052, SV5M/098, SV2P/024
+     low; en ex7/53, A3a/059, swsh11/031, bw8/33, A4/128 low; me05/043 high).
+     The 404 is not harmless: once a <source> is chosen and fails, the browser
+     fires error on the <img> WITHOUT trying the img's own src, so
+     onerror="this.remove()" removed a card the WebP would have drawn. The
+     Iron Leaves ex in /sets/ja-cyber-judge.html's top-three hero was an empty
+     frame. So a remove-on-error handler is rewritten to drop the <source> and
+     retry the WebP first (removing the source re-runs the picture's selection,
+     and the src write forces it), and only a second failure runs the original
+     handler. The <source> is always the img's previous sibling here because
+     this function writes them adjacent. Same shape as packplayer's
+     armPackArt. A handler that already deals with the source (t30e on the
+     30th page) and an img with no handler (local files, which are guaranteed)
+     are left alone. */
+  const tag = img.replace(/\sonerror="([^"]*\.remove\(\))"/, (m, h) =>
+    ` onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):${h}"`);
   return `<picture><source type="image/avif" ${A.srcset}="${avif}"${
     sizes ? ` ${A.sizes}="${sizes}"` : ""
-  }>${img}</picture>`;
+  }>${tag}</picture>`;
 }
 
 /**

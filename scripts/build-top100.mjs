@@ -711,9 +711,14 @@ function row(item, kind) {
   // whichever source the figure beside it came from, is labelled in visible
   // text and in an aria-label, carries no affiliate tag, and is not the row's
   // main tap target.
+  // A NEW TAB AND THE SITE-WIDE LABEL, 14 October 2026: these 200 were the
+  // only exception links that opened in the same tab and read "(opens
+  // PriceCharting)" rather than ", opens on pricecharting.com", which is the
+  // shape CLAUDE.md makes the condition of every outbound link.
   const where = kind === "cards" ? "PriceCharting" : "TCGplayer";
-  const check = `<a class="t100-check" href="${esc(item.url)}" rel="noopener nofollow"
-      aria-label="Check ${esc(item.name)} on ${where} (opens ${where})">check on ${where}</a>`;
+  const host = kind === "cards" ? "pricecharting.com" : "tcgplayer.com";
+  const check = `<a class="t100-check" href="${esc(item.url)}" rel="noopener nofollow" target="_blank"
+      aria-label="Check ${esc(item.name)} on ${where}, opens on ${host}">check on ${where}</a>`;
 
   const flag =
     item.confirmed === false

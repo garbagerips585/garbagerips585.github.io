@@ -65,7 +65,7 @@ import { SITE } from "../shared/site.mjs";
 // packs.css is NOT dropped here and cannot be from this file: these four pages
 // take their <head> by slicing index.html, so their stylesheet links are the
 // home page's. See shared/chrome.mjs beside the two exports.
-import { SOCIALS, SUBSCRIBE, APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
+import { SOCIALS, SUBSCRIBE, SUB_LABEL, APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { MONTHS_LONG as MONTHS, esc, avifPicture, plateRule, plateMark, PLATE_CSS, longDate, clipMeta} from "../shared/format.mjs";
 // The stylesheet's own comment stripper, reused rather than re-written: it is a
 // tokenizer, so a /* inside a quoted value or a url() cannot open a comment.
@@ -576,6 +576,14 @@ const style = `
 .about-side{position:sticky;top:calc(var(--bar-h) + var(--s4));display:flex;
   flex-direction:column;gap:var(--s4)}
 @media(max-width:900px){.about-side{position:static}}
+/* NOT STICKY WHEN IT CANNOT FIT, 14 October 2026. The aside is 905-943px tall
+   and sits under the bar, so while stuck its foot hung below the fold on every
+   laptop: 251px hidden at 1024x768, 181 at 1280x800, 81 at 1440x900, which was
+   all of "Find us" but YouTube for the length of a 12,000px article. Sticky
+   needs bar + gap + aside, about 1,020px, so below 1,100px of viewport height
+   it scrolls with the page instead; the 80px of headroom is for the "Start with
+   these" titles, which come from the data and change length. */
+@media(max-height:1099px){.about-side{position:static}}
 .about-card{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift)}
 .about-card h3{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.1em;color:var(--ink-2);
@@ -844,8 +852,11 @@ const body = `
             the bar pill, the menu pill, the footer button and the one on every
             rip page, and this fifth one is written here rather than imported
             so it was missed. Same words on purpose: a reader listening to the
-            page should not be told two different things about one control. */ ""}<a href="${SUBSCRIBE}"
-        aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe &rarr;</a></div>
+            page should not be told two different things about one control.
+            14 October 2026: it imports SUB_LABEL now rather than typing the old
+            word order, and opens a new tab with rel="noopener" like the four in
+            chrome.mjs; it was the one Subscribe on the site that did neither. */ ""}<a href="${SUBSCRIBE}" rel="noopener" target="_blank"
+        aria-label="${SUB_LABEL}">Subscribe &rarr;</a></div>
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / About</nav>
     <p class="about-lede">Garbage Rips 585 is a Pokemon card channel from Rochester, New York.
       One guy, a camera and a pile of packs. Every rip ever filmed has its own page on this site,
@@ -1174,7 +1185,7 @@ ${startHere
           <div class="about-socials">
 ${SOCIALS.map(
   ([cls, label, href]) =>
-    `            <a href="${href}" rel="me" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><i style="--pip:${
+    `            <a href="${href}" rel="me noopener" target="_blank" aria-label="Garbage Rips 585 on ${label}, opens on ${new URL(href).host.replace(/^www\./, "")}"><i style="--pip:${
       { yt: "#FF0033", ig: "#BC1888", tt: "#FFFFFF", fb: "#1877F2" }[cls]
     }"></i>${label}</a>`
 ).join("\n")}

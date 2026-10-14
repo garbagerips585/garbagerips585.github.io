@@ -519,6 +519,8 @@ function src(...ids) {
     return s;
   });
 }
+/** "bulbapedia.bulbagarden.net", for an aria-label's "opens on". */
+const hostOf = (u) => new URL(u).hostname.replace(/^www\./, "");
 // EACH LINK SAYS WHICH PAGE IT IS, not which site. Three of these rows cite two
 // Bulbapedia articles, and rendering both as the word "Bulbapedia" gives a
 // reader tabbing through two identical links side by side with no way to tell
@@ -528,9 +530,12 @@ const cite = (...ids) =>
     .map((s) => {
       const site = s.site.replace(/ \(official.*$/, "");
       const short = s.title.replace(/\s*\(TCG\)$/, "").replace(/^Expansion Overview:\s*/, "");
+      // ", opens on <host>", 14 October 2026: ", on Bulbapedia" named the site
+      // and never said the link LEAVES this one, which every other outbound
+      // label on the site does.
       return `<a href="${esc(s.url)}" rel="noopener nofollow" target="_blank" aria-label="${esc(
         s.title
-      )}, on ${esc(site)}">${esc(clip(short, 42))}<span>${esc(
+      )}, ${site.toLowerCase() === hostOf(s.url) ? "" : `${esc(site)}, `}opens on ${esc(hostOf(s.url))}">${esc(clip(short, 42))}<span>${esc(
         site
       )}</span></a>`;
     })
@@ -871,7 +876,7 @@ const sourceLine = (r) => {
       const short = s.title.replace(/^Pokemon (?:Trading Card Game|TCG):?\s*/i, "");
       return `<a href="${esc(s.url)}" rel="noopener nofollow" target="_blank" aria-label="${esc(
         r.name
-      )}, source: ${esc(s.title)}, on ${esc(s.publisher)}">${esc(
+      )}, source: ${esc(s.title)} from ${esc(s.publisher)}, opens on ${esc(hostOf(s.url))}">${esc(
         clip(short, 44)
       )}<span>${esc(s.publisher)}</span></a>`;
     })
@@ -1158,6 +1163,24 @@ const style = `
   letter-spacing:.04em;text-transform:uppercase;background:var(--card);
   padding:3px 5px;border-radius:4px}
 .hp-body{min-width:0;flex:1}
+/* ON A PHONE THE PHOTO STOPS OWNING A COLUMN, 14 October 2026. Beside an 88px
+   photo the body was 138px wide at 320 (18 characters a line) and 208 at 390,
+   and each card ran 565 to 779px tall against a 121px photo, so a 440-650px
+   strip under every picture was empty, 23 times. Below 480 the card is a grid:
+   the photo spans the first two rows beside the heading and the count, and
+   everything after them runs the full width of the card. .hp-body becomes
+   display:contents so its children are the grid items. The second row is 1fr
+   so the photo's extra height lands under the count, not between the heading
+   and the count; the row gap is 0 because the flex card's gap would otherwise
+   open 16px between those two. */
+@media(max-width:479px){
+  .hp-card{display:grid;grid-template-columns:88px minmax(0,1fr);grid-template-rows:min-content 1fr;
+    gap:0 var(--s3);align-items:start}
+  .hp-body{display:contents}
+  .hp-shot,.hp-noshot{grid-row:1/span 2;grid-column:1;margin-bottom:var(--s3)}
+  .hp-body>*{grid-column:1/-1}
+  .hp-body>h3,.hp-body>.hp-count{grid-column:2}
+}
 .hp-body h3{font:400 var(--t-m)/1.15 var(--display);margin-bottom:4px}
 .hp-count{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:var(--s3)}
 .hp-nn{font:400 var(--t-xl)/1 var(--display);color:var(--ketchup)}

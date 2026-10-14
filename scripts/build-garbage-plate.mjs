@@ -1392,7 +1392,10 @@ ${layerList}
         which is what makes it a plate and not a tray of sides. ${esc(doc.anatomy?.srcNote || "")}</figcaption>
     </figure>
     <div class="gp-shots">
-      ${photoRun("anatomy", { sizes: "(min-width:700px) 340px, calc(100vw - 32px)" })}
+      ${/* The pair's real box, 14 October 2026: half of .gp-shots less the gap,
+          352px at 768 and capped at 434px from 932 up by its 52em max-width.
+          It declared 340, so a 1440 screen at DPR 1 took the 400w file for a
+          434px box. */ ""}${photoRun("anatomy", { sizes: "(min-width:932px) 434px, (min-width:700px) calc(50vw - 32px), calc(100vw - 32px)" })}
     </div>
 
     <h2 id="how-to-order">How to <span class="hl">order one</span></h2>
