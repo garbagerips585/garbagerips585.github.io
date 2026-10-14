@@ -65,6 +65,26 @@ export const SET_CODES = {
   WHT: "white-flare",
 };
 
+/**
+ * The window the decklists were played in, as reader copy: "July 18 to August
+ * 16, 2026". Added 14 October 2026 because both pages said "current Standard"
+ * in the meta and the lede while the corpus stopped on August 16 and a new set
+ * (30th Celebration) became legal on September 25. The window was only in the
+ * method footnote; it now goes wherever the claim is made, so a stale corpus
+ * reads as dated rather than as current. It is computed from d.corpus, so a
+ * re-sync updates it with no copy edit.
+ */
+export function corpusWindow(d) {
+  const c = d.corpus || {};
+  const fmt = (iso, withYear) =>
+    new Date(`${iso}T12:00:00Z`).toLocaleDateString("en-US", {
+      month: "long", day: "numeric", ...(withYear ? { year: "numeric" } : {}), timeZone: "UTC",
+    });
+  if (!c.earliest || !c.latest) return "";
+  const sameYear = c.earliest.slice(0, 4) === c.latest.slice(0, 4);
+  return `${fmt(c.earliest, !sameYear)} to ${fmt(c.latest, true)}`;
+}
+
 /** Load the corpus and the card index together. */
 export async function loadDecks() {
   const d = JSON.parse(await readFile(join(ROOT, "data/decks.json"), "utf8"));
