@@ -288,6 +288,31 @@ const CSS = `<style>
   .jb-v{grid-template-columns:auto 96px minmax(0,1fr)}
   .jb-pic{width:96px;height:134px}
 }
+/* PHONE ROWS, 14 October 2026. At 320 the third column was 103px: the reason
+   ran 13 characters a line and 378px tall beside a 134px picture, and the
+   nowrap price spans ("PSA 10 $23,272.22") ran past the column and 2px past the
+   card's own border. Below 480 the text box dissolves into the row's grid: the
+   name and the sub line stay beside the picture, and the prices and the reason
+   take the full width under it. The second row soaks up the picture's spare
+   height so the sub line stays directly under the name. */
+@media (max-width:479px){
+  .jb-v{grid-template-rows:auto 1fr auto auto;row-gap:var(--s1)}
+  .jb-vb{display:contents}
+  .jb-rank{grid-column:1;grid-row:1/3}
+  .jb-pic{grid-column:2;grid-row:1/3}
+  .jb-vb h3{grid-column:3;grid-row:1;min-width:0}
+  .jb-sub{grid-column:3;grid-row:2;min-width:0}
+  .jb-prices{grid-column:1/-1;grid-row:3;margin:var(--s2) 0 0}
+  .jb-why{grid-column:1/-1;grid-row:4}
+  /* The fixed-layout table's cells are 93px here, and overflow-wrap:anywhere cut
+     words wherever the edge fell ("internation/al", "photograp/hed"). The page
+     is lang="en", so hyphens:auto breaks at a syllable with a hyphen instead,
+     and break-word is kept only as the fallback for a word with no break. */
+  .jb-tbl th,.jb-tbl td{overflow-wrap:break-word;hyphens:auto;padding:8px 6px}
+}
+/* A note butted straight against the paragraph after it ("...'never'." then
+   "One quirk worth knowing") because it carried no margin at all. */
+.jb-note{margin:var(--s2) 0 var(--s3)}
 </style>`;
 
 const HEAD = `<!DOCTYPE html>
