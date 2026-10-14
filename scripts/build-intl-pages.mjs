@@ -728,7 +728,12 @@ function hitsBand(g, cls) {
               : "the card database publishes a card count for this set and no card records, so there is no checklist here to look a number up on"
           }.`
         : "",
-      "We do not price non-English printings anywhere on this site, so these are shown rather than valued.",
+      /* WAS "We do not price non-English printings anywhere on this site",
+         false by 14 October 2026: rip pages, /hall.html and /luck.html price
+         Japanese pulls off the rip log (Goldeen, Abyss Eye #084, $5.87) and
+         /most-valuable-cards.html ranks 54 Japanese and Chinese cards. What
+         is true is narrower: no checklist price list exists for these sets. */
+      "There is no price list for this set's checklist, so the cards here are shown rather than valued. Where a pull carries a price, it is the figure written in our rip log, shown on that card's rip page.",
     ].filter(Boolean).join(" ")}</p>
   </div>
 </section>`;
