@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 321166,
+    "views": 322209,
     "subscribers": 419,
-    "videos": 373,
-    "readAt": "2026-10-13"
+    "videos": 374,
+    "readAt": "2026-10-14"
   },
-  "syncedAt": "2026-10-13",
+  "syncedAt": "2026-10-14",
   "videos": [
+    {
+      "id": "YqEnr-bOn8k",
+      "title": "First Pack Magic in the 30th Poster Collection?! 🌊✨",
+      "path": "rip/first-pack-magic-in-the-30th-poster-collection-YqEnr-bOn8k.html",
+      "published": "2026-10-14",
+      "publishedAt": "2026-10-14T10:21:02Z",
+      "duration": 30,
+      "views": 455,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "79QR-6lfFMs",
       "title": "Pack #8 Reminded Us Why We’re Called Garbage Rips 🗑️💀",
@@ -15,7 +34,7 @@
       "published": "2026-10-13",
       "publishedAt": "2026-10-13T10:18:16Z",
       "duration": 22,
-      "views": 805,
+      "views": 868,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-10-12",
       "publishedAt": "2026-10-12T10:06:15Z",
       "duration": 30,
-      "views": 946,
+      "views": 993,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-10-11",
       "publishedAt": "2026-10-11T11:21:08Z",
       "duration": 23,
-      "views": 17,
+      "views": 19,
       "vertical": true,
       "short": true,
       "sets": [
@@ -79,7 +98,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1082,
+      "views": 1085,
       "vertical": true,
       "short": true,
       "sets": [
@@ -121,7 +140,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 985,
+      "views": 986,
       "vertical": true,
       "short": true,
       "sets": [
@@ -207,7 +226,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1016,
+      "views": 1017,
       "vertical": true,
       "short": true,
       "sets": [
@@ -401,7 +420,7 @@
       "published": "2026-09-25",
       "publishedAt": "2026-09-25T16:57:19Z",
       "duration": 22,
-      "views": 916,
+      "views": 917,
       "vertical": true,
       "short": true,
       "sets": [
@@ -423,7 +442,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1279,
+      "views": 1281,
       "vertical": true,
       "short": true,
       "sets": [
@@ -550,7 +569,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 936,
+      "views": 942,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1384,7 +1403,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1070,
+      "views": 1072,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2597,7 +2616,7 @@
       "published": "2026-07-19",
       "publishedAt": "2026-07-19T12:25:22Z",
       "duration": 20,
-      "views": 696,
+      "views": 697,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6344,7 +6363,7 @@
       "published": "2026-05-26",
       "publishedAt": "2026-05-26T23:40:32Z",
       "duration": 23,
-      "views": 985,
+      "views": 988,
       "vertical": true,
       "short": true,
       "sets": [
