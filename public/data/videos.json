@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 322209,
-    "subscribers": 419,
-    "videos": 374,
-    "readAt": "2026-10-14"
+    "views": 324176,
+    "subscribers": 420,
+    "videos": 375,
+    "readAt": "2026-10-15"
   },
-  "syncedAt": "2026-10-14",
+  "syncedAt": "2026-10-15",
   "videos": [
+    {
+      "id": "yxJsHPvs3uU",
+      "title": "The Colors on This Hydrapple IR Are CRAZY! 🍏✨",
+      "path": "rip/the-colors-on-this-hydrapple-ir-are-crazy-yxJsHPvs3uU.html",
+      "published": "2026-10-15",
+      "publishedAt": "2026-10-15T10:32:36Z",
+      "duration": 25,
+      "views": 80,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "YqEnr-bOn8k",
       "title": "First Pack Magic in the 30th Poster Collection?! 🌊✨",
@@ -15,7 +34,7 @@
       "published": "2026-10-14",
       "publishedAt": "2026-10-14T10:21:02Z",
       "duration": 30,
-      "views": 455,
+      "views": 1031,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-13",
       "publishedAt": "2026-10-13T10:18:16Z",
       "duration": 22,
-      "views": 868,
+      "views": 939,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-10-12",
       "publishedAt": "2026-10-12T10:06:15Z",
       "duration": 30,
-      "views": 993,
+      "views": 1022,
       "vertical": true,
       "short": true,
       "sets": [
@@ -98,7 +117,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1085,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
@@ -442,7 +461,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1281,
+      "views": 1282,
       "vertical": true,
       "short": true,
       "sets": [
@@ -485,7 +504,7 @@
       "published": "2026-09-22",
       "publishedAt": "2026-09-22T10:12:24Z",
       "duration": 25,
-      "views": 680,
+      "views": 682,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2025,7 +2044,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 966,
+      "views": 968,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2723,7 +2742,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 659,
+      "views": 660,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11368,7 +11387,7 @@
       "published": "2026-03-04",
       "publishedAt": "2026-03-04T11:14:00Z",
       "duration": 28,
-      "views": 332,
+      "views": 335,
       "vertical": true,
       "short": true,
       "sets": [
