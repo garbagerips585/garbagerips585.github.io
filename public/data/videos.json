@@ -15,7 +15,7 @@
       "published": "2026-10-15",
       "publishedAt": "2026-10-15T10:32:36Z",
       "duration": 25,
-      "views": 80,
+      "views": 388,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "packNumber": 17,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 17"
     },
     {
       "id": "YqEnr-bOn8k",
@@ -53,7 +55,7 @@
       "published": "2026-10-13",
       "publishedAt": "2026-10-13T10:18:16Z",
       "duration": 22,
-      "views": 939,
+      "views": 954,
       "vertical": true,
       "short": true,
       "sets": [
@@ -75,7 +77,7 @@
       "published": "2026-10-12",
       "publishedAt": "2026-10-12T10:06:15Z",
       "duration": 30,
-      "views": 1022,
+      "views": 1023,
       "vertical": true,
       "short": true,
       "sets": [
@@ -117,7 +119,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1090,
+      "views": 1095,
       "vertical": true,
       "short": true,
       "sets": [
@@ -159,7 +161,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 986,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2742,7 +2744,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 660,
+      "views": 661,
       "vertical": true,
       "short": true,
       "sets": [

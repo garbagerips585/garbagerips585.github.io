@@ -2957,5 +2957,13 @@
     "packNumberWhy": "The owner, 13 October 2026: \"Single Booster Pack, Pack#8, hit no, Mega Evolution\". Follows Pack #7 (XUPRTrC_bMc, 5 October) in the same run of single Mega Evolution packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
     "hasHitWhy": "\"hit no\" is his own word and the whole source. The title agrees (\"Reminded Us Why We're Called Garbage Rips\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "The owner named one set, \"Mega Evolution\". Pinned because the title names no set at all."
+  },
+  "yxJsHPvs3uU": {
+    "packNumber": 17,
+    "packNumberWhy": "The owner, 15 October 2026: \"Single Booster Pack, Pack #17, Hit yes, Hydrapple - Singel Gold Star - Illustration Rare\". He named no set; the video's own description names it (\"For Pack #17 of Pokémon Destined Rivals\"), and it follows Pack #16 (oZJLsfkxlmo, 7 October) in the same run of single Destined Rivals packs. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "sets": [
+      "destined-rivals"
+    ],
+    "setsWhy": "Destined Rivals, from the video description and the run it continues; pinned because the title names no set."
   }
 }

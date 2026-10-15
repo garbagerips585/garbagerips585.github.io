@@ -3611,6 +3611,28 @@
       "blurb": "A monthly Pokemon show at the Batavia Quality Inn, free to get in.",
       "source": "wnycardshows (Shake & Break 716), read 8 October 2026",
       "sourceNote": "A NEW 2027 SERIES on Shake & Break 716's calendar: \"10am-3pm - Batavia Pokemon Show - Quality Inn, 8250 Park Rd Batavia, NY 14020 - FREE admission\". Its ICS entries, created 27 September 2026, run to 5pm, so the close is the page text's and is not certain. No organizer is named; it may follow on from the Extreme Pokemon Show at the same hotel, which nothing states."
+    },
+    {
+      "id": "double-a-webster-2026-11-07",
+      "name": "Double A Card & Comic Collective",
+      "date": "2026-11-07",
+      "start": "12:00",
+      "end": "16:00",
+      "venue": "Harmony House",
+      "address": "58 E Main St, Webster, NY",
+      "city": "Webster",
+      "region": "roc",
+      "admission": "$5, kids under 5 free",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The organizer's own flyer: its background is Pokemon logos and the Pokemon 30th Celebration mark is one of the five game logos along the foot, beside Lorcana, Magic, Flesh and Blood and the comics. It bills \"Trading Cards, Comics and Collectables\" rather than a Pokemon show.",
+      "organiser": "Double A Card & Comic Collective",
+      "blurb": "A relaxed afternoon card and comic show at Harmony House on East Main Street in Webster: trading cards, comics and collectibles, with tables for gameplay, tutorials and conversation. Five dollars in, kids under five free.",
+      "source": "the organizer's own flyer, sent to the channel 15 October 2026",
+      "sourceNote": "EVERYTHING HERE IS ON THE FLYER and nothing is added: date, hours (12-4pm), venue, street address, price and the kids rule. The flyer prints no ZIP code, so none is given, and it names no organizer separately from the show, so the show's own name stands in. It also carries a vendor inquiry email; that is for vendors and is not printed here.",
+      "flyer": "double-a-webster-2026-11-07.jpg",
+      "flyerW": 440,
+      "flyerH": 586
     }
   ],
   "_towns": {
@@ -3725,6 +3747,10 @@
     "North East, PA": [
       42.215037,
       -79.835842
+    ],
+    "Webster": [
+      43.212285,
+      -77.429994
     ]
   },
   "_towns_note": [
