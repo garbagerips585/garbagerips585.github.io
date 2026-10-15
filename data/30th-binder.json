@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-11",
+  "checked": "2026-10-15",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -407,6 +407,16 @@
       "setCode": "30C",
       "section": "main",
       "rarity": "Common"
+    },
+    {
+      "name": "Cresselia",
+      "n": "074",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-10-15",
+      "note": "The owner, 15 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read 161 and 96 of 98; the itemized numbers are the source, which completes the main set and makes the binder 163."
     },
     {
       "name": "Chandelure",
@@ -1446,6 +1456,16 @@
       "rarity": "Common",
       "got": "2026-09-26",
       "note": "The owner, 26 September 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
+      "name": "Eevee",
+      "n": "117",
+      "of": 128,
+      "setCode": "30C",
+      "section": "main",
+      "rarity": "Common",
+      "got": "2026-10-15",
+      "note": "The owner, 15 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read 161 and 96 of 98; the itemized numbers are the source, which completes the main set and makes the binder 163."
     },
     {
       "name": "Eevee",
