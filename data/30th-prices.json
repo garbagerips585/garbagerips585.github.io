@@ -23,7 +23,7 @@
   ],
   "source": "pricecharting.com console listing, Ungraded / Grade 9 / PSA 10",
   "console": "/console/pokemon-30th-celebration",
-  "checked": "2026-10-15",
+  "checked": "2026-10-16",
   "counts": {
     "rows": 194,
     "priced": 188,
@@ -1728,7 +1728,7 @@
       "n": "099",
       "name": "Greninja ex",
       "kind": "promo",
-      "raw": 2.17,
+      "raw": 2.02,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/greninja-ex-99"
@@ -1746,7 +1746,7 @@
       "n": "100",
       "name": "Sylveon ex",
       "kind": "promo",
-      "raw": 2.55,
+      "raw": 2.34,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/sylveon-ex-100"
@@ -1782,7 +1782,7 @@
       "n": "101",
       "name": "Nidorina",
       "kind": "promo",
-      "raw": 5.26,
+      "raw": 4.68,
       "g9": 22,
       "psa10": null,
       "pc": "/game/pokemon-promo/nidorina-101"
@@ -1791,9 +1791,9 @@
       "n": "099",
       "name": "Greninja ex",
       "kind": "jumbo",
-      "raw": 3.71,
-      "g9": 15.71,
-      "psa10": 45.34,
+      "raw": 3.97,
+      "g9": 15.76,
+      "psa10": 45.46,
       "pc": "/game/pokemon-promo/greninja-ex-jumbo-99"
     },
     "jumbo|100": {
