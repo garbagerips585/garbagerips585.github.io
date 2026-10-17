@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 324201,
-    "subscribers": 420,
-    "videos": 376,
-    "readAt": "2026-10-16"
+    "views": 325246,
+    "subscribers": 421,
+    "videos": 377,
+    "readAt": "2026-10-17"
   },
-  "syncedAt": "2026-10-16",
+  "syncedAt": "2026-10-17",
   "videos": [
+    {
+      "id": "ofm2r2SliYo",
+      "title": "Pack #14 Came Through with a Dragapult ex Hit! 👻🔥",
+      "path": "rip/pack-14-came-through-with-a-dragapult-ex-hit-ofm2r2SliYo.html",
+      "published": "2026-10-17",
+      "publishedAt": "2026-10-17T10:50:11Z",
+      "duration": 25,
+      "views": 8,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Ascended Heroes Pack"
+    },
     {
       "id": "IZucQIOpGJM",
       "title": "Back-to-Back Hits in the 30th Poster Collection?! 🔮✨",
@@ -15,7 +34,7 @@
       "published": "2026-10-16",
       "publishedAt": "2026-10-16T10:42:36Z",
       "duration": 25,
-      "views": 165,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-15",
       "publishedAt": "2026-10-15T10:32:36Z",
       "duration": 25,
-      "views": 902,
+      "views": 914,
       "vertical": true,
       "short": true,
       "sets": [
@@ -55,7 +74,7 @@
       "published": "2026-10-14",
       "publishedAt": "2026-10-14T10:21:02Z",
       "duration": 30,
-      "views": 1041,
+      "views": 1059,
       "vertical": true,
       "short": true,
       "sets": [
@@ -74,7 +93,7 @@
       "published": "2026-10-13",
       "publishedAt": "2026-10-13T10:18:16Z",
       "duration": 22,
-      "views": 956,
+      "views": 963,
       "vertical": true,
       "short": true,
       "sets": [
@@ -138,7 +157,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1100,
+      "views": 1106,
       "vertical": true,
       "short": true,
       "sets": [
@@ -180,7 +199,7 @@
       "published": "2026-10-08",
       "publishedAt": "2026-10-08T10:31:36Z",
       "duration": 27,
-      "views": 987,
+      "views": 989,
       "vertical": true,
       "short": true,
       "sets": [
@@ -244,7 +263,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1051,
+      "views": 1052,
       "vertical": true,
       "short": true,
       "sets": [
@@ -287,7 +306,7 @@
       "published": "2026-10-03",
       "publishedAt": "2026-10-03T11:05:18Z",
       "duration": 23,
-      "views": 1000,
+      "views": 1002,
       "vertical": true,
       "short": true,
       "sets": [
@@ -352,7 +371,7 @@
       "published": "2026-09-30",
       "publishedAt": "2026-09-30T10:23:12Z",
       "duration": 23,
-      "views": 43,
+      "views": 45,
       "vertical": true,
       "short": true,
       "sets": [
@@ -609,7 +628,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 943,
+      "views": 944,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1168,7 +1187,7 @@
       "published": "2026-08-27",
       "publishedAt": "2026-08-27T12:09:30Z",
       "duration": 21,
-      "views": 1243,
+      "views": 1244,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1201,7 +1220,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1187,
+      "views": 1188,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2028,7 +2047,7 @@
       "published": "2026-08-02",
       "publishedAt": "2026-08-02T11:20:07Z",
       "duration": 22,
-      "views": 892,
+      "views": 893,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2065,7 +2084,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 968,
+      "views": 971,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5067,7 +5086,7 @@
       "published": "2026-06-15",
       "publishedAt": "2026-06-15T10:08:22Z",
       "duration": 25,
-      "views": 989,
+      "views": 990,
       "vertical": true,
       "short": true,
       "sets": [
