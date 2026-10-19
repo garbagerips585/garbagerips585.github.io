@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 326345,
-    "subscribers": 422,
-    "videos": 378,
-    "readAt": "2026-10-18"
+    "views": 326397,
+    "subscribers": 423,
+    "videos": 379,
+    "readAt": "2026-10-19"
   },
-  "syncedAt": "2026-10-18",
+  "syncedAt": "2026-10-19",
   "videos": [
+    {
+      "id": "8FyM47w2nto",
+      "title": "We’ll Take What We Can Get: Cynthia’s Garchomp ex! 🦈🔥",
+      "path": "rip/well-take-what-we-can-get-cynthias-garchomp-ex-8FyM47w2nto.html",
+      "published": "2026-10-19",
+      "publishedAt": "2026-10-19T10:30:02Z",
+      "duration": 26,
+      "views": 750,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "lYzfufx3H1M",
       "title": "Pack #3 Brought Us Back Down to Earth! 🗑️💀",
@@ -15,7 +34,7 @@
       "published": "2026-10-18",
       "publishedAt": "2026-10-18T11:13:05Z",
       "duration": 25,
-      "views": 45,
+      "views": 1000,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-17",
       "publishedAt": "2026-10-17T10:50:11Z",
       "duration": 25,
-      "views": 19,
+      "views": 23,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-10-16",
       "publishedAt": "2026-10-16T10:42:36Z",
       "duration": 25,
-      "views": 1035,
+      "views": 1056,
       "vertical": true,
       "short": true,
       "sets": [
@@ -432,7 +451,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1371,
+      "views": 1372,
       "vertical": true,
       "short": true,
       "sets": [
@@ -647,7 +666,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 944,
+      "views": 945,
       "vertical": true,
       "short": true,
       "sets": [
@@ -689,7 +708,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1286,
+      "views": 1287,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1481,7 +1500,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1073,
+      "views": 1075,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9122,7 +9141,7 @@
       "published": "2026-04-18",
       "publishedAt": "2026-04-18T11:00:56Z",
       "duration": 24,
-      "views": 1429,
+      "views": 1430,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12112,7 +12131,7 @@
       "published": "2026-02-13",
       "publishedAt": "2026-02-13T13:30:09Z",
       "duration": 18,
-      "views": 634,
+      "views": 636,
       "vertical": true,
       "short": true,
       "sets": [
