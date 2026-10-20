@@ -23,7 +23,7 @@
   ],
   "source": "pricecharting.com console listing, Ungraded / Grade 9 / PSA 10",
   "console": "/console/pokemon-30th-celebration",
-  "checked": "2026-10-19",
+  "checked": "2026-10-20",
   "counts": {
     "rows": 194,
     "priced": 188,
@@ -1737,7 +1737,7 @@
       "n": "095",
       "name": "Lucario",
       "kind": "promo",
-      "raw": 1.75,
+      "raw": 1.97,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/lucario-95"
@@ -1755,7 +1755,7 @@
       "n": "096",
       "name": "Moltres",
       "kind": "promo",
-      "raw": 1.77,
+      "raw": 1.99,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/moltres-96"
@@ -1764,7 +1764,7 @@
       "n": "098",
       "name": "Zapdos",
       "kind": "promo",
-      "raw": 1.57,
+      "raw": 1.93,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/zapdos-98"
@@ -1800,7 +1800,7 @@
       "n": "100",
       "name": "Sylveon ex",
       "kind": "jumbo",
-      "raw": 4.81,
+      "raw": 4.65,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/sylveon-ex-jumbo-100"
