@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-15",
+  "checked": "2026-10-24",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -695,6 +695,16 @@
       "rarity": "Illustration Rare",
       "got": "2026-09-16",
       "note": "The owner, 16 September 2026: \"these 3 are all single gold star - illustration rare\", with a close-up of the three together. THE SYMBOL DECIDED IT AND NOTHING READABLE COULD HAVE: this set prints each of these twice, once in the main set and once as an Illustration Rare, and the two carry IDENTICAL card text -- same HP, same attacks, same everything -- so only the rarity mark and the full-bleed artwork separate them. One gold star IS the Illustration Rare symbol. The close-up also shows the number plainly, which the first photograph did not, and it agrees. HP 60, Scratch (20). The main set prints it at 122/128 Common."
+    },
+    {
+      "name": "Gengar ex",
+      "n": "154",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Special Illustration Rare",
+      "got": "2026-10-24",
+      "note": "The owner, 24 October 2026, in an updated master set list: \"148, 151, 154, 155, 156\" under SPECIAL ILLUSTRATION RARE, 154 new. His headings still read 161 and 4 of 10; the itemized numbers are the source, which makes the binder 164."
     },
     {
       "name": "Jirachi ex",
@@ -1769,5 +1779,18 @@
       "pid": 713270
     }
   ],
-  "_pidNote": "`pid` on a promo or jumbo is its TCGplayer product id, read 22 September 2026 off TCGplayer's own listing: set 'ME: Mega Evolution Promo' for the six promos and 'Jumbo Cards' for the two jumbos, each titled '<name> - <number> (30th Celebration)'. Every _200w.jpg answered 200 image/jpeg before it went in. It is the only picture source these have: TCGdex holds no MEP promos and the binder checklist does not list them. The eight Energy (MEE 009-016) carry one too, from TCGplayer's 'MEE: Mega Evolution Energies' set (713248-713255), read 23 September 2026; each scan was opened and shows the 30th Celebration YOSHIROTTEN foil with the matching type and number."
+  "_pidNote": "`pid` on a promo or jumbo is its TCGplayer product id, read 22 September 2026 off TCGplayer's own listing: set 'ME: Mega Evolution Promo' for the six promos and 'Jumbo Cards' for the two jumbos, each titled '<name> - <number> (30th Celebration)'. Every _200w.jpg answered 200 image/jpeg before it went in. It is the only picture source these have: TCGdex holds no MEP promos and the binder checklist does not list them. The eight Energy (MEE 009-016) carry one too, from TCGplayer's 'MEE: Mega Evolution Energies' set (713248-713255), read 23 September 2026; each scan was opened and shows the 30th Celebration YOSHIROTTEN foil with the matching type and number.",
+  "firstPartner": {
+    "_note": [
+      "THE FIRST PARTNER ILLUSTRATION COLLECTION, MEP 037 to 063, drawn at the FRONT of the binder. The owner, 24 October 2026: \"add in the front of the binder all of the first partners collections cards in their order as those go first, then the rest how you have it ordered now. I have collected all of the first partners cards except for 3 from the Unova region - SNIVY, TEPIG, OSHAWOTT - SERIES 2 - so leave those grayed out until I get those.\"",
+      "The card list, pictures and prices come from data/first-partner.json; this block only says which he does not have yet. Like the promos these are outside the 199 and never count toward the set's percentage.",
+      "When he gets one, delete its number from `missing`."
+    ],
+    "missing": [
+      "049",
+      "050",
+      "051"
+    ],
+    "checked": "2026-10-24"
+  }
 }

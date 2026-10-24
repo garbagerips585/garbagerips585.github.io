@@ -96,6 +96,30 @@ const PROMO_CELLS = (() => {
       slot: { name: r.name, n: String(r.n).padStart(3, "0"), section: "promo", setCode: "MEP", pid: r.pid || null } };
   });
 })();
+/* THE FIRST PARTNER ILLUSTRATION COLLECTION OPENS THE BINDER, 24 October 2026.
+   The owner: "add in the front of the binder all of the first partners
+   collections cards in their order as those go first, then the rest how you
+   have it ordered now", with the three Unova Series 2 cards he does not have yet
+   grayed out. The 27 promos (MEP 037 to 063) and their pictures and prices are
+   data/first-partner.json's, the same file /first-partner-illustration-collection
+   .html reads; data/30th-binder.json `firstPartner.missing` is the only thing
+   this page adds, so a card he gets is one number deleted there. Same standing
+   as the promos: outside the 199, never in `owned`, never in the percentage.
+   Three series of nine is exactly one binder page each. */
+let FP_CARDS = [];
+try {
+  FP_CARDS = JSON.parse(await readFile(join(ROOT, "data/first-partner.json"), "utf8")).cards || [];
+} catch { /* no collection file: no pages, as before */ }
+const FP_MISSING = new Set(((binder.firstPartner || {}).missing || []).map(String));
+const FP_CELLS = binder.firstPartner
+  ? FP_CARDS.slice().sort((a, b) => Number(a.number) - Number(b.number)).map((f) => {
+      const card = { name: f.name, n: f.number, setCode: "MEP", section: "fp", fp: f };
+      return FP_MISSING.has(String(f.number))
+        ? { has: false, owned: null, slot: card, promo: true }
+        : { has: true, owned: card, slot: null, promo: true };
+    })
+  : [];
+const FP_HAVE = FP_CELLS.filter((c) => c.has).length;
 /* JUMBOS ARE A THIRD LIST AND NOT A SIXTH SECTION, same reason as the promos and
    spelled out in `_jumboNote`: the five sections add to 199 because that is the
    SET, and an oversized card is in none of them. It is also deliberately not
@@ -531,7 +555,18 @@ const dexLocalId = (section, n) => {
    a sleeve; then Top and Bottom in neighboring pockets meet along their long
    edges and the artwork runs across both, which is the point of a LEGEND. */
 const isSideways = (name) => /\bLEGEND\b.*\((?:Top|Bottom)\)/i.test(String(name || ""));
-const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES }) => {
+/* A FIRST PARTNER PROMO'S PICTURE: the collection's own mirrored scans in
+   /assets/first-partner/, 245w and 420w, each with an .avif beside it. Written
+   out rather than passed through avifPicture(), which only rewrites TCGdex, pack
+   and subset paths. */
+const fpImg = (f, name, sizes = SIZES) => {
+  const set = (ext) => `${f.img.replace(/\.webp$/, ext)} ${f.imgWidth}w, ${f.imgLarge.replace(/\.webp$/, ext)} ${f.imgLargeWidth}w`;
+  return `<picture><source type="image/avif" srcset="${set(".avif")}" sizes="${sizes}">` +
+    `<img class="t30-card" src="${f.img}" srcset="${set(".webp")}" sizes="${sizes}" alt="${esc(name)}, First Partner Illustration Collection promo" ` +
+    `width="${f.imgWidth}" height="${f.imgHeight}" loading="lazy" decoding="async" onload="t30l(this)" onerror="t30e(this)"></picture>`;
+};
+const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES, fp = null }) => {
+  if (fp) return fpImg(fp, name, sizes);
   const dex = dexLocalId(section ?? row?.section, n);
   if (dex) return cardImg(dex, name, low, sizes);
   /* NO avifPicture() AROUND THIS ONE. That helper rewrites a .webp srcset to
@@ -641,6 +676,14 @@ const phOf = (name, label) =>
        there, keyed promo|NNN and jumbo|NNN. */
 const pxOf = (c, slot) => {
   const s = c || slot || {};
+  if (s.fp) {
+    /* First Partner prices: data/first-partner.json's double-read PriceCharting
+       figures, the same ones its own page prints. A column that did not agree on
+       both reads has no `value` and is not shown. */
+    const cols = (s.fp.pc || {}).cols || {};
+    const raw = cols.raw?.value, psa10 = cols.psa10?.value;
+    return raw || psa10 ? { raw, psa10 } : null;
+  }
   if (c && /jumbo/i.test(c.kind || "")) return (prices.promos || {})[`jumbo|${c.n}`] || null;
   if ((c && c.setCode === "MEP") || s.section === "promo") {
     return (prices.promos || {})[`promo|${String(s.n || "").padStart(3, "0")}`] || null;
@@ -649,6 +692,7 @@ const pxOf = (c, slot) => {
   return row ? PRICE.get(`${row.section}|${row.n}`) || null : null;
 };
 const bigOf = (s, row) => {
+  if (s.fp) return s.fp.imgLarge;
   const dex = dexLocalId(s.section ?? row?.section, s.n);
   if (dex) return `${scanBase(dex)}/high.webp`;
   const pid = row?.pid || s.pid;
@@ -752,8 +796,8 @@ const pocket = (c, i, slot, lg = "") => {
     const pic = c
       ? /* A promo or jumbo is in no checklist row, so each carries its own `pid`
            in data/30th-binder.json instead; see `_pidNote` there. */
-        pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section })
-      : pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true });
+        pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section, fp: c.fp })
+      : pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true, fp: slot.fp });
     const px = pxOf(c, slot);
     /* A JUMBO'S PRODUCT PHOTO CARRIES TCGPLAYER'S "OVERSIZE CARD" SASH across
        the art, so the enlarged view uses its standard-size twin's scan: the same
@@ -761,7 +805,7 @@ const pocket = (c, i, slot, lg = "") => {
     const twin = c && /jumbo/i.test(c.kind || "") ? promos.find((o) => String(o.n) === String(c.n) && o.pid) : null;
     const big = bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
     const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
-    const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c, ill: illOf(s.section, s.n) });
+    const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c, ill: s.fp ? s.fp.illustrator : illOf(s.section, s.n) });
     /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
        by absence. NO DATE ON THE CARD either (the owner, 22 September 2026:
        "remove the dates overalyed on top of the cards"); `got` still drives the
@@ -818,6 +862,13 @@ ${miss.map((c) => `          <li><span>${esc("#" + pocketNum(c.section, c.n))}</
         </ul>
       </details>`;
   }).filter(Boolean);
+  const fpMiss = FP_CELLS.filter((c) => !c.has).map((c) => c.slot);
+  if (fpMiss.length) rows.unshift(`      <details class="t30-need">
+        <summary><b>First Partners</b> <span>${fpMiss.length} still to find</span></summary>
+        <ul>
+${fpMiss.map((c) => `          <li><span>${esc("#" + c.n + " MEP")}</span> ${esc(c.name)} <i>Series ${esc(String(c.fp.series))}, ${esc(c.fp.region)}</i></li>`).join("\n")}
+        </ul>
+      </details>`);
   return rows.length ? `    <div class="t30-needs">
       <h3>Still to find</h3>
 ${rows.join("\n")}
@@ -922,6 +973,10 @@ const leafOf = (cells, meta) => {
    without a second pass. */
 const BINDER_LEAVES = (() => {
   const out = [];
+  /* First Partners first: see FP_CELLS. One page per series. */
+  for (let p = 0; p < Math.ceil(FP_CELLS.length / POCKETS); p++)
+    out.push(leafOf(FP_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
+      { key: "fp", label: "First Partners", total: FP_CELLS.length, page: p + 1, pages: Math.ceil(FP_CELLS.length / POCKETS), of: FP_CELLS.length }));
   for (const [key, label, total] of SECTIONS) {
     const have = ownedIn(key);
     const slots = HAVE_SCANS ? slotsFor(key) : [];
@@ -1072,7 +1127,9 @@ const railHtml = (() => {
    still matter -- he asked for the percentage in the first place -- so they
    survive as a compact summary above the binder rather than being lost with the
    headings they used to live on. */
-const sectionSummary = [...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
+const sectionSummary = [
+  ...(FP_CELLS.length ? [{ key: "fp", label: "First Partners", total: FP_CELLS.length, have: FP_HAVE }] : []),
+  ...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
   ...(PROMO_CELLS.length ? [{ key: "promo", label: "Promos", total: PROMO_CELLS.length, have: promos.length }] : []),
   ...(jumbos.length ? [{ key: "jumbo", label: "Jumbo cards", total: null, have: jumbos.length }] : [])]
   .map(({ label, total, have }) => {
@@ -2572,7 +2629,7 @@ ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>
       </div>
       <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
-      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${promos.length + jumbos.length ? `, plus ${promos.length + jumbos.length} outside it` : ""}.
+      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${FP_HAVE + promos.length + jumbos.length ? `, plus ${FP_HAVE + promos.length + jumbos.length} outside it${FP_HAVE ? `, ${FP_HAVE} of them First Partners` : ""}` : ""}.
         Turn a page with either corner, or jump to one below. A gray card is one still to find.${
           jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
         }</figcaption>
