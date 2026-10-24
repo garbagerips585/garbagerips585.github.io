@@ -1508,6 +1508,51 @@
       "rawNm": 7.41,
       "asOf": "2026-09-02",
       "source": "pokemonpricetracker.com"
+    },
+    "phantasmal-flames-106": {
+      "psa10": 100.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 1631,
+      "psa10LastSale": "2026-10-23",
+      "rawNm": 14.07,
+      "asOf": "2026-10-24",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-148": {
+      "psa10": 310,
+      "psa10Confidence": "high",
+      "psa10Sales": 758,
+      "psa10LastSale": "2026-10-22",
+      "rawNm": 96.25,
+      "asOf": "2026-10-24",
+      "source": "pokemonpricetracker.com"
+    },
+    "stellar-crown-143": {
+      "psa10": 268,
+      "psa10Confidence": "high",
+      "psa10Sales": 648,
+      "psa10LastSale": "2026-10-22",
+      "rawNm": 86.86,
+      "asOf": "2026-10-24",
+      "source": "pokemonpricetracker.com"
+    },
+    "paldean-fates-202": {
+      "psa10": 173.18,
+      "psa10Confidence": "low",
+      "psa10Sales": 148,
+      "psa10LastSale": "2026-10-18",
+      "rawNm": 46.72,
+      "asOf": "2026-10-24",
+      "source": "pokemonpricetracker.com"
+    },
+    "paldean-fates-201": {
+      "psa10": 338.12,
+      "psa10Confidence": "medium",
+      "psa10Sales": 114,
+      "psa10LastSale": "2026-10-22",
+      "rawNm": 37.54,
+      "asOf": "2026-10-24",
+      "source": "pokemonpricetracker.com"
     }
   }
 }

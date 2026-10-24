@@ -23,7 +23,7 @@
   ],
   "source": "pricecharting.com console listing, Ungraded / Grade 9 / PSA 10",
   "console": "/console/pokemon-30th-celebration",
-  "checked": "2026-10-23",
+  "checked": "2026-10-24",
   "counts": {
     "rows": 193,
     "priced": 188,
@@ -475,9 +475,9 @@
       "n": "41/122",
       "name": "Greninja BREAK",
       "section": "classic",
-      "raw": 12,
-      "g9": 25.5,
-      "psa10": 89.28,
+      "raw": 13.48,
+      "g9": 25.53,
+      "psa10": 89.27,
       "pc": "/game/pokemon-30th-celebration/greninja-break-41"
     },
     "main|054/128": {
@@ -907,9 +907,9 @@
       "n": "119/128",
       "name": "Snorlax",
       "section": "main",
-      "raw": 1.7,
-      "g9": 12.06,
-      "psa10": 37.86,
+      "raw": 1.65,
+      "g9": 12.2,
+      "psa10": 38.4,
       "pc": "/game/pokemon-30th-celebration/snorlax-119"
     },
     "pikachu|049/128": {
@@ -1186,9 +1186,9 @@
       "n": "080/128",
       "name": "Lunala",
       "section": "main",
-      "raw": 1.3,
-      "g9": 11.91,
-      "psa10": 37.32,
+      "raw": 1.31,
+      "g9": 11.68,
+      "psa10": 36.42,
       "pc": "/game/pokemon-30th-celebration/lunala-80"
     },
     "main|019/128": {
@@ -1196,8 +1196,8 @@
       "name": "Kyogre",
       "section": "main",
       "raw": 1.04,
-      "g9": 11.67,
-      "psa10": 36.38,
+      "g9": 11.35,
+      "psa10": 35.14,
       "pc": "/game/pokemon-30th-celebration/kyogre-19"
     },
     "main|017/128": {
@@ -1259,8 +1259,8 @@
       "name": "Maushold",
       "section": "main",
       "raw": 1.49,
-      "g9": 12.18,
-      "psa10": 38.36,
+      "g9": 11.93,
+      "psa10": 37.36,
       "pc": "/game/pokemon-30th-celebration/maushold-125"
     },
     "main|062/128": {
@@ -1285,9 +1285,9 @@
       "n": "123/128",
       "name": "Hisuian Zoroark",
       "section": "main",
-      "raw": 0.99,
-      "g9": 11.72,
-      "psa10": 36.58,
+      "raw": 1.02,
+      "g9": 11.28,
+      "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/hisuian-zoroark-123"
     },
     "main|086/128": {
@@ -1295,8 +1295,8 @@
       "name": "Koraidon",
       "section": "main",
       "raw": 1.27,
-      "g9": 11.82,
-      "psa10": 36.97,
+      "g9": 11.64,
+      "psa10": 36.27,
       "pc": "/game/pokemon-30th-celebration/koraidon-86"
     },
     "main|072/128": {
@@ -1367,8 +1367,8 @@
       "name": "Ninetales",
       "section": "main",
       "raw": 0.99,
-      "g9": 11.89,
-      "psa10": 37.22,
+      "g9": 11.28,
+      "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/ninetales-10"
     },
     "main|120/128": {
@@ -1393,9 +1393,9 @@
       "n": "013/128",
       "name": "Victini",
       "section": "main",
-      "raw": 1.11,
-      "g9": 11.28,
-      "psa10": 34.89,
+      "raw": 1.1,
+      "g9": 11.44,
+      "psa10": 35.48,
       "pc": "/game/pokemon-30th-celebration/victini-13"
     },
     "main|022/128": {
@@ -1411,18 +1411,18 @@
       "n": "096/128",
       "name": "Zoroark",
       "section": "main",
-      "raw": 1,
-      "g9": 11.53,
-      "psa10": 35.83,
+      "raw": 1.02,
+      "g9": 11.29,
+      "psa10": 34.94,
       "pc": "/game/pokemon-30th-celebration/zoroark-96"
     },
     "main|074/128": {
       "n": "074/128",
       "name": "Cresselia",
       "section": "main",
-      "raw": 1,
-      "g9": 11.9,
-      "psa10": 37.27,
+      "raw": 1.29,
+      "g9": 11.29,
+      "psa10": 34.94,
       "pc": "/game/pokemon-30th-celebration/cresselia-74"
     },
     "main|075/128": {
@@ -1438,9 +1438,9 @@
       "n": "127/128",
       "name": "Switch",
       "section": "main",
-      "raw": 1.01,
-      "g9": 11.28,
-      "psa10": 34.89,
+      "raw": 0.99,
+      "g9": 11.31,
+      "psa10": 34.99,
       "pc": "/game/pokemon-30th-celebration/switch-127"
     },
     "main|001/128": {
@@ -1465,9 +1465,9 @@
       "n": "079/128",
       "name": "Cosmoem",
       "section": "main",
-      "raw": 1.11,
-      "g9": 11.29,
-      "psa10": 34.94,
+      "raw": 1,
+      "g9": 11.44,
+      "psa10": 35.48,
       "pc": "/game/pokemon-30th-celebration/cosmoem-79"
     },
     "main|060/128": {
@@ -1502,8 +1502,8 @@
       "name": "Vivillon",
       "section": "main",
       "raw": 0.99,
-      "g9": 11.29,
-      "psa10": 34.94,
+      "g9": 11.28,
+      "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/vivillon-8"
     },
     "main|067/128": {
@@ -1528,9 +1528,9 @@
       "n": "058/128",
       "name": "Toxel",
       "section": "main",
-      "raw": 1.31,
-      "g9": 11.18,
-      "psa10": 34.5,
+      "raw": 1.29,
+      "g9": 11.7,
+      "psa10": 36.47,
       "pc": "/game/pokemon-30th-celebration/toxel-58"
     },
     "main|059/128": {
@@ -1591,7 +1591,7 @@
       "n": "084/128",
       "name": "Seismitoad",
       "section": "main",
-      "raw": 0.99,
+      "raw": 1,
       "g9": 11.28,
       "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/seismitoad-84"
@@ -1600,7 +1600,7 @@
       "n": "110/128",
       "name": "Jangmo-o",
       "section": "main",
-      "raw": 0.99,
+      "raw": 1.08,
       "g9": 11.28,
       "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/jangmo-o-110"
@@ -1610,8 +1610,8 @@
       "name": "Azumarill",
       "section": "main",
       "raw": 1,
-      "g9": 11.59,
-      "psa10": 36.08,
+      "g9": 11.29,
+      "psa10": 34.94,
       "pc": "/game/pokemon-30th-celebration/azumarill-68"
     },
     "main|122/128": {
@@ -1645,16 +1645,16 @@
       "n": "104/128",
       "name": "Ferrothorn",
       "section": "main",
-      "raw": 1,
-      "g9": 10.81,
-      "psa10": 33.11,
+      "raw": 0.99,
+      "g9": 11.29,
+      "psa10": 34.94,
       "pc": "/game/pokemon-30th-celebration/ferrothorn-104"
     },
     "main|095/128": {
       "n": "095/128",
       "name": "Zorua",
       "section": "main",
-      "raw": 0.99,
+      "raw": 1,
       "g9": 11.28,
       "psa10": 34.89,
       "pc": "/game/pokemon-30th-celebration/zorua-95"
@@ -1699,9 +1699,9 @@
       "n": "007/128",
       "name": "Cherrim",
       "section": "main",
-      "raw": 0.79,
-      "g9": 10.32,
-      "psa10": 31.24,
+      "raw": 0.98,
+      "g9": 11.02,
+      "psa10": 33.9,
       "pc": "/game/pokemon-30th-celebration/cherrim-7"
     },
     "main|097/128": {
@@ -1717,9 +1717,9 @@
       "n": "093/128",
       "name": "Murkrow",
       "section": "main",
-      "raw": 0.25,
+      "raw": 0.2,
       "g9": 10.32,
-      "psa10": 31.24,
+      "psa10": 31.23,
       "pc": "/game/pokemon-30th-celebration/murkrow-93"
     }
   },

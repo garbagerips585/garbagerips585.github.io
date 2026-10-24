@@ -1,12 +1,12 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 330531,
+    "views": 330577,
     "subscribers": 428,
     "videos": 383,
-    "readAt": "2026-10-23"
+    "readAt": "2026-10-24"
   },
-  "syncedAt": "2026-10-23",
+  "syncedAt": "2026-10-24",
   "videos": [
     {
       "id": "46KBIMb72AM",
@@ -15,7 +15,7 @@
       "published": "2026-10-23",
       "publishedAt": "2026-10-23T10:48:34Z",
       "duration": 22,
-      "views": 6,
+      "views": 10,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +34,7 @@
       "published": "2026-10-22",
       "publishedAt": "2026-10-22T10:41:13Z",
       "duration": 27,
-      "views": 943,
+      "views": 1008,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +72,7 @@
       "published": "2026-10-20",
       "publishedAt": "2026-10-20T13:50:03Z",
       "duration": 26,
-      "views": 1011,
+      "views": 1012,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,7 +91,7 @@
       "published": "2026-10-19",
       "publishedAt": "2026-10-19T10:30:02Z",
       "duration": 26,
-      "views": 1097,
+      "views": 1098,
       "vertical": true,
       "short": true,
       "sets": [
@@ -271,7 +271,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1112,
+      "views": 1113,
       "vertical": true,
       "short": true,
       "sets": [
@@ -399,7 +399,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1018,
+      "views": 1022,
       "vertical": true,
       "short": true,
       "sets": [
@@ -784,7 +784,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1287,
+      "views": 1288,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1228,7 +1228,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1130,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2198,7 +2198,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 981,
+      "views": 983,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2896,7 +2896,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 664,
+      "views": 666,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4995,7 +4995,7 @@
       "published": "2026-06-18",
       "publishedAt": "2026-06-18T10:20:22Z",
       "duration": 19,
-      "views": 949,
+      "views": 950,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8389,7 +8389,7 @@
       "published": "2026-04-29",
       "publishedAt": "2026-04-29T23:27:01Z",
       "duration": 23,
-      "views": 1340,
+      "views": 1341,
       "vertical": true,
       "short": true,
       "sets": [
