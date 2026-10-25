@@ -1,13 +1,51 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 330577,
-    "subscribers": 428,
-    "videos": 383,
-    "readAt": "2026-10-24"
+    "views": 330652,
+    "subscribers": 430,
+    "videos": 385,
+    "readAt": "2026-10-25"
   },
-  "syncedAt": "2026-10-24",
+  "syncedAt": "2026-10-25",
   "videos": [
+    {
+      "id": "XHs2nFVn-Gk",
+      "title": "The Colors on This Sprigatito ex Are Unreal! 😻💚🔥",
+      "path": "rip/the-colors-on-this-sprigatito-ex-are-unreal-XHs2nFVn-Gk.html",
+      "published": "2026-10-25",
+      "publishedAt": "2026-10-25T12:18:00Z",
+      "duration": 25,
+      "views": 0,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "ascended-heroes"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Ascended Heroes Pack"
+    },
+    {
+      "id": "JrrgpXdSoq8",
+      "title": "3 Hits in a Row?! This Trippy Maushold IR is UNREAL! 🌈🐭",
+      "path": "rip/3-hits-in-a-row-this-trippy-maushold-ir-is-unreal-JrrgpXdSoq8.html",
+      "published": "2026-10-24",
+      "publishedAt": "2026-10-24T12:57:15Z",
+      "duration": 27,
+      "views": 1020,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": [],
+      "label": "30th Celebration ex Premium Collection"
+    },
     {
       "id": "46KBIMb72AM",
       "title": "Another Garbage Rip... But the Gengar Hunt NEVER Stops! 👻🗑️",
@@ -15,7 +53,7 @@
       "published": "2026-10-23",
       "publishedAt": "2026-10-23T10:48:34Z",
       "duration": 22,
-      "views": 10,
+      "views": 13,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +72,7 @@
       "published": "2026-10-22",
       "publishedAt": "2026-10-22T10:41:13Z",
       "duration": 27,
-      "views": 1008,
+      "views": 1015,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +110,7 @@
       "published": "2026-10-20",
       "publishedAt": "2026-10-20T13:50:03Z",
       "duration": 26,
-      "views": 1012,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,7 +129,7 @@
       "published": "2026-10-19",
       "publishedAt": "2026-10-19T10:30:02Z",
       "duration": 26,
-      "views": 1098,
+      "views": 1100,
       "vertical": true,
       "short": true,
       "sets": [
@@ -271,7 +309,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1113,
+      "views": 1117,
       "vertical": true,
       "short": true,
       "sets": [
@@ -356,7 +394,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2538,
+      "views": 2539,
       "vertical": true,
       "short": true,
       "sets": [
@@ -870,7 +908,7 @@
       "published": "2026-09-13",
       "publishedAt": "2026-09-13T10:47:07Z",
       "duration": 23,
-      "views": 1261,
+      "views": 1264,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1576,7 +1614,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1081,
+      "views": 1082,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2198,7 +2236,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 983,
+      "views": 985,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5544,7 +5582,7 @@
       "published": "2026-06-10",
       "publishedAt": "2026-06-10T10:21:11Z",
       "duration": 19,
-      "views": 965,
+      "views": 966,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6500,7 +6538,7 @@
       "published": "2026-05-27",
       "publishedAt": "2026-05-27T10:37:39Z",
       "duration": 22,
-      "views": 1867,
+      "views": 1868,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8528,7 +8566,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2625,
+      "views": 2626,
       "vertical": true,
       "short": true,
       "sets": [
