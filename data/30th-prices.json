@@ -23,7 +23,7 @@
   ],
   "source": "pricecharting.com console listing, Ungraded / Grade 9 / PSA 10",
   "console": "/console/pokemon-30th-celebration",
-  "checked": "2026-10-27",
+  "checked": "2026-10-28",
   "counts": {
     "rows": 193,
     "priced": 188,
@@ -34,17 +34,17 @@
       "n": "149/147",
       "name": "Lugia",
       "section": "classic",
-      "raw": 220,
-      "g9": 325,
-      "psa10": 1575,
+      "raw": 210,
+      "g9": 208.63,
+      "psa10": 1220.34,
       "pc": "/game/pokemon-30th-celebration/lugia-149"
     },
     "secret|152/128": {
       "n": "152/128",
       "name": "Mew ex",
       "section": "secret",
-      "raw": 89.99,
-      "g9": 206.25,
+      "raw": 88.53,
+      "g9": 297,
       "psa10": 1321.43,
       "pc": "/game/pokemon-30th-celebration/mew-ex-152"
     },
@@ -52,70 +52,70 @@
       "n": "4/102",
       "name": "Charizard",
       "section": "classic",
-      "raw": 177.5,
-      "g9": 379.39,
-      "psa10": 2017.43,
+      "raw": 182.73,
+      "g9": 374.94,
+      "psa10": 2141.78,
       "pc": "/game/pokemon-30th-celebration/charizard-4"
     },
     "secret|158/128": {
       "n": "158/128",
       "name": "Mew ex",
       "section": "secret",
-      "raw": 55.76,
+      "raw": 51.33,
       "g9": 118.5,
-      "psa10": 675,
+      "psa10": 565,
       "pc": "/game/pokemon-30th-celebration/mew-ex-158"
     },
     "secret|154/128": {
       "n": "154/128",
       "name": "Gengar ex",
       "section": "secret",
-      "raw": 77.52,
+      "raw": 72.88,
       "g9": 153.75,
-      "psa10": 1023.82,
+      "psa10": 1183.99,
       "pc": "/game/pokemon-30th-celebration/gengar-ex-154"
     },
     "secret|150/128": {
       "n": "150/128",
       "name": "Pikachu ex",
       "section": "secret",
-      "raw": 64.36,
+      "raw": 57.02,
       "g9": 113.5,
-      "psa10": 541.57,
+      "psa10": 625,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-150"
     },
     "secret|157/128": {
       "n": "157/128",
       "name": "Mewtwo ex",
       "section": "secret",
-      "raw": 44.48,
-      "g9": 87.25,
-      "psa10": 559.46,
+      "raw": 42.2,
+      "g9": 86.35,
+      "psa10": 513,
       "pc": "/game/pokemon-30th-celebration/mewtwo-ex-157"
     },
     "secret|151/128": {
       "n": "151/128",
       "name": "Mewtwo ex",
       "section": "secret",
-      "raw": 50.08,
+      "raw": 50.1,
       "g9": 151.5,
-      "psa10": 455,
+      "psa10": 481,
       "pc": "/game/pokemon-30th-celebration/mewtwo-ex-151"
     },
     "secret|149/128": {
       "n": "149/128",
       "name": "Pikachu ex",
       "section": "secret",
-      "raw": 49.17,
+      "raw": 48.59,
       "g9": 122.5,
-      "psa10": 447.5,
+      "psa10": 445,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-149"
     },
     "secret|155/128": {
       "n": "155/128",
       "name": "Jirachi ex",
       "section": "secret",
-      "raw": 42,
+      "raw": 41,
       "g9": 160,
       "psa10": 355,
       "pc": "/game/pokemon-30th-celebration/jirachi-ex-155"
@@ -151,18 +151,18 @@
       "n": "148/128",
       "name": "Greninja ex",
       "section": "secret",
-      "raw": 20.63,
-      "g9": 36,
-      "psa10": 134.91,
+      "raw": 20.74,
+      "g9": 36.73,
+      "psa10": 131.75,
       "pc": "/game/pokemon-30th-celebration/greninja-ex-148"
     },
     "secret|144/128": {
       "n": "144/128",
       "name": "Meowth",
       "section": "secret",
-      "raw": 10.04,
-      "g9": 25.79,
-      "psa10": 90.23,
+      "raw": 8.5,
+      "g9": 23.01,
+      "psa10": 79.52,
       "pc": "/game/pokemon-30th-celebration/meowth-144"
     },
     "classic|58/102": {
@@ -178,17 +178,17 @@
       "n": "030/128",
       "name": "Pikachu",
       "section": "pikachu",
-      "raw": 1.83,
-      "g9": 12.58,
-      "psa10": 39.82,
+      "raw": 1.78,
+      "g9": 12.37,
+      "psa10": 39.03,
       "pc": "/game/pokemon-30th-celebration/pikachu-30"
     },
     "secret|146/128": {
       "n": "146/128",
       "name": "Maushold",
       "section": "secret",
-      "raw": 12.78,
-      "g9": 25.52,
+      "raw": 10.64,
+      "g9": 26.56,
       "psa10": 335.85,
       "pc": "/game/pokemon-30th-celebration/maushold-146"
     },
@@ -223,9 +223,9 @@
       "n": "130/128",
       "name": "Moltres",
       "section": "secret",
-      "raw": 7.79,
-      "g9": 19.54,
-      "psa10": 66.39,
+      "raw": 6.39,
+      "g9": 20.09,
+      "psa10": 68.42,
       "pc": "/game/pokemon-30th-celebration/moltres-130"
     },
     "secret|133/128": {
@@ -241,8 +241,8 @@
       "n": "156/128",
       "name": "Salamence ex",
       "section": "secret",
-      "raw": 17.77,
-      "g9": 33.2,
+      "raw": 15.38,
+      "g9": 33.02,
       "psa10": 475,
       "pc": "/game/pokemon-30th-celebration/salamence-ex-156"
     },
@@ -277,18 +277,18 @@
       "n": "040/128",
       "name": "Pikachu",
       "section": "pikachu",
-      "raw": 4.99,
-      "g9": 13.9,
-      "psa10": 44.86,
+      "raw": 4,
+      "g9": 16.47,
+      "psa10": 54.61,
       "pc": "/game/pokemon-30th-celebration/pikachu-40"
     },
     "secret|141/128": {
       "n": "141/128",
       "name": "Galarian Meowth",
       "section": "secret",
-      "raw": 7.76,
-      "g9": 19.35,
-      "psa10": 65.64,
+      "raw": 6.5,
+      "g9": 20.05,
+      "psa10": 68.27,
       "pc": "/game/pokemon-30th-celebration/galarian-meowth-141"
     },
     "classic|114/264": {
@@ -349,9 +349,9 @@
       "n": "090/128",
       "name": "Gengar ex",
       "section": "main",
-      "raw": 2.99,
-      "g9": 13.92,
-      "psa10": 44.96,
+      "raw": 3.13,
+      "g9": 13.87,
+      "psa10": 44.75,
       "pc": "/game/pokemon-30th-celebration/gengar-ex-90"
     },
     "secret|137/128": {
@@ -565,18 +565,18 @@
       "n": "071/128",
       "name": "Sylveon ex",
       "section": "main",
-      "raw": 1.89,
-      "g9": 12.58,
-      "psa10": 39.82,
+      "raw": 1.78,
+      "g9": 12.45,
+      "psa10": 39.32,
       "pc": "/game/pokemon-30th-celebration/sylveon-ex-71"
     },
     "classic|106/160": {
       "n": "106/160",
       "name": "M Gardevoir EX",
       "section": "classic",
-      "raw": 13.52,
-      "g9": 26.63,
-      "psa10": 93.36,
+      "raw": 13.63,
+      "g9": 27.51,
+      "psa10": 96.7,
       "pc": "/game/pokemon-30th-celebration/m-gardevoir-ex-106"
     },
     "classic|050/185": {
@@ -584,35 +584,35 @@
       "name": "Raikou",
       "section": "classic",
       "raw": 11.7,
-      "g9": 24.43,
-      "psa10": 84.97,
+      "g9": 25.15,
+      "psa10": 87.72,
       "pc": "/game/pokemon-30th-celebration/raikou-50"
     },
     "pikachu|036/128": {
       "n": "036/128",
       "name": "Pikachu",
       "section": "pikachu",
-      "raw": 2.01,
+      "raw": 1.99,
       "g9": 26.55,
-      "psa10": 70.44,
+      "psa10": 80.5,
       "pc": "/game/pokemon-30th-celebration/pikachu-36"
     },
     "main|121/128": {
       "n": "121/128",
       "name": "Lugia",
       "section": "main",
-      "raw": 1.32,
-      "g9": 11.59,
-      "psa10": 36.07,
+      "raw": 1.33,
+      "g9": 11.71,
+      "psa10": 36.51,
       "pc": "/game/pokemon-30th-celebration/lugia-121"
     },
     "classic|47/127": {
       "n": "47/127",
       "name": "Crobat G",
       "section": "classic",
-      "raw": 6.51,
-      "g9": 19.14,
-      "psa10": 64.84,
+      "raw": 6.4,
+      "g9": 18.43,
+      "psa10": 62.11,
       "pc": "/game/pokemon-30th-celebration/crobat-g-47"
     },
     "main|021/128": {
@@ -620,8 +620,8 @@
       "name": "Greninja ex",
       "section": "main",
       "raw": 1.38,
-      "g9": 12.53,
-      "psa10": 39.62,
+      "g9": 11.79,
+      "psa10": 36.81,
       "pc": "/game/pokemon-30th-celebration/greninja-ex-21"
     },
     "main|102/128": {
@@ -629,17 +629,17 @@
       "name": "Jirachi ex",
       "section": "main",
       "raw": 1.46,
-      "g9": 12.01,
-      "psa10": 37.65,
+      "g9": 11.89,
+      "psa10": 37.2,
       "pc": "/game/pokemon-30th-celebration/jirachi-ex-102"
     },
     "classic|108/115": {
       "n": "108/115",
       "name": "Scizor ex",
       "section": "classic",
-      "raw": 13.41,
-      "g9": 24.79,
-      "psa10": 86.35,
+      "raw": 13.42,
+      "g9": 27.37,
+      "psa10": 96.14,
       "pc": "/game/pokemon-30th-celebration/scizor-ex-108"
     },
     "classic|25/111": {
@@ -1728,7 +1728,7 @@
       "n": "099",
       "name": "Greninja ex",
       "kind": "promo",
-      "raw": 2.34,
+      "raw": 1.97,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/greninja-ex-99"
@@ -1746,7 +1746,7 @@
       "n": "100",
       "name": "Sylveon ex",
       "kind": "promo",
-      "raw": 2.46,
+      "raw": 2.38,
       "g9": 6.4,
       "psa10": null,
       "pc": "/game/pokemon-promo/sylveon-ex-100"
@@ -1773,7 +1773,7 @@
       "n": "094",
       "name": "Alolan Exeggutor",
       "kind": "promo",
-      "raw": 1.8,
+      "raw": 1.66,
       "g9": null,
       "psa10": null,
       "pc": "/game/pokemon-promo/alolan-exeggutor-94"
@@ -1782,7 +1782,7 @@
       "n": "101",
       "name": "Nidorina",
       "kind": "promo",
-      "raw": 5.27,
+      "raw": 3.25,
       "g9": 15.56,
       "psa10": null,
       "pc": "/game/pokemon-promo/nidorina-101"
@@ -1792,8 +1792,8 @@
       "name": "Greninja ex",
       "kind": "jumbo",
       "raw": 3.16,
-      "g9": 15.71,
-      "psa10": 45.26,
+      "g9": 14.92,
+      "psa10": 43.13,
       "pc": "/game/pokemon-promo/greninja-ex-jumbo-99"
     },
     "jumbo|100": {
