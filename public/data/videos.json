@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 333939,
-    "subscribers": 433,
-    "videos": 388,
-    "readAt": "2026-10-28"
+    "views": 334568,
+    "subscribers": 437,
+    "videos": 389,
+    "readAt": "2026-10-29"
   },
-  "syncedAt": "2026-10-28",
+  "syncedAt": "2026-10-29",
   "videos": [
+    {
+      "id": "-w4IhbVkH3k",
+      "title": "Pack #19 Brought Serious Hip Hop Vibes! Emcee’s Hype Hit! 🎤🔥",
+      "path": "rip/pack-19-brought-serious-hip-hop-vibes-emcees-hype-hit--w4IhbVkH3k.html",
+      "published": "2026-10-29",
+      "publishedAt": "2026-10-29T10:38:21Z",
+      "duration": 22,
+      "views": 169,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "tgqmJLdrK70",
       "title": "Pack #1 Struck Out, But 30th is ALWAYS Fun to Rip! 🥊🗑️",
@@ -15,7 +34,7 @@
       "published": "2026-10-28",
       "publishedAt": "2026-10-28T10:22:24Z",
       "duration": 25,
-      "views": 375,
+      "views": 577,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-27",
       "publishedAt": "2026-10-27T10:12:07Z",
       "duration": 18,
-      "views": 1024,
+      "views": 1064,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-10-26",
       "publishedAt": "2026-10-26T10:04:04Z",
       "duration": 25,
-      "views": 1078,
+      "views": 1083,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +91,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 43,
+      "views": 46,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,7 +110,7 @@
       "published": "2026-10-24",
       "publishedAt": "2026-10-24T12:57:15Z",
       "duration": 27,
-      "views": 1130,
+      "views": 1132,
       "vertical": true,
       "short": true,
       "sets": [
@@ -110,7 +129,7 @@
       "published": "2026-10-23",
       "publishedAt": "2026-10-23T10:48:34Z",
       "duration": 22,
-      "views": 13,
+      "views": 14,
       "vertical": true,
       "short": true,
       "sets": [
@@ -129,7 +148,7 @@
       "published": "2026-10-22",
       "publishedAt": "2026-10-22T10:41:13Z",
       "duration": 27,
-      "views": 1020,
+      "views": 1022,
       "vertical": true,
       "short": true,
       "sets": [
@@ -366,7 +385,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1122,
+      "views": 1123,
       "vertical": true,
       "short": true,
       "sets": [
@@ -494,7 +513,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1023,
+      "views": 1024,
       "vertical": true,
       "short": true,
       "sets": [
@@ -644,7 +663,7 @@
       "published": "2026-09-27",
       "publishedAt": "2026-09-27T11:44:28Z",
       "duration": 21,
-      "views": 1150,
+      "views": 1151,
       "vertical": true,
       "short": true,
       "sets": [
