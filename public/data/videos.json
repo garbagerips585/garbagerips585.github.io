@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 334877,
+    "views": 334951,
     "subscribers": 437,
-    "videos": 390,
-    "readAt": "2026-10-30"
+    "videos": 391,
+    "readAt": "2026-10-31"
   },
-  "syncedAt": "2026-10-30",
+  "syncedAt": "2026-10-31",
   "videos": [
+    {
+      "id": "Wsmt5C1W6b4",
+      "title": "Pack #10 Struck Out: A Textbook Garbage Rip! 🗑️💀",
+      "path": "rip/pack-10-struck-out-a-textbook-garbage-rip-Wsmt5C1W6b4.html",
+      "published": "2026-10-31",
+      "publishedAt": "2026-10-31T11:35:26Z",
+      "duration": 19,
+      "views": 675,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "mega-evolution"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Mega Evolution Pack"
+    },
     {
       "id": "H-u3HvtEFuI",
       "title": "We Pulled DARK TYRANITAR With the Gold Glitter Border! 🦖✨",
@@ -15,7 +34,7 @@
       "published": "2026-10-30",
       "publishedAt": "2026-10-30T10:47:38Z",
       "duration": 28,
-      "views": 4,
+      "views": 24,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 262,
+      "views": 287,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-10-28",
       "publishedAt": "2026-10-28T10:22:24Z",
       "duration": 25,
-      "views": 590,
+      "views": 594,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +91,7 @@
       "published": "2026-10-27",
       "publishedAt": "2026-10-27T10:12:07Z",
       "duration": 18,
-      "views": 1068,
+      "views": 1075,
       "vertical": true,
       "short": true,
       "sets": [
@@ -321,7 +340,7 @@
       "published": "2026-10-14",
       "publishedAt": "2026-10-14T10:21:02Z",
       "duration": 30,
-      "views": 1071,
+      "views": 1072,
       "vertical": true,
       "short": true,
       "sets": [
@@ -404,7 +423,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1122,
+      "views": 1124,
       "vertical": true,
       "short": true,
       "sets": [
@@ -705,7 +724,7 @@
       "published": "2026-09-26",
       "publishedAt": "2026-09-26T11:10:23Z",
       "duration": 22,
-      "views": 1113,
+      "views": 1115,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2258,7 +2277,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 669,
+      "views": 670,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2331,7 +2350,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 988,
+      "views": 992,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3029,7 +3048,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 669,
+      "views": 670,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11456,7 +11475,7 @@
       "published": "2026-03-10",
       "publishedAt": "2026-03-10T11:20:03Z",
       "duration": 75,
-      "views": 886,
+      "views": 888,
       "vertical": true,
       "short": false,
       "sets": [
@@ -11860,7 +11879,7 @@
       "published": "2026-02-27",
       "publishedAt": "2026-02-27T11:04:00Z",
       "duration": 46,
-      "views": 1200,
+      "views": 1203,
       "vertical": true,
       "short": true,
       "sets": [
