@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-24",
+  "checked": "2026-10-31",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1458,6 +1458,56 @@
       "note": "The owner, 2 October 2026, in an updated master set list: added in that list and not in the binder before. He listed it under Illustration Rare and confirmed the same day it is the Salamence ex Special Illustration Rare, #156: \"yes 156 is the Salamence ex SIR i put it it in wrong section\"."
     },
     {
+      "name": "Morpeko",
+      "n": "135",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Alolan Meowth",
+      "n": "139",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Gholdengo",
+      "n": "142",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Kommo-o",
+      "n": "143",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Illustration Rare",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Sylveon ex",
+      "n": "153",
+      "of": 128,
+      "setCode": "30C",
+      "section": "secret",
+      "rarity": "Special Illustration Rare",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
       "name": "Zeraora",
       "n": "057",
       "of": 128,
@@ -1516,6 +1566,17 @@
       "rarity": "Pikachu Rare",
       "got": "2026-10-04",
       "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before."
+    },
+    {
+      "name": "Pikachu",
+      "n": "029",
+      "of": 128,
+      "setCode": "30C",
+      "section": "pikachu",
+      "rarity": "Pikachu Rare",
+      "pikachuNo": 7,
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
     },
     {
       "name": "Vulpix",
@@ -1636,6 +1697,136 @@
       "rarity": "Classic Collection",
       "got": "2026-10-04",
       "note": "The owner, 4 October 2026, in an updated master set list: added in that list and not in the binder before. A Classic Collection reprint carrying its original set's number, 203/193, the only Magikarp in data/30th-checklist.json's Classic Collection, so nothing had to be disambiguated."
+    },
+    {
+      "name": "Delcatty",
+      "n": "5/109",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Genesect EX (Team Plasma)",
+      "n": "11/101",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Metagross (Delta Species)",
+      "n": "11/113",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Greninja BREAK",
+      "n": "41/122",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Uxie",
+      "n": "43/146",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Crobat G",
+      "n": "47/127",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Raikou",
+      "n": "050/185",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Solgaleo GX",
+      "n": "89/149",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Palkia LV.X",
+      "n": "106/106",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Shining Celebi",
+      "n": "106/105",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Scizor ex",
+      "n": "108/115",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Arceus VSTAR",
+      "n": "123/172",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Zacian V",
+      "n": "138/202",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-10-31",
+      "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
     }
   ],
   "_shotNote": [
@@ -1784,13 +1975,10 @@
     "_note": [
       "THE FIRST PARTNER ILLUSTRATION COLLECTION, MEP 037 to 063, drawn at the FRONT of the binder. The owner, 24 October 2026: \"add in the front of the binder all of the first partners collections cards in their order as those go first, then the rest how you have it ordered now. I have collected all of the first partners cards except for 3 from the Unova region - SNIVY, TEPIG, OSHAWOTT - SERIES 2 - so leave those grayed out until I get those.\"",
       "The card list, pictures and prices come from data/first-partner.json; this block only says which he does not have yet. Like the promos these are outside the 199 and never count toward the set's percentage.",
-      "When he gets one, delete its number from `missing`."
+      "When he gets one, delete its number from `missing`.",
+      "31 October 2026: his updated list carries 049 Snivy, 050 Tepig and 051 Oshawott without the (need) mark, so all 27 are collected and `missing` is empty."
     ],
-    "missing": [
-      "049",
-      "050",
-      "051"
-    ],
-    "checked": "2026-10-24"
+    "missing": [],
+    "checked": "2026-10-31"
   }
 }
