@@ -2965,5 +2965,15 @@
       "destined-rivals"
     ],
     "setsWhy": "Destined Rivals, from the video description and the run it continues; pinned because the title names no set."
+  },
+  "Wsmt5C1W6b4": {
+    "packNumber": 10,
+    "hasHit": false,
+    "sets": [
+      "mega-evolution"
+    ],
+    "packNumberWhy": "The owner, 31 October 2026, confirming the video description's details when asked: \"Single Booster Pack, Pack #10, hit no, Mega Evolution\". Same run of single Mega Evolution packs as Pack #8 (79QR-6lfFMs). Confirmed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
+    "hasHitWhy": "\"hit no\", confirmed by him. The title agrees (\"A Textbook Garbage Rip\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Mega Evolution, as he confirmed. Pinned because the title names no set."
   }
 }

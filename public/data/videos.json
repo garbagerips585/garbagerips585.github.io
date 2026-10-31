@@ -1,7 +1,7 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 334951,
+    "views": 334995,
     "subscribers": 437,
     "videos": 391,
     "readAt": "2026-10-31"
@@ -15,7 +15,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 675,
+      "views": 815,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Mega Evolution Pack"
+      "hasHit": false,
+      "packNumber": 10,
+      "packs": 1,
+      "label": "Mega Evolution Pack - Pack 10"
     },
     {
       "id": "H-u3HvtEFuI",
@@ -91,7 +94,7 @@
       "published": "2026-10-27",
       "publishedAt": "2026-10-27T10:12:07Z",
       "duration": 18,
-      "views": 1075,
+      "views": 1076,
       "vertical": true,
       "short": true,
       "sets": [
@@ -110,7 +113,7 @@
       "published": "2026-10-26",
       "publishedAt": "2026-10-26T10:04:04Z",
       "duration": 25,
-      "views": 1088,
+      "views": 1089,
       "vertical": true,
       "short": true,
       "sets": [
@@ -148,7 +151,7 @@
       "published": "2026-10-24",
       "publishedAt": "2026-10-24T12:57:15Z",
       "duration": 27,
-      "views": 1133,
+      "views": 1134,
       "vertical": true,
       "short": true,
       "sets": [
@@ -167,7 +170,7 @@
       "published": "2026-10-23",
       "publishedAt": "2026-10-23T10:48:34Z",
       "duration": 22,
-      "views": 14,
+      "views": 15,
       "vertical": true,
       "short": true,
       "sets": [
@@ -529,7 +532,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1054,
+      "views": 1055,
       "vertical": true,
       "short": true,
       "sets": [
@@ -658,7 +661,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1351,
+      "views": 1352,
       "vertical": true,
       "short": true,
       "sets": [
@@ -788,7 +791,7 @@
       "published": "2026-09-23",
       "publishedAt": "2026-09-23T10:20:01Z",
       "duration": 23,
-      "views": 1097,
+      "views": 1101,
       "vertical": true,
       "short": true,
       "sets": [
