@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 334995,
-    "subscribers": 437,
-    "videos": 391,
-    "readAt": "2026-10-31"
+    "views": 335841,
+    "subscribers": 439,
+    "videos": 392,
+    "readAt": "2026-11-01"
   },
-  "syncedAt": "2026-10-31",
+  "syncedAt": "2026-11-01",
   "videos": [
+    {
+      "id": "kAuIvKbEYw8",
+      "title": "30th Celebration Tech Sticker Pack #1 ✨ | 30th Bulk Hits Different! 🗑️",
+      "path": "rip/30th-celebration-tech-sticker-pack-1-30th-bulk-hits-differen-kAuIvKbEYw8.html",
+      "published": "2026-11-01",
+      "publishedAt": "2026-11-01T12:32:01Z",
+      "duration": 24,
+      "views": 583,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "Wsmt5C1W6b4",
       "title": "Pack #10 Struck Out: A Textbook Garbage Rip! 🗑️💀",
@@ -15,7 +34,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 815,
+      "views": 855,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-10-30",
       "publishedAt": "2026-10-30T10:47:38Z",
       "duration": 28,
-      "views": 24,
+      "views": 32,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 287,
+      "views": 289,
       "vertical": true,
       "short": true,
       "sets": [
@@ -75,7 +94,7 @@
       "published": "2026-10-28",
       "publishedAt": "2026-10-28T10:22:24Z",
       "duration": 25,
-      "views": 594,
+      "views": 598,
       "vertical": true,
       "short": true,
       "sets": [
@@ -132,7 +151,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 46,
+      "views": 47,
       "vertical": true,
       "short": true,
       "sets": [
@@ -426,7 +445,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1124,
+      "views": 1127,
       "vertical": true,
       "short": true,
       "sets": [
@@ -511,7 +530,7 @@
       "published": "2026-10-06",
       "publishedAt": "2026-10-06T10:11:26Z",
       "duration": 28,
-      "views": 2540,
+      "views": 2541,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2353,7 +2372,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 992,
+      "views": 997,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8717,7 +8736,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T10:48:01Z",
       "duration": 38,
-      "views": 925,
+      "views": 927,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12234,7 +12253,7 @@
       "published": "2026-02-17",
       "publishedAt": "2026-02-17T11:00:10Z",
       "duration": 17,
-      "views": 780,
+      "views": 784,
       "vertical": true,
       "short": true,
       "sets": [
