@@ -1,7 +1,7 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 336943,
+    "views": 336984,
     "subscribers": 439,
     "videos": 393,
     "readAt": "2026-11-02"
@@ -15,7 +15,7 @@
       "published": "2026-11-02",
       "publishedAt": "2026-11-02T12:20:13Z",
       "duration": 19,
-      "views": 447,
+      "views": 599,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "hasHit": false,
+      "packNumber": 20,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 20"
     },
     {
       "id": "kAuIvKbEYw8",
@@ -34,17 +37,20 @@
       "published": "2026-11-01",
       "publishedAt": "2026-11-01T12:32:01Z",
       "duration": 24,
-      "views": 1032,
+      "views": 1035,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "hasHit": false,
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Blister - Pack 1"
     },
     {
       "id": "Wsmt5C1W6b4",
@@ -53,7 +59,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 902,
+      "views": 903,
       "vertical": true,
       "short": true,
       "sets": [
@@ -85,7 +91,9 @@
         "knock-out"
       ],
       "pulls": [],
-      "label": "30th Celebration Knock Out Collection"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration Knock Out Collection - Pack 2"
     },
     {
       "id": "-w4IhbVkH3k",
@@ -104,7 +112,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "packNumber": 19,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 19"
     },
     {
       "id": "tgqmJLdrK70",
@@ -123,7 +133,10 @@
         "knock-out"
       ],
       "pulls": [],
-      "label": "30th Celebration Knock Out Collection"
+      "hasHit": false,
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Knock Out Collection - Pack 1"
     },
     {
       "id": "J0Msw3ASZKQ",
@@ -142,7 +155,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Mega Evolution Pack"
+      "hasHit": false,
+      "packNumber": 9,
+      "packs": 1,
+      "label": "Mega Evolution Pack - Pack 9"
     },
     {
       "id": "BXRHCA7aDkg",
@@ -161,7 +177,9 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "30th Celebration ex Premium Collection"
+      "packNumber": 4,
+      "packs": 1,
+      "label": "30th Celebration ex Premium Collection - Pack 4"
     },
     {
       "id": "XHs2nFVn-Gk",
@@ -180,7 +198,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "packNumber": 17,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 17"
     },
     {
       "id": "JrrgpXdSoq8",
@@ -199,7 +219,9 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "30th Celebration ex Premium Collection"
+      "packNumber": 3,
+      "packs": 1,
+      "label": "30th Celebration ex Premium Collection - Pack 3"
     },
     {
       "id": "46KBIMb72AM",
@@ -218,7 +240,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "hasHit": false,
+      "packNumber": 16,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 16"
     },
     {
       "id": "sMPnsTcOXc0",
@@ -237,7 +262,9 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "30th Celebration ex Premium Collection"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration ex Premium Collection - Pack 2"
     },
     {
       "id": "Cq7h-CpH6qI",
@@ -256,7 +283,10 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "hasHit": false,
+      "packNumber": 15,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 15"
     },
     {
       "id": "1mUXNOw1GJ8",
@@ -275,7 +305,9 @@
         "ex-premium"
       ],
       "pulls": [],
-      "label": "30th Celebration ex Premium Collection"
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration ex Premium Collection - Pack 1"
     },
     {
       "id": "8FyM47w2nto",
@@ -294,7 +326,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Destined Rivals Pack"
+      "packNumber": 18,
+      "packs": 1,
+      "label": "Destined Rivals Pack - Pack 18"
     },
     {
       "id": "lYzfufx3H1M",
@@ -313,7 +347,10 @@
         "collection-box"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "hasHit": false,
+      "packNumber": 3,
+      "packs": 1,
+      "label": "30th Celebration Collection Box - Pack 3"
     },
     {
       "id": "ofm2r2SliYo",
@@ -332,7 +369,9 @@
         "single-pack"
       ],
       "pulls": [],
-      "label": "Ascended Heroes Pack"
+      "packNumber": 14,
+      "packs": 1,
+      "label": "Ascended Heroes Pack - Pack 14"
     },
     {
       "id": "IZucQIOpGJM",
@@ -351,7 +390,9 @@
         "collection-box"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration Collection Box - Pack 2"
     },
     {
       "id": "yxJsHPvs3uU",
@@ -391,7 +432,9 @@
         "collection-box"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Collection Box - Pack 1"
     },
     {
       "id": "79QR-6lfFMs",
@@ -699,7 +742,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1352,
+      "views": 1353,
       "vertical": true,
       "short": true,
       "sets": [

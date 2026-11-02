@@ -2975,5 +2975,167 @@
     "packNumberWhy": "The owner, 31 October 2026, confirming the video description's details when asked: \"Single Booster Pack, Pack #10, hit no, Mega Evolution\". Same run of single Mega Evolution packs as Pack #8 (79QR-6lfFMs). Confirmed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title.",
     "hasHitWhy": "\"hit no\", confirmed by him. The title agrees (\"A Textbook Garbage Rip\"), which is corroboration, not the source. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "Mega Evolution, as he confirmed. Pinned because the title names no set."
+  },
+  "YqEnr-bOn8k": {
+    "packNumber": 1,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 14 October 2026: \"FIRST PACK MAGIC IS REAL! 🌊✨ For Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection, we came out swinging straight to Rochester, NY and pulled the gorgeous Lapras Illustration Rare (Single Gold Star)!\" Pack 1 of the 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "IZucQIOpGJM": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 16 October 2026: \"BACK-TO-BACK HITS IN THE POSTER COLLECTION! 🔮✨ After hitting Lapras IR in Pack #1, Pack #2 of the Pokémon 30th Celebration Poster Collection delivered again straight to Rochester, NY with the stunning Espeon ex (Double Black Star - Double Rare)!\" Pack 2 of the 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "ofm2r2SliYo": {
+    "packNumber": 14,
+    "sets": [
+      "ascended-heroes"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 17 October 2026: \"BULK PILE DENIED! 👻🎯 For Pack #14 of Pokémon Ascended Heroes, we scored a great Double Rare pull straight to Rochester, NY with Dragapult ex (Double Black Star)!\" Pack 14 of the single Ascended Heroes packs. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Ascended Heroes, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "lYzfufx3H1M": {
+    "packNumber": 3,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 18 October 2026: \"After back-to-back hits, the bulk pile takes its revenge! 🗑️💀 For Pack #3 of the Pokémon 30th Celebration Poster Collection, we ended up with zero hits—a classic Garbage Rip straight to Rochester, NY! On to pack #4! 🎸🤘\" Pack 3 of the 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "8FyM47w2nto": {
+    "packNumber": 18,
+    "sets": [
+      "destined-rivals"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 19 October 2026: \"WE’LL TAKE WHAT WE CAN GET! 🦈👑 For Pack #18 of Pokémon Destined Rivals, we avoided the bulk pile straight to Rochester, NY and pulled Cynthia’s Garchomp ex (Double Black Star - Double Rare)!\" Pack 18 of the single Destined Rivals packs. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Destined Rivals, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "1mUXNOw1GJ8": {
+    "packNumber": 1,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 20 October 2026: \"FIRST PACK MAGIC IS BACK! 🐺✨ Kicking off the brand-new Pokémon 30th Celebration Sylveon ex Box (Pack #1), we avoided the bulk pile straight to Rochester, NY with the stunning Lycanroc Illustration Rare (Single Gold Star)!\" Pack 1 of the 30th Celebration Sylveon ex Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "Cq7h-CpH6qI": {
+    "packNumber": 15,
+    "hasHit": false,
+    "sets": [
+      "ascended-heroes"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 21 October 2026: \"Living up to the name once again! 🗑️💀 For Pack #15 of Pokémon Ascended Heroes, it was straight to the bulk pile with zero hits. Classic, unfiltered pack-ripping reality straight to Rochester, NY! On to pack #16! 🎸🤘\" Pack 15 of the single Ascended Heroes packs. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Ascended Heroes, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "sMPnsTcOXc0": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 22 October 2026: \"BACK-TO-BACK HITS AND AN ABSOLUTE NOSTALGIA BANGER! 🌙✨ Pack #2 of the Pokémon 30th Celebration Sylveon ex Box brought pure heat straight to Rochester, NY with the stunning Darkrai & Cresselia LEGEND (Top Half #99/102) from the Classic Collection!\" Pack 2 of the 30th Celebration Sylveon ex Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "46KBIMb72AM": {
+    "packNumber": 16,
+    "hasHit": false,
+    "sets": [
+      "ascended-heroes"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 23 October 2026: \"The bulk pile strikes again! 🗑️💀 Pack #16 of Pokémon Ascended Heroes was another textbook garbage rip straight to Rochester, NY.\" Pack 16 of the single Ascended Heroes packs. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Ascended Heroes, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "JrrgpXdSoq8": {
+    "packNumber": 3,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 24 October 2026: \"3 PACKS, 3 MASSIVE HITS! 🐭🌈 Pack #3 of the Pokémon 30th Celebration Sylveon ex Box kept the heater going straight to Rochester, NY with the Maushold Illustration Rare (Single Gold Star)!\" Pack 3 of the 30th Celebration Sylveon ex Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "XHs2nFVn-Gk": {
+    "packNumber": 17,
+    "sets": [
+      "ascended-heroes"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 25 October 2026: \"BULK PILE OFFICIALLY DENIED! 🍃💚 Pack #17 of Pokémon Ascended Heroes delivered straight to Rochester, NY with the stunning, bright green Sprigatito ex Ultra Rare (Double Silver Star)!\" Pack 17 of the single Ascended Heroes packs. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Ascended Heroes, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "BXRHCA7aDkg": {
+    "packNumber": 4,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 26 October 2026: \"4 PACKS, 4 HITS—A COMPLETE CLEAN SWEEP! 🧬🔥 Pack #4 of the Pokémon 30th Celebration Sylveon ex Box finished strong straight to Rochester, NY with the sick-looking Mewtwo ex Double Rare (Double Black Star)!\" Pack 4 of the 30th Celebration Sylveon ex Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "J0Msw3ASZKQ": {
+    "packNumber": 9,
+    "hasHit": false,
+    "sets": [
+      "mega-evolution"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 27 October 2026: \"Living up to the name once again! 🗑️💀 For Pack #9 of Pokémon Mega Evolution, it was straight to the bulk pile with zero hits. That's the reality of pack ripping straight to Rochester, NY! On to pack #10! 🎸🤘\" Pack 9 of the single Mega Evolution packs. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Mega Evolution, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "tgqmJLdrK70": {
+    "packNumber": 1,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 28 October 2026: \"The bulk pile gets the knockout on pack one! 🥊🗑️ Kicking off the Pokémon 30th Celebration Knock Out Collection (Pack #1), we didn't hit anything—a classic garbage rip straight to Rochester, NY!\" Pack 1 of the 30th Celebration Knock Out Collection. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "-w4IhbVkH3k": {
+    "packNumber": 19,
+    "sets": [
+      "destined-rivals"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 29 October 2026: \"THE HYPE IS REAL! 🎤🔥 Pack #19 of Pokémon Destined Rivals avoided the bulk pile straight to Rochester, NY with the Emcee's Hype Ultra Rare (Double Silver Star)!\" Pack 19 of the single Destined Rivals packs. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Destined Rivals, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "H-u3HvtEFuI": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 30 October 2026: \"THE KNOCK OUT BOX REDEEMS ITSELF IN A MASSIVE WAY! 🦖🔥 Pack #2 of the Pokémon 30th Celebration Knock Out Collection brought pure vintage nostalgia straight to Rochester, NY with the legendary Dark Tyranitar from the Classic Collection!\" Pack 2 of the 30th Celebration Knock Out Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "kAuIvKbEYw8": {
+    "packNumber": 1,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 1 November 2026: \"Kicking off the Pokémon 30th Celebration Tech Sticker Collection with Pack #1! 🗑️⚡ No hits on this one—a certified garbage rip straight to Rochester, NY.\" Pack 1 of a second 30th Celebration Tech Sticker Collection (the first ran 16 to 20 September). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "blister, as on the first Tech Sticker Collection: the owner settled on 17 September 2026 that its product NAME is the Tech Sticker Collection and its FORM is a three pack blister. Without this the taxonomy reads \"Collection\" as collection-box, which the nightly had derived."
+  },
+  "WuZlHKpYK-w": {
+    "packNumber": 20,
+    "hasHit": false,
+    "sets": [
+      "destined-rivals"
+    ],
+    "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 2 November 2026: \"Living up to the channel name once again! 🗑️💀 For Pack #20 of Pokémon Destined Rivals, it was straight to the bulk pile with zero hits. That's the unfiltered reality of ripping packs straight to Rochester, NY! On to pack #21! 🎸🤘\" Follows Pack #19 (-w4IhbVkH3k) in the same run of single Destined Rivals packs. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Destined Rivals, named in the description. Pinned so a series word in the title can never add a second set."
   }
 }
