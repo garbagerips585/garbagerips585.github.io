@@ -13,8 +13,8 @@
   "set": "30th-celebration",
   "name": "30th Celebration",
   "source": "tcgdex 30th for cards and art, pricecharting for money",
-  "checked": "2026-11-01",
-  "pricesChecked": "2026-11-01",
+  "checked": "2026-11-02",
+  "pricesChecked": "2026-11-02",
   "cards": [
     {
       "n": "001",
@@ -22,7 +22,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/001",
-      "price": 0.99,
+      "price": 1.01,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/exeggcute-1"
@@ -44,9 +44,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/003",
-      "price": 0.98,
-      "psa10": 34.73,
-      "g9": 11.24,
+      "price": 1.29,
+      "psa10": 34.83,
+      "g9": 11.27,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/volbeat-3"
     },
     {
@@ -55,9 +55,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/004",
-      "price": 1.31,
-      "psa10": 36.31,
-      "g9": 11.66,
+      "price": 1.07,
+      "psa10": 36.45,
+      "g9": 11.7,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/illumise-4"
     },
     {
@@ -66,9 +66,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/005",
-      "price": 1.19,
-      "psa10": 35.82,
-      "g9": 11.53,
+      "price": 1.1,
+      "psa10": 35.86,
+      "g9": 11.54,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/tropius-5"
     },
     {
@@ -77,7 +77,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/006",
-      "price": 0.99,
+      "price": 1.18,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/cherubi-6"
@@ -88,9 +88,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/007",
-      "price": 1.06,
-      "psa10": 34.29,
-      "g9": 11.13,
+      "price": 1.4,
+      "psa10": 35.22,
+      "g9": 11.38,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/cherrim-7"
     },
     {
@@ -99,9 +99,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/008",
-      "price": 1.18,
-      "psa10": 34.93,
-      "g9": 11.3,
+      "price": 1,
+      "psa10": 35.81,
+      "g9": 11.53,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/vivillon-8"
     },
     {
@@ -110,8 +110,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/009",
-      "price": 1.04,
-      "psa10": 35.13,
+      "price": 0.93,
+      "psa10": 35.12,
       "g9": 11.35,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/vulpix-9"
     },
@@ -121,9 +121,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/010",
-      "price": 1.16,
-      "psa10": 35.52,
-      "g9": 11.45,
+      "price": 0.99,
+      "psa10": 35.71,
+      "g9": 11.5,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/ninetales-10"
     },
     {
@@ -132,9 +132,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/011",
-      "price": 1.19,
-      "psa10": 35.57,
-      "g9": 11.46,
+      "price": 1.38,
+      "psa10": 35.86,
+      "g9": 11.54,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/moltres-11"
     },
     {
@@ -143,9 +143,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/012",
-      "price": 1.33,
-      "psa10": 36.31,
-      "g9": 11.66,
+      "price": 1.35,
+      "psa10": 36.55,
+      "g9": 11.73,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/ho-oh-12"
     },
     {
@@ -154,9 +154,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/013",
-      "price": 1,
-      "psa10": 36.7,
-      "g9": 11.76,
+      "price": 1.12,
+      "psa10": 34.92,
+      "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/victini-13"
     },
     {
@@ -165,8 +165,8 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/014",
-      "price": 1.17,
-      "psa10": 35.77,
+      "price": 1.41,
+      "psa10": 35.76,
       "g9": 11.52,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/reshiram-14"
     },
@@ -176,9 +176,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/015",
-      "price": 1.38,
-      "psa10": 37.35,
-      "g9": 11.93,
+      "price": 1.78,
+      "psa10": 36.8,
+      "g9": 11.79,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/fuecoco-ex-15"
     },
     {
@@ -187,8 +187,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/016",
-      "price": 1.13,
-      "psa10": 61.04,
+      "price": 1.44,
+      "psa10": 60.51,
       "g9": 17.24,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/slowpoke-16"
     },
@@ -199,8 +199,8 @@
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/017",
       "price": 0.99,
-      "psa10": 36.56,
-      "g9": 11.72,
+      "psa10": 34.88,
+      "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/lapras-17"
     },
     {
@@ -209,8 +209,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/018",
-      "price": 1.02,
-      "psa10": 34.93,
+      "price": 1.35,
+      "psa10": 35.02,
       "g9": 5.5,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/articuno-18"
     },
@@ -220,7 +220,7 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/019",
-      "price": 0.99,
+      "price": 1.35,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/kyogre-19"
@@ -231,9 +231,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/020",
-      "price": 1.03,
-      "psa10": 35.03,
-      "g9": 11.32,
+      "price": 1.46,
+      "psa10": 35.07,
+      "g9": 11.34,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/palkia-20"
     },
     {
@@ -253,9 +253,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/022",
-      "price": 1.05,
-      "psa10": 34.88,
-      "g9": 11.28,
+      "price": 1.2,
+      "psa10": 35.17,
+      "g9": 11.36,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/wishiwashi-22"
     },
     {
@@ -264,8 +264,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/023",
-      "price": 1.9,
-      "psa10": 67.05,
+      "price": 1.77,
+      "psa10": 66.32,
       "g9": 19.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-23"
     },
@@ -275,9 +275,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/024",
-      "price": 1.97,
-      "psa10": 39.71,
-      "g9": 12.55,
+      "price": 1.74,
+      "psa10": 39.7,
+      "g9": 12.56,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-24"
     },
     {
@@ -286,9 +286,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/025",
-      "price": 1.75,
-      "psa10": 38.63,
-      "g9": 12.27,
+      "price": 2.05,
+      "psa10": 38.62,
+      "g9": 18.75,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-25"
     },
     {
@@ -297,9 +297,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/026",
-      "price": 1.78,
-      "psa10": 38.63,
-      "g9": 12.27,
+      "price": 1.74,
+      "psa10": 38.77,
+      "g9": 12.31,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-26"
     },
     {
@@ -309,8 +309,8 @@
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/027",
       "price": 2,
-      "psa10": 39.27,
-      "g9": 12.44,
+      "psa10": 39.85,
+      "g9": 12.59,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-27"
     },
     {
@@ -319,9 +319,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/028",
-      "price": 1.86,
-      "psa10": 39.12,
-      "g9": 7,
+      "price": 1.88,
+      "psa10": 42.86,
+      "g9": 8.5,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-28"
     },
     {
@@ -330,9 +330,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/029",
-      "price": 1.76,
-      "psa10": 39.56,
-      "g9": 12.51,
+      "price": 1.78,
+      "psa10": 38.67,
+      "g9": 12.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-29"
     },
     {
@@ -352,9 +352,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/031",
-      "price": 1.49,
-      "psa10": 40.11,
-      "g9": 12.66,
+      "price": 1.72,
+      "psa10": 37.34,
+      "g9": 9.99,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-31"
     },
     {
@@ -363,8 +363,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/032",
-      "price": 1.87,
-      "psa10": 39.81,
+      "price": 1.98,
+      "psa10": 39.21,
       "g9": 15.54,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-32"
     },
@@ -374,9 +374,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/033",
-      "price": 1.37,
-      "psa10": 36.61,
-      "g9": 11.74,
+      "price": 1.82,
+      "psa10": 36.75,
+      "g9": 11.78,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-33"
     },
     {
@@ -385,8 +385,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/034",
-      "price": 1.99,
-      "psa10": 39.81,
+      "price": 1.94,
+      "psa10": 39.8,
       "g9": 22.37,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-34"
     },
@@ -396,9 +396,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/035",
-      "price": 1.62,
-      "psa10": 38.87,
-      "g9": 12.33,
+      "price": 1.75,
+      "psa10": 37.98,
+      "g9": 10.86,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-35"
     },
     {
@@ -418,9 +418,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/037",
-      "price": 1,
-      "psa10": 37.69,
-      "g9": 12.02,
+      "price": 1.76,
+      "psa10": 34.92,
+      "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-37"
     },
     {
@@ -429,8 +429,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/038",
-      "price": 1.5,
-      "psa10": 37.94,
+      "price": 1.65,
+      "psa10": 37.39,
       "g9": 10,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-38"
     },
@@ -440,8 +440,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/039",
-      "price": 1.82,
-      "psa10": 38.82,
+      "price": 1.91,
+      "psa10": 38.96,
       "g9": 13.04,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-39"
     },
@@ -462,9 +462,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/041",
-      "price": 1.49,
-      "psa10": 38.58,
-      "g9": 12.26,
+      "price": 1.43,
+      "psa10": 37.34,
+      "g9": 11.93,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-41"
     },
     {
@@ -473,8 +473,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/042",
-      "price": 2.12,
-      "psa10": 38.63,
+      "price": 1.92,
+      "psa10": 40.44,
       "g9": 12,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-42"
     },
@@ -484,9 +484,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/043",
-      "price": 1.85,
-      "psa10": 39.51,
-      "g9": 12.5,
+      "price": 2,
+      "psa10": 39.11,
+      "g9": 12.4,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-43"
     },
     {
@@ -495,9 +495,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/044",
-      "price": 1.73,
-      "psa10": 37.64,
-      "g9": 12.01,
+      "price": 1.99,
+      "psa10": 38.52,
+      "g9": 12.24,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-44"
     },
     {
@@ -506,9 +506,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/045",
-      "price": 1.59,
-      "psa10": 37.59,
-      "g9": 12,
+      "price": 1.99,
+      "psa10": 37.83,
+      "g9": 12.06,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-45"
     },
     {
@@ -517,9 +517,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/046",
-      "price": 1.49,
-      "psa10": 38.08,
-      "g9": 12.37,
+      "price": 2.05,
+      "psa10": 37.34,
+      "g9": 13.68,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-46"
     },
     {
@@ -528,9 +528,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/047",
-      "price": 1.8,
-      "psa10": 39.02,
-      "g9": 12.37,
+      "price": 1.99,
+      "psa10": 38.86,
+      "g9": 12.34,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-47"
     },
     {
@@ -539,9 +539,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/048",
-      "price": 1.79,
-      "psa10": 39.71,
-      "g9": 12.55,
+      "price": 1.99,
+      "psa10": 38.82,
+      "g9": 12.32,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-48"
     },
     {
@@ -550,9 +550,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/049",
-      "price": 1.71,
-      "psa10": 36.16,
-      "g9": 11.62,
+      "price": 1.49,
+      "psa10": 38.42,
+      "g9": 12.22,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-49"
     },
     {
@@ -561,8 +561,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/050",
-      "price": 1.08,
-      "psa10": 48.8,
+      "price": 1.59,
+      "psa10": 48.54,
       "g9": 11,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-50"
     },
@@ -572,9 +572,9 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/051",
-      "price": 1.37,
-      "psa10": 39.17,
-      "g9": 12.41,
+      "price": 2.11,
+      "psa10": 36.75,
+      "g9": 11.78,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-51"
     },
     {
@@ -583,8 +583,8 @@
       "rarity": "Pikachu Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/052",
-      "price": 1.92,
-      "psa10": 38.92,
+      "price": 1.99,
+      "psa10": 39.46,
       "g9": 12,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-52"
     },
@@ -616,8 +616,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/055",
-      "price": 1.46,
-      "psa10": 37.2,
+      "price": 1.34,
+      "psa10": 37.19,
       "g9": 11.89,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zapdos-55"
     },
@@ -627,9 +627,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/056",
-      "price": 1.26,
-      "psa10": 36.16,
-      "g9": 11.62,
+      "price": 1.46,
+      "psa10": 36.21,
+      "g9": 11.63,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zekrom-56"
     },
     {
@@ -638,8 +638,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/057",
-      "price": 1.34,
-      "psa10": 36.61,
+      "price": 0.99,
+      "psa10": 36.6,
       "g9": 11.74,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zeraora-57"
     },
@@ -649,9 +649,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/058",
-      "price": 1.25,
-      "psa10": 36.26,
-      "g9": 11.65,
+      "price": 1,
+      "psa10": 36.16,
+      "g9": 11.62,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/toxel-58"
     },
     {
@@ -660,9 +660,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/059",
-      "price": 1.39,
-      "psa10": 36.7,
-      "g9": 11.76,
+      "price": 1.04,
+      "psa10": 36.85,
+      "g9": 11.8,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/toxtricity-59"
     },
     {
@@ -671,7 +671,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/060",
-      "price": 0.99,
+      "price": 1.23,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/toxtricity-60"
@@ -682,9 +682,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/061",
-      "price": 1.31,
-      "psa10": 35.47,
-      "g9": 11.44,
+      "price": 0.99,
+      "psa10": 36.45,
+      "g9": 11.7,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/morpeko-61"
     },
     {
@@ -693,9 +693,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/062",
-      "price": 1.19,
-      "psa10": 36.01,
-      "g9": 11.58,
+      "price": 1.42,
+      "psa10": 35.86,
+      "g9": 11.54,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/miraidon-62"
     },
     {
@@ -715,9 +715,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/064",
-      "price": 2.01,
-      "psa10": 39.81,
-      "g9": 12.58,
+      "price": 1.86,
+      "psa10": 39.9,
+      "g9": 12.61,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/mewtwo-ex-64"
     },
     {
@@ -748,9 +748,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/067",
-      "price": 1.23,
-      "psa10": 35.57,
-      "g9": 11.46,
+      "price": 0.99,
+      "psa10": 36.06,
+      "g9": 11.6,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/marill-67"
     },
     {
@@ -759,9 +759,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/068",
-      "price": 1.21,
-      "psa10": 35.87,
-      "g9": 11.54,
+      "price": 1,
+      "psa10": 35.96,
+      "g9": 11.57,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/azumarill-68"
     },
     {
@@ -770,8 +770,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/069",
-      "price": 1.48,
-      "psa10": 37.3,
+      "price": 1.39,
+      "psa10": 37.29,
       "g9": 11.92,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/espeon-69"
     },
@@ -792,9 +792,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/071",
-      "price": 1.84,
-      "psa10": 38.77,
-      "g9": 12.31,
+      "price": 1.87,
+      "psa10": 39.06,
+      "g9": 12.39,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/sylveon-ex-71"
     },
     {
@@ -803,9 +803,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/072",
-      "price": 1.07,
-      "psa10": 36.26,
-      "g9": 11.65,
+      "price": 0.99,
+      "psa10": 35.27,
+      "g9": 11.39,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/unown-72"
     },
     {
@@ -814,8 +814,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/073",
-      "price": 1.32,
-      "psa10": 36.51,
+      "price": 0.99,
+      "psa10": 36.5,
       "g9": 11.71,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/drifloon-73"
     },
@@ -825,8 +825,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/074",
-      "price": 1.29,
-      "psa10": 36.36,
+      "price": 0.99,
+      "psa10": 36.35,
       "g9": 11.67,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/cresselia-74"
     },
@@ -836,9 +836,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/075",
-      "price": 1.53,
-      "psa10": 37.49,
-      "g9": 11.97,
+      "price": 0.99,
+      "psa10": 37.53,
+      "g9": 11.98,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/chandelure-75"
     },
     {
@@ -847,9 +847,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/076",
-      "price": 1.33,
-      "psa10": 36.56,
-      "g9": 11.72,
+      "price": 0.99,
+      "psa10": 36.55,
+      "g9": 11.73,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/xerneas-76"
     },
     {
@@ -858,9 +858,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/077",
-      "price": 0.84,
-      "psa10": 33.85,
-      "g9": 11.01,
+      "price": 0.99,
+      "psa10": 34.14,
+      "g9": 11.09,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/comfey-77"
     },
     {
@@ -869,9 +869,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/078",
-      "price": 1.18,
-      "psa10": 35.32,
-      "g9": 11.4,
+      "price": 1.33,
+      "psa10": 35.81,
+      "g9": 11.53,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/cosmog-78"
     },
     {
@@ -880,7 +880,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/079",
-      "price": 0.99,
+      "price": 0.9,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/cosmoem-79"
@@ -891,9 +891,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/080",
-      "price": 1.41,
-      "psa10": 36.9,
-      "g9": 11.81,
+      "price": 1.22,
+      "psa10": 36.94,
+      "g9": 11.83,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/lunala-80"
     },
     {
@@ -902,9 +902,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/081",
-      "price": 1.27,
-      "psa10": 36.16,
-      "g9": 11.62,
+      "price": 1.02,
+      "psa10": 36.25,
+      "g9": 11.65,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/gimmighoul-81"
     },
     {
@@ -913,9 +913,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/082",
-      "price": 1.05,
-      "psa10": 35.23,
-      "g9": 11.37,
+      "price": 1.37,
+      "psa10": 35.17,
+      "g9": 11.36,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/groudon-82"
     },
     {
@@ -924,7 +924,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/083",
-      "price": 0.99,
+      "price": 1.3,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/lucario-83"
@@ -935,7 +935,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/084",
-      "price": 1.36,
+      "price": 1.24,
       "psa10": 36.7,
       "g9": 11.76,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/seismitoad-84"
@@ -946,9 +946,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/085",
-      "price": 0.66,
-      "psa10": 34.04,
-      "g9": 11.06,
+      "price": 0.99,
+      "psa10": 33.25,
+      "g9": 10.86,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/lycanroc-85"
     },
     {
@@ -957,8 +957,8 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/086",
-      "price": 1.27,
-      "psa10": 36.26,
+      "price": 1.02,
+      "psa10": 36.25,
       "g9": 11.65,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/koraidon-86"
     },
@@ -968,7 +968,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/087",
-      "price": 0.99,
+      "price": 1.08,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/nidoran-87"
@@ -979,7 +979,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/088",
-      "price": 0.99,
+      "price": 1.09,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/nidorina-88"
@@ -990,9 +990,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/089",
-      "price": 1,
-      "psa10": 35.13,
-      "g9": 11.35,
+      "price": 0.99,
+      "psa10": 34.92,
+      "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/alolan-meowth-89"
     },
     {
@@ -1012,9 +1012,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/091",
-      "price": 1.33,
-      "psa10": 37.39,
-      "g9": 11.94,
+      "price": 1.42,
+      "psa10": 36.55,
+      "g9": 11.73,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/umbreon-91"
     },
     {
@@ -1034,7 +1034,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/093",
-      "price": 0.7,
+      "price": 0.99,
       "psa10": 33.45,
       "g9": 10.91,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/murkrow-93"
@@ -1045,9 +1045,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/094",
-      "price": 1.4,
-      "psa10": 35.96,
-      "g9": 11.57,
+      "price": 1.17,
+      "psa10": 36.89,
+      "g9": 11.82,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/scraggy-94"
     },
     {
@@ -1056,7 +1056,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/095",
-      "price": 0.99,
+      "price": 1,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zorua-95"
@@ -1067,7 +1067,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/096",
-      "price": 1.11,
+      "price": 0.99,
       "psa10": 35.47,
       "g9": 11.44,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zoroark-96"
@@ -1078,7 +1078,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/097",
-      "price": 0.99,
+      "price": 1,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/deino-97"
@@ -1089,7 +1089,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/098",
-      "price": 0.99,
+      "price": 1.23,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zweilous-98"
@@ -1100,9 +1100,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/099",
-      "price": 1.02,
-      "psa10": 36.06,
-      "g9": 11.59,
+      "price": 1.17,
+      "psa10": 35.02,
+      "g9": 11.32,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/hydreigon-99"
     },
     {
@@ -1111,7 +1111,7 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/100",
-      "price": 0.99,
+      "price": 1.38,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/yveltal-100"
@@ -1122,8 +1122,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/101",
-      "price": 1,
-      "psa10": 34.93,
+      "price": 0.99,
+      "psa10": 34.92,
       "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/galarian-meowth-101"
     },
@@ -1144,7 +1144,7 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/103",
-      "price": 0.99,
+      "price": 1.42,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/dialga-103"
@@ -1155,9 +1155,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/104",
-      "price": 0.8,
-      "psa10": 34.88,
-      "g9": 11.28,
+      "price": 0.73,
+      "psa10": 33.94,
+      "g9": 11.04,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/ferrothorn-104"
     },
     {
@@ -1166,7 +1166,7 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/105",
-      "price": 0.99,
+      "price": 1,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/solgaleo-105"
@@ -1177,9 +1177,9 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/106",
-      "price": 1.28,
-      "psa10": 35.67,
-      "g9": 11.49,
+      "price": 0.99,
+      "psa10": 36.3,
+      "g9": 11.66,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/zacian-106"
     },
     {
@@ -1199,7 +1199,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/108",
-      "price": 0.99,
+      "price": 0.95,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/gholdengo-108"
@@ -1210,9 +1210,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/109",
-      "price": 1.28,
-      "psa10": 38.77,
-      "g9": 12.31,
+      "price": 1.55,
+      "psa10": 36.3,
+      "g9": 11.66,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/salamence-ex-109"
     },
     {
@@ -1221,8 +1221,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/110",
-      "price": 1.05,
-      "psa10": 35.18,
+      "price": 0.99,
+      "psa10": 35.17,
       "g9": 11.36,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/jangmo-o-110"
     },
@@ -1232,9 +1232,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/111",
-      "price": 0.99,
-      "psa10": 34.73,
-      "g9": 11.24,
+      "price": 1.25,
+      "psa10": 34.88,
+      "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/hakamo-o-111"
     },
     {
@@ -1243,8 +1243,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/112",
-      "price": 1.02,
-      "psa10": 35.03,
+      "price": 0.99,
+      "psa10": 35.02,
       "g9": 11.32,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/kommo-o-112"
     },
@@ -1254,8 +1254,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/113",
-      "price": 1.29,
-      "psa10": 36.36,
+      "price": 1,
+      "psa10": 36.35,
       "g9": 11.67,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/meowth-113"
     },
@@ -1265,9 +1265,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/114",
-      "price": 1.03,
-      "psa10": 35.03,
-      "g9": 11.32,
+      "price": 0.99,
+      "psa10": 35.07,
+      "g9": 11.34,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/kangaskhan-114"
     },
     {
@@ -1276,8 +1276,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/115",
-      "price": 1.32,
-      "psa10": 36.51,
+      "price": 1.58,
+      "psa10": 36.5,
       "g9": 11.71,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/ditto-115"
     },
@@ -1287,9 +1287,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/116",
-      "price": 1.49,
-      "psa10": 36.7,
-      "g9": 11.76,
+      "price": 1.35,
+      "psa10": 37.34,
+      "g9": 9,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/eevee-116"
     },
     {
@@ -1298,9 +1298,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/117",
-      "price": 1.69,
-      "psa10": 38.53,
-      "g9": 12.24,
+      "price": 1.56,
+      "psa10": 38.32,
+      "g9": 12.19,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/eevee-117"
     },
     {
@@ -1309,9 +1309,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/118",
-      "price": 1.49,
-      "psa10": 37.99,
-      "g9": 12.1,
+      "price": 1.48,
+      "psa10": 37.34,
+      "g9": 11.93,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/eevee-118"
     },
     {
@@ -1320,9 +1320,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/119",
-      "price": 1.69,
-      "psa10": 38.92,
-      "g9": 12.35,
+      "price": 1.57,
+      "psa10": 38.32,
+      "g9": 36.81,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/snorlax-119"
     },
     {
@@ -1331,9 +1331,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/120",
-      "price": 1.14,
-      "psa10": 35.67,
-      "g9": 11.49,
+      "price": 1.19,
+      "psa10": 35.61,
+      "g9": 11.48,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/igglybuff-120"
     },
     {
@@ -1353,8 +1353,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/122",
-      "price": 1,
-      "psa10": 34.93,
+      "price": 0.99,
+      "psa10": 34.92,
       "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/hisuian-zorua-122"
     },
@@ -1364,9 +1364,9 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/123",
-      "price": 1.08,
-      "psa10": 35.23,
-      "g9": 11.37,
+      "price": 1.21,
+      "psa10": 35.32,
+      "g9": 11.4,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/hisuian-zoroark-123"
     },
     {
@@ -1375,8 +1375,8 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/124",
-      "price": 1,
-      "psa10": 34.93,
+      "price": 0.99,
+      "psa10": 34.92,
       "g9": 11.3,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/minior-124"
     },
@@ -1386,7 +1386,7 @@
       "rarity": "Common",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/125",
-      "price": 1.39,
+      "price": 1.11,
       "psa10": 36.85,
       "g9": 11.8,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/maushold-125"
@@ -1397,8 +1397,8 @@
       "rarity": "Common",
       "cat": "Trainer",
       "img": "https://assets.tcgdex.net/en/me/30th/126",
-      "price": 1.42,
-      "psa10": 37,
+      "price": 1.25,
+      "psa10": 36.99,
       "g9": 11.84,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/poke-pad-126"
     },
@@ -1408,7 +1408,7 @@
       "rarity": "Common",
       "cat": "Trainer",
       "img": "https://assets.tcgdex.net/en/me/30th/127",
-      "price": 0.99,
+      "price": 1.22,
       "psa10": 34.88,
       "g9": 11.28,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/switch-127"
@@ -1584,7 +1584,7 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/143",
-      "price": 1.98,
+      "price": 3.06,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/kommo-o-143"
     },
     {

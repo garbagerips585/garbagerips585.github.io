@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 335841,
+    "views": 336943,
     "subscribers": 439,
-    "videos": 392,
-    "readAt": "2026-11-01"
+    "videos": 393,
+    "readAt": "2026-11-02"
   },
-  "syncedAt": "2026-11-01",
+  "syncedAt": "2026-11-02",
   "videos": [
+    {
+      "id": "WuZlHKpYK-w",
+      "title": "The Bulk Pile Claims Pack #20 of Destined Rivals! 🚮👀",
+      "path": "rip/the-bulk-pile-claims-pack-20-of-destined-rivals-WuZlHKpYK-w.html",
+      "published": "2026-11-02",
+      "publishedAt": "2026-11-02T12:20:13Z",
+      "duration": 19,
+      "views": 447,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "destined-rivals"
+      ],
+      "products": [
+        "single-pack"
+      ],
+      "pulls": [],
+      "label": "Destined Rivals Pack"
+    },
     {
       "id": "kAuIvKbEYw8",
       "title": "30th Celebration Tech Sticker Pack #1 ✨ | 30th Bulk Hits Different! 🗑️",
@@ -15,7 +34,7 @@
       "published": "2026-11-01",
       "publishedAt": "2026-11-01T12:32:01Z",
       "duration": 24,
-      "views": 583,
+      "views": 1032,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 855,
+      "views": 902,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-10-30",
       "publishedAt": "2026-10-30T10:47:38Z",
       "duration": 28,
-      "views": 32,
+      "views": 34,
       "vertical": true,
       "short": true,
       "sets": [
@@ -132,7 +151,7 @@
       "published": "2026-10-26",
       "publishedAt": "2026-10-26T10:04:04Z",
       "duration": 25,
-      "views": 1089,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
@@ -151,7 +170,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 47,
+      "views": 49,
       "vertical": true,
       "short": true,
       "sets": [
@@ -170,7 +189,7 @@
       "published": "2026-10-24",
       "publishedAt": "2026-10-24T12:57:15Z",
       "duration": 27,
-      "views": 1134,
+      "views": 1135,
       "vertical": true,
       "short": true,
       "sets": [
@@ -445,7 +464,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1127,
+      "views": 1130,
       "vertical": true,
       "short": true,
       "sets": [
@@ -573,7 +592,7 @@
       "published": "2026-10-04",
       "publishedAt": "2026-10-04T12:49:12Z",
       "duration": 20,
-      "views": 1024,
+      "views": 1025,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1750,7 +1769,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1086,
+      "views": 1093,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2372,7 +2391,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 997,
+      "views": 1000,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3070,7 +3089,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 670,
+      "views": 672,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5169,7 +5188,7 @@
       "published": "2026-06-18",
       "publishedAt": "2026-06-18T10:20:22Z",
       "duration": 19,
-      "views": 950,
+      "views": 954,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8293,7 +8312,7 @@
       "published": "2026-05-03",
       "publishedAt": "2026-05-03T23:53:00Z",
       "duration": 22,
-      "views": 1210,
+      "views": 1211,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9896,7 +9915,7 @@
       "published": "2026-04-11",
       "publishedAt": "2026-04-11T11:10:00Z",
       "duration": 22,
-      "views": 1471,
+      "views": 1472,
       "vertical": true,
       "short": true,
       "sets": [
