@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 336984,
+    "views": 337599,
     "subscribers": 439,
-    "videos": 393,
-    "readAt": "2026-11-02"
+    "videos": 394,
+    "readAt": "2026-11-03"
   },
-  "syncedAt": "2026-11-02",
+  "syncedAt": "2026-11-03",
   "videos": [
+    {
+      "id": "7SV1GE23CGA",
+      "title": "30th Celebration Delivers AGAIN! Gold Glitter Classic Collection Misty Hit! 🏆⚡",
+      "path": "rip/30th-celebration-delivers-again-gold-glitter-classic-collect-7SV1GE23CGA.html",
+      "published": "2026-11-03",
+      "publishedAt": "2026-11-03T11:11:19Z",
+      "duration": 28,
+      "views": 11,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "WuZlHKpYK-w",
       "title": "The Bulk Pile Claims Pack #20 of Destined Rivals! 🚮👀",
@@ -15,7 +34,7 @@
       "published": "2026-11-02",
       "publishedAt": "2026-11-02T12:20:13Z",
       "duration": 19,
-      "views": 599,
+      "views": 638,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-11-01",
       "publishedAt": "2026-11-01T12:32:01Z",
       "duration": 24,
-      "views": 1035,
+      "views": 1065,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +78,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 903,
+      "views": 906,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +100,7 @@
       "published": "2026-10-30",
       "publishedAt": "2026-10-30T10:47:38Z",
       "duration": 28,
-      "views": 34,
+      "views": 35,
       "vertical": true,
       "short": true,
       "sets": [
@@ -102,7 +121,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 289,
+      "views": 290,
       "vertical": true,
       "short": true,
       "sets": [
@@ -507,7 +526,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1130,
+      "views": 1131,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1812,7 +1831,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1093,
+      "views": 1097,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2434,7 +2453,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1000,
+      "views": 1001,
       "vertical": true,
       "short": true,
       "sets": [
