@@ -13,8 +13,8 @@
   "set": "30th-celebration",
   "name": "30th Celebration",
   "source": "tcgdex 30th for cards and art, pricecharting for money",
-  "checked": "2026-11-03",
-  "pricesChecked": "2026-11-03",
+  "checked": "2026-11-04",
+  "pricesChecked": "2026-11-04",
   "cards": [
     {
       "n": "001",
@@ -594,9 +594,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/053",
-      "price": 2.01,
-      "psa10": 39.8,
-      "g9": 12.58,
+      "price": 2,
+      "psa10": 39.89,
+      "g9": 12.61,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-ex-53"
     },
     {
@@ -605,9 +605,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/054",
-      "price": 2.35,
-      "psa10": 43.4,
-      "g9": 13.53,
+      "price": 2.3,
+      "psa10": 41.56,
+      "g9": 13.05,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/pikachu-ex-54"
     },
     {
@@ -715,9 +715,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/064",
-      "price": 1.86,
-      "psa10": 39.9,
-      "g9": 12.61,
+      "price": 1.92,
+      "psa10": 39.15,
+      "g9": 12.41,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/mewtwo-ex-64"
     },
     {
@@ -726,8 +726,8 @@
       "rarity": "Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/065",
-      "price": 1.67,
-      "psa10": 69.02,
+      "price": 1.49,
+      "psa10": 69.36,
       "g9": 21.24,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/mew-65"
     },
@@ -737,9 +737,9 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/066",
-      "price": 2.32,
-      "psa10": 43.84,
-      "g9": 13.64,
+      "price": 3.25,
+      "psa10": 41.42,
+      "g9": 15.5,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/mew-ex-66"
     },
     {
@@ -781,8 +781,8 @@
       "rarity": "Double Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/070",
-      "price": 1.75,
-      "psa10": 39.06,
+      "price": 1.73,
+      "psa10": 38.61,
       "g9": 11,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/espeon-ex-70"
     },
@@ -1430,9 +1430,9 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/129",
-      "price": 3.48,
-      "psa10": 45.62,
-      "g9": 14.11,
+      "price": 2.84,
+      "psa10": 47.13,
+      "g9": 14.52,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/alolan-exeggutor-129"
     },
     {
@@ -1485,9 +1485,9 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/134",
-      "price": 3.51,
-      "psa10": 45.32,
-      "g9": 14.03,
+      "price": 3.48,
+      "psa10": 47.27,
+      "g9": 14.56,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/toxtricity-134"
     },
     {
@@ -1507,8 +1507,8 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/136",
-      "price": 3.99,
-      "psa10": 46.99,
+      "price": 3.81,
+      "psa10": 49.63,
       "g9": 11.5,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/drifloon-136"
     },
@@ -1518,9 +1518,9 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/137",
-      "price": 3,
-      "psa10": 46.75,
-      "g9": 14.41,
+      "price": 2.58,
+      "psa10": 44.76,
+      "g9": 13.89,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/chandelure-137"
     },
     {
@@ -1573,7 +1573,7 @@
       "rarity": "Illustration Rare",
       "cat": "Pokemon",
       "img": "https://assets.tcgdex.net/en/me/30th/142",
-      "price": 3.14,
+      "price": 3.24,
       "psa10": 155,
       "g9": 12,
       "pcUrl": "https://www.pricecharting.com/game/pokemon-30th-celebration/gholdengo-142"

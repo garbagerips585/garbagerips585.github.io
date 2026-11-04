@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 337599,
+    "views": 337742,
     "subscribers": 439,
-    "videos": 394,
-    "readAt": "2026-11-03"
+    "videos": 395,
+    "readAt": "2026-11-04"
   },
-  "syncedAt": "2026-11-03",
+  "syncedAt": "2026-11-04",
   "videos": [
+    {
+      "id": "heFRq2yODvQ",
+      "title": "Can We Get Last Pack Magic?! Tech Sticker Collection Finale 🚮👀",
+      "path": "rip/can-we-get-last-pack-magic-tech-sticker-collection-finale-heFRq2yODvQ.html",
+      "published": "2026-11-04",
+      "publishedAt": "2026-11-04T14:03:19Z",
+      "duration": 25,
+      "views": 8,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "7SV1GE23CGA",
       "title": "30th Celebration Delivers AGAIN! Gold Glitter Classic Collection Misty Hit! 🏆⚡",
@@ -15,7 +34,7 @@
       "published": "2026-11-03",
       "publishedAt": "2026-11-03T11:11:19Z",
       "duration": 28,
-      "views": 11,
+      "views": 18,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-02",
       "publishedAt": "2026-11-02T12:20:13Z",
       "duration": 19,
-      "views": 638,
+      "views": 672,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-11-01",
       "publishedAt": "2026-11-01T12:32:01Z",
       "duration": 24,
-      "views": 1065,
+      "views": 1093,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-10-31",
       "publishedAt": "2026-10-31T11:35:26Z",
       "duration": 19,
-      "views": 906,
+      "views": 908,
       "vertical": true,
       "short": true,
       "sets": [
@@ -100,7 +119,7 @@
       "published": "2026-10-30",
       "publishedAt": "2026-10-30T10:47:38Z",
       "duration": 28,
-      "views": 35,
+      "views": 37,
       "vertical": true,
       "short": true,
       "sets": [
@@ -207,7 +226,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 49,
+      "views": 50,
       "vertical": true,
       "short": true,
       "sets": [
@@ -441,7 +460,7 @@
       "published": "2026-10-14",
       "publishedAt": "2026-10-14T10:21:02Z",
       "duration": 30,
-      "views": 1072,
+      "views": 1073,
       "vertical": true,
       "short": true,
       "sets": [
@@ -782,7 +801,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1372,
+      "views": 1373,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1831,7 +1850,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1097,
+      "views": 1098,
       "vertical": true,
       "short": true,
       "sets": [
