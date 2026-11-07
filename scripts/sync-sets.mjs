@@ -28,6 +28,7 @@ const FORCE = process.argv.includes("--force");
 // Our set ids -> the API's. Ours come from shared/taxonomy.mjs and are what
 // the videos are tagged with; theirs are internal codes like "me5".
 const SET_MAP = {
+  "delta-reign": "me6",
   "pitch-black": "me5",
   "chaos-rising": "me4",
   "perfect-order": "me3",
@@ -215,9 +216,21 @@ try {
   /* optional */
 }
 
+/* A SET THIS API DOES NOT LIST YET, described by hand from The Pokemon Company's
+   own announcement until it does. Added 7 November 2026 for Delta Reign, released
+   the day before: api.pokemontcg.io answered 500 for me6 and listed no such set.
+   printedTotal is the /103 printed on every card and total is the 141 cards
+   TCGplayer lists under "ME06: Delta Reign", which public/data/cards/delta-reign
+   .json holds one by one; the rarity ladder below is counted from that checklist,
+   never from this block. Delete the entry the day the API lists the set, and the
+   API's own record takes over with no other change. */
+const PENDING_META = {
+  me6: { name: "Delta Reign", series: "Mega Evolution", releaseDate: "2026/11/06", printedTotal: 103, total: 141, images: {} },
+};
+
 const sets = [];
 for (const [setId, apiId] of Object.entries(SET_MAP)) {
-  const meta = byApiId.get(apiId);
+  const meta = byApiId.get(apiId) || PENDING_META[apiId];
   if (!meta) {
     console.log(`  ${setId}: no such API set (${apiId}), skipping`);
     continue;
@@ -225,7 +238,8 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
   process.stdout.write(`  ${setId} (${apiId})... `);
   let cards = [];
   try {
-    cards = await fetchAllCards(apiId);
+    // A PENDING_META set is not in the API at all; asking only burns six retries.
+    cards = byApiId.has(apiId) ? await fetchAllCards(apiId) : [];
   } catch (e) {
     console.log(`cards unavailable: ${e.message}`);
   }
@@ -355,7 +369,7 @@ for (const [setId, apiId] of Object.entries(SET_MAP)) {
     rarities,
     // Which source the counts above came from, so a page can say.
     raritiesFrom,
-    cardsSeen: cards.length,
+    cardsSeen: cards.length || (!byApiId.has(apiId) ? checklist?.length || 0 : 0),
     // Prices are missing entirely for the newest sets: the API carries their
     // card lists before TCGplayer data catches up. Pages must handle zero.
     pricedCount: priced.length,

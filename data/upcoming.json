@@ -66,62 +66,7 @@
     "  in the English entry's blurb naming the Japanese set, not a row."
   ],
   "checked": "2026-09-16",
-  "sets": [
-    {
-      "name": "Mega Evolution: Delta Reign",
-      "code": "ME06",
-      "date": "2026-11-06",
-      "confidence": "confirmed",
-      "blurb": "The sixth English Mega Evolution set, headlined by Mega Rayquaza ex coming back to the card game. The Pokemon Company has published the whole card breakdown for this one, which is unusual this far out, and it comes with a new kind of Stadium card that only does anything as a pair.",
-      "highlights": [
-        "Over 135 cards, more than 20 of them Trainer cards, and over 35 cards with special illustrations",
-        "Four new Mega Evolution Pokemon ex: Mega Rayquaza ex, Mega Golurk ex, Mega Malamar ex and Mega Golisopod ex",
-        "Split Stadium cards with Legendary in the name. Both halves carry the same name and you need both to play it, so a deck can hold two complete ones at most. Placed side by side they form one extended picture, and a pack holding one holds both of its halves",
-        "The rest of the breakdown, published by The Pokemon Company itself on August 20, 2026: six Stadium cards making three Legendary Stadiums, six Pokemon ex, 14 illustration rares, 17 ultra rares and six special illustration rares",
-        "Prereleases start October 24 at participating local game stores, which is The Pokemon Company's own date. It has not announced an end, so the November 1 finish is PokeBeach's",
-        "Pokemon TCG Live gets the set on November 5, the day before it reaches shelves"
-      ],
-      "products": [
-        {
-          "name": "Booster Box",
-          "note": "Four pack wraps: Mega Rayquaza, Mega Golisopod, Mega Golurk and Mega Malamar"
-        },
-        {
-          "name": "Booster Bundle"
-        },
-        {
-          "name": "Elite Trainer Box",
-          "note": "The box promo is the Kyogre illustration rare from Japan's Storm Emeralda, cut from the English set and moved here"
-        },
-        {
-          "name": "Pokemon Center Elite Trainer Box",
-          "note": "Pokemon Center exclusive. A stamped version of the Kyogre promo has been shown as well"
-        },
-        {
-          "name": "Build and Battle Box"
-        },
-        {
-          "name": "Seel Blister"
-        },
-        {
-          "name": "Spritzee Checklane Blister"
-        },
-        {
-          "name": "Premium Checklane Blister, Ampharos or Delphox"
-        },
-        {
-          "name": "Target Checklane Blister, Xerneas and Deoxys or Keldeo and Delibird",
-          "note": "Target exclusive"
-        }
-      ],
-      "productNote": "Every product here has been shown in official artwork, published by PokeBeach on August 20, 2026, so this is a real lineup rather than a guess at one. The Pokemon Company has still not put out a product page for the set, which is why not one of these carries a price or a date of its own here: none has been announced. If a shop quotes you a price for one, that is the shop's number and not a retail price. TCGplayer also lists three products The Pokemon Company has not shown: a single Booster Pack, a Sleeved Booster Pack and a Half Booster Box, read off its \"ME06: Delta Reign\" listings on September 16, 2026, which carry 21 entries once distributor cases are set aside. They are named here rather than added to the list above because a shop listing is not an announcement. Shops build new listings from the last set's, and every previous Mega Evolution set had all three, so they are the easiest products to list before anything is confirmed. Its listings also hold no card numbers yet, so there is still no English card list for this set anywhere.",
-      "sources": [
-        "https://press.pokemon.com/en/releases/MEDIA-ALERT-New-Pokemon-Trading-Card-Game-Mega-EvolutionDelta-Reign-Ex",
-        "https://www.pokemon.com/uk/news/the-pokemon-tcg-mega-evolution-delta-reign-expansion-arrives-november-6-2026",
-        "https://www.pokebeach.com/2026/08/delta-reign-tcg-set-officially-revealed-for-november-full-product-lineup"
-      ]
-    }
-  ],
+  "sets": [],
   "products": [
     {
       "name": "Enhanced 2 Pack Blister",
@@ -172,8 +117,8 @@
       "on the day somebody typed it and wrong by the time anybody read it.",
       "WHAT WAS DELIBERATELY LEFT OUT. Storm Emeralda and the three MEGA Starter",
       "Set ex Decks both came out on July 31, 2026 and are already out, so they are",
-      "not upcoming and are not here; Storm Emeralda is named in Delta Reign's own",
-      "entry instead, which is where an English reader has a reason to care about",
+      "not upcoming and are not here. Storm Emeralda was named in Delta Reign's own",
+      "entry until that set shipped on November 6, 2026, which is where an English reader had a reason to care about",
       "it. Taiwan, Hong Kong and Korean dates were looked at and dropped: this is a",
       "Japanese calendar because that is what the owner asked for and what he buys, and a",
       "section called Japan that quietly holds three other regions is the same",
@@ -204,7 +149,7 @@
         "name": "Aura Seeker",
         "date": "2026-11-27",
         "confidence": "confirmed",
-        "blurb": "Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign above is the current proof of. Pokemon has now shown Riolu, Mega Lucario Z ex and Sigilyph ex from it, and the set itself is still not officially revealed. The English cards were teased at the same time carrying a set symbol named FLO, which is a symbol and not a name: it still does not say what the English set will be called, and this page will not turn a three letter symbol into one.",
+        "blurb": "Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign is the current proof of. Pokemon has now shown Riolu, Mega Lucario Z ex and Sigilyph ex from it, and the set itself is still not officially revealed. The English cards were teased at the same time carrying a set symbol named FLO, which is a symbol and not a name: it still does not say what the English set will be called, and this page will not turn a three letter symbol into one.",
         "sources": [
           "https://www.pokebeach.com/2026/08/upcoming-pokemon-ex-mega-attack-rares-revealed-from-aura-seeker-and-mega-mega-parade"
         ]

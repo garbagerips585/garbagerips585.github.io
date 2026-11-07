@@ -4355,6 +4355,7 @@ ${MENU}
 const GUIDE_FIRST_PUBLISHED = {
   "151": "2026-08-11", "ascended-heroes": "2026-08-11", "black-bolt": "2026-08-11",
   "celebrations": "2026-08-15", "chaos-rising": "2026-08-11", "chilling-reign": "2026-08-15",
+  "delta-reign": "2026-11-07",
   "crown-zenith": "2026-08-15", "destined-rivals": "2026-08-11", "journey-together": "2026-08-11",
   "mega-evolution": "2026-08-11", "obsidian-flames": "2026-08-11", "paldea-evolved": "2026-08-11",
   "paldean-fates": "2026-08-11", "paradox-rift": "2026-08-11", "perfect-order": "2026-08-11",

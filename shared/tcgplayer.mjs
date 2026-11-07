@@ -22,6 +22,7 @@ export const TCG_SET = {
   // holds no Classic rows (those cards keep their ORIGINAL sets' numbering, so two
   // are #11 and three are #106 and nothing joins them without guessing).
   "30th-celebration": "ME: 30th Celebration",
+  "delta-reign": "ME06: Delta Reign",
   "pitch-black": "ME05: Pitch Black",
   "chaos-rising": "ME04: Chaos Rising",
   "perfect-order": "ME03: Perfect Order",

@@ -288,6 +288,35 @@ const SHOT_KEY = new Map(
     return [`${scanNorm(set)}|${scanNorm(num)}`, v];
   })
 );
+/* A WHOLE SET OF PINS, DERIVED RATHER THAN TYPED. A set listed under
+   `tcgplayerPending` in data/tcgdex-en.json has no TCGdex scans at all (that is
+   what pending means: TCGdex has not published it), and sync-cards.mjs writes its
+   checklist off TCGplayer with each card's own `tcgplayerId`. Those ids are read
+   off TCGplayer's listing for that exact setName, the same evidence a hand pin
+   needs, so they are pinned here card by card under both the set's name and its
+   slug. Added 7 November 2026 for Delta Reign. Hand pins in card-shots.json win.
+   The day the set moves into TCGdex these disappear with the pending entry, and
+   the real scans take over with no other edit. */
+try {
+  const pending = JSON.parse(readFileSync(join(ROOT, "data/tcgdex-en.json"), "utf8")).tcgplayerPending || {};
+  for (const slug of Object.keys(pending)) {
+    let doc = null;
+    try { doc = JSON.parse(readFileSync(join(ROOT, `public/data/cards/${slug}.json`), "utf8")); } catch { continue; }
+    for (const c of doc.cards || []) {
+      if (!c.tcgplayerId || c.img) continue;
+      const pin = { productId: c.tcgplayerId, card: c.name, url: `https://www.tcgplayer.com/product/${c.tcgplayerId}` };
+      // Padded and unpadded: the checklist writes "007", a rip log may write "7".
+      for (const set of [doc.name, slug]) {
+        for (const num of new Set([c.n, String(c.n).replace(/^0+(?=\d)/, "")])) {
+          const key = `${scanNorm(set)}|${scanNorm(num)}`;
+          if (!SHOT_KEY.has(key)) SHOT_KEY.set(key, pin);
+        }
+      }
+    }
+  }
+} catch {
+  /* no pending sets */
+}
 
 /**
  * A pinned TCGplayer scan for one printing, or null.

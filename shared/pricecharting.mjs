@@ -202,6 +202,9 @@ export const PC_CONSOLES = {
   "perfect-order": "/console/pokemon-perfect-order",
   "phantasmal-flames": "/console/pokemon-phantasmal-flames",
   "pitch-black": "/console/pokemon-pitch-black",
+  // Read 7 November 2026, the day after release: "Pokemon Delta Reign Card
+  // Prices", 150 product rows, same url shape as every Mega Evolution set.
+  "delta-reign": "/console/pokemon-delta-reign",
   "pokemon-go": "/console/pokemon-go",
   "prismatic-evolutions": "/console/pokemon-prismatic-evolutions",
   "rebel-clash": "/console/pokemon-rebel-clash",

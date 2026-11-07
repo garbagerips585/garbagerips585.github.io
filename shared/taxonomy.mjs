@@ -118,13 +118,22 @@ export const CARD_SETS = [
      among the sets ripped on camera with no guide page, exactly as it does for
      lost-origin. The guide lives at /30th-celebration.html instead. */
   { id: "30th-celebration", label: "30th Celebration", pattern: /\b30th\s+celebrations?\b/i },
+  { id: "delta-reign", label: "Delta Reign" },
   { id: "pitch-black", label: "Pitch Black" },
   { id: "ascended-heroes", label: "Ascended Heroes" },
   { id: "pokemon-go", label: "Pokémon GO", pattern: /pok[eé]mon\s+go\b/i },
   { id: "phantasmal-flames", label: "Phantasmal Flames" },
   { id: "perfect-order", label: "Perfect Order" },
   { id: "chaos-rising", label: "Chaos Rising" },
-  { id: "mega-evolution", label: "Mega Evolution" },
+  /* "MEGA EVOLUTION" IS ALSO THE SERIES NAME, and TPCi writes every set in it as
+     "Mega Evolution—<Set>". So "Pokémon Mega Evolution—Delta Reign ETB" tagged the
+     2025 base set as well as Delta Reign. Narrowed 7 November 2026 for Delta Reign
+     ONLY, the day before its first rip: the same double tag already sits on older
+     "Mega Evolution—Pitch Black" style titles, and widening this to every set would
+     retag existing videos, which is a decision for the owner, not a side effect.
+     Otherwise this is matcherFor()'s own default for the label, character for
+     character, so it tags the same 12 existing videos it tagged before. */
+  { id: "mega-evolution", label: "Mega Evolution", pattern: /\bmega[\s-]*evolutions?\b(?![\s:\u2013\u2014-]*delta[\s-]*reign)/i },
   { id: "black-bolt", label: "Black Bolt" },
   { id: "white-flare", label: "White Flare" },
   { id: "destined-rivals", label: "Destined Rivals" },

@@ -57572,6 +57572,1505 @@
       },
       "total": 173,
       "priced": 173
+    },
+    "delta-reign": {
+      "console": "/console/pokemon-delta-reign",
+      "checked": "2026-11-07",
+      "cards": {
+        "100": {
+          "price": 1.25,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.4,
+            "Reverse Holo": 1.25
+          },
+          "psa10": 41.84,
+          "g9": 13.03,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-rayquaza-cap-reverse-holo-100"
+        },
+        "101": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1,
+            "Base": 0.34
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/tasty-rice-ball-reverse-holo-101"
+        },
+        "102": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.25
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/tate-&-liza%27s-training-102"
+        },
+        "103": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.99,
+            "Base": 0.4
+          },
+          "psa10": 37.5,
+          "g9": 11.92,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zinnia%27s-trust-reverse-holo-103"
+        },
+        "104": {
+          "price": 4.9,
+          "variant": "Base",
+          "all": {
+            "Base": 4.9
+          },
+          "psa10": 63.33,
+          "g9": 18.54,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/masquerain-104"
+        },
+        "105": {
+          "price": 14.99,
+          "variant": "Base",
+          "all": {
+            "Base": 14.99
+          },
+          "psa10": 109.82,
+          "g9": 30.45,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sprigatito-105"
+        },
+        "106": {
+          "price": 19,
+          "variant": "Base",
+          "all": {
+            "Base": 19
+          },
+          "psa10": 132.5,
+          "g9": 36.26,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/growlithe-106"
+        },
+        "107": {
+          "price": 11.77,
+          "variant": "Base",
+          "all": {
+            "Base": 11.77
+          },
+          "psa10": 98.68,
+          "g9": 27.59,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/magmortar-107"
+        },
+        "108": {
+          "price": 5.49,
+          "variant": "Base",
+          "all": {
+            "Base": 5.49
+          },
+          "psa10": 82.87,
+          "g9": 23.55,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/electivire-108"
+        },
+        "109": {
+          "price": 4.99,
+          "variant": "Base",
+          "all": {
+            "Base": 4.99
+          },
+          "psa10": 54.99,
+          "g9": 16.4,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pincurchin-109"
+        },
+        "110": {
+          "price": 5.99,
+          "variant": "Base",
+          "all": {
+            "Base": 5.99
+          },
+          "psa10": 88.48,
+          "g9": 24.98,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/enamorus-110"
+        },
+        "111": {
+          "price": 25.17,
+          "variant": "Base",
+          "all": {
+            "Base": 25.17
+          },
+          "psa10": 179.88,
+          "g9": 48.4,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/groudon-111"
+        },
+        "112": {
+          "price": 9.8,
+          "variant": "Base",
+          "all": {
+            "Base": 9.8
+          },
+          "psa10": 80.23,
+          "g9": 22.87,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zorua-112"
+        },
+        "113": {
+          "price": 6.45,
+          "variant": "Base",
+          "all": {
+            "Base": 6.45
+          },
+          "psa10": 64.99,
+          "g9": 18.96,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/inkay-113"
+        },
+        "114": {
+          "price": 26.45,
+          "variant": "Base",
+          "all": {
+            "Base": 26.45
+          },
+          "psa10": 57,
+          "g9": 47.12,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/eevee-114"
+        },
+        "115": {
+          "price": 14.32,
+          "variant": "Base",
+          "all": {
+            "Base": 14.32
+          },
+          "psa10": 104.12,
+          "g9": 28.99,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/azurill-115"
+        },
+        "116": {
+          "price": 10.52,
+          "variant": "Base",
+          "all": {
+            "Base": 10.52
+          },
+          "psa10": 84.48,
+          "g9": 23.96,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/altaria-116"
+        },
+        "117": {
+          "price": 22,
+          "variant": "Base",
+          "all": {
+            "Base": 22
+          },
+          "psa10": 157.34,
+          "g9": 42.63,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/kecleon-117"
+        },
+        "118": {
+          "price": 7.13,
+          "variant": "Base",
+          "all": {
+            "Base": 7.13
+          },
+          "psa10": 68.29,
+          "g9": 19.81,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golisopod-ex-118"
+        },
+        "119": {
+          "price": 4.75,
+          "variant": "Base",
+          "all": {
+            "Base": 4.75
+          },
+          "psa10": 62.84,
+          "g9": 18.41,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/heat-rotom-ex-119"
+        },
+        "120": {
+          "price": 5.25,
+          "variant": "Base",
+          "all": {
+            "Base": 5.25
+          },
+          "psa10": 79.98,
+          "g9": 22.8,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/wishiwashi-ex-120"
+        },
+        "121": {
+          "price": 6.88,
+          "variant": "Base",
+          "all": {
+            "Base": 6.88
+          },
+          "psa10": 79.93,
+          "g9": 22.79,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/raikou-ex-121"
+        },
+        "122": {
+          "price": 7.5,
+          "variant": "Base",
+          "all": {
+            "Base": 7.5
+          },
+          "psa10": 61.74,
+          "g9": 18.13,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golurk-ex-122"
+        },
+        "123": {
+          "price": 4.84,
+          "variant": "Base",
+          "all": {
+            "Base": 4.84
+          },
+          "psa10": 58.69,
+          "g9": 17.35,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-malamar-ex-123"
+        },
+        "124": {
+          "price": 16.84,
+          "variant": "Base",
+          "all": {
+            "Base": 16.84
+          },
+          "psa10": 111.63,
+          "g9": 30.91,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/talonflame-ex-124"
+        },
+        "125": {
+          "price": 4.99,
+          "variant": "Base",
+          "all": {
+            "Base": 4.99
+          },
+          "psa10": 64.93,
+          "g9": 18.95,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/aarune-125"
+        },
+        "126": {
+          "price": 10.18,
+          "variant": "Base",
+          "all": {
+            "Base": 10.18
+          },
+          "psa10": 85.18,
+          "g9": 24.14,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/adventure-lantern-126"
+        },
+        "127": {
+          "price": 2.95,
+          "variant": "Base",
+          "all": {
+            "Base": 2.95
+          },
+          "psa10": 44.64,
+          "g9": 13.75,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/custom-vest-127"
+        },
+        "128": {
+          "price": 5.95,
+          "variant": "Base",
+          "all": {
+            "Base": 5.95
+          },
+          "psa10": 54.99,
+          "g9": 16.4,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/emcee%27s-hype-128"
+        },
+        "129": {
+          "price": 5.49,
+          "variant": "Base",
+          "all": {
+            "Base": 5.49
+          },
+          "psa10": 57.44,
+          "g9": 17.03,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pokemon-catcher-129"
+        },
+        "130": {
+          "price": 6.04,
+          "variant": "Base",
+          "all": {
+            "Base": 6.04
+          },
+          "psa10": 68.68,
+          "g9": 19.91,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/tate-&-liza%27s-training-130"
+        },
+        "131": {
+          "price": 8.99,
+          "variant": "Base",
+          "all": {
+            "Base": 8.99
+          },
+          "psa10": 85.93,
+          "g9": 24.33,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zinnia%27s-trust-131"
+        },
+        "132": {
+          "price": 3.99,
+          "variant": "Base",
+          "all": {
+            "Base": 3.99
+          },
+          "psa10": 52.34,
+          "g9": 15.72,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/bubbly-w-energy-132"
+        },
+        "133": {
+          "price": 9,
+          "variant": "Base",
+          "all": {
+            "Base": 9
+          },
+          "psa10": 77.24,
+          "g9": 22.1,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/growing-g-energy-133"
+        },
+        "134": {
+          "price": 19,
+          "variant": "Base",
+          "all": {
+            "Base": 19
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/nitro-r-energy-134"
+        },
+        "135": {
+          "price": 34.99,
+          "variant": "Base",
+          "all": {
+            "Base": 34.99
+          },
+          "psa10": 202.84,
+          "g9": 54.28,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golisopod-ex-135"
+        },
+        "136": {
+          "price": 105,
+          "variant": "Base",
+          "all": {
+            "Base": 105
+          },
+          "psa10": 617.32,
+          "g9": 160.44,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/raikou-ex-136"
+        },
+        "137": {
+          "price": 35.16,
+          "variant": "Base",
+          "all": {
+            "Base": 35.16
+          },
+          "psa10": 269.87,
+          "g9": 71.45,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golurk-ex-137"
+        },
+        "138": {
+          "price": 400.94,
+          "variant": "Base",
+          "all": {
+            "Base": 400.94
+          },
+          "psa10": 2134.89,
+          "g9": 549.19,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-rayquaza-ex-138"
+        },
+        "139": {
+          "price": 19.77,
+          "variant": "Base",
+          "all": {
+            "Base": 19.77
+          },
+          "psa10": 127.77,
+          "g9": 35.04,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/aarune-139"
+        },
+        "140": {
+          "price": 32.6,
+          "variant": "Base",
+          "all": {
+            "Base": 32.6
+          },
+          "psa10": 219.66,
+          "g9": 58.6,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zinnia%27s-trust-140"
+        },
+        "141": {
+          "price": 354.99,
+          "variant": "Base",
+          "all": {
+            "Base": 354.99
+          },
+          "psa10": 2404.2,
+          "g9": 618.18,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-rayquaza-ex-141"
+        },
+        "001": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25
+          },
+          "psa10": 35.55,
+          "g9": 11.42,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/heracross-1"
+        },
+        "002": {
+          "price": 0.49,
+          "variant": "Base",
+          "all": {
+            "Base": 0.49,
+            "Reverse Holo": 0.25
+          },
+          "psa10": 32.45,
+          "g9": 10.63,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/surskit-2"
+        },
+        "003": {
+          "price": 2.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 2.99,
+            "Base": 0.4
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/masquerain-reverse-holo-3"
+        },
+        "004": {
+          "price": 0.39,
+          "variant": "Base",
+          "all": {
+            "Base": 0.39,
+            "Reverse Holo": 0.11
+          },
+          "psa10": 31.95,
+          "g9": 10.5,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/cacnea-4"
+        },
+        "005": {
+          "price": 0.39,
+          "variant": "Base",
+          "all": {
+            "Base": 0.39
+          },
+          "psa10": 33.5,
+          "g9": 10.9,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/cacturne-5"
+        },
+        "006": {
+          "price": 0.71,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 0.71,
+            "Base": 0.38
+          },
+          "psa10": 36.75,
+          "g9": 11.73,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/combee-reverse-holo-6"
+        },
+        "007": {
+          "price": 0.3,
+          "variant": "Base",
+          "all": {
+            "Base": 0.3,
+            "Reverse Holo": 0.15
+          },
+          "psa10": 31.5,
+          "g9": 10.38,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/vespiquen-7"
+        },
+        "008": {
+          "price": 0.32,
+          "variant": "Base",
+          "all": {
+            "Base": 0.32,
+            "Reverse Holo": 0.2
+          },
+          "psa10": 31.6,
+          "g9": 10.41,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/shaymin-8"
+        },
+        "009": {
+          "price": 0.28,
+          "variant": "Base",
+          "all": {
+            "Base": 0.28
+          },
+          "psa10": 31.4,
+          "g9": 10.36,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/virizion-9"
+        },
+        "010": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.99,
+            "Base": 0.39
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/wimpod-reverse-holo-10"
+        },
+        "011": {
+          "price": 3.76,
+          "variant": "Base",
+          "all": {
+            "Base": 3.76
+          },
+          "psa10": 47.9,
+          "g9": 14.58,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golisopod-ex-11"
+        },
+        "012": {
+          "price": 1.97,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.33,
+            "Reverse Holo": 1.97
+          },
+          "psa10": 39.85,
+          "g9": 12.52,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sprigatito-reverse-holo-12"
+        },
+        "013": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.24,
+            "Reverse Holo": 1.99
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/floragato-reverse-holo-13"
+        },
+        "014": {
+          "price": 1.69,
+          "variant": "Base",
+          "all": {
+            "Base": 1.69
+          },
+          "psa10": 39.95,
+          "g9": 12.55,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/meowscarada-ex-14"
+        },
+        "015": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.24,
+            "Reverse Holo": 1
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/smoliv-reverse-holo-15"
+        },
+        "016": {
+          "price": 1.26,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 1.26
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/dolliv-reverse-holo-16"
+        },
+        "017": {
+          "price": 0.3,
+          "variant": "Base",
+          "all": {
+            "Base": 0.3
+          },
+          "psa10": 31.5,
+          "g9": 10.38,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/arboliva-17"
+        },
+        "018": {
+          "price": 2.47,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.32,
+            "Reverse Holo": 2.47
+          },
+          "psa10": 42.35,
+          "g9": 13.16,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/growlithe-reverse-holo-18"
+        },
+        "019": {
+          "price": 1.07,
+          "variant": "Base",
+          "all": {
+            "Base": 1.07
+          },
+          "psa10": 35.35,
+          "g9": 11.37,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/arcanine-19"
+        },
+        "020": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.99,
+            "Base": 0.25
+          },
+          "psa10": 43.74,
+          "g9": 13.52,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/magmar-reverse-holo-20"
+        },
+        "021": {
+          "price": 1.49,
+          "variant": "Base",
+          "all": {
+            "Base": 1.49,
+            "Reverse Holo": 1.26
+          },
+          "psa10": 32,
+          "g9": 10.51,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/magmortar-21"
+        },
+        "022": {
+          "price": 1.77,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.77,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/torkoal-reverse-holo-22"
+        },
+        "023": {
+          "price": 1.99,
+          "variant": "Base",
+          "all": {
+            "Base": 1.99
+          },
+          "psa10": 39.95,
+          "g9": 12.55,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/heat-rotom-ex-23"
+        },
+        "024": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.12
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/heatmor-24"
+        },
+        "025": {
+          "price": 0.39,
+          "variant": "Base",
+          "all": {
+            "Base": 0.39
+          },
+          "psa10": 32,
+          "g9": 10.51,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mantine-25"
+        },
+        "026": {
+          "price": 4.09,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.5,
+            "Reverse Holo": 4.09
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/kyogre-reverse-holo-26"
+        },
+        "027": {
+          "price": 0.37,
+          "variant": "Base",
+          "all": {
+            "Base": 0.37,
+            "Reverse Holo": 0.2
+          },
+          "psa10": 31.8,
+          "g9": 10.46,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/frillish-27"
+        },
+        "028": {
+          "price": 0.5,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.34,
+            "Reverse Holo": 0.5
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/jellicent-reverse-holo-28"
+        },
+        "029": {
+          "price": 3,
+          "variant": "Base",
+          "all": {
+            "Base": 3
+          },
+          "psa10": 46.14,
+          "g9": 14.14,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/wishiwashi-ex-29"
+        },
+        "030": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/electabuzz-reverse-holo-30"
+        },
+        "031": {
+          "price": 1.47,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.47,
+            "Base": 0.39
+          },
+          "psa10": 37.35,
+          "g9": 11.88,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/electivire-reverse-holo-31"
+        },
+        "032": {
+          "price": 1.6,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.6,
+            "Base": 0.25
+          },
+          "psa10": 39.74,
+          "g9": 12.5,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/jolteon-reverse-holo-32"
+        },
+        "033": {
+          "price": 2.49,
+          "variant": "Base",
+          "all": {
+            "Base": 2.49
+          },
+          "psa10": 42.45,
+          "g9": 13.19,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/raikou-ex-33"
+        },
+        "034": {
+          "price": 1.08,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.08,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/rotom-reverse-holo-34"
+        },
+        "035": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Reverse Holo": 0.18,
+            "Base": 0.25
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/thundurus-35"
+        },
+        "036": {
+          "price": 0.34,
+          "variant": "Base",
+          "all": {
+            "Base": 0.34,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.7,
+          "g9": 10.44,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pincurchin-36"
+        },
+        "037": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.21
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pawmi-37"
+        },
+        "038": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.5,
+          "g9": 10.38,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pawmo-38"
+        },
+        "039": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/pawmot-39"
+        },
+        "040": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.2
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/wattrel-40"
+        },
+        "041": {
+          "price": 1.49,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.49,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/kilowattrel-reverse-holo-41"
+        },
+        "042": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/miraidon-42"
+        },
+        "043": {
+          "price": 1.06,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.06,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/drowzee-reverse-holo-43"
+        },
+        "044": {
+          "price": 1.74,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.74,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/hypno-reverse-holo-44"
+        },
+        "045": {
+          "price": 2.01,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.89,
+            "Reverse Holo": 2.01
+          },
+          "psa10": 40.05,
+          "g9": 12.57,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/giratina-reverse-holo-45"
+        },
+        "046": {
+          "price": 0.39,
+          "variant": "Base",
+          "all": {
+            "Base": 0.39,
+            "Reverse Holo": 0.21
+          },
+          "psa10": 31.85,
+          "g9": 10.47,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/golett-46"
+        },
+        "047": {
+          "price": 2.74,
+          "variant": "Base",
+          "all": {
+            "Base": 2.74
+          },
+          "psa10": 43.75,
+          "g9": 13.52,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-golurk-ex-47"
+        },
+        "048": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/enamorus-48"
+        },
+        "049": {
+          "price": 1.79,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.79,
+            "Base": 0.25
+          },
+          "psa10": 40.8,
+          "g9": 12.77,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sandshrew-reverse-holo-49"
+        },
+        "050": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sandslash-50"
+        },
+        "051": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/onix-reverse-holo-51"
+        },
+        "052": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.4,
+            "Reverse Holo": 1
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/steelix-reverse-holo-52"
+        },
+        "053": {
+          "price": 1.25,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.39,
+            "Reverse Holo": 1.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/groudon-reverse-holo-53"
+        },
+        "054": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.12
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/landorus-54"
+        },
+        "055": {
+          "price": 1.49,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.49,
+            "Base": 0.4
+          },
+          "psa10": 37.45,
+          "g9": 11.91,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/nidoran-f-reverse-holo-55"
+        },
+        "056": {
+          "price": 3.5,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 3.5,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/nidorina-reverse-holo-56"
+        },
+        "057": {
+          "price": 0.4,
+          "variant": "Base",
+          "all": {
+            "Base": 0.4,
+            "Reverse Holo": 0.2
+          },
+          "psa10": 32,
+          "g9": 10.51,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/nidoqueen-57"
+        },
+        "058": {
+          "price": 0.46,
+          "variant": "Base",
+          "all": {
+            "Base": 0.46,
+            "Reverse Holo": 0.12
+          },
+          "psa10": 32.3,
+          "g9": 10.59,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/spinarak-58"
+        },
+        "059": {
+          "price": 0.25,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.24,
+            "Reverse Holo": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/ariados-reverse-holo-59"
+        },
+        "060": {
+          "price": 3.54,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.17,
+            "Reverse Holo": 3.54
+          },
+          "psa10": 47.69,
+          "g9": 14.53,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sableye-reverse-holo-60"
+        },
+        "061": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.19
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/carvanha-61"
+        },
+        "062": {
+          "price": 0.32,
+          "variant": "Base",
+          "all": {
+            "Reverse Holo": 0.3,
+            "Base": 0.32
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/sharpedo-62"
+        },
+        "063": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.99,
+            "Base": 0.4
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/darkrai-reverse-holo-63"
+        },
+        "064": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/purrloin-64"
+        },
+        "065": {
+          "price": 1.19,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.19,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/liepard-reverse-holo-65"
+        },
+        "066": {
+          "price": 0.32,
+          "variant": "Base",
+          "all": {
+            "Base": 0.32
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zorua-66"
+        },
+        "067": {
+          "price": 1.98,
+          "variant": "Base",
+          "all": {
+            "Base": 1.98
+          },
+          "psa10": 42.35,
+          "g9": 13.16,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zoroark-ex-67"
+        },
+        "068": {
+          "price": 0.37,
+          "variant": "Base",
+          "all": {
+            "Base": 0.37
+          },
+          "psa10": 31.85,
+          "g9": 10.47,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/inkay-68"
+        },
+        "069": {
+          "price": 3.11,
+          "variant": "Base",
+          "all": {
+            "Base": 3.11
+          },
+          "psa10": 45.54,
+          "g9": 13.98,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-malamar-ex-69"
+        },
+        "070": {
+          "price": 1.62,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1.62,
+            "Base": 0.3
+          },
+          "psa10": 38.1,
+          "g9": 12.07,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/morpeko-reverse-holo-70"
+        },
+        "071": {
+          "price": 1.1,
+          "variant": "Base",
+          "all": {
+            "Base": 1.1,
+            "Reverse Holo": 0.12
+          },
+          "psa10": 35.5,
+          "g9": 11.41,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/zarude-71"
+        },
+        "072": {
+          "price": 0.8,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 0.8,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/druddigon-reverse-holo-72"
+        },
+        "073": {
+          "price": 0.29,
+          "variant": "Base",
+          "all": {
+            "Base": 0.29,
+            "Reverse Holo": 0.15
+          },
+          "psa10": 31.45,
+          "g9": 10.37,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/jangmo-o-73"
+        },
+        "074": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.1
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/hakamo-o-74"
+        },
+        "075": {
+          "price": 1.24,
+          "variant": "Base",
+          "all": {
+            "Base": 1.24,
+            "Reverse Holo": 0.42
+          },
+          "psa10": 39.94,
+          "g9": 12.55,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/kommo-o-75"
+        },
+        "076": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.25
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/cyclizar-76"
+        },
+        "077": {
+          "price": 1.99,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.49,
+            "Reverse Holo": 1.99
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/tauros-reverse-holo-77"
+        },
+        "078": {
+          "price": 2.94,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.74,
+            "Reverse Holo": 2.94
+          },
+          "psa10": 49.94,
+          "g9": 15.11,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/eevee-reverse-holo-78"
+        },
+        "079": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.12
+          },
+          "psa10": 31.65,
+          "g9": 10.42,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/delibird-79"
+        },
+        "080": {
+          "price": 1.13,
+          "variant": "Base",
+          "all": {
+            "Base": 1.13
+          },
+          "psa10": 36,
+          "g9": 11.54,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/azurill-80"
+        },
+        "081": {
+          "price": 0.34,
+          "variant": "Base",
+          "all": {
+            "Base": 0.34,
+            "Reverse Holo": 0.16
+          },
+          "psa10": 31.7,
+          "g9": 10.44,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/swablu-81"
+        },
+        "082": {
+          "price": 2,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 2,
+            "Base": 0.45
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/altaria-reverse-holo-82"
+        },
+        "083": {
+          "price": 0.28,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.28
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/kecleon-reverse-holo-83"
+        },
+        "084": {
+          "price": 12.15,
+          "variant": "Base",
+          "all": {
+            "Base": 12.15
+          },
+          "psa10": 99.98,
+          "g9": 27.92,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/mega-rayquaza-ex-84"
+        },
+        "085": {
+          "price": 1,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 1,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/tornadus-reverse-holo-85"
+        },
+        "086": {
+          "price": 0.22,
+          "variant": "Base",
+          "all": {
+            "Base": 0.22
+          },
+          "psa10": 35.85,
+          "g9": 11.5,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/fletchling-86"
+        },
+        "087": {
+          "price": 0.25,
+          "variant": "Base",
+          "all": {
+            "Base": 0.25,
+            "Reverse Holo": 0.2
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/fletchinder-87"
+        },
+        "088": {
+          "price": 6.27,
+          "variant": "Base",
+          "all": {
+            "Base": 6.27
+          },
+          "psa10": 63.99,
+          "g9": 18.71,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/talonflame-ex-88"
+        },
+        "089": {
+          "price": 1.95,
+          "variant": "Base",
+          "all": {
+            "Base": 1.95,
+            "Reverse Holo": 1.94
+          },
+          "psa10": 39.75,
+          "g9": 12.5,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/aarune-89"
+        },
+        "090": {
+          "price": 1.75,
+          "variant": "Reverse Holo",
+          "all": {
+            "Base": 1.07,
+            "Reverse Holo": 1.75
+          },
+          "psa10": 38.75,
+          "g9": 12.24,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/adventure-lantern-reverse-holo-90"
+        },
+        "091": {
+          "price": 0.4,
+          "variant": "Base",
+          "all": {
+            "Base": 0.4
+          },
+          "psa10": 32,
+          "g9": 10.51,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/custom-vest-91"
+        },
+        "092": {
+          "price": 0.57,
+          "variant": "Reverse Holo",
+          "all": {
+            "Reverse Holo": 0.57,
+            "Base": 0.25
+          },
+          "psa10": null,
+          "g9": null,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/emcee%27s-hype-reverse-holo-92"
+        },
+        "093": {
+          "price": 0.4,
+          "variant": "Base",
+          "all": {
+            "Base": 0.4,
+            "Reverse Holo": 0.2
+          },
+          "psa10": 31.25,
+          "g9": 10.32,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/grisham-93"
+        },
+        "094": {
+          "price": 3.5,
+          "variant": "Base",
+          "all": {
+            "Base": 3.5,
+            "Reverse Holo": 0.5
+          },
+          "psa10": 47.49,
+          "g9": 14.48,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-pyroduct-94"
+        },
+        "095": {
+          "price": 3.79,
+          "variant": "Base",
+          "all": {
+            "Base": 3.79,
+            "Reverse Holo": 0.5
+          },
+          "psa10": 44.25,
+          "g9": 13.65,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-pyroduct-95"
+        },
+        "096": {
+          "price": 0.4,
+          "variant": "Base",
+          "all": {
+            "Base": 0.4,
+            "Reverse Holo": 0.25
+          },
+          "psa10": 32,
+          "g9": 10.51,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-summit-96"
+        },
+        "097": {
+          "price": 3,
+          "variant": "Base",
+          "all": {
+            "Base": 3,
+            "Reverse Holo": 0.25
+          },
+          "psa10": 44.64,
+          "g9": 13.75,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-summit-97"
+        },
+        "098": {
+          "price": 2,
+          "variant": "Base",
+          "all": {
+            "Base": 2,
+            "Reverse Holo": 0.5
+          },
+          "psa10": 40,
+          "g9": 12.56,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-trench-98"
+        },
+        "099": {
+          "price": 2,
+          "variant": "Base",
+          "all": {
+            "Base": 2,
+            "Reverse Holo": 0.5
+          },
+          "psa10": 42.5,
+          "g9": 13.2,
+          "url": "https://www.pricecharting.com/game/pokemon-delta-reign/legendary-trench-99"
+        }
+      },
+      "total": 141,
+      "priced": 141
     }
   }
 }

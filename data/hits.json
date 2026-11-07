@@ -2695,6 +2695,39 @@
         "hallOfFame": false,
         "handNote": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 30 October 2026: \"THE KNOCK OUT BOX REDEEMS ITSELF IN A MASSIVE WAY! 🦖🔥 Pack #2 of the Pokémon 30th Celebration Knock Out Collection brought pure vintage nostalgia straight to Rochester, NY with the legendary Dark Tyranitar from the Classic Collection!\" The description says \"Dark Tyranitar from the Classic Collection\"; data/30th-checklist.json holds exactly one, at 19/109. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "7SV1GE23CGA": [
+      {
+        "card": "Misty",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Classic Collection",
+        "number": "18/132",
+        "hallOfFame": false,
+        "handNote": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 3 November 2026: \"PACK TWO DELIVERS PURE NOSTALGIA! 🌊✨ Pack #2 of the Pokémon 30th Celebration Tech Sticker Collection came through in a huge way straight to Rochester, NY with the iconic Classic Collection Misty Trainer card!\" The description names \"the iconic Classic Collection Misty Trainer card\"; data/30th-checklist.json holds exactly one Misty, the Classic Collection reprint at 18/132, number written whole because Classic Collection reprints keep their original numbering. Hand kept until the My Hits tab carries it."
+      }
+    ],
+    "jCOfh3__6-U": [
+      {
+        "card": "Maushold",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Illustration Rare",
+        "number": "146",
+        "hallOfFame": false,
+        "handNote": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 6 November 2026: \"PACK ONE COMES THROUGH WITH THE TRIPPY HEAT! 🌈🐭 Starting off another Pokémon 30th Celebration Knock Out Collection with Pack #1, and we completely avoided the bulk pile straight to Rochester, NY!\" 30th Celebration prints Maushold twice, 125 Common and 146 Illustration Rare; the description says \"Illustration Rare Maushold (Single Gold Star)\", so this is 146. Hand kept until the My Hits tab carries it."
+      }
+    ],
+    "8Rq81W27eys": [
+      {
+        "card": "Slakoth",
+        "set": "surging-sparks",
+        "setName": "Surging Sparks",
+        "rarity": "Illustration Rare",
+        "number": "212",
+        "hallOfFame": false,
+        "handNote": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 7 November 2026: \"PACK TWO BRINGS THE ULTIMATE COZY HEAT! 🦥✨ Pack #2 of the Pokémon Archaludon ex Box redeemed the box in a huge way straight to Rochester, NY with one of my all-time favorite cards: the Slakoth Illustration Rare (Single Gold Star)!\" The description says \"Slakoth Illustration Rare (Single Gold Star)\" without naming the set. Of every set this site prices, only Surging Sparks prints a Slakoth Illustration Rare (212), and pack 1 of the same Archaludon ex Box was a Surging Sparks booster by its own description, so this is Surging Sparks 212. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

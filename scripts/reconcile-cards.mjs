@@ -122,9 +122,12 @@ function chaseFromCards(slug, n = 8) {
       number: c.n,
       rarity: prettyRarity(c.rarity),
       price: c.price,
-      image: c.img ? `${c.img}/low.webp` : null,
-      imageLarge: c.img ? `${c.img}/high.webp` : null,
-      source: "TCGdex",
+      // A set TCGdex has not published yet (sync-cards.mjs's tcgplayerPending)
+      // carries no `img` and a TCGplayer product id instead: the same hotlink
+      // data/card-shots.json pins for it, so the chase strip is not blank.
+      image: c.img ? `${c.img}/low.webp` : c.tcgplayerId ? `https://tcgplayer-cdn.tcgplayer.com/product/${c.tcgplayerId}_200w.jpg` : null,
+      imageLarge: c.img ? `${c.img}/high.webp` : c.tcgplayerId ? `https://tcgplayer-cdn.tcgplayer.com/product/${c.tcgplayerId}_in_1000x1000.jpg` : null,
+      source: c.img ? "TCGdex" : "TCGplayer",
     }));
 }
 let unchanged = 0;

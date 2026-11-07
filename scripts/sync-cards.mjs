@@ -544,6 +544,145 @@ for (const [slug, tcgdexId] of entries) {
   );
 }
 
+/* SETS TCGDEX HAS NOT PUBLISHED YET, READ FROM TCGPLAYER INSTEAD.
+
+   `tcgplayerPending` in data/tcgdex-en.json maps our slug to TCGplayer's exact
+   setName. Added 7 November 2026 for Delta Reign, the day after it released: the
+   owner was ripping it the next morning and TCGdex had no ME06 at all (sets/me06
+   answered 404, its "me" series stopped at Pitch Black), while TCGplayer listed
+   all 141 cards with number, rarity and market price. It is the same answer
+   scripts/sync-30th-tcgplayer.mjs gave the 30th Celebration on its release day,
+   moved into the nightly so the prices keep moving.
+
+   NO CARD PICTURE IS WRITTEN HERE. `img` stays null, because every builder
+   appends /low.webp to it and that is a TCGdex url shape. The scans come from
+   data/card-shots.json pins instead, which build-set-pages.mjs and
+   build-pages.mjs already fall back to when `img` is null, and which hotlink the
+   same TCGplayer product ids this loop reads.
+
+   RETIRE IT WHEN TCGDEX CATCHES UP: move the slug into `sets` with its TCGdex id,
+   delete it from `tcgplayerPending`, and drop its pins from card-shots.json, in
+   one edit. The checklist must then match on count, which the guard above checks.
+
+   Same guards as the TCGdex path: a failed fetch or a shrinking answer keeps the
+   previous file rather than writing a thinner one. */
+const TP_RARITY = {
+  "Double Rare": "Double rare",
+  "Illustration Rare": "Illustration rare",
+  "Special Illustration Rare": "Special illustration rare",
+};
+const TP_CAT = { Pokemon: "Pokemon", Energy: "Energy", Supporter: "Trainer", Item: "Trainer", Tool: "Trainer", Stadium: "Trainer", Trainer: "Trainer" };
+const cardNumSort = (n) => (/^\d+$/.test(n) ? Number(n) : 1e6);
+async function tcgplayerSingles(setName) {
+  const out = [];
+  for (let from = 0; from < 1600; from += 50) {
+    const body = {
+      algorithm: "sales_dismax", from, size: 50,
+      filters: { term: { productLineName: ["pokemon"], setName: [setName] }, range: {}, match: {} },
+      listingSearch: { context: { cart: {} }, filters: { term: {}, range: { quantity: { gte: 0 } }, exclude: { channelExclusion: 0 } } },
+      context: { cart: {}, shippingCountry: "US" }, settings: { useFuzzySearch: false, didYouMean: {} }, sort: {},
+    };
+    let page = null;
+    for (let attempt = 1; attempt <= 4 && !page; attempt++) {
+      try {
+        const res = await fetch("https://mp-search-api.tcgplayer.com/v1/search/request?q=&isList=false", {
+          method: "POST", headers: { "content-type": "application/json", "user-agent": "Mozilla/5.0" }, body: JSON.stringify(body),
+        });
+        if (res.ok) page = (await res.json()).results?.[0] || null;
+      } catch { /* retried below */ }
+      if (!page) await new Promise((r) => setTimeout(r, attempt * 2000));
+    }
+    if (!page) return null;
+    // An unknown setName is ignored by the API rather than rejected, so filter.
+    out.push(...(page.results || []).filter((r) => r.setName === setName));
+    if (from + 50 >= (page.totalResults || 0)) break;
+  }
+  return out;
+}
+for (const [slug, setName] of Object.entries(map.tcgplayerPending || {})) {
+  const ours = bySlug.get(slug);
+  const prevPath = join(OUTDIR, `${slug}.json`);
+  let prev = null;
+  try { prev = JSON.parse(await readFile(prevPath, "utf8")); } catch { /* first run */ }
+  const keepPrev = (why) => {
+    warnings.push(`${slug}: ${why}. KEPT THE PREVIOUS FILE.`);
+    failedSets.push(slug);
+    if (!prev) return;
+    for (const c of prev.cards || []) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+    summary.push({ slug, name: prev.name, cards: (prev.cards || []).length, priced: prev.priced ?? 0 });
+    totalCards += (prev.cards || []).length;
+    totalPriced += prev.priced ?? 0;
+  };
+  const raw = await tcgplayerSingles(setName);
+  if (!raw) { keepPrev(`TCGplayer would not answer for "${setName}"`); continue; }
+  const cards = raw
+    .filter((r) => r.customAttributes?.number)
+    .map((r) => {
+      const num = String(r.customAttributes.number).split("/")[0].trim();
+      const price = typeof r.marketPrice === "number" && r.marketPrice > 0 ? Math.round(r.marketPrice * 100) / 100 : null;
+      return {
+        n: /^\d+$/.test(num) ? num.padStart(3, "0") : num,
+        // TCGplayer writes the number into the name: "Raikou ex - 136/103", and
+        // mid-name on the split Stadiums, "Legendary Summit - 096/103 (Left)".
+        name: String(r.productName).replace(/\s+-\s+[A-Za-z]*\d+\/\d+/, "").trim(),
+        rarity: TP_RARITY[r.rarityName] || r.rarityName || null,
+        // TCGdex's three categories, so a checklist filter treats both sources alike.
+        cat: TP_CAT[r.customAttributes.cardType?.[0]] || r.customAttributes.cardType?.[0] || null,
+        img: null,
+        price,
+        variant: null,
+        all: null,
+        ...(typeof r.lowestPrice === "number" && r.lowestPrice > 0 ? { low: r.lowestPrice } : {}),
+        ill: null,
+        tcgplayerId: r.productId,
+      };
+    })
+    .sort((a, b) => cardNumSort(a.n) - cardNumSort(b.n));
+  if (!cards.length) { keepPrev(`TCGplayer listed no numbered cards under "${setName}"`); continue; }
+  if (prev && cards.length < (prev.cards || []).length) {
+    shrankSets.push(slug);
+    keepPrev(`TCGplayer returned ${cards.length} cards where the file on disk has ${prev.cards.length}`);
+    continue;
+  }
+  const pcSet = pcCards.sets?.[slug];
+  let fromPc = 0;
+  for (const c of cards) {
+    const hit = pcSet?.cards?.[c.n];
+    if (hit && typeof hit.price === "number") {
+      c.price = hit.price; c.variant = hit.variant; c.all = hit.all;
+      if (hit.psa10 != null) c.psa10 = hit.psa10;
+      if (hit.g9 != null) c.g9 = hit.g9;
+      c.pcUrl = hit.url;
+      fromPc += 1;
+    } else if (c.price != null) c.src = "tcgplayer";
+  }
+  const priced = cards.filter((c) => c.price != null).length;
+  totalCards += cards.length;
+  totalPriced += priced;
+  totalFromPc += fromPc;
+  await writeFile(prevPath, JSON.stringify({
+    set: slug,
+    name: ours?.name || prev?.name || setName.replace(/^[A-Z0-9]+:\s*/, ""),
+    tcgdexId: null,
+    tcgplayerSet: setName,
+    checked: TODAY,
+    source: "Card data from TCGplayer, because TCGdex has not published this set yet. Prices from PriceCharting where it has them.",
+    priceSource: pcCards.source || "pricecharting.com",
+    priceMeasurement: pcCards.measurement || null,
+    priceMethodology: pcCards.sourceMethodology || null,
+    pricesChecked: fromPc ? pcCards.sets?.[slug]?.checked || pcCards.checked || null : TODAY,
+    priceFallback: "TCGplayer market price",
+    lowSource: "TCGplayer lowest listing",
+    total: cards.length,
+    priced,
+    pricedBy: { pricecharting: fromPc, tcgplayer: priced - fromPc },
+    cards,
+  }, null, 0) + "\n");
+  for (const c of cards) index.push([c.name, slug, c.n, c.rarity || "", c.price ?? null]);
+  summary.push({ slug, name: ours?.name || setName, cards: cards.length, priced });
+  console.log(`  ${slug.padEnd(21)} ${String(cards.length).padStart(4)} cards, ${String(priced).padStart(4)} priced (TCGplayer, TCGdex pending)`);
+}
+
 await writeFile(
   join(ROOT, "public/data/card-index.json"),
   JSON.stringify({

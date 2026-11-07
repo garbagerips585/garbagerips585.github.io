@@ -94,7 +94,7 @@
   }
   var LABELS = {
     sets: {
-      "pitch-black": "Pitch Black", "phantasmal-flames": "Phantasmal Flames",
+      "delta-reign": "Delta Reign", "pitch-black": "Pitch Black", "phantasmal-flames": "Phantasmal Flames",
       "ascended-heroes": "Ascended Heroes", "pokemon-go": "Pokémon GO",
       "perfect-order": "Perfect Order", "chaos-rising": "Chaos Rising",
       "mega-evolution": "Mega Evolution", "black-bolt": "Black Bolt",

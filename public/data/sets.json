@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-09-18",
+  "syncedAt": "2026-11-07",
   "rarityOrder": [
     "Black White Rare",
     "Mega Hyper Rare",
@@ -26,6 +26,115 @@
     "Common"
   ],
   "sets": [
+    {
+      "id": "delta-reign",
+      "apiId": "me6",
+      "name": "Delta Reign",
+      "series": "Mega Evolution",
+      "released": "2026-11-06",
+      "printedTotal": 103,
+      "total": 141,
+      "secretCount": 38,
+      "symbol": null,
+      "rarities": {
+        "Common": 50,
+        "Rare": 10,
+        "Uncommon": 33,
+        "Double Rare": 10,
+        "Illustration Rare": 14,
+        "Ultra Rare": 17,
+        "Special Illustration Rare": 6,
+        "Mega Hyper Rare": 1
+      },
+      "raritiesFrom": "checklist",
+      "cardsSeen": 141,
+      "pricedCount": 141,
+      "pricesAsOf": "2026-11-07",
+      "chase": [
+        {
+          "name": "Mega Rayquaza ex",
+          "number": "138",
+          "rarity": "Special illustration rare",
+          "price": 400.94,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/728061_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728061_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Mega Rayquaza ex",
+          "number": "141",
+          "rarity": "Mega Hyper Rare",
+          "price": 354.99,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/728062_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728062_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Raikou ex",
+          "number": "136",
+          "rarity": "Special illustration rare",
+          "price": 105,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/726574_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726574_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Mega Golurk ex",
+          "number": "137",
+          "rarity": "Special illustration rare",
+          "price": 35.16,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/728060_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728060_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Mega Golisopod ex",
+          "number": "135",
+          "rarity": "Special illustration rare",
+          "price": 34.99,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/727592_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/727592_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Zinnia's Trust",
+          "number": "140",
+          "rarity": "Special illustration rare",
+          "price": 32.6,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/726576_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726576_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Eevee",
+          "number": "114",
+          "rarity": "Illustration rare",
+          "price": 26.45,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/726565_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726565_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        },
+        {
+          "name": "Groudon",
+          "number": "111",
+          "rarity": "Illustration rare",
+          "price": 25.17,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/726563_200w.jpg",
+          "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726563_in_1000x1000.jpg",
+          "source": "TCGplayer"
+        }
+      ],
+      "notes": {
+        "inPrint": "Yes",
+        "funFacts": [
+          "Delta Reign came out on November 6, 2026 and becomes tournament legal on November 20, which makes it the newest set on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number.",
+          "Mega Rayquaza ex is back in the card game for the first time since XY Ancient Origins, The Pokemon Company says, and this set prints it three times: the Double Rare at 084, the Special Illustration Rare at 138 and the Mega Hyper Rare at 141.",
+          "Legendary Stadiums are new here. Each one is two Stadium cards played as a pair, and side by side their art forms one picture. There are three, Legendary Pyroduct, Legendary Summit and Legendary Trench, and The Pokemon Company says a pack holding one holds both halves.",
+          "Every booster pack holds 10 cards and one Basic Energy, from The Pokemon Company's own product showcase. The set runs 141 cards in all: 103 in the main set and 38 numbered above it, which is the full list on The Pokemon Company's printable binder inserts."
+        ]
+      },
+      "priceSource": "pricecharting.com"
+    },
     {
       "id": "pitch-black",
       "apiId": "me5",
@@ -126,7 +235,7 @@
       ],
       "notes": {
         "funFacts": [
-          "Pitch Black is the newest of the 29 English sets on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number."
+          "Pitch Black came out on July 17, 2026, which makes it one of the youngest sets on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -368,21 +477,21 @@
       "pricesAsOf": "2026-11-04",
       "chase": [
         {
-          "name": "Pikachu ex",
-          "number": "276",
-          "rarity": "Special illustration rare",
-          "price": 616.18,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/276/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/276/high.webp",
-          "source": "TCGdex"
-        },
-        {
           "name": "Mega Gengar ex",
           "number": "284",
           "rarity": "Special illustration rare",
           "price": 659.21,
           "image": "https://assets.tcgdex.net/en/me/me02.5/284/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/284/high.webp",
+          "source": "TCGdex"
+        },
+        {
+          "name": "Pikachu ex",
+          "number": "276",
+          "rarity": "Special illustration rare",
+          "price": 616.18,
+          "image": "https://assets.tcgdex.net/en/me/me02.5/276/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/276/high.webp",
           "source": "TCGdex"
         },
         {
@@ -431,18 +540,18 @@
           "source": "TCGdex"
         },
         {
-          "name": "Lillie's Clefairy ex",
-          "number": "280",
+          "name": "N's Zoroark ex",
+          "number": "286",
           "rarity": "Special illustration rare",
-          "price": 99.45,
-          "image": "https://assets.tcgdex.net/en/me/me02.5/280/low.webp",
-          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/280/high.webp",
+          "price": 109.99,
+          "image": "https://assets.tcgdex.net/en/me/me02.5/286/low.webp",
+          "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/286/high.webp",
           "source": "TCGdex"
         }
       ],
       "notes": {
         "funFacts": [
-          "At 295 cards this is the biggest of the 29 English sets on this site. The smallest, Celebrations, is 25.",
+          "At 295 cards this is the biggest English set with a guide on this site. The smallest, Celebrations, is 25.",
           "50 of those cards are Trainers rather than Pokemon. Trainers are the part of a set new collectors flick past, and they are what actually makes a deck run."
         ]
       },
@@ -866,7 +975,7 @@
         "funFacts": [
           "Black Bolt has a twin. White Flare came out the same day and is built to the same shape, down to a rarity the two of them share and nothing else on this site has: Black White Rare, two cards apiece.",
           "69 of the 172 cards are Illustration Rares. Nothing else on this site is close except White Flare at 70; the next highest anywhere is 36.",
-          "Grading does not lift every card by the same amount. Seismitoad, an Illustration Rare, is worth roughly nine times its raw price in a PSA 10, while Zekrom ex, a far pricier Special Illustration Rare, is worth about twice. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 11, 2026."
+          "Grading does not lift every card by the same amount. Seismitoad, an Illustration Rare, is worth roughly nine times its raw price in a PSA 10, while Zekrom ex, a far pricier Special Illustration Rare, is worth about twice. Raw and PSA 10 from pricecharting.com, the same read as the checklist on this page."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -1076,7 +1185,7 @@
       ],
       "notes": {
         "funFacts": [
-          "The Illustration Rares punch above their tier here. N's Reshiram and Articuno are each worth roughly twelve times their raw price in a PSA 10, where every Special Illustration Rare in this set sits between three and five. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 12, 2026."
+          "The Illustration Rares punch above their tier here. N's Reshiram and Articuno are each worth more than ten times their raw price in a PSA 10, where no Special Illustration Rare in this set reaches seven and most sit nearer three or four. Raw and PSA 10 from pricecharting.com, the same read as the checklist on this page."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -1288,7 +1397,7 @@
       ],
       "notes": {
         "funFacts": [
-          "Latios, an Illustration Rare, is worth roughly eight times its raw price in a PSA 10. This set's Special Illustration Rares sit nearer three. Raw from pricecharting.com, read August 16, 2026; PSA 10 from pokemonpricetracker.com, read August 12, 2026."
+          "Latios, an Illustration Rare, is worth roughly eight times its raw price in a PSA 10. This set's Special Illustration Rares sit between two and six times. Raw and PSA 10 from pricecharting.com, the same read as the checklist on this page."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -2769,7 +2878,7 @@
       ],
       "notes": {
         "funFacts": [
-          "25 cards makes this the smallest of the 29 English sets on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page."
+          "25 cards makes this the smallest English set with a guide on this site, and one pack costs about a third of what buying one of every card costs. Both of those figures are further up this page."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -2981,7 +3090,7 @@
       ],
       "notes": {
         "funFacts": [
-          "Three of the cards are Amazing Rares, and they are the only Amazing Rares in any of the 29 English sets on this site."
+          "Three of the cards are Amazing Rares, and they are the only Amazing Rares in any English set with a guide on this site."
         ]
       },
       "priceSource": "pricecharting.com"
@@ -3086,7 +3195,7 @@
       ],
       "notes": {
         "funFacts": [
-          "The most expensive Common in Rebel Clash is a Magikarp, and only as a reverse holo: the reverse is worth about eight times the plain copy. Same card, same number, same rarity symbol, different foil. Both figures from pricecharting.com, read August 16, 2026.",
+          "The most expensive Common in Rebel Clash is a Magikarp, and only as a reverse holo: the reverse is worth about eight times the plain copy. Same card, same number, same rarity symbol, different foil. Both figures from pricecharting.com, the same read as the checklist on this page.",
           "That Magikarp sits in the chase grid at the top of this page beside seven Ultra Rares and Secret Rares. A Common almost never does that."
         ]
       },

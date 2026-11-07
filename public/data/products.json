@@ -1,5 +1,5 @@
 {
-  "checked": "2026-11-04",
+  "checked": "2026-11-07",
   "sets": {
     "151": {
       "tcgSet": "SV: Scarlet & Violet 151",
@@ -2452,6 +2452,96 @@
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/283388_in_1000x1000.jpg",
           "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/283388_200w.jpg",
           "url": "https://www.tcgplayer.com/product/283388/silver-tempest-booster-pack"
+        }
+      ]
+    },
+    "delta-reign": {
+      "tcgSet": "ME06: Delta Reign",
+      "checked": "2026-11-07",
+      "products": [
+        {
+          "kind": "Booster Box",
+          "blurb": "36 packs",
+          "name": "Delta Reign Booster Box",
+          "productId": 712094,
+          "market": 211.34,
+          "low": 201.9,
+          "listings": 62,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712094_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712094_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712094/delta-reign-booster-box"
+        },
+        {
+          "kind": "Pokemon Center Elite Trainer Box",
+          "blurb": "11 packs plus 2 promo cards",
+          "name": "Delta Reign Pokemon Center Elite Trainer Box (Exclusive)",
+          "productId": 712104,
+          "market": 208.63,
+          "low": 195,
+          "listings": 59,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712104_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712104_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712104/delta-reign-pokemon-center-elite-trainer-box-exclusive"
+        },
+        {
+          "kind": "Elite Trainer Box",
+          "blurb": "9 packs plus sleeves and dice",
+          "name": "Delta Reign Elite Trainer Box",
+          "productId": 712102,
+          "market": 86.44,
+          "low": 59.99,
+          "listings": 132,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712102_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712102_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712102/delta-reign-elite-trainer-box"
+        },
+        {
+          "kind": "Booster Bundle",
+          "blurb": "6 packs",
+          "name": "Delta Reign Booster Bundle",
+          "productId": 712097,
+          "market": 41.89,
+          "low": 10,
+          "listings": 97,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712097_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712097_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712097/delta-reign-booster-bundle"
+        },
+        {
+          "kind": "Build & Battle Box",
+          "blurb": "4 packs plus a 40 card deck",
+          "name": "Delta Reign Build & Battle Box",
+          "productId": 712101,
+          "market": 46.27,
+          "low": 43,
+          "listings": 12,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712101_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712101_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712101/delta-reign-build-and-battle-box"
+        },
+        {
+          "kind": "Blister Pack",
+          "blurb": "Packs plus a promo card, count not in our data",
+          "name": "Delta Reign Single Pack Blister [Spritzee]",
+          "productId": 712108,
+          "market": 13.08,
+          "low": 6.38,
+          "listings": 25,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712108_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712108_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712108/delta-reign-single-pack-blister-spritzee"
+        },
+        {
+          "kind": "Single Pack",
+          "blurb": "One pack",
+          "name": "Delta Reign Booster Pack",
+          "productId": 712099,
+          "market": 7.57,
+          "low": 4.75,
+          "listings": 46,
+          "image": "https://tcgplayer-cdn.tcgplayer.com/product/712099_in_1000x1000.jpg",
+          "thumb": "https://tcgplayer-cdn.tcgplayer.com/product/712099_200w.jpg",
+          "url": "https://www.tcgplayer.com/product/712099/delta-reign-booster-pack"
         }
       ]
     }

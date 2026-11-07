@@ -108,6 +108,9 @@
     "Lost Origin was not added: nothing has asked for it."
   ],
   "checked": "2026-08-15",
+  "tcgplayerPending": {
+    "delta-reign": "ME06: Delta Reign"
+  },
   "sets": {
     "pitch-black": "me05",
     "chaos-rising": "me04",

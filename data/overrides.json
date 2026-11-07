@@ -3137,5 +3137,57 @@
     "packNumberWhy": "The owner, 2 November 2026: \"just fill in the missing ones from the video descriptions\", so the video's own description is the source, on his say-so. The video description, 2 November 2026: \"Living up to the channel name once again! 🗑️💀 For Pack #20 of Pokémon Destined Rivals, it was straight to the bulk pile with zero hits. That's the unfiltered reality of ripping packs straight to Rochester, NY! On to pack #21! 🎸🤘\" Follows Pack #19 (-w4IhbVkH3k) in the same run of single Destined Rivals packs. Never read out of the title: riplabel.mjs refuses to.",
     "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "Destined Rivals, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "7SV1GE23CGA": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 3 November 2026: \"PACK TWO DELIVERS PURE NOSTALGIA! 🌊✨ Pack #2 of the Pokémon 30th Celebration Tech Sticker Collection came through in a huge way straight to Rochester, NY with the iconic Classic Collection Misty Trainer card!\" Pack 2 of the second 30th Celebration Tech Sticker Collection (pack 1 is kAuIvKbEYw8). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "blister, as on Pack #1 (kAuIvKbEYw8) and the first Tech Sticker Collection: the owner settled on 17 September 2026 that its product NAME is the Tech Sticker Collection and its FORM is a three pack blister. Without this the taxonomy reads \"Collection\" as collection-box."
+  },
+  "heFRq2yODvQ": {
+    "packNumber": 3,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 4 November 2026: \"No last pack magic this time around! 🗑️💀 Wrapping up the Pokémon 30th Celebration Tech Sticker Collection with Pack #3, and it was a straight trip to the bulk pile straight to Rochester, NY.\" Pack 3 of the second 30th Celebration Tech Sticker Collection, its last pack. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to read the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "blister, as on Pack #1 (kAuIvKbEYw8) and the first Tech Sticker Collection: the owner settled on 17 September 2026 that its product NAME is the Tech Sticker Collection and its FORM is a three pack blister. Without this the taxonomy reads \"Collection\" as collection-box."
+  },
+  "4wt9xuZ-VV0": {
+    "packNumber": 1,
+    "hasHit": false,
+    "sets": [
+      "surging-sparks"
+    ],
+    "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 5 November 2026: \"Fed straight to Trubbish! 🗑️💀 Starting off the Pokémon Archaludon ex Box with Pack #1—a booster of Surging Sparks—and it was an absolute zero-hit garbage rip straight to Rochester, NY!\" Pack 1 of the Archaludon ex Box; the description says this pack is \"a booster of Surging Sparks\". Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to read the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Surging Sparks, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "jCOfh3__6-U": {
+    "packNumber": 1,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 6 November 2026: \"PACK ONE COMES THROUGH WITH THE TRIPPY HEAT! 🌈🐭 Starting off another Pokémon 30th Celebration Knock Out Collection with Pack #1, and we completely avoided the bulk pile straight to Rochester, NY!\" Pack 1 of a second 30th Celebration Knock Out Collection (\"Starting off another\"; the first ran tgqmJLdrK70 and H-u3HvtEFuI). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "8Rq81W27eys": {
+    "packNumber": 2,
+    "sets": [
+      "surging-sparks"
+    ],
+    "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 7 November 2026: \"PACK TWO BRINGS THE ULTIMATE COZY HEAT! 🦥✨ Pack #2 of the Pokémon Archaludon ex Box redeemed the box in a huge way straight to Rochester, NY with one of my all-time favorite cards: the Slakoth Illustration Rare (Single Gold Star)!\" Pack 2 of the Archaludon ex Box (pack 1 is 4wt9xuZ-VV0, a Surging Sparks booster). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Surging Sparks: the description names no set, but the hit (Slakoth IR) is printed only there and pack 1 of the same box was a Surging Sparks booster. Pinned so a series word in the title can never add a second set."
   }
 }

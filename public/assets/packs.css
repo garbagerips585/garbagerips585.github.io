@@ -72,6 +72,20 @@
 }
 .pack--default.pack--tile.pack--img .pack-art{background-image:none}
 
+.pack--delta-reign .pack-art{
+  background-image:url('packs/delta-reign-garbage-rips-585-booster-pack.webp');
+  background-image:image-set(url('packs/delta-reign-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/delta-reign-garbage-rips-585-booster-pack.webp') type('image/webp'));
+  background-size:cover;
+  background-position:center;
+}
+.pack--delta-reign .pack-art::before,.pack--delta-reign .pack-art::after{content:none}
+.pack--delta-reign .pack-brand,.pack--delta-reign .pack-mascot{display:none}
+.pack--delta-reign.pack--tile .pack-art{
+  background-image:url('packs/delta-reign-garbage-rips-585-booster-pack-tile.webp');
+  background-image:image-set(url('packs/delta-reign-garbage-rips-585-booster-pack-tile.avif') type('image/avif'),url('packs/delta-reign-garbage-rips-585-booster-pack-tile.webp') type('image/webp'));
+}
+.pack--delta-reign.pack--tile.pack--img .pack-art{background-image:none}
+
 .pack--destined-rivals .pack-art{
   background-image:url('packs/destined-rivals-garbage-rips-585-booster-pack.webp');
   background-image:image-set(url('packs/destined-rivals-garbage-rips-585-booster-pack.avif') type('image/avif'),url('packs/destined-rivals-garbage-rips-585-booster-pack.webp') type('image/webp'));
