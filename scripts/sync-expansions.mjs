@@ -92,6 +92,21 @@ const sets = raw
       rips: slug ? ripCount[slug] || 0 : 0,
     };
   })
+  .concat(
+    /* SETS THE API DOES NOT LIST YET. A guide set whose apiId the API has not
+       published (sync-sets.mjs's PENDING_META, Delta Reign from 7 November 2026)
+       was simply missing from this complete list while it had a guide, a
+       checklist and rips. Its row is built from sets.json, which holds the same
+       facts, and drops away the day the API lists the set. No logo or symbol url:
+       the page draws neither for a row that has none. */
+    mine
+      .filter((m) => m.apiId && !raw.some((s) => s.id === m.apiId))
+      .map((m) => ({
+        apiId: m.apiId, name: m.name, series: m.series, released: m.released || null,
+        printedTotal: m.printedTotal ?? null, total: m.total ?? null, logo: null, symbol: null,
+        promo: false, slug: m.id, rips: ripCount[m.id] || 0,
+      }))
+  )
   .sort((a, b) => String(a.released).localeCompare(String(b.released)) || a.name.localeCompare(b.name));
 
 // Series in first-release order, so the page reads as a timeline rather than

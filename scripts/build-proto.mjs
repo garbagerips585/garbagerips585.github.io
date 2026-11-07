@@ -11,6 +11,7 @@
 // Idempotent: each region is replaced between its own pair of markers.
 
 import { readFile, writeFile, readdir, rm } from "node:fs/promises";
+import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { ripLabel } from "../shared/riplabel.mjs";
 import { SITE, DOMAIN, STAGING, LIVE } from "../shared/site.mjs";
 import { basename, join, dirname } from "node:path";
@@ -1459,13 +1460,25 @@ const setsHtml = (
         </a>`;
     })
   )
-).join("\n");
+);
 
-// THE HAND BUILT TILE IS PREPENDED HERE rather than pushed into `ordered`,
+// THE HAND BUILT TILE IS SLOTTED IN BY DATE rather than pushed into `ordered`,
 // because `ordered` is a list of sets.json rows and every later reader of it --
 // the ledger, the counts, the filter rail -- expects that shape. A tile is the
 // only thing this set can contribute to this band.
-const setsHtmlAll = [t30Tile, setsHtml].filter(Boolean).join("\n");
+// IT WAS PREPENDED UNTIL 7 NOVEMBER 2026, which contradicted the note above it
+// ("it will fall back naturally the moment a newer set lands"): Delta Reign
+// released 6 November and still sat second. The owner: "Delta Reign released
+// after 30th so its should be the first in the set guides now". It now goes
+// before the first sets.json row that released on or before it.
+const T30_RELEASED = await readFile(join(ROOT, "data/30th.json"), "utf8")
+  .then((x) => JSON.parse(x).set?.release || "")
+  .catch(() => "");
+const t30At = (() => {
+  const i = ordered.findIndex((s) => String(s.released || "") <= T30_RELEASED);
+  return i < 0 ? ordered.length : i;
+})();
+const setsHtmlAll = [...setsHtml.slice(0, t30At), t30Tile, ...setsHtml.slice(t30At)].filter(Boolean).join("\n");
 
 // Most Wanted band. Shows a price only when there is one: the newest sets have
 // no market data, and no free feed carries PSA 10 at all, so a card with
@@ -3662,7 +3675,9 @@ const REGIONS = {
   // Every guide under /sets/, not just the English ones. The chip said "All 23
   // sets" and landed on a page listing 36, because the imported guides were
   // never counted.
-  COUNT_SETS: String(sets.length + intlGuideCount),
+  // The standalone guides too (30th Celebration, Base Set), so this matches the
+  // "45 set guides" /search.html and /wanted.html print off the same list.
+  COUNT_SETS: String(sets.length + GUIDES_OUTSIDE_SETS.length + intlGuideCount),
 };
 
 // index.html carries its own copy of the bar and menu, because three other

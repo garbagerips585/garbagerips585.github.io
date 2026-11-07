@@ -868,7 +868,7 @@ const CSS = `
 .t100-price b{font-family:var(--mono);font-size:1rem;font-variant-numeric:tabular-nums;
   letter-spacing:-.02em;white-space:nowrap}
 .t100-low{font-size:var(--t-micro);color:var(--ink-2);font-family:var(--mono);white-space:nowrap}
-.t100-low-none{opacity:.65}
+.t100-low-none{opacity:1}
 /* THE TWO GRADED FIGURES, PHONE ONLY. From 760px up they are columns of their
    own and this line is not painted, exactly like .t100-meta: printing both
    would put the same two numbers on one row twice. Same size and colour as
@@ -878,7 +878,7 @@ const CSS = `
   font-size:var(--t-micro);color:var(--ink-2);white-space:nowrap}
 /* The unit label. Never the same weight as the figure: the number is the fact
    and the grade is the caption. */
-.t100-gt{letter-spacing:.04em;text-transform:uppercase;opacity:.75}
+.t100-gt{letter-spacing:.04em;text-transform:uppercase}
 .t100-na{opacity:.65}
 /* THE THUMB TARGET, WITHOUT MOVING A PIXEL OF THE LAYOUT.
    Measured at 390x844: this link was 108.8 x 17.0, one 11px line box, and there

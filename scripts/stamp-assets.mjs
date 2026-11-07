@@ -430,6 +430,10 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
      anything on the site that later calls gtag() would throw. */
   const ga = GA4_ID
     ? `<script>(function(){var n=navigator;` +
+      // LOCAL PREVIEWS DO NOT COUNT AS VISITS (7 November 2026). Every
+      // localhost preview and QA harness was sending page views to the live
+      // property; five auditors in one afternoon is a lot of fake traffic.
+      `if(/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$|\\.localhost$/.test(location.hostname))return;` +
       `if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;` +
       `window.dataLayer=window.dataLayer||[];` +
       `window.gtag=function(){dataLayer.push(arguments)};` +

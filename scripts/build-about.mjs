@@ -60,6 +60,7 @@ import { readFile, writeFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
 // packs.css is NOT dropped here and cannot be from this file: these four pages
@@ -107,7 +108,9 @@ try {
 }
 
 const setsRipped = new Set(videos.flatMap((v) => v.sets || [])).size;
-const guideCount = sets.length + intlCount;
+// Plus the guides that live outside /sets/ (30th Celebration, Base Set), the
+// same shared list /search.html and /wanted.html count, so the three agree.
+const guideCount = sets.length + GUIDES_OUTSIDE_SETS.length + intlCount;
 const shopCount = (shopFile.shops || []).length;
 const plateSpots = (plate.places || []).length;
 const plateSources = (plate.sources || []).length;

@@ -835,7 +835,7 @@ const bucketLine = (pc) => {
   const got = setBy.get(pc.console);
   const name = pc.console.replace("/console/pokemon-", "");
   const size = got ? `${got.rows} priced rows` : "not in our crawl";
-  return `<li>${esc(name)}: <span style="opacity:.7">${esc(pc.is)}, ${esc(size)}</span></li>`;
+  return `<li>${esc(name)}: <span>${esc(pc.is)}, ${esc(size)}</span></li>`;
 };
 
 // `covers` is a sentence a human wrote and one of them ends in a full stop

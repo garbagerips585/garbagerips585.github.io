@@ -279,7 +279,7 @@ height:auto;min-height:44px;padding-block:6px}
 #checklist:has(#clf-r7:checked) .cl-row:not([data-r="7"]){display:none}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Phantasmal Flames Pokemon TCG Set Guide","description":"Phantasmal Flames Pokemon TCG set guide: 130 cards, released November 14, 2025. The priciest card is Mega Charizard X ex at $601. Full rarity breakdown, every card priced, and the cards worth chasing.","image":["https://garbagerips.com/assets/og-phantasmal-flames.jpg?v=6f6a08eb"],"about":{"@type":"Thing","name":"Phantasmal Flames (Pokemon Trading Card Game)"},"url":"https://garbagerips.com/sets/phantasmal-flames.html","mainEntityOfPage":{"@type":"WebPage","@id":"https://garbagerips.com/sets/phantasmal-flames.html"},"datePublished":"2026-08-11","dateModified":"2026-11-04","author":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/"},"publisher":{"@type":"Organization","@id":"https://garbagerips.com/#org","name":"Garbage Rips 585","url":"https://garbagerips.com/","logo":{"@type":"ImageObject","url":"https://garbagerips.com/assets/logo-square.jpg"}}}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Set guides","item":"https://garbagerips.com/sets/"},{"@type":"ListItem","position":3,"name":"Phantasmal Flames"}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -675,7 +675,7 @@ height:auto;min-height:44px;padding-block:6px}
          ordinary case look annotated. -->
     <p class="mine-n">Mega Charizard X ex</p>
     <p class="mine-r">MEP Black Star Promos &bull; #023</p>
-    <p class="mine-p">$38.75 <span class="mine-psa">$177 in a 10</span></p>
+    <p class="mine-p">$30.18 <span class="mine-psa">$140 in a 10</span></p>
     <a class="mine-w" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html" aria-label="Watch the rip that pulled Mega Charizard X ex, posted February 1, 2026">Watch the rip &rarr;</a>
   </li>
       <li class="mine">
@@ -697,7 +697,7 @@ height:auto;min-height:44px;padding-block:6px}
          ordinary case look annotated. -->
     <p class="mine-n">Oricorio ex</p>
     <p class="mine-r">MEP Black Star Promos &bull; #024</p>
-    <p class="mine-p">$12.03 <span class="mine-psa">$99.78 in a 10</span></p>
+    <p class="mine-p">$10.00 <span class="mine-psa">$71.47 in a 10</span></p>
     <a class="mine-w" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html" aria-label="Watch the rip that pulled Oricorio ex, posted February 1, 2026">Watch the rip &rarr;</a>
   </li>
       <li class="mine">
@@ -2083,10 +2083,14 @@ height:auto;min-height:44px;padding-block:6px}
     rows.forEach(function(li){ var n=nameOf(li); (byName[n]=byName[n]||[]).push(li); });
     rows.forEach(function(li){
       var d=li.dataset, no=txt(li.querySelector('.ig-no'));
-      if(!base || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
+      // data-tp: a set TCGdex has not published yet (Delta Reign) carries each
+      // card's TCGplayer product id instead of a TCGdex base, the same scan the
+      // chase grid and data/card-shots.json pins use (QA, 7 November 2026).
+      var tp=d.tp ? 'https://tcgplayer-cdn.tcgplayer.com/product/'+d.tp : '';
+      if((!base && !tp) || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
       var b=document.createElement('button'), nm=nameOf(li), pr=li.querySelector('.ig-pr');
       b.type='button'; b.className='cl-pic cl-zm';
-      b.dataset.img=base+no+'/high.webp';
+      b.dataset.img=tp ? tp+'_in_1000x1000.jpg' : base+no+'/high.webp';
       b.dataset.name=nm; b.dataset.rarity=tierOf(li);
       b.dataset.number=of ? no+'/'+of : no;
       b.dataset.price=pr ? txt(pr) : 'No price yet';
@@ -2098,14 +2102,14 @@ height:auto;min-height:44px;padding-block:6px}
       if(alts.length) b.dataset.alts=alts.join(' \u2022 ');
       b.setAttribute('aria-label','Enlarge '+nm+' '+b.dataset.number);
       var pic=document.createElement('picture'), src=document.createElement('source'), img=document.createElement('img');
-      src.type='image/avif'; src.srcset=base+no+'/low.avif';
-      img.src=base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
+      src.type='image/avif'; if(!tp) src.srcset=base+no+'/low.avif';
+      img.src=tp ? tp+'_200w.jpg' : base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
       // A FAILED AVIF IS NOT A MISSING SCAN, 14 October 2026: TCGdex lacks
       // the .avif for a few cards whose .webp exists, and a failed <source>
       // fires error on the img without trying its src. Drop the source and
       // retry the webp first; only a second failure means "No scan".
       img.onerror=function(){ if(src.parentNode){ src.parentNode.removeChild(src); img.src=img.src; return; } if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
-      pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
+      if(!tp) pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
       li.insertBefore(b, li.firstChild);
     });
     ol.classList.add('cl-on');

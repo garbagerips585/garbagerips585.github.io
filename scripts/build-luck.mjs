@@ -1878,7 +1878,7 @@ const body = `
             luck, not the odds" is the honesty claim that stops it being read as
             odds; both stay. "Counted rather than remembered" was the rip log
             talking about itself. */ ""}
-      <p class="luck-lede">Nobody publishes real pull rates, so this page does the next best thing:
+      <p class="luck-lede">The Pokemon Company rarely publishes pull rates, so this page does the next best thing:
         it counts what actually came out of packs opened on camera, one rip at a time. It is one
         person's luck, not the odds.</p>
 

@@ -103,6 +103,8 @@ function symbolImg(s) {
   if (d) {
     return `<img src="/assets/symbols/${esc(s.apiId)}-pokemon-tcg-set-symbol.webp" alt="" width="${d[0]}" height="${d[1]}"${lazy} decoding="async">`;
   }
+  // A set the API does not list yet (Delta Reign) has no symbol url at all.
+  if (!s.symbol) return "";
   remoteSymbols += 1;
   return `<img src="${esc(s.symbol)}" alt="" width="20" height="20"${lazy} decoding="async" onerror="this.remove()">`;
 }

@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-10-14",
+  "syncedAt": "2026-11-07",
   "source": "https://api.pokemontcg.io",
   "seriesOrder": [
     "Base",
@@ -2177,7 +2177,7 @@
       "symbol": "https://images.pokemontcg.io/sv10/symbol.png",
       "promo": false,
       "slug": "destined-rivals",
-      "rips": 21
+      "rips": 25
     },
     {
       "apiId": "zsv10pt5",
@@ -2216,7 +2216,7 @@
       "symbol": "https://images.pokemontcg.io/me1/symbol.png",
       "promo": false,
       "slug": "mega-evolution",
-      "rips": 24
+      "rips": 26
     },
     {
       "apiId": "me2",
@@ -2242,7 +2242,7 @@
       "symbol": "https://images.scrydex.com/pokemon/me2pt5-symbol/symbol",
       "promo": false,
       "slug": "ascended-heroes",
-      "rips": 63
+      "rips": 67
     },
     {
       "apiId": "me3",
@@ -2307,6 +2307,19 @@
       "symbol": "https://images.scrydex.com/pokemon/me55c-symbol/symbol",
       "promo": false,
       "slug": null,
+      "rips": 0
+    },
+    {
+      "apiId": "me6",
+      "name": "Delta Reign",
+      "series": "Mega Evolution",
+      "released": "2026-11-06",
+      "printedTotal": 103,
+      "total": 141,
+      "logo": null,
+      "symbol": null,
+      "promo": false,
+      "slug": "delta-reign",
       "rips": 0
     }
   ]

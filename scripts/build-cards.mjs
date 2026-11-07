@@ -154,6 +154,16 @@ for (const [k] of Object.entries(printings.shards || {})) {
 }
 const otherEnglish = outside - foreign;
 
+/* PRICED SETS THE CORPUS DOES NOT HOLD YET. The all-sets name search reads only
+   the printings shards, which come from TCGdex, so a set TCGdex has not
+   published (Delta Reign, 7 November 2026) was findable only by picking it in
+   the dropdown: "mega rayquaza" said "Nothing matched" over the most valuable
+   card on the site (QA, 7 November 2026). The search now blends in these sets'
+   rows from card-index.json, which is already in memory. Empty once TCGdex
+   catches up, with no other edit. */
+const corpusSetNames = new Set(corpus.map((c) => c.s));
+const INDEX_ONLY = Object.keys(setName).filter((slug) => !corpusSetNames.has(setName[slug]));
+
 // THE OLD CHECK HERE COULD NOT FAIL, AND IT READ AS THE MOST IMPORTANT ONE.
 //
 // It was `parts = priced + unpricedOurs + foreign + otherEnglish`, compared
@@ -727,6 +737,7 @@ ${footer(priceFooter("Fan made, not official."))}
   var list=document.getElementById('cqList'), status=document.getElementById('cqStatus');
   var head=document.getElementById('cqHead');
   var DATA=null, LOADING=false, WAITING=[], MAX=200;
+  var INDEX_ONLY=${JSON.stringify(INDEX_ONLY)};
   var initial=list.innerHTML;
 
   // The browser cannot import shared/format.mjs, so this is the one copy of
@@ -957,6 +968,9 @@ ${footer(priceFooter("Fan made, not official."))}
         return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
                  untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
       });
+    if(INDEX_ONLY.length) DATA.cards.forEach(function(r){
+      if(INDEX_ONLY.indexOf(r[1])!==-1 && r[0].toLowerCase().indexOf(q)!==-1) hits.push(fromPriced(r));
+    });
     // Priced first and priciest first within that, because those are the cards we
     // can actually tell you something about. Everything else follows grouped by
     // set, rather than being buried at the bottom in database order.

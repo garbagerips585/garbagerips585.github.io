@@ -1345,7 +1345,7 @@ const style = `
 /* THE HERO. Tighter on a phone, where it was two screens before the first card:
    a 1.55 line height under a 34px h1, stat numerals that wrapped ("Sep 16,
    2026" on two lines of display type) and three rows of jump chips. */
-.t30-top h1{line-height:1.12}
+.t30-top h1{line-height:1.12;margin-bottom:var(--s3)}
 main h1,main h2{text-wrap:balance}
 @media(max-width:599px){
   .t30-sum{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}

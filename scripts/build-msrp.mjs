@@ -1527,9 +1527,9 @@ ${Object.values(SOURCES)
                 also why repeating it here was redundant rather than helpful.
                 "opens on their site" stays, because every outbound link on
                 this site has to say it leaves. */ ""}
-          <p><a href="${esc(s.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(
-            s.url
-          )}, opens on their site">${esc(s.url)}</a> &bull; read ${esc(longDate(s.readOn))}</p>
+          <p><a href="${esc(s.url)}" rel="nofollow noopener" target="_blank" aria-label="${esc(s.url)}, opens on ${esc(
+            (() => { try { return new URL(s.url).hostname.replace(/^www\./, ""); } catch { return "their site"; } })()
+          )}">${esc(s.url)}</a> &bull; read ${esc(longDate(s.readOn))}</p>
         </li>`
   )
   .join("\n")}

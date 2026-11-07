@@ -2144,7 +2144,7 @@ ${MENU}
               site cannot, so a dead pack is the only other option.
             */ ""}
             <p class="pack-nojs">The pack needs JavaScript to open.
-              <a href="https://www.youtube.com/watch?v=${v.id}" rel="noopener" target="_blank">Watch this rip on YouTube</a>
+              <a href="https://www.youtube.com/watch?v=${v.id}" rel="noopener" target="_blank" aria-label="Watch this rip on YouTube, opens on youtube.com">Watch this rip on YouTube</a>
               instead, or turn scripting on and click the pack.</p>
         </noscript>
         ${

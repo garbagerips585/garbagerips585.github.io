@@ -42,7 +42,7 @@
   .cq-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Card search"}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -793,6 +793,7 @@
   var list=document.getElementById('cqList'), status=document.getElementById('cqStatus');
   var head=document.getElementById('cqHead');
   var DATA=null, LOADING=false, WAITING=[], MAX=200;
+  var INDEX_ONLY=["delta-reign"];
   var initial=list.innerHTML;
 
   // The browser cannot import shared/format.mjs, so this is the one copy of
@@ -1065,6 +1066,9 @@ var printedForm = function printedForm(num, meta) {
         return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
                  untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
       });
+    if(INDEX_ONLY.length) DATA.cards.forEach(function(r){
+      if(INDEX_ONLY.indexOf(r[1])!==-1 && r[0].toLowerCase().indexOf(q)!==-1) hits.push(fromPriced(r));
+    });
     // Priced first and priciest first within that, because those are the cards we
     // can actually tell you something about. Everything else follows grouped by
     // set, rather than being buried at the bottom in database order.

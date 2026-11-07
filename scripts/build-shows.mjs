@@ -1599,7 +1599,7 @@ ${CLIENT_DAY_JS}
     if (S.q.weekend) parts.push('this weekend');
     if (S.q['30']) parts.push('in the next 30 days');
     if (S.q.free) parts.push('free to get in');
-    if (S.q.pk) parts.push('Pokemon shows');
+    if (S.q.pk) parts.push('with Pokemon');
     if (S.from && S.within) parts.push('within ' + S.within + ' mi of ' + S.label);
     var msg = shown === 0 ? 'No shows match' : shown + (shown === 1 ? ' show' : ' shows');
     if (parts.length) msg += ' ' + parts.join(', ');

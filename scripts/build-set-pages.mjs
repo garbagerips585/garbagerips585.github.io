@@ -129,11 +129,20 @@ const CHASE_SIZES = "(max-width:619px) calc(50vw - 53px), (max-width:699px) calc
    it there, which can only pick the same or a larger file, never a softer one.
    Left as is rather than re-derived per column count. */
 const MINE_SIZES = "(max-width:520px) calc(50vw - 52px), 194px";
+/* A TCGPLAYER SCAN GETS A TWO RUNG LADDER TOO. tcgplayer-cdn serves the same
+   product at _200w and _400w (both 200, checked 7 November 2026), and a set
+   TCGdex has not published yet (Delta Reign) draws EVERY picture from there. With
+   only the 200w file its chase grid was upscaled 1.5 to 3x beside Ascended
+   Heroes' 600w scans (QA, 7 November 2026). Returns "" for anything else. */
+function tpLadder(url, sizes) {
+  const m = /^(https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+)_200w\.jpg$/.exec(url || "");
+  return m ? ` srcset="${m[1]}_200w.jpg 200w, ${m[1]}_400w.jpg 400w" sizes="${sizes}"` : "";
+}
 function mineImg(url) {
   const two = /^https:\/\/assets\.tcgdex\.net\/.+\/low\.webp$/.test(url);
   const ladder = two
     ? ` srcset="${esc(url)} 245w, ${esc(url.replace(/low\.webp$/, "high.webp"))} 600w" sizes="${MINE_SIZES}"`
-    : "";
+    : tpLadder(url, MINE_SIZES);
   return avifPicture(
     `<img class="mine-img" src="${esc(url)}"${ladder} alt="" loading="lazy" onerror="this.remove()" decoding="async"${imgDims(url)}>`,
   );
@@ -1460,14 +1469,14 @@ function checklistBand(s, cls, pulled = new Map()) {
               (psa ? ` data-psa10="${esc(moneyCompact(psa))}"${psaSrc !== psaShared ? ` data-src="${esc(`${rawSrc} ${psaSrc}`)}"` : ""}` : "") +
               (rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : "") +
               (url ? ` data-url="${esc(affLink(url))}"` : "") +
-              (hasScan(c) ? "" : " data-x");
+              (hasScan(c) || c.tcgplayerId ? "" : " data-x");
             // THE TINT WAS THE ONLY MARK AND IT STOPPED BEING GOLD, 2 October
             // 2026. The copy under the list said "the gold rows" months after
             // the palette swap made them a dark teal wash, and a mark carried by
             // color alone is lost to anyone who cannot tell that wash from the
             // card. Each chase row now carries the same small CHASE tag the
             // rarity ladder does, and the note names the tag, not a color.
-            return `<li class="cl-row${chase ? " is-chase" : ""}"${r ? ` data-r="${tierIx.get(r)}"` : ""} style="--k:${rank.get(c) || 9999}"${extra}><span class="ig-no">${esc(printedNo(c.n))}</span>
+            return `<li class="cl-row${chase ? " is-chase" : ""}"${r ? ` data-r="${tierIx.get(r)}"` : ""} style="--k:${rank.get(c) || 9999}"${extra}${!c.img && c.tcgplayerId ? ` data-tp="${esc(String(c.tcgplayerId))}"` : ""}><span class="ig-no">${esc(printedNo(c.n))}</span>
           <span class="ig-nm">${esc(c.name)}${chase ? ` <b class="ch-tag">Chase</b>` : ""}</span>
           ${c.price != null ? `<span class="ig-pr">${moneyExact(c.price)}</span>` : ""}
           ${c.rarity ? `<span class="ig-rr2">${BOOKLET_MARK[r] ? rarityMark(BOOKLET_MARK[r]) : ""}${esc(r)}</span>` : ""}</li>`;
@@ -1495,7 +1504,7 @@ function checklistBand(s, cls, pulled = new Map()) {
     } ${esc(priceNote(doc))}
       Where a card exists as a normal, holo and reverse holo at different prices, the figure shown is the priciest of
       them, because that is the one people mean. ${priced.length} of ${doc.cards.length} cards have a price.
-      Card pictures are TCGdex's scans.
+      ${doc.tcgdexId ? "Card pictures are TCGdex's scans." : "Card pictures and the card list are TCGplayer's, because TCGdex has not published this set yet."}
       Looking for one card in particular? <a href="/cards.html?set=${esc(s.id)}">Search every card on the site</a>.</p>
   </div>
 </section>`;
@@ -3603,8 +3612,14 @@ function hitBand(s) {
     ...promoHits.map((h) => ({
       kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
       meta: `${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}`,
-      price: typeof h.price === "number" ? h.price : null,
-      psa10: typeof h.psa10 === "number" ? h.psa10 : null,
+      // THE FRESHER READ FIRST, the same chain /hall.html and the rip pages use
+      // (shared/graded-price.mjs). This printed the hit row's 13 August hand
+      // figures, $38.75 and $177 for Mega Charizard X ex MEP 023, while those two
+      // pages printed PriceCharting's 13 October $30.18 and $140 (QA, 7 November
+      // 2026). The hand figure stays the fallback.
+      price: gradedFor.rawForHit(h)?.price ?? (typeof h.price === "number" ? h.price : null),
+      psa10: gradedFor.resolve(null, h.number, { name: h.card, setName: h.setName, logged: true })?.price
+        ?? (typeof h.psa10 === "number" ? h.psa10 : null),
       rips: [{ path: h.path, label: h.label, published: h.published }],
     })),
     ...proseCards.map((h) => ({
@@ -3757,7 +3772,7 @@ const heroFan = (s, pulled) => {
   return `    <div class="sh-fan">
       <ol data-zg>
 ${three.map((c) => `        <li><button class="sh-zm" type="button"${zoomData(s, c, pulled)}
-          aria-label="Enlarge ${esc(c.name)}, ${c.comp && c.comp.label !== rarityLabel(c.rarity) ? `${esc(c.comp.label)} ` : ""}${esc(rarityLabel(c.rarity) || "")} ${esc(numOf(s, c.number))}">${avifPicture(`<img src="${c.image}" alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
+          aria-label="Enlarge ${esc(c.name)}, ${c.comp && c.comp.label !== rarityLabel(c.rarity) ? `${esc(c.comp.label)} ` : ""}${esc(rarityLabel(c.rarity) || "")} ${esc(numOf(s, c.number))}">${avifPicture(`<img src="${c.image}"${tpLadder(c.image, "150px")} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}</button></li>`).join("\n")}
       </ol>
       <p>${exact ? "The top three by raw price" : "The top three by raw price with a scan"}${
         sub ? (three.every((c) => c.comp) ? `, all ${esc(sub.label)}` : `, ${esc(sub.label)} included`) : ""}</p>
@@ -4630,7 +4645,7 @@ function setPage(s) {
               time inside a control that had already named it. Chrome does not
               treat button descendants as presentational, so it really was
               announced. `onerror` removes the node, so no broken image is ever
-              left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="${CHASE_SIZES}"` : ""} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
+              left nameless. */ ""}${avifPicture(`<img src="${c.image}"${/\/low\.webp$/.test(c.image || "") && /\/high\.webp$/.test(c.imageLarge || "") ? ` srcset="${c.image} 245w, ${c.imageLarge} 600w" sizes="${CHASE_SIZES}"` : tpLadder(c.image, CHASE_SIZES)} alt="" loading="lazy" onerror="this.remove()"${imgDims(c.image)}>`)}
         <div class="nm">${esc(c.name)}</div>
         ${/* THE META LINE WRAPPED TO THREE LINES AT 390, 2 October 2026:
               "Special Illustration" / "Rare &bull;" / "121", because the mono
@@ -5493,10 +5508,14 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     rows.forEach(function(li){ var n=nameOf(li); (byName[n]=byName[n]||[]).push(li); });
     rows.forEach(function(li){
       var d=li.dataset, no=txt(li.querySelector('.ig-no'));
-      if(!base || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
+      // data-tp: a set TCGdex has not published yet (Delta Reign) carries each
+      // card's TCGplayer product id instead of a TCGdex base, the same scan the
+      // chase grid and data/card-shots.json pins use (QA, 7 November 2026).
+      var tp=d.tp ? 'https://tcgplayer-cdn.tcgplayer.com/product/'+d.tp : '';
+      if((!base && !tp) || li.hasAttribute('data-x')){ li.insertBefore(noScan(li), li.firstChild); return; }
       var b=document.createElement('button'), nm=nameOf(li), pr=li.querySelector('.ig-pr');
       b.type='button'; b.className='cl-pic cl-zm';
-      b.dataset.img=base+no+'/high.webp';
+      b.dataset.img=tp ? tp+'_in_1000x1000.jpg' : base+no+'/high.webp';
       b.dataset.name=nm; b.dataset.rarity=tierOf(li);
       b.dataset.number=of ? no+'/'+of : no;
       b.dataset.price=pr ? txt(pr) : 'No price yet';
@@ -5508,14 +5527,14 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
       if(alts.length) b.dataset.alts=alts.join(' \\u2022 ');
       b.setAttribute('aria-label','Enlarge '+nm+' '+b.dataset.number);
       var pic=document.createElement('picture'), src=document.createElement('source'), img=document.createElement('img');
-      src.type='image/avif'; src.srcset=base+no+'/low.avif';
-      img.src=base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
+      src.type='image/avif'; if(!tp) src.srcset=base+no+'/low.avif';
+      img.src=tp ? tp+'_200w.jpg' : base+no+'/low.webp'; img.alt=''; img.width=245; img.height=337; img.loading='lazy'; img.decoding='async';
       // A FAILED AVIF IS NOT A MISSING SCAN, 14 October 2026: TCGdex lacks
       // the .avif for a few cards whose .webp exists, and a failed <source>
       // fires error on the img without trying its src. Drop the source and
       // retry the webp first; only a second failure means "No scan".
       img.onerror=function(){ if(src.parentNode){ src.parentNode.removeChild(src); img.src=img.src; return; } if(b.parentNode) b.parentNode.replaceChild(noScan(li), b); };
-      pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
+      if(!tp) pic.appendChild(src); pic.appendChild(img); b.appendChild(pic);
       li.insertBefore(b, li.firstChild);
     });
     ol.classList.add('cl-on');

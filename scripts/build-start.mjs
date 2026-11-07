@@ -202,7 +202,7 @@ const STEPS = [
   {
     n: 5,
     q: "What should I open?",
-    a: "Nobody publishes real pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder.",
+    a: "The Pokemon Company rarely publishes pull rates, so the honest answer is what actually came out of the packs we have opened, counted from our own rip log. Plus what is coming next and what it is going for on preorder.",
     href: "/luck.html",
     // NOT "Luck and pull rates". The sentence right above it says nobody
     // publishes pull rates, and /luck.html says the same thing twice more.

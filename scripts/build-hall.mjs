@@ -1165,7 +1165,7 @@ const mvcArt = !mvc
           data-raw="${mvc.raw ? esc(moneyCompact(mvc.raw)) : ""}"
           data-psa="${mvc.psa10 ? esc(moneyCompact(mvc.psa10)) : ""}"
           aria-label="Enlarge ${esc(mvc.name)}">${avifPicture(
-            `<img src="${esc(big)}" alt="${[esc(mvc.name), esc(mvc.rarity || ""), mvc.setName ? `from Pokemon ${esc(mvc.setName)}` : ""].filter(Boolean).join(" ")}" width="600" height="825">`
+            `<img src="${esc(big)}" alt="${[esc(mvc.name), esc(mvc.rarity || ""), mvc.setName ? `from ${/^pok[eé]mon\b/i.test(mvc.setName) ? "" : "Pokemon "}${esc(mvc.setName)}` : ""].filter(Boolean).join(" ")}" width="600" height="825">`
           )}</button>`;
     })();
 
@@ -1566,7 +1566,7 @@ function plaque(c, i) {
   // 2026-08-16). picture{display:contents} in ui.css keeps `.chof-art img` and
   // the 245/337 aspect-ratio rule reaching the <img> exactly as before.
   const img = c.image
-    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from Pokemon ${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${art.dims || imgDims(art.src)}>`)
+    ? avifPicture(`<img src="${esc(art.src)}"${art.extra} alt="${[esc(c.name), esc(c.rarity || ""), c.setName ? `from ${/^pok[eé]mon\b/i.test(c.setName) ? "" : "Pokemon "}${esc(c.setName)}` : ""].filter(Boolean).join(" ")}"${i < EAGER_PLAQUES ? "" : ` loading="lazy"`} onerror="this.remove()"${art.dims || imgDims(art.src)}>`)
     // THE BOX HELD THE CARD'S NAME UNTIL 22 AUGUST 2026 AND ui.css HAD ALREADY
     // WRITTEN DOWN WHY THAT IS WRONG. `.set-noart`, the five set tiles with no
     // logo file, took the same treatment and reversed it: "The slot used to be

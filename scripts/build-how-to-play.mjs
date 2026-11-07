@@ -451,7 +451,7 @@ const style = `
    var(--t-sm) inside a span, so it takes the small-text teal --gold-deep:
    7.19:1 on --band-bg against --gold's 4.84. It is a rule rather than an inline
    style now so it cannot go stale out of sight of this comment. */
-.hp-shout a{color:var(--gold-deep)}
+.hp-shout a{color:var(--gold-deep);text-decoration:underline;text-underline-offset:2px}
 .hp-shout span{display:block;margin-top:var(--s2);font-size:var(--t-sm);color:var(--foot-ink);line-height:1.5}
 .hp-tbl-w{overflow-x:auto;margin-top:var(--s4);border:3px solid var(--keyline);border-radius:12px;
   background:var(--card);box-shadow:var(--hard-lg);max-width:44em}

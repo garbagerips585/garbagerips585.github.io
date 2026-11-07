@@ -629,7 +629,7 @@ const mixBar = (() => {
     return seg;
   });
   return `<svg viewBox="0 0 480 34" role="img" aria-label="${esc(
-    catOrder.map((c) => `${CAT_LABEL[c]}, ${((catCount[c] / total) * 100).toFixed(1)} per cent`).join("; "),
+    catOrder.map((c) => `${CAT_LABEL[c]}, ${((catCount[c] / total) * 100).toFixed(1)} percent`).join("; "),
   )}"><g>${segs.join("")}</g><rect x="0" y="0" width="480" height="34" rx="4" fill="none" stroke="#EEF1EF" stroke-width="3"/></svg>`;
 })();
 
