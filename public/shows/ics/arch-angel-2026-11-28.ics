@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:arch-angel-2026-11-28@garbagerips.com
+DTSTAMP:20261107T000000Z
+DTSTART:20261128T150000Z
+DTEND:20261128T200000Z
+SUMMARY:Arch Angel Sports Card and Collectors Show
+LOCATION:Archangel School\, 2400 Chili Ave\, Rochester\, NY 14624
+DESCRIPTION:Admission: Free\nDetails: https://garbagerips.com/card-shows.ht
+ ml#s-arch-angel-2026-11-28
+URL:https://garbagerips.com/card-shows.html#s-arch-angel-2026-11-28
+END:VEVENT
+END:VCALENDAR

@@ -637,7 +637,7 @@ ${extras.map(extraCard).join("\n")}
         release date.</b> None of them is the English street date, and a Japanese set is not simply
         the English set early: Delta Reign, out November 6, 2026, was built out of more than one Japanese
         release, so the two calendars do not line up card for card either. The English dates are the
-        two sections above this one.</p>
+        ${sets.length ? "two sections" : "section"} above this one.</p>
       <ul class="up-extras up-jp-grid" id="upJapan">
 ${jpSets.map(japanCard).join("\n")}
       </ul>

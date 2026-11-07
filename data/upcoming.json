@@ -65,40 +65,76 @@
     "  list because it is 'related', that is the bug, and the answer is a sentence",
     "  in the English entry's blurb naming the Japanese set, not a row."
   ],
-  "checked": "2026-09-16",
+  "checked": "2026-11-07",
   "sets": [],
   "products": [
     {
-      "name": "Enhanced 2 Pack Blister",
-      "date": "2026-10-02",
+      "name": "Mega Greninja ex League Battle Deck",
+      "date": "2026-11-13",
       "confidence": "confirmed",
-      "packs": 2,
-      "price": "$10.99",
-      "blurb": "Gengar, Marshadow or Team Rocket's Mimikyu in cosmos holo, plus a metallic coin.",
+      "blurb": "A ready to play 60 card Mega Greninja ex deck with six damage-counter dice, a coin-flip die, two coin condition markers, a deck box and a strategy sheet.",
       "sources": [
-        "https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"
+        "https://www.pokemon.com/us/news/check-out-every-pokemon-tcg-product-release-in-november-2026"
       ]
     },
     {
-      "name": "Mini Portfolio",
-      "date": "2026-10-02",
+      "name": "Delta Reign Build & Battle Box",
+      "date": "2026-11-20",
       "confidence": "confirmed",
-      "packs": 1,
-      "price": "$5.49",
-      "blurb": "Mega Greninja and Mega Zeraora on the front, Mega Darkrai and Mega Chandelure on the back. Comes with one Pitch Black pack.",
+      "packs": 4,
+      "blurb": "Sold at prerelease events first, then everywhere from November 20. A 40 card ready to play deck with one of four foil promo cards, four Delta Reign packs and a TCG Live code card.",
       "sources": [
-        "https://www.pokebeach.com/2026/07/new-gengar-enhanced-2-pack-blister-and-mega-greninja-mini-portfolio-to-release-in-october"
+        "https://www.pokemon.com/us/news/check-out-every-pokemon-tcg-product-release-in-november-2026"
       ]
     },
     {
-      "name": "Deck Crafter's Collection",
-      "date": "2026-10-23",
+      "name": "30th Celebration Binder Collection",
+      "date": "2026-12-04",
       "confidence": "confirmed",
-      "packs": 1,
-      "price": "$9.99",
-      "blurb": "The replacement for the Trainer's Toolkit. A foil Meowth ex, 39 tournament ready Trainer cards, dividers and one Pitch Black pack.",
+      "packs": 5,
+      "price": "$31.99",
+      "blurb": "A 9 pocket binder with a 30th anniversary design and five 30th Celebration packs. Originally due October 2 and pushed back to December 4.",
       "sources": [
-        "https://icv2.com/articles/news/view/63081/build-new-decks-pokemon-tcg-deck-crafters-collection"
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-binder-collection",
+        "https://icv2.com/articles/news/view/63260/new-pokemon-tcg-30th-celebration-products-announced",
+        "https://www.pokebeach.com/2026/09/30th-anniversary-binder-collections-delayed-until-december"
+      ]
+    },
+    {
+      "name": "30th Celebration ex Tin",
+      "date": "2026-12-04",
+      "confidence": "confirmed",
+      "packs": 4,
+      "price": "$21.99",
+      "blurb": "Sylveon ex or Greninja ex as a foil card, with four 30th Celebration packs.",
+      "sources": [
+        "https://icv2.com/articles/news/view/63260/new-pokemon-tcg-30th-celebration-products-announced",
+        "https://www.pokebeach.com/2026/09/30th-celebration-english-set-guide-full-card-list-products-store-promotions-and-more"
+      ]
+    },
+    {
+      "name": "Pokemon TCG Valentine's Box",
+      "date": "2027-01-15",
+      "confidence": "confirmed",
+      "packs": 20,
+      "price": "$14.99",
+      "blurb": "The first Valentine's Day product for the card game. Twenty 3 card mini packs with To/From labels, stickers, and packaging that folds into a mailbox for collecting valentines. The card list has not been revealed.",
+      "sources": [
+        "https://icv2.com/articles/news/view/63755/",
+        "https://www.pokebeach.com/2026/10/pokemon-tcg-valentines-box-revealed-for-january"
+      ]
+    },
+    {
+      "name": "Mega Rayquaza ex Premium Tournament Collection",
+      "date": "2027-02-12",
+      "confidence": "confirmed",
+      "packs": 8,
+      "price": "$49.99",
+      "blurb": "A foil Mega Rayquaza ex promo plus Zinnia's Trust, Adventure Lantern and Mega Rayquaza Cap promos, two cards that form one Legendary Summit Stadium, and the first Dragon Shield sleeves (65) and deck box in an official product.",
+      "sources": [
+        "https://www.pokemon.com/us/pokemon-tcg/product-gallery/mega-rayquaza-ex-premium-tournament-collection",
+        "https://icv2.com/articles/news/view/63760/new-pokemon-tcg-premium-tournament-collection-inbound",
+        "https://www.pokebeach.com/2026/10/mega-rayquaza-ex-premium-tournament-collection-revealed-features-dragon-shield-products-instead-of-ultra-pro"
       ]
     }
   ],
@@ -124,34 +160,30 @@
       "section called Japan that quietly holds three other regions is the same",
       "class of mistake as a Japanese date in the English list."
     ],
-    "checked": "2026-09-16",
+    "checked": "2026-11-07",
     "releases": [
-      {
-        "name": "Nine 30th Celebration Card Sets",
-        "date": "2026-10-16",
-        "confidence": "confirmed",
-        "blurb": "The 27 starter Pokemon promos that English speakers got in the First Partner Collections, split across nine card sets.",
-        "sources": [
-          "https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"
-        ]
-      },
       {
         "name": "Special Deck Set, Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex",
         "date": "2026-11-13",
         "confidence": "confirmed",
         "price": "¥5,500",
-        "blurb": "Three decks in one box. English collectors already have alternate art Mega Feraligatr ex and Mega Gengar ex from the Ascended Heroes box and the Mega Moonlight tins.",
+        "blurb": "Three 60 card decks in one box, led by alternate art Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex, with a playmat, deck box, three coins and damage counters. English collectors already have these three Megas from the Ascended Heroes box, the Mega Moonlit Tin and the Mega Forces Tin.",
         "sources": [
-          "https://www.pokebeach.com/2026/05/mega-gengar-ex-mega-dragonite-ex-and-mega-feraligatr-ex-special-deck-set-to-release-in-japan"
+          "https://www.pokemon-card.com/products/",
+          "https://www.pokebeach.com/2026/10/mega-dragonite-ex-mega-gengar-ex-and-mega-feraligatr-ex-special-deck-set-revealed-for-november"
         ]
       },
       {
         "name": "Aura Seeker",
         "date": "2026-11-27",
         "confidence": "confirmed",
-        "blurb": "Starring Mega Lucario Z ex. No English set has been named for it, and this page will not guess one: Japanese sets do not map one to one onto English ones, which Delta Reign is the current proof of. Pokemon has now shown Riolu, Mega Lucario Z ex and Sigilyph ex from it, and the set itself is still not officially revealed. The English cards were teased at the same time carrying a set symbol named FLO, which is a symbol and not a name: it still does not say what the English set will be called, and this page will not turn a three letter symbol into one.",
+        "price": "¥200 per 5 card pack",
+        "blurb": "Japan's M7 set (ハドウシーカー), starring Mega Lucario Z ex, and the first set with the Z Mega Evolutions from the Legends: Z-A Mega Dimension DLC. Pokemon revealed it on October 22 along with Mega Absol Z ex and Mega Garchomp Z ex, and has since shown Floatzel ex, Blastoise and a new alternate art Mega Lucario Z ex. Pokemon's own page leads with a Crasher Wake special art rare drawn by Fist of the North Star manga artist Tetsuo Hara. PokeBeach reports the English set will be called Flowing Fists; Pokemon has not announced it yet.",
         "sources": [
-          "https://www.pokebeach.com/2026/08/upcoming-pokemon-ex-mega-attack-rares-revealed-from-aura-seeker-and-mega-mega-parade"
+          "https://www.pokemon-card.com/ex/m7/",
+          "https://www.pokebeach.com/2026/10/aura-seeker-set-starring-mega-lucario-z-ex-officially-revealed",
+          "https://www.pokebeach.com/2026/11/floatzel-ex-crasher-wake-drawn-by-famous-manga-artist-and-more-from-aura-seeker-revealed",
+          "https://www.pokebeach.com/2026/10/flowing-fists-pokemon-tcg-set-to-release-in-february-starring-mega-lucario-z-ex"
         ]
       }
     ]
@@ -181,7 +213,7 @@
       "`sets`; a Japanese date belongs in `japan.releases`. Nothing should sit here",
       "once it can sit there."
     ],
-    "checked": "2026-09-16",
+    "checked": "2026-11-07",
     "items": [
       {
         "name": "Pokemon ex★",
@@ -195,11 +227,12 @@
       {
         "name": "MEGA x MEGA Parade",
         "region": "Japan, and no English set has been named for it",
-        "note": "Japan's next High Class Pack set. Pokemon has teased Mega Attack Rares from it, the comic book style illustrations that English collectors last saw in Ascended Heroes, which was Japan's MEGA Dream ex High Class Pack. The set itself has not been officially revealed.",
-        "why": "NO DATE ROW, AND THAT IS A DELIBERATE DEMOTION. PokeBeach refers to it as February's set, which would be a `window` in `japan.releases`, and in the same breath says the set \"hasn't been officially revealed yet\". Those two cannot both be true of a date The Pokemon Company has announced, which is the standing that list requires, so it goes here with no date rather than there with a month this file cannot stand behind. Move it the day Pokemon reveals it.",
+        "note": "Japan's next High Class Pack set. Pokemon has teased Mega Attack Rares from it, the comic book style illustrations that English collectors last saw in Ascended Heroes, which was Japan's MEGA Dream ex High Class Pack. The set itself has not been officially revealed, and it is not yet listed on Pokemon's Japanese product pages.",
+        "why": "STILL NO DATE ROW. PokeBeach now says February 19 (Nov 3 story), after its Oct 20 story printed 'February 29th', a day 2027 does not have. Both are PokeBeach's own reporting, and pokemon-card.com lists only Aura Seeker and the Special Deck Set after today. Move it to japan.releases the day Pokemon reveals it. PokeBeach's view that it will be the last Mega Evolution set is analysis and is not printed.",
         "sources": [
           "https://www.pokebeach.com/2026/08/upcoming-pokemon-ex%e2%98%85-tcg-series-teased",
-          "https://www.pokebeach.com/2026/08/upcoming-pokemon-ex-mega-attack-rares-revealed-from-aura-seeker-and-mega-mega-parade"
+          "https://www.pokebeach.com/2026/08/upcoming-pokemon-ex-mega-attack-rares-revealed-from-aura-seeker-and-mega-mega-parade",
+          "https://www.pokebeach.com/2026/11/all-mega-evolution-cards-now-known-ahead-of-final-mega-set-several-may-never-be-printed"
         ]
       }
     ]

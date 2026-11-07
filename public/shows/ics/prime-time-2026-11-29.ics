@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:prime-time-2026-11-29@garbagerips.com
+DTSTAMP:20261107T000000Z
+DTSTART:20261129T150000Z
+DTEND:20261129T220000Z
+SUMMARY:Prime Time TCG Show
+LOCATION:Venue at Lakeside\, 1002 State Fair Blvd\, Syracuse\, NY 13209
+DESCRIPTION:Admission not published\nDetails: https://garbagerips.com/card-
+ shows.html#s-prime-time-2026-11-29
+URL:https://garbagerips.com/card-shows.html#s-prime-time-2026-11-29
+END:VEVENT
+END:VCALENDAR
