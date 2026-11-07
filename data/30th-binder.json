@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-10-31",
+  "checked": "2026-11-07",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -1827,6 +1827,16 @@
       "rarity": "Classic Collection",
       "got": "2026-10-31",
       "note": "The owner, 31 October 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
+    },
+    {
+      "name": "Rayquaza EX",
+      "n": "85/124",
+      "of": 128,
+      "setCode": "30C",
+      "section": "classic",
+      "rarity": "Classic Collection",
+      "got": "2026-11-07",
+      "note": "The owner, 7 November 2026, in an updated master set list: added in that list and not in the binder before. His headings still read the old counts; the itemized numbers are the source."
     }
   ],
   "_shotNote": [
@@ -1929,6 +1939,42 @@
       "got": "2026-10-05",
       "note": "The owner, 5 October 2026, in an updated master set list: \"101 Nidorina\" with the \"(need)\" mark removed, so it is in the binder. data/30th.json's promo table files 101 as the Elite Trainer Box promo (a Pokemon Center stamped version in the Pokemon Center ETB); which version he has was not said, so none is claimed.",
       "pid": 713260
+    },
+    {
+      "name": "Victini",
+      "n": "102",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-11-07",
+      "pid": 713286,
+      "note": "The owner, 7 November 2026, in an updated master set list: \"102 Victini\" with no \"(need)\" mark, so it is in the binder. data/30th.json files 102 as the Battle Deck promo; its TCGplayer id is the one that table already holds."
+    },
+    {
+      "name": "Zeraora",
+      "n": "103",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-11-07",
+      "pid": 713285,
+      "note": "The owner, 7 November 2026, in an updated master set list: \"103 Zeraora\" with no \"(need)\" mark, so it is in the binder. data/30th.json files 103 as the Battle Deck promo; its TCGplayer id is the one that table already holds."
+    },
+    {
+      "name": "Mew",
+      "n": "105",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-11-07",
+      "pid": 713288,
+      "note": "The owner, 7 November 2026, in an updated master set list: \"105 Mew\" with no \"(need)\" mark, so it is in the binder. data/30th.json files 105 as the Figure Collection promo; its TCGplayer id is the one that table already holds."
+    },
+    {
+      "name": "Ditto",
+      "n": "106",
+      "setCode": "MEP",
+      "from": "Black Star Promo",
+      "got": "2026-11-07",
+      "pid": 713287,
+      "note": "The owner, 7 November 2026, in an updated master set list: \"106 Ditto\" with no \"(need)\" mark, so it is in the binder. data/30th.json files 106 as the Ditto Premium Collection promo; its TCGplayer id is the one that table already holds."
     }
   ],
   "_jumboNote": [
