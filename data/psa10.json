@@ -1553,6 +1553,15 @@
       "rawNm": 37.54,
       "asOf": "2026-10-24",
       "source": "pokemonpricetracker.com"
+    },
+    "ascended-heroes-286": {
+      "psa10": 201.75,
+      "psa10Confidence": "high",
+      "psa10Sales": 306,
+      "psa10LastSale": "2026-11-08",
+      "rawNm": 94.47,
+      "asOf": "2026-11-09",
+      "source": "pokemonpricetracker.com"
     }
   }
 }
