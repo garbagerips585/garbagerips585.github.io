@@ -56,14 +56,32 @@ async function api(path, params) {
 }
 
 // Walk every page of a list endpoint.
+//
+// THE STOP CONDITIONS ARE LOAD BEARING, 9 November 2026. One playlist began
+// answering an EMPTY page that still carried a nextPageToken, forever. `cap`
+// counts items, so it never tripped, and the loop spent one quota unit per
+// call until the YouTube Data API refused with quotaExceeded: every nightly
+// from 4 to 8 November died that way, ten minutes in, and took the price
+// refresh with it. Stop on an empty page, on a token seen before, or after
+// MAX_PAGES, whichever comes first.
+const MAX_PAGES = 200;
 async function paginate(path, params, cap = 5000) {
   const items = [];
+  const seen = new Set();
   let pageToken;
+  let pages = 0;
   do {
     const page = await api(path, { ...params, maxResults: 50, ...(pageToken ? { pageToken } : {}) });
-    items.push(...(page.items || []));
-    pageToken = page.nextPageToken;
+    const got = page.items || [];
+    items.push(...got);
+    pages++;
     process.stdout.write(`\r  ${path}: ${items.length} items`);
+    pageToken = page.nextPageToken;
+    if (!got.length || (pageToken && seen.has(pageToken)) || pages >= MAX_PAGES) {
+      if (pageToken) process.stdout.write(`\n  ${path}: stopped paging after ${pages} pages (${got.length ? "repeat token or page cap" : "empty page with a next token"})`);
+      break;
+    }
+    if (pageToken) seen.add(pageToken);
   } while (pageToken && items.length < cap);
   process.stdout.write("\n");
   return items;

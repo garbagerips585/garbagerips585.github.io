@@ -24,6 +24,7 @@
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
 <link rel="stylesheet" href="/assets/ui.css?v=0a81dcae">
+<link rel="stylesheet" href="/assets/packs.css?v=35b3692c">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
 .rar-pr b{color:var(--ketchup-deep);font-weight:700}
@@ -268,6 +269,12 @@ border-radius:3px;padding:3px 5px}
 .chip-rk{display:inline-flex;align-items:center;
 flex:0 1 auto;min-width:0;white-space:normal;
 height:auto;min-height:44px;padding-block:6px}
+.is-none.noscan,.chof-noart.noscan{display:flex;flex-direction:column;
+align-items:center;justify-content:center;gap:6px;padding:8%;box-sizing:border-box;
+background:repeating-linear-gradient(45deg,var(--paper-3) 0 8px,var(--paper-2) 8px 16px)}
+.noscan .noscan-s{aspect-ratio:auto;object-fit:contain;background:none;opacity:.92}
+.noscan .noscan-t{font:700 var(--t-micro)/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;
+color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;text-align:center}
 #checklist:has(#clf-r0:checked) .cl-row:not([data-r="0"]){display:none}
 #checklist:has(#clf-r1:checked) .cl-row:not([data-r="1"]){display:none}
 #checklist:has(#clf-r2:checked) .cl-row:not([data-r="2"]){display:none}
@@ -419,7 +426,7 @@ height:auto;min-height:44px;padding-block:6px}
     <img class="logo-big" width="626" height="300" src="/assets/logos/delta-reign-pokemon-tcg-set-logo.webp" srcset="/assets/logos/delta-reign-pokemon-tcg-set-logo-sm.webp 209w, /assets/logos/delta-reign-pokemon-tcg-set-logo-md.webp 313w, /assets/logos/delta-reign-pokemon-tcg-set-logo.webp 626w" sizes="(max-width:329px) 116.9px, (max-width:647px) 35.5vw, 229.5px" alt="" onerror="this.remove()">
     <h1>Delta Reign <span class="sh-h1s">card list and set guide</span></h1>
     <p class="lede w34">Delta Reign came out November 6, 2026 with 141 cards: 103 in the printed set and 38 numbered past it. Its most valuable card is Mega Rayquaza ex: $401 for an ungraded copy on pricecharting.com's price guide, read November 7, 2026.</p>
-    <nav class="sh-jump" aria-label="On this page"><a href="#chase">Most valuable</a><a href="#facts">Set 101</a><a href="#rarity">Rarity</a><a href="#checklist">Card list</a><a href="#products">Sealed prices</a></nav>
+    <nav class="sh-jump" aria-label="On this page"><a href="#chase">Most valuable</a><a href="#rips">Our rips</a><a href="#hits">Our hits</a><a href="#facts">Set 101</a><a href="#rarity">Rarity</a><a href="#checklist">Card list</a><a href="#products">Sealed prices</a></nav>
     </div>
     <div class="sh-fan">
       <ol data-zg>
@@ -458,7 +465,7 @@ height:auto;min-height:44px;padding-block:6px}
       <div class="fact"><div class="n">141</div><div class="l">Cards total</div></div>
       <div class="fact"><div class="n">103</div><div class="l">In the printed set</div></div>
       <div class="fact"><div class="n">38</div><div class="l">Numbered past the set</div></div>
-      <div class="fact"><div class="n" style="font-size:1.15rem">None yet</div><div class="l">Rips on this channel</div></div>
+      <a class="fact fact-link" href="/videos.html?set=delta-reign"><div class="n">1</div><div class="l">Rip on this channel <span aria-hidden="true">&rarr;</span></div></a>
       <div class="fact"><div class="n">$7.57</div><div class="l">Single pack, market price</div></div>
       
       <div class="fact wide"><div class="n" style="font-size:1.15rem">November 6, 2026</div><div class="l">Release date &bull; 3 days ago</div></div>
@@ -635,6 +642,45 @@ height:auto;min-height:44px;padding-block:6px}
   </div>
 </section>
 
+<section id="rips" class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>On the channel</p>
+    <h2>Every Delta Reign <span class="hl">rip</span></h2>
+    <a class="ripcount" href="/videos.html?set=delta-reign">
+      <b>1</b>
+      <span class="rc-t">rip of Delta Reign <i>on the channel&nbsp;&rarr;</i><small>newest Nov 9, 2026</small></span>
+    </a>
+    <p class="run-h">The only one, and it plays here</p>
+    <ul class="runrows">
+      <li><a class="runrow" href="/rip/first-pack-magic-in-the-brand-new-delta-reign-etb-ImL4P9zX8pg.html">
+        <span class="rr-x"><span class="rr-k">Newest rip</span><span class="rr-t">Delta Reign ETB - Pack 1</span><span class="rr-m">Nov 9, 2026 &bull; 0:28</span></span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="hits" class="tight">
+  <div class="wrap">
+<p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Pulled on camera</p>
+<h2>What we have <span class="hl">hit</span> from this set</h2>
+<p class="lede w38">1 card out of our own packs. It is in a video you can watch.</p>
+<ul class="mine-grid mine-cols" style="--mc3:3;--mc4:4;--mc5:5;--mc6:6">
+  <li class="mine">
+    <div class="mine-img is-none noscan" aria-hidden="true"><span class="noscan-t">No scan</span></div>
+    <!-- The count rides on the name, not on the picture, because the
+         picture is the card and the count is a fact about our pulls.
+         Hidden at one: a "x1" badge on every other card would make the
+         ordinary case look annotated. -->
+    <p class="mine-n">Mega Malamar ex</p>
+    <p class="mine-r">Ultra Rare &bull; #123</p>
+    <p class="mine-p">$4.84</p>
+    <a class="mine-w" href="/rip/first-pack-magic-in-the-brand-new-delta-reign-etb-ImL4P9zX8pg.html" aria-label="Watch the rip that pulled Mega Malamar ex, posted November 9, 2026">Watch the rip &rarr;</a>
+  </li>
+</ul>
+
+  </div>
+</section>
+
 <section id="facts" class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Quick facts</p>
@@ -645,6 +691,7 @@ height:auto;min-height:44px;padding-block:6px}
       <li><b>38 of the 141 cards</b> sit at a chase rarity, which is every tier tagged CHASE in the rarity breakdown below. That is what the checklist holds, not how often any of it turns up.</li>
       <li>Only <b><span class="rk rk-mega" title="Mega Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 0 7.4 4.6 12 6 7.4 7.4 6 12 4.6 7.4 0 6 4.6 4.6Z"/></svg></span>1 Mega Hyper Rare</b> exists in the entire set.</li>
       <li>The chase card is <b>Mega Rayquaza ex</b> (<span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare), sitting around <b>$401</b> raw, and <b>$2,135</b> in a PSA 10.</li>
+      <li>We have <b>1 rip</b> of this set on the channel.</li>
       <li>Delta Reign came out on November 6, 2026 and becomes tournament legal on November 20, which makes it the newest set on this site. Prices on a set this young move hard and fast, so treat every figure on this page as a snapshot rather than a settled number.</li>
       <li>Mega Rayquaza ex is back in the card game for the first time since XY Ancient Origins, The Pokemon Company says, and this set prints it three times: the Double Rare at 084, the Special Illustration Rare at 138 and the Mega Hyper Rare at 141.</li>
       <li>Legendary Stadiums are new here. Each one is two Stadium cards played as a pair, and side by side their art forms one picture. There are three, Legendary Pyroduct, Legendary Summit and Legendary Trench, and The Pokemon Company says a pack holding one holds both halves.</li>
@@ -1292,7 +1339,7 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-nm">Mega Golurk ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.50</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:37" data-psa10="$58.69" data-tp="728054"><span class="ig-no">123</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:37" data-psa10="$58.69" data-rip="/rip/first-pack-magic-in-the-brand-new-delta-reign-etb-ImL4P9zX8pg.html" data-rip-when="November 9, 2026" data-tp="728054"><span class="ig-no">123</span>
           <span class="ig-nm">Mega Malamar ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$4.84</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
@@ -1503,7 +1550,27 @@ height:auto;min-height:44px;padding-block:6px}
   </div>
 </section>
 
-<section id="more-sets" class="band tight">
+<section id="watch" class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
+    <h2>We ripped <span class="hl">1</span> of these</h2>
+    <div class="set-watch">
+      <div class="packshot pack pack--delta-reign"><span class="pack-face pack-l"><span class="pack-art" style="background-image:url('/assets/packs/delta-reign-garbage-rips-585-booster-pack-tile.webp')"></span></span></div>
+      <div>
+        <p class="lede">Want to see what actually comes out of Delta Reign instead of reading about it? Every Delta Reign rip on the channel is one tap away.</p>
+        
+        <p style="margin-top:12px;font-size:var(--t-sm);line-height:1.55">There is one more card in each of
+          those packs and it is not a Pokemon card: <a href="/tcg-live.html">what the code card actually gets
+          you</a>.</p>
+        <div class="btn-row" style="margin-top:16px">
+          <a class="btn btn-yt" href="/videos.html?set=delta-reign">Watch the Delta Reign rips</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="more-sets" class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">

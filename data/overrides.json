@@ -3189,5 +3189,23 @@
     ],
     "packNumberWhy": "The owner, 7 November 2026: \"sync all new videos and read titles and descriptions to figure out what I ripped and what hits I got\", so the video's own description is the source, on his say-so. The video description, 7 November 2026: \"PACK TWO BRINGS THE ULTIMATE COZY HEAT! 🦥✨ Pack #2 of the Pokémon Archaludon ex Box redeemed the box in a huge way straight to Rochester, NY with one of my all-time favorite cards: the Slakoth Illustration Rare (Single Gold Star)!\" Pack 2 of the Archaludon ex Box (pack 1 is 4wt9xuZ-VV0, a Surging Sparks booster). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
     "setsWhy": "Surging Sparks: the description names no set, but the hit (Slakoth IR) is printed only there and pack 1 of the same box was a Surging Sparks booster. Pinned so a series word in the title can never add a second set."
+  },
+  "ImL4P9zX8pg": {
+    "packNumber": 1,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 9 November 2026: \"please do a youtube sync and make sure to read titles and description to determine if i got a hit or not and if I did log it correctly for the site\", so the video's own description is the source, on his say-so. The video description, 9 November 2026: \"FIRST PACK MAGIC ON THE BRAND NEW SET! 🦑✨ Kicking off the hunt in Pokémon Delta Reign with Pack #1 of the Elite Trainer Box straight to Rochester, NY! ... Pack #1 came out swinging with the Mega Malamar ex (Double Silver Star Ultra Rare)!\" Pack 1 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title (Mega Malamar ex) can never add the Mega Evolution set."
+  },
+  "Y8F071922WQ": {
+    "packNumber": 2,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 9 November 2026: \"please do a youtube sync and make sure to read titles and description to determine if i got a hit or not and if I did log it correctly for the site\", so the video's own description is the source, on his say-so. The video description, 8 November 2026: \"No official ultra-rare hits, but this set never misses! 🔮✨ Pack #2 of the Pokémon 30th Celebration Knock Out Collection sent us back to the bulk pile, but not before pulling the stunning Mew base card straight to Rochester, NY!\" Pack 2 of the second 30th Celebration Knock Out Collection (pack 1 is jCOfh3__6-U, \"Starting off another\"). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"No official ultra-rare hits\" and \"sent us back to the bulk pile\". The Mew is a base card (Rare), which this site does not count as a hit. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
   }
 }
