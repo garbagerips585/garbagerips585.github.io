@@ -195,8 +195,17 @@ jobs:
           # it "skipped". The explicit save step at the foot of this job
           # replaces it.
 
+      # SOFT SINCE 9 NOVEMBER 2026, same shape as the intl guides and prices
+      # steps. From 4 to 8 November the YouTube Data API answered 403
+      # quotaExceeded every night, and because this step was hard and sat first,
+      # `-e` killed the job before a single price or page was refreshed: five
+      # days of stale prices over a quota on a different service. A refused
+      # sync leaves videos.json as it was, check-freshness.mjs still goes red on
+      # its 3 day leash, and the warning at the foot of this job names it.
       - name: New uploads
+        id: youtube
         if: env.YT_API_KEY != ''
+        continue-on-error: true
         run: node scripts/sync-youtube.mjs
 
       # Free and unauthenticated. --force because the whole point of a nightly
@@ -457,6 +466,13 @@ jobs:
       # persistent, as zh-gem-pack-2 was from 20 August, it reproduces nightly
       # and the freeze sustains itself. That is the twelve-day freeze this file
       # warns about, with a different trigger.
+      - name: Say so if the YouTube sync did not happen
+        if: steps.youtube.outcome == 'failure'
+        run: |
+          echo "::warning title=YouTube sync skipped::sync-youtube.mjs exited non-zero (usually quotaExceeded)."
+          echo "videos.json keeps its last copy; everything else still refreshed and deploys."
+          echo "check-freshness.mjs goes red if this persists past its 3 day leash."
+
       - name: Say so if a sync reported bad data
         if: steps.intl_guides.outcome == 'failure'
         run: |
