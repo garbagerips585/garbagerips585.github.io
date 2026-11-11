@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://assets.tcgdex.net">
 <title>Card Hall of Fame: Our Best Pokemon Pulls | Garbage Rips 585</title>
 <meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked on raw near mint price, with PSA 10 market values where we have them.">
 <link rel="canonical" href="https://garbagerips.com/hall.html">
@@ -83,7 +84,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46"><style data-pcss>.tools{padding:var(--s6) 0 var(--s7)}@media(max-width:700px){.chofpage .chof-rank{left:0}}</style>
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>@media(max-width:700px){.chofpage .chof-rank{left:0}}</style>
 <!-- packs.css IS BACK, 5 October 2026, and it is NOT render blocking. The note
      that stood here said 0 of its 98 selectors match "verified in a browser after
      JS", and that check ran BEFORE A CLICK: every tile on this page plays in place,
@@ -179,6 +180,14 @@
 .roc-counts a:hover span{text-decoration:underline}
 .roc-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
+.hof-head a{min-width:5.9em;justify-content:flex-end}
+.hof-more{margin:var(--s3) 0 0}
+.hof-more a{display:inline-flex;align-items:center;min-height:44px;
+  font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
+.hof-more a:hover{text-decoration:underline}
+@media(min-width:700px){.hof-more{grid-column:1/-1;margin-top:calc(var(--s3) - var(--s6))}
+.hof .wrap:has(.vcar:not(.is-static)){position:relative}
+.hof .wrap:has(.vcar:not(.is-static)) .hof-more{position:absolute;left:0;bottom:0;margin:0}}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -195,9 +204,28 @@
 .vcar .vcar-bar{justify-content:flex-start}
 }
 @media(max-width:544px){
-.hof .shelf{display:none}
-.vcar-slide:not(:first-child){display:none}
+main:has(>.hof){display:flex;flex-direction:column}
+main:has(>.hof)>*{min-width:0}
+main:has(>.hof)>:is(.about,.rstats,.roc){order:1}
+main:has(>.hof)>:is(.mwband,.pokedex,.tools){order:2}
+.hof .shelf{margin-top:var(--s4)}
+.vcar-track{gap:var(--s3);margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);
+  scroll-padding-inline:var(--gut)}
+.vcar-slide{flex:0 0 calc((100% - 2 * var(--s3) - 26px) / 2);scroll-snap-align:start;display:flex}
+.vcar .hero{flex:1 1 auto;min-width:0;padding:6px;gap:var(--s2);align-content:start}
+.vcar .hero-art,
+.vcar .tile-stage{max-width:none;aspect-ratio:9/16}
+.vcar .hero-body{padding:0 2px 2px}
+.vcar .hero-kicker{margin-bottom:6px;gap:4px 6px}
+.vcar .hero-body h3{font-size:1rem;line-height:1.15;margin-bottom:6px;overflow-wrap:break-word}
+.vcar .hero-new{padding:3px 8px}
+.vcar .hero-body h3 a{min-height:44px}
+.vcar .hero-meta{line-height:1.4}
 .vcar-bar{display:none}
+.wall:has(.vcar) > .brk{margin-top:var(--s4)}
+.hof{padding-bottom:var(--s3)}
+.hof-more{margin-top:var(--s1)}
+.wall > .vcar.is-static{padding-bottom:0}
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
@@ -207,6 +235,7 @@ main{padding-top:0}
 }
 @media(max-width:359px){
 .roc-counts{grid-template-columns:1fr;gap:var(--s4)}
+.vcar .hero-body h3{font-size:.875rem}
 }</style>
 <!-- HOMECSS:END -->
 <style>.chofpage{background:var(--band-bg);color:var(--chrome-ink);padding:var(--s7) 0 var(--s8);
@@ -293,6 +322,54 @@ main{padding-top:0}
 @media(min-width:1081px){
 .chof-list{grid-template-columns:repeat(3,1fr)}
 .chof-list>li:nth-last-child(-n+1){grid-column:span 3}}
+.chof-v10 .chof-list>li,.chof-v25 .chof-list>li,.chof-flt .chof-list>li{grid-column:auto}
+@media(min-width:621px) and (max-width:1080px){
+  .chof-v10 .chof-list,.chof-v25 .chof-list,.chof-flt .chof-list{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1081px){
+  .chof-v10 .chof-list,.chof-v25 .chof-list,.chof-flt .chof-list{grid-template-columns:repeat(3,1fr)}}
+.chof-v10 .chof-list>li:nth-child(n+10),
+.chof-v25 .chof-list>li:nth-child(n+25){display:none}
+.chof-bar,.chof-count,.chof-more{display:none}
+.chof-js .chof-bar{display:flex}
+.chof-js .chof-count{display:block}
+.chof-js .chof-head{margin-bottom:var(--s4)}
+.chof-bar{position:sticky;top:var(--bar-h);z-index:20;flex-wrap:nowrap;align-items:center;
+  justify-content:center;gap:var(--s2);margin:0 calc(var(--gut) * -1);padding:5px var(--gut);
+  background:var(--band-bg);border-block:1px solid var(--hair)}
+.chof-seg{display:flex;flex:none}
+.chof-seg button{position:relative;min-width:44px;height:44px;padding:0 10px;cursor:pointer;
+  white-space:nowrap;font:700 var(--t-sm)/1 var(--body);color:var(--chrome-ink);
+  background:var(--card);border:1px solid var(--keyline);border-left-width:0}
+.chof-seg button:first-child{border-left-width:1px;border-radius:var(--r-pill) 0 0 var(--r-pill);padding-left:14px}
+.chof-seg button:last-child{border-radius:0 var(--r-pill) var(--r-pill) 0;padding-right:14px}
+.chof-seg button:focus-visible{z-index:1}
+.chof-v10 .chof-seg [data-view="10"],.chof-v25 .chof-seg [data-view="25"],
+.chof-vall .chof-seg [data-view="all"]{background:var(--mustard);color:var(--on-accent)}
+.chof-pick{position:relative;flex:1 1 0;min-width:0;max-width:280px}
+.chof-pick::after{content:"";position:absolute;right:16px;top:50%;width:7px;height:7px;
+  border:solid var(--sky-deep);border-width:0 2px 2px 0;transform:translateY(-70%) rotate(45deg);
+  pointer-events:none}
+.chof-pick select{display:block;width:100%;height:44px;padding:0 34px 0 14px;appearance:none;
+  -webkit-appearance:none;font:600 1rem/1 var(--body);color:var(--chrome-ink);cursor:pointer;
+  background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);
+  text-overflow:ellipsis}
+.chof-pick-r{display:none}
+@media(min-width:621px){.chof-pick-r{display:block}}
+.chof-count{margin:var(--s2) auto var(--s5);min-height:1.6em;text-align:center;
+  font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--chrome-dim)}
+.chof-v10 .chof-more,.chof-v25 .chof-more,.chof-flt .chof-more{display:block}
+.chof-more{margin-top:var(--s6);text-align:center}
+.chof-more button{min-height:48px;padding:0 var(--s5);cursor:pointer;
+  font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);background:var(--mustard);
+  border:2px solid var(--chrome-ink);border-radius:var(--r-pill)}
+.chof-up{position:fixed;z-index:50;right:calc(var(--s4) + env(safe-area-inset-right,0px));
+  bottom:calc(var(--s4) + env(safe-area-inset-bottom,0px));width:44px;height:44px;padding:0;
+  cursor:pointer;display:grid;place-items:center;font:700 1.25rem/1 var(--body);
+  color:var(--on-accent);background:var(--mustard);border:2px solid var(--chrome-ink);
+  border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.chof-up:focus-visible{box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 0 5px rgba(255,255,255,.95)}
+.chof[id],.mvc[id]{scroll-margin-top:calc(var(--bar-h) + 56px + var(--s5))}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
@@ -350,6 +427,35 @@ main{padding-top:0}
 .lb-close{position:absolute;top:var(--s4);right:var(--s4);width:44px;height:44px;
   border-radius:50%;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);
   color:#fff;font-size:1.3rem;cursor:pointer}</style>
+<script>(function(){
+var d=document.documentElement,C=window.CHOF={total:209,view:'all',set:'',rar:''};
+C.def=window.matchMedia&&matchMedia('(max-width:620px)').matches?'25':'all';
+var st=document.createElement('style');document.head.appendChild(st);
+function ok(x){return /^[a-z0-9-]+$/.test(x)?x:''}
+C.read=function(){
+var h=location.hash.replace(/^#/,'');
+if(h&&h.indexOf('=')<0) return false;
+var v=C.def,s='',r='';
+h.split('&').forEach(function(p){
+var i=p.indexOf('='),k=p.slice(0,i),x=p.slice(i+1);
+if(k==='view') v=x==='top10'?'10':x==='top25'?'25':x==='all'?'all':v;
+if(k==='set') s=ok(x);
+if(k==='rarity') r=ok(x);
+});
+C.view=v;C.set=s;C.rar=r;return true;
+};
+C.paint=function(){
+var f=C.set||C.rar,a=[];
+d.classList.remove('chof-v10','chof-v25','chof-vall','chof-flt');
+d.classList.add(f?'chof-flt':C.view==='10'?'chof-v10':C.view==='25'?'chof-v25':'chof-vall');
+if(C.set) a.push('[data-s="'+C.set+'"]');
+if(C.rar) a.push('[data-r="'+C.rar+'"]');
+st.textContent=a.map(function(q){return '.chof-list>li:not('+q+'),.mvc:not('+q+'){display:none}'}).join('');
+};
+d.classList.add('chof-js');
+if(!C.read()) C.view='all';
+C.paint();
+})();</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -518,8 +624,80 @@ main{padding-top:0}
     </div>
 
     
+    <span id="chofMark"></span>
+    <div class="chof-bar" id="chofBar">
+      <div class="chof-seg" role="group" aria-label="How many cards to show">
+        <button type="button" data-view="10" aria-pressed="false">Top 10</button>
+        <button type="button" data-view="25" aria-pressed="false">Top 25</button>
+        <button type="button" data-view="all" aria-pressed="true">All</button>
+      </div>
+      <span class="chof-pick">
+        <select id="chofSet" aria-label="Filter by set">
+          <option value="">All sets</option>
+          <option value="30th-celebration">30th Celebration (20)</option>
+          <option value="abyss-eye-jp">Abyss Eye (JP) (2)</option>
+          <option value="ascended-heroes">Ascended Heroes (25)</option>
+          <option value="black-bolt">Black Bolt (5)</option>
+          <option value="chaos-rising">Chaos Rising (15)</option>
+          <option value="chilling-reign">Chilling Reign (1)</option>
+          <option value="crown-zenith">Crown Zenith (1)</option>
+          <option value="cyber-judge-jp">Cyber Judge (JP) (1)</option>
+          <option value="delta-reign">Delta Reign (1)</option>
+          <option value="destined-rivals">Destined Rivals (12)</option>
+          <option value="first-partner-illustration-collection">First Partner Illustration Collection (6)</option>
+          <option value="journey-together">Journey Together (13)</option>
+          <option value="lost-origin">Lost Origin (1)</option>
+          <option value="mega-brave-jp">Mega Brave (JP) (1)</option>
+          <option value="mega-evolution">Mega Evolution (11)</option>
+          <option value="mega-symphonia-jp">Mega Symphonia (JP) (2)</option>
+          <option value="mep-black-star-promos">MEP Black Star Promos (6)</option>
+          <option value="nihil-zero-jp">Nihil Zero (JP) (3)</option>
+          <option value="ninja-spinner-jp">Ninja Spinner (JP) (3)</option>
+          <option value="paradox-rift">Paradox Rift (2)</option>
+          <option value="perfect-order">Perfect Order (20)</option>
+          <option value="phantasmal-flames">Phantasmal Flames (15)</option>
+          <option value="pitch-black">Pitch Black (10)</option>
+          <option value="pokemon-go">Pokémon GO (6)</option>
+          <option value="prismatic-evolutions">Prismatic Evolutions (7)</option>
+          <option value="rebel-clash">Rebel Clash (1)</option>
+          <option value="shining-fates">Shining Fates (1)</option>
+          <option value="silver-tempest">Silver Tempest (3)</option>
+          <option value="stellar-miracle-jp">Stellar Miracle (JP) (3)</option>
+          <option value="surging-sparks">Surging Sparks (8)</option>
+          <option value="svp-black-star-promos">SVP Black Star Promos (2)</option>
+          <option value="twilight-masquerade">Twilight Masquerade (1)</option>
+          <option value="white-flare">White Flare (1)</option>
+        </select>
+      </span>
+      <span class="chof-pick chof-pick-r">
+        <select id="chofRar" aria-label="Filter by rarity">
+          <option value="">All rarities</option>
+          <option value="ace-spec-rare">ACE SPEC Rare (2)</option>
+          <option value="art-rare">Art Rare (10)</option>
+          <option value="black-star-promo">Black Star Promo (14)</option>
+          <option value="classic-collection">Classic Collection (6)</option>
+          <option value="common">Common (1)</option>
+          <option value="double-rare">Double Rare (68)</option>
+          <option value="holo-rare-v">Holo Rare V (8)</option>
+          <option value="holo-rare-vmax">Holo Rare VMAX (1)</option>
+          <option value="hyper-rare">Hyper Rare (2)</option>
+          <option value="illustration-rare">Illustration Rare (48)</option>
+          <option value="mega-hyper-rare">Mega Hyper Rare (1)</option>
+          <option value="promo">Promo (1)</option>
+          <option value="radiant-rare">Radiant Rare (1)</option>
+          <option value="rare">Rare (1)</option>
+          <option value="secret-rare">Secret Rare (2)</option>
+          <option value="special-illustration-rare">Special Illustration Rare (4)</option>
+          <option value="super-rare">Super Rare (3)</option>
+          <option value="ultra-rare">Ultra Rare (36)</option>
+        </select>
+      </span>
+    </div>
+    <p class="chof-count" id="chofCount" aria-live="polite">Showing all 209 cards</p>
+
     
-    <div class="mvc" id="card-chaos-rising-122">
+    
+    <div class="mvc" id="card-chaos-rising-122" data-s="chaos-rising" data-r="mega-hyper-rare">
       <span class="mvc-rank">1</span>
       <span class="mvc-tag">MVC &middot; Most valuable card</span>
       <button class="mvc-art" type="button"
@@ -528,7 +706,7 @@ main{padding-top:0}
           data-number="122" data-url="https://www.tcgplayer.com/product/693518"
           data-raw="$110"
           data-psa="$614"
-          aria-label="Enlarge Mega Greninja ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/122/high.avif"><img src="https://assets.tcgdex.net/en/me/me04/122/high.webp" alt="Mega Greninja ex Mega Hyper Rare from Pokemon Chaos Rising" width="600" height="825"></picture></button>
+          aria-label="Enlarge Mega Greninja ex"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me04/122/high.avif"><img src="https://assets.tcgdex.net/en/me/me04/122/high.webp" alt="Mega Greninja ex Mega Hyper Rare from Pokemon Chaos Rising" width="600" height="825" fetchpriority="high"></picture></button>
       <div class="mvc-b">
         <b class="mvc-nm">Mega Greninja ex</b>
         <span class="mvc-set">Chaos Rising &bull; #122 &bull; Mega Hyper Rare</span>
@@ -549,8 +727,83 @@ main{padding-top:0}
       <p>Nothing here was hand picked, and it is one plaque per printing: the rip log records 260 cards, 51 of them a printing already on this page, pulled again, which leaves the 209 on this page.</p>
     </details>
 
+    
+    <script>(function(){
+var C=window.CHOF; if(!C) return;
+var d=document, seg=d.querySelectorAll('.chof-seg button'), selS=d.getElementById('chofSet'),
+selR=d.getElementById('chofRar'), cnt=d.getElementById('chofCount'), mark=d.getElementById('chofMark'),
+up=null, calm=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+function n(x){return Number(x).toLocaleString('en-US')}
+function pick(sel,key){
+sel.value=key;
+if(sel.selectedIndex<0||sel.value!==key){sel.value='';return ''}
+return key;
+}
+function sel(){return (C.set?'[data-s="'+C.set+'"]':'')+(C.rar?'[data-r="'+C.rar+'"]':'')}
+function count(){
+var f=C.set||C.rar, t=n(C.total);
+if(!f){cnt.textContent=C.view==='all'?'Showing all '+t+' cards':'Showing '+Math.min(+C.view,C.total)+' of '+t+' cards';return}
+var q=sel(), k=d.querySelectorAll('.chof-list>li'+q+',.mvc'+q).length,
+names=[selS,selR].map(function(s){var o=s.options[s.selectedIndex];return o&&o.value?o.text.replace(/ [(][0-9]+[)]$/,''):''}).filter(Boolean).join(', ');
+cnt.textContent='Showing '+k+' of '+t+' cards: '+names+(k?'':'. Nothing here is both.');
+}
+function sync(){
+C.set=pick(selS,C.set); C.rar=pick(selR,C.rar);
+C.paint();
+var f=C.set||C.rar;
+for(var i=0;i<seg.length;i++) seg[i].setAttribute('aria-pressed',String(!f&&seg[i].getAttribute('data-view')===C.view));
+count();
+}
+function settle(){
+var bar=d.querySelector('.bar'), h=bar?bar.offsetHeight:0, y=mark.getBoundingClientRect().top;
+if(y<h) window.scrollTo(0,(window.pageYOffset||0)+y-h);
+}
+function go(){
+sync();
+var a=[];
+if(C.set) a.push('set='+C.set);
+if(C.rar) a.push('rarity='+C.rar);
+if(!a.length) a.push('view='+(C.view==='all'?'all':'top'+C.view));
+try{history.pushState(null,'','#'+a.join('&'))}catch(e){}
+}
+for(var i=0;i<seg.length;i++) seg[i].addEventListener('click',function(){
+C.view=this.getAttribute('data-view'); C.set=''; C.rar=''; go(); settle();
+});
+selS.addEventListener('change',function(){C.set=selS.value; go(); settle()});
+selR.addEventListener('change',function(){C.rar=selR.value; go(); settle()});
+function fromHash(){
+if(C.read()){sync();return}
+var t=null; try{t=d.getElementById(decodeURIComponent(location.hash.slice(1)))}catch(e){}
+if(t&&!t.getClientRects().length){C.view='all';C.set='';C.rar='';sync();t.scrollIntoView()}
+}
+window.addEventListener('popstate',fromHash);
+d.addEventListener('click',function(e){
+var t=e.target.closest?e.target.closest('#chofAll,#chofUp'):null;
+if(!t) return;
+if(t.id==='chofUp'){
+window.scrollTo({top:0,behavior:calm?'auto':'smooth'});
+var m=d.getElementById('main'); if(m) m.focus({preventScroll:true});
+return;
+}
+var lis=d.querySelectorAll('.chof-list>li'), was=C.set||C.rar, first=null;
+for(var i=0;i<lis.length&&!first;i++) if(was||!lis[i].getClientRects().length) first=lis[i];
+C.view='all'; C.set=''; C.rar=''; go();
+if(was) settle();
+var f=first&&first.querySelector('button,a'); if(f) f.focus({preventScroll:!was});
+});
+var tick=false;
+window.addEventListener('scroll',function(){
+if(tick) return; tick=true;
+requestAnimationFrame(function(){
+tick=false; up=up||d.getElementById('chofUp');
+if(up) up.hidden=(window.pageYOffset||0)<window.innerHeight*2.5;
+});
+},{passive:true});
+sync();
+if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',count);
+})();</script>
     <ol class="chof-list">
-      <li class="chof chof-top chof-2">
+      <li class="chof chof-top chof-2" data-s="destined-rivals" data-r="hyper-rare">
         <span class="chof-rank">2</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/240/high.webp" data-name="Team Rocket's Mewtwo ex"
@@ -575,7 +828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/we-hit-team-rockets-mewtwo-ex-destined-rivals-pack-6-GK_IadR7G1g.html"><span>See it pulled</span>WE HIT Team Rocket’s Mewtwo ex 🤯✨ | Destined Rivals Pack #6</a>
         </div>
       </li>
-      <li class="chof chof-top chof-3">
+      <li class="chof chof-top chof-3" data-s="30th-celebration" data-r="special-illustration-rare">
         <span class="chof-rank">3</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/155/high.webp" data-name="Jirachi ex"
@@ -600,7 +853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pulled-averys-jirachi-sir-BvnrfvDoaZ0.html"><span>See it pulled</span>Pulled Avery’s Jirachi SIR… 🕊️🌠</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">4</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/023/high.webp" data-name="Mega Charizard X ex"
@@ -625,7 +878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">5</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716199_in_1000x1000.jpg" data-name="Darkrai &amp; Cresselia Legend (Top)"
@@ -650,7 +903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/we-hit-an-insane-gold-glitter-legend-card-sMPnsTcOXc0.html"><span>See it pulled</span>We Hit an Insane Gold Glitter LEGEND Card?! 🌙✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="radiant-rare">
         <span class="chof-rank">6</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp" data-name="Radiant Charizard"
@@ -675,7 +928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-go-booster-pack-7-running-out-of-chances-5BnjVE-BN70.html"><span>See it pulled</span>Pokémon GO Booster Pack #7 ⚡ | Running Out of Chances… 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="special-illustration-rare">
         <span class="chof-rank">7</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/118/high.webp" data-name="Gladion's Final Battle"
@@ -700,7 +953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/i-pulled-the-best-trainer-in-the-set-b1B3Vbpsrh8.html"><span>See it pulled</span>I Pulled the BEST Trainer in the Set! ⚔️✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="special-illustration-rare">
         <span class="chof-rank">8</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/129/high.webp" data-name="Dawn"
@@ -725,7 +978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/i-found-an-sir-but-not-the-zard-R2VxbNMrlXQ.html"><span>See it pulled</span>I FOUND AN SIR! 💎 (But Not The Zard...)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">9</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716202_in_1000x1000.jpg" data-name="N"
@@ -750,7 +1003,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-knock-out-pack-2-gold-glitter-border-classi-MUTiE4hsMsM.html"><span>See it pulled</span>30th Celebration Knock Out Pack #2 🔥 | GOLD GLITTER BORDER! Classic N Trainer! 🏆</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="silver-tempest" data-r="holo-rare-v">
         <span class="chof-rank">10</span>
         <button class="chof-art" type="button"
           data-img="https://images.pokemontcg.io/swsh12tg/TG18.png" data-name="Corviknight V"
@@ -775,7 +1028,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html"><span>See it pulled</span>Random 2-Pack Blister 😬 | Armarouge, Revavroom &amp; Houndstone</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">11</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/238/high.webp" data-name="Team Rocket's Mimikyu"
@@ -800,7 +1053,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-2-pack-blister-erikas-tangela-promo-SOQUDUMboVU.html"><span>See it pulled</span>Ascended Heroes 2-Pack Blister 🌿 | Erika’s Tangela Promo</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="black-bolt" data-r="illustration-rare">
         <span class="chof-rank">12</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/088/high.webp" data-name="Servine"
@@ -825,7 +1078,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>See it pulled</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="special-illustration-rare">
         <span class="chof-rank">13</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/182/high.webp" data-name="Volcanion ex"
@@ -850,7 +1103,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/journey-together-booster-bundle-pack-2-yMTuhasZsZ4.html"><span>See it pulled</span>Journey Together Booster Bundle ⚡ | Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="svp-black-star-promos" data-r="promo">
         <span class="chof-rank">14</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/646169_in_1000x1000.jpg" data-name="Victini"
@@ -875,7 +1128,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>See it pulled</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="black-bolt" data-r="illustration-rare">
         <span class="chof-rank">15</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/101/high.webp" data-name="Panpour"
@@ -900,7 +1153,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-garbodor-unova-mini-tin-rochesters-pok-mon-Ab81MNFnDLw.html"><span>See it pulled</span>Only Garbage Rips 😬 | Garbodor Unova Mini Tin (Rochester’s Pokémon)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">16</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716160_in_1000x1000.jpg" data-name="Dark Tyranitar"
@@ -925,7 +1178,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/we-pulled-dark-tyranitar-with-the-gold-glitter-border-H-u3HvtEFuI.html"><span>See it pulled</span>We Pulled DARK TYRANITAR With the Gold Glitter Border! 🦖✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="illustration-rare">
         <span class="chof-rank">17</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/212/high.webp" data-name="Slakoth"
@@ -950,7 +1203,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/we-pulled-the-coziest-card-ever-slakoth-illustration-rare-8Rq81W27eys.html"><span>See it pulled</span>We Pulled the COZIEST Card Ever: Slakoth Illustration Rare! 🦥✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">18</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-042-420.webp" data-name="Piplup"
@@ -975,7 +1228,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-partner-box-4-still-no-151-starters-JjTm-bYLhGE.html"><span>See it pulled</span>First Partner Box #4 🎨 | STILL No 151 Starters… 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="illustration-rare">
         <span class="chof-rank">19</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/162/high.webp" data-name="Wailord"
@@ -1000,7 +1253,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="illustration-rare">
         <span class="chof-rank">20</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/146/high.webp" data-name="Marshadow"
@@ -1025,7 +1278,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chilling-reign" data-r="secret-rare">
         <span class="chof-rank">21</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh6/233/high.webp" data-name="Fighting Energy"
@@ -1050,7 +1303,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-my-first-chilling-reign-pack-J-Gqbe3jPn4.html"><span>See it pulled</span>Opening My FIRST Chilling Reign Pack 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="black-bolt" data-r="illustration-rare">
         <span class="chof-rank">22</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/117/high.webp" data-name="Musharna"
@@ -1075,7 +1328,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>See it pulled</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">23</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716195_in_1000x1000.jpg" data-name="Erika's Jigglypuff"
@@ -1100,7 +1353,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-pack-2-back-to-back-hits-gold-glitter-borde-AOdqwSZFsGw.html"><span>See it pulled</span>30th Celebration Pack #2 🔥 | BACK-TO-BACK HITS! Gold Glitter Border! 🏆</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">24</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/024/high.webp" data-name="Oricorio ex"
@@ -1125,7 +1378,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="ultra-rare">
         <span class="chof-rank">25</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/100/high.webp" data-name="Mega Greninja ex"
@@ -1150,7 +1403,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-booster-bundle-2-pack-5-please-save-this-bundle-udV4EBssAj0.html"><span>See it pulled</span>Chaos Rising Booster Bundle #2 ⚡🔥 | Pack #5 (PLEASE Save This Bundle 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">26</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/146/high.webp" data-name="Maushold"
@@ -1175,7 +1428,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/3-hits-in-a-row-this-trippy-maushold-ir-is-unreal-JrrgpXdSoq8.html"><span>See it pulled</span>3 Hits in a Row?! This Trippy Maushold IR is UNREAL! 🌈🐭</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="white-flare" data-r="illustration-rare">
         <span class="chof-rank">27</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5w/134/high.webp" data-name="Mienshao"
@@ -1200,7 +1453,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>See it pulled</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="illustration-rare">
         <span class="chof-rank">28</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/198/high.webp" data-name="Feebas"
@@ -1225,7 +1478,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-kyogre-knock-out-collection-m9K7hpyjn04.html"><span>See it pulled</span>Only Garbage Rips 😬 | Kyogre Knock Out Collection</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">29</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716159_in_1000x1000.jpg" data-name="Misty"
@@ -1250,15 +1503,15 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-delivers-again-gold-glitter-classic-collect-7SV1GE23CGA.html"><span>See it pulled</span>30th Celebration Delivers AGAIN! Gold Glitter Classic Collection Misty Hit! 🏆⚡</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="crown-zenith" data-r="rare">
         <span class="chof-rank">30</span>
         <button class="chof-art" type="button"
-          data-img="https://images.pokemontcg.io/swsh12pt5gg/GG32.png" data-name="Paras"
+          data-img="/assets/subset/swsh12pt5gg-gg32-lg.avif" data-name="Paras"
           data-set="Crown Zenith" data-rarity="Rare"
           data-number="GG32" data-url=""
           data-raw="$7.65"
           data-psa="$175"
-          aria-label="Enlarge Paras"><img src="https://images.pokemontcg.io/swsh12pt5gg/GG32.png" alt="Paras Rare from Pokemon Crown Zenith" loading="lazy" onerror="this.remove()" width="245" height="342"></button>
+          aria-label="Enlarge Paras"><picture><source type="image/avif" srcset="/assets/subset/swsh12pt5gg-gg32.avif"><img src="/assets/subset/swsh12pt5gg-gg32.webp" alt="Paras Rare from Pokemon Crown Zenith" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="342"></picture></button>
         
         <div class="chof-body">
           
@@ -1275,7 +1528,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-crown-zenith-booster-pack-1-first-pack-magic-U91JWMsUHAU.html"><span>See it pulled</span>Pokémon Crown Zenith Booster Pack #1 👑 | First Pack Magic?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="illustration-rare">
         <span class="chof-rank">31</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/154/high.webp" data-name="Stufful"
@@ -1300,7 +1553,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">32</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/236/high.webp" data-name="Slurpuff"
@@ -1325,7 +1578,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-feraligatr-ex-box-pack-1-first-pack-magic-qKiLbaLhdp8.html"><span>See it pulled</span>Mega Feraligatr ex Box 🌊🔥 | Pack #1 (First Pack Magic?!)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">33</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/265/high.webp" data-name="Mega Froslass ex"
@@ -1350,7 +1603,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-mini-tin-3-is-this-the-one-sdZx0lmq2mQ.html"><span>See it pulled</span>Ascended Heroes Mini Tin #3 ⚡ | Is This The One?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="hyper-rare">
         <span class="chof-rank">34</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/178/high.webp" data-name="Walking Wake ex"
@@ -1375,7 +1628,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/prismatic-evolutions-etb-pack-4-is-this-the-umbreon-pack-VjhleCTxCDA.html"><span>See it pulled</span>Prismatic Evolutions ETB ✨ | Pack #4 Is This The Umbreon Pack?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">35</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/022/high.webp" data-name="Mega Charizard Y ex"
@@ -1400,7 +1653,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-elite-trainer-box-pack-1-9-packs-9-chances--e9F0ufKpIQ.html"><span>See it pulled</span>Ascended Heroes Elite Trainer Box Pack #1 ⚡ | 9 Packs. 9 Chances.</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">36</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/225/high.webp" data-name="Scorbunny"
@@ -1425,7 +1678,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/scorbunny-illustration-rare-mega-meganium-box-2-u9zpVOVsWyg.html"><span>See it pulled</span>SCORBUNNY ILLUSTRATION RARE! 🔥 | Mega Meganium Box #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">37</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/133/high.webp" data-name="Zapdos"
@@ -1450,7 +1703,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-pack-3-3-for-3-clean-sweep-zapdos-hit-AebP2_eyvGI.html"><span>See it pulled</span>30th Celebration Pack #3 🔥 | 3 FOR 3 CLEAN SWEEP! Zapdos Hit! 🏆</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">38</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-044-420.webp" data-name="Litten"
@@ -1475,7 +1728,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html"><span>See it pulled</span>6 BOXES... and STILL No OG Starters?! 😭</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="holo-rare-v">
         <span class="chof-rank">39</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/030/high.webp" data-name="Mewtwo V"
@@ -1500,7 +1753,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-go-booster-pack-6-mewtwo-or-ditto-gSygkzEehmU.html"><span>See it pulled</span>Pokémon GO Booster Pack #6 ⚡ | Mewtwo or Ditto?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">40</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-043-420.webp" data-name="Rowlet"
@@ -1525,7 +1778,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html"><span>See it pulled</span>6 BOXES... and STILL No OG Starters?! 😭</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="classic-collection">
         <span class="chof-rank">41</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/716161_in_1000x1000.jpg" data-name="Sneasel"
@@ -1550,7 +1803,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-tin-pack-3-6-hits-in-a-row-gold-glitter-bor-5TKvy9CVPww.html"><span>See it pulled</span>30th Celebration Tin Pack #3 🔥 | 6 HITS IN A ROW! Gold Glitter Border! 🏆</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">42</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/030/high.webp" data-name="Mega Charizard Y ex"
@@ -1575,7 +1828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-charizard-y-ex-tin-did-we-hit-GLM2VLIWZGo.html"><span>See it pulled</span>Mega Charizard Y EX Tin 🔥 | Did We Hit?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="illustration-rare">
         <span class="chof-rank">43</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/105/high.webp" data-name="Wigglytuff"
@@ -1600,7 +1853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/phantasmal-flames-pack-14-the-cutest-hit-in-the-entire-set-jJWVipd2sf0.html"><span>See it pulled</span>Phantasmal Flames Pack #14 🥺 | The CUTEST Hit in the Entire Set! 🎀</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="abyss-eye-jp" data-r="art-rare">
         <span class="chof-rank">44</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/695065_in_1000x1000.jpg" data-name="Goldeen"
@@ -1625,7 +1878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-abyss-eye-packs-7-8-back-to-back-hits-XjM6y2L7v1c.html"><span>See it pulled</span>Japanese Abyss Eye 👁️🔥 | Packs #7 &amp; #8 (Back-To-Back Hits?!) 😳</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="ultra-rare">
         <span class="chof-rank">45</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/209/high.webp" data-name="Ethan's Ho-Oh ex"
@@ -1650,7 +1903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-destined-rivals-pack-11-25YT9cNRpqk.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Destined Rivals Pack #11</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">46</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-040-420.webp" data-name="Turtwig"
@@ -1675,7 +1928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-partner-box-4-still-no-151-starters-JjTm-bYLhGE.html"><span>See it pulled</span>First Partner Box #4 🎨 | STILL No 151 Starters… 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">47</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/131/high.webp" data-name="Lapras"
@@ -1700,7 +1953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-pack-magic-in-the-30th-poster-collection-YqEnr-bOn8k.html"><span>See it pulled</span>First Pack Magic in the 30th Poster Collection?! 🌊✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="ultra-rare">
         <span class="chof-rank">48</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/118/high.webp" data-name="Dawn"
@@ -1725,7 +1978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">49</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/029/high.webp" data-name="Mega Charizard X ex"
@@ -1750,7 +2003,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mega-charizard-x-tin-F9mAQqKd6r8.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mega Charizard X Tin</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="illustration-rare">
         <span class="chof-rank">50</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/093/high.webp" data-name="Dedenne"
@@ -1775,7 +2028,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pokemon-perfect-order-booster-pack-8-one-pack-magic-6bMl7VF_ov0.html"><span>See it pulled</span>Pokemon Perfect Order Booster Pack #8 ⚡ | One Pack Magic?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">51</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/141/high.webp" data-name="Galarian Meowth"
@@ -1800,7 +2053,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-greninja-box-pack-1-connecting-galarian-meo-sioMdPu-izo.html"><span>See it pulled</span>30th Celebration Greninja Box Pack #1 ✨ | CONNECTING GALARIAN MEOWTH IR! 🐱</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">52</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-045-420.webp" data-name="Popplio"
@@ -1825,7 +2078,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/6-boxes-and-still-no-og-starters-M7NqqhR8V4M.html"><span>See it pulled</span>6 BOXES... and STILL No OG Starters?! 😭</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="illustration-rare">
         <span class="chof-rank">53</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/202/high.webp" data-name="Team Rocket's Raticate"
@@ -1850,7 +2103,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/destined-rivals-pack-12-can-we-top-the-mewtwo-hbUa4l-xono.html"><span>See it pulled</span>Destined Rivals Pack #12 ⚡ | Can We TOP The Mewtwo?! 😳</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="illustration-rare">
         <span class="chof-rank">54</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/169/high.webp" data-name="Noibat"
@@ -1875,7 +2128,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="first-partner-illustration-collection" data-r="black-star-promo">
         <span class="chof-rank">55</span>
         <button class="chof-art" type="button"
           data-img="/assets/first-partner/mep-041-420.webp" data-name="Chimchar"
@@ -1900,7 +2153,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-partner-box-4-still-no-151-starters-JjTm-bYLhGE.html"><span>See it pulled</span>First Partner Box #4 🎨 | STILL No 151 Starters… 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="illustration-rare">
         <span class="chof-rank">56</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/091/high.webp" data-name="Xerneas"
@@ -1925,7 +2178,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pokemon-chaos-rising-booster-pack-8-one-pack-magic-HHjdWa5tfXY.html"><span>See it pulled</span>Pokemon Chaos Rising Booster Pack #8 ⚡🔥 | One Pack Magic?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">57</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/231/high.webp" data-name="Iono's Wattrel"
@@ -1950,7 +2203,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-pack-11-we-pulled-an-iono-card-IYh51hhJkL0.html"><span>See it pulled</span>Ascended Heroes Pack #11 ✨ | We Pulled An IONO CARD! 🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="ultra-rare">
         <span class="chof-rank">58</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/159/high.webp" data-name="Mega Gardevoir ex"
@@ -1975,7 +2228,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">59</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/228/high.webp" data-name="Weavile"
@@ -2000,7 +2253,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-ascended-heroes-2-pack-blister-8xqvY3OzugE.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Ascended Heroes 2-Pack Blister</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">60</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/248/high.webp" data-name="Drakloak"
@@ -2025,7 +2278,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-etb-pack-5-halfway-through-the-box-IcQFu0SaoH4.html"><span>See it pulled</span>Ascended Heroes ETB Pack #5 ⚡ | Halfway Through The Box</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">61</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/102/high.webp" data-name="Mega Starmie ex"
@@ -2050,7 +2303,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-3-pack-blister-chikorita-promo-igNbRZX5e_0.html"><span>See it pulled</span>Perfect Order 3-Pack Blister 🌱 | Chikorita Promo</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="holo-rare-v">
         <span class="chof-rank">62</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/049/high.webp" data-name="Dragonite V"
@@ -2075,7 +2328,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-go-booster-pack-3-getting-closer-to-mewtwo-tKOXv-qSYTo.html"><span>See it pulled</span>Pokémon GO Booster Pack #3 ⚡ | Getting Closer to Mewtwo?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">63</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/105/high.webp" data-name="Yveltal ex"
@@ -2100,7 +2353,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-pack-14-most-metal-card-in-the-set-yveltal-ex-j9WH5F22YUA.html"><span>See it pulled</span>Perfect Order Pack #14 🔥 | Most Metal Card in the Set?! Yveltal ex! 🎸</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="illustration-rare">
         <span class="chof-rank">64</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/090/high.webp" data-name="Ampharos"
@@ -2125,7 +2378,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-pack-magic-ampharos-illustration-rare-RP08BTumj2U.html"><span>See it pulled</span>FIRST PACK MAGIC! ✨ | Ampharos Illustration Rare!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">65</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/152/high.webp" data-name="Mega Dragonite ex"
@@ -2150,7 +2403,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html"><span>See it pulled</span>Ascended Heroes Tech Sticker Collection 👻 | Gastly Promo</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="illustration-rare">
         <span class="chof-rank">66</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/097/high.webp" data-name="Dewgong"
@@ -2175,7 +2428,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-pok-mon-first-partner-illustration-collection-series-JVrd7EVB2_8.html"><span>See it pulled</span>Opening Pokémon First Partner Illustration Collection Series 1 Box #1 🎨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="ultra-rare">
         <span class="chof-rank">67</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/097/high.webp" data-name="Wailord ex"
@@ -2200,7 +2453,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-9th-pack-saved-the-box-h5mje3jbD48.html"><span>See it pulled</span>The 9th Pack SAVED the Box! 🐋😱</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="illustration-rare">
         <span class="chof-rank">68</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/151/high.webp" data-name="Spearow"
@@ -2225,7 +2478,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html"><span>See it pulled</span>Only Garbage Rips from the Mega Kangaskhan ex Box</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="double-rare">
         <span class="chof-rank">69</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/030/high.webp" data-name="Jolteon ex"
@@ -2250,7 +2503,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-prismatic-evolutions-booster-packs-AqZBxDu2wkc.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Prismatic Evolutions Booster Packs</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">70</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/145/high.webp" data-name="Hisuian Zorua"
@@ -2275,7 +2528,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-tin-pack-1-new-moonbreon-card-insane-hit-pRN-3vPPVq8.html"><span>See it pulled</span>30th Celebration Tin Pack #1 ✨ | NEW Moonbreon Card?! Insane Hit! 🌕</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">71</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/103/high.webp" data-name="Mega Clefable ex"
@@ -2300,7 +2553,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-etb-pack-3-getting-lucky-DMJYnQE8shY.html"><span>See it pulled</span>Perfect Order ETB ⚡ | Pack #3 Getting Lucky?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="illustration-rare">
         <span class="chof-rank">72</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/194/high.webp" data-name="Shiinotic"
@@ -2325,7 +2578,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/back-to-back-hits-poke-ball-tin-part-2-lrl5v4z317s.html"><span>See it pulled</span>BACK TO BACK HITS! ⚡🔥 | Poke Ball Tin Part 2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="ace-spec-rare">
         <span class="chof-rank">73</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/191/high.webp" data-name="Enriching Energy"
@@ -2350,7 +2603,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-surging-sparks-pack-1-IuEb3qtjflI.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Surging Sparks Pack #1</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="delta-reign" data-r="ultra-rare">
         <span class="chof-rank">74</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/728054_in_1000x1000.jpg" data-name="Mega Malamar ex"
@@ -2375,7 +2628,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-pack-magic-in-the-brand-new-delta-reign-etb-ImL4P9zX8pg.html"><span>See it pulled</span>FIRST PACK MAGIC in the Brand New Delta Reign ETB! 🦑✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">75</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/134/high.webp" data-name="Toxtricity"
@@ -2400,7 +2653,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-greninja-box-pack-2-back-to-back-hits-heavy-DCQKbd_q0tA.html"><span>See it pulled</span>30th Celebration Greninja Box Pack #2 🔥 | BACK-TO-BACK HITS! Heavy Metal Toxtricity IR! 🎸</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ninja-spinner-jp" data-r="art-rare">
         <span class="chof-rank">76</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/M/M4/087/high.webp" data-name="Frogadier"
@@ -2425,7 +2678,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-ninja-spinner-packs-greninja-hunt-begins-_ccErXVzURs.html"><span>See it pulled</span>Japanese Ninja Spinner Packs 🇯🇵🥷 | Greninja Hunt Begins</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="illustration-rare">
         <span class="chof-rank">77</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/188/high.webp" data-name="Hydrapple"
@@ -2450,7 +2703,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-colors-on-this-hydrapple-ir-are-crazy-yxJsHPvs3uU.html"><span>See it pulled</span>The Colors on This Hydrapple IR Are CRAZY! 🍏✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="ultra-rare">
         <span class="chof-rank">78</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/101/high.webp" data-name="Mega Floette ex"
@@ -2475,7 +2728,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/finally-a-hit-in-chaos-rising-etb-2-msETNgFSWD0.html"><span>See it pulled</span>FINALLY! A Hit in Chaos Rising ETB #2 ⚡🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="rebel-clash" data-r="holo-rare-vmax">
         <span class="chof-rank">79</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh2/36/high.webp" data-name="Cinderace VMAX"
@@ -2500,7 +2753,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-rebel-clash-booster-pack-2-any-better-nCIpRxwMMBE.html"><span>See it pulled</span>Pokémon Rebel Clash Booster Pack #2 ⚡ | Any Better?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="ultra-rare">
         <span class="chof-rank">80</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/220/high.webp" data-name="Emcee's Hype"
@@ -2525,7 +2778,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pack-19-brought-serious-hip-hop-vibes-emcees-hype-hit--w4IhbVkH3k.html"><span>See it pulled</span>Pack #19 Brought Serious Hip Hop Vibes! Emcee’s Hype Hit! 🎤🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">81</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/106/high.webp" data-name="Mega Skarmory ex"
@@ -2550,7 +2803,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-skarmory-ex-double-rare-pull-k6p_6HEntYw.html"><span>See it pulled</span>Mega Skarmory ex Double Rare Pull! 🦅</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="illustration-rare">
         <span class="chof-rank">82</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/197/high.webp" data-name="Rotom"
@@ -2575,7 +2828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="ultra-rare">
         <span class="chof-rank">83</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/230/high.webp" data-name="Cyrano"
@@ -2600,7 +2853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">84</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/235/high.webp" data-name="Togekiss"
@@ -2625,7 +2878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html"><span>See it pulled</span>Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">85</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/249/high.webp" data-name="Larry's Staraptor"
@@ -2650,7 +2903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-ascended-heroes-bundle-pack-last-pack-magic-8d2a5b_BmYQ.html"><span>See it pulled</span>FINAL Ascended Heroes Bundle Pack ⚡ | Last Pack Magic?! 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="secret-rare">
         <span class="chof-rank">86</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/087/high.webp" data-name="Egg Incubator"
@@ -2675,7 +2928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-pok-mon-go-pack-mewtwo-or-ditto-i9htInhtbCw.html"><span>See it pulled</span>FINAL Pokémon GO Pack ⚡ | Mewtwo or Ditto?! 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="illustration-rare">
         <span class="chof-rank">87</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/087/high.webp" data-name="Chespin"
@@ -2700,7 +2953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/back-to-back-hits-mega-greninja-box-pack-2-pRkDVGXWufQ.html"><span>See it pulled</span>BACK-TO-BACK HITS! 😱 | Mega Greninja Box Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="illustration-rare">
         <span class="chof-rank">88</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/165/high.webp" data-name="Swinub"
@@ -2725,7 +2978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-journey-together-bundle-2-pack-3-uGRqBM2AOag.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Journey Together Bundle #2 Pack #3</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="illustration-rare">
         <span class="chof-rank">89</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/092/high.webp" data-name="Thievul"
@@ -2750,7 +3003,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/thievul-ir-pitch-black-first-pack-magic-GTC45Mri_gc.html"><span>See it pulled</span>Thievul IR! 🦊 Pitch Black First Pack Magic!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="illustration-rare">
         <span class="chof-rank">90</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/186/high.webp" data-name="Crustle"
@@ -2775,7 +3028,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-destined-rivals-pack-10-1zqH_hRYFvo.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Destined Rivals Pack #10</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="ultra-rare">
         <span class="chof-rank">91</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/166/high.webp" data-name="Air Balloon"
@@ -2800,7 +3053,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-venusaur-ex-premium-collection-opening-j6O6KdblfeY.html"><span>See it pulled</span>Mega Venusaur ex Premium Collection Opening 🌿🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="ultra-rare">
         <span class="chof-rank">92</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/174/high.webp" data-name="Premium Power Pro"
@@ -2825,7 +3078,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-2-pack-blister-vileplume-evolution-promos-qlu2os83uos.html"><span>See it pulled</span>Pokémon 2-Pack Blister 🌸 | Vileplume Evolution Promos</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="ultra-rare">
         <span class="chof-rank">93</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/165/high.webp" data-name="Acerola's Mischief"
@@ -2850,7 +3103,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mega-evolutions-pack-2-dQaN_4yqS0w.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mega Evolutions Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">94</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/115/high.webp" data-name="Sacred Ash"
@@ -2875,7 +3128,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/another-hit-mega-zygarde-box-2-pack-4-X0KK70SjzEM.html"><span>See it pulled</span>ANOTHER HIT! 💎 | Mega Zygarde Box #2 Pack #4</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="ultra-rare">
         <span class="chof-rank">95</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/100/high.webp" data-name="Rampardos ex"
@@ -2900,7 +3153,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-curse-is-broken-pitch-black-hit-JfHlnrlX6S0.html"><span>See it pulled</span>THE CURSE IS BROKEN! 😱 Pitch Black Hit!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="illustration-rare">
         <span class="chof-rank">96</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/230/high.webp" data-name="Vikavolt"
@@ -2925,7 +3178,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-booster-bundle-2-pack-1-first-pack-magic-W2eIV9tya84.html"><span>See it pulled</span>Ascended Heroes Booster Bundle #2 ⚡ | Pack #1 (First Pack Magic?!)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">97</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/056/high.webp" data-name="Mega Gengar ex"
@@ -2950,7 +3203,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="illustration-rare">
         <span class="chof-rank">98</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/094/high.webp" data-name="Toucannon"
@@ -2975,7 +3228,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/toucannon-illustration-rare-pitch-black-etb-ndzNjhARITQ.html"><span>See it pulled</span>Toucannon Illustration Rare! 🌴 | Pitch Black ETB</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="stellar-miracle-jp" data-r="art-rare">
         <span class="chof-rank">99</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/106/high.webp" data-name="Raboot"
@@ -3000,7 +3253,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-japanese-stellar-miracle-packs-bh8OGK_jE2Y.html"><span>See it pulled</span>Opening Japanese Stellar Miracle Packs 🇯🇵✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="illustration-rare">
         <span class="chof-rank">100</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/092/high.webp" data-name="Aurorus"
@@ -3025,7 +3278,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-etb-pack-1-first-pack-magic-oAdG2xms9Ko.html"><span>See it pulled</span>Perfect Order ETB ⚡ | Pack #1 First Pack Magic?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="double-rare">
         <span class="chof-rank">101</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/082/high.webp" data-name="Lugia ex"
@@ -3050,7 +3303,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/prismatic-evolutions-mini-tin-1-first-tin-magic-wBIeB-63sKw.html"><span>See it pulled</span>Prismatic Evolutions Mini Tin #1 ✨ | First Tin Magic!?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="stellar-miracle-jp" data-r="art-rare">
         <span class="chof-rank">102</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/111/high.webp" data-name="Meditite"
@@ -3075,7 +3328,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-japanese-stellar-miracle-packs-bh8OGK_jE2Y.html"><span>See it pulled</span>Opening Japanese Stellar Miracle Packs 🇯🇵✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="ultra-rare">
         <span class="chof-rank">103</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/112/high.webp" data-name="Mismagius ex"
@@ -3100,7 +3353,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/phantasmal-flames-pack-16-insane-pink-purple-mismagius-ex-gXDLCLsEydg.html"><span>See it pulled</span>Phantasmal Flames Pack #16 🔥 | Insane Pink &amp; Purple Mismagius ex! 💖💜</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="double-rare">
         <span class="chof-rank">104</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/012/high.webp" data-name="Teal Mask Ogerpon ex"
@@ -3125,7 +3378,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/prismatic-evolutions-poster-collection-eeveelutions-8SX0B-7WM8A.html"><span>See it pulled</span>Prismatic Evolutions Poster Collection 💖 | Eeveelutions!?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">105</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/251/high.webp" data-name="Sprigatito ex"
@@ -3150,7 +3403,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-colors-on-this-sprigatito-ex-are-unreal-XHs2nFVn-Gk.html"><span>See it pulled</span>The Colors on This Sprigatito ex Are Unreal! 😻💚🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="abyss-eye-jp" data-r="art-rare">
         <span class="chof-rank">106</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/695075_in_1000x1000.jpg" data-name="Manectric"
@@ -3175,7 +3428,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-abyss-eye-packs-5-6-we-need-a-hit-0vpWimyqJIE.html"><span>See it pulled</span>Japanese Abyss Eye 👁️🔥 | Packs #5 &amp; #6 (We NEED A Hit 😭)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="nihil-zero-jp" data-r="art-rare">
         <span class="chof-rank">107</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/674403_in_1000x1000.jpg" data-name="Aurorus"
@@ -3200,7 +3453,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-nihil-zero-packs-from-buffalo-tcg-con-NzWUDxXwnPI.html"><span>See it pulled</span>Japanese Nihil Zero Packs 🇯🇵🧊 | From Buffalo TCG Con!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="ultra-rare">
         <span class="chof-rank">108</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/115/high.webp" data-name="Mega Lopunny ex"
@@ -3225,7 +3478,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-phantasmal-flames-pack-8-KEK0q0PgN_I.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Phantasmal Flames Pack #8</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="silver-tempest" data-r="holo-rare-v">
         <span class="chof-rank">109</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh12/033/high.webp" data-name="Alolan Vulpix V"
@@ -3250,7 +3503,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mabosstiff-box-opening-g9RQqx9da6Q.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mabosstiff Box Opening 🐶</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">110</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/138/high.webp" data-name="Lycanroc"
@@ -3275,7 +3528,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-pack-magic-strikes-the-sylveon-ex-box-1mUXNOw1GJ8.html"><span>See it pulled</span>First Pack Magic Strikes the Sylveon ex Box! 🐺✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-brave-jp" data-r="art-rare">
         <span class="chof-rank">111</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/647183_in_1000x1000.jpg" data-name="Spearow"
@@ -3300,7 +3553,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-mega-brave-packs-do-these-hit-K5RKQlNhvl8.html"><span>See it pulled</span>Japanese Mega Brave Packs 🇯🇵💥 | Do These Hit?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="ultra-rare">
         <span class="chof-rank">112</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/179/high.webp" data-name="Brock's Scouting"
@@ -3325,7 +3578,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">113</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/100/high.webp" data-name="Decidueye ex"
@@ -3350,7 +3603,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-booster-bundle-2-pack-4-we-need-a-hit-qUzKnP4zmjM.html"><span>See it pulled</span>Perfect Order Booster Bundle #2 ⚡ | Pack #4 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">114</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/056/high.webp" data-name="Lillie's Clefairy ex"
@@ -3375,7 +3628,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-journey-together-booster-bundle-pack-last-pack-magic-LGzHC-k4vh0.html"><span>See it pulled</span>FINAL Journey Together Booster Bundle Pack ⚡ | Last Pack Magic?! 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="illustration-rare">
         <span class="chof-rank">115</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/096/high.webp" data-name="Nymble"
@@ -3400,7 +3653,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-phantasmal-flames-pack-7-S_2SHhBqlH8.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Phantasmal Flames Pack #7</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">116</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/111/high.webp" data-name="Lumiose City"
@@ -3425,7 +3678,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-pack-magic-lumiose-city-ultra-rare-O1hNutypTR8.html"><span>See it pulled</span>FIRST PACK MAGIC! ✨ | Lumiose City Ultra Rare! 🏙️</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="ultra-rare">
         <span class="chof-rank">117</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/108/high.webp" data-name="Energy Recycler"
@@ -3450,7 +3703,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ultra-rare-trainer-pull-mega-zygarde-box-2-pack-2-9CpAz0MxnTE.html"><span>See it pulled</span>Ultra Rare Trainer Pull! 💎 | Mega Zygarde Box #2 Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="illustration-rare">
         <span class="chof-rank">118</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/098/high.webp" data-name="Doublade"
@@ -3475,7 +3728,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-perfect-order-booster-bundle-2-pack-last-pack-magic-l_vpvsLXG50.html"><span>See it pulled</span>FINAL Perfect Order Booster Bundle #2 Pack ⚡🔥 | Last Pack Magic?! 😳</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">119</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/263/high.webp" data-name="Team Rocket's Transceiver"
@@ -3500,7 +3753,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/last-pack-magic-team-rocket-ultra-rare-pull-gFZ_jiV7DEY.html"><span>See it pulled</span>LAST PACK MAGIC! 🚀 | Team Rocket Ultra Rare Pull!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="illustration-rare">
         <span class="chof-rank">120</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/093/high.webp" data-name="Bastiodon"
@@ -3525,7 +3778,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/gold-star-in-a-single-pack-bastion-ir-LmdyCAqDodM.html"><span>See it pulled</span>GOLD STAR IN A SINGLE PACK?! 😱 Bastion IR</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="nihil-zero-jp" data-r="super-rare">
         <span class="chof-rank">121</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/674422_in_1000x1000.jpg" data-name="Poke Pad"
@@ -3550,7 +3803,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/more-japanese-nihil-zero-packs-buffalo-tcg-con-pickups-EPqUqzrAc30.html"><span>See it pulled</span>More Japanese Nihil Zero Packs 🇯🇵🧊 | Buffalo TCG Con Pickups!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="ultra-rare">
         <span class="chof-rank">122</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/114/high.webp" data-name="Empoleon ex"
@@ -3575,7 +3828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/first-partner-collection-box-3-151-starter-hunt-continues-4z82NZ7QCJY.html"><span>See it pulled</span>First Partner Collection Box #3 🎨 | 151 Starter Hunt Continues…</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="illustration-rare">
         <span class="chof-rank">123</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/097/high.webp" data-name="Watchog"
@@ -3600,7 +3853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pokemon-chaos-rising-launch-day-booster-pack-1-h1vqc-37k_8.html"><span>See it pulled</span>Pokemon Chaos Rising LAUNCH DAY ⚡🔥 | Booster Pack #1</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">124</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/024/high.webp" data-name="Blaziken ex"
@@ -3625,7 +3878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="double-rare">
         <span class="chof-rank">125</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/003/high.webp" data-name="Mega Venusaur ex"
@@ -3650,7 +3903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="illustration-rare">
         <span class="chof-rank">126</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/140/high.webp" data-name="Scraggy"
@@ -3675,7 +3928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-tin-finale-4-hits-in-1-tin-scraggy-illustra-No311h8Ps-I.html"><span>See it pulled</span>30th Celebration Tin Finale 🔥 | 4 HITS IN 1 TIN?! Scraggy Illustration Rare! 💥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">127</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/062/high.webp" data-name="Meowth ex"
@@ -3700,7 +3953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-zygarde-ex-premium-collection-pack-4-we-need-a-hit-lcxUwIjlqZY.html"><span>See it pulled</span>Mega Zygarde ex Premium Collection ⚡🔥 | Pack #4 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">128</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/022/high.webp" data-name="Mega Greninja ex"
@@ -3725,7 +3978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-etb-pack-6-we-need-a-hit-QKYrh9l8BYA.html"><span>See it pulled</span>Chaos Rising ETB ⚡🔥 | Pack #6 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="ultra-rare">
         <span class="chof-rank">129</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/137/high.webp" data-name="Friends in Paldea"
@@ -3750,7 +4003,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-prismatic-etb-pack-5-t_okfWNQ4BQ.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Prismatic ETB Pack #5</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">130</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/047/high.webp" data-name="Mega Zygarde ex"
@@ -3775,7 +4028,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-perfect-order-bundle-2-pack-2-Y6rNMk6_kFs.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Perfect Order Bundle #2 Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="double-rare">
         <span class="chof-rank">131</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/064/high.webp" data-name="Mewtwo ex"
@@ -3800,7 +4053,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/4-packs-4-hits-this-sylveon-ex-box-cannot-miss-BXRHCA7aDkg.html"><span>See it pulled</span>4 Packs, 4 Hits?! This Sylveon ex Box Cannot Miss! 🧬🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">132</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/098/high.webp" data-name="N's Zoroark ex"
@@ -3825,7 +4078,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-charizard-y-ex-tin-did-we-hit-GLM2VLIWZGo.html"><span>See it pulled</span>Mega Charizard Y EX Tin 🔥 | Did We Hit?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="double-rare">
         <span class="chof-rank">133</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/048/high.webp" data-name="Mega Darkrai ex"
@@ -3850,7 +4103,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-darkrai-ex-is-insane-VSf9bxl_siE.html"><span>See it pulled</span>Mega Darkrai ex is INSANE! 😱🤘</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">134</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/258/high.webp" data-name="Cheren"
@@ -3875,7 +4128,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-tech-sticker-collection-gastly-promo-LlGPrTKqIYg.html"><span>See it pulled</span>Ascended Heroes Tech Sticker Collection 👻 | Gastly Promo</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">135</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/031/high.webp" data-name="Volcanion ex"
@@ -3900,7 +4153,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-journey-together-scrafty-blister-hLr5iThoO2k.html"><span>See it pulled</span>Only Garbage Rips 😬 | Journey Together Scrafty Blister</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="black-star-promo">
         <span class="chof-rank">136</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/713268_in_1000x1000.jpg" data-name="Greninja ex"
@@ -3925,7 +4178,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-tin-pack-1-new-moonbreon-card-insane-hit-pRN-3vPPVq8.html"><span>See it pulled</span>30th Celebration Tin Pack #1 ✨ | NEW Moonbreon Card?! Insane Hit! 🌕</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">137</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/135/high.webp" data-name="Mega Scrafty ex"
@@ -3950,7 +4203,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/finally-an-ex-hit-mega-emboar-box-2-nBKJMnw9L2Y.html"><span>See it pulled</span>Finally! An ex Hit! ⚡ | Mega Emboar Box #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="double-rare">
         <span class="chof-rank">138</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/070/high.webp" data-name="Espeon ex"
@@ -3975,7 +4228,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/back-to-back-hits-in-the-30th-poster-collection-IZucQIOpGJM.html"><span>See it pulled</span>Back-to-Back Hits in the 30th Poster Collection?! 🔮✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="ultra-rare">
         <span class="chof-rank">139</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/121/high.webp" data-name="Punk Helmet"
@@ -4000,7 +4253,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/my-5th-box-please-be-the-ogs-xNGxOuMpSiw.html"><span>See it pulled</span>My 5th Box... PLEASE Be The OGs! 😭</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="nihil-zero-jp" data-r="art-rare">
         <span class="chof-rank">140</span>
         <button class="chof-art" type="button"
           data-img="https://tcgplayer-cdn.tcgplayer.com/product/674411_in_1000x1000.jpg" data-name="Raticate"
@@ -4025,7 +4278,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/japanese-nihil-zero-packs-from-buffalo-tcg-con-NzWUDxXwnPI.html"><span>See it pulled</span>Japanese Nihil Zero Packs 🇯🇵🧊 | From Buffalo TCG Con!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">141</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/022/high.webp" data-name="Lapras ex"
@@ -4050,7 +4303,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-perfect-order-pack-3-VYyrgZDkOFY.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Perfect Order Pack #3</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="double-rare">
         <span class="chof-rank">142</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/136/high.webp" data-name="Marnie's Grimmsnarl ex"
@@ -4075,7 +4328,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-pok-mon-fall-2025-collector-chest-TN7_ZsuRQSI.html"><span>See it pulled</span>Only Garbage Rips from the Pokémon Fall 2025 Collector Chest</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">143</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/254/high.webp" data-name="Anthea &amp; Concordia"
@@ -4100,7 +4353,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-first-partners-deluxe-pin-collection-fZk7D5Wd0Eg.html"><span>See it pulled</span>Ascended Heroes First Partners Deluxe Pin Collection 🌱🔥💧</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="cyber-judge-jp" data-r="super-rare">
         <span class="chof-rank">144</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV5M/085/high.webp" data-name="Incineroar ex"
@@ -4125,7 +4378,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-japanese-cyber-judge-booster-packs--1fhlQB1okI.html"><span>See it pulled</span>Only Garbage Rips 😬 | Japanese Cyber Judge Booster Packs</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">145</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/036/high.webp" data-name="Mismagius ex"
@@ -4150,7 +4403,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-phantasmal-flames-sleeved-boosters-Prq7KI6j1Vk.html"><span>See it pulled</span>Only Garbage Rips 😬 | Phantasmal Flames Sleeved Boosters</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="silver-tempest" data-r="holo-rare-v">
         <span class="chof-rank">146</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh12/024/high.webp" data-name="Reshiram V"
@@ -4175,7 +4428,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html"><span>See it pulled</span>Random 2-Pack Blister 😬 | Armarouge, Revavroom &amp; Houndstone</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="double-rare">
         <span class="chof-rank">147</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/104/high.webp" data-name="Cynthia's Garchomp ex"
@@ -4200,7 +4453,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/well-take-what-we-can-get-cynthias-garchomp-ex-8FyM47w2nto.html"><span>See it pulled</span>We’ll Take What We Can Get: Cynthia’s Garchomp ex! 🦈🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">148</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/160/high.webp" data-name="Dragapult ex"
@@ -4225,7 +4478,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-sticker-collection-charmander-promo--fOEh7wMmkE.html"><span>See it pulled</span>Ascended Heroes Sticker Collection 😬 | Charmander Promo 🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">149</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/029/high.webp" data-name="Rotom ex"
@@ -4250,7 +4503,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-raikou-2-pack-blister-cmV6P3ssh2g.html"><span>See it pulled</span>Only Garbage Rips 😬 | Raikou 2-Pack Blister</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="double-rare">
         <span class="chof-rank">150</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/119/high.webp" data-name="Team Rocket's Nidoking ex"
@@ -4275,7 +4528,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/destined-rivals-pack-14-team-rocket-takes-over-X7gs6hM1Oio.html"><span>See it pulled</span>Destined Rivals Pack #14 🚀 | Team Rocket Takes Over! 💥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="ultra-rare">
         <span class="chof-rank">151</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/171/high.webp" data-name="Mega Signal"
@@ -4300,7 +4553,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-evolution-pack-6-3-hits-in-a-row-ultra-rare-trainer-Qe4h_y9NaQ8.html"><span>See it pulled</span>Mega Evolution Pack #6 📡 | 3 HITS IN A ROW! Ultra Rare Trainer! 🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">152</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/179/high.webp" data-name="Terapagos ex"
@@ -4325,7 +4578,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-pack-6-still-no-big-hits-GroN9k8XsN0.html"><span>See it pulled</span>Ascended Heroes Pack #6 ⚡ | STILL No Big Hits… 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">153</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/038/high.webp" data-name="Cinderace ex"
@@ -4350,7 +4603,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-pack-3-third-times-the-charm-LROQ-vFl4Hs.html"><span>See it pulled</span>Ascended Heroes Pack #3… Third Time’s the Charm? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="double-rare">
         <span class="chof-rank">154</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/064/high.webp" data-name="Tyranitar ex"
@@ -4375,7 +4628,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/prismatic-evolutions-etb-pack-7-running-out-of-chances-Q26NJsmeVko.html"><span>See it pulled</span>Prismatic Evolutions ETB ✨ | Pack #7 (Running Out Of Chances 😳)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="double-rare">
         <span class="chof-rank">155</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/086/high.webp" data-name="Mega Absol ex"
@@ -4400,7 +4653,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-evolution-pack-5-back-to-back-mega-hits-eWnSpGWvKWI.html"><span>See it pulled</span>Mega Evolution Pack #5 ⚔️ | Back-to-Back MEGA HITS! 💥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="double-rare">
         <span class="chof-rank">156</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/065/high.webp" data-name="Mega Excadrill ex"
@@ -4425,7 +4678,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/i-cant-stop-hitting-pitch-black-booster-bundle-EtFK6nFW6IQ.html"><span>See it pulled</span>I Can't Stop Hitting! ✨ Pitch Black Booster Bundle</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">157</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/070/high.webp" data-name="Iono's Bellibolt ex"
@@ -4450,7 +4703,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-ascended-heroes-bundle-2-pack-last-pack-magic-vW8lkXEx3Ao.html"><span>See it pulled</span>FINAL Ascended Heroes Bundle #2 Pack ⚡ | Last Pack Magic?! 😳</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">158</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/116/high.webp" data-name="Mega Hawlucha ex"
@@ -4475,7 +4728,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-meganium-ex-box-pack-3-we-need-a-hit-hOBpKIl2lX4.html"><span>See it pulled</span>Mega Meganium ex Box 🌿🔥 | Pack #3 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">159</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/021/high.webp" data-name="Mega Starmie ex"
@@ -4500,7 +4753,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/this-mini-tin-is-glowing-mega-starmie-ex-m41IeIUpqRI.html"><span>See it pulled</span>This Mini Tin is GLOWING! ✨ Mega Starmie ex</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="double-rare">
         <span class="chof-rank">160</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/045/high.webp" data-name="Rampardos ex"
@@ -4525,7 +4778,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-most-disappointing-hit-pitch-black-oSPbl9reyIM.html"><span>See it pulled</span>The most DISAPPOINTING &quot;Hit&quot; 💀 Pitch Black</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">161</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/064/high.webp" data-name="Cobalion ex"
@@ -4550,7 +4803,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-etb-pack-4-heating-up-4gBo585VhEI.html"><span>See it pulled</span>Chaos Rising ETB ⚡🔥 | Pack #4 (Heating Up?!) 😳</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="double-rare">
         <span class="chof-rank">162</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/102/high.webp" data-name="Jirachi ex"
@@ -4575,7 +4828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-tin-pack-2-5-hits-in-a-row-jirachi-ex-iJHcRxYHa5g.html"><span>See it pulled</span>30th Celebration Tin Pack #2 🔥 | 5 HITS IN A ROW! Jirachi ex! 🌠</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">163</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/055/high.webp" data-name="Mega Skarmory ex"
@@ -4600,7 +4853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-zygarde-ex-premium-collection-pack-5-we-need-a-hit-_3gRDHTv1lQ.html"><span>See it pulled</span>Mega Zygarde ex Premium Collection ⚡🔥 | Pack #5 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="illustration-rare">
         <span class="chof-rank">164</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/096/high.webp" data-name="Probopass"
@@ -4625,7 +4878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-perfect-order-pack-6-d0ux4nsMixw.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Perfect Order Pack #6</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">165</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/035/high.webp" data-name="Mega Floette ex"
@@ -4650,7 +4903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-streak-is-broken-mega-floette-ex-019sIQP5PwA.html"><span>See it pulled</span>THE STREAK IS BROKEN! 😱 Mega Floette ex</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">166</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/015/high.webp" data-name="Mega Pyroar ex"
@@ -4675,7 +4928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-booster-bundle-2-pack-1-first-pack-magic-BiBdyozoD_Q.html"><span>See it pulled</span>Chaos Rising Booster Bundle #2 ⚡🔥 | Pack #1 (First Pack Magic?!)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">167</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/012/high.webp" data-name="Decidueye ex"
@@ -4700,7 +4953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/perfect-order-booster-bundle-2-pack-3-getting-lucky-wtUPdMnZ_S8.html"><span>See it pulled</span>Perfect Order Booster Bundle #2 ⚡ | Pack #3 (Getting Lucky?!)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pitch-black" data-r="double-rare">
         <span class="chof-rank">168</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me05/038/high.webp" data-name="Mega Chandelure ex"
@@ -4725,7 +4978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/i-found-first-pack-magic-pitch-black-etb-q1WTwiauv3w.html"><span>See it pulled</span>I Found First Pack Magic! ✨ Pitch Black ETB</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-evolution" data-r="double-rare">
         <span class="chof-rank">169</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me01/077/high.webp" data-name="Mega Lucario ex"
@@ -4750,7 +5003,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-evolution-pack-4-we-finally-hit-a-mega-5lv5he4FWxM.html"><span>See it pulled</span>Mega Evolution Pack #4 ⚔️ | We Finally Hit a MEGA! 💥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">170</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/025/high.webp" data-name="Mega Kangaskhan ex"
@@ -4775,7 +5028,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-mega-kangaskhan-ex-box-l6RPdGNs7uE.html"><span>See it pulled</span>Only Garbage Rips from the Mega Kangaskhan ex Box</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="ultra-rare">
         <span class="chof-rank">171</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/181/high.webp" data-name="Ruffian"
@@ -4800,7 +5053,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-journey-together-3-pack-blister-SOCAXif6Mzs.html"><span>See it pulled</span>Only Garbage Rips 😬 | Journey Together 3-Pack Blister</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="twilight-masquerade" data-r="double-rare">
         <span class="chof-rank">172</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv06/141/high.webp" data-name="Bloodmoon Ursaluna ex"
@@ -4825,7 +5078,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-a-reshiram-ex-box-is-this-worth-it-ac3pK3zh0DE.html"><span>See it pulled</span>Opening a Reshiram ex Box 😬 | Is This Worth It?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">173</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/070/high.webp" data-name="Empoleon ex"
@@ -4850,7 +5103,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mega-charizard-x-tin-F9mAQqKd6r8.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mega Charizard X Tin</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">174</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/003/high.webp" data-name="Beedrill ex"
@@ -4875,7 +5128,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-chaos-rising-etb-2-pack-6-x3gI4dEKNMs.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Chaos Rising ETB #2 Pack #6</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="holo-rare-v">
         <span class="chof-rank">175</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/047/high.webp" data-name="Melmetal V"
@@ -4900,7 +5153,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-go-booster-pack-4-is-this-the-mewtwo-pack-yjBNG5dvopc.html"><span>See it pulled</span>Pokémon GO Booster Pack #4 ⚡ | Is This The Mewtwo Pack!?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">176</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/055/high.webp" data-name="Krookodile ex"
@@ -4925,7 +5178,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-etb-pack-8-only-one-pack-left-Mhz1-_ppwJA.html"><span>See it pulled</span>Chaos Rising ETB ⚡🔥 | Pack #8 (Only One Pack Left 😳)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">177</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/065/high.webp" data-name="Mega Dragalge ex"
@@ -4950,7 +5203,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/chaos-rising-pack-9-can-this-single-pack-hit-EifpW6bQhPE.html"><span>See it pulled</span>Chaos Rising Pack #9 😳 | Can This Single Pack Hit?!</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="ultra-rare">
         <span class="chof-rank">178</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/252/high.webp" data-name="Stunfisk ex"
@@ -4975,7 +5228,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-pok-mon-ascended-heroes-pack-1-3dKWTVbCH3I.html"><span>See it pulled</span>Only Garbage Rips 😬 | Pokémon Ascended Heroes Pack #1</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="prismatic-evolutions" data-r="double-rare">
         <span class="chof-rank">179</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08.5/058/high.webp" data-name="Cornerstone Mask Ogerpon ex"
@@ -5000,7 +5253,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-prismatic-etb-pack-2-LFpa9K2DA6Q.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Prismatic ETB Pack #2</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="30th-celebration" data-r="double-rare">
         <span class="chof-rank">180</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/30th/015/high.webp" data-name="Fuecoco ex"
@@ -5025,7 +5278,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/30th-celebration-pack-1-launch-day-hit-master-set-quest-begi-tD8klCySHn8.html"><span>See it pulled</span>30th Celebration Pack #1 ✨ | Launch Day HIT! Master Set Quest Begins! 🏆</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">181</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/164/high.webp" data-name="Larry's Dudunsparce ex"
@@ -5050,7 +5303,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-emboar-ex-box-pack-3-we-need-the-mega-dragonite-sir-w3dQBhumsug.html"><span>See it pulled</span>Mega Emboar ex Box 🔥🐉 | Pack #3 (We NEED The Mega Dragonite SIR)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="chaos-rising" data-r="double-rare">
         <span class="chof-rank">182</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me04/073/high.webp" data-name="Cinccino ex"
@@ -5075,7 +5328,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/the-cutest-pull-ever-chaos-rising-O5WscUY7qZI.html"><span>See it pulled</span>The Cutest Pull Ever?! 🐭✨ Chaos Rising</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="stellar-miracle-jp" data-r="art-rare">
         <span class="chof-rank">183</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/SV/SV7/107/high.webp" data-name="Crabominable"
@@ -5100,7 +5353,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-more-japanese-stellar-miracle-packs-yJujjKbIVFg.html"><span>See it pulled</span>Opening MORE Japanese Stellar Miracle Packs 🇯🇵✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">184</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/084/high.webp" data-name="Mega Lopunny ex"
@@ -5125,7 +5378,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-phantasmal-flames-blister-packs-AXOYuKfoBXU.html"><span>See it pulled</span>Only Garbage Rips 😬 | Phantasmal Flames Blister Packs</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">185</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/031/high.webp" data-name="Mega Clefable ex"
@@ -5150,7 +5403,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/final-perfect-order-pack-mega-zygarde-collection-pack-6-sS0fvyss7IM.html"><span>See it pulled</span>FINAL Perfect Order Pack?! 😳 | Mega Zygarde Collection Pack #6</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="double-rare">
         <span class="chof-rank">186</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/122/high.webp" data-name="Team Rocket's Crobat ex"
@@ -5175,7 +5428,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/destined-rivals-pack-7-can-we-go-even-bigger-gq4wUMrTrB0.html"><span>See it pulled</span>Destined Rivals Pack #7 ⚡ | Can We Go EVEN Bigger?! 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mep-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">187</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/mep/013/high.webp" data-name="Mega Venusaur ex"
@@ -5200,7 +5453,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/mega-venusaur-ex-premium-collection-opening-j6O6KdblfeY.html"><span>See it pulled</span>Mega Venusaur ex Premium Collection Opening 🌿🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="double-rare">
         <span class="chof-rank">188</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/091/high.webp" data-name="Palossand ex"
@@ -5225,7 +5478,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/opening-a-reshiram-ex-box-is-this-worth-it-ac3pK3zh0DE.html"><span>See it pulled</span>Opening a Reshiram ex Box 😬 | Is This Worth It?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ascended-heroes" data-r="double-rare">
         <span class="chof-rank">189</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02.5/061/high.webp" data-name="Mega Eelektross ex"
@@ -5250,7 +5503,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ascended-heroes-booster-bundle-2-pack-4-we-need-a-hit-jAkffPVM-JA.html"><span>See it pulled</span>Ascended Heroes Booster Bundle #2 ⚡ | Pack #4 (We NEED A Hit 😬)</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">190</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/053/high.webp" data-name="Iono's Bellibolt ex"
@@ -5275,7 +5528,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/journey-together-booster-bundle-pack-4-VP1UXW3MrGU.html"><span>See it pulled</span>Journey Together Booster Bundle ⚡ | Pack #4 🫣</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="svp-black-star-promos" data-r="black-star-promo">
         <span class="chof-rank">191</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/svp/086/high.webp" data-name="Mabosstiff ex"
@@ -5300,7 +5553,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mabosstiff-box-opening-g9RQqx9da6Q.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mabosstiff Box Opening 🐶</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="black-bolt" data-r="ultra-rare">
         <span class="chof-rank">192</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/160/high.webp" data-name="Excadrill ex"
@@ -5325,7 +5578,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-unova-mini-tin-2-any-better-J0Gy0iIz3ok.html"><span>See it pulled</span>Pokémon Unova Mini Tin #2 ⚡ | Any Better?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">193</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/079/high.webp" data-name="Mamoswine ex"
@@ -5350,7 +5603,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/journey-together-booster-bundle-2-pack-4-we-need-a-hit-76YEF7mdqvk.html"><span>See it pulled</span>Journey Together Booster Bundle #2 ⚡ | Pack #4 We NEED A Hit 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="paradox-rift" data-r="double-rare">
         <span class="chof-rank">194</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv04/046/high.webp" data-name="Tsareena ex"
@@ -5375,7 +5628,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-paradox-rift-blister-packs-EOFAhFwJKqw.html"><span>See it pulled</span>Only Garbage Rips 😬 | Paradox Rift Blister Packs</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="destined-rivals" data-r="double-rare">
         <span class="chof-rank">195</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10/065/high.webp" data-name="Cetitan ex"
@@ -5400,7 +5653,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="journey-together" data-r="double-rare">
         <span class="chof-rank">196</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv09/011/high.webp" data-name="Amoonguss ex"
@@ -5425,7 +5678,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/journey-together-pack-2-2-for-2-on-hits-ppYiPob4uZk.html"><span>See it pulled</span>Journey Together Pack #2 🍄 | 2 for 2 on Hits! 🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="double-rare">
         <span class="chof-rank">197</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/159/high.webp" data-name="Cyclizar ex"
@@ -5450,7 +5703,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/surging-sparks-booster-pack-2-any-better-EvVnOpgwSmo.html"><span>See it pulled</span>Surging Sparks Booster Pack #2 ⚡ | Any Better?</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="phantasmal-flames" data-r="double-rare">
         <span class="chof-rank">198</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me02/004/high.webp" data-name="Mega Heracross ex"
@@ -5475,7 +5728,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/phantasmal-flames-pack-15-mega-evolution-power-mega-heracros-_9Cc1U43S5A.html"><span>See it pulled</span>Phantasmal Flames Pack #15 🔥 | Mega Evolution Power! Mega Heracross ex! 🪲</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="pokemon-go" data-r="common">
         <span class="chof-rank">199</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh10.5/059/high.webp" data-name="Bidoof"
@@ -5500,7 +5753,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-go-pack-12-still-no-ditto-or-mewtwo-QXS1W_L2qbs.html"><span>See it pulled</span>Pokémon GO Pack #12 ⚡ | STILL No Ditto or Mewtwo?! 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="shining-fates" data-r="holo-rare-v">
         <span class="chof-rank">200</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh4.5/18/high.webp" data-name="Cinderace V"
@@ -5525,7 +5778,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-shining-fates-pack-1-B5--7Dh5OEA.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Shining Fates Pack #1</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="perfect-order" data-r="double-rare">
         <span class="chof-rank">201</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/me/me03/016/high.webp" data-name="Salazzle ex"
@@ -5550,7 +5803,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/a-hit-is-a-hit-mega-zygarde-box-2-pack-5-z9fpigSEZ3Y.html"><span>See it pulled</span>A Hit is a Hit! 💎 | Mega Zygarde Box #2 Pack #5</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="black-bolt" data-r="double-rare">
         <span class="chof-rank">202</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv10.5b/046/high.webp" data-name="Excadrill ex"
@@ -5575,7 +5828,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/pok-mon-victini-illustration-collection-only-garbage-rips-XjFoToaom6k.html"><span>See it pulled</span>Pokémon Victini Illustration Collection 🔥 Only Garbage Rips? 😬</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-symphonia-jp" data-r="super-rare">
         <span class="chof-rank">203</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/M/M1S/082/high.webp" data-name="Rare Candy"
@@ -5600,7 +5853,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/do-mega-symphonia-packs-actually-hit-auKzs0g2LL8.html"><span>See it pulled</span>Do Mega Symphonia Packs Actually Hit?! 🇯🇵✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="paradox-rift" data-r="double-rare">
         <span class="chof-rank">204</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv04/050/high.webp" data-name="Golisopod ex"
@@ -5625,7 +5878,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-mabosstiff-box-opening-g9RQqx9da6Q.html"><span>See it pulled</span>Only Garbage Rips? 😬 | Mabosstiff Box Opening 🐶</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="lost-origin" data-r="holo-rare-v">
         <span class="chof-rank">205</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/swsh/swsh11/129/low.webp" data-name="Galarian Perrserker V"
@@ -5650,7 +5903,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/random-2-pack-blister-armarouge-revavroom-houndstone-cg0H0ipfB90.html"><span>See it pulled</span>Random 2-Pack Blister 😬 | Armarouge, Revavroom &amp; Houndstone</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="surging-sparks" data-r="ace-spec-rare">
         <span class="chof-rank">206</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/en/sv/sv08/186/high.webp" data-name="Scramble Switch"
@@ -5675,7 +5928,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/only-garbage-rips-from-the-latest-costco-charizard-upc-drop-kj7532tb0_I.html"><span>See it pulled</span>Only Garbage Rips from the Latest Costco Charizard UPC Drop</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="mega-symphonia-jp" data-r="double-rare">
         <span class="chof-rank">207</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/M/M1S/018/high.webp" data-name="Mega Abomasnow ex"
@@ -5700,7 +5953,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/do-mega-symphonia-packs-actually-hit-auKzs0g2LL8.html"><span>See it pulled</span>Do Mega Symphonia Packs Actually Hit?! 🇯🇵✨</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ninja-spinner-jp" data-r="double-rare">
         <span class="chof-rank">208</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/M/M4/071/high.webp" data-name="Cinccino ex"
@@ -5725,7 +5978,7 @@ main{padding-top:0}
           <a class="chof-see" href="/rip/ninja-spinner-6-10-toakpulls-has-the-heat-W1FHYQ8cWlU.html"><span>See it pulled</span>Ninja Spinner #6-10 ⚔️ | @TOAKPulls  Has The HEAT! 🔥</a>
         </div>
       </li>
-      <li class="chof">
+      <li class="chof" data-s="ninja-spinner-jp" data-r="art-rare">
         <span class="chof-rank">209</span>
         <button class="chof-art" type="button"
           data-img="https://assets.tcgdex.net/ja/M/M4/095/high.webp" data-name="Watchog"
@@ -5751,6 +6004,8 @@ main{padding-top:0}
         </div>
       </li>
     </ol>
+    <p class="chof-more"><button type="button" id="chofAll">Show all 209 cards</button></p>
+    <button type="button" class="chof-up" id="chofUp" aria-label="Back to top" hidden><span aria-hidden="true">&uarr;</span></button>
 
     
     <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. A PSA 10 IS PRINTED WHEREVER WE

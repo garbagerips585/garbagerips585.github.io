@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46">
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c">
 <link rel="stylesheet" href="/assets/packs.css?v=35b3692c">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
@@ -140,6 +140,16 @@ text-transform:uppercase;white-space:nowrap}
 }
 .cc-cell .chase-card{position:relative;margin-bottom:14px}
 .cc-cell .cc-rip{margin:-10px 0 8px}
+.cc-more{display:flex;flex-direction:column;align-items:flex-start;margin:-10px 0 8px;min-width:0}
+.cc-cell .cc-more .cc-rip{margin:0}
+.mine .sp-more{align-self:flex-start}
+.flat-item a.sp-more{color:var(--sky-deep)}
+.sp-list{list-style:none;margin:0;padding:var(--s2) var(--s4) var(--s3);display:grid;
+grid-template-columns:repeat(auto-fill,minmax(min(132px,100%),1fr));gap:0 var(--s4)}
+.sp-list a{display:flex;align-items:center;min-height:44px;font:600 var(--t-sm)/1.3 var(--body);
+color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.sp-list a:hover,.sp-list a:focus-visible{color:var(--sky)}
+.sp-det:not([open]) .cl-hide,.sp-det[open] .cl-show{display:none}
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
 .chase-grid .chase-card{container-type:inline-size}
@@ -179,6 +189,8 @@ background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body)
 .lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
 .lbx-rip a{color:var(--sky-deep)}
 .lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+#lbSp{margin:0}
+#lbSp a{display:inline-flex;align-items:center;min-height:44px}
 @media(min-width:760px){
 .lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
 align-items:center;text-align:left;padding:24px}
@@ -427,21 +439,21 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="4/102" data-price="$143"
         data-psa10="$446"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/charizard-4"
-        data-src="Classic Collection 4/102. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 4/102. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="charizard"
           aria-label="Enlarge Charizard, Classic Collection 4/102"><img src="https://tcgplayer-cdn.tcgplayer.com/product/250320_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250320_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250320_400w.jpg 400w" sizes="150px" alt="" loading="lazy" onerror="this.remove()"></button></li>
         <li><button class="sh-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250332_in_1000x1000.jpg"
         data-name="Umbreon ☆" data-rarity="Classic Collection"
         data-number="17/17" data-price="$71.00"
         data-psa10="$310"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/umbreon-17"
-        data-src="Classic Collection 17/17. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 17/17. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="umbreon"
           aria-label="Enlarge Umbreon ☆, Classic Collection 17/17"><img src="https://tcgplayer-cdn.tcgplayer.com/product/250332_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250332_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250332_400w.jpg 400w" sizes="150px" alt="" loading="lazy" onerror="this.remove()"></button></li>
         <li><button class="sh-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250295_in_1000x1000.jpg"
         data-name="Mew" data-rarity="Secret Rare"
         data-number="025/025" data-price="$55.48"
         data-psa10="$174"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/mew-25" data-ill="Saki Hayashiro" data-alts="#011 Holo Rare $3.73"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="mew"
           aria-label="Enlarge Mew, Secret Rare 025/025"><img src="https://tcgplayer-cdn.tcgplayer.com/product/250295_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250295_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250295_400w.jpg 400w" sizes="150px" alt="" loading="lazy" onerror="this.remove()"></button></li>
       </ol>
       <p>The top three by raw price, Classic Collection included</p>
@@ -491,7 +503,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="4/102" data-price="$143"
         data-psa10="$446"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/charizard-4"
-        data-src="Classic Collection 4/102. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 4/102. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="charizard"
         aria-label="Enlarge Charizard, Classic Collection 4/102">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250320_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250320_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250320_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -499,13 +511,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;4/102</span></div>
         <div class="pr">$143</div>
         <div class="pr10">PSA 10 $446<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/charizard.html">All Charizard cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250332_in_1000x1000.jpg"
         data-name="Umbreon ☆" data-rarity="Classic Collection"
         data-number="17/17" data-price="$71.00"
         data-psa10="$310"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/umbreon-17"
-        data-src="Classic Collection 17/17. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 17/17. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="umbreon"
         aria-label="Enlarge Umbreon ☆, Classic Collection 17/17">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250332_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250332_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250332_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -513,13 +525,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;17/17</span></div>
         <div class="pr">$71.00</div>
         <div class="pr10">PSA 10 $310<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/umbreon.html">All Umbreon cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250295_in_1000x1000.jpg"
         data-name="Mew" data-rarity="Secret Rare"
         data-number="025/025" data-price="$55.48"
         data-psa10="$174"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/mew-25" data-ill="Saki Hayashiro" data-alts="#011 Holo Rare $3.73"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="mew"
         aria-label="Enlarge Mew">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250295_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250295_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250295_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -527,13 +539,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Secret <span class="nw">Rare &bull;&nbsp;025/025</span></div>
         <div class="pr">$55.48</div>
         <div class="pr10">PSA 10 $174<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/mew.html">All Mew cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250341_in_1000x1000.jpg"
         data-name="M Rayquaza EX" data-rarity="Classic Collection"
         data-number="76/108" data-price="$35.08"
         data-psa10="$157"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/m-rayquaza-ex-76"
-        data-src="Classic Collection 76/108. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 76/108. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="rayquaza"
         aria-label="Enlarge M Rayquaza EX, Classic Collection 76/108">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250341_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250341_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250341_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -541,13 +553,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;76/108</span></div>
         <div class="pr">$35.08</div>
         <div class="pr10">PSA 10 $157<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/rayquaza.html">All Rayquaza cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250327_in_1000x1000.jpg"
         data-name="Shining Magikarp" data-rarity="Classic Collection"
         data-number="66/64" data-price="$32.14"
         data-psa10="$123"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/shining-magikarp-66"
-        data-src="Classic Collection 66/64. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 66/64. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="magikarp"
         aria-label="Enlarge Shining Magikarp, Classic Collection 66/64">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250327_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250327_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250327_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -555,13 +567,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;66/64</span></div>
         <div class="pr">$32.14</div>
         <div class="pr10">PSA 10 $123<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/magikarp.html">All Magikarp cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250325_in_1000x1000.jpg"
         data-name="_____'s Pikachu" data-rarity="Classic Collection"
         data-number="24" data-price="$29.99"
         data-psa10="$181"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/pikachu-birthday-24"
-        data-src="Classic Collection 24. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 24. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="pikachu"
         aria-label="Enlarge _____'s Pikachu, Classic Collection 24">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250325_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250325_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250325_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -569,13 +581,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;24</span></div>
         <div class="pr">$29.99</div>
         <div class="pr10">PSA 10 $181<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/pikachu.html">All Pikachu cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250338_in_1000x1000.jpg"
         data-name="Zekrom" data-rarity="Classic Collection"
         data-number="114/114" data-price="$16.00"
         data-psa10="$106"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/zekrom-114" data-alts="#010 Rare $1.12"
-        data-src="Classic Collection 114/114. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 114/114. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="zekrom"
         aria-label="Enlarge Zekrom, Classic Collection 114/114">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250338_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250338_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250338_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -583,13 +595,13 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;114/114</span></div>
         <div class="pr">$16.00</div>
         <div class="pr10">PSA 10 $106<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/zekrom.html">All Zekrom cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250337_in_1000x1000.jpg"
         data-name="Reshiram" data-rarity="Classic Collection"
         data-number="113/114" data-price="$15.00"
         data-psa10="$91.50"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/reshiram-113" data-alts="#002 Rare $1.34"
-        data-src="Classic Collection 113/114. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Classic Collection 113/114. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="reshiram"
         aria-label="Enlarge Reshiram, Classic Collection 113/114">
         
         <img src="https://tcgplayer-cdn.tcgplayer.com/product/250337_200w.jpg" srcset="https://tcgplayer-cdn.tcgplayer.com/product/250337_200w.jpg 200w, https://tcgplayer-cdn.tcgplayer.com/product/250337_400w.jpg 400w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="this.remove()">
@@ -597,7 +609,7 @@ height:auto;min-height:44px;padding-block:6px}
         <div class="rr">Classic <span class="nw">Collection &bull;&nbsp;113/114</span></div>
         <div class="pr">$15.00</div>
         <div class="pr10">PSA 10 $91.50<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/reshiram.html">All Reshiram cards</a></div></div>
     </div>
     
     <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. These are the eight priciest of the 25 rows in the checklist further down and the 25 in the Classic Collection list, sorted by price, so they agree with both by construction. The 7 labeled Classic Collection are from that subset. Singles move fast, so treat them as a ballpark rather than a quote.</p>
@@ -661,6 +673,7 @@ height:auto;min-height:44px;padding-block:6px}
         <span class="rr-x"><span class="rr-k">Newest rip</span><span class="rr-t">Celebrations Pack - Pack 1</span><span class="rr-m">Apr 5, 2026 &bull; 0:23</span></span>
       </a></li>
     </ul>
+    <div class="pitch"><p class="pitch-t">A new pack gets ripped on the channel every day, hit or no hit. Subscribe so you catch the next one.</p><a class="btn btn-sub btn-sm" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank" aria-label="Subscribe on YouTube to Garbage Rips 585. Opens YouTube.">Subscribe</a></div>
   </div>
 </section>
 
@@ -694,7 +707,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="025/025" data-price="$55.48"
         data-psa10="$174"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/mew-25" data-ill="Saki Hayashiro" data-alts="#011 Holo Rare $3.73"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="mew"
           aria-label="Enlarge Mew 025/025, the most valuable Secret Rare card"><img src="https://tcgplayer-cdn.tcgplayer.com/product/250295_200w.jpg" alt="" loading="lazy" decoding="async" onerror="this.remove()"></button>
         <span class="rar-name">Secret Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">1</span>
@@ -720,7 +733,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="007/025" data-price="$6.11"
         data-psa10="$87.66"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/flying-pikachu-vmax-7" data-ill="aky CG Works"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="pikachu"
           aria-label="Enlarge Flying Pikachu VMAX 007/025, the most valuable Holo Rare VMAX card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/7/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/7/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare VMAX <b class="ch-tag">Chase</b></span>
         <span class="rar-n">2</span>
@@ -733,7 +746,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="008/025" data-price="$4.24"
         data-psa10="$125"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/surfing-pikachu-v-8" data-ill="aky CG Works"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="pikachu"
           aria-label="Enlarge Surfing Pikachu V 008/025, the most valuable Holo Rare V card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/8/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/8/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare V</span>
         <span class="rar-n">4</span>
@@ -746,7 +759,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="005/025" data-price="$5.15"
         data-psa10="$1,211"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/pikachu-5" data-ill="Mitsuhiro Arita"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="pikachu"
           aria-label="Enlarge Pikachu 005/025, the most valuable Holo Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/5/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/5/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name">Holo Rare</span>
         <span class="rar-n">5</span>
@@ -759,7 +772,7 @@ height:auto;min-height:44px;padding-block:6px}
         data-number="022/025" data-price="$1.60"
         data-psa10="$330"
         data-url="https://www.pricecharting.com/game/pokemon-celebrations/lugia-22" data-ill="Kouki Saitou"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="lugia"
           aria-label="Enlarge Lugia 022/025, the most valuable Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/cel25/22/low.avif"><img src="https://assets.tcgdex.net/en/swsh/cel25/22/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span>
         <span class="rar-n">12</span>
@@ -801,55 +814,55 @@ height:auto;min-height:44px;padding-block:6px}
         </fieldset>
       </form>
       <ol class="ig-cards en cl-list" data-zg="checklist" data-base="https://assets.tcgdex.net/en/swsh/cel25/" data-of="025" data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026." data-src10="PSA 10: graded sales data from pricecharting.com, read November 10, 2026.">
-        <li class="cl-row" data-r="5" style="--k:15" data-ill="Kouki Saitou" data-psa10="$158"><span class="ig-no">001</span>
+        <li class="cl-row" data-r="5" style="--k:15" data-ill="Kouki Saitou" data-psa10="$158" data-sp="ho-oh"><span class="ig-no">001</span>
           <span class="ig-nm">Ho-Oh</span>
           <span class="ig-pr">$1.15</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:12" data-ill="Aya Kusube" data-psa10="$156"><span class="ig-no">002</span>
+        <li class="cl-row" data-r="5" style="--k:12" data-ill="Aya Kusube" data-psa10="$156" data-sp="reshiram"><span class="ig-no">002</span>
           <span class="ig-nm">Reshiram</span>
           <span class="ig-pr">$1.34</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:18" data-ill="Ryuta Fuse" data-psa10="$210"><span class="ig-no">003</span>
+        <li class="cl-row" data-r="5" style="--k:18" data-ill="Ryuta Fuse" data-psa10="$210" data-sp="kyogre"><span class="ig-no">003</span>
           <span class="ig-nm">Kyogre</span>
           <span class="ig-pr">$1.01</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:25" data-ill="5ban Graphics" data-psa10="$183"><span class="ig-no">004</span>
+        <li class="cl-row" data-r="5" style="--k:25" data-ill="5ban Graphics" data-psa10="$183" data-sp="palkia"><span class="ig-no">004</span>
           <span class="ig-nm">Palkia</span>
           <span class="ig-pr">$0.54</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:4" data-ill="Mitsuhiro Arita" data-psa10="$1,211"><span class="ig-no">005</span>
+        <li class="cl-row" data-r="4" style="--k:4" data-ill="Mitsuhiro Arita" data-psa10="$1,211" data-sp="pikachu"><span class="ig-no">005</span>
           <span class="ig-nm">Pikachu</span>
           <span class="ig-pr">$5.15</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li class="cl-row" data-r="3" style="--k:7" data-ill="aky CG Works" data-psa10="$121"><span class="ig-no">006</span>
+        <li class="cl-row" data-r="3" style="--k:7" data-ill="aky CG Works" data-psa10="$121" data-sp="pikachu"><span class="ig-no">006</span>
           <span class="ig-nm">Flying Pikachu V</span>
           <span class="ig-pr">$3.56</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:2" data-ill="aky CG Works" data-psa10="$87.66"><span class="ig-no">007</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:2" data-ill="aky CG Works" data-psa10="$87.66" data-sp="pikachu"><span class="ig-no">007</span>
           <span class="ig-nm">Flying Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.11</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
-        <li class="cl-row" data-r="3" style="--k:5" data-ill="aky CG Works" data-psa10="$125"><span class="ig-no">008</span>
+        <li class="cl-row" data-r="3" style="--k:5" data-ill="aky CG Works" data-psa10="$125" data-sp="pikachu"><span class="ig-no">008</span>
           <span class="ig-nm">Surfing Pikachu V</span>
           <span class="ig-pr">$4.24</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:3" data-ill="aky CG Works" data-psa10="$84.00"><span class="ig-no">009</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:3" data-ill="aky CG Works" data-psa10="$84.00" data-sp="pikachu"><span class="ig-no">009</span>
           <span class="ig-nm">Surfing Pikachu VMAX <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.11</span>
           <span class="ig-rr2">Holo Rare VMAX</span></li>
-        <li class="cl-row" data-r="5" style="--k:16" data-ill="Aya Kusube" data-psa10="$150"><span class="ig-no">010</span>
+        <li class="cl-row" data-r="5" style="--k:16" data-ill="Aya Kusube" data-psa10="$150" data-sp="zekrom"><span class="ig-no">010</span>
           <span class="ig-nm">Zekrom</span>
           <span class="ig-pr">$1.12</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:6" data-ill="Yuu Nishida" data-psa10="$885"><span class="ig-no">011</span>
+        <li class="cl-row" data-r="4" style="--k:6" data-ill="Yuu Nishida" data-psa10="$885" data-sp="mew"><span class="ig-no">011</span>
           <span class="ig-nm">Mew</span>
           <span class="ig-pr">$3.73</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:13" data-ill="AKIRA EGAWA" data-psa10="$185"><span class="ig-no">012</span>
+        <li class="cl-row" data-r="5" style="--k:13" data-ill="AKIRA EGAWA" data-psa10="$185" data-sp="xerneas"><span class="ig-no">012</span>
           <span class="ig-nm">Xerneas</span>
           <span class="ig-pr">$1.32</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:17" data-ill="kirisAki" data-psa10="$162"><span class="ig-no">013</span>
+        <li class="cl-row" data-r="5" style="--k:17" data-ill="kirisAki" data-psa10="$162" data-sp="cosmog"><span class="ig-no">013</span>
           <span class="ig-nm">Cosmog</span>
           <span class="ig-pr">$1.04</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -857,35 +870,35 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-nm">Cosmoem</span>
           <span class="ig-pr">$0.81</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:11" data-ill="kirisAki" data-psa10="$248"><span class="ig-no">015</span>
+        <li class="cl-row" data-r="4" style="--k:11" data-ill="kirisAki" data-psa10="$248" data-sp="lunala"><span class="ig-no">015</span>
           <span class="ig-nm">Lunala</span>
           <span class="ig-pr">$1.42</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li class="cl-row" data-r="3" style="--k:10" data-ill="Mitsuhiro Arita" data-psa10="$49.40"><span class="ig-no">016</span>
+        <li class="cl-row" data-r="3" style="--k:10" data-ill="Mitsuhiro Arita" data-psa10="$49.40" data-sp="zacian"><span class="ig-no">016</span>
           <span class="ig-nm">Zacian V</span>
           <span class="ig-pr">$1.52</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="cl-row" data-r="5" style="--k:14" data-ill="Ryuta Fuse" data-psa10="$215"><span class="ig-no">017</span>
+        <li class="cl-row" data-r="5" style="--k:14" data-ill="Ryuta Fuse" data-psa10="$215" data-sp="groudon"><span class="ig-no">017</span>
           <span class="ig-nm">Groudon</span>
           <span class="ig-pr">$1.32</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="3" style="--k:20" data-ill="Mitsuhiro Arita" data-psa10="$43.00"><span class="ig-no">018</span>
+        <li class="cl-row" data-r="3" style="--k:20" data-ill="Mitsuhiro Arita" data-psa10="$43.00" data-sp="zamazenta"><span class="ig-no">018</span>
           <span class="ig-nm">Zamazenta V</span>
           <span class="ig-pr">$1.00</span>
           <span class="ig-rr2">Holo Rare V</span></li>
-        <li class="cl-row" data-r="5" style="--k:19" data-ill="AKIRA EGAWA" data-psa10="$109"><span class="ig-no">019</span>
+        <li class="cl-row" data-r="5" style="--k:19" data-ill="AKIRA EGAWA" data-psa10="$109" data-sp="yveltal"><span class="ig-no">019</span>
           <span class="ig-nm">Yveltal</span>
           <span class="ig-pr">$1.01</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:24" data-ill="5ban Graphics" data-psa10="$159"><span class="ig-no">020</span>
+        <li class="cl-row" data-r="5" style="--k:24" data-ill="5ban Graphics" data-psa10="$159" data-sp="dialga"><span class="ig-no">020</span>
           <span class="ig-nm">Dialga</span>
           <span class="ig-pr">$0.63</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:21" data-ill="kirisAki" data-psa10="$260"><span class="ig-no">021</span>
+        <li class="cl-row" data-r="4" style="--k:21" data-ill="kirisAki" data-psa10="$260" data-sp="solgaleo"><span class="ig-no">021</span>
           <span class="ig-nm">Solgaleo</span>
           <span class="ig-pr">$0.97</span>
           <span class="ig-rr2">Holo Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:9" data-ill="Kouki Saitou" data-psa10="$330"><span class="ig-no">022</span>
+        <li class="cl-row" data-r="5" style="--k:9" data-ill="Kouki Saitou" data-psa10="$330" data-sp="lugia"><span class="ig-no">022</span>
           <span class="ig-nm">Lugia</span>
           <span class="ig-pr">$1.60</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -897,7 +910,7 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-nm">Professor's Research (Professor Oak) <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.72</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="0" style="--k:1" data-ill="Saki Hayashiro" data-psa10="$174" data-url="https://www.pricecharting.com/game/pokemon-celebrations/mew-25" data-x><span class="ig-no">025</span>
+        <li class="cl-row is-chase" data-r="0" style="--k:1" data-ill="Saki Hayashiro" data-psa10="$174" data-url="https://www.pricecharting.com/game/pokemon-celebrations/mew-25" data-sp="mew" data-x><span class="ig-no">025</span>
           <span class="ig-nm">Mew <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$55.48</span>
           <span class="ig-rr2">Secret Rare</span></li>
@@ -922,15 +935,15 @@ height:auto;min-height:44px;padding-block:6px}
       <summary><span class="cl-show">Show all 25 Classic Collection cards</span><span class="cl-hide">Hide the Classic Collection list</span></summary>
       <ol class="ig-cards en cs-list" data-zg="subset" data-src="Classic Collection. Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, off the same row, read November 10, 2026.">
         <li class="cl-row"><span class="ig-no">2/102</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250319_in_1000x1000.jpg" data-name="Blastoise" data-rarity="Classic Collection" data-number="2/102" data-price="$14.70" data-psa10="$130" aria-label="Enlarge Blastoise 2/102">Blastoise</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250319_in_1000x1000.jpg" data-name="Blastoise" data-rarity="Classic Collection" data-number="2/102" data-price="$14.70" data-sp="blastoise" data-psa10="$130" aria-label="Enlarge Blastoise 2/102">Blastoise</button></span>
           <span class="ig-pr">$14.70</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $130</span></span></li>
         <li class="cl-row"><span class="ig-no">4/102</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250320_in_1000x1000.jpg" data-name="Charizard" data-rarity="Classic Collection" data-number="4/102" data-price="$143" data-psa10="$446" aria-label="Enlarge Charizard 4/102">Charizard</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250320_in_1000x1000.jpg" data-name="Charizard" data-rarity="Classic Collection" data-number="4/102" data-price="$143" data-sp="charizard" data-psa10="$446" aria-label="Enlarge Charizard 4/102">Charizard</button></span>
           <span class="ig-pr">$142.87</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $446</span></span></li>
         <li class="cl-row"><span class="ig-no">15/102</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250321_in_1000x1000.jpg" data-name="Venusaur" data-rarity="Classic Collection" data-number="15/102" data-price="$11.97" data-psa10="$107" aria-label="Enlarge Venusaur 15/102">Venusaur</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250321_in_1000x1000.jpg" data-name="Venusaur" data-rarity="Classic Collection" data-number="15/102" data-price="$11.97" data-sp="venusaur" data-psa10="$107" aria-label="Enlarge Venusaur 15/102">Venusaur</button></span>
           <span class="ig-pr">$11.97</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $107</span></span></li>
         <li class="cl-row"><span class="ig-no">73/102</span>
@@ -938,7 +951,7 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-pr">$0.89</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $49.38</span></span></li>
         <li class="cl-row"><span class="ig-no">8/82</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250294_in_1000x1000.jpg" data-name="Dark Gyarados" data-rarity="Classic Collection" data-number="8/82" data-price="$6.21" data-psa10="$87.00" aria-label="Enlarge Dark Gyarados 8/82">Dark Gyarados</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250294_in_1000x1000.jpg" data-name="Dark Gyarados" data-rarity="Classic Collection" data-number="8/82" data-price="$6.21" data-sp="gyarados" data-psa10="$87.00" aria-label="Enlarge Dark Gyarados 8/82">Dark Gyarados</button></span>
           <span class="ig-pr">$6.21</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $87.00</span></span></li>
         <li class="cl-row"><span class="ig-no">15/82</span>
@@ -946,23 +959,23 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-pr">$1.37</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $58.83</span></span></li>
         <li class="cl-row"><span class="ig-no">15/132</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250324_in_1000x1000.jpg" data-name="Rocket's Zapdos" data-rarity="Classic Collection" data-number="15/132" data-price="$3.98" data-psa10="$73.99" aria-label="Enlarge Rocket's Zapdos 15/132">Rocket's Zapdos</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250324_in_1000x1000.jpg" data-name="Rocket's Zapdos" data-rarity="Classic Collection" data-number="15/132" data-price="$3.98" data-sp="zapdos" data-psa10="$73.99" aria-label="Enlarge Rocket's Zapdos 15/132">Rocket's Zapdos</button></span>
           <span class="ig-pr">$3.98</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $73.99</span></span></li>
         <li class="cl-row"><span class="ig-no">24</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250325_in_1000x1000.jpg" data-name="_____'s Pikachu" data-rarity="Classic Collection" data-number="24" data-price="$29.99" data-psa10="$181" aria-label="Enlarge _____'s Pikachu 24">_____'s Pikachu</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250325_in_1000x1000.jpg" data-name="_____'s Pikachu" data-rarity="Classic Collection" data-number="24" data-price="$29.99" data-sp="pikachu" data-psa10="$181" aria-label="Enlarge _____'s Pikachu 24">_____'s Pikachu</button></span>
           <span class="ig-pr">$29.99</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $181</span></span></li>
         <li class="cl-row"><span class="ig-no">20/111</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250326_in_1000x1000.jpg" data-name="Cleffa" data-rarity="Classic Collection" data-number="20/111" data-price="$2.83" data-psa10="$69.54" aria-label="Enlarge Cleffa 20/111">Cleffa</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250326_in_1000x1000.jpg" data-name="Cleffa" data-rarity="Classic Collection" data-number="20/111" data-price="$2.83" data-sp="cleffa" data-psa10="$69.54" aria-label="Enlarge Cleffa 20/111">Cleffa</button></span>
           <span class="ig-pr">$2.83</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $69.54</span></span></li>
         <li class="cl-row"><span class="ig-no">66/64</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250327_in_1000x1000.jpg" data-name="Shining Magikarp" data-rarity="Classic Collection" data-number="66/64" data-price="$32.14" data-psa10="$123" aria-label="Enlarge Shining Magikarp 66/64">Shining Magikarp</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250327_in_1000x1000.jpg" data-name="Shining Magikarp" data-rarity="Classic Collection" data-number="66/64" data-price="$32.14" data-sp="magikarp" data-psa10="$123" aria-label="Enlarge Shining Magikarp 66/64">Shining Magikarp</button></span>
           <span class="ig-pr">$32.14</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $123</span></span></li>
         <li class="cl-row"><span class="ig-no">9/95</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250328_in_1000x1000.jpg" data-name="Team Magma's Groudon" data-rarity="Classic Collection" data-number="9/95" data-price="$1.83" data-psa10="$84.99" aria-label="Enlarge Team Magma's Groudon 9/95">Team Magma's Groudon</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250328_in_1000x1000.jpg" data-name="Team Magma's Groudon" data-rarity="Classic Collection" data-number="9/95" data-price="$1.83" data-sp="groudon" data-psa10="$84.99" aria-label="Enlarge Team Magma's Groudon 9/95">Team Magma's Groudon</button></span>
           <span class="ig-pr">$1.83</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $84.99</span></span></li>
         <li class="cl-row"><span class="ig-no">86/109</span>
@@ -970,55 +983,55 @@ height:auto;min-height:44px;padding-block:6px}
           <span class="ig-pr">$1.46</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $55.00</span></span></li>
         <li class="cl-row"><span class="ig-no">88/92</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250330_in_1000x1000.jpg" data-name="Mew ex" data-rarity="Classic Collection" data-number="88/92" data-price="$14.18" data-psa10="$100" aria-label="Enlarge Mew ex 88/92">Mew ex</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250330_in_1000x1000.jpg" data-name="Mew ex" data-rarity="Classic Collection" data-number="88/92" data-price="$14.18" data-sp="mew" data-psa10="$100" aria-label="Enlarge Mew ex 88/92">Mew ex</button></span>
           <span class="ig-pr">$14.18</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $100</span></span></li>
         <li class="cl-row"><span class="ig-no">93/101</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250331_in_1000x1000.jpg" data-name="Gardevoir ex" data-rarity="Classic Collection" data-number="93/101" data-price="$9.68" data-psa10="$84.48" aria-label="Enlarge Gardevoir ex 93/101">Gardevoir ex</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250331_in_1000x1000.jpg" data-name="Gardevoir ex" data-rarity="Classic Collection" data-number="93/101" data-price="$9.68" data-sp="gardevoir" data-psa10="$84.48" aria-label="Enlarge Gardevoir ex 93/101">Gardevoir ex</button></span>
           <span class="ig-pr">$9.68</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $84.48</span></span></li>
         <li class="cl-row"><span class="ig-no">17/17</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250332_in_1000x1000.jpg" data-name="Umbreon ☆" data-rarity="Classic Collection" data-number="17/17" data-price="$71.00" data-psa10="$310" aria-label="Enlarge Umbreon ☆ 17/17">Umbreon ☆</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250332_in_1000x1000.jpg" data-name="Umbreon ☆" data-rarity="Classic Collection" data-number="17/17" data-price="$71.00" data-sp="umbreon" data-psa10="$310" aria-label="Enlarge Umbreon ☆ 17/17">Umbreon ☆</button></span>
           <span class="ig-pr">$71.00</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $310</span></span></li>
         <li class="cl-row"><span class="ig-no">15/106</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250333_in_1000x1000.jpg" data-name="Claydol" data-rarity="Classic Collection" data-number="15/106" data-price="$0.92" data-psa10="$54.72" aria-label="Enlarge Claydol 15/106">Claydol</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250333_in_1000x1000.jpg" data-name="Claydol" data-rarity="Classic Collection" data-number="15/106" data-price="$0.92" data-sp="claydol" data-psa10="$54.72" aria-label="Enlarge Claydol 15/106">Claydol</button></span>
           <span class="ig-pr">$0.92</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $54.72</span></span></li>
         <li class="cl-row"><span class="ig-no">109/111</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250334_in_1000x1000.jpg" data-name="Luxray GL LV.X" data-rarity="Classic Collection" data-number="109/111" data-price="$4.01" data-psa10="$80.77" aria-label="Enlarge Luxray GL LV.X 109/111">Luxray GL LV.X</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250334_in_1000x1000.jpg" data-name="Luxray GL LV.X" data-rarity="Classic Collection" data-number="109/111" data-price="$4.01" data-sp="luxray" data-psa10="$80.77" aria-label="Enlarge Luxray GL LV.X 109/111">Luxray GL LV.X</button></span>
           <span class="ig-pr">$4.01</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $80.77</span></span></li>
         <li class="cl-row"><span class="ig-no">145/147</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250335_in_1000x1000.jpg" data-name="Garchomp C LV.X" data-rarity="Classic Collection" data-number="145/147" data-price="$5.60" data-psa10="$102" aria-label="Enlarge Garchomp C LV.X 145/147">Garchomp C LV.X</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250335_in_1000x1000.jpg" data-name="Garchomp C LV.X" data-rarity="Classic Collection" data-number="145/147" data-price="$5.60" data-sp="garchomp" data-psa10="$102" aria-label="Enlarge Garchomp C LV.X 145/147">Garchomp C LV.X</button></span>
           <span class="ig-pr">$5.60</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $102</span></span></li>
         <li class="cl-row"><span class="ig-no">107/123</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250336_in_1000x1000.jpg" data-name="Donphan" data-rarity="Classic Collection" data-number="107/123" data-price="$2.25" data-psa10="$62.78" aria-label="Enlarge Donphan 107/123">Donphan</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250336_in_1000x1000.jpg" data-name="Donphan" data-rarity="Classic Collection" data-number="107/123" data-price="$2.25" data-sp="donphan" data-psa10="$62.78" aria-label="Enlarge Donphan 107/123">Donphan</button></span>
           <span class="ig-pr">$2.25</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $62.78</span></span></li>
         <li class="cl-row"><span class="ig-no">113/114</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250337_in_1000x1000.jpg" data-name="Reshiram" data-rarity="Classic Collection" data-number="113/114" data-price="$15.00" data-psa10="$91.50" aria-label="Enlarge Reshiram 113/114">Reshiram</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250337_in_1000x1000.jpg" data-name="Reshiram" data-rarity="Classic Collection" data-number="113/114" data-price="$15.00" data-sp="reshiram" data-psa10="$91.50" aria-label="Enlarge Reshiram 113/114">Reshiram</button></span>
           <span class="ig-pr">$15.00</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $91.50</span></span></li>
         <li class="cl-row"><span class="ig-no">114/114</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250338_in_1000x1000.jpg" data-name="Zekrom" data-rarity="Classic Collection" data-number="114/114" data-price="$16.00" data-psa10="$106" aria-label="Enlarge Zekrom 114/114">Zekrom</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250338_in_1000x1000.jpg" data-name="Zekrom" data-rarity="Classic Collection" data-number="114/114" data-price="$16.00" data-sp="zekrom" data-psa10="$106" aria-label="Enlarge Zekrom 114/114">Zekrom</button></span>
           <span class="ig-pr">$16.00</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $106</span></span></li>
         <li class="cl-row"><span class="ig-no">54/99</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250339_in_1000x1000.jpg" data-name="Mewtwo EX" data-rarity="Classic Collection" data-number="54/99" data-price="$13.04" data-psa10="$114" aria-label="Enlarge Mewtwo EX 54/99">Mewtwo EX</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250339_in_1000x1000.jpg" data-name="Mewtwo EX" data-rarity="Classic Collection" data-number="54/99" data-price="$13.04" data-sp="mewtwo" data-psa10="$114" aria-label="Enlarge Mewtwo EX 54/99">Mewtwo EX</button></span>
           <span class="ig-pr">$13.04</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $114</span></span></li>
         <li class="cl-row"><span class="ig-no">97/146</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250340_in_1000x1000.jpg" data-name="Xerneas EX" data-rarity="Classic Collection" data-number="97/146" data-price="$4.64" data-psa10="$65.74" aria-label="Enlarge Xerneas EX 97/146">Xerneas EX</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250340_in_1000x1000.jpg" data-name="Xerneas EX" data-rarity="Classic Collection" data-number="97/146" data-price="$4.64" data-sp="xerneas" data-psa10="$65.74" aria-label="Enlarge Xerneas EX 97/146">Xerneas EX</button></span>
           <span class="ig-pr">$4.64</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $65.74</span></span></li>
         <li class="cl-row"><span class="ig-no">76/108</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250341_in_1000x1000.jpg" data-name="M Rayquaza EX" data-rarity="Classic Collection" data-number="76/108" data-price="$35.08" data-psa10="$157" aria-label="Enlarge M Rayquaza EX 76/108">M Rayquaza EX</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250341_in_1000x1000.jpg" data-name="M Rayquaza EX" data-rarity="Classic Collection" data-number="76/108" data-price="$35.08" data-sp="rayquaza" data-psa10="$157" aria-label="Enlarge M Rayquaza EX 76/108">M Rayquaza EX</button></span>
           <span class="ig-pr">$35.08</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $157</span></span></li>
         <li class="cl-row"><span class="ig-no">60/145</span>
-          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250342_in_1000x1000.jpg" data-name="Tapu Lele GX" data-rarity="Classic Collection" data-number="60/145" data-price="$5.27" data-psa10="$63.53" aria-label="Enlarge Tapu Lele GX 60/145">Tapu Lele GX</button></span>
+          <span class="ig-nm"><button class="cl-zm cs-zm" type="button" data-img="https://tcgplayer-cdn.tcgplayer.com/product/250342_in_1000x1000.jpg" data-name="Tapu Lele GX" data-rarity="Classic Collection" data-number="60/145" data-price="$5.27" data-sp="tapu-lele" data-psa10="$63.53" aria-label="Enlarge Tapu Lele GX 60/145">Tapu Lele GX</button></span>
           <span class="ig-pr">$5.27</span>
           <span class="ig-rr2">Classic Collection &bull; <span class="cs-p10">PSA 10 $63.53</span></span></li>
       </ol>
@@ -1031,7 +1044,54 @@ height:auto;min-height:44px;padding-block:6px}
   </div>
 </section>
 
-<section id="products" class="band tight">
+<section id="species" class="band tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>By Pokemon</p>
+    <h2>Every Pokemon in <span class="hl">Celebrations</span></h2>
+    <p class="lede">Collecting one Pokemon rather than one set? Each name goes to every card we could find for
+      that Pokemon, across every set.</p>
+    <details class="ig-list sp-det">
+      <summary><span class="cl-show">Show all 33 Pokemon</span><span class="cl-hide">Hide the list</span></summary>
+      <ul class="sp-list">
+        <li><a href="/pokemon/blastoise.html">Blastoise</a></li>
+        <li><a href="/pokemon/charizard.html">Charizard</a></li>
+        <li><a href="/pokemon/claydol.html">Claydol</a></li>
+        <li><a href="/pokemon/cleffa.html">Cleffa</a></li>
+        <li><a href="/pokemon/cosmog.html">Cosmog</a></li>
+        <li><a href="/pokemon/dialga.html">Dialga</a></li>
+        <li><a href="/pokemon/donphan.html">Donphan</a></li>
+        <li><a href="/pokemon/garchomp.html">Garchomp</a></li>
+        <li><a href="/pokemon/gardevoir.html">Gardevoir</a></li>
+        <li><a href="/pokemon/groudon.html">Groudon</a></li>
+        <li><a href="/pokemon/gyarados.html">Gyarados</a></li>
+        <li><a href="/pokemon/ho-oh.html">Ho-Oh</a></li>
+        <li><a href="/pokemon/kyogre.html">Kyogre</a></li>
+        <li><a href="/pokemon/lugia.html">Lugia</a></li>
+        <li><a href="/pokemon/lunala.html">Lunala</a></li>
+        <li><a href="/pokemon/luxray.html">Luxray</a></li>
+        <li><a href="/pokemon/magikarp.html">Magikarp</a></li>
+        <li><a href="/pokemon/mew.html">Mew</a></li>
+        <li><a href="/pokemon/mewtwo.html">Mewtwo</a></li>
+        <li><a href="/pokemon/palkia.html">Palkia</a></li>
+        <li><a href="/pokemon/pikachu.html">Pikachu</a></li>
+        <li><a href="/pokemon/rayquaza.html">Rayquaza</a></li>
+        <li><a href="/pokemon/reshiram.html">Reshiram</a></li>
+        <li><a href="/pokemon/solgaleo.html">Solgaleo</a></li>
+        <li><a href="/pokemon/tapu-lele.html">Tapu Lele</a></li>
+        <li><a href="/pokemon/umbreon.html">Umbreon</a></li>
+        <li><a href="/pokemon/venusaur.html">Venusaur</a></li>
+        <li><a href="/pokemon/xerneas.html">Xerneas</a></li>
+        <li><a href="/pokemon/yveltal.html">Yveltal</a></li>
+        <li><a href="/pokemon/zacian.html">Zacian</a></li>
+        <li><a href="/pokemon/zamazenta.html">Zamazenta</a></li>
+        <li><a href="/pokemon/zapdos.html">Zapdos</a></li>
+        <li><a href="/pokemon/zekrom.html">Zekrom</a></li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section id="products" class="tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
     <h2>Celebrations ETB and pack <span class="hl">prices</span></h2>
@@ -1146,7 +1206,7 @@ height:auto;min-height:44px;padding-block:6px}
   </div>
 </section>
 
-<section id="watch" class="tight">
+<section id="watch" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>See it opened</p>
     <h2>We ripped <span class="hl">1</span> of these</h2>
@@ -1166,7 +1226,7 @@ height:auto;min-height:44px;padding-block:6px}
   </div>
 </section>
 
-<section id="more-sets" class="band tight">
+<section id="more-sets" class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -1212,6 +1272,7 @@ height:auto;min-height:44px;padding-block:6px}
       <p class="lbx-src" id="lbSrc"></p>
       <p class="lbx-alts" id="lbAlts" hidden></p>
       <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <p class="lbx-rip" id="lbSp" hidden><a id="lbSpA" href="#"></a></p>
       <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on pricecharting.com" hidden>Check current price</a></div>
     </div>
   </div>
@@ -1407,6 +1468,12 @@ height:auto;min-height:44px;padding-block:6px}
       var a=$('lbRipA'); a.href=d.rip;
       a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
     }
+    // THE OPEN CARD'S SPECIES PAGE, 11 November 2026. data-sp is the slug and
+    // the name is read off the "Every Pokemon in this set" list further down
+    // the page, which already prints it once, so 245 rows do not each carry it.
+    var sp=$('lbSp'), spA=d.sp && document.querySelector('.sp-list a[href="/pokemon/'+d.sp+'.html"]');
+    sp.hidden=!spA;
+    if(spA){ $('lbSpA').href=spA.getAttribute('href'); $('lbSpA').textContent='All '+spA.textContent+' cards →'; }
     // THE BUTTON NAMES WHERE IT GOES, 14 October 2026: a new tab and an
     // aria-label ending "opens on <host>", like every other outbound link, and
     // the host read off the link itself, which follows the price shown
@@ -1507,7 +1574,7 @@ height:auto;min-height:44px;padding-block:6px}
       b.dataset.name=nm; b.dataset.rarity=tierOf(li);
       b.dataset.number=of ? no+'/'+of : no;
       b.dataset.price=pr ? txt(pr) : 'No price yet';
-      ['ill','psa10','src','rip','ripWhen','ripN','url'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
+      ['ill','psa10','src','rip','ripWhen','ripN','url','sp'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
       if(d.psa10 && !d.src) b.dataset.src=(ol.getAttribute('data-src')||'')+' '+(ol.getAttribute('data-src10')||'');
       var alts=(byName[nm]||[]).filter(function(x){return x!==li;}).map(function(x){
         var p=x.querySelector('.ig-pr'); return '#'+txt(x.querySelector('.ig-no'))+' '+tierOf(x)+' '+(p ? txt(p) : 'no price');

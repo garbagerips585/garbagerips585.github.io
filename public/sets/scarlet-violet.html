@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46">
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c">
 <style>.rar-pr{grid-column:1 / -1;font:700 var(--t-micro)/1.4 var(--mono);color:var(--ink-2);
 letter-spacing:.02em}
 .rar-pr b{color:var(--ketchup-deep);font-weight:700}
@@ -139,6 +139,16 @@ text-transform:uppercase;white-space:nowrap}
 }
 .cc-cell .chase-card{position:relative;margin-bottom:14px}
 .cc-cell .cc-rip{margin:-10px 0 8px}
+.cc-more{display:flex;flex-direction:column;align-items:flex-start;margin:-10px 0 8px;min-width:0}
+.cc-cell .cc-more .cc-rip{margin:0}
+.mine .sp-more{align-self:flex-start}
+.flat-item a.sp-more{color:var(--sky-deep)}
+.sp-list{list-style:none;margin:0;padding:var(--s2) var(--s4) var(--s3);display:grid;
+grid-template-columns:repeat(auto-fill,minmax(min(132px,100%),1fr));gap:0 var(--s4)}
+.sp-list a{display:flex;align-items:center;min-height:44px;font:600 var(--t-sm)/1.3 var(--body);
+color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.sp-list a:hover,.sp-list a:focus-visible{color:var(--sky)}
+.sp-det:not([open]) .cl-hide,.sp-det[open] .cl-show{display:none}
 .chase-grid .chase-card .rr{letter-spacing:.02em}
 .chase-card .nw{white-space:nowrap}
 .chase-grid .chase-card{container-type:inline-size}
@@ -178,6 +188,8 @@ background:var(--paper);color:var(--sky-deep);font:700 var(--t-sm)/1 var(--body)
 .lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
 .lbx-rip a{color:var(--sky-deep)}
 .lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+#lbSp{margin:0}
+#lbSp a{display:inline-flex;align-items:center;min-height:44px}
 @media(min-width:760px){
 .lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
 align-items:center;text-align:left;padding:24px}
@@ -434,21 +446,21 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="245/198" data-price="$62.49"
         data-psa10="$204"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gardevoir-ex-245" data-ill="Jiro Sasumo" data-alts="#086 Double Rare $1.55 • #228 Ultra Rare $6.03"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="gardevoir"
           aria-label="Enlarge Gardevoir ex, Special Illustration Rare 245/198"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/245/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/245/low.webp" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button></li>
         <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/210/high.webp"
         data-name="Drowzee" data-rarity="Illustration Rare"
         data-number="210/198" data-price="$50.03"
         data-psa10="$1,000"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/drowzee-210" data-ill="Tomokazu Komiya" data-alts="#082 Common $0.20"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="drowzee"
           aria-label="Enlarge Drowzee, Illustration Rare 210/198"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/210/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/210/low.webp" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button></li>
         <li><button class="sh-zm" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/211/high.webp"
         data-name="Ralts" data-rarity="Illustration Rare"
         data-number="211/198" data-price="$36.97"
         data-psa10="$727"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/ralts-211" data-ill="Jiro Sasumo" data-alts="#084 Common $0.30"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="ralts"
           aria-label="Enlarge Ralts, Illustration Rare 211/198"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/211/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/211/low.webp" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button></li>
       </ol>
       <p>The top three by raw price</p>
@@ -492,7 +504,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="245/198" data-price="$62.49"
         data-psa10="$204"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gardevoir-ex-245" data-ill="Jiro Sasumo" data-alts="#086 Double Rare $1.55 • #228 Ultra Rare $6.03"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="gardevoir"
         aria-label="Enlarge Gardevoir ex">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/245/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/245/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/245/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/245/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/245/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -500,13 +512,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;245/198</span></div>
         <div class="pr">$62.49</div>
         <div class="pr10">PSA 10 $204<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/gardevoir.html">All Gardevoir cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/210/high.webp"
         data-name="Drowzee" data-rarity="Illustration Rare"
         data-number="210/198" data-price="$50.03"
         data-psa10="$1,000"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/drowzee-210" data-ill="Tomokazu Komiya" data-alts="#082 Common $0.20"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="drowzee"
         aria-label="Enlarge Drowzee">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/210/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/210/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/210/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/210/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/210/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -514,13 +526,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;210/198</span></div>
         <div class="pr">$50.03</div>
         <div class="pr10">PSA 10 $1,000<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/drowzee.html">All Drowzee cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/211/high.webp"
         data-name="Ralts" data-rarity="Illustration Rare"
         data-number="211/198" data-price="$36.97"
         data-psa10="$727"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/ralts-211" data-ill="Jiro Sasumo" data-alts="#084 Common $0.30"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="ralts"
         aria-label="Enlarge Ralts">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/211/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/211/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/211/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/211/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/211/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -528,13 +540,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;211/198</span></div>
         <div class="pr">$36.97</div>
         <div class="pr10">PSA 10 $727<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/ralts.html">All Ralts cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/204/high.webp"
         data-name="Slowpoke" data-rarity="Illustration Rare"
         data-number="204/198" data-price="$36.60"
         data-psa10="$990"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/slowpoke-204" data-ill="Toshinao Aoki" data-alts="#042 Common $0.50"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="slowpoke"
         aria-label="Enlarge Slowpoke">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/204/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/204/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/204/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/204/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/204/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -542,13 +554,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;204/198</span></div>
         <div class="pr">$36.60</div>
         <div class="pr10">PSA 10 $990<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/slowpoke.html">All Slowpoke cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/212/high.webp"
         data-name="Kirlia" data-rarity="Illustration Rare"
         data-number="212/198" data-price="$31.75"
         data-psa10="$524"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/kirlia-212" data-ill="Jiro Sasumo" data-alts="#085 Common $0.21"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="kirlia"
         aria-label="Enlarge Kirlia">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/212/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/212/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/212/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/212/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/212/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -556,13 +568,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;212/198</span></div>
         <div class="pr">$31.75</div>
         <div class="pr10">PSA 10 $524<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/kirlia.html">All Kirlia cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/215/high.webp"
         data-name="Riolu" data-rarity="Illustration Rare"
         data-number="215/198" data-price="$26.00"
         data-psa10="$597"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/riolu-215" data-ill="Nelnal" data-alts="#112 Common $0.31 • #113 Common $0.53"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="riolu"
         aria-label="Enlarge Riolu">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/215/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/215/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/215/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/215/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/215/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -570,13 +582,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;215/198</span></div>
         <div class="pr">$26.00</div>
         <div class="pr10">PSA 10 $597<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/riolu.html">All Riolu cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/214/high.webp"
         data-name="Greavard" data-rarity="Illustration Rare"
         data-number="214/198" data-price="$20.33"
         data-psa10="$625"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/greavard-214" data-ill="sowsow" data-alts="#104 Common $0.38 • #105 Common $0.33"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="greavard"
         aria-label="Enlarge Greavard">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/214/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/214/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/214/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/214/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/214/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -584,13 +596,13 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Illustration <span class="nw">Rare &bull;&nbsp;214/198</span></div>
         <div class="pr">$20.33</div>
         <div class="pr10">PSA 10 $625<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/greavard.html">All Greavard cards</a></div></div>
       <div class="cc-cell"><button class="chase-card" type="button" data-img="https://assets.tcgdex.net/en/sv/sv01/244/high.webp"
         data-name="Miraidon ex" data-rarity="Special Illustration Rare"
         data-number="244/198" data-price="$19.99"
         data-psa10="$111"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/miraidon-ex-244" data-ill="kantaro" data-alts="#081 Double Rare $1.00 • #227 Ultra Rare $2.90 • #253 Hyper Rare $7.75"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="miraidon"
         aria-label="Enlarge Miraidon ex">
         
         <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/244/low.avif 245w, https://assets.tcgdex.net/en/sv/sv01/244/high.avif 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px"><img src="https://assets.tcgdex.net/en/sv/sv01/244/low.webp" srcset="https://assets.tcgdex.net/en/sv/sv01/244/low.webp 245w, https://assets.tcgdex.net/en/sv/sv01/244/high.webp 600w" sizes="(max-width:619px) calc(50vw - 53px), (max-width:699px) calc(33.34vw - 48px), (max-width:1491px) calc(25vw - 46px), 327px" alt="" loading="lazy" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture>
@@ -598,7 +610,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         <div class="rr">Special Illustration <span class="nw">Rare &bull;&nbsp;244/198</span></div>
         <div class="pr">$19.99</div>
         <div class="pr10">PSA 10 $111<span class="pr10-d">read November 10, 2026</span></div>
-      </button></div>
+      </button><div class="cc-more"><a class="sp-more" href="/pokemon/miraidon.html">All Miraidon cards</a></div></div>
     </div>
     
     <p class="price-note">Prices are pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace. One card of the 258 priced here is not listed by PriceCharting and keeps its TCGplayer market price via TCGdex instead. These are the same eight rows the checklist further down prints, sorted by price, so the two agree by construction. Singles move fast, so treat them as a ballpark rather than a quote.</p>
@@ -679,7 +691,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="253/198" data-price="$7.75"
         data-psa10="$86.97"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/miraidon-ex-253" data-ill="5ban Graphics" data-alts="#081 Double Rare $1.00 • #227 Ultra Rare $2.90 • #244 Special Illustration Rare $19.99"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="miraidon"
           aria-label="Enlarge Miraidon ex 253/198, the most valuable Hyper Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/253/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/253/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">6</span>
@@ -692,7 +704,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="245/198" data-price="$62.49"
         data-psa10="$204"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gardevoir-ex-245" data-ill="Jiro Sasumo" data-alts="#086 Double Rare $1.55 • #228 Ultra Rare $6.03"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="gardevoir"
           aria-label="Enlarge Gardevoir ex 245/198, the most valuable Special Illustration Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/245/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/245/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">10</span>
@@ -705,7 +717,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="210/198" data-price="$50.03"
         data-psa10="$1,000"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/drowzee-210" data-ill="Tomokazu Komiya" data-alts="#082 Common $0.20"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="drowzee"
           aria-label="Enlarge Drowzee 210/198, the most valuable Illustration Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/210/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/210/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">24</span>
@@ -718,7 +730,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="224/198" data-price="$13.98"
         data-psa10="$164"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/arcanine-ex-224" data-ill="5ban Graphics" data-alts="#032 Double Rare $1.55"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="arcanine"
           aria-label="Enlarge Arcanine ex 224/198, the most valuable Ultra Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/224/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/224/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare <b class="ch-tag">Chase</b></span>
         <span class="rar-n">20</span>
@@ -731,7 +743,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="045/198" data-price="$2.53"
         data-psa10="$58.96"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gyarados-ex-45" data-ill="5ban Graphics" data-alts="#225 Ultra Rare $10.00"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="gyarados"
           aria-label="Enlarge Gyarados ex 045/198, the most valuable Double Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/045/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/045/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span>
         <span class="rar-n">12</span>
@@ -744,7 +756,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         data-number="109/198" data-price="$2.08"
         data-psa10="$37.93"
         data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/annihilape-109" data-ill="Anesaki Dynamic"
-        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026."
+        data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026. PSA 10: graded sales data from pricecharting.com, read November 10, 2026." data-sp="annihilape"
           aria-label="Enlarge Annihilape 109/198, the most valuable Rare card"><picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv01/109/low.avif"><img src="https://assets.tcgdex.net/en/sv/sv01/109/low.webp" alt="" loading="lazy" decoding="async" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()" width="245" height="337"></picture></button>
         <span class="rar-name"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span>
         <span class="rar-n">21</span>
@@ -814,55 +826,55 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
         </fieldset>
       </form>
       <ol class="ig-cards en cl-list" data-zg="checklist" data-base="https://assets.tcgdex.net/en/sv/sv01/" data-of="198" data-src="Raw price: pricecharting.com's price guide value for an ungraded copy, read November 10, 2026." data-src10="PSA 10: graded sales data from pricecharting.com, read November 10, 2026.">
-        <li class="cl-row" data-r="7" style="--k:181" data-ill="Shigenori Negishi" data-psa10="$31.41"><span class="ig-no">001</span>
+        <li class="cl-row" data-r="7" style="--k:181" data-ill="Shigenori Negishi" data-psa10="$31.41" data-sp="pineco"><span class="ig-no">001</span>
           <span class="ig-nm">Pineco</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:150" data-ill="Taira Akitsu" data-psa10="$29.99"><span class="ig-no">002</span>
+        <li class="cl-row" data-r="6" style="--k:150" data-ill="Taira Akitsu" data-psa10="$29.99" data-sp="heracross"><span class="ig-no">002</span>
           <span class="ig-nm">Heracross</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:119" data-ill="kurumitsu" data-psa10="$31.52"><span class="ig-no">003</span>
+        <li class="cl-row" data-r="7" style="--k:119" data-ill="kurumitsu" data-psa10="$31.52" data-sp="shroomish"><span class="ig-no">003</span>
           <span class="ig-nm">Shroomish</span>
           <span class="ig-pr">$0.40</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:117" data-ill="Ryuta Fuse" data-psa10="$31.14"><span class="ig-no">004</span>
+        <li class="cl-row" data-r="6" style="--k:117" data-ill="Ryuta Fuse" data-psa10="$31.14" data-sp="breloom"><span class="ig-no">004</span>
           <span class="ig-nm">Breloom</span>
           <span class="ig-pr">$0.42</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:182" data-ill="Tika Matsuno" data-psa10="$30.99"><span class="ig-no">005</span>
+        <li class="cl-row" data-r="7" style="--k:182" data-ill="Tika Matsuno" data-psa10="$30.99" data-sp="cacnea"><span class="ig-no">005</span>
           <span class="ig-nm">Cacnea</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:201" data-ill="DOM" data-psa10="$30.76"><span class="ig-no">006</span>
+        <li class="cl-row" data-r="6" style="--k:201" data-ill="DOM" data-psa10="$30.76" data-sp="cacturne"><span class="ig-no">006</span>
           <span class="ig-nm">Cacturne</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:242" data-ill="aoki" data-psa10="$59.99"><span class="ig-no">007</span>
+        <li class="cl-row" data-r="7" style="--k:242" data-ill="aoki" data-psa10="$59.99" data-sp="tropius"><span class="ig-no">007</span>
           <span class="ig-nm">Tropius</span>
           <span class="ig-pr">$0.18</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:243" data-ill="sowsow" data-psa10="$25.00"><span class="ig-no">008</span>
+        <li class="cl-row" data-r="7" style="--k:243" data-ill="sowsow" data-psa10="$25.00" data-sp="scatterbug"><span class="ig-no">008</span>
           <span class="ig-nm">Scatterbug</span>
           <span class="ig-pr">$0.18</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:250" data-ill="Kagemaru Himeno" data-psa10="$30.88"><span class="ig-no">009</span>
+        <li class="cl-row" data-r="7" style="--k:250" data-ill="Kagemaru Himeno" data-psa10="$30.88" data-sp="spewpa"><span class="ig-no">009</span>
           <span class="ig-nm">Spewpa</span>
           <span class="ig-pr">$0.16</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:132" data-ill="Atsuko Nishida" data-psa10="$32.59"><span class="ig-no">010</span>
+        <li class="cl-row" data-r="6" style="--k:132" data-ill="Atsuko Nishida" data-psa10="$32.59" data-sp="vivillon"><span class="ig-no">010</span>
           <span class="ig-nm">Vivillon</span>
           <span class="ig-pr">$0.35</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:207" data-ill="Tika Matsuno" data-psa10="$30.95"><span class="ig-no">011</span>
+        <li class="cl-row" data-r="7" style="--k:207" data-ill="Tika Matsuno" data-psa10="$30.95" data-sp="skiddo"><span class="ig-no">011</span>
           <span class="ig-nm">Skiddo</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:183" data-ill="Gemi" data-psa10="$31.26"><span class="ig-no">012</span>
+        <li class="cl-row" data-r="7" style="--k:183" data-ill="Gemi" data-psa10="$31.26" data-sp="gogoat"><span class="ig-no">012</span>
           <span class="ig-nm">Gogoat</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:59" data-ill="Saya Tsuruta" data-psa10="$33.95"><span class="ig-no">013</span>
+        <li class="cl-row" data-r="7" style="--k:59" data-ill="Saya Tsuruta" data-psa10="$33.95" data-sp="sprigatito"><span class="ig-no">013</span>
           <span class="ig-nm">Sprigatito</span>
           <span class="ig-pr">$1.98</span>
           <span class="ig-rr2">Common</span></li>
@@ -870,7 +882,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Floragato</span>
           <span class="ig-pr">$0.26</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:130" data-ill="Ryota Murayama" data-psa10="$31.91"><span class="ig-no">015</span>
+        <li class="cl-row" data-r="5" style="--k:130" data-ill="Ryota Murayama" data-psa10="$31.91" data-sp="meowscarada"><span class="ig-no">015</span>
           <span class="ig-nm">Meowscarada</span>
           <span class="ig-pr">$0.36</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -906,15 +918,15 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Arboliva</span>
           <span class="ig-pr">$1.54</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:225" data-ill="Shin Nagasawa" data-psa10="$30.88"><span class="ig-no">024</span>
+        <li class="cl-row" data-r="7" style="--k:225" data-ill="Shin Nagasawa" data-psa10="$30.88" data-sp="toedscool"><span class="ig-no">024</span>
           <span class="ig-nm">Toedscool</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:203" data-ill="Tika Matsuno" data-psa10="$30.95"><span class="ig-no">025</span>
+        <li class="cl-row" data-r="7" style="--k:203" data-ill="Tika Matsuno" data-psa10="$30.95" data-sp="toedscool"><span class="ig-no">025</span>
           <span class="ig-nm">Toedscool</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:151" data-ill="nagimiso" data-psa10="$31.03"><span class="ig-no">026</span>
+        <li class="cl-row" data-r="6" style="--k:151" data-ill="nagimiso" data-psa10="$31.03" data-sp="toedscruel"><span class="ig-no">026</span>
           <span class="ig-nm">Toedscruel</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Uncommon</span></li>
@@ -930,31 +942,31 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Scovillain</span>
           <span class="ig-pr">$0.28</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:92" data-ill="kawayoo" data-psa10="$44.10"><span class="ig-no">030</span>
+        <li class="cl-row" data-r="7" style="--k:92" data-ill="kawayoo" data-psa10="$44.10" data-sp="growlithe"><span class="ig-no">030</span>
           <span class="ig-nm">Growlithe</span>
           <span class="ig-pr">$0.90</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:97" data-ill="Tika Matsuno" data-psa10="$81.00"><span class="ig-no">031</span>
+        <li class="cl-row" data-r="7" style="--k:97" data-ill="Tika Matsuno" data-psa10="$81.00" data-sp="growlithe"><span class="ig-no">031</span>
           <span class="ig-nm">Growlithe</span>
           <span class="ig-pr">$0.74</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:73" data-ill="5ban Graphics" data-psa10="$73.75"><span class="ig-no">032</span>
+        <li class="cl-row" data-r="4" style="--k:73" data-ill="5ban Graphics" data-psa10="$73.75" data-sp="arcanine"><span class="ig-no">032</span>
           <span class="ig-nm">Arcanine ex</span>
           <span class="ig-pr">$1.55</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:133" data-ill="nagimiso" data-psa10="$30.95"><span class="ig-no">033</span>
+        <li class="cl-row" data-r="7" style="--k:133" data-ill="nagimiso" data-psa10="$30.95" data-sp="houndour"><span class="ig-no">033</span>
           <span class="ig-nm">Houndour</span>
           <span class="ig-pr">$0.35</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:152" data-ill="hncl" data-psa10="$63.70"><span class="ig-no">034</span>
+        <li class="cl-row" data-r="7" style="--k:152" data-ill="hncl" data-psa10="$63.70" data-sp="houndoom"><span class="ig-no">034</span>
           <span class="ig-nm">Houndoom</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:226" data-ill="Kurata So" data-psa10="$30.88"><span class="ig-no">035</span>
+        <li class="cl-row" data-r="6" style="--k:226" data-ill="Kurata So" data-psa10="$30.88" data-sp="torkoal"><span class="ig-no">035</span>
           <span class="ig-nm">Torkoal</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:70" data-ill="Akira Komayama" data-psa10="$22.00"><span class="ig-no">036</span>
+        <li class="cl-row" data-r="7" style="--k:70" data-ill="Akira Komayama" data-psa10="$22.00" data-sp="fuecoco"><span class="ig-no">036</span>
           <span class="ig-nm">Fuecoco</span>
           <span class="ig-pr">$1.66</span>
           <span class="ig-rr2">Common</span></li>
@@ -962,59 +974,59 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Crocalor</span>
           <span class="ig-pr">$0.50</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:153" data-ill="nagimiso" data-psa10="$19.69"><span class="ig-no">038</span>
+        <li class="cl-row" data-r="5" style="--k:153" data-ill="nagimiso" data-psa10="$19.69" data-sp="skeledirge"><span class="ig-no">038</span>
           <span class="ig-nm">Skeledirge</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:198" data-ill="Souichirou Gunjima" data-psa10="$30.95"><span class="ig-no">039</span>
+        <li class="cl-row" data-r="7" style="--k:198" data-ill="Souichirou Gunjima" data-psa10="$30.95" data-sp="charcadet"><span class="ig-no">039</span>
           <span class="ig-nm">Charcadet</span>
           <span class="ig-pr">$0.24</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:124" data-ill="nagimiso" data-psa10="$30.88"><span class="ig-no">040</span>
+        <li class="cl-row" data-r="7" style="--k:124" data-ill="nagimiso" data-psa10="$30.88" data-sp="charcadet"><span class="ig-no">040</span>
           <span class="ig-nm">Charcadet</span>
           <span class="ig-pr">$0.39</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:176" data-ill="AKIRA EGAWA" data-psa10="$30.95"><span class="ig-no">041</span>
+        <li class="cl-row" data-r="5" style="--k:176" data-ill="AKIRA EGAWA" data-psa10="$30.95" data-sp="armarouge"><span class="ig-no">041</span>
           <span class="ig-nm">Armarouge</span>
           <span class="ig-pr">$0.26</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:110" data-ill="Narumi Sato" data-psa10="$74.99"><span class="ig-no">042</span>
+        <li class="cl-row" data-r="7" style="--k:110" data-ill="Narumi Sato" data-psa10="$74.99" data-sp="slowpoke"><span class="ig-no">042</span>
           <span class="ig-nm">Slowpoke</span>
           <span class="ig-pr">$0.50</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:81" data-ill="Shinji Kanda" data-psa10="$85.00"><span class="ig-no">043</span>
+        <li class="cl-row" data-r="5" style="--k:81" data-ill="Shinji Kanda" data-psa10="$85.00" data-sp="slowbro"><span class="ig-no">043</span>
           <span class="ig-nm">Slowbro</span>
           <span class="ig-pr">$1.26</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:85" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$225"><span class="ig-no">044</span>
+        <li class="cl-row" data-r="7" style="--k:85" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$225" data-sp="magikarp"><span class="ig-no">044</span>
           <span class="ig-nm">Magikarp</span>
           <span class="ig-pr">$1.13</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:53" data-ill="5ban Graphics" data-psa10="$58.96"><span class="ig-no">045</span>
+        <li class="cl-row" data-r="4" style="--k:53" data-ill="5ban Graphics" data-psa10="$58.96" data-sp="gyarados"><span class="ig-no">045</span>
           <span class="ig-nm">Gyarados ex</span>
           <span class="ig-pr">$2.53</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:217" data-ill="Mizue" data-psa10="$30.65"><span class="ig-no">046</span>
+        <li class="cl-row" data-r="7" style="--k:217" data-ill="Mizue" data-psa10="$30.65" data-sp="buizel"><span class="ig-no">046</span>
           <span class="ig-nm">Buizel</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:239" data-ill="Gemi" data-psa10="$30.72"><span class="ig-no">047</span>
+        <li class="cl-row" data-r="6" style="--k:239" data-ill="Gemi" data-psa10="$30.72" data-sp="floatzel"><span class="ig-no">047</span>
           <span class="ig-nm">Floatzel</span>
           <span class="ig-pr">$0.19</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:173" data-ill="Shinji Kanda" data-psa10="$31.03"><span class="ig-no">048</span>
+        <li class="cl-row" data-r="7" style="--k:173" data-ill="Shinji Kanda" data-psa10="$31.03" data-sp="alomomola"><span class="ig-no">048</span>
           <span class="ig-nm">Alomomola</span>
           <span class="ig-pr">$0.27</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:251" data-ill="miki kudo" data-psa10="$30.46"><span class="ig-no">049</span>
+        <li class="cl-row" data-r="7" style="--k:251" data-ill="miki kudo" data-psa10="$30.46" data-sp="clauncher"><span class="ig-no">049</span>
           <span class="ig-nm">Clauncher</span>
           <span class="ig-pr">$0.16</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:258" data-ill="Souichirou Gunjima" data-psa10="$30.57"><span class="ig-no">050</span>
+        <li class="cl-row" data-r="7" style="--k:258" data-ill="Souichirou Gunjima" data-psa10="$30.57" data-sp="clawitzer"><span class="ig-no">050</span>
           <span class="ig-nm">Clawitzer</span>
           <span class="ig-pr">$0.11</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:240" data-ill="kurumitsu" data-psa10="$30.95"><span class="ig-no">051</span>
+        <li class="cl-row" data-r="7" style="--k:240" data-ill="kurumitsu" data-psa10="$30.95" data-sp="bruxish"><span class="ig-no">051</span>
           <span class="ig-nm">Bruxish</span>
           <span class="ig-pr">$0.19</span>
           <span class="ig-rr2">Common</span></li>
@@ -1026,19 +1038,19 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Quaxwell</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:72" data-ill="Kouki Saitou" data-psa10="$87.50"><span class="ig-no">054</span>
+        <li class="cl-row" data-r="5" style="--k:72" data-ill="Kouki Saitou" data-psa10="$87.50" data-sp="quaquaval"><span class="ig-no">054</span>
           <span class="ig-nm">Quaquaval</span>
           <span class="ig-pr">$1.59</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:104" data-ill="Shin Nagasawa" data-psa10="$31.49"><span class="ig-no">055</span>
+        <li class="cl-row" data-r="7" style="--k:104" data-ill="Shin Nagasawa" data-psa10="$31.49" data-sp="wiglett"><span class="ig-no">055</span>
           <span class="ig-nm">Wiglett</span>
           <span class="ig-pr">$0.60</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:98" data-ill="Tika Matsuno" data-psa10="$78.00"><span class="ig-no">056</span>
+        <li class="cl-row" data-r="7" style="--k:98" data-ill="Tika Matsuno" data-psa10="$78.00" data-sp="wiglett"><span class="ig-no">056</span>
           <span class="ig-nm">Wiglett</span>
           <span class="ig-pr">$0.70</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:186" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$31.03"><span class="ig-no">057</span>
+        <li class="cl-row" data-r="6" style="--k:186" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$31.03" data-sp="wugtrio"><span class="ig-no">057</span>
           <span class="ig-nm">Wugtrio</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
@@ -1054,59 +1066,59 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Cetitan</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:76" data-ill="Souichirou Gunjima" data-psa10="$17.75"><span class="ig-no">061</span>
+        <li class="cl-row" data-r="5" style="--k:76" data-ill="Souichirou Gunjima" data-psa10="$17.75" data-sp="dondozo"><span class="ig-no">061</span>
           <span class="ig-nm">Dondozo</span>
           <span class="ig-pr">$1.53</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="6" style="--k:99" data-ill="OKACHEKE" data-psa10="$22.25"><span class="ig-no">062</span>
+        <li class="cl-row" data-r="6" style="--k:99" data-ill="OKACHEKE" data-psa10="$22.25" data-sp="tatsugiri"><span class="ig-no">062</span>
           <span class="ig-nm">Tatsugiri</span>
           <span class="ig-pr">$0.67</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:188" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$30.95"><span class="ig-no">063</span>
+        <li class="cl-row" data-r="7" style="--k:188" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$30.95" data-sp="magnemite"><span class="ig-no">063</span>
           <span class="ig-nm">Magnemite</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:154" data-ill="Shiburingaru" data-psa10="$30.95"><span class="ig-no">064</span>
+        <li class="cl-row" data-r="7" style="--k:154" data-ill="Shiburingaru" data-psa10="$30.95" data-sp="magneton"><span class="ig-no">064</span>
           <span class="ig-nm">Magneton</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:90" data-ill="hncl" data-psa10="$20.02"><span class="ig-no">065</span>
+        <li class="cl-row" data-r="4" style="--k:90" data-ill="hncl" data-psa10="$20.02" data-sp="magnezone"><span class="ig-no">065</span>
           <span class="ig-nm">Magnezone ex</span>
           <span class="ig-pr">$0.97</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:111" data-ill="Narumi Sato" data-psa10="$30.76"><span class="ig-no">066</span>
+        <li class="cl-row" data-r="7" style="--k:111" data-ill="Narumi Sato" data-psa10="$30.76" data-sp="mareep"><span class="ig-no">066</span>
           <span class="ig-nm">Mareep</span>
           <span class="ig-pr">$0.50</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:199" data-ill="Kurata So" data-psa10="$99.99"><span class="ig-no">067</span>
+        <li class="cl-row" data-r="6" style="--k:199" data-ill="Kurata So" data-psa10="$99.99" data-sp="flaaffy"><span class="ig-no">067</span>
           <span class="ig-nm">Flaaffy</span>
           <span class="ig-pr">$0.24</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="6" style="--k:177" data-ill="Naoki Saito" data-psa10="$31.14"><span class="ig-no">068</span>
+        <li class="cl-row" data-r="6" style="--k:177" data-ill="Naoki Saito" data-psa10="$31.14" data-sp="pachirisu"><span class="ig-no">068</span>
           <span class="ig-nm">Pachirisu</span>
           <span class="ig-pr">$0.26</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:218" data-ill="Nisota Niso" data-psa10="$31.37"><span class="ig-no">069</span>
+        <li class="cl-row" data-r="7" style="--k:218" data-ill="Nisota Niso" data-psa10="$31.37" data-sp="rotom"><span class="ig-no">069</span>
           <span class="ig-nm">Rotom</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:65" data-ill="Kouki Saitou" data-psa10="$37.01"><span class="ig-no">070</span>
+        <li class="cl-row" data-r="7" style="--k:65" data-ill="Kouki Saitou" data-psa10="$37.01" data-sp="rotom"><span class="ig-no">070</span>
           <span class="ig-nm">Rotom</span>
           <span class="ig-pr">$1.84</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:155" data-ill="Yuu Nishida" data-psa10="$166"><span class="ig-no">071</span>
+        <li class="cl-row" data-r="7" style="--k:155" data-ill="Yuu Nishida" data-psa10="$166" data-sp="toxel"><span class="ig-no">071</span>
           <span class="ig-nm">Toxel</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:146" data-ill="Atsushi Furusawa" data-psa10="$31.91"><span class="ig-no">072</span>
+        <li class="cl-row" data-r="6" style="--k:146" data-ill="Atsushi Furusawa" data-psa10="$31.91" data-sp="toxtricity"><span class="ig-no">072</span>
           <span class="ig-nm">Toxtricity</span>
           <span class="ig-pr">$0.31</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:164" data-ill="Tika Matsuno" data-psa10="$31.11"><span class="ig-no">073</span>
+        <li class="cl-row" data-r="7" style="--k:164" data-ill="Tika Matsuno" data-psa10="$31.11" data-sp="pawmi"><span class="ig-no">073</span>
           <span class="ig-nm">Pawmi</span>
           <span class="ig-pr">$0.29</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:126" data-ill="kantaro" data-psa10="$31.75"><span class="ig-no">074</span>
+        <li class="cl-row" data-r="7" style="--k:126" data-ill="kantaro" data-psa10="$31.75" data-sp="pawmi"><span class="ig-no">074</span>
           <span class="ig-nm">Pawmi</span>
           <span class="ig-pr">$0.38</span>
           <span class="ig-rr2">Common</span></li>
@@ -1118,83 +1130,83 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Pawmot</span>
           <span class="ig-pr">$1.45</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:252" data-ill="Saya Tsuruta" data-psa10="$30.76"><span class="ig-no">077</span>
+        <li class="cl-row" data-r="7" style="--k:252" data-ill="Saya Tsuruta" data-psa10="$30.76" data-sp="wattrel"><span class="ig-no">077</span>
           <span class="ig-nm">Wattrel</span>
           <span class="ig-pr">$0.16</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:228" data-ill="Shin Nagasawa" data-psa10="$30.76"><span class="ig-no">078</span>
+        <li class="cl-row" data-r="7" style="--k:228" data-ill="Shin Nagasawa" data-psa10="$30.76" data-sp="wattrel"><span class="ig-no">078</span>
           <span class="ig-nm">Wattrel</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:247" data-ill="Kouki Saitou" data-psa10="$30.65"><span class="ig-no">079</span>
+        <li class="cl-row" data-r="6" style="--k:247" data-ill="Kouki Saitou" data-psa10="$30.65" data-sp="kilowattrel"><span class="ig-no">079</span>
           <span class="ig-nm">Kilowattrel</span>
           <span class="ig-pr">$0.17</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:62" data-ill="Kouki Saitou" data-psa10="$21.25"><span class="ig-no">080</span>
+        <li class="cl-row" data-r="5" style="--k:62" data-ill="Kouki Saitou" data-psa10="$21.25" data-sp="miraidon"><span class="ig-no">080</span>
           <span class="ig-nm">Miraidon</span>
           <span class="ig-pr">$1.89</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:86" data-ill="5ban Graphics" data-psa10="$33.70"><span class="ig-no">081</span>
+        <li class="cl-row" data-r="4" style="--k:86" data-ill="5ban Graphics" data-psa10="$33.70" data-sp="miraidon"><span class="ig-no">081</span>
           <span class="ig-nm">Miraidon ex</span>
           <span class="ig-pr">$1.00</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:229" data-ill="OKACHEKE" data-psa10="$20.87"><span class="ig-no">082</span>
+        <li class="cl-row" data-r="7" style="--k:229" data-ill="OKACHEKE" data-psa10="$20.87" data-sp="drowzee"><span class="ig-no">082</span>
           <span class="ig-nm">Drowzee</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:219" data-ill="Toshinao Aoki" data-psa10="$74.99"><span class="ig-no">083</span>
+        <li class="cl-row" data-r="6" style="--k:219" data-ill="Toshinao Aoki" data-psa10="$74.99" data-sp="hypno"><span class="ig-no">083</span>
           <span class="ig-nm">Hypno</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:156" data-ill="Tika Matsuno" data-psa10="$40.00"><span class="ig-no">084</span>
+        <li class="cl-row" data-r="7" style="--k:156" data-ill="Tika Matsuno" data-psa10="$40.00" data-sp="ralts"><span class="ig-no">084</span>
           <span class="ig-nm">Ralts</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:220" data-ill="kawayoo" data-psa10="$30.80"><span class="ig-no">085</span>
+        <li class="cl-row" data-r="7" style="--k:220" data-ill="kawayoo" data-psa10="$30.80" data-sp="kirlia"><span class="ig-no">085</span>
           <span class="ig-nm">Kirlia</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:74" data-ill="N-DESIGN Inc." data-psa10="$49.38"><span class="ig-no">086</span>
+        <li class="cl-row" data-r="4" style="--k:74" data-ill="N-DESIGN Inc." data-psa10="$49.38" data-sp="gardevoir"><span class="ig-no">086</span>
           <span class="ig-nm">Gardevoir ex</span>
           <span class="ig-pr">$1.55</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:178" data-ill="Jerky" data-psa10="$40.00"><span class="ig-no">087</span>
+        <li class="cl-row" data-r="7" style="--k:178" data-ill="Jerky" data-psa10="$40.00" data-sp="shuppet"><span class="ig-no">087</span>
           <span class="ig-nm">Shuppet</span>
           <span class="ig-pr">$0.26</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:82" data-ill="PLANETA Mochizuki" data-psa10="$41.05"><span class="ig-no">088</span>
+        <li class="cl-row" data-r="4" style="--k:82" data-ill="PLANETA Mochizuki" data-psa10="$41.05" data-sp="banette"><span class="ig-no">088</span>
           <span class="ig-nm">Banette ex</span>
           <span class="ig-pr">$1.23</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:190" data-ill="Taira Akitsu" data-psa10="$67.50"><span class="ig-no">089</span>
+        <li class="cl-row" data-r="7" style="--k:190" data-ill="Taira Akitsu" data-psa10="$67.50" data-sp="drifloon"><span class="ig-no">089</span>
           <span class="ig-nm">Drifloon</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:204" data-ill="Yuu Nishida" data-psa10="$30.95"><span class="ig-no">090</span>
+        <li class="cl-row" data-r="6" style="--k:204" data-ill="Yuu Nishida" data-psa10="$30.95" data-sp="drifblim"><span class="ig-no">090</span>
           <span class="ig-nm">Drifblim</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:168" data-ill="Mizue" data-psa10="$30.95"><span class="ig-no">091</span>
+        <li class="cl-row" data-r="7" style="--k:168" data-ill="Mizue" data-psa10="$30.95" data-sp="flabebe"><span class="ig-no">091</span>
           <span class="ig-nm">Flabébé</span>
           <span class="ig-pr">$0.28</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:244" data-ill="saino misaki" data-psa10="$30.65"><span class="ig-no">092</span>
+        <li class="cl-row" data-r="7" style="--k:244" data-ill="saino misaki" data-psa10="$30.65" data-sp="floette"><span class="ig-no">092</span>
           <span class="ig-nm">Floette</span>
           <span class="ig-pr">$0.18</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:210" data-ill="Haru Akasaka" data-psa10="$30.84"><span class="ig-no">093</span>
+        <li class="cl-row" data-r="6" style="--k:210" data-ill="Haru Akasaka" data-psa10="$30.84" data-sp="florges"><span class="ig-no">093</span>
           <span class="ig-nm">Florges</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:169" data-ill="zig" data-psa10="$16.50"><span class="ig-no">094</span>
+        <li class="cl-row" data-r="7" style="--k:169" data-ill="zig" data-psa10="$16.50" data-sp="dedenne"><span class="ig-no">094</span>
           <span class="ig-nm">Dedenne</span>
           <span class="ig-pr">$0.28</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:112" data-ill="Nelnal" data-psa10="$120"><span class="ig-no">095</span>
+        <li class="cl-row" data-r="7" style="--k:112" data-ill="Nelnal" data-psa10="$120" data-sp="dedenne"><span class="ig-no">095</span>
           <span class="ig-nm">Dedenne</span>
           <span class="ig-pr">$0.50</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:129" data-ill="GOSSAN" data-psa10="$71.23"><span class="ig-no">096</span>
+        <li class="cl-row" data-r="5" style="--k:129" data-ill="GOSSAN" data-psa10="$71.23" data-sp="klefki"><span class="ig-no">096</span>
           <span class="ig-nm">Klefki</span>
           <span class="ig-pr">$0.37</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -1210,79 +1222,79 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Dachsbun</span>
           <span class="ig-pr">$0.63</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:221" data-ill="Hitoshi Ariga" data-psa10="$30.76"><span class="ig-no">100</span>
+        <li class="cl-row" data-r="7" style="--k:221" data-ill="Hitoshi Ariga" data-psa10="$30.76" data-sp="flittle"><span class="ig-no">100</span>
           <span class="ig-nm">Flittle</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:230" data-ill="Tika Matsuno" data-psa10="$30.76"><span class="ig-no">101</span>
+        <li class="cl-row" data-r="7" style="--k:230" data-ill="Tika Matsuno" data-psa10="$30.76" data-sp="flittle"><span class="ig-no">101</span>
           <span class="ig-nm">Flittle</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:231" data-ill="Pani Kobayashi" data-psa10="$31.11"><span class="ig-no">102</span>
+        <li class="cl-row" data-r="7" style="--k:231" data-ill="Pani Kobayashi" data-psa10="$31.11" data-sp="flittle"><span class="ig-no">102</span>
           <span class="ig-nm">Flittle</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:211" data-ill="Hitoshi Ariga" data-psa10="$30.84"><span class="ig-no">103</span>
+        <li class="cl-row" data-r="6" style="--k:211" data-ill="Hitoshi Ariga" data-psa10="$30.84" data-sp="espathra"><span class="ig-no">103</span>
           <span class="ig-nm">Espathra</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:127" data-ill="yuu" data-psa10="$20.31"><span class="ig-no">104</span>
+        <li class="cl-row" data-r="7" style="--k:127" data-ill="yuu" data-psa10="$20.31" data-sp="greavard"><span class="ig-no">104</span>
           <span class="ig-nm">Greavard</span>
           <span class="ig-pr">$0.38</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:140" data-ill="Shin Nagasawa" data-psa10="$17.99"><span class="ig-no">105</span>
+        <li class="cl-row" data-r="7" style="--k:140" data-ill="Shin Nagasawa" data-psa10="$17.99" data-sp="greavard"><span class="ig-no">105</span>
           <span class="ig-nm">Greavard</span>
           <span class="ig-pr">$0.33</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:212" data-ill="Kouki Saitou" data-psa10="$30.84"><span class="ig-no">106</span>
+        <li class="cl-row" data-r="5" style="--k:212" data-ill="Kouki Saitou" data-psa10="$30.84" data-sp="houndstone"><span class="ig-no">106</span>
           <span class="ig-nm">Houndstone</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:213" data-ill="nagimiso" data-psa10="$29.99"><span class="ig-no">107</span>
+        <li class="cl-row" data-r="7" style="--k:213" data-ill="nagimiso" data-psa10="$29.99" data-sp="mankey"><span class="ig-no">107</span>
           <span class="ig-nm">Mankey</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:241" data-ill="Ryuta Fuse" data-psa10="$40.00"><span class="ig-no">108</span>
+        <li class="cl-row" data-r="7" style="--k:241" data-ill="Ryuta Fuse" data-psa10="$40.00" data-sp="primeape"><span class="ig-no">108</span>
           <span class="ig-nm">Primeape</span>
           <span class="ig-pr">$0.19</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:56" data-ill="Anesaki Dynamic" data-psa10="$37.93"><span class="ig-no">109</span>
+        <li class="cl-row" data-r="5" style="--k:56" data-ill="Anesaki Dynamic" data-psa10="$37.93" data-sp="annihilape"><span class="ig-no">109</span>
           <span class="ig-nm">Annihilape</span>
           <span class="ig-pr">$2.08</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:214" data-ill="miki kudo" data-psa10="$17.98"><span class="ig-no">110</span>
+        <li class="cl-row" data-r="7" style="--k:214" data-ill="miki kudo" data-psa10="$17.98" data-sp="meditite"><span class="ig-no">110</span>
           <span class="ig-nm">Meditite</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:200" data-ill="Jerky" data-psa10="$30.95"><span class="ig-no">111</span>
+        <li class="cl-row" data-r="6" style="--k:200" data-ill="Jerky" data-psa10="$30.95" data-sp="medicham"><span class="ig-no">111</span>
           <span class="ig-nm">Medicham</span>
           <span class="ig-pr">$0.24</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:147" data-ill="Naoyo Kimura" data-psa10="$30.70"><span class="ig-no">112</span>
+        <li class="cl-row" data-r="7" style="--k:147" data-ill="Naoyo Kimura" data-psa10="$30.70" data-sp="riolu"><span class="ig-no">112</span>
           <span class="ig-nm">Riolu</span>
           <span class="ig-pr">$0.31</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:107" data-ill="chibi" data-psa10="$31.07"><span class="ig-no">113</span>
+        <li class="cl-row" data-r="7" style="--k:107" data-ill="chibi" data-psa10="$31.07" data-sp="riolu"><span class="ig-no">113</span>
           <span class="ig-nm">Riolu</span>
           <span class="ig-pr">$0.53</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:87" data-ill="Nurikabe" data-psa10="$33.81"><span class="ig-no">114</span>
+        <li class="cl-row" data-r="6" style="--k:87" data-ill="Nurikabe" data-psa10="$33.81" data-sp="lucario"><span class="ig-no">114</span>
           <span class="ig-nm">Lucario</span>
           <span class="ig-pr">$1.00</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:105" data-ill="Tomokazu Komiya" data-psa10="$31.91"><span class="ig-no">115</span>
+        <li class="cl-row" data-r="7" style="--k:105" data-ill="Tomokazu Komiya" data-psa10="$31.91" data-sp="sandile"><span class="ig-no">115</span>
           <span class="ig-nm">Sandile</span>
           <span class="ig-pr">$0.60</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:191" data-ill="kantaro" data-psa10="$31.14"><span class="ig-no">116</span>
+        <li class="cl-row" data-r="7" style="--k:191" data-ill="kantaro" data-psa10="$31.14" data-sp="krokorok"><span class="ig-no">116</span>
           <span class="ig-nm">Krokorok</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:131" data-ill="Misa Tsutsui" data-psa10="$31.37"><span class="ig-no">117</span>
+        <li class="cl-row" data-r="6" style="--k:131" data-ill="Misa Tsutsui" data-psa10="$31.37" data-sp="krookodile"><span class="ig-no">117</span>
           <span class="ig-nm">Krookodile</span>
           <span class="ig-pr">$0.36</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:101" data-ill="GOSSAN" data-psa10="$29.99"><span class="ig-no">118</span>
+        <li class="cl-row" data-r="5" style="--k:101" data-ill="GOSSAN" data-psa10="$29.99" data-sp="hawlucha"><span class="ig-no">118</span>
           <span class="ig-nm">Hawlucha</span>
           <span class="ig-pr">$0.64</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -1290,11 +1302,11 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Silicobra</span>
           <span class="ig-pr">$0.15</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:192" data-ill="Yuya Oka" data-psa10="$30.95"><span class="ig-no">120</span>
+        <li class="cl-row" data-r="6" style="--k:192" data-ill="Yuya Oka" data-psa10="$30.95" data-sp="sandaconda"><span class="ig-no">120</span>
           <span class="ig-nm">Sandaconda</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="6" style="--k:103" data-ill="Yuka Morii" data-psa10="$31.07"><span class="ig-no">121</span>
+        <li class="cl-row" data-r="6" style="--k:103" data-ill="Yuka Morii" data-psa10="$31.07" data-sp="stonjourner"><span class="ig-no">121</span>
           <span class="ig-nm">Stonjourner</span>
           <span class="ig-pr">$0.61</span>
           <span class="ig-rr2">Uncommon</span></li>
@@ -1302,47 +1314,47 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Klawf</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:83" data-ill="5ban Graphics" data-psa10="$35.00"><span class="ig-no">123</span>
+        <li class="cl-row" data-r="4" style="--k:83" data-ill="5ban Graphics" data-psa10="$35.00" data-sp="great-tusk"><span class="ig-no">123</span>
           <span class="ig-nm">Great Tusk ex</span>
           <span class="ig-pr">$1.19</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="5" style="--k:66" data-ill="Kouki Saitou" data-psa10="$24.99"><span class="ig-no">124</span>
+        <li class="cl-row" data-r="5" style="--k:66" data-ill="Kouki Saitou" data-psa10="$24.99" data-sp="koraidon"><span class="ig-no">124</span>
           <span class="ig-nm">Koraidon</span>
           <span class="ig-pr">$1.79</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="4" style="--k:93" data-ill="aky CG Works" data-psa10="$30.50"><span class="ig-no">125</span>
+        <li class="cl-row" data-r="4" style="--k:93" data-ill="aky CG Works" data-psa10="$30.50" data-sp="koraidon"><span class="ig-no">125</span>
           <span class="ig-nm">Koraidon ex</span>
           <span class="ig-pr">$0.87</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:137" data-ill="Kouki Saitou" data-psa10="$30.76"><span class="ig-no">126</span>
+        <li class="cl-row" data-r="7" style="--k:137" data-ill="Kouki Saitou" data-psa10="$30.76" data-sp="grimer"><span class="ig-no">126</span>
           <span class="ig-nm">Grimer</span>
           <span class="ig-pr">$0.34</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:118" data-ill="Haru Akasaka" data-psa10="$31.83"><span class="ig-no">127</span>
+        <li class="cl-row" data-r="6" style="--k:118" data-ill="Haru Akasaka" data-psa10="$31.83" data-sp="muk"><span class="ig-no">127</span>
           <span class="ig-nm">Muk</span>
           <span class="ig-pr">$0.42</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:248" data-ill="sui" data-psa10="$79.99"><span class="ig-no">128</span>
+        <li class="cl-row" data-r="7" style="--k:248" data-ill="sui" data-psa10="$79.99" data-sp="seviper"><span class="ig-no">128</span>
           <span class="ig-nm">Seviper</span>
           <span class="ig-pr">$0.17</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:141" data-ill="Naoyo Kimura" data-psa10="$31.03"><span class="ig-no">129</span>
+        <li class="cl-row" data-r="6" style="--k:141" data-ill="Naoyo Kimura" data-psa10="$31.03" data-sp="spiritomb"><span class="ig-no">129</span>
           <span class="ig-nm">Spiritomb</span>
           <span class="ig-pr">$0.33</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:253" data-ill="Shiburingaru" data-psa10="$30.61"><span class="ig-no">130</span>
+        <li class="cl-row" data-r="7" style="--k:253" data-ill="Shiburingaru" data-psa10="$30.61" data-sp="croagunk"><span class="ig-no">130</span>
           <span class="ig-nm">Croagunk</span>
           <span class="ig-pr">$0.16</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="4" style="--k:79" data-ill="Nisota Niso" data-psa10="$52.50"><span class="ig-no">131</span>
+        <li class="cl-row" data-r="4" style="--k:79" data-ill="Nisota Niso" data-psa10="$52.50" data-sp="toxicroak"><span class="ig-no">131</span>
           <span class="ig-nm">Toxicroak ex</span>
           <span class="ig-pr">$1.32</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:157" data-ill="sowsow" data-psa10="$31.14"><span class="ig-no">132</span>
+        <li class="cl-row" data-r="7" style="--k:157" data-ill="sowsow" data-psa10="$31.14" data-sp="pawniard"><span class="ig-no">132</span>
           <span class="ig-nm">Pawniard</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:222" data-ill="Hideki Ishikawa" data-psa10="$11.51"><span class="ig-no">133</span>
+        <li class="cl-row" data-r="7" style="--k:222" data-ill="Hideki Ishikawa" data-psa10="$11.51" data-sp="bisharp"><span class="ig-no">133</span>
           <span class="ig-nm">Bisharp</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
@@ -1350,35 +1362,35 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Kingambit</span>
           <span class="ig-pr">$0.30</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:193" data-ill="kantaro" data-psa10="$30.99"><span class="ig-no">135</span>
+        <li class="cl-row" data-r="7" style="--k:193" data-ill="kantaro" data-psa10="$30.99" data-sp="maschiff"><span class="ig-no">135</span>
           <span class="ig-nm">Maschiff</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:223" data-ill="KEIICHIRO ITO" data-psa10="$30.80"><span class="ig-no">136</span>
+        <li class="cl-row" data-r="7" style="--k:223" data-ill="KEIICHIRO ITO" data-psa10="$30.80" data-sp="maschiff"><span class="ig-no">136</span>
           <span class="ig-nm">Maschiff</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:142" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$14.00"><span class="ig-no">137</span>
+        <li class="cl-row" data-r="6" style="--k:142" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$14.00" data-sp="mabosstiff"><span class="ig-no">137</span>
           <span class="ig-nm">Mabosstiff</span>
           <span class="ig-pr">$0.33</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="6" style="--k:215" data-ill="nagimiso" data-psa10="$30.95"><span class="ig-no">138</span>
+        <li class="cl-row" data-r="6" style="--k:215" data-ill="nagimiso" data-psa10="$30.95" data-sp="bombirdier"><span class="ig-no">138</span>
           <span class="ig-nm">Bombirdier</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="6" style="--k:216" data-ill="Lee HyunJung" data-psa10="$30.84"><span class="ig-no">139</span>
+        <li class="cl-row" data-r="6" style="--k:216" data-ill="Lee HyunJung" data-psa10="$30.84" data-sp="forretress"><span class="ig-no">139</span>
           <span class="ig-nm">Forretress</span>
           <span class="ig-pr">$0.22</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:233" data-ill="Shin Nagasawa" data-psa10="$30.84"><span class="ig-no">140</span>
+        <li class="cl-row" data-r="7" style="--k:233" data-ill="Shin Nagasawa" data-psa10="$30.84" data-sp="varoom"><span class="ig-no">140</span>
           <span class="ig-nm">Varoom</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:174" data-ill="nagimiso" data-psa10="$31.79"><span class="ig-no">141</span>
+        <li class="cl-row" data-r="7" style="--k:174" data-ill="nagimiso" data-psa10="$31.79" data-sp="varoom"><span class="ig-no">141</span>
           <span class="ig-nm">Varoom</span>
           <span class="ig-pr">$0.27</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="5" style="--k:77" data-ill="Anesaki Dynamic" data-psa10="$16.05"><span class="ig-no">142</span>
+        <li class="cl-row" data-r="5" style="--k:77" data-ill="Anesaki Dynamic" data-psa10="$16.05" data-sp="revavroom"><span class="ig-no">142</span>
           <span class="ig-nm">Revavroom</span>
           <span class="ig-pr">$1.47</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
@@ -1386,91 +1398,91 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Iron Treads ex</span>
           <span class="ig-pr">$0.94</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:224" data-ill="sui" data-psa10="$27.99"><span class="ig-no">144</span>
+        <li class="cl-row" data-r="7" style="--k:224" data-ill="sui" data-psa10="$27.99" data-sp="chansey"><span class="ig-no">144</span>
           <span class="ig-nm">Chansey</span>
           <span class="ig-pr">$0.21</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:108" data-ill="chibi" data-psa10="$30.00"><span class="ig-no">145</span>
+        <li class="cl-row" data-r="6" style="--k:108" data-ill="chibi" data-psa10="$30.00" data-sp="blissey"><span class="ig-no">145</span>
           <span class="ig-nm">Blissey</span>
           <span class="ig-pr">$0.51</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:257" data-ill="Yuya Oka" data-psa10="$30.65"><span class="ig-no">146</span>
+        <li class="cl-row" data-r="7" style="--k:257" data-ill="Yuya Oka" data-psa10="$30.65" data-sp="zangoose"><span class="ig-no">146</span>
           <span class="ig-nm">Zangoose</span>
           <span class="ig-pr">$0.15</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:194" data-ill="aoki" data-psa10="$30.95"><span class="ig-no">147</span>
+        <li class="cl-row" data-r="6" style="--k:194" data-ill="aoki" data-psa10="$30.95" data-sp="zangoose"><span class="ig-no">147</span>
           <span class="ig-nm">Zangoose</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:116" data-ill="Yuka Morii" data-psa10="$100"><span class="ig-no">148</span>
+        <li class="cl-row" data-r="7" style="--k:116" data-ill="Yuka Morii" data-psa10="$100" data-sp="starly"><span class="ig-no">148</span>
           <span class="ig-nm">Starly</span>
           <span class="ig-pr">$0.45</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:254" data-ill="kantaro" data-psa10="$30.57"><span class="ig-no">149</span>
+        <li class="cl-row" data-r="7" style="--k:254" data-ill="kantaro" data-psa10="$30.57" data-sp="staravia"><span class="ig-no">149</span>
           <span class="ig-nm">Staravia</span>
           <span class="ig-pr">$0.16</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:205" data-ill="Atsushi Furusawa" data-psa10="$30.84"><span class="ig-no">150</span>
+        <li class="cl-row" data-r="6" style="--k:205" data-ill="Atsushi Furusawa" data-psa10="$30.84" data-sp="staraptor"><span class="ig-no">150</span>
           <span class="ig-nm">Staraptor</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:113" data-ill="HYOGONOSUKE" data-psa10="$31.03"><span class="ig-no">151</span>
+        <li class="cl-row" data-r="7" style="--k:113" data-ill="HYOGONOSUKE" data-psa10="$31.03" data-sp="skwovet"><span class="ig-no">151</span>
           <span class="ig-nm">Skwovet</span>
           <span class="ig-pr">$0.50</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:206" data-ill="kantaro" data-psa10="$19.95"><span class="ig-no">152</span>
+        <li class="cl-row" data-r="6" style="--k:206" data-ill="kantaro" data-psa10="$19.95" data-sp="greedent"><span class="ig-no">152</span>
           <span class="ig-nm">Greedent</span>
           <span class="ig-pr">$0.23</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:60" data-ill="Kagemaru Himeno"><span class="ig-no">153</span>
+        <li class="cl-row" data-r="5" style="--k:60" data-ill="Kagemaru Himeno" data-sp="indeedee"><span class="ig-no">153</span>
           <span class="ig-nm">Indeedee</span>
           <span class="ig-pr">$1.98</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:100" data-ill="Teeziro" data-psa10="$47.99"><span class="ig-no">154</span>
+        <li class="cl-row" data-r="7" style="--k:100" data-ill="Teeziro" data-psa10="$47.99" data-sp="lechonk"><span class="ig-no">154</span>
           <span class="ig-nm">Lechonk</span>
           <span class="ig-pr">$0.66</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:138" data-ill="kodama" data-psa10="$165"><span class="ig-no">155</span>
+        <li class="cl-row" data-r="7" style="--k:138" data-ill="kodama" data-psa10="$165" data-sp="lechonk"><span class="ig-no">155</span>
           <span class="ig-nm">Lechonk</span>
           <span class="ig-pr">$0.34</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:134" data-ill="Mina Nakai" data-psa10="$87.99"><span class="ig-no">156</span>
+        <li class="cl-row" data-r="7" style="--k:134" data-ill="Mina Nakai" data-psa10="$87.99" data-sp="lechonk"><span class="ig-no">156</span>
           <span class="ig-nm">Lechonk</span>
           <span class="ig-pr">$0.35</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:195" data-ill="kirisAki" data-psa10="$30.76"><span class="ig-no">157</span>
+        <li class="cl-row" data-r="6" style="--k:195" data-ill="kirisAki" data-psa10="$30.76" data-sp="oinkologne"><span class="ig-no">157</span>
           <span class="ig-nm">Oinkologne</span>
           <span class="ig-pr">$0.25</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="4" style="--k:88" data-ill="aky CG Works" data-psa10="$18.47"><span class="ig-no">158</span>
+        <li class="cl-row" data-r="4" style="--k:88" data-ill="aky CG Works" data-psa10="$18.47" data-sp="oinkologne"><span class="ig-no">158</span>
           <span class="ig-nm">Oinkologne ex</span>
           <span class="ig-pr">$0.99</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Double Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Double Rare</span></li>
-        <li class="cl-row" data-r="7" style="--k:95" data-ill="Pani Kobayashi" data-psa10="$32.21"><span class="ig-no">159</span>
+        <li class="cl-row" data-r="7" style="--k:95" data-ill="Pani Kobayashi" data-psa10="$32.21" data-sp="tandemaus"><span class="ig-no">159</span>
           <span class="ig-nm">Tandemaus</span>
           <span class="ig-pr">$0.82</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="7" style="--k:89" data-ill="yuu" data-psa10="$33.70"><span class="ig-no">160</span>
+        <li class="cl-row" data-r="7" style="--k:89" data-ill="yuu" data-psa10="$33.70" data-sp="tandemaus"><span class="ig-no">160</span>
           <span class="ig-nm">Tandemaus</span>
           <span class="ig-pr">$0.99</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:96" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$32.86"><span class="ig-no">161</span>
+        <li class="cl-row" data-r="6" style="--k:96" data-ill="KIYOTAKA OSHIYAMA" data-psa10="$32.86" data-sp="maushold"><span class="ig-no">161</span>
           <span class="ig-nm">Maushold</span>
           <span class="ig-pr">$0.75</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="7" style="--k:249" data-ill="Oswaldo KATO" data-psa10="$30.95"><span class="ig-no">162</span>
+        <li class="cl-row" data-r="7" style="--k:249" data-ill="Oswaldo KATO" data-psa10="$30.95" data-sp="squawkabilly"><span class="ig-no">162</span>
           <span class="ig-nm">Squawkabilly</span>
           <span class="ig-pr">$0.17</span>
           <span class="ig-rr2">Common</span></li>
-        <li class="cl-row" data-r="6" style="--k:234" data-ill="AKIRA EGAWA" data-psa10="$12.00"><span class="ig-no">163</span>
+        <li class="cl-row" data-r="6" style="--k:234" data-ill="AKIRA EGAWA" data-psa10="$12.00" data-sp="cyclizar"><span class="ig-no">163</span>
           <span class="ig-nm">Cyclizar</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Uncommon</span></li>
-        <li class="cl-row" data-r="5" style="--k:63" data-ill="Ryota Murayama" data-psa10="$9.00"><span class="ig-no">164</span>
+        <li class="cl-row" data-r="5" style="--k:63" data-ill="Ryota Murayama" data-psa10="$9.00" data-sp="cyclizar"><span class="ig-no">164</span>
           <span class="ig-nm">Cyclizar</span>
           <span class="ig-pr">$1.87</span>
           <span class="ig-rr2"><span class="rk rk-black" title="Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Rare</span></li>
-        <li class="cl-row" data-r="6" style="--k:235" data-ill="kantaro" data-psa10="$30.95"><span class="ig-no">165</span>
+        <li class="cl-row" data-r="6" style="--k:235" data-ill="kantaro" data-psa10="$30.95" data-sp="flamigo"><span class="ig-no">165</span>
           <span class="ig-nm">Flamigo</span>
           <span class="ig-pr">$0.20</span>
           <span class="ig-rr2">Uncommon</span></li>
@@ -1614,7 +1626,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Dolliv <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.99</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:38" data-ill="Akira Komayama" data-psa10="$155"><span class="ig-no">201</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:38" data-ill="Akira Komayama" data-psa10="$155" data-sp="toedscool"><span class="ig-no">201</span>
           <span class="ig-nm">Toedscool <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.17</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1622,27 +1634,27 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Scovillain <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.32</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:17" data-ill="nagimiso" data-psa10="$633"><span class="ig-no">203</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:17" data-ill="nagimiso" data-psa10="$633" data-sp="armarouge"><span class="ig-no">203</span>
           <span class="ig-nm">Armarouge <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$13.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:4" data-ill="Toshinao Aoki" data-psa10="$990" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/slowpoke-204"><span class="ig-no">204</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:4" data-ill="Toshinao Aoki" data-psa10="$990" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/slowpoke-204" data-sp="slowpoke"><span class="ig-no">204</span>
           <span class="ig-nm">Slowpoke <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$36.60</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:26" data-ill="Shinya Komatsu" data-psa10="$205"><span class="ig-no">205</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:26" data-ill="Shinya Komatsu" data-psa10="$205" data-sp="clauncher"><span class="ig-no">205</span>
           <span class="ig-nm">Clauncher <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.23</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:12" data-ill="You Iribi" data-psa10="$641"><span class="ig-no">206</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:12" data-ill="You Iribi" data-psa10="$641" data-sp="wiglett"><span class="ig-no">206</span>
           <span class="ig-nm">Wiglett <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$18.06</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:15" data-ill="AKIRA EGAWA" data-psa10="$317"><span class="ig-no">207</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:15" data-ill="AKIRA EGAWA" data-psa10="$317" data-sp="dondozo"><span class="ig-no">207</span>
           <span class="ig-nm">Dondozo <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$14.44</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:13" data-ill="zig" data-psa10="$465"><span class="ig-no">208</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:13" data-ill="zig" data-psa10="$465" data-sp="pachirisu"><span class="ig-no">208</span>
           <span class="ig-nm">Pachirisu <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$16.04</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1650,15 +1662,15 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Pawmot <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$9.07</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:2" data-ill="Tomokazu Komiya" data-psa10="$1,000" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/drowzee-210"><span class="ig-no">210</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:2" data-ill="Tomokazu Komiya" data-psa10="$1,000" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/drowzee-210" data-sp="drowzee"><span class="ig-no">210</span>
           <span class="ig-nm">Drowzee <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$50.03</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:3" data-ill="Jiro Sasumo" data-psa10="$727" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/ralts-211"><span class="ig-no">211</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:3" data-ill="Jiro Sasumo" data-psa10="$727" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/ralts-211" data-sp="ralts"><span class="ig-no">211</span>
           <span class="ig-nm">Ralts <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$36.97</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:5" data-ill="Jiro Sasumo" data-psa10="$524" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/kirlia-212"><span class="ig-no">212</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:5" data-ill="Jiro Sasumo" data-psa10="$524" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/kirlia-212" data-sp="kirlia"><span class="ig-no">212</span>
           <span class="ig-nm">Kirlia <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$31.75</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1666,15 +1678,15 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Fidough <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$19.75</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:7" data-ill="sowsow" data-psa10="$625" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/greavard-214"><span class="ig-no">214</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:7" data-ill="sowsow" data-psa10="$625" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/greavard-214" data-sp="greavard"><span class="ig-no">214</span>
           <span class="ig-nm">Greavard <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$20.33</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:6" data-ill="Nelnal" data-psa10="$597" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/riolu-215"><span class="ig-no">215</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:6" data-ill="Nelnal" data-psa10="$597" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/riolu-215" data-sp="riolu"><span class="ig-no">215</span>
           <span class="ig-nm">Riolu <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$26.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:34" data-ill="Nurikabe" data-psa10="$175"><span class="ig-no">216</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:34" data-ill="Nurikabe" data-psa10="$175" data-sp="sandile"><span class="ig-no">216</span>
           <span class="ig-nm">Sandile <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1682,11 +1694,11 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Klawf <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$5.14</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:24" data-ill="OKACHEKE" data-psa10="$137"><span class="ig-no">218</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:24" data-ill="OKACHEKE" data-psa10="$137" data-sp="mabosstiff"><span class="ig-no">218</span>
           <span class="ig-nm">Mabosstiff <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.33</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:35" data-ill="Shibuzoh." data-psa10="$353"><span class="ig-no">219</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:35" data-ill="Shibuzoh." data-psa10="$353" data-sp="bombirdier"><span class="ig-no">219</span>
           <span class="ig-nm">Bombirdier <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1694,11 +1706,11 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Kingambit <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$9.19</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:14" data-ill="saino misaki" data-psa10="$444"><span class="ig-no">221</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:14" data-ill="saino misaki" data-psa10="$444" data-sp="starly"><span class="ig-no">221</span>
           <span class="ig-nm">Starly <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$15.00</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="2" style="--k:25" data-ill="Teeziro" data-psa10="$184"><span class="ig-no">222</span>
+        <li class="cl-row is-chase" data-r="2" style="--k:25" data-ill="Teeziro" data-psa10="$184" data-sp="skwovet"><span class="ig-no">222</span>
           <span class="ig-nm">Skwovet <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$8.27</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Illustration Rare</span></li>
@@ -1706,39 +1718,39 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Spidops ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:16" data-ill="5ban Graphics" data-psa10="$164"><span class="ig-no">224</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:16" data-ill="5ban Graphics" data-psa10="$164" data-sp="arcanine"><span class="ig-no">224</span>
           <span class="ig-nm">Arcanine ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$13.98</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:20" data-ill="5ban Graphics" data-psa10="$126"><span class="ig-no">225</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:20" data-ill="5ban Graphics" data-psa10="$126" data-sp="gyarados"><span class="ig-no">225</span>
           <span class="ig-nm">Gyarados ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$10.00</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:58" data-ill="PLANETA Tsuji" data-psa10="$32.50"><span class="ig-no">226</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:58" data-ill="PLANETA Tsuji" data-psa10="$32.50" data-sp="magnezone"><span class="ig-no">226</span>
           <span class="ig-nm">Magnezone ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.99</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:48" data-ill="5ban Graphics" data-psa10="$57.50"><span class="ig-no">227</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:48" data-ill="5ban Graphics" data-psa10="$57.50" data-sp="miraidon"><span class="ig-no">227</span>
           <span class="ig-nm">Miraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.90</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:33" data-ill="N-DESIGN Inc." data-psa10="$56.19"><span class="ig-no">228</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:33" data-ill="N-DESIGN Inc." data-psa10="$56.19" data-sp="gardevoir"><span class="ig-no">228</span>
           <span class="ig-nm">Gardevoir ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.03</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:54" data-ill="PLANETA Mochizuki" data-psa10="$39.87"><span class="ig-no">229</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:54" data-ill="PLANETA Mochizuki" data-psa10="$39.87" data-sp="banette"><span class="ig-no">229</span>
           <span class="ig-nm">Banette ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.40</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:67" data-ill="5ban Graphics" data-psa10="$35.00"><span class="ig-no">230</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:67" data-ill="5ban Graphics" data-psa10="$35.00" data-sp="great-tusk"><span class="ig-no">230</span>
           <span class="ig-nm">Great Tusk ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.79</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:52" data-ill="aky CG Works" data-psa10="$50.00"><span class="ig-no">231</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:52" data-ill="aky CG Works" data-psa10="$50.00" data-sp="koraidon"><span class="ig-no">231</span>
           <span class="ig-nm">Koraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$2.58</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:61" data-ill="PLANETA Hiiragi" data-psa10="$48.71"><span class="ig-no">232</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:61" data-ill="PLANETA Hiiragi" data-psa10="$48.71" data-sp="toxicroak"><span class="ig-no">232</span>
           <span class="ig-nm">Toxicroak ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.97</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
@@ -1746,7 +1758,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Iron Treads ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.87</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
-        <li class="cl-row is-chase" data-r="3" style="--k:69" data-ill="aky CG Works" data-psa10="$38.50"><span class="ig-no">234</span>
+        <li class="cl-row is-chase" data-r="3" style="--k:69" data-ill="aky CG Works" data-psa10="$38.50" data-sp="oinkologne"><span class="ig-no">234</span>
           <span class="ig-nm">Oinkologne ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$1.76</span>
           <span class="ig-rr2"><span class="rk rk-silver" title="Ultra Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Ultra Rare</span></li>
@@ -1786,19 +1798,19 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Spidops ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$9.87</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="1" style="--k:8" data-ill="kantaro" data-psa10="$111" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/miraidon-ex-244"><span class="ig-no">244</span>
+        <li class="cl-row is-chase" data-r="1" style="--k:8" data-ill="kantaro" data-psa10="$111" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/miraidon-ex-244" data-sp="miraidon"><span class="ig-no">244</span>
           <span class="ig-nm">Miraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$19.99</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="1" style="--k:1" data-ill="Jiro Sasumo" data-psa10="$204" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gardevoir-ex-245"><span class="ig-no">245</span>
+        <li class="cl-row is-chase" data-r="1" style="--k:1" data-ill="Jiro Sasumo" data-psa10="$204" data-url="https://www.pricecharting.com/game/pokemon-scarlet-&amp;-violet/gardevoir-ex-245" data-sp="gardevoir"><span class="ig-no">245</span>
           <span class="ig-nm">Gardevoir ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$62.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="1" style="--k:18" data-ill="Pani Kobayashi" data-psa10="$90.10"><span class="ig-no">246</span>
+        <li class="cl-row is-chase" data-r="1" style="--k:18" data-ill="Pani Kobayashi" data-psa10="$90.10" data-sp="great-tusk"><span class="ig-no">246</span>
           <span class="ig-nm">Great Tusk ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$12.18</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="1" style="--k:10" data-ill="Ryota Murayama" data-psa10="$105"><span class="ig-no">247</span>
+        <li class="cl-row is-chase" data-r="1" style="--k:10" data-ill="Ryota Murayama" data-psa10="$105" data-sp="koraidon"><span class="ig-no">247</span>
           <span class="ig-nm">Koraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$19.50</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
@@ -1822,11 +1834,11 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
           <span class="ig-nm">Penny <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.49</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Special Illustration Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Special Illustration Rare</span></li>
-        <li class="cl-row is-chase" data-r="0" style="--k:27" data-ill="5ban Graphics" data-psa10="$86.97"><span class="ig-no">253</span>
+        <li class="cl-row is-chase" data-r="0" style="--k:27" data-ill="5ban Graphics" data-psa10="$86.97" data-sp="miraidon"><span class="ig-no">253</span>
           <span class="ig-nm">Miraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$7.75</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
-        <li class="cl-row is-chase" data-r="0" style="--k:29" data-ill="aky CG Works" data-psa10="$111"><span class="ig-no">254</span>
+        <li class="cl-row is-chase" data-r="0" style="--k:29" data-ill="aky CG Works" data-psa10="$111" data-sp="koraidon"><span class="ig-no">254</span>
           <span class="ig-nm">Koraidon ex <b class="ch-tag">Chase</b></span>
           <span class="ig-pr">$6.65</span>
           <span class="ig-rr2"><span class="rk rk-gold" title="Hyper Rare"><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg><svg viewBox="0 0 12 12" aria-hidden="true" focusable="false"><path d="M6 .6 7.6 4.3 11.6 4.6 8.5 7.2 9.5 11.1 6 9 2.5 11.1 3.5 7.2 .4 4.6 4.4 4.3Z"/></svg></span>Hyper Rare</span></li>
@@ -1856,7 +1868,137 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section id="products" class="tight">
+<section id="species" class="tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>By Pokemon</p>
+    <h2>Every Pokemon in <span class="hl">Scarlet &amp; Violet</span></h2>
+    <p class="lede">Collecting one Pokemon rather than one set? Each name goes to every card we could find for
+      that Pokemon, across every set.</p>
+    <details class="ig-list sp-det">
+      <summary><span class="cl-show">Show all 116 Pokemon</span><span class="cl-hide">Hide the list</span></summary>
+      <ul class="sp-list">
+        <li><a href="/pokemon/alomomola.html">Alomomola</a></li>
+        <li><a href="/pokemon/annihilape.html">Annihilape</a></li>
+        <li><a href="/pokemon/arcanine.html">Arcanine</a></li>
+        <li><a href="/pokemon/armarouge.html">Armarouge</a></li>
+        <li><a href="/pokemon/banette.html">Banette</a></li>
+        <li><a href="/pokemon/bisharp.html">Bisharp</a></li>
+        <li><a href="/pokemon/blissey.html">Blissey</a></li>
+        <li><a href="/pokemon/bombirdier.html">Bombirdier</a></li>
+        <li><a href="/pokemon/breloom.html">Breloom</a></li>
+        <li><a href="/pokemon/bruxish.html">Bruxish</a></li>
+        <li><a href="/pokemon/buizel.html">Buizel</a></li>
+        <li><a href="/pokemon/cacnea.html">Cacnea</a></li>
+        <li><a href="/pokemon/cacturne.html">Cacturne</a></li>
+        <li><a href="/pokemon/chansey.html">Chansey</a></li>
+        <li><a href="/pokemon/charcadet.html">Charcadet</a></li>
+        <li><a href="/pokemon/clauncher.html">Clauncher</a></li>
+        <li><a href="/pokemon/clawitzer.html">Clawitzer</a></li>
+        <li><a href="/pokemon/croagunk.html">Croagunk</a></li>
+        <li><a href="/pokemon/cyclizar.html">Cyclizar</a></li>
+        <li><a href="/pokemon/dedenne.html">Dedenne</a></li>
+        <li><a href="/pokemon/dondozo.html">Dondozo</a></li>
+        <li><a href="/pokemon/drifblim.html">Drifblim</a></li>
+        <li><a href="/pokemon/drifloon.html">Drifloon</a></li>
+        <li><a href="/pokemon/drowzee.html">Drowzee</a></li>
+        <li><a href="/pokemon/espathra.html">Espathra</a></li>
+        <li><a href="/pokemon/flaaffy.html">Flaaffy</a></li>
+        <li><a href="/pokemon/flabebe.html">Flabebe</a></li>
+        <li><a href="/pokemon/flamigo.html">Flamigo</a></li>
+        <li><a href="/pokemon/flittle.html">Flittle</a></li>
+        <li><a href="/pokemon/floatzel.html">Floatzel</a></li>
+        <li><a href="/pokemon/floette.html">Floette</a></li>
+        <li><a href="/pokemon/florges.html">Florges</a></li>
+        <li><a href="/pokemon/forretress.html">Forretress</a></li>
+        <li><a href="/pokemon/fuecoco.html">Fuecoco</a></li>
+        <li><a href="/pokemon/gardevoir.html">Gardevoir</a></li>
+        <li><a href="/pokemon/gogoat.html">Gogoat</a></li>
+        <li><a href="/pokemon/great-tusk.html">Great Tusk</a></li>
+        <li><a href="/pokemon/greavard.html">Greavard</a></li>
+        <li><a href="/pokemon/greedent.html">Greedent</a></li>
+        <li><a href="/pokemon/grimer.html">Grimer</a></li>
+        <li><a href="/pokemon/growlithe.html">Growlithe</a></li>
+        <li><a href="/pokemon/gyarados.html">Gyarados</a></li>
+        <li><a href="/pokemon/hawlucha.html">Hawlucha</a></li>
+        <li><a href="/pokemon/heracross.html">Heracross</a></li>
+        <li><a href="/pokemon/houndoom.html">Houndoom</a></li>
+        <li><a href="/pokemon/houndour.html">Houndour</a></li>
+        <li><a href="/pokemon/houndstone.html">Houndstone</a></li>
+        <li><a href="/pokemon/hypno.html">Hypno</a></li>
+        <li><a href="/pokemon/indeedee.html">Indeedee</a></li>
+        <li><a href="/pokemon/kilowattrel.html">Kilowattrel</a></li>
+        <li><a href="/pokemon/kirlia.html">Kirlia</a></li>
+        <li><a href="/pokemon/klefki.html">Klefki</a></li>
+        <li><a href="/pokemon/koraidon.html">Koraidon</a></li>
+        <li><a href="/pokemon/krokorok.html">Krokorok</a></li>
+        <li><a href="/pokemon/krookodile.html">Krookodile</a></li>
+        <li><a href="/pokemon/lechonk.html">Lechonk</a></li>
+        <li><a href="/pokemon/lucario.html">Lucario</a></li>
+        <li><a href="/pokemon/mabosstiff.html">Mabosstiff</a></li>
+        <li><a href="/pokemon/magikarp.html">Magikarp</a></li>
+        <li><a href="/pokemon/magnemite.html">Magnemite</a></li>
+        <li><a href="/pokemon/magneton.html">Magneton</a></li>
+        <li><a href="/pokemon/magnezone.html">Magnezone</a></li>
+        <li><a href="/pokemon/mankey.html">Mankey</a></li>
+        <li><a href="/pokemon/mareep.html">Mareep</a></li>
+        <li><a href="/pokemon/maschiff.html">Maschiff</a></li>
+        <li><a href="/pokemon/maushold.html">Maushold</a></li>
+        <li><a href="/pokemon/medicham.html">Medicham</a></li>
+        <li><a href="/pokemon/meditite.html">Meditite</a></li>
+        <li><a href="/pokemon/meowscarada.html">Meowscarada</a></li>
+        <li><a href="/pokemon/miraidon.html">Miraidon</a></li>
+        <li><a href="/pokemon/muk.html">Muk</a></li>
+        <li><a href="/pokemon/oinkologne.html">Oinkologne</a></li>
+        <li><a href="/pokemon/pachirisu.html">Pachirisu</a></li>
+        <li><a href="/pokemon/pawmi.html">Pawmi</a></li>
+        <li><a href="/pokemon/pawniard.html">Pawniard</a></li>
+        <li><a href="/pokemon/pineco.html">Pineco</a></li>
+        <li><a href="/pokemon/primeape.html">Primeape</a></li>
+        <li><a href="/pokemon/quaquaval.html">Quaquaval</a></li>
+        <li><a href="/pokemon/ralts.html">Ralts</a></li>
+        <li><a href="/pokemon/revavroom.html">Revavroom</a></li>
+        <li><a href="/pokemon/riolu.html">Riolu</a></li>
+        <li><a href="/pokemon/rotom.html">Rotom</a></li>
+        <li><a href="/pokemon/sandaconda.html">Sandaconda</a></li>
+        <li><a href="/pokemon/sandile.html">Sandile</a></li>
+        <li><a href="/pokemon/scatterbug.html">Scatterbug</a></li>
+        <li><a href="/pokemon/seviper.html">Seviper</a></li>
+        <li><a href="/pokemon/shroomish.html">Shroomish</a></li>
+        <li><a href="/pokemon/shuppet.html">Shuppet</a></li>
+        <li><a href="/pokemon/skeledirge.html">Skeledirge</a></li>
+        <li><a href="/pokemon/skiddo.html">Skiddo</a></li>
+        <li><a href="/pokemon/skwovet.html">Skwovet</a></li>
+        <li><a href="/pokemon/slowbro.html">Slowbro</a></li>
+        <li><a href="/pokemon/slowpoke.html">Slowpoke</a></li>
+        <li><a href="/pokemon/spewpa.html">Spewpa</a></li>
+        <li><a href="/pokemon/spiritomb.html">Spiritomb</a></li>
+        <li><a href="/pokemon/sprigatito.html">Sprigatito</a></li>
+        <li><a href="/pokemon/squawkabilly.html">Squawkabilly</a></li>
+        <li><a href="/pokemon/staraptor.html">Staraptor</a></li>
+        <li><a href="/pokemon/staravia.html">Staravia</a></li>
+        <li><a href="/pokemon/starly.html">Starly</a></li>
+        <li><a href="/pokemon/stonjourner.html">Stonjourner</a></li>
+        <li><a href="/pokemon/tandemaus.html">Tandemaus</a></li>
+        <li><a href="/pokemon/tatsugiri.html">Tatsugiri</a></li>
+        <li><a href="/pokemon/toedscool.html">Toedscool</a></li>
+        <li><a href="/pokemon/toedscruel.html">Toedscruel</a></li>
+        <li><a href="/pokemon/torkoal.html">Torkoal</a></li>
+        <li><a href="/pokemon/toxel.html">Toxel</a></li>
+        <li><a href="/pokemon/toxicroak.html">Toxicroak</a></li>
+        <li><a href="/pokemon/toxtricity.html">Toxtricity</a></li>
+        <li><a href="/pokemon/tropius.html">Tropius</a></li>
+        <li><a href="/pokemon/varoom.html">Varoom</a></li>
+        <li><a href="/pokemon/vivillon.html">Vivillon</a></li>
+        <li><a href="/pokemon/wattrel.html">Wattrel</a></li>
+        <li><a href="/pokemon/wiglett.html">Wiglett</a></li>
+        <li><a href="/pokemon/wugtrio.html">Wugtrio</a></li>
+        <li><a href="/pokemon/zangoose.html">Zangoose</a></li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<section id="products" class="band tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>What you can buy</p>
     <h2>Scarlet &amp; Violet booster box, ETB and pack <span class="hl">prices</span></h2>
@@ -1988,7 +2130,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
   </div>
 </section>
 
-<section id="more-sets" class="band tight">
+<section id="more-sets" class="tight">
   <div class="wrap">
     <h2>Other <span class="hl">sets</span></h2>
     <div class="set-index">
@@ -2034,6 +2176,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
       <p class="lbx-src" id="lbSrc"></p>
       <p class="lbx-alts" id="lbAlts" hidden></p>
       <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <p class="lbx-rip" id="lbSp" hidden><a id="lbSpA" href="#"></a></p>
       <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on pricecharting.com" hidden>Check current price</a></div>
     </div>
   </div>
@@ -2229,6 +2372,12 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
       var a=$('lbRipA'); a.href=d.rip;
       a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
     }
+    // THE OPEN CARD'S SPECIES PAGE, 11 November 2026. data-sp is the slug and
+    // the name is read off the "Every Pokemon in this set" list further down
+    // the page, which already prints it once, so 245 rows do not each carry it.
+    var sp=$('lbSp'), spA=d.sp && document.querySelector('.sp-list a[href="/pokemon/'+d.sp+'.html"]');
+    sp.hidden=!spA;
+    if(spA){ $('lbSpA').href=spA.getAttribute('href'); $('lbSpA').textContent='All '+spA.textContent+' cards →'; }
     // THE BUTTON NAMES WHERE IT GOES, 14 October 2026: a new tab and an
     // aria-label ending "opens on <host>", like every other outbound link, and
     // the host read off the link itself, which follows the price shown
@@ -2329,7 +2478,7 @@ color:var(--ink-2);background:var(--page);padding:4px 7px;border-radius:999px;te
       b.dataset.name=nm; b.dataset.rarity=tierOf(li);
       b.dataset.number=of ? no+'/'+of : no;
       b.dataset.price=pr ? txt(pr) : 'No price yet';
-      ['ill','psa10','src','rip','ripWhen','ripN','url'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
+      ['ill','psa10','src','rip','ripWhen','ripN','url','sp'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
       if(d.psa10 && !d.src) b.dataset.src=(ol.getAttribute('data-src')||'')+' '+(ol.getAttribute('data-src10')||'');
       var alts=(byName[nm]||[]).filter(function(x){return x!==li;}).map(function(x){
         var p=x.querySelector('.ig-pr'); return '#'+txt(x.querySelector('.ig-no'))+' '+tierOf(x)+' '+(p ? txt(p) : 'no price');

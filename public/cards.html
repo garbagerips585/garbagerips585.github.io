@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46"><style data-pcss>.cardsearch{display:grid;gap:var(--s3);margin-top:var(--s5)}.cq-status{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>.cardsearch{display:grid;gap:var(--s3);margin-top:var(--s5)}.cq-status{font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.04em;text-transform:uppercase;
   color:var(--ink-2);margin-top:var(--s3);min-height:1.4em}.cq-head{font-size:var(--t-sm);color:var(--ink-2);margin-top:var(--s3)}.cq-list{list-style:none;margin-top:var(--s4);display:grid;gap:2px}.cq{display:grid;grid-template-columns:1fr auto;gap:2px var(--s3);align-items:baseline;
   padding:10px 12px;background:var(--card);border:1px solid var(--hair);border-radius:var(--r-sm)}.cq-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm);color:var(--ink)}.cq-pr{grid-row:1;grid-column:2;font:700 var(--t-sm)/1.4 var(--mono);color:var(--ketchup-deep);
   text-align:right;white-space:nowrap}.cq-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
@@ -40,7 +40,8 @@
 }
 @media(min-width:1600px){
   .cq-list{grid-template-columns:repeat(3,minmax(0,1fr))}
-}</style>
+}
+.cq-status.cq-plain{font:400 var(--t-sm)/1.5 var(--body);letter-spacing:0;text-transform:none;color:var(--ink)}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Card search"}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
@@ -311,7 +312,7 @@
       <li class="cq">
         
         <a class="cq-name" href="/sets/delta-reign.html">Mega Rayquaza ex</a>
-        <span class="cq-set">Delta Reign &bull; 138</span>
+        <span class="cq-set">Delta Reign &bull; 138/103</span>
         <span class="cq-rr">Special Illustration Rare</span>
         <span class="cq-pr">$336.21</span>
       </li>
@@ -325,7 +326,7 @@
       <li class="cq">
         
         <a class="cq-name" href="/sets/delta-reign.html">Mega Rayquaza ex</a>
-        <span class="cq-set">Delta Reign &bull; 141</span>
+        <span class="cq-set">Delta Reign &bull; 141/103</span>
         <span class="cq-rr">Mega Hyper Rare</span>
         <span class="cq-pr">$315.64</span>
       </li>
@@ -888,6 +889,58 @@ var printedForm = function printedForm(num, meta) {
     .trim()
     .replace(/\bv (max|star|union)\b/g,"v$1");
 }
+  // The typo matcher, from shared/fuzzy-text.mjs. Read the rules there.
+  function editDistance(a,b,max){
+  var la=a.length, lb=b.length, i, j, c, m, p2=null, p1=[], cur;
+  if(la-lb>max||lb-la>max) return max+1;
+  for(j=0;j<=lb;j++) p1[j]=j;
+  for(i=1;i<=la;i++){
+    cur=[i]; m=i;
+    for(j=1;j<=lb;j++){
+      c=a.charCodeAt(i-1)===b.charCodeAt(j-1)?0:1;
+      cur[j]=Math.min(p1[j]+1,cur[j-1]+1,p1[j-1]+c);
+      if(p2&&j>1&&a.charCodeAt(i-1)===b.charCodeAt(j-2)&&a.charCodeAt(i-2)===b.charCodeAt(j-1)){
+        cur[j]=Math.min(cur[j],p2[j-2]+1);
+      }
+      if(cur[j]<m) m=cur[j];
+    }
+    if(m>max) return max+1;
+    p2=p1; p1=cur;
+  }
+  return p1[lb];
+}
+function fuzzyBudget(term){
+  if(term.length<4||/[^a-z]/.test(term)) return 0;
+  return term.length>=8?2:1;
+}
+function fuzzyAlts(term,vocab,limit){
+  var max=fuzzyBudget(term), out=[];
+  if(!max) return out;
+  vocab.forEach(function(freq,w){
+    if(w===term) return;
+    var d=editDistance(term,w,max);
+    if(d<=max) out.push({w:w,d:d,f:freq,s:w.charAt(0)===term.charAt(0)?1:0});
+  });
+  out.sort(function(x,y){ return x.d-y.d||y.s-x.s||y.f-x.f||(x.w<y.w?-1:1); });
+  return out.slice(0,limit||5);
+}
+function vocabAdd(vocab,normText){
+  var w=normText.split(" "), i;
+  for(i=0;i<w.length;i++){
+    if(w[i].length>=3&&!/[^a-z]/.test(w[i])) vocab.set(w[i],(vocab.get(w[i])||0)+1);
+  }
+}
+  // norm() remembers its answers: the name match below folds every row of a
+  // shard on every keystroke, and the rows do not change between keystrokes.
+  var normRaw=norm, NORMED=new Map();
+  norm=function(str){
+    var k=String(str==null?'':str), v=NORMED.get(k);
+    if(v===undefined){ v=normRaw(k); NORMED.set(k,v); }
+    return v;
+  };
+  // Pokedex number -> the slug of its /pokemon/ page, '' where there is none.
+  // From /data/card-numbers/sets.json; see SPECIES in build-cards.mjs.
+  var SPECIES=[];
   // [released, printedTotal, promo, subsetTotals] per set name, from
   // /data/card-numbers/sets.json. Loaded beside card-index.json; empty if it
   // fails, which only costs the "/088" on each row and the newest-first order.
@@ -896,19 +949,119 @@ var printedForm = function printedForm(num, meta) {
 
   
   var stTimer=null, stPending='';
-  function setStatus(s){
+  function setStatus(s, plain){
     if(s===stPending) return;
     stPending=s;
     clearTimeout(stTimer);
     stTimer=setTimeout(function(){
+      // The class changes in the same tick as the words it styles.
+      if(plain) status.classList.add('cq-plain'); else status.classList.remove('cq-plain');
       if(status.textContent!==s) status.textContent=s;
     },400);
   }
 
+  /* ONE WRONG LETTER USED TO BE "Nothing matched" (11 November 2026).
+     "charzard" found nothing over 134 Charizards. When a search comes back
+     empty, each word that is in no card name we know is swapped for the
+     nearest word that is, by the rules in shared/fuzzy-text.mjs, and the
+     search runs once more with the status line saying what was searched
+     instead. Only ever after the query as typed found nothing, and only once
+     per query: FIX remembers the typed text it was worked out for, so a
+     correction that also finds nothing ends at "Nothing matched" rather than
+     looping.
+
+     THE WORDS IT CAN CORRECT TO: every species (the slugs in SPECIES), every
+     card and set name in the priced index, every set name in SETMETA, and
+     the names in whichever printings shards have been fetched so far, which
+     always includes the one the typed first letter picked. So "gust of wnid"
+     is corrected from the "g" shard it has just searched.
+
+     A word is left alone when any known word CONTAINS it, because this search
+     matches on parts of names and "char" is a search, not a typo. Numbers are
+     never touched ("136/103" stays whole: the query is split on spaces, not
+     folded, so the slash survives into the number reader). */
+  var VOCAB=new Map(), VOCAB_SRC={}, FIX={from:null, to:''}, fixT=null;
+  function vocab(){
+    var i, k;
+    if(!VOCAB_SRC.species && SPECIES.length){
+      VOCAB_SRC.species=1;
+      for(i=0;i<SPECIES.length;i++) if(SPECIES[i]) vocabAdd(VOCAB, norm(SPECIES[i]));
+    }
+    if(!VOCAB_SRC.index){
+      VOCAB_SRC.index=1;
+      for(i=0;i<DATA.cards.length;i++) vocabAdd(VOCAB, norm(DATA.cards[i][0]));
+      for(k in DATA.sets) vocabAdd(VOCAB, norm(DATA.sets[k]));
+      for(k in SETMETA) vocabAdd(VOCAB, norm(k));
+    }
+    for(k in SHARD){
+      if(VOCAB_SRC['shard '+k]) continue;
+      VOCAB_SRC['shard '+k]=1;
+      for(i=0;i<SHARD[k].length;i++) vocabAdd(VOCAB, norm(SHARD[k][i].n));
+    }
+    return VOCAB;
+  }
+  function fixQuery(q){
+    var v=vocab(), parts=q.split(' '), changed=false, i, w, known, alts;
+    for(i=0;i<parts.length;i++){
+      w=norm(parts[i]);
+      if(!fuzzyBudget(w)) continue;
+      known=false;
+      v.forEach(function(f,t){ if(!known && t.indexOf(w)!==-1) known=true; });
+      if(known) continue;
+      alts=fuzzyAlts(w, v, 1);
+      if(alts.length){ parts[i]=alts[0].w; changed=true; }
+    }
+    return changed ? parts.join(' ') : '';
+  }
+  function typedQuery(){ return input.value.trim().toLowerCase(); }
+  // The query run() searches: the corrected one, while the box still holds
+  // the text it was corrected from.
+  function liveQuery(){
+    var raw=typedQuery();
+    return FIX.from===raw && FIX.to ? FIX.to : raw;
+  }
+
+  /* A NAME MATCHES WHEN EVERY TYPED WORD IS IN IT, in any order, folded the
+     way /search.html folds: accents, apostrophes and punctuation gone. The old
+     test was one raw substring, so "erikas invitation" missed "Erika's
+     Invitation" and "vmax umbreon" missed "Umbreon VMAX". The raw substring
+     is still tried FIRST and still wins on its own, so nothing that matched
+     before can stop matching. A word of one or two letters has to START a
+     word of the name: "pikachu v" means Pikachu V, not Detective Pikachu. */
+  function nameHit(name, q, tk){
+    if(name.toLowerCase().indexOf(q)!==-1) return true;
+    if(!tk.length) return false;
+    var nm=' '+norm(name), i;
+    for(i=0;i<tk.length;i++){
+      if(nm.indexOf(tk[i].length<3 ? ' '+tk[i] : tk[i])===-1) return false;
+    }
+    return true;
+  }
+  function tokens(q){ return norm(q).split(' ').filter(function(w){ return w; }); }
+
   // note and emptyNote replace the default status sentence when a search has
   // something more exact to say, which today is only the card number search.
   function render(hits, total, note, emptyNote){
+    var raw=typedQuery(), fixed=FIX.from===raw && FIX.to ? FIX.to : '';
     if(!hits.length){
+      // Nothing as typed: try once more with the spelling corrected, BUT ONLY
+      // ONCE THE TYPING HAS STOPPED. A half typed word is not a typo: on the
+      // way to "charzard" the box holds "charz", one edit from "charm", and
+      // correcting that flashed 129 Charmanders mid-word. So the list clears
+      // now and the correction is worked out 300ms later, if the box still
+      // holds the same text. run() then comes back through here with FIX set
+      // for this text, which is what makes it once and not a loop.
+      if(raw && FIX.from!==raw){
+        list.innerHTML=''; head.hidden=true;
+        // Blank, not "Nothing matched" yet and not the last search's count.
+        setStatus('');
+        fixT=setTimeout(function(){
+          if(typedQuery()!==raw) return;
+          FIX={from:raw, to:fixQuery(raw)};
+          run();
+        },300);
+        return;
+      }
       list.innerHTML='';
       setStatus(emptyNote || 'Nothing matched. Check the spelling, or try just the Pokemon name.');
       head.hidden=true;
@@ -920,9 +1073,15 @@ var printedForm = function printedForm(num, meta) {
       // Inline, the build's broken-link check reads that prefix as a real link,
       // captures the JS concatenation as the target, and fails the nightly on a
       // page that was never meant to exist.
-      // Only cards from a set we rip have a guide to link to; the other 35,000
-      // printings render as plain text rather than a link to a 404.
-      var href=r.slug ? '/sets/'+esc(r.slug)+'.html' : '';
+      // Only cards from a set we rip have a guide to link to. The other 35,000
+      // printings used to render as plain text, which made most of every result
+      // list a dead end: "charizard" was 134 rows and 12 links. A Pokemon from a
+      // set with no guide now links to its /pokemon/ page, which lists that
+      // very printing among all the others. A Trainer or an Energy has no such
+      // page and stays plain text rather than a link to a 404; so does any
+      // species build-cards.mjs found no page for.
+      var sp=!r.slug && r.dex ? SPECIES[r.dex] : '';
+      var href=r.slug ? '/sets/'+esc(r.slug)+'.html' : sp ? '/pokemon/'+esc(sp)+'.html' : '';
       // Same thumbnail the server renders into the default list. Without this
       // the images existed only on the view nobody arrives at with intent: they
       // vanished the moment anybody typed or picked a set.
@@ -974,9 +1133,11 @@ var printedForm = function printedForm(num, meta) {
         + '</li>';
     }).join('');
     head.hidden=true;
-    setStatus(note || (total>hits.length
+    var said=note || (total>hits.length
       ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
-      : total.toLocaleString('en-US')+(total===1?' match':' matches')));
+      : total.toLocaleString('en-US')+(total===1?' match':' matches'));
+    if(fixed) setStatus('No exact match for "'+input.value.trim()+'". Showing results for "'+fixed+'": '+said+'.', true);
+    else setStatus(said);
   }
 
   // ---- every printing, in every language -------------------------------
@@ -1032,7 +1193,8 @@ var printedForm = function printedForm(num, meta) {
   }
 
   function run(){
-    var q=input.value.trim().toLowerCase(), set=sel.value;
+    clearTimeout(fixT);
+    var q=liveQuery(), set=sel.value, tk=tokens(q);
     if(!q && !set){ list.innerHTML=initial; setStatus(''); head.hidden=false; return; }
     if(!DATA){ load(run); return; }
     // A set filter names one of our 23 English sets, so it stays on the priced
@@ -1046,7 +1208,7 @@ var printedForm = function printedForm(num, meta) {
       var sw=num&&num.text ? norm(num.text).split(' ') : [];
       var only=DATA.cards.filter(function(r){
         if(r[1]!==set) return false;
-        if(!q || r[0].toLowerCase().indexOf(q)!==-1) return true;
+        if(!q || nameHit(r[0], q, tk)) return true;
         if(!num || numKey(r[2])!==num.key) return false;
         var nm=norm(r[0]);
         for(var i=0;i<sw.length;i++) if(sw[i] && nm.indexOf(sw[i])===-1) return false;
@@ -1057,17 +1219,26 @@ var printedForm = function printedForm(num, meta) {
       return;
     }
     if(num){ numberRun(q, num); return; }
-    var k=shardKey(q);
-    if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
-    var pm=priceMap();
-    var hits=SHARD[k].filter(function(c){ return c.n.toLowerCase().indexOf(q)!==-1; })
-      .map(function(c){
-        var m=pm[key3(c.n,c.s,c.i)];
-        return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
-                 untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
-      });
+    // The shard the query's first letter picks, as always. Where that finds
+    // nothing and the query has other words, the shards THEY pick are tried in
+    // turn: a name is filed under its own first letter, so "vmax umbreon"
+    // looked in "v" and never saw Umbreon VMAX in "u".
+    var keys=[shardKey(q)], ki, kk, pm=priceMap(), hits=[];
+    // Capped at three shards and at words of three letters or more: a shard is
+    // 60KB to 870KB, and a sentence of nonsense must not fetch one per word.
+    for(ki=0;ki<tk.length && keys.length<3;ki++){
+      if(tk[ki].length<3) continue;
+      kk=shardKey(tk[ki]); if(keys.indexOf(kk)===-1) keys.push(kk);
+    }
+    function inShard(c){ return nameHit(c.n, q, tk); }
+    function shaped(c){ return fromShard(c, pm); }
+    for(ki=0; ki<keys.length && !hits.length; ki++){
+      var k=keys[ki];
+      if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
+      hits=SHARD[k].filter(inShard).map(shaped);
+    }
     if(INDEX_ONLY.length) DATA.cards.forEach(function(r){
-      if(INDEX_ONLY.indexOf(r[1])!==-1 && r[0].toLowerCase().indexOf(q)!==-1) hits.push(fromPriced(r));
+      if(INDEX_ONLY.indexOf(r[1])!==-1 && nameHit(r[0], q, tk)) hits.push(fromPriced(r));
     });
     // Priced first and priciest first within that, because those are the cards we
     // can actually tell you something about. Everything else follows grouped by
@@ -1123,7 +1294,8 @@ var printedForm = function printedForm(num, meta) {
   function fromShard(c, pm){
     var m=pm[key3(c.n,c.s,c.i)];
     return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
-             untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
+             untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null,
+             dex:c.c==='Pokemon' && c.d ? c.d : 0 };
   }
   function numberRun(q, num){
     var b=num.n % NUM_BUCKETS;
@@ -1144,13 +1316,16 @@ var printedForm = function printedForm(num, meta) {
       var r=grp[i];
       var setN=B.s[r[1]];
       if(words.length){
-        var hay=norm(r[0]+' '+(r[4]||'')+' '+setN);
+        var hay=norm(r[0]+' '+(r[5]||'')+' '+setN);
         for(ok=true,j=0;j<words.length;j++) if(hay.indexOf(words[j])===-1){ ok=false; break; }
         if(!ok) continue;
       }
       var m=pm[key3(r[0],setN,r[2])];
-      add({ name:r[0], printed:r[4]||null, set:setN, n:r[2], rarity:B.r[r[3]]||'',
-            lang:LANGS[r[6]||0], untranslated:r[5]||0, price:m?m.price:null, slug:m?m.slug:null }, 0);
+      // [name, set, number, rarity, dex, printed, untranslated, language],
+      // trailing zeros dropped. See the row note in build-cards.mjs.
+      add({ name:r[0], printed:r[5]||null, set:setN, n:r[2], rarity:B.r[r[3]]||'',
+            lang:LANGS[r[7]||0], untranslated:r[6]||0, price:m?m.price:null, slug:m?m.slug:null,
+            dex:r[4]||0 }, 0);
     }
     if(k0){
       var S0=SHARD[k0];
@@ -1233,6 +1408,7 @@ var printedForm = function printedForm(num, meta) {
     ]).then(function(res){
       var j=res[0];
       SETMETA=(res[1]&&res[1].sets)||{};
+      SPECIES=(res[1]&&res[1].species)||[];
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
       // NOTHING WAITING MEANS NOTHING WILL CLEAR THE STATUS, and it sat on

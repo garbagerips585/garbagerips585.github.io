@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46"><style data-pcss>.st-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}@media(min-width:1000px){.st-list{grid-template-columns:repeat(2,minmax(0,1fr))}}.st-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>.st-list{list-style:none;display:grid;gap:var(--s4);margin-top:var(--s5)}@media(min-width:1000px){.st-list{grid-template-columns:repeat(2,minmax(0,1fr))}}.st-n{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;
   border-radius:50%;background:var(--band-bg);color:var(--gold-deep);font:400 1.3rem/1 var(--display);flex:none}.st-links{display:flex;flex-wrap:wrap;gap:var(--s3);align-items:center;margin-top:var(--s3)}.st-also{font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep);min-height:44px;
   display:inline-flex;align-items:center}.st-also:hover{text-decoration:underline}</style>
 
@@ -50,6 +50,8 @@
 @media(max-width:359px){
 .st{grid-template-columns:auto minmax(0,1fr)}
 }
+.st-buy{grid-template-columns:minmax(0,1fr);margin-top:var(--s5)}
+.st-buy + .st-list{margin-top:var(--s4)}
 .st-rips{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
   max-width:44em}
 .st-rips li{background:var(--card);border:1px solid var(--hair);
@@ -208,6 +210,14 @@
 <section class="tight">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Start here</nav>
+    <div class="st st-buy">
+      <div class="st-body">
+        <h2>Buying for someone? Start here.</h2>
+        <p>If nobody owns a card yet, skip the list. What to get for a kid who has never opened a
+          pack, what each box on the shelf is, what it should cost, and three things not to buy first.</p>
+        <p class="st-links"><a class="btn btn-sky" href="/what-to-buy.html">What to buy first</a></p>
+      </div>
+    </div>
     <ol class="st-list">
       <li class="st">
         <span class="st-n" aria-hidden="true">1</span>
@@ -292,12 +302,7 @@
     </ol>
     
     
-    <p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not on that
-      list, because it comes before you own a card at all:
-      <a href="/what-to-buy.html">what should you actually buy?</a> What to get for a kid who has never
-      opened a pack, what each box on the shelf actually is, what it should cost, and the three things
-      not to buy first.</p>
-    <p class="lede" style="max-width:44em;margin-top:var(--s5)">And one that is not about a card at all:
+    <p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not about a card at all:
       <a href="/how-to-play.html">how do you actually play?</a> Two players, 60 cards
       each, and three ways to win. The short version, for somebody who has never seen a game. There are also two
       free official apps, and they are not the same thing:

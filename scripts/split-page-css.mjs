@@ -173,6 +173,12 @@ for (const name of await readdir(join(PUB, "assets"))) {
 }
 
 /* Which pages a rule can match, or null when it stays shared. */
+/* /shows/* COUNTS AS ONE PAGE, 11 November 2026. The sixteen series and area
+   pages share the card show calendar's card rules, which took those rules to
+   18 pages, past MAX_PAGES, and back into the render-blocking sheet: ui.css
+   22,079 -> 23,160 bytes gzipped on every page of the site for the sake of one
+   family. A generated family is one page for this count. */
+const famOf = (f) => { const r = relative(PUB, f); return r.startsWith("shows/") ? "shows/*" : r; };
 function localPages(sel) {
   if (classesIn(sel).some((c) => jsToks.has(c))) return null;
   const hit = new Set();
@@ -180,7 +186,7 @@ function localPages(sel) {
     const req = required(g);
     if (!req) return null;
     for (let k = 0; k < pages.length; k++) if (req.every((c) => pages[k].toks.has(c))) hit.add(k);
-    if (hit.size > MAX_PAGES) return null;
+    if (new Set([...hit].map((k) => famOf(pages[k].f))).size > MAX_PAGES) return null;
   }
   if (hit.size === 0) return null;
   for (const k of hit) if (!pages[k].link) return null;

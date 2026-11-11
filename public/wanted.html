@@ -83,7 +83,7 @@
   }
 }
 </script>
-<link rel="stylesheet" href="/assets/ui.css?v=b50b8f46">
+<link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c">
 <!-- packs.css IS BACK, 5 October 2026, and it is NOT render blocking. The note
      that stood here said 0 of its 98 selectors match "verified in a browser after
      JS", and that check ran BEFORE A CLICK: every tile on this page plays in place,
@@ -179,6 +179,14 @@
 .roc-counts a:hover span{text-decoration:underline}
 .roc-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
+.hof-head a{min-width:5.9em;justify-content:flex-end}
+.hof-more{margin:var(--s3) 0 0}
+.hof-more a{display:inline-flex;align-items:center;min-height:44px;
+  font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
+.hof-more a:hover{text-decoration:underline}
+@media(min-width:700px){.hof-more{grid-column:1/-1;margin-top:calc(var(--s3) - var(--s6))}
+.hof .wrap:has(.vcar:not(.is-static)){position:relative}
+.hof .wrap:has(.vcar:not(.is-static)) .hof-more{position:absolute;left:0;bottom:0;margin:0}}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -195,9 +203,28 @@
 .vcar .vcar-bar{justify-content:flex-start}
 }
 @media(max-width:544px){
-.hof .shelf{display:none}
-.vcar-slide:not(:first-child){display:none}
+main:has(>.hof){display:flex;flex-direction:column}
+main:has(>.hof)>*{min-width:0}
+main:has(>.hof)>:is(.about,.rstats,.roc){order:1}
+main:has(>.hof)>:is(.mwband,.pokedex,.tools){order:2}
+.hof .shelf{margin-top:var(--s4)}
+.vcar-track{gap:var(--s3);margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);
+  scroll-padding-inline:var(--gut)}
+.vcar-slide{flex:0 0 calc((100% - 2 * var(--s3) - 26px) / 2);scroll-snap-align:start;display:flex}
+.vcar .hero{flex:1 1 auto;min-width:0;padding:6px;gap:var(--s2);align-content:start}
+.vcar .hero-art,
+.vcar .tile-stage{max-width:none;aspect-ratio:9/16}
+.vcar .hero-body{padding:0 2px 2px}
+.vcar .hero-kicker{margin-bottom:6px;gap:4px 6px}
+.vcar .hero-body h3{font-size:1rem;line-height:1.15;margin-bottom:6px;overflow-wrap:break-word}
+.vcar .hero-new{padding:3px 8px}
+.vcar .hero-body h3 a{min-height:44px}
+.vcar .hero-meta{line-height:1.4}
 .vcar-bar{display:none}
+.wall:has(.vcar) > .brk{margin-top:var(--s4)}
+.hof{padding-bottom:var(--s3)}
+.hof-more{margin-top:var(--s1)}
+.wall > .vcar.is-static{padding-bottom:0}
 main{padding-top:0}
 .wdrop{padding:6px 0}
 .wdrop-sum{min-height:44px;row-gap:6px}
@@ -207,6 +234,7 @@ main{padding-top:0}
 }
 @media(max-width:359px){
 .roc-counts{grid-template-columns:1fr;gap:var(--s4)}
+.vcar .hero-body h3{font-size:.875rem}
 }</style>
 <!-- HOMECSS:END -->
 <style>.wanted{padding:var(--s7) 0 var(--s8)}

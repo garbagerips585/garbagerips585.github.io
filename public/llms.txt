@@ -22,6 +22,22 @@
 ## The local scene, which is the part least well covered elsewhere
 
 - [Card shows calendar](https://garbagerips.com/card-shows.html): 96 upcoming shows around Rochester, NY, Buffalo and Syracuse. 36 are all Pokemon, 56 more are mixed shows where Pokemon vendors are confirmed, 69 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
+- [Card shows near Rochester, NY](https://garbagerips.com/shows/rochester-ny.html): 46 upcoming shows in that area, in date order
+- [Card shows near Buffalo, NY](https://garbagerips.com/shows/buffalo-ny.html): 67 upcoming shows in that area, in date order
+- [Card shows near Syracuse, NY](https://garbagerips.com/shows/syracuse-ny.html): 4 upcoming shows in that area, in date order
+- [814 Card Show, North East, PA](https://garbagerips.com/shows/814-card-show.html): 4 upcoming dates of this one show, each with venue, address, hours and admission
+- [Batavia Pokemon Show, Batavia, NY](https://garbagerips.com/shows/batavia-pokemon-show.html): 12 upcoming dates of this one show, each with venue, address, hours and admission
+- [Batavia Sports Card, Toys & Collectible Show, Batavia, NY](https://garbagerips.com/shows/batavia-sports-card-toys-collectible-show.html): 13 upcoming dates of this one show, each with venue, address, hours and admission
+- [Buffalo Trading Card Con, Buffalo, NY](https://garbagerips.com/shows/buffalo-trading-card-con.html): 1 upcoming date of this one show, each with venue, address, hours and admission
+- [CollectorFest Monthly, Rochester, NY](https://garbagerips.com/shows/collectorfest-monthly.html): 4 upcoming dates of this one show, each with venue, address, hours and admission
+- [EC3CON: East Coast Collectibles Convention, Uncasville, CT](https://garbagerips.com/shows/ec3con-east-coast-collectibles-convention.html): 1 upcoming date of this one show, each with venue, address, hours and admission
+- [Extreme Pokemon Show, Batavia, NY](https://garbagerips.com/shows/extreme-pokemon-show.html): 2 upcoming dates of this one show, each with venue, address, hours and admission
+- [Northtowns Card & Memorabilia Show, Sanborn, NY](https://garbagerips.com/shows/northtowns-card-memorabilia-show.html): 14 upcoming dates of this one show, each with venue, address, hours and admission
+- [Northtowns Pokemon & TCG Card Show, Sanborn, NY](https://garbagerips.com/shows/northtowns-pokemon-tcg-card-show.html): 13 upcoming dates of this one show, each with venue, address, hours and admission
+- [Real Deal Buffalo Sports Card & Memorabilia Show, Depew, NY](https://garbagerips.com/shows/real-deal-buffalo-sports-card-memorabilia-show.html): 1 upcoming date of this one show, each with venue, address, hours and admission
+- [RocPokéCon, Rochester, NY](https://garbagerips.com/shows/rocpokecon.html): 3 upcoming dates of this one show, each with venue, address, hours and admission
+- [RocPokéTour, Henrietta, NY](https://garbagerips.com/shows/rocpoketour.html): 9 upcoming dates of this one show, each with venue, address, hours and admission
+- [Syracuse Collectors Con, Syracuse, NY](https://garbagerips.com/shows/syracuse-collectors-con.html): 1 upcoming date of this one show, each with venue, address, hours and admission
 - [Card show 101](https://garbagerips.com/card-show-101.html): what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated
 - [Card shops in Rochester, NY](https://garbagerips.com/shops.html): 7 shops with hours taken only from each shop's own site, plus where you can sit down and play
 - [Rochester Pokemon scene](https://garbagerips.com/rochester.html): the hub tying the shows, the shops and the local pages together
