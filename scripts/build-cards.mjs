@@ -27,7 +27,7 @@
 // markup for a page where the median visitor looks at one card. The index is
 // fetched once, on demand, and only when somebody actually types.
 
-import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm, access } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
@@ -51,6 +51,7 @@ import {
 import { esc, longDate, moneyExact, rarityLabel, RARITY_WORDS, RARITY_ALIAS, imgDims, avifPicture, clipMeta, cardNumKey} from "../shared/format.mjs";
 import { parseCardNumber, printedForm, numKey, CARD_NUMBER_SRC } from "../shared/card-number-query.mjs";
 import { NORM_SRC, norm } from "../shared/search-text.mjs";
+import { FUZZY_SRC, assertFuzzy } from "../shared/fuzzy-text.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const index = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
@@ -163,6 +164,27 @@ const otherEnglish = outside - foreign;
    catches up, with no other edit. */
 const corpusSetNames = new Set(corpus.map((c) => c.s));
 const INDEX_ONLY = Object.keys(setName).filter((slug) => !corpusSetNames.has(setName[slug]));
+
+/* AND THE NUMBER SEARCH HAS TO SEE THEM TOO (11 November 2026). The blend above
+   reached the NAME search only. The number index further down was built from
+   `corpus` alone, so in the newest set, the one people are opening this week,
+   "raikou 136" answered "No card we hold is numbered 136 with those words
+   beside it" and "136/103" answered "None is from a set we know prints 103",
+   over Raikou ex 136/103 at the top of the Delta Reign guide.
+   Fixed at the source rather than in the page: these are the same card-index
+   rows, reshaped to the corpus row's fields, and they join `corpus` ONLY for
+   the three loops that build the number index (the subset totals, the set
+   facts and the buckets), through numCorpus. They are deliberately NOT pushed
+   into `corpus` itself: shardRows, foreign and the count identity above
+   describe the printings shards and must keep describing only them.
+   No dex id (`d`) and no category: card-index.json carries neither. The rows
+   need neither, because every one of them is in a set with a guide and links
+   there. Empty once TCGdex catches up, with no other edit, exactly like the
+   blend above. */
+const indexOnlyRows = rows
+  .filter((r) => INDEX_ONLY.includes(r[1]))
+  .map((r) => ({ n: r[0], s: setName[r[1]], i: String(r[2]), r: r[3] || "", l: "en" }));
+const numCorpus = indexOnlyRows.length ? corpus.concat(indexOnlyRows) : corpus;
 
 // THE OLD CHECK HERE COULD NOT FAIL, AND IT READ AS THE MOST IMPORTANT ONE.
 //
@@ -299,14 +321,14 @@ const REPRINT_NUMBERS = new Set(["Celebrations Classic Collection"]);
 // [released, printedTotal, promo, subsetTotals] per corpus set name.
 const setMeta = {};
 const subsetMax = new Map();
-for (const c of corpus) {
+for (const c of numCorpus) {
   const m = /^([A-Za-z]+)(\d+)$/.exec(String(c.i));
   if (!m) continue;
   const k = `${c.s}\u0000${m[1].toUpperCase()}`;
   subsetMax.set(k, Math.max(subsetMax.get(k) || 0, Number(m[2])));
 }
 let metaFrom = { guide: 0, intl: 0, expansions: 0, none: 0 };
-for (const name of [...new Set(corpus.map((c) => c.s))].sort()) {
+for (const name of [...new Set(numCorpus.map((c) => c.s))].sort()) {
   const g = guideByName.get(name);
   const ig = intlByNative.get(name);
   const f = fold(name);
@@ -332,7 +354,7 @@ for (const name of [...new Set(corpus.map((c) => c.s))].sort()) {
 // it and nothing looks wrong. parseCardNumber is checked the same way on every
 // number it can parse, because that is the path a typed query takes.
 let keyChecked = 0;
-for (const c of corpus) {
+for (const c of numCorpus) {
   const want = cardNumKey(c.i);
   if (numKey(c.i) !== want) {
     throw new Error(`numKey("${c.i}") is "${numKey(c.i)}" but cardNumKey gives "${want}" (${c.n}, ${c.s})`);
@@ -344,12 +366,52 @@ for (const c of corpus) {
   keyChecked += 1;
 }
 
+/* A ROW WITH NO SET GUIDE LINKS TO ITS POKEMON INSTEAD (11 November 2026).
+ *
+ * Measured before this: "umbreon vmax" returned 4 rows and none was a link;
+ * "charizard" returned 134 and 12 were. A card from a set we do not rip rendered
+ * as plain text, a dead end, while /pokemon/umbreon.html, which lists every one
+ * of those printings with a picture, sat one click away and unoffered.
+ *
+ * THE JOIN IS THE ONE build-pokemon.mjs ALREADY USES, NOT A SECOND MATCHER.
+ * Every Pokemon row in the printings shards carries `d`, the National Pokedex
+ * number sync-all-printings.mjs resolved for it, and build-pokemon.mjs files a
+ * printing under a species by exactly that field (`printings.get(c.d)`). The
+ * slug for a number comes from data/pokedex.json, which is where
+ * build-pokemon.mjs takes its file names from too, so nothing here parses a
+ * card name. `c.c` is the category: a Trainer or an Energy gets 0 and stays
+ * plain text.
+ *
+ * NEVER A LINK TO A PAGE THAT IS NOT THERE. This builder runs BEFORE
+ * build-pokemon.mjs, so on a tree that already has public/pokemon/ each slug
+ * is checked against the file and dropped if it is missing. On a fresh clone
+ * the directory does not exist yet and the list is trusted as written, which
+ * is safe because build-pokemon.mjs writes one page per pokedex.json entry;
+ * check-build.py's link check does not see these urls (they are assembled in
+ * the browser), which is why the test is made here.
+ */
+const dexOf = (c) => (c.c === "Pokemon" && Number.isInteger(c.d) && c.d > 0 ? c.d : 0);
+const POKEDEX = JSON.parse(await readFile(join(ROOT, "data/pokedex.json"), "utf8")).pokemon || [];
+const exists = (p) => access(p).then(() => true, () => false);
+const pokemonDirBuilt = await exists(join(ROOT, "public/pokemon/index.html"));
+const SPECIES = [];
+let speciesDropped = 0;
+for (const p of POKEDEX) {
+  let slug = p.slug || "";
+  if (slug && pokemonDirBuilt && !(await exists(join(ROOT, "public/pokemon", `${slug}.html`)))) {
+    slug = "";
+    speciesDropped += 1;
+  }
+  SPECIES[p.id] = slug;
+}
+for (let k = 0; k < SPECIES.length; k++) SPECIES[k] ||= "";
+
 const buckets = Array.from({ length: NUM_BUCKETS }, () => ({ s: [], r: [], k: {} }));
 const sIdx = buckets.map(() => new Map());
 const rIdx = buckets.map(() => new Map());
 const cmp = (a, b) => (a < b ? -1 : a > b ? 1 : 0);
 let numRows = 0;
-for (const c of [...corpus].sort((a, b) => cmp(cardNumKey(a.i), cardNumKey(b.i)) || cmp(a.s, b.s) || cmp(a.n, b.n) || cmp(String(a.i), String(b.i)))) {
+for (const c of [...numCorpus].sort((a, b) => cmp(cardNumKey(a.i), cardNumKey(b.i)) || cmp(a.s, b.s) || cmp(a.n, b.n) || cmp(String(a.i), String(b.i)))) {
   const key = cardNumKey(c.i);
   const run = /(\d+)\D*$/.exec(key);
   // "LIG", "ONE", "!": a handful of Energy numbered with no digit at all. No
@@ -361,9 +423,15 @@ for (const c of [...corpus].sort((a, b) => cmp(cardNumKey(a.i), cardNumKey(b.i))
   if (!rIdx[b].has(c.r || "")) { rIdx[b].set(c.r || "", B.r.length); B.r.push(c.r || ""); }
   const li = LANGS.indexOf(c.l);
   if (li < 0) throw new Error(`card-numbers: unknown language "${c.l}" on ${c.n} (${c.s}); add it to LANGS here and in the page`);
-  // Trailing defaults are dropped: an English card with no printed name is
+  // Trailing defaults are dropped: an English Trainer with no printed name is
   // [name, set, number, rarity] and the page reads the missing tail as 0.
-  const row = [c.n, sIdx[b].get(c.s), String(c.i), rIdx[b].get(c.r || ""), c.p || 0, c.u ? 1 : 0, li];
+  // FIELD 4 IS THE POKEDEX NUMBER, added 11 November 2026 so a row from a set
+  // with no guide can link to its /pokemon/ page (see SPECIES below). It sits
+  // BEFORE the printed name rather than at the end because nearly every row is
+  // an English Pokemon: there it costs the digits and one comma, where a
+  // trailing field would also un-trim three zeros on 30,000 rows. 0 for a
+  // Trainer or an Energy, which have no species page to go to.
+  const row = [c.n, sIdx[b].get(c.s), String(c.i), rIdx[b].get(c.r || ""), dexOf(c), c.p || 0, c.u ? 1 : 0, li];
   while (row.length > 4 && !row[row.length - 1]) row.pop();
   (B.k[key] ||= []).push(row);
   numRows += 1;
@@ -376,9 +444,33 @@ for (let b = 0; b < NUM_BUCKETS; b++) {
   numBytes += body.length;
   await writeFile(join(NUM_DIR, `${b}.json`), body);
 }
-const metaBody = JSON.stringify({ buckets: NUM_BUCKETS, sets: setMeta });
+// `species` rides in this file rather than in one of its own: the page already
+// fetches it beside card-index.json, and 1,025 slugs is about 5KB gzipped.
+const metaBody = JSON.stringify({ buckets: NUM_BUCKETS, sets: setMeta, species: SPECIES });
 await writeFile(join(NUM_DIR, "sets.json"), metaBody);
 numBytes += metaBody.length;
+
+// THE BUG THIS BUILDER SHIPPED FOR FOUR DAYS, as a check: every set that reaches
+// the name search through INDEX_ONLY must be in the number index with its
+// printed total, or its cards cannot be found by the number on their corner.
+for (const slug of INDEX_ONLY) {
+  const name = setName[slug];
+  const g = guideByName.get(name);
+  if (g?.printedTotal && (setMeta[name] || [])[1] !== g.printedTotal) {
+    throw new Error(`card-numbers: ${name} prints ${g.printedTotal} in sets.json but the number index holds ${(setMeta[name] || [])[1]}`);
+  }
+  const one = rows.find((r) => r[1] === slug && /\d/.test(String(r[2])));
+  if (one) {
+    const key = cardNumKey(one[2]);
+    const b = Number(/(\d+)\D*$/.exec(key)[1]) % NUM_BUCKETS;
+    const B = buckets[b];
+    if (!(B.k[key] || []).some((x) => x[0] === one[0] && B.s[x[1]] === name)) {
+      throw new Error(`card-numbers: ${one[0]} (${name} ${one[2]}) is in card-index.json but not in the number index`);
+    }
+  }
+}
+// The typo matcher ships as source too.
+assertFuzzy();
 
 // The two number functions ship as source, like rarityLabel. Prove the
 // shipped copies behave like the imported ones on the forms the owner's
@@ -468,6 +560,12 @@ const DESKTOP_CSS = `<style>
 @media(min-width:1600px){
   .cq-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
+/* THE STATUS LINE AS A SENTENCE. .cq-status is 11px uppercase mono, right for
+   "134 MATCHES" and wrong for a line quoting the reader: uppercased,
+   "charzard" is no longer what they typed. The script adds cq-plain when the
+   line names a corrected spelling and removes it otherwise. --ink on --page
+   is the body text pair. Same rule, same reason, as sq-plain on /search.html. */
+.cq-status.cq-plain{font:400 var(--t-sm)/1.5 var(--body);letter-spacing:0;text-transform:none;color:var(--ink)}
 </style>`;
 
 const ld = [
@@ -761,6 +859,19 @@ ${footer(priceFooter("Fan made, not official."))}
   // build-cards.mjs, which checks the shipped copies against the modules.
   ${CARD_NUMBER_SRC}
   ${NORM_SRC}
+  // The typo matcher, from shared/fuzzy-text.mjs. Read the rules there.
+  ${FUZZY_SRC}
+  // norm() remembers its answers: the name match below folds every row of a
+  // shard on every keystroke, and the rows do not change between keystrokes.
+  var normRaw=norm, NORMED=new Map();
+  norm=function(str){
+    var k=String(str==null?'':str), v=NORMED.get(k);
+    if(v===undefined){ v=normRaw(k); NORMED.set(k,v); }
+    return v;
+  };
+  // Pokedex number -> the slug of its /pokemon/ page, '' where there is none.
+  // From /data/card-numbers/sets.json; see SPECIES in build-cards.mjs.
+  var SPECIES=[];
   // [released, printedTotal, promo, subsetTotals] per set name, from
   // /data/card-numbers/sets.json. Loaded beside card-index.json; empty if it
   // fails, which only costs the "/088" on each row and the newest-first order.
@@ -798,19 +909,119 @@ ${footer(priceFooter("Fan made, not official."))}
         rather than queued, and the second test inside the timer makes sure a
         value already on screen is never rewritten with itself. */ ""}
   var stTimer=null, stPending='';
-  function setStatus(s){
+  function setStatus(s, plain){
     if(s===stPending) return;
     stPending=s;
     clearTimeout(stTimer);
     stTimer=setTimeout(function(){
+      // The class changes in the same tick as the words it styles.
+      if(plain) status.classList.add('cq-plain'); else status.classList.remove('cq-plain');
       if(status.textContent!==s) status.textContent=s;
     },400);
   }
 
+  /* ONE WRONG LETTER USED TO BE "Nothing matched" (11 November 2026).
+     "charzard" found nothing over 134 Charizards. When a search comes back
+     empty, each word that is in no card name we know is swapped for the
+     nearest word that is, by the rules in shared/fuzzy-text.mjs, and the
+     search runs once more with the status line saying what was searched
+     instead. Only ever after the query as typed found nothing, and only once
+     per query: FIX remembers the typed text it was worked out for, so a
+     correction that also finds nothing ends at "Nothing matched" rather than
+     looping.
+
+     THE WORDS IT CAN CORRECT TO: every species (the slugs in SPECIES), every
+     card and set name in the priced index, every set name in SETMETA, and
+     the names in whichever printings shards have been fetched so far, which
+     always includes the one the typed first letter picked. So "gust of wnid"
+     is corrected from the "g" shard it has just searched.
+
+     A word is left alone when any known word CONTAINS it, because this search
+     matches on parts of names and "char" is a search, not a typo. Numbers are
+     never touched ("136/103" stays whole: the query is split on spaces, not
+     folded, so the slash survives into the number reader). */
+  var VOCAB=new Map(), VOCAB_SRC={}, FIX={from:null, to:''}, fixT=null;
+  function vocab(){
+    var i, k;
+    if(!VOCAB_SRC.species && SPECIES.length){
+      VOCAB_SRC.species=1;
+      for(i=0;i<SPECIES.length;i++) if(SPECIES[i]) vocabAdd(VOCAB, norm(SPECIES[i]));
+    }
+    if(!VOCAB_SRC.index){
+      VOCAB_SRC.index=1;
+      for(i=0;i<DATA.cards.length;i++) vocabAdd(VOCAB, norm(DATA.cards[i][0]));
+      for(k in DATA.sets) vocabAdd(VOCAB, norm(DATA.sets[k]));
+      for(k in SETMETA) vocabAdd(VOCAB, norm(k));
+    }
+    for(k in SHARD){
+      if(VOCAB_SRC['shard '+k]) continue;
+      VOCAB_SRC['shard '+k]=1;
+      for(i=0;i<SHARD[k].length;i++) vocabAdd(VOCAB, norm(SHARD[k][i].n));
+    }
+    return VOCAB;
+  }
+  function fixQuery(q){
+    var v=vocab(), parts=q.split(' '), changed=false, i, w, known, alts;
+    for(i=0;i<parts.length;i++){
+      w=norm(parts[i]);
+      if(!fuzzyBudget(w)) continue;
+      known=false;
+      v.forEach(function(f,t){ if(!known && t.indexOf(w)!==-1) known=true; });
+      if(known) continue;
+      alts=fuzzyAlts(w, v, 1);
+      if(alts.length){ parts[i]=alts[0].w; changed=true; }
+    }
+    return changed ? parts.join(' ') : '';
+  }
+  function typedQuery(){ return input.value.trim().toLowerCase(); }
+  // The query run() searches: the corrected one, while the box still holds
+  // the text it was corrected from.
+  function liveQuery(){
+    var raw=typedQuery();
+    return FIX.from===raw && FIX.to ? FIX.to : raw;
+  }
+
+  /* A NAME MATCHES WHEN EVERY TYPED WORD IS IN IT, in any order, folded the
+     way /search.html folds: accents, apostrophes and punctuation gone. The old
+     test was one raw substring, so "erikas invitation" missed "Erika's
+     Invitation" and "vmax umbreon" missed "Umbreon VMAX". The raw substring
+     is still tried FIRST and still wins on its own, so nothing that matched
+     before can stop matching. A word of one or two letters has to START a
+     word of the name: "pikachu v" means Pikachu V, not Detective Pikachu. */
+  function nameHit(name, q, tk){
+    if(name.toLowerCase().indexOf(q)!==-1) return true;
+    if(!tk.length) return false;
+    var nm=' '+norm(name), i;
+    for(i=0;i<tk.length;i++){
+      if(nm.indexOf(tk[i].length<3 ? ' '+tk[i] : tk[i])===-1) return false;
+    }
+    return true;
+  }
+  function tokens(q){ return norm(q).split(' ').filter(function(w){ return w; }); }
+
   // note and emptyNote replace the default status sentence when a search has
   // something more exact to say, which today is only the card number search.
   function render(hits, total, note, emptyNote){
+    var raw=typedQuery(), fixed=FIX.from===raw && FIX.to ? FIX.to : '';
     if(!hits.length){
+      // Nothing as typed: try once more with the spelling corrected, BUT ONLY
+      // ONCE THE TYPING HAS STOPPED. A half typed word is not a typo: on the
+      // way to "charzard" the box holds "charz", one edit from "charm", and
+      // correcting that flashed 129 Charmanders mid-word. So the list clears
+      // now and the correction is worked out 300ms later, if the box still
+      // holds the same text. run() then comes back through here with FIX set
+      // for this text, which is what makes it once and not a loop.
+      if(raw && FIX.from!==raw){
+        list.innerHTML=''; head.hidden=true;
+        // Blank, not "Nothing matched" yet and not the last search's count.
+        setStatus('');
+        fixT=setTimeout(function(){
+          if(typedQuery()!==raw) return;
+          FIX={from:raw, to:fixQuery(raw)};
+          run();
+        },300);
+        return;
+      }
       list.innerHTML='';
       setStatus(emptyNote || 'Nothing matched. Check the spelling, or try just the Pokemon name.');
       head.hidden=true;
@@ -822,9 +1033,15 @@ ${footer(priceFooter("Fan made, not official."))}
       // Inline, the build's broken-link check reads that prefix as a real link,
       // captures the JS concatenation as the target, and fails the nightly on a
       // page that was never meant to exist.
-      // Only cards from a set we rip have a guide to link to; the other 35,000
-      // printings render as plain text rather than a link to a 404.
-      var href=r.slug ? '/sets/'+esc(r.slug)+'.html' : '';
+      // Only cards from a set we rip have a guide to link to. The other 35,000
+      // printings used to render as plain text, which made most of every result
+      // list a dead end: "charizard" was 134 rows and 12 links. A Pokemon from a
+      // set with no guide now links to its /pokemon/ page, which lists that
+      // very printing among all the others. A Trainer or an Energy has no such
+      // page and stays plain text rather than a link to a 404; so does any
+      // species build-cards.mjs found no page for.
+      var sp=!r.slug && r.dex ? SPECIES[r.dex] : '';
+      var href=r.slug ? '/sets/'+esc(r.slug)+'.html' : sp ? '/pokemon/'+esc(sp)+'.html' : '';
       // Same thumbnail the server renders into the default list. Without this
       // the images existed only on the view nobody arrives at with intent: they
       // vanished the moment anybody typed or picked a set.
@@ -876,9 +1093,11 @@ ${footer(priceFooter("Fan made, not official."))}
         + '</li>';
     }).join('');
     head.hidden=true;
-    setStatus(note || (total>hits.length
+    var said=note || (total>hits.length
       ? total.toLocaleString('en-US')+' matches, showing the '+hits.length+' priciest'
-      : total.toLocaleString('en-US')+(total===1?' match':' matches')));
+      : total.toLocaleString('en-US')+(total===1?' match':' matches'));
+    if(fixed) setStatus('No exact match for "'+input.value.trim()+'". Showing results for "'+fixed+'": '+said+'.', true);
+    else setStatus(said);
   }
 
   // ---- every printing, in every language -------------------------------
@@ -934,7 +1153,8 @@ ${footer(priceFooter("Fan made, not official."))}
   }
 
   function run(){
-    var q=input.value.trim().toLowerCase(), set=sel.value;
+    clearTimeout(fixT);
+    var q=liveQuery(), set=sel.value, tk=tokens(q);
     if(!q && !set){ list.innerHTML=initial; setStatus(''); head.hidden=false; return; }
     if(!DATA){ load(run); return; }
     // A set filter names one of our 23 English sets, so it stays on the priced
@@ -948,7 +1168,7 @@ ${footer(priceFooter("Fan made, not official."))}
       var sw=num&&num.text ? norm(num.text).split(' ') : [];
       var only=DATA.cards.filter(function(r){
         if(r[1]!==set) return false;
-        if(!q || r[0].toLowerCase().indexOf(q)!==-1) return true;
+        if(!q || nameHit(r[0], q, tk)) return true;
         if(!num || numKey(r[2])!==num.key) return false;
         var nm=norm(r[0]);
         for(var i=0;i<sw.length;i++) if(sw[i] && nm.indexOf(sw[i])===-1) return false;
@@ -959,17 +1179,26 @@ ${footer(priceFooter("Fan made, not official."))}
       return;
     }
     if(num){ numberRun(q, num); return; }
-    var k=shardKey(q);
-    if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
-    var pm=priceMap();
-    var hits=SHARD[k].filter(function(c){ return c.n.toLowerCase().indexOf(q)!==-1; })
-      .map(function(c){
-        var m=pm[key3(c.n,c.s,c.i)];
-        return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
-                 untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
-      });
+    // The shard the query's first letter picks, as always. Where that finds
+    // nothing and the query has other words, the shards THEY pick are tried in
+    // turn: a name is filed under its own first letter, so "vmax umbreon"
+    // looked in "v" and never saw Umbreon VMAX in "u".
+    var keys=[shardKey(q)], ki, kk, pm=priceMap(), hits=[];
+    // Capped at three shards and at words of three letters or more: a shard is
+    // 60KB to 870KB, and a sentence of nonsense must not fetch one per word.
+    for(ki=0;ki<tk.length && keys.length<3;ki++){
+      if(tk[ki].length<3) continue;
+      kk=shardKey(tk[ki]); if(keys.indexOf(kk)===-1) keys.push(kk);
+    }
+    function inShard(c){ return nameHit(c.n, q, tk); }
+    function shaped(c){ return fromShard(c, pm); }
+    for(ki=0; ki<keys.length && !hits.length; ki++){
+      var k=keys[ki];
+      if(!SHARD[k]){ setStatus('Searching every set...'); loadShard(k, run); return; }
+      hits=SHARD[k].filter(inShard).map(shaped);
+    }
     if(INDEX_ONLY.length) DATA.cards.forEach(function(r){
-      if(INDEX_ONLY.indexOf(r[1])!==-1 && r[0].toLowerCase().indexOf(q)!==-1) hits.push(fromPriced(r));
+      if(INDEX_ONLY.indexOf(r[1])!==-1 && nameHit(r[0], q, tk)) hits.push(fromPriced(r));
     });
     // Priced first and priciest first within that, because those are the cards we
     // can actually tell you something about. Everything else follows grouped by
@@ -1025,7 +1254,8 @@ ${footer(priceFooter("Fan made, not official."))}
   function fromShard(c, pm){
     var m=pm[key3(c.n,c.s,c.i)];
     return { name:c.n, printed:c.p, set:c.s, n:c.i, rarity:c.r, lang:c.l,
-             untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null };
+             untranslated:c.u, price:m?m.price:null, slug:m?m.slug:null,
+             dex:c.c==='Pokemon' && c.d ? c.d : 0 };
   }
   function numberRun(q, num){
     var b=num.n % NUM_BUCKETS;
@@ -1046,13 +1276,16 @@ ${footer(priceFooter("Fan made, not official."))}
       var r=grp[i];
       var setN=B.s[r[1]];
       if(words.length){
-        var hay=norm(r[0]+' '+(r[4]||'')+' '+setN);
+        var hay=norm(r[0]+' '+(r[5]||'')+' '+setN);
         for(ok=true,j=0;j<words.length;j++) if(hay.indexOf(words[j])===-1){ ok=false; break; }
         if(!ok) continue;
       }
       var m=pm[key3(r[0],setN,r[2])];
-      add({ name:r[0], printed:r[4]||null, set:setN, n:r[2], rarity:B.r[r[3]]||'',
-            lang:LANGS[r[6]||0], untranslated:r[5]||0, price:m?m.price:null, slug:m?m.slug:null }, 0);
+      // [name, set, number, rarity, dex, printed, untranslated, language],
+      // trailing zeros dropped. See the row note in build-cards.mjs.
+      add({ name:r[0], printed:r[5]||null, set:setN, n:r[2], rarity:B.r[r[3]]||'',
+            lang:LANGS[r[7]||0], untranslated:r[6]||0, price:m?m.price:null, slug:m?m.slug:null,
+            dex:r[4]||0 }, 0);
     }
     if(k0){
       var S0=SHARD[k0];
@@ -1135,6 +1368,7 @@ ${footer(priceFooter("Fan made, not official."))}
     ]).then(function(res){
       var j=res[0];
       SETMETA=(res[1]&&res[1].sets)||{};
+      SPECIES=(res[1]&&res[1].species)||[];
       DATA=j; LOADING=false;
       var q=WAITING; WAITING=[];
       // NOTHING WAITING MEANS NOTHING WILL CLEAR THE STATUS, and it sat on

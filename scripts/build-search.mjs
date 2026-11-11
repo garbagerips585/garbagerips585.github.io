@@ -41,6 +41,7 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, clipMeta} from "../shared/format.mjs";
 import { NORM_SRC, PARSE_SRC, SCORE_SRC } from "../shared/search-text.mjs";
+import { FUZZY_SRC, assertFuzzy } from "../shared/fuzzy-text.mjs";
 import { CARD_NUMBER_SRC, parseCardNumber } from "../shared/card-number-query.mjs";
 import { labelFor } from "../shared/taxonomy.mjs";
 
@@ -400,6 +401,46 @@ const nDexText = index.pokemon.length.toLocaleString("en-US");
 
 const desc = `Search everything on Garbage Rips 585: ${index.rips.length} pack openings, ${nCardsText} cards, ${index.sets.length + GUIDES_OUTSIDE_SETS.length} set guides and every reference page.`;
 
+/* WHERE A FAILED SEARCH SENDS YOU NEXT (11 November 2026).
+ *
+ * The no-results state said "Nothing matched" twice, once in the status line
+ * and once in the panel, and then stopped: the one moment on the site where a
+ * reader has definitely just failed at something, and the page offered them
+ * nothing to press. These eight are the places most searches were headed
+ * anyway. Titles and blurbs are read out of PAGES by url rather than retyped,
+ * so a renamed page renames its card here, and a url that leaves PAGES fails
+ * the build instead of shipping a dead link.
+ */
+const POPULAR = [
+  "/sets/", "/cards.html", "/card-shows.html", "/videos.html",
+  "/hall.html", "/what-to-buy.html", "/msrp.html", "/drops.html",
+].map((url) => {
+  const hit = PAGES.find((x) => x[0] === url);
+  if (!hit) throw new Error(`build-search: POPULAR names ${url}, which is no longer in PAGES`);
+  return hit;
+});
+const POPULAR_HTML =
+  `<section class="sg" aria-labelledby="sqPopH"><h2 id="sqPopH">Popular places to start</h2><div class="set-index sq-pop">${POPULAR.map(
+    ([url, title, sub]) =>
+      `<a class="set-card" href="${esc(url)}"><span><span class="ttl">${esc(title)}</span><br><span class="meta">${esc(sub)}</span></span></a>`,
+  ).join("")}</div></section>`;
+
+// The typo matcher ships as source. Prove the copy this page inlines before a
+// reader does.
+assertFuzzy();
+
+/* THE ONE RULE THIS PAGE NEEDS THAT ui.css DOES NOT HAVE. .cq-status is 11px
+   uppercase mono, which is right for "29 RESULTS" and wrong for a sentence
+   with the reader's own words quoted in it: uppercasing a query turns
+   "charzard" into something they did not type. The script adds sq-plain when
+   the line is a sentence and removes it when it is a count. --ink on --page
+   is the body text pair, so no new contrast to measure. */
+const SEARCH_CSS = `<style>
+.cq-status.sq-plain{font:400 var(--t-sm)/1.5 var(--body);letter-spacing:0;text-transform:none;color:var(--ink)}
+.sq-pop{margin-top:var(--s4)}
+.empty + .sg{margin-top:var(--s6)}
+</style>`;
+
 const page = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -426,6 +467,7 @@ const page = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 ${FONTS}
 ${STYLES}
+${SEARCH_CSS}
 </head>
 <body>
 ${SPRITE}
@@ -517,6 +559,149 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   ${SCORE_SRC}
   // The card number reader /cards.html uses, from shared/card-number-query.mjs.
   ${CARD_NUMBER_SRC}
+  // The typo matcher, from shared/fuzzy-text.mjs. Read the rules there.
+  ${FUZZY_SRC}
+
+  // norm() IS MEMOISED HERE, because scoreRow folds the row's title and blurb
+  // on every call and a relaxed search makes up to five passes over 7,000
+  // rows. The fold is the expensive part (a Unicode normalize and five
+  // regular expressions) and its input is the same few thousand strings every
+  // time. Same function, same answers; the Map only remembers them.
+  var normRaw=norm, NORMED=new Map();
+  norm=function(str){
+    var k=String(str==null?'':str), v=NORMED.get(k);
+    if(v===undefined){ v=normRaw(k); NORMED.set(k,v); }
+    return v;
+  };
+
+  /* FORGIVING SEARCH, 11 November 2026. Measured on the built site before
+     this: "delta rein", "charzard", "delta reign card list", "card shows near
+     me" and "etb price" all answered "Nothing matched", while "delta reign"
+     answered 143 and "card shows" answered 3. Every word had to match, a
+     filler word counted as a word, and one wrong letter was a miss.
+
+     THE LADDER. Each rung runs ONLY IF THE ONE ABOVE FOUND NOTHING, so a
+     search that already worked returns exactly what it returned before:
+       1  every word matches, as typed. This is the old search, untouched.
+       2  the filler words are dropped ("near me", "price", "list", "how do
+          i") along with a trailing "card", "cards" or "pokemon"; then those
+          three wherever they sit, if that still finds nothing. Never down to no words at all: "price" alone stays "price".
+       3  typo tolerance, by the rules in shared/fuzzy-text.mjs: a word may
+          stand for an index word one edit away (two for 8 letters or more),
+          and never a short word or a number.
+       4  any word, ranked by how many of them a row has.
+     "what to buy", "how to play" and "where to sell" are page titles made
+     almost entirely of filler, which is why rung 1 comes first and the filler
+     list is not applied up front.
+
+     WHEN A LOWER RUNG ANSWERS, THE STATUS LINE SAYS SO, with the reader's
+     words and the words actually searched, so a result for "charizard" under a
+     query of "charzard" never reads as the site ignoring what was typed. */
+  var FILL={the:1,a:1,an:1,of:1,'for':1,'in':1,on:1,at:1,to:1,and:1,near:1,me:1,my:1,
+    list:1,lists:1,price:1,prices:1,what:1,is:1,how:1,'do':1,i:1,where:1,can:1,get:1,buy:1};
+  var FILL_SOFT={card:1,cards:1,pokemon:1};
+  function strip(terms, soft){
+    var out=[], i;
+    for(i=0;i<terms.length;i++){
+      if(!FILL[terms[i]] && !(soft && FILL_SOFT[terms[i]])) out.push(terms[i]);
+    }
+    // A TRAILING "card" IS FILLER ON THE FIRST PASS; A LEADING ONE IS NOT.
+    // "delta reign card list" means Delta Reign, and keeping "card" found one
+    // row (the guide, whose blurb says "141 cards") instead of 143. "card
+    // shows near me" means card shows, and dropping "card" there would search
+    // "shows". The word in front of another word is naming something.
+    if(!soft) while(out.length>1 && FILL_SOFT[out[out.length-1]]) out.pop();
+    return out;
+  }
+
+  // Every word in the index, counted, for the typo rung. Built on first need,
+  // never on page load: most searches match on rung 1 and never ask for it.
+  // The Pokemon and set blurbs are left out on purpose. They are a thousand
+  // copies of "47 cards across 37 sets", which adds no word worth correcting
+  // to and makes "across" the most common word on the site.
+  var VOCAB=null, VOCAB_HAS_CARDS=false;
+  function vocab(){
+    var i, r;
+    if(!VOCAB){
+      VOCAB=new Map();
+      for(i=0;i<SITE.pages.length;i++){ r=SITE.pages[i]; vocabAdd(VOCAB,norm(r[0])); vocabAdd(VOCAB,norm(r[2])); }
+      for(i=0;i<SITE.sets.length;i++) vocabAdd(VOCAB,norm(SITE.sets[i][0]));
+      for(i=0;i<SITE.pokemon.length;i++) vocabAdd(VOCAB,norm(SITE.pokemon[i][0]));
+      for(i=0;i<SITE.rips.length;i++){ r=SITE.rips[i]; vocabAdd(VOCAB,norm(r[0])); vocabAdd(VOCAB,norm(r[3])); }
+    }
+    if(CARDS && !VOCAB_HAS_CARDS){
+      VOCAB_HAS_CARDS=true;
+      var h=cardHay();
+      for(i=0;i<h.length;i++) vocabAdd(VOCAB,h[i].slice(1,-1));
+    }
+    return VOCAB;
+  }
+
+  // ONE FOLDED STRING PER CARD, MADE ONCE. render() used to fold all 5,000
+  // card rows on every keystroke. Padded with a space at each end so a whole
+  // word can be tested with indexOf.
+  var CARD_HAY=null;
+  function cardHay(){
+    if(CARD_HAY) return CARD_HAY;
+    CARD_HAY=[];
+    for(var i=0;i<CARDS.cards.length;i++){
+      var r=CARDS.cards[i];
+      CARD_HAY.push(' '+norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''))+' ');
+    }
+    return CARD_HAY;
+  }
+
+  // A search word, and on the typo rung the index words it may stand for.
+  // spec.via is which of them answered the last row tested ('' = as typed);
+  // spec.use counts that over the rows that were kept, which is how the
+  // status line can name the word the results are actually for.
+  function specs(terms, fuzzy){
+    var out=[], i;
+    for(i=0;i<terms.length;i++){
+      out.push({t:terms[i], alts:fuzzy?fuzzyAlts(terms[i], vocab(), 5):null, via:'', use:{}});
+    }
+    return out;
+  }
+  function credit(spec, via){ spec.use[via]=(spec.use[via]||0)+1; }
+  // The word the kept rows matched most, the typed one winning a tie. null
+  // when no kept row used this word at all, which only rung 4 can produce.
+  function usedWord(spec){
+    var best=null, n=0, k;
+    for(k in spec.use) if(spec.use[k]>n || (spec.use[k]===n && k==='')){ best=k; n=spec.use[k]; }
+    return best===null ? null : (best===''?spec.t:best);
+  }
+
+  // scoreRow as before; then, on the typo rung only, a WHOLE WORD of the
+  // title or blurb. Whole word and not substring, because a corrected word is
+  // already a guess: "rein" may stand for "rain", and "rain" as a substring
+  // is every Trainer on the site. Scored under every exact tier so a row that
+  // has the word as typed always outranks one that has its neighbour.
+  function termScore(title, sub, spec){
+    var s=scoreRow(title, sub, spec.t), i, a, t, u;
+    spec.via='';
+    if(s || !spec.alts || !spec.alts.length) return s;
+    t=' '+norm(title)+' ';
+    for(i=0;i<spec.alts.length;i++){
+      a=spec.alts[i];
+      if(t.indexOf(' '+a.w+' ')!==-1){ spec.via=a.w; return 11-3*a.d; }
+    }
+    if(!sub) return 0;
+    u=' '+norm(sub)+' ';
+    for(i=0;i<spec.alts.length;i++){
+      a=spec.alts[i];
+      if(u.indexOf(' '+a.w+' ')!==-1){ spec.via=a.w; return 1; }
+    }
+    return 0;
+  }
+  function cardTerm(hay, spec){
+    spec.via='';
+    if(hay.indexOf(spec.t)!==-1) return true;
+    if(!spec.alts) return false;
+    for(var i=0;i<spec.alts.length;i++){
+      if(hay.indexOf(' '+spec.alts[i].w+' ')!==-1){ spec.via=spec.alts[i].w; return true; }
+    }
+    return false;
+  }
 
   // EVERY TERM HAS TO HIT, and the row is ranked by how well they hit.
   //
@@ -536,17 +721,26 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   // rather than the few that happen to spell it in the title. (It did not until
   // 14 October 2026: field [3] carried the bare slug, see the rips note in
   // build-search.mjs. "elite trainer box" found 1 rip and "etb" found 63.)
-  function hits(list, terms, limit, subIdx){
+  //
+  // any=true IS RUNG 4 ONLY: one word is enough, and a row with more of the
+  // words always sorts above a row with fewer, whatever they scored.
+  // Returns {rows, total} so a group can say how much it is hiding. Capping
+  // silently is the bug: "chaos rising" matched 39 rips, showed 10, and said
+  // nothing, on the page whose whole job is finding things.
+  function hits(list, sp, limit, subIdx, any){
     var si = subIdx === undefined ? 2 : subIdx;
-    var scored=[], i, j, row, sc, t, ok;
+    var scored=[], i, j, row, sc, t, cnt, vias;
     for(i=0;i<list.length;i++){
-      row=list[i]; sc=0; ok=true;
-      for(j=0;j<terms.length;j++){
-        t=scoreRow(row[0], row[si], terms[j]);
-        if(!t){ ok=false; break; }
-        sc+=t;
+      row=list[i]; sc=0; cnt=0; vias=[];
+      for(j=0;j<sp.length;j++){
+        t=termScore(row[0], row[si], sp[j]);
+        if(t){ sc+=t; cnt++; vias[j]=sp[j].via; }
+        else if(any){ vias[j]=null; }
+        else { cnt=0; break; }
       }
-      if(ok) scored.push([sc,i,row]);
+      if(!cnt) continue;
+      for(j=0;j<sp.length;j++) if(vias[j]!=null) credit(sp[j], vias[j]);
+      scored.push([any ? cnt*100000+sc : sc, i, row]);
     }
     // Score first, then ORIGINAL INDEX, never the row object: the index files
     // are ordered deliberately (Pokemon by dex number, rips newest first) and a
@@ -572,52 +766,32 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
   // The 220ms debounce is what makes it one sentence, and it is deliberately
   // NOT applied to render() -- the list must keep repainting as fast as it
   // does today; only the spoken sentence waits.
+  //
+  // plain=true is a sentence rather than a count, and takes the class the
+  // page's own style block reads. Set in the same tick as the text, so the
+  // line never shows a sentence in the count's uppercase.
   var sayT=null, said='';
-  function say(msg){
+  function say(msg, plain){
     if(sayT) clearTimeout(sayT);
     sayT=setTimeout(function(){
       if(msg===said) return;
       said=msg;
+      if(plain) status.classList.add('sq-plain'); else status.classList.remove('sq-plain');
       status.textContent=msg;
     }, 220);
   }
 
-  function render(){
-    var q=input.value.trim().toLowerCase();
-    var terms=parseQuery(q);
-    /* !terms.length AND NOT JUST !q. norm() keeps only [a-z0-9], so a query of
-       one emoji, or "!!!", or ".*", is a non-empty string that parses to no
-       terms at all -- and every match loop below is a for over terms, so with
-       none of them nothing is ever rejected and the page answered "6,900
-       results" as though everything matched. /cards.html already gets this
-       right, which is where the wording comes from. */
-    if(!q || !terms.length){ out.innerHTML=''; say(''); empty.hidden=false; return; }
-    empty.hidden=true;
-    if(!SITE){
-      if(siteFailed){ out.innerHTML=''; say('Search could not load. Everything is still reachable from the menu, and the channel is at youtube.com/@GarbageRips585'); return; }
-      say('Loading...'); return;
-    }
-
-    var html='';
-    var n=0;
-
-    function more(h){
-      return h.total>h.rows.length
-        ? 'Showing '+h.rows.length+' of '+h.total.toLocaleString('en-US')+'.'
-        : '';
-    }
-
-    var p=hits(SITE.pages,terms,6); n+=p.total;
-    html+=group('Guides and pages', p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(p));
-
-    var s=hits(SITE.sets,terms,8); n+=s.total;
-    html+=group('Set guides', s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(s), '/sets/');
-
-    var k=hits(SITE.pokemon,terms,8); n+=k.total;
-    html+=group('Pokemon', k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(k), '/pokemon/');
-
+  // One pass over everything for one set of words. Returns the groups and the
+  // total, and leaves each spec's use counts filled in. numText is what the
+  // card number reader gets: the query as typed on rung 1, the words actually
+  // searched on the rungs below it.
+  function collect(sp, any, numText){
+    var R={n:0, any:any};
+    R.p=hits(SITE.pages,sp,6,2,any); R.n+=R.p.total;
+    R.s=hits(SITE.sets,sp,8,2,any); R.n+=R.s.total;
+    R.k=hits(SITE.pokemon,sp,8,2,any); R.n+=R.k.total;
     if(CARDS){
-      var c=[], cx=[], cs=SITE.cardSets||{};
+      var c=[], cx=[], cs=SITE.cardSets||{}, hay=cardHay(), had=any?new Map():null;
       // THE CARD ROWS CARRY set AND rarity AND WERE MATCHED ON NEITHER.
       // r = [name, setId, number, rarity, price]. "illustration rare" found 0
       // cards while 20 rarity values sat in r[3] on every row, and a set name
@@ -632,18 +806,27 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
       // typed total keeps only the sets that print it when any do. Those cards
       // come first; the old substring match still runs beside it and fills in
       // after, so nothing it found before is lost.
-      var num=parseCardNumber(q), nterms=num ? parseQuery(num.text) : null;
-      for(var i=0;i<CARDS.cards.length;i++){
-        var r=CARDS.cards[i], ok=true, ex=false;
-        var hay=norm(r[0]+' '+(CARDS.sets[r[1]]||r[1])+' '+(r[2]||'')+' '+(r[3]||''));
-        for(var j=0;j<terms.length;j++){
-          if(hay.indexOf(terms[j])===-1){ ok=false; break; }
+      var num=parseCardNumber(numText), nsp=null, byT={}, i, j;
+      if(num){
+        for(j=0;j<sp.length;j++) byT[sp[j].t]=sp[j];
+        nsp=parseQuery(num.text).map(function(t){ return byT[t] || {t:t, alts:null, via:'', use:{}}; });
+      }
+      for(i=0;i<CARDS.cards.length;i++){
+        var r=CARDS.cards[i], h=hay[i], cnt=0, ok=true, ex=false, vias=[];
+        for(j=0;j<sp.length;j++){
+          if(cardTerm(h, sp[j])){ cnt++; vias[j]=sp[j].via; }
+          else { ok=false; vias[j]=null; if(!any) break; }
         }
         if(num && numKey(r[2])===num.key){
           ex=true;
-          for(j=0;j<nterms.length;j++) if(hay.indexOf(nterms[j])===-1){ ex=false; break; }
+          for(j=0;j<nsp.length;j++) if(!cardTerm(h, nsp[j])){ ex=false; break; }
         }
-        if(ex) cx.push(r); else if(ok) c.push(r);
+        if(ex) cx.push(r);
+        else if(any ? cnt>0 : ok){
+          c.push(r);
+          if(any) had.set(r, cnt);
+          for(j=0;j<sp.length;j++) if(vias[j]!=null) credit(sp[j], vias[j]);
+        }
       }
       if(num && num.den && !num.pre){
         var cd=cx.filter(function(r){ return (cs[r[1]]||[])[1]===num.den; });
@@ -659,58 +842,174 @@ ${/* THE CREDIT IS THE CONDITION OF THE PICTURE, not a nicety. The Garbodor the
         if((' '+norm(CARDS.sets[sk])+' ').indexOf(' '+num.word+' ')!==-1){ setWord=true; break; }
       }
       if(setWord){ c=cx.concat(c); cx=[]; }
-      c.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
+      c.sort(function(a,b){
+        return (any ? (had.get(b)||0)-(had.get(a)||0) : 0) || (b[4]||0)-(a[4]||0);
+      });
       cx.sort(function(a,b){ return (b[4]||0)-(a[4]||0); });
-      c=cx.concat(c);
-      n+=c.length;
+      R.c=cx.concat(c); R.num=num; R.setWord=setWord;
+      R.n+=R.c.length;
+    }
+    R.v=hits(SITE.rips,sp,10,3,any); R.n+=R.v.total;
+    return R;
+  }
+
+  // linkQ is the query the "See them all" links carry to /cards.html and
+  // /videos.html. Empty on rung 4: both of those pages need every word, so a
+  // link built from an any-word search would land on "Nothing matched".
+  function paint(R, linkQ){
+    var html='';
+    function more(h){
+      return h.total>h.rows.length
+        ? 'Showing '+h.rows.length+' of '+h.total.toLocaleString('en-US')+'.'
+        : '';
+    }
+    html+=group('Guides and pages', R.p.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(R.p));
+    html+=group('Set guides', R.s.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(R.s), '/sets/');
+    html+=group('Pokemon', R.k.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(R.k), '/pokemon/');
+    if(R.c){
+      var c=R.c, cs=SITE.cardSets||{};
       html+=group('Cards', c.slice(0,10).map(function(r){
         return row(r[0], '/sets/'+r[1]+'.html', (CARDS.sets[r[1]]||r[1])+' • '+printedForm(r[2], cs[r[1]]), money(r[4]));
-      }), c.length>10 ? (num && !setWord ? 'Showing 10' : 'Showing the 10 priciest')+' of '+c.length.toLocaleString('en-US')+'.' : '',
-         c.length>10 ? '/cards.html?q='+encodeURIComponent(q) : '');
+      }), c.length>10 ? (R.any || (R.num && !R.setWord) ? 'Showing 10' : 'Showing the 10 priciest')+' of '+c.length.toLocaleString('en-US')+'.' : '',
+         c.length>10 && linkQ ? '/cards.html?q='+encodeURIComponent(linkQ) : '');
+    }
+    html+=group('Pack openings', R.v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(R.v),
+      R.v.total>R.v.rows.length && linkQ ? '/videos.html?q='+encodeURIComponent(linkQ) : '');
+    return html;
+  }
+
+  // late=true is the call that may use rungs 3 and 4. See the note at rung 3.
+  var lateT=null;
+  function render(late){
+    if(lateT){ clearTimeout(lateT); lateT=null; }
+    var typed=input.value.trim();
+    var q=typed.toLowerCase();
+    var terms=parseQuery(q);
+    /* !terms.length AND NOT JUST !q. norm() keeps only [a-z0-9], so a query of
+       one emoji, or "!!!", or ".*", is a non-empty string that parses to no
+       terms at all -- and every match loop below is a for over terms, so with
+       none of them nothing is ever rejected and the page answered "6,900
+       results" as though everything matched. /cards.html already gets this
+       right, which is where the wording comes from. */
+    if(!q || !terms.length){ out.innerHTML=''; say(''); empty.hidden=false; return; }
+    empty.hidden=true;
+    if(!SITE){
+      if(siteFailed){ out.innerHTML=''; say('Search could not load. Everything is still reachable from the menu, and the channel is at youtube.com/@GarbageRips585'); return; }
+      say('Loading...'); return;
     }
 
+    // RUNG 1, the query as typed.
+    var sp=specs(terms,false), R=collect(sp,false,q), relaxed=false;
+
+    // THE CARD INDEX IS STILL ON ITS WAY, so "nothing" is not known yet.
+    // "mega rayquaza" matches no page, set, species or rip and four cards, and
+    // relaxing before the cards arrive would announce a correction for a query
+    // that needs none, then take it back. Wait, saying what is being waited for.
+    var cardNote='';
     if(!CARDS && q.length>=2){
-      html+='<section class="sg"><h2>Cards</h2><p class="price-note">'+(cardsFailed
+      cardNote='<section class="sg"><h2>Cards</h2><p class="price-note">'+(cardsFailed
         ? 'The card index could not load, so cards are not in these results. Everything else here is.'
         : 'Looking through '+SITE.cardCount.toLocaleString()+' cards...')+'</p></section>';
+      if(!R.n && !cardsFailed){ out.innerHTML=cardNote; say('Searching...'); return; }
     }
 
-    var v=hits(SITE.rips,terms,10,3); n+=v.total;
-    html+=group('Pack openings', v.rows.map(function(r){ return row(r[0],r[1],r[2]); }), more(v),
-      v.total>v.rows.length ? '/videos.html?q='+encodeURIComponent(q) : '');
+    // RUNG 2, without the filler. core is whatever the last attempt searched,
+    // and is what rungs 3 and 4 work from.
+    var core=terms, s, pass;
+    for(pass=0; pass<2 && !R.n; pass++){
+      s=strip(core, pass===1);
+      if(s.length && s.length<core.length){
+        core=s; sp=specs(core,false); R=collect(sp,false,core.join(' ')); relaxed=true;
+      }
+    }
+    // RUNGS 3 AND 4 WAIT FOR THE TYPING TO STOP. A half typed word is not a
+    // typo: on the way to "charizard" the box holds "chari", which matches,
+    // but on the way to "charzard" it holds "charz", which is one edit from
+    // "charm", and correcting it would flash 129 Charmanders at somebody in
+    // the middle of a word. So a miss on rungs 1 and 2 clears the list and
+    // comes back a quarter of a second later, and any keystroke in between
+    // cancels that. Nothing is announced meanwhile.
+    if(!R.n && late!==true){
+      out.innerHTML=cardNote; say('');
+      lateT=setTimeout(function(){ render(true); }, 250);
+      return;
+    }
+    // RUNG 3, typo tolerance, where any word has a neighbour in the index.
+    if(!R.n){
+      sp=specs(core,true);
+      if(sp.some(function(x){ return x.alts.length; })){
+        R=collect(sp,false,core.join(' ')); relaxed=true;
+      }
+    }
+    // RUNG 4, any word. One word alone has nothing left to relax. A number or
+    // a word under three letters cannot carry a row by itself: "psa 11" with
+    // nothing holding both is a search for "psa", not for every card numbered
+    // 11 and every title with an 11 in it (381 rows when this was tried).
+    var loose=core.filter(function(t){ return t.length>=3 && !/^[0-9]+$/.test(t); });
+    if(!R.n && core.length>1 && loose.length){
+      sp=specs(loose,true);
+      R=collect(sp,true,loose.join(' ')); relaxed=true;
+    }
 
-    ${/* THE ONE STATE ON THIS SITE THAT PRINTED ABSENCE WITH NOTHING IN IT.
-          Every other empty state already has a mascot: /videos.html and
-          /playlists.html get one through emptyState() in public/assets/app.js,
-          a rip with no hits gets one from build-pages.mjs, and /404.html has
-          two. Site search had a bare sentence, which is the one place on the
-          site where a reader has definitely just failed at something.
+    var n=R.n;
+    if(!n){
+      ${/* THE ONE STATE ON THIS SITE THAT PRINTED ABSENCE WITH NOTHING IN IT.
+            Every other empty state already has a mascot: /videos.html and
+            /playlists.html get one through emptyState() in public/assets/app.js,
+            a rip with no hits gets one from build-pages.mjs, and /404.html has
+            two. Site search had a bare sentence, which is the one place on the
+            site where a reader has definitely just failed at something.
 
-          IT IS GARBODOR AND THAT IS THE ONLY REASON THIS IS NOT TRUBBISH.
-          Trubbish already means "there is nothing in this one" in three places
-          and the meaning is worth keeping single. This search reads 316
-          openings, 5,181 cards, every set guide and 1,025 species, so what it
-          says is "we went through the whole heap", and the heap is the evolved
-          one. It also gives the site's ONLY Garbodor a second page: before
-          this it was on /404.html and nowhere else.
+            IT IS GARBODOR AND THAT IS THE ONLY REASON THIS IS NOT TRUBBISH.
+            Trubbish already means "there is nothing in this one" in three places
+            and the meaning is worth keeping single. This search reads 316
+            openings, 5,181 cards, every set guide and 1,025 species, so what it
+            says is "we went through the whole heap", and the heap is the evolved
+            one. It also gives the site's ONLY Garbodor a second page: before
+            this it was on /404.html and nowhere else.
 
-          NO NEW CSS. .empty and .empty-mascot are both already in ui.css,
-          written for app.js's grid states, so this state now looks like the
-          filter-empty state on /videos.html rather than like a new invention.
+            NO NEW CSS FOR THE PANEL. .empty and .empty-mascot are both already
+            in ui.css, written for app.js's grid states, so this state now looks
+            like the filter-empty state on /videos.html rather than like a new
+            invention.
 
-          THE 256px FILE, NOT THE 512. .empty-mascot clamps to 116px, so a DPR 2
-          phone asks for 232 device pixels and 256 is the smallest rendition
-          that covers it: 15,582 bytes against /assets/garbodor.webp's 28,504
-          for pixels nothing on this page can use. The 96px sm file loses at
-          every DPR this box has, so there is no srcset worth writing. */ ""}out.innerHTML = html || '<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>';
-    // A ZERO RESULT IS A RESULT AND HAS TO BE SPOKEN. This said say('') for a
-    // miss, so the live region was EMPTIED rather than announced: a screen
-    // reader got a count for every query that found something and silence for
-    // the one case where the reader most needs telling. /cards.html already
-    // gets this right by putting its whole "Nothing matched" sentence in the
-    // status region; this is the same sentence the visible panel shows.
-    say(n ? n.toLocaleString('en-US')+' result'+(n===1?'':'s')
-          : 'Nothing matched. Try a Pokemon name, a set name, or a word from a video title.');
+            THE 256px FILE, NOT THE 512. .empty-mascot clamps to 116px, so a DPR 2
+            phone asks for 232 device pixels and 256 is the smallest rendition
+            that covers it: 15,582 bytes against /assets/garbodor.webp's 28,504
+            for pixels nothing on this page can use. The 96px sm file loses at
+            every DPR this box has, so there is no srcset worth writing.
+
+            "NOTHING MATCHED" IS SAID ONCE, HERE (11 November 2026). The status
+            line used to repeat the whole sentence directly above this panel.
+            It now gives the count, "0 results", which is the same kind of thing
+            it says for every other query and is what a screen reader hears; the
+            panel says it in words, and then offers somewhere to go: POPULAR in
+            build-search.mjs, eight real pages, as the same cards the page shows
+            before anything is typed. */ ""}out.innerHTML='<div class="empty"><img class="empty-mascot" src="/assets/species/569.webp" alt="" width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()"><p class="big">Nothing matched.</p><p>Try a Pokemon name, a set name, or a word from a video title.</p></div>'
+        + ${JSON.stringify(POPULAR_HTML)};
+      // A ZERO RESULT IS A RESULT AND HAS TO BE SPOKEN. This once said say('')
+      // for a miss, so the live region was EMPTIED rather than announced: a
+      // screen reader got a count for every query that found something and
+      // silence for the one case where the reader most needs telling.
+      say('0 results');
+      return;
+    }
+
+    var count=n.toLocaleString('en-US')+' result'+(n===1?'':'s');
+    if(!relaxed){
+      out.innerHTML=paint(R, q)+cardNote;
+      say(count);
+      return;
+    }
+    // What was actually searched, word by word: the typed word where it
+    // matched, the index word it stood for where it did not, and on rung 4
+    // only the words that matched anything.
+    var words=[], j, w;
+    for(j=0;j<sp.length;j++){ w=usedWord(sp[j]); if(w) words.push(w); else if(!R.any) words.push(sp[j].t); }
+    var label=words.join(' ');
+    out.innerHTML=paint(R, R.any ? '' : label)+cardNote;
+    say('No exact match for "'+typed+'". Showing '+count
+      +(R.any && words.length>1 ? ' that match any of "' : ' for "')+label+'".', true);
   }
 
   /* A SWALLOWED REJECTION LEFT THE PAGE SAYING "Loading..." FOR EVER. The
