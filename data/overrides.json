@@ -3207,5 +3207,29 @@
     "packNumberWhy": "The owner, 9 November 2026: \"please do a youtube sync and make sure to read titles and description to determine if i got a hit or not and if I did log it correctly for the site\", so the video's own description is the source, on his say-so. The video description, 8 November 2026: \"No official ultra-rare hits, but this set never misses! 🔮✨ Pack #2 of the Pokémon 30th Celebration Knock Out Collection sent us back to the bulk pile, but not before pulling the stunning Mew base card straight to Rochester, NY!\" Pack 2 of the second 30th Celebration Knock Out Collection (pack 1 is jCOfh3__6-U, \"Starting off another\"). Never read out of the title: riplabel.mjs refuses to.",
     "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"No official ultra-rare hits\" and \"sent us back to the bulk pile\". The Mew is a base card (Rare), which this site does not count as a hit. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "B4A-HNC-F6M": {
+    "packNumber": 3,
+    "hasHit": false,
+    "sets": [
+      "twilight-masquerade"
+    ],
+    "packNumberWhy": "The owner, 11 November 2026: \"do a new youtube sync, add in any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 11 November 2026: \"Living up to the name once again! 🗑️💀 Moving on to Pack #3 of the Pokémon Archaludon ex Box—this time tearing into Twilight Masquerade—and it delivered a classic garbage rip straight to Rochester, NY! Zero hits out of this pack, so the bulk pile grows.\" Pack 3 of the Archaludon ex Box (packs 1 and 2 are 4wt9xuZ-VV0 and 8Rq81W27eys); this pack is a Twilight Masquerade booster. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to read the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Twilight Masquerade, named in the description. Pinned so the box name can never add a second set."
+  },
+  "klo7rTgTJkE": {
+    "packNumber": 1,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 11 November 2026: \"do a new youtube sync, add in any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 10 November 2026: \"No first pack magic today—just pure garbage rips! 🗑️💀 Kicking off another Pokémon 30th Celebration Tech Sticker Collection with Pack #1 straight to Rochester, NY, and it was an immediate trip to the bulk pile!\" Pack 1 of a second 30th Celebration Tech Sticker Collection (\"Kicking off another\"; the first ran kAuIvKbEYw8, 7SV1GE23CGA and heFRq2yODvQ). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to read the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the first Tech Sticker Collection's three rips."
   }
 }

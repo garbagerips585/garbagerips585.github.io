@@ -1,13 +1,35 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 340394,
-    "subscribers": 443,
-    "videos": 401,
-    "readAt": "2026-11-10"
+    "views": 341525,
+    "subscribers": 444,
+    "videos": 402,
+    "readAt": "2026-11-11"
   },
-  "syncedAt": "2026-11-10",
+  "syncedAt": "2026-11-11",
   "videos": [
+    {
+      "id": "B4A-HNC-F6M",
+      "title": "Twilight Masquerade in the Archaludon ex Box Struck Out! 🚮👀",
+      "path": "rip/twilight-masquerade-in-the-archaludon-ex-box-struck-out-B4A-HNC-F6M.html",
+      "published": "2026-11-11",
+      "publishedAt": "2026-11-11T11:09:15Z",
+      "duration": 21,
+      "views": 945,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "twilight-masquerade"
+      ],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": [],
+      "hasHit": false,
+      "packNumber": 3,
+      "packs": 1,
+      "label": "Twilight Masquerade ex Premium Collection - Pack 3"
+    },
     {
       "id": "klo7rTgTJkE",
       "title": "Can Trubbish Handle All This 30th Celebration Bulk?! 🗑️⚡",
@@ -15,17 +37,20 @@
       "published": "2026-11-10",
       "publishedAt": "2026-11-10T12:03:07Z",
       "duration": 23,
-      "views": 875,
+      "views": 1090,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "hasHit": false,
+      "packNumber": 1,
+      "packs": 1,
+      "label": "30th Celebration Blister - Pack 1"
     },
     {
       "id": "ImL4P9zX8pg",
@@ -34,7 +59,7 @@
       "published": "2026-11-09",
       "publishedAt": "2026-11-09T11:04:25Z",
       "duration": 28,
-      "views": 1024,
+      "views": 1042,
       "vertical": true,
       "short": true,
       "sets": [
@@ -55,7 +80,7 @@
       "published": "2026-11-08",
       "publishedAt": "2026-11-08T12:39:07Z",
       "duration": 22,
-      "views": 12,
+      "views": 13,
       "vertical": true,
       "short": true,
       "sets": [
@@ -119,7 +144,7 @@
       "published": "2026-11-05",
       "publishedAt": "2026-11-05T12:58:22Z",
       "duration": 20,
-      "views": 993,
+      "views": 994,
       "vertical": true,
       "short": true,
       "sets": [
@@ -141,7 +166,7 @@
       "published": "2026-11-04",
       "publishedAt": "2026-11-04T14:03:19Z",
       "duration": 25,
-      "views": 16,
+      "views": 17,
       "vertical": true,
       "short": true,
       "sets": [
@@ -206,7 +231,7 @@
       "published": "2026-11-01",
       "publishedAt": "2026-11-01T12:32:01Z",
       "duration": 24,
-      "views": 1112,
+      "views": 1113,
       "vertical": true,
       "short": true,
       "sets": [
@@ -421,7 +446,7 @@
       "published": "2026-10-22",
       "publishedAt": "2026-10-22T10:41:13Z",
       "duration": 27,
-      "views": 1025,
+      "views": 1026,
       "vertical": true,
       "short": true,
       "sets": [
@@ -655,7 +680,7 @@
       "published": "2026-10-11",
       "publishedAt": "2026-10-11T11:21:08Z",
       "duration": 23,
-      "views": 22,
+      "views": 23,
       "vertical": true,
       "short": true,
       "sets": [
@@ -890,7 +915,7 @@
       "published": "2026-09-30",
       "publishedAt": "2026-09-30T10:23:12Z",
       "duration": 23,
-      "views": 48,
+      "views": 49,
       "vertical": true,
       "short": true,
       "sets": [
@@ -932,7 +957,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1374,
+      "views": 1375,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1739,7 +1764,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1203,
+      "views": 1204,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2603,7 +2628,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1018,
+      "views": 1019,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5329,7 +5354,7 @@
       "published": "2026-06-19",
       "publishedAt": "2026-06-19T10:20:17Z",
       "duration": 22,
-      "views": 89,
+      "views": 90,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5813,7 +5838,7 @@
       "published": "2026-06-12",
       "publishedAt": "2026-06-12T10:43:04Z",
       "duration": 26,
-      "views": 1008,
+      "views": 1009,
       "vertical": true,
       "short": true,
       "sets": [
