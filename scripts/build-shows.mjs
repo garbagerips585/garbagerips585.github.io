@@ -19,7 +19,7 @@
 // bug. The client pass is also why the empty state is written in HTML rather
 // than decided at build time.
 
-import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rm, readdir } from "node:fs/promises";
 import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -54,6 +54,7 @@ import { CLIENT_DAY_JS } from "../shared/drops.mjs";
 // logos on /shops.html, /vendors.html and /creators.html now open in the same
 // one, so it lives in shared/ rather than in three more copies of itself.
 import { imgLbMarkup, imgLbJs } from "../shared/lightbox.mjs";
+import { showGeo, toRuns, showPagePlan, SHOW_AREAS } from "../shared/show-pages.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const data = JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8"));
 
@@ -300,113 +301,22 @@ const mapLink = (s) =>
 const appleMapLink = (s) =>
   `https://maps.apple.com/?q=${encodeURIComponent(mapQuery(s))}`;
 
-// The page covers three metro areas and nothing else. These feeds are regional
-// and cheerfully mix in the Southern Tier, and a national search for "Rochester
-// Pokemon league" returns Rochester MINNESOTA and Rochester MICHIGAN before it
-// returns ours, so an out-of-area entry is a question of when, not whether.
-// Anything not on this list stops the build rather than quietly telling somebody
-// in the 585 to drive to another state.
-/* WHICH SHOWS BELONG HERE, MEASURED RATHER THAN LISTED.
- *
- * This was a hand-typed Set of about thirty city names, and a hand-typed list of
- * exceptions is the thing this repo has been burned by most: it goes stale the
- * first time somebody adds a show and then it lies without anybody editing it.
- * Every city already carries a lat/lon in _towns, so the rule can just be the
- * rule, and it is the owner's own words: "if a show is within 30-45 miles of the
- * main city filters just add it into that filter."
- *
- * FORTY-FIVE MILES FROM ONE OF THREE ANCHORS. Checked against the calendar as it
- * stood when this went in: the farthest city in use was Batavia at 31.2 miles,
- * and every single city's nearest anchor already matched its declared region,
- * 13 of 13. So this codifies what the data was doing rather than changing it.
- *
- * IT CHECKS THE REGION TOO, which the old Set could not. A show in Dryden filed
- * under Rochester would have passed a name list happily; here the nearest anchor
- * IS the answer, so a mis-filed region is caught rather than shipped. That is a
- * real class of bug on a page whose only navigation is three area buttons.
- *
- * The radius is the one number to argue about. Widening it is a decision about
- * how far the owner will tell somebody to drive, not a technical one. */
-const ANCHORS = { roc: [43.1566, -77.6088], buffalo: [42.8864, -78.8784], syracuse: [43.0481, -76.1474] };
-const RADIUS_MI = 45;
-const milesBetween = ([la1, lo1], [la2, lo2]) => {
-  const R = 3958.8, r = (d) => (d * Math.PI) / 180;
-  const dp = r(la2 - la1), dl = r(lo2 - lo1);
-  const h = Math.sin(dp / 2) ** 2 + Math.cos(r(la1)) * Math.cos(r(la2)) * Math.sin(dl / 2) ** 2;
-  return 2 * R * Math.asin(Math.sqrt(h));
-};
-const nearestAnchor = (pt) =>
-  Object.entries(ANCHORS)
-    .map(([id, a]) => ({ id, mi: milesBetween(pt, a) }))
-    .sort((x, y) => x.mi - y.mi)[0];
-
-const towns = data._towns || {};
-/* A TOWN BETWEEN TWO CITIES BELONGS IN BOTH FILTERS. The owner, 29 August 2026:
-   "waterloo is honestly pretty much inbetween Syracuse and Rochester so just put
-   it in both filters ... if anything is close to more than one city just make it
-   filter into both."
-   Waterloo is 37.5 miles from Syracuse and 41.5 from Rochester, so it filed
-   under Syracuse and the Rochester chip -- the one a Rochester reader obviously
-   presses -- deleted the nearest show on the calendar while the hero above kept
-   advertising it. `region` still holds the NEAREST anchor, so the build guard
-   below still checks the one true filing; this only widens which chips show it.
-   DUAL_MI is a margin, not a second radius: a town qualifies for a second city
-   only if that city is within 15 miles of being its nearest. */
-const DUAL_MI = 15;
-const regionsFor = (city) => {
-  const pt = towns[city];
-  if (!pt) return [];
-  const all = Object.entries(ANCHORS)
-    .map(([id, a]) => ({ id, mi: milesBetween(pt, a) }))
-    .sort((x, y) => x.mi - y.mi);
-  const best = all[0];
-  return all.filter((a) => a.mi <= RADIUS_MI && a.mi - best.mi <= DUAL_MI).map((a) => a.id);
-};
-/* A SHOW OUT OF AREA BUT INSIDE A DRIVE STILL BELONGS UNDER THE NEAREST CITY'S
-   CHIP. The owner, 8 September 2026, asked for exactly this and set the number:
-   "ill take your suggestion of 2 hours drives from the main cities, could maybe
-   extended it to 3 hours but not further than that."
-
-   WHAT IT FIXES. `farAfield` rows get region "away", which no chip carries, so
-   they appeared ONLY under All. A Buffalo collector pressing "Buffalo & Niagara"
-   -- the obvious thing to press -- never saw the Erie show at all, though it is a
-   two hour drive and the nearest out-of-state show to them. That is the same
-   fault the DUAL_MI note above describes for Waterloo: the chip a reader
-   obviously presses hiding the show they would most want.
-
-   IT IS A DRIVE, NOT A RADIUS, AND THAT DISTINCTION IS THE WHOLE POINT. The 45
-   mile rule stays where it is and stays in straight lines; this reads measured
-   ROAD time out of data/shows.json's `_drives`, which is why Erie qualifies at
-   92 road miles when its 81 mile straight line tells you nothing useful about a
-   lake shore. Nothing is computed here and no build touches the network.
-
-   SET AT TWO HOURS, HIS PRIMARY NUMBER, NOT THE THREE HE WOULD TOLERATE, AND
-   TODAY THE TWO ARE THE SAME PAGE. Measured: Erie is 1h59m from Buffalo and
-   3h19m from Rochester, NY; Harmony PA is 3h41m from Buffalo, its own nearest
-   city. So at 2 hours exactly one pairing qualifies, Erie under Buffalo, and at
-   3 hours it is still exactly that one -- Erie/Rochester and Harmony/Buffalo both
-   fall outside either way. Taking the tighter number costs nothing today and is
-   one constant to move when it does. Do not raise it past 3. */
-const DRIVE_HOURS = 2;
-const drives = data._drives || {};
-const driveFor = (city) => {
-  const dr = drives[city];
-  return dr && typeof dr.hours === "number" ? dr : null;
-};
-/* The nearest city's chip, but ONLY when the measured drive is inside the
-   threshold. A town with no measured drive returns nothing, which is the honest
-   default: absent evidence is not a short drive. */
-const driveRegions = (city) => {
-  const dr = driveFor(city);
-  return dr && dr.hours <= DRIVE_HOURS && dr.anchor ? [dr.anchor] : [];
-};
-/* Straight-line chips first, then any earned by a drive, de-duplicated. Falls
-   back to the row's own `region` so an away show with no qualifying drive still
-   carries "away" and still appears under All, exactly as before. */
-const chipRegions = (s) => {
-  const merged = [...new Set([...regionsFor(s.city), ...driveRegions(s.city)])];
-  return merged.length ? merged : [s.region];
-};
+/* THE AREA RULE LIVES IN shared/show-pages.mjs NOW, moved whole on 11 November
+   2026 with every note it carried: the three anchors, the 45 mile radius, the
+   two-city margin for a town between two of them, and the measured drives. It
+   moved because the pages under /shows/ are cut by the same function the area
+   chips use, and the sitemap, the site search and llms.txt all have to agree
+   with this file about which of those pages exist. */
+const { RADIUS_MI, DRIVE_HOURS, towns, nearestAnchor, driveFor, chipRegions } = showGeo(data);
+/* The area pages are named after the chips, so the two lists must be the same
+   three in the same words. A chip renamed here without its page would send a
+   reader from "Buffalo & Niagara" to a page that calls itself something else. */
+for (const a of SHOW_AREAS) {
+  const r = REGIONS.find((x) => x.id === a.id);
+  if (!r || r.label !== a.chip) {
+    throw new Error(`shared/show-pages.mjs has area "${a.id}" as "${a.chip}" but the chip here reads "${r ? r.label : "nothing"}". Keep them the same.`);
+  }
+}
 
 const areaProblems = [];
 for (const s of data.shows || []) {
@@ -502,40 +412,20 @@ const nFree = upcoming.filter((s) => String(s.admission || "").trim().toLowerCas
  */
 const FAR_DAYS = 60;
 const addDays = (iso, n) => new Date(Date.parse(iso + "T00:00:00Z") + n * 864e5).toISOString().slice(0, 10);
-const dayGap = (a, b) => Math.round((Date.parse(b + "T00:00:00Z") - Date.parse(a + "T00:00:00Z")) / 864e5);
 const WD3 = (iso) => weekday(iso).slice(0, 3);
 const MON3 = (iso) => MONTHS_LONG[Number(iso.slice(5, 7)) - 1].slice(0, 3);
 const DNUM = (iso) => Number(iso.slice(8, 10));
 
-function toRuns(list) {
-  const out = [], open = new Map();
-  for (const s of list) {
-    const k = `${s.name}|${s.venue}`, prev = open.get(k);
-    if (prev && dayGap(prev.days[prev.days.length - 1].date, s.date) === 1) {
-      prev.days.push(s);
-      prev.last = s.date;
-      for (const v of s.vendors || []) if (!prev.vendors.some((x) => x.name === v.name)) prev.vendors.push(v);
-      for (const f of ["flyer", "flyerW", "flyerH", "blurb", "url", "ticketUrl", "phone", "organiserUrl", "logo"]) {
-        if (!prev[f] && s[f]) prev[f] = s[f];
-      }
-      continue;
-    }
-    const r = { ...s, days: [s], last: s.date, vendors: [...(s.vendors || [])] };
-    open.set(k, r);
-    out.push(r);
-  }
-  return out;
-}
+/* toRuns() MOVED TO shared/show-pages.mjs on 11 November 2026, unchanged, because
+   the pages under /shows/ and the rule for which of them exist both count RUNS,
+   and a second definition of "one show" is the kind of copy that drifts. */
 const runs = toRuns(upcoming);
+/* WHICH PAGES EXIST UNDER /shows/, decided in shared/show-pages.mjs so the
+   sitemap, the site search and llms.txt read the same answer this file does. */
+const PLAN = showPagePlan(data, TODAY);
 const farFrom = addDays(TODAY, FAR_DAYS);
 const nearRuns = runs.filter((r) => r.date <= farFrom);
 const farRuns = runs.filter((r) => r.date > farFrom);
-const byDay = [];
-for (const r of nearRuns) {
-  let g = byDay.find((x) => x.date === r.date);
-  if (!g) byDay.push((g = { date: r.date, runs: [] }));
-  g.runs.push(r);
-}
 
 /* THE WEEKEND, Friday to Sunday. Monday to Thursday it is the coming one; from
    Friday it starts today. The page script recomputes this on the reader's own
@@ -905,30 +795,12 @@ const logoFor = (s) => {
 
 // ------------------------------------------------------------------ structured
 
-const ld = [
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    /* THREE LEVELS SINCE /rochester.html EXISTS. This page sat directly under
-       Home, which told a crawler it is a top-level subject of this site. It is
-       one of five pages that make up the local section, and the hub is the page
-       that says what that section is. The visible crumb below emits the same
-       three: a breadcrumb that disagrees with its own markup is worse than
-       neither, and the two used to be checked only by eye. */
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
-      /* "Local scene" AND NOT "Rochester, NY". The nav group holding these five
-         pages is headed Rochester, NY, so that is the SECTION's name and not the
-         hub page's; a page named after its own group is the two-names-one-page
-         failure read backwards. The label here matches the nav item, the visible
-         crumb below and the routing row at the foot of this page, because a page
-         called one thing in the menu and another in the breadcrumb is two pages
-         to a reader. See the note beside HUB in build-locals.mjs. */
-      { "@type": "ListItem", position: 2, name: "Local scene", item: SITE + "/rochester.html" },
-      { "@type": "ListItem", position: 3, name: "Card shows" },
-    ],
-  },
-  ...upcoming.map((s) => ({
+/* ONE Event PER DAY, FROM ONE FUNCTION. It was written inline in the calendar's
+   own `ld` array; it is a function since 11 November 2026 because the pages
+   under /shows/ mark up the same days, and the same show described twice with
+   two different sets of values is worse than describing it once. Both callers
+   pass a row of data/shows.json and get the identical object. */
+const eventLd = (s) => ({
     "@context": "https://schema.org",
     "@type": "Event",
     name: s.name,
@@ -1055,7 +927,32 @@ const ld = [
           }
         : {}),
     ...(s.url ? { url: s.url } : {}),
-  })),
+  });
+
+const ld = [
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    /* THREE LEVELS SINCE /rochester.html EXISTS. This page sat directly under
+       Home, which told a crawler it is a top-level subject of this site. It is
+       one of five pages that make up the local section, and the hub is the page
+       that says what that section is. The visible crumb below emits the same
+       three: a breadcrumb that disagrees with its own markup is worse than
+       neither, and the two used to be checked only by eye. */
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE + "/" },
+      /* "Local scene" AND NOT "Rochester, NY". The nav group holding these five
+         pages is headed Rochester, NY, so that is the SECTION's name and not the
+         hub page's; a page named after its own group is the two-names-one-page
+         failure read backwards. The label here matches the nav item, the visible
+         crumb below and the routing row at the foot of this page, because a page
+         called one thing in the menu and another in the breadcrumb is two pages
+         to a reader. See the note beside HUB in build-locals.mjs. */
+      { "@type": "ListItem", position: 2, name: "Local scene", item: SITE + "/rochester.html" },
+      { "@type": "ListItem", position: 3, name: "Card shows" },
+    ],
+  },
+  ...upcoming.map(eventLd),
 ];
 
 const desc =
@@ -1079,6 +976,80 @@ const miniCSS = (css) =>
 // rule: the figure, the geometry strokes, the town plates, the key and the
 // note under it. With the drawn map removed there is nothing on this page that
 // ui.css does not already style, so the page ships no inline <style> at all.
+
+/* THE PARTS OF THE PAGE SCRIPT THAT EVERY SHOW LIST NEEDS, cut out of the
+   calendar's own script on 11 November 2026 so the pages under /shows/ run the
+   SAME sweep rather than a copy of it. The text is unchanged and the calendar
+   still emits it in the same two places; these are template text, so every
+   rule in the brief about backslashes and backticks applies inside them.
+   JS_SWEEP needs CLIENT_DAY_JS before it: the Apple Maps swap, the sweep that
+   drops a show on the READER'S clock, the two counters and the "In 3 days"
+   chips. JS_SHARE is the share buttons and opening a far-out row from a #hash. */
+const JS_SWEEP = `  try {
+    var ua = navigator.userAgent || "";
+    var apple = /iPhone|iPad|iPod/.test(ua) ||
+      (/Mac/.test(ua) && navigator.maxTouchPoints > 1) || /Macintosh/.test(ua);
+    if (apple) {
+      var links = document.querySelectorAll("a[data-map-apple]");
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i], to = a.getAttribute("data-map-apple");
+        if (!to) continue;
+        a.setAttribute("href", to);
+        var lab = a.getAttribute("aria-label");
+        if (lab) a.setAttribute("aria-label", lab.replace(/opens on .*$/, "opens on maps.apple.com"));
+      }
+    }
+  } catch (e) {}
+  var today = todayIso();
+  var now = new Date();
+  var nowHM = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
+  function over(el){
+    var last = el.dataset.last || el.dataset.date;
+    if (last < today) return true;
+    return last === today && el.dataset.end && el.dataset.end <= nowHM;
+  }
+  [].slice.call(document.querySelectorAll('.cs-unit, .wk-tile')).forEach(function(el){ if (over(el)) el.remove(); });
+  document.querySelectorAll('.show-dayg').forEach(function(g){ if (!g.querySelector('.cs-unit')) g.remove(); });
+  (function(){
+    var all = document.querySelectorAll('.cs-unit');
+    var free = 0; all.forEach(function(el){ if (el.dataset.free === '1') free++; });
+    document.querySelectorAll('[data-all="shows"]').forEach(function(el){ el.textContent = all.length; });
+    document.querySelectorAll('[data-all="free"]').forEach(function(el){ el.textContent = free; });
+  })();
+  function dn(iso){ return Date.parse(iso + 'T00:00:00Z') / 864e5; }
+  function isoOf(n){ return new Date(n * 864e5).toISOString().slice(0, 10); }
+  function dayWord(el){
+    var a = el.dataset.date, b = el.dataset.last || a;
+    if (a <= today && b >= today) return 'Today';
+    var away = dn(a) - dn(today);
+    return away === 1 ? 'Tomorrow' : away > 1 && away <= 7 ? 'In ' + away + ' days' : '';
+  }
+  document.querySelectorAll('.cs-unit').forEach(function(el){
+    var chip = el.querySelector('[data-soon]');
+    if (!chip) return;
+    var w = dayWord(el);
+    chip.textContent = w; chip.hidden = !w;
+  });`;
+const JS_SHARE = `  document.querySelectorAll('[data-share]').forEach(function(b){
+    b.hidden = false;
+    b.addEventListener('click', function(){
+      var url = location.origin + location.pathname + '#' + b.dataset.share;
+      // The label is read once per button and a pending reset is cleared first
+      // (14 October 2026): a second click inside 1.8s saved "Link copied" as the
+      // original, and the button kept saying it for good.
+      if (b.__was == null) b.__was = b.textContent;
+      var done = function(t){ b.textContent = t; clearTimeout(b.__reset); b.__reset = setTimeout(function(){ b.textContent = b.__was; }, 1800); };
+      if (navigator.share) { navigator.share({ title: b.dataset.shareTitle, url: url }).catch(function(){}); return; }
+      if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); });
+    });
+  });
+  function openHash(){
+    var id = decodeURIComponent((location.hash || '').slice(1));
+    var el = id && document.getElementById(id);
+    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); }
+  }
+  window.addEventListener('hashchange', openHash);
+  openHash();`;
 
 const head = `<!DOCTYPE html>
 <html lang="en">
@@ -1218,6 +1189,17 @@ function showCard(input, opts = {}) {
             <a class="show-act" href="/shows/ics/${esc(s.id)}.ics" aria-label="Add ${esc(showRef(s))} to your calendar">Calendar</a>
             <button type="button" class="show-act" data-share="s-${esc(s.id)}" data-share-title="${esc(s.name)}, ${esc(longWhen(s))}" hidden>Share</button>
           </div>`}
+          ${/* THE WAY TO THE SHOW'S OWN PAGE, and only where that page holds
+                more than this card: a series with one date left would send a
+                reader to a page showing them the card they just left. Before
+                the outbound links, which stay last in the row. Off on the
+                series page itself (it would link to where the reader is) and
+                on the archive, whose cards are a record and not a route. */ ""}
+          ${(() => {
+            if (archive || opts.series === false) return "";
+            const sp = PLAN.seriesFor(s);
+            return sp && sp.runs.length > 1 ? `<p><a class="show-series" href="${esc(sp.path)}">All ${esc(sp.name)} dates</a></p>` : "";
+          })()}
           ${s.ticketUrl || s.url || s.phone || (s.organiserUrl && s.organiserUrl !== s.url) ? `<p class="show-links">
             ${s.ticketUrl ? `<a class="tickets" href="${esc(s.ticketUrl)}" rel="noopener" target="_blank" aria-label="Get tickets for ${esc(showRef(s))}, opens on ${esc(hostOf(s.ticketUrl))}">Get tickets <span aria-hidden="true">&rarr;</span></a>` : ""}
             ${s.url ? `<a href="${esc(s.url)}" rel="noopener" target="_blank" aria-label="${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing and details"} for ${esc(showRef(s))}, opens on ${esc(hostOf(s.url))}">${s.organiserUrl && s.url === s.organiserUrl ? "Official site" : "Listing &amp; details"}</a>` : ""}
@@ -1230,6 +1212,40 @@ function showCard(input, opts = {}) {
 // "Call or text <organizer> about <show> on <number>" against a visible "Call or
 // text <number>". The calendar button is a plain internal link to a prebuilt .ics,
 // so it needs no script and no outbound label.
+/* THE LIST, AS FUNCTIONS, since 11 November 2026. The day groups, the one line
+   "further out" row and the block that holds those rows were written inline in
+   the calendar's template. The pages under /shows/ print the same three things
+   over a subset of the same runs, so they are called rather than copied, and a
+   change to a card or a row reaches every page that shows it. `opts` goes
+   straight through to showCard(). */
+const farRow = (r, opts = {}) => {
+  const p = priceOf(r);
+  return `      <details class="cs-far cs-unit" id="s-${esc(r.id)}"${unitData(r)}>
+        <summary><span class="far-d">${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}</span><span class="far-t">${esc(r.name)}<span class="far-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span><span class="far-x" aria-hidden="true"></span></summary>
+${showCard(r, { ...opts, unit: false })}
+      </details>`;
+};
+const dayGroups = (list, opts = {}) => {
+  const days = [];
+  for (const r of list) {
+    let g = days.find((x) => x.date === r.date);
+    if (!g) days.push((g = { date: r.date, runs: [] }));
+    g.runs.push(r);
+  }
+  return days
+    .map(
+      (g) => `    <div class="show-dayg" data-day="${esc(g.date)}">
+      <h2 class="show-day-h"><span>${esc(`${weekday(g.date)}, ${MONTHS_LONG[Number(g.date.slice(5, 7)) - 1]} ${DNUM(g.date)}`)}</span><span class="show-day-n">${g.runs.length} ${g.runs.length === 1 ? "show" : "shows"}</span></h2>
+${g.runs.map((r) => showCard(r, opts)).join("\n")}
+    </div>`
+    )
+    .join("\n");
+};
+const furtherOut = (list, opts = {}) => (list.length ? `    <div class="show-dayg show-further" id="further">
+      <h2 class="show-day-h"><span>Further out</span><span class="show-day-n">${list.length} ${list.length === 1 ? "show" : "shows"}</span></h2>
+${list.map((r) => farRow(r, opts)).join("\n")}
+    </div>` : "");
+
 const page = head + `
 <header class="set-hero cs-hero">
   <div class="wrap">
@@ -1312,30 +1328,26 @@ ${tiles.map((r, i) => {
   </div>
   <div class="wrap">
     <div id="showList">
-${byDay
-  .map(
-    (g) => `    <div class="show-dayg" data-day="${esc(g.date)}">
-      <h2 class="show-day-h"><span>${esc(`${weekday(g.date)}, ${MONTHS_LONG[Number(g.date.slice(5, 7)) - 1]} ${DNUM(g.date)}`)}</span><span class="show-day-n">${g.runs.length} ${g.runs.length === 1 ? "show" : "shows"}</span></h2>
-${g.runs.map((r) => showCard(r)).join("\n")}
-    </div>`
-  )
-  .join("\n")}
-${farRuns.length ? `    <div class="show-dayg show-further" id="further">
-      <h2 class="show-day-h"><span>Further out</span><span class="show-day-n">${farRuns.length} ${farRuns.length === 1 ? "show" : "shows"}</span></h2>
-${farRuns.map((r) => {
-  const p = priceOf(r);
-  return `      <details class="cs-far cs-unit" id="s-${esc(r.id)}"${unitData(r)}>
-        <summary><span class="far-d">${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}</span><span class="far-t">${esc(r.name)}<span class="far-m">${esc(r.city)} &bull; ${p ? esc(p) : "Price not published"}</span></span><span class="far-x" aria-hidden="true"></span></summary>
-${showCard(r, { unit: false })}
-      </details>`;
-}).join("\n")}
-    </div>` : ""}
+${dayGroups(nearRuns)}
+${furtherOut(farRuns)}
     </div>
     <div id="showFlat" hidden></div>
     <div class="show-empty" id="showEmpty" hidden>
       <p>No shows match these filters.</p>
       <p><button type="button" class="btn btn-ghost btn-sm" id="csClear2">Clear filters</button> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Know one we missed? Submit it on our Google Form, opens on forms.gle">Know one we missed? Submit it</a></p>
     </div>
+    ${/* THE AREA PAGES, as plain links that need no script. The chips at the
+          top filter this page and say so by being buttons; these go to a page
+          that holds one area and nothing else, which is what a search for "card
+          shows near Buffalo" should have landed on. Named exactly as the chips
+          are, so a reader does not meet two words for one place.
+          UNDER THE LIST, NOT UNDER THE CHIPS. It was tried there first and at
+          390 it wrapped to two 44px lines, 88px between the filter panel and
+          the first show, on the page whose 8 October redesign exists to get
+          the first card onto the first screen. A reader who wants one area
+          presses the chip; this row is for the reader who has reached the end
+          and for a crawler, and neither needs it above the fold. */ ""}
+    ${PLAN.areas.some((a) => a.indexable) ? `<p class="cs-areas"><span>One page per area:</span>${PLAN.areas.filter((a) => a.indexable).map((a) => `<a class="cs-area" href="${esc(a.path)}">${esc(a.chip)}</a>`).join("")}</p>` : ""}
     <p class="cs-submit"><b>Know a show we missed?</b> <a href="${esc(SHOW_FORM)}" rel="noopener" target="_blank" aria-label="Submit a show on our Google Form, opens on forms.gle">Submit it here</a>. It takes about three minutes, and you can upload the flyer.</p>
   </div>
 </section>
@@ -1485,51 +1497,7 @@ ${footer("Show listings are collected by hand and change without notice. Check w
 <script>
 (function(){
 ${CLIENT_DAY_JS}
-  try {
-    var ua = navigator.userAgent || "";
-    var apple = /iPhone|iPad|iPod/.test(ua) ||
-      (/Mac/.test(ua) && navigator.maxTouchPoints > 1) || /Macintosh/.test(ua);
-    if (apple) {
-      var links = document.querySelectorAll("a[data-map-apple]");
-      for (var i = 0; i < links.length; i++) {
-        var a = links[i], to = a.getAttribute("data-map-apple");
-        if (!to) continue;
-        a.setAttribute("href", to);
-        var lab = a.getAttribute("aria-label");
-        if (lab) a.setAttribute("aria-label", lab.replace(/opens on .*$/, "opens on maps.apple.com"));
-      }
-    }
-  } catch (e) {}
-  var today = todayIso();
-  var now = new Date();
-  var nowHM = ('0' + now.getHours()).slice(-2) + ':' + ('0' + now.getMinutes()).slice(-2);
-  function over(el){
-    var last = el.dataset.last || el.dataset.date;
-    if (last < today) return true;
-    return last === today && el.dataset.end && el.dataset.end <= nowHM;
-  }
-  [].slice.call(document.querySelectorAll('.cs-unit, .wk-tile')).forEach(function(el){ if (over(el)) el.remove(); });
-  document.querySelectorAll('.show-dayg').forEach(function(g){ if (!g.querySelector('.cs-unit')) g.remove(); });
-  (function(){
-    var all = document.querySelectorAll('.cs-unit');
-    var free = 0; all.forEach(function(el){ if (el.dataset.free === '1') free++; });
-    document.querySelectorAll('[data-all="shows"]').forEach(function(el){ el.textContent = all.length; });
-    document.querySelectorAll('[data-all="free"]').forEach(function(el){ el.textContent = free; });
-  })();
-  function dn(iso){ return Date.parse(iso + 'T00:00:00Z') / 864e5; }
-  function isoOf(n){ return new Date(n * 864e5).toISOString().slice(0, 10); }
-  function dayWord(el){
-    var a = el.dataset.date, b = el.dataset.last || a;
-    if (a <= today && b >= today) return 'Today';
-    var away = dn(a) - dn(today);
-    return away === 1 ? 'Tomorrow' : away > 1 && away <= 7 ? 'In ' + away + ' days' : '';
-  }
-  document.querySelectorAll('.cs-unit').forEach(function(el){
-    var chip = el.querySelector('[data-soon]');
-    if (!chip) return;
-    var w = dayWord(el);
-    chip.textContent = w; chip.hidden = !w;
-  });
+${JS_SWEEP}
   function weekend(){
     var t = dn(today), d = new Date(today + 'T00:00:00Z').getUTCDay();
     var fri = d === 0 ? t - 2 : d === 6 ? t - 1 : t + ((5 - d + 7) % 7);
@@ -1689,26 +1657,7 @@ ${CLIENT_DAY_JS}
   function clearAll(){ S = { area: 'all', q: {}, from: null, label: '', within: 0, sort: 'soon' }; if (input) input.value = ''; say(''); apply(true); }
   if (clearBtn) clearBtn.addEventListener('click', clearAll);
   var c2 = document.getElementById('csClear2'); if (c2) c2.addEventListener('click', clearAll);
-  document.querySelectorAll('[data-share]').forEach(function(b){
-    b.hidden = false;
-    b.addEventListener('click', function(){
-      var url = location.origin + location.pathname + '#' + b.dataset.share;
-      // The label is read once per button and a pending reset is cleared first
-      // (14 October 2026): a second click inside 1.8s saved "Link copied" as the
-      // original, and the button kept saying it for good.
-      if (b.__was == null) b.__was = b.textContent;
-      var done = function(t){ b.textContent = t; clearTimeout(b.__reset); b.__reset = setTimeout(function(){ b.textContent = b.__was; }, 1800); };
-      if (navigator.share) { navigator.share({ title: b.dataset.shareTitle, url: url }).catch(function(){}); return; }
-      if (navigator.clipboard) navigator.clipboard.writeText(url).then(function(){ done('Link copied'); }, function(){ done('Copy failed'); });
-    });
-  });
-  function openHash(){
-    var id = decodeURIComponent((location.hash || '').slice(1));
-    var el = id && document.getElementById(id);
-    if (el && el.tagName === 'DETAILS') { el.open = true; el.scrollIntoView(); }
-  }
-  window.addEventListener('hashchange', openHash);
-  openHash();
+${JS_SHARE}
   var qp = new URLSearchParams(location.search);
   if (qp.get('area') && document.querySelector('.chip.filt[data-region="' + qp.get('area') + '"]')) S.area = qp.get('area');
   ['weekend', 'free', 'pk'].forEach(function(k){ if (qp.get(k) === '1') S.q[k] = true; });
@@ -1801,6 +1750,257 @@ for (const r of runs) {
  * matching `date < TODAY`, so the nightly build moves it with no edit. He asked
  * for exactly that: "dont put it on that page until Sunday".
  */
+
+/* ------------------------------------------------- the pages under /shows/ --
+ *
+ * ONE PAGE PER RECURRING SHOW AND ONE PER AREA, approved by the owner on
+ * 11 November 2026. Which pages, and why a page outlives its dates, is argued
+ * in shared/show-pages.mjs; this block only draws them.
+ *
+ * THEY ADD NOTHING. Every card is showCard() over a run that is already on the
+ * calendar, every Event is eventLd() over a row that is already marked up
+ * there, and every sentence in a lede is assembled from fields the owner
+ * confirmed: the venue and address when every date shares them, the organiser
+ * when every date names the same one, and what kind of show it is from the same
+ * flags the chips read. HOW OFTEN A SHOW RUNS IS NEVER STATED. The readme in
+ * data/shows.json records what happened the one time dates were worked out
+ * from a pattern ("Do not regenerate these from a rule. Re-read them."), and a
+ * sentence saying "monthly" is the same guess wearing prose.
+ *
+ * THE SAME SWEEP, NOT A COPY OF IT. JS_SWEEP is the calendar's own text, so a
+ * show that has ended is dropped here on the reader's clock by the code that
+ * drops it there. What this adds is the last step: when the sweep leaves
+ * nothing, the empty state that the build would have written tomorrow is
+ * revealed today.
+ */
+const SUB_DIR = join(ROOT, "public/shows");
+const checkedOn = longDate(data.checked) || data.checked;
+const farCut = (r) => r.date > farFrom;
+const sameAll = (rows, f) => (rows.length && rows.every((r) => f(r) === f(rows[0])) ? f(rows[0]) : null);
+/* What kind of show, in the words the legend on the calendar already uses, and
+   only when every date agrees. Mixed or unconfirmed is just "a card show". */
+const kindOf = (rows) => {
+  if (rows.length && rows.every((r) => r.pokemon)) return "a Pokemon show";
+  if (rows.length && rows.every((r) => !r.pokemon && r.pkmn === "some")) return "a general card show where Pokemon is confirmed on the floor";
+  if (rows.length && rows.every((r) => !r.pokemon && r.pkmn === "none")) return "a sports card show";
+  return "a card show";
+};
+const areaOf = (id) => PLAN.areas.find((a) => a.id === id);
+
+function subHead(p, og, ldList) {
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(p.title)}</title>
+<meta name="description" content="${esc(p.desc)}">
+${p.indexable ? "" : `<meta name="robots" content="noindex,follow">\n`}<link rel="canonical" href="${SITE}${p.path}">
+<meta property="og:title" content="${esc(og)}">
+<meta property="og:description" content="${esc(p.desc)}">
+<meta property="og:type" content="website">
+<meta property="og:url" content="${SITE}${p.path}">
+<meta property="og:site_name" content="Garbage Rips 585">
+<meta property="og:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE}/assets/og-card-shows.jpg?v=2">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#192D22">
+${FONTS}
+${STYLES}
+${ldList.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join("\n")}
+</head>
+<body>
+${SPRITE}
+${SKIP}
+${BAR}
+${MENU}
+<main id="main" tabindex="-1">
+`;
+}
+const subCrumbLd = (name) => ({
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE}/` },
+    { "@type": "ListItem", position: 2, name: "Card shows", item: `${SITE}/card-shows.html` },
+    { "@type": "ListItem", position: 3, name },
+  ],
+});
+/* THE EMPTY STATE IS IN THE HTML OF EVERY PAGE, hidden while there is a date to
+   show, for the reason the calendar's own empty state is: the reader's clock
+   decides, and a block that is not in the page cannot be revealed. `nothing`
+   is true when the BUILD already found no dates, and then it is simply shown. */
+const subEmpty = (nothing) => `    <div class="show-empty" id="showEmpty"${nothing ? "" : " hidden"}>
+      <p>No upcoming dates listed right now.</p>
+      <p><a class="btn btn-sky btn-sm" href="/card-shows.html">See the full card show calendar</a></p>
+    </div>`;
+const subFoot = `
+</main>
+${imgLbMarkup("Show flyer or logo")}
+${footer("Show listings are collected by hand and change without notice. Check with the organizer before traveling.")}
+<script>
+(function(){
+${CLIENT_DAY_JS}
+${JS_SWEEP}
+  (function(){
+    var left = document.querySelectorAll('.cs-unit').length;
+    document.querySelectorAll('.show-dayg').forEach(function(g){
+      var c = g.querySelector('.show-day-n');
+      if (!c) return;
+      var k = g.querySelectorAll('.cs-unit').length;
+      c.textContent = k + ' ' + (k === 1 ? (c.dataset.one || 'show') : (c.dataset.many || 'shows'));
+    });
+    if (left) return;
+    var list = document.getElementById('showList'), empty = document.getElementById('showEmpty');
+    if (list) list.hidden = true;
+    if (empty) empty.hidden = false;
+    document.querySelectorAll('[data-live]').forEach(function(el){ el.hidden = true; });
+  })();
+${JS_SHARE}
+${imgLbJs("Show flyer or logo")}
+})();
+</script>
+${APP_JS}
+</body>
+</html>
+`;
+
+function seriesPage(p) {
+  const has = p.upcoming.length > 0;
+  const rows = has ? p.upcoming : p.rows;
+  const venue = sameAll(rows, (r) => r.venue), address = sameAll(rows, (r) => r.address || "");
+  const organiser = sameAll(rows, (r) => r.organiser || "");
+  const where = venue ? `at ${venue}${address ? `, ${address}` : ` in ${p.place}`}` : `in ${p.place}`;
+  const areas = p.areas.map(areaOf).filter((a) => a && a.indexable);
+  const [first, ...rest] = p.runs;
+  return subHead(p, `${p.name}, ${p.place}`, [subCrumbLd(p.name), ...p.upcoming.map(eventLd)]) + `
+<header class="set-hero cs-hero">
+  <div class="wrap">
+    <span class="kicker">585 &bull; Card show dates</span>
+    <h1>${esc(p.name)} <span class="hl">in ${esc(p.place)}</span></h1>
+    <p class="lede">${has
+      ? `${esc(p.name)} is ${kindOf(rows)} ${esc(where)}.${organiser && organiser !== p.name ? ` Organized by ${esc(organiser)}.` : ""}${venue ? "" : " The venue is on each date below."} <span data-live>Upcoming dates listed: <b data-all="shows">${p.runs.length}</b>.</span>`
+      : `We have listed ${esc(p.name)} in ${esc(p.place)} before. No upcoming dates are listed right now.`}</p>
+  </div>
+</header>
+<section class="tight cs-top">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/card-shows.html">Card shows</a> / ${esc(p.name)}</nav>
+    <p class="cs-checked">Listings last checked ${esc(checkedOn)}. Always check with the organizer before you drive: small shows move, or get called off.</p>
+  </div>
+</section>
+${/* EVERY DATE AT A GLANCE, in the calendar's own weekend-strip tiles. A series
+     page is a list of the same show a dozen times, so the thing a reader wants
+     first is the dates, the hours and the price side by side, and a tap to the
+     one they mean. Each tile is the date, that day's hours and the admission,
+     all three straight off the row. Only with two or more dates: one tile over
+     one card says the same thing twice. The sweep already drops a .wk-tile whose
+     day has passed, so the strip keeps itself honest between builds. */ ""}
+${p.runs.length > 1 ? `<section class="tight cs-wk" aria-labelledby="spGlance" data-live>
+  <div class="wrap">
+    <h2 class="sec-label cs-wk-h" id="spGlance"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Every date at a glance</h2>
+    <div class="wk-strip">
+${p.runs.map((r) => {
+  const pr = priceOf(r);
+  const yr = r.date.slice(0, 4) === TODAY.slice(0, 4) ? "" : ` ${r.date.slice(0, 4)}`;
+  return `      <a class="wk-tile" href="#s-${esc(r.id)}" data-date="${esc(r.date)}" data-last="${esc(r.last)}"${r.days[r.days.length - 1].end ? ` data-end="${esc(r.days[r.days.length - 1].end)}"` : ""}><span class="wk-b"><span class="wk-d">${WD3(r.date)} ${MON3(r.date)} ${DNUM(r.date)}${r.last !== r.date ? `&ndash;${DNUM(r.last)}` : ""}${yr}</span><span class="wk-t">${esc(hoursOf(r))}</span><span class="wk-m">${pr ? esc(pr) : "Price not published"}</span></span></a>`;
+}).join("\n")}
+    </div>
+  </div>
+</section>` : ""}
+<section class="tight" id="list">
+  <div class="wrap">
+${has ? `    <div id="showList">
+    <div class="show-dayg">
+      <h2 class="show-day-h"><span>Upcoming dates</span><span class="show-day-n" data-one="date" data-many="dates">${p.runs.length} ${p.runs.length === 1 ? "date" : "dates"}</span></h2>
+${showCard(first, { series: false })}
+${rest.map((r) => (farCut(r) ? farRow(r, { series: false }) : showCard(r, { series: false }))).join("\n")}
+    </div>
+    </div>` : ""}
+${subEmpty(!has)}
+    ${/* INSIDE THE LIST'S OWN .wrap, not a section of its own: #list is a
+          narrower column than a plain section at 1440, and a block of links
+          that started 200px left of the cards above it read as a different
+          page's footer. */ ""}
+    <p class="sec-label sp-more" id="spMore"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>More card shows</p>
+    <nav class="cs-areas" aria-labelledby="spMore">
+      ${areas.map((a) => `<a class="cs-area" href="${esc(a.path)}">Near ${esc(a.city)}</a>`).join("\n      ")}
+      <a class="cs-area" href="/card-shows.html">The full calendar</a>
+      <a class="cs-area" href="/past-shows.html">Past shows</a>
+    </nav>
+  </div>
+</section>
+` + subFoot;
+}
+
+function areaPage(p) {
+  const has = p.upcoming.length > 0;
+  const near = p.runs.filter((r) => !farCut(r)), far = p.runs.filter(farCut);
+  const others = PLAN.areas.filter((a) => a.id !== p.id && a.indexable);
+  const townText = p.towns.length > 1 ? `${p.towns.slice(0, -1).join(", ")} and ${p.towns[p.towns.length - 1]}` : p.towns.join("");
+  return subHead(p, `Card shows near ${p.city}`, [subCrumbLd(`Near ${p.city}`), ...p.upcoming.map(eventLd)]) + `
+<header class="set-hero cs-hero">
+  <div class="wrap">
+    <span class="kicker">585 &bull; Card shows by area</span>
+    <h1>Card <span class="hl">shows</span> near ${esc(p.city).replace(", NY", ",&nbsp;NY")}</h1>
+    <p class="lede">Every upcoming card show we list within ${RADIUS_MI} miles of ${esc(p.city)}, or inside a ${({ 1: "one", 2: "two", 3: "three" })[DRIVE_HOURS] || DRIVE_HOURS} hour drive of it, in date order.${has ? ` <span data-live><b data-all="shows">${p.runs.length}</b> listed, in ${esc(townText)}.</span>` : ""}</p>
+  </div>
+</header>
+<section class="tight cs-top">
+  <div class="wrap">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/card-shows.html">Card shows</a> / Near ${esc(p.city)}</nav>
+    <p class="cs-checked">Listings last checked ${esc(checkedOn)}. Always check with the organizer before you drive: small shows move, or get called off.</p>
+  </div>
+</section>
+<section class="tight" id="list">
+  <div class="wrap">
+${has ? `    <div id="showList">
+${dayGroups(near)}
+${furtherOut(far)}
+    </div>` : ""}
+${subEmpty(!has)}
+${p.series.length ? `    <div class="sp-more" data-live>
+    <h2>Shows with their <span class="hl">own page</span></h2>
+    <ul class="cs-areas">
+      ${p.series.map((x) => `<li><a class="cs-area" href="${esc(x.path)}">${esc(x.name)}</a></li>`).join("\n      ")}
+    </ul>
+    </div>` : ""}
+    <p class="sec-label sp-more" id="spMore"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>More card shows</p>
+    <nav class="cs-areas" aria-labelledby="spMore">
+      ${others.map((a) => `<a class="cs-area" href="${esc(a.path)}">Near ${esc(a.city)}</a>`).join("\n      ")}
+      <a class="cs-area" href="/card-shows.html?area=${esc(p.id)}">The full calendar, with filters</a>
+      <a class="cs-area" href="/past-shows.html">Past shows</a>
+    </nav>
+  </div>
+</section>
+` + subFoot;
+}
+
+/* WRITE THEM, AND CLEAR OUT ANY PAGE THIS RUN DID NOT WRITE. A series renamed in
+   data/shows.json gets a new url, and the old file would otherwise sit in
+   public/ for good, indexable and frozen: the knock-out.html failure the
+   sitemap notes in build-pages.mjs describe. Only .html directly in /shows/ is
+   touched; the ics folder beside them was rebuilt above. */
+await mkdir(SUB_DIR, { recursive: true });
+const subWritten = new Set();
+for (const p of PLAN.pages) {
+  const file = `${p.slug}.html`;
+  await writeFile(join(SUB_DIR, file), p.kind === "series" ? seriesPage(p) : areaPage(p));
+  subWritten.add(file);
+}
+for (const f of await readdir(SUB_DIR)) {
+  if (f.endsWith(".html") && !subWritten.has(f)) await rm(join(SUB_DIR, f));
+}
+console.log(`Wrote ${PLAN.pages.length} pages under public/shows/: ` +
+  `${PLAN.areas.length} areas, ${PLAN.series.length} series, ${PLAN.pages.length - PLAN.indexable.length} of them empty and noindex`);
+for (const p of PLAN.pages) console.log(`  ${p.path}  ${p.runs.length} upcoming${p.indexable ? "" : "  (noindex)"}`);
+
 const archiveDesc =
   `Every Pokemon and card show around Rochester, NY, Buffalo and Syracuse that has already happened, newest first, ` +
   `with the flyers. A record of what was on, and when the last one of a show was.`;

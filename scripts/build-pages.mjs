@@ -66,6 +66,7 @@ import { esc, longDate, moneyCompact, moneyExact, moneyRound, shortDate, rarityL
 import { sourceIndex, packSource, sourceCard } from "../shared/pack-source.mjs";
 import { avifSource } from "../shared/logo-srcset.mjs";
 import { showIndex, boughtAtShow } from "../shared/bought-at.mjs";
+import { showPagePlan } from "../shared/show-pages.mjs"; // CARD SHOW PAGES: sitemap registration only
 import { socialLinks, GLYPH } from "../shared/socials.mjs";
 
 /* THE CHANNEL'S OWN LINKS IN A DESCRIPTION ARE LINKS HERE TOO, 29 September
@@ -2993,6 +2994,17 @@ const urls = [
   // structured data, the listings genuinely change, and "card shows near me" is
   // the kind of local search this site can actually win.
   { loc: `${SITE}/card-shows.html`, freq: "weekly", pri: "0.9" },
+  // CARD SHOW PAGES, /shows/<slug>.html: one per recurring show and one per
+  // area, the calendar above cut two ways. DERIVED, not typed and not read back
+  // off disk: shared/show-pages.mjs decides which exist from data/shows.json
+  // and today's date, and build-shows.mjs draws exactly that list, so this
+  // cannot name a page that was not written. ONLY THE INDEXABLE ONES: a series
+  // whose dates have all passed is still built, for bookmarks, but noindex, and
+  // check-build.py fails a noindex page in the sitemap. lastmod is the day the
+  // owner last swept the listings (`checked` in the data), which is the one
+  // date here that is known rather than assumed.
+  ...showPagePlan(JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")), localDay()).indexable
+    .map((p) => ({ loc: `${SITE}${p.path}`, freq: "weekly", pri: p.kind === "area" ? "0.8" : "0.7", mod: p.mod })),
   // Card show 101. The calendar answers when and where; this answers what a
   // show IS, for somebody who has never been. Monthly rather than weekly and a
   // notch below the calendar, because the calendar changes every week and this

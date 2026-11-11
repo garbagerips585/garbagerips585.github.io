@@ -26,6 +26,7 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { localDay } from "../shared/today.mjs";
+import { showPagePlan } from "../shared/show-pages.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const read = async (p) => JSON.parse(await readFile(join(ROOT, p), "utf8"));
@@ -47,6 +48,16 @@ const free = upcoming.filter((s) => s.admission === "Free").length;
 const vids = (videos.videos || videos).length;
 
 const L = (p, t, d) => `- [${t}](${SITE}/${p}): ${d}`;
+
+// The pages under /shows/: the calendar cut by area and by recurring show.
+// The same list build-shows.mjs draws, from shared/show-pages.mjs, and only the
+// ones with a date still ahead. Counts only; every fact is on the page itself.
+const showPlan = showPagePlan(shows, today).indexable;
+const showLines = showPlan.map((p) => L(p.path.slice(1),
+  p.kind === "area" ? `Card shows near ${p.city}` : `${p.name}, ${p.place}`,
+  p.kind === "area"
+    ? `${p.runs.length} upcoming ${p.runs.length === 1 ? "show" : "shows"} in that area, in date order`
+    : `${p.runs.length} upcoming ${p.runs.length === 1 ? "date" : "dates"} of this one show, each with venue, address, hours and admission`));
 
 const out = `# Garbage Rips 585
 
@@ -72,6 +83,7 @@ const out = `# Garbage Rips 585
 ## The local scene, which is the part least well covered elsewhere
 
 ${L("card-shows.html", "Card shows calendar", `${upcoming.length} upcoming shows around Rochester, NY, Buffalo and Syracuse. ${allPkmn} are all Pokemon, ${somePkmn} more are mixed shows where Pokemon vendors are confirmed, ${free} are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon`)}
+${showLines.join("\n")}
 ${L("card-show-101.html", "Card show 101", "what happens at a card show, what to bring, how vendors pay, and what percentage of market value they actually offer. The buy rates are other people's published figures, each one named and dated")}
 ${L("shops.html", "Card shops in Rochester, NY", `${(shops.shops || shops).length} shops with hours taken only from each shop's own site, plus where you can sit down and play`)}
 ${L("rochester.html", "Rochester Pokemon scene", "the hub tying the shows, the shops and the local pages together")}

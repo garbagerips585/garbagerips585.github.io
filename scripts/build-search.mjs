@@ -23,6 +23,8 @@ import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { showPagePlan } from "../shared/show-pages.mjs";
+import { localDay } from "../shared/today.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -93,6 +95,18 @@ try {
  *
  * Read from what build-openings.mjs wrote, exactly like the retailers above, so
  * a new product kind is a data edit rather than a line here to remember. */
+/* THE CARD SHOW PAGES UNDER /shows/, the third subdirectory and the same trap:
+ * the guard at the foot of this file walks only the top level. Not read off
+ * disk like the two above. shared/show-pages.mjs decides which pages exist
+ * from data/shows.json and the day, and build-shows.mjs draws that same list,
+ * so this is the list itself rather than a copy of it. Indexable ones only: a
+ * series with no dates left is built noindex and is not a search result. Each
+ * is a [title, path, sub] triple; a series is titled with the show's own name,
+ * because "Batavia Pokemon show" is what somebody types. */
+const showPages = showPagePlan(
+  JSON.parse(await readFile(join(ROOT, "data/shows.json"), "utf8")), localDay()
+).indexable.map((p) => p.search);
+
 let openingPages = [];
 try {
   openingPages = JSON.parse(await readFile(join(ROOT, "public/data/openings-index.json"), "utf8")).pages || [];
@@ -310,6 +324,8 @@ const index = {
     // The thirteen sealed-product pages. Already [title, path, sub] triples in
     // the file build-openings.mjs writes, so they spread straight in.
     ...openingPages,
+    // One per recurring card show and one per area. See showPages above.
+    ...showPages,
   ],
   sets: [
     ...sets.map((s) => [s.name, `/sets/${s.id}.html`, `${s.total || "?"} cards${s.released ? ` • ${s.released.slice(0, 4)}` : ""}`]),

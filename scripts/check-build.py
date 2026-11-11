@@ -73,6 +73,13 @@ SECTIONS = [
     ("public/sets/*.html", 35, "set guides"),
     ("public/pokemon/*.html", 25, "Pokemon pages"),
     ("public/*.html", 18, "root pages"),
+    # /shows/<slug>.html, the card show calendar cut by area and by recurring
+    # show (build-shows.mjs, 11 November 2026). 16 on the day it shipped: three
+    # area pages, which are permanent, and 13 series. A series page is built
+    # for as long as its rows stay in data/shows.json, dates passed or not, so
+    # this number should only climb; 12 leaves room for the owner pruning old
+    # rows and still catches the section emptying out.
+    ("public/shows/*.html", 12, "card show pages"),
 ]
 for pattern, floor, label in SECTIONS:
     n = count(pattern)

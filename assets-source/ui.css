@@ -4371,6 +4371,19 @@ button.show-logo:hover img{outline:1px solid var(--ink);outline-offset:1px}
   color:var(--sky-deep);font:700 var(--t-sm)/1.1 var(--body);padding:0 10px;text-decoration:none;cursor:pointer}
 .show-act:hover,.show-act:focus-visible{background:var(--sky);border-color:var(--sky);color:var(--on-accent)}
 .show-act[hidden]{display:none}
+/* "ALL <SERIES> DATES", the one internal link on a show card, 11 November 2026.
+   It goes to that show's own page under /shows/. A plain underlined teal link
+   and not a fourth pill: the pills above are things to DO with this date, and
+   this is somewhere else to go. inline-flex with its own min-height because a
+   bare inline link is 17px tall, and it sits in a block, not a flex row, so
+   the 44px is the link's own and not a stretched parent's.
+   THE CLASS IS ON THE LINK, NOT ON ITS PARAGRAPH, and that is for the splitter:
+   split-page-css.mjs keeps any rule whose target has no class (".x a") in the
+   render-blocking ui.css, because it cannot read such a target off a page's
+   class attributes. Written this way the rule travels with the pages that use
+   it. Same for .cs-area below. */
+.show-series{display:inline-flex;align-items:center;min-height:44px;margin-top:6px;font:700 var(--t-sm)/1.25 var(--body);
+  color:var(--sky-deep);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 .show-links{gap:6px var(--s4)}
 @media(min-width:720px){
   .show-top{grid-template-columns:64px minmax(0,1fr);gap:var(--s4)}
@@ -4425,6 +4438,17 @@ section.cs-top{padding-block:var(--s3) var(--s2)}
 .cs-hint:empty{display:none}
 .cs-group{display:flex;flex-wrap:wrap;gap:8px}
 .cs-checked{margin-top:var(--s3);font-size:var(--t-sm);color:var(--ink-2)}
+/* A LABELLED ROW OF PAGE LINKS: the three area pages under the filter panel on
+   the calendar, and the ways on from a page under /shows/. It wraps, so the
+   label and each link are their own flex items and a long show name breaks
+   inside itself instead of pushing the row past a 320px screen. */
+.cs-areas{display:flex;flex-wrap:wrap;align-items:center;gap:0 var(--s4);margin-top:var(--s2);
+  font-size:var(--t-sm);color:var(--ink-2);list-style:none}
+.cs-area{display:inline-flex;align-items:center;min-height:44px;min-width:0;font-weight:700;color:var(--sky-deep);
+  text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+/* The blocks under the list on a /shows/ page: air above, because they follow
+   a card or the empty state directly. */
+.sp-more{margin-top:var(--s6)}
 .cs-rail .rail-in{flex-wrap:wrap;overflow:visible;min-height:0;padding-bottom:4px}
 .cs-rail .rail-in{gap:6px}
 .cs-rail .chip{height:36px;padding:0 12px;font-size:.8125rem}
@@ -4756,6 +4780,10 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
    only its contents are capped. The 980 itself is the owner's and is unchanged. */
 @media(min-width:720px){
   .show,.show-day-h,.cs-far,.show-empty,#list .cs-submit{max-width:980px;margin-inline:auto}
+  /* And the link rows of 11 November 2026: the area pages under the calendar's
+     list, and the two blocks that close a /shows/ page. Same column, same
+     reason: without it they start 206px left of the cards above them. */
+  #list .cs-areas,#list .sp-more{max-width:980px;margin-inline:auto}
   .cs-rail .rail-in,.cs-rail .cs-status{max-width:calc(980px + 2 * var(--gut))}
   /* The two bands between the hero and the list take the column too: the
      crumbs, the zip search and its area chips, and the weekend strip, which
