@@ -70,6 +70,8 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { channelPitch, PITCH_DAILY } from "../shared/channel-pitch.mjs";
+import { daysSince } from "../shared/today.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
 // THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
@@ -2102,6 +2104,15 @@ ${rips
     ${rips.length > 12
       ? `<p style="margin-top:var(--s3)"><a class="btn btn-ghost btn-sm" href="/videos.html?set=${esc(g.id)}">All ${rips.length} ${esc(label)} rips</a></p>`
       : ""}
+    ${/* THE REASON TO SUBSCRIBE, UNDER THE RIPS, 11 November 2026: the same
+          block and the same rule as the English guides' "Every <set> rip"
+          band (shared/channel-pitch.mjs). "Still opening" is only said of a
+          set whose newest rip is 30 days old or less; an older one gets the
+          footer's claim. ripsBand only runs for a set with a rip. */ ""}${channelPitch(
+      (daysSince(rips.map((v) => String(v.published || "")).sort().pop()) ?? 999) <= 30
+        ? `We are still opening ${esc(g.english)}. Subscribe so you catch the next pack.`
+        : `${PITCH_DAILY} Subscribe so you catch the next one.`,
+    )}
   </div>
 </section>`;
 }

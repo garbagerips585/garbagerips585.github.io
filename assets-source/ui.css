@@ -2579,6 +2579,19 @@ footer .soc svg{fill:var(--chrome-ink)}
 .crumbs a::after{content:"";position:absolute;left:0;right:0;top:50%;
   height:44px;transform:translateY(-50%)}
 .rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+/* THE CHANNEL PITCH, 11 November 2026 (shared/channel-pitch.mjs says why it
+   exists and what it may claim). One line of reason and the Subscribe button,
+   on a rip page above .rip-nav and on a set guide under that set's rip list.
+   ONE ROW WHERE THERE IS ROOM AND TWO WHERE THERE IS NOT, by flex-wrap rather
+   than a breakpoint: the sentence asks for 15em, and when the box cannot give
+   it that beside the button the button drops under it. A hairline box on the
+   page's own card color, so it reads as a note and not as a banner. The red
+   is .btn-sub's and is not restated here; .btn-sm keeps the target at 44px. */
+.pitch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s4);
+  max-width:46em;margin-top:var(--s5);padding:var(--s3) var(--s4);border:1px solid var(--hair);
+  border-radius:var(--r);background:var(--card)}
+.pitch-t{flex:1 1 15em;margin:0;font-size:var(--t-sm);line-height:1.45;color:var(--ink)}
+.pitch .btn-sub{flex:none}
 
 /* ---------- set logo on a video page ---------- */
 .rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
@@ -5824,6 +5837,17 @@ inherited from the UA default, so the promotion moves nothing on screen. */
 .hitcard-open{position:absolute;inset:0;width:100%;height:100%;background:none;border:0;
   cursor:zoom-in;padding:0;z-index:2}
 .hitcard-open:focus-visible{outline:3px solid var(--ketchup-deep);outline-offset:-3px;border-radius:var(--r)}
+/* "MORE <SPECIES> CARDS", 11 November 2026: the link from a card to its
+   /pokemon/ page (shared/species-link.mjs), on a hit tile, a "what you are
+   chasing" row, and the set guides' chase and hit tiles. Teal because it goes
+   somewhere, 44px tall because it stands alone, and small because it is the
+   quietest thing on the tile. ON A HIT TILE IT SITS ABOVE .hitcard-open, which
+   is an empty button stretched over the whole tile at z-index 2: the link is
+   the button's sibling, not its child, and takes its own strip back. */
+.sp-more{display:inline-flex;align-items:center;min-height:44px;font:600 var(--t-micro)/1.3 var(--body);
+  color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.sp-more:hover,.sp-more:focus-visible{color:var(--sky)}
+.hitcard .sp-more{position:relative;z-index:3;align-self:flex-start}
 .hitlb{position:fixed;inset:0;z-index:200;background:rgba(17,17,17,.88);
   display:flex;align-items:center;justify-content:center;padding:var(--s5)}
 .hitlb[hidden]{display:none}

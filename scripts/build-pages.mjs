@@ -43,6 +43,8 @@ import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS, SUBSCRIBE, drop
 import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
+import { channelPitch } from "../shared/channel-pitch.mjs";
+import { loadSpeciesLinks } from "../shared/species-link.mjs";
 import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
@@ -1278,6 +1280,18 @@ for (const v of videos) {
 }
 const bySet = new Map();
 const HITS_RESOLVED = new Map();
+
+// A CARD NAME -> ITS SPECIES PAGE, 11 November 2026. Rip pages had no link into
+// /pokemon/ at all, on the one page family that shows a reader a single card
+// and has their attention on it. shared/species-link.mjs is build-pokemon.mjs's
+// own join (same speciesOf, same printing corpus) and returns nothing for a
+// Trainer, an Energy, or a species whose page is noindex. build-all.mjs runs
+// build-pokemon.mjs directly before this file, so the flags are this build's.
+const speciesLink = await loadSpeciesLinks(ROOT);
+const speciesMore = (name, cls = "") => {
+  const sp = speciesLink(name);
+  return sp ? `<a class="sp-more${cls ? ` ${cls}` : ""}" href="${sp.href}">More ${esc(sp.name)} cards</a>` : "";
+};
 for (const vid of Object.keys(HITS)) HITS_RESOLVED.set(vid, await resolveHits(vid));
 
 /* ------------------------------------------------- what each rip was worth --
@@ -1655,6 +1669,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(printedNo(c.number))}` : ""}</span>
           <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>
+          ${speciesMore(c.name)}
         </div>
       </li>`).join("\n      ")}
     </ul>
@@ -2268,27 +2283,32 @@ ${MENU}
             const r = v.hitRarity || (hits.length && tiers.length === 1 ? tiers[0] : null);
             return r ? `<p class="hit-rarity">${esc(rarityLabel(r))}</p>` : "";
           })()}
+          ${/* One link per species named, where the hit line parsed into cards. */
+            [...new Set(hits.map((h) => speciesMore(h.name)).filter(Boolean))].join(" ")}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
         ${desc ? `<div class="rip-desc">${linkOwn(esc(desc))}</div>` : ""}
-        <div class="rip-nav">
-        ${/* .btn-sub, not .btn-yt. This is the fourth of the four Subscribe
-             controls on the site and it has to match the bar pill, the menu
-             pill and the footer button, all three of which a reader on this
-             page can see above and below it. The class, the colour and the
-             fence around that colour are in the --yt-red block in
-             assets-source/ui.css. It carries an aria-label for the same reason
-             the footer's does: it leaves the site.
+        ${/* THE SUBSCRIBE THAT USED TO LEAD .rip-nav, NOW WITH ITS REASON, 11
+             November 2026. It was a bare red button beside Previous and Next,
+             28% of the way down the page, and the only sentence saying why to
+             press it was in the footer. It is the same control (.btn-sub, the
+             class the --yt-red block in assets-source/ui.css fences the red
+             to, with SUBSCRIBE and SUB_LABEL out of shared/chrome.mjs) moved
+             into channelPitch() beside one line of reason. Nothing was added:
+             a rip page still has exactly one Subscribe in its body.
+
+             THE LINE IS THE FOOTER'S CLAIM, a rip every day and every pack
+             going up hit or no hit, which shared/chrome.mjs counted off
+             videos.json before printing it. "Tomorrow's" is that same claim.
 
              AS A JS COMMENT, NOT AN HTML ONE. An HTML comment here shipped into
-             310 rip pages, and the backticks in it closed the template literal
-             and broke the parse, which check-build caught as
-             "build-pages.mjs does not parse". */ ""}
-          <a class="btn btn-sub btn-sm" href="${SUBSCRIBE}" rel="noopener" target="_blank"
-            aria-label="Subscribe to Garbage Rips 585 on YouTube. Opens YouTube.">Subscribe</a>
+             310 rip pages once, and the backticks in it closed the template
+             literal and broke the parse. */ ""}
+        ${channelPitch("A new pack gets ripped on this channel every day, hit or no hit. Subscribe so you catch tomorrow&rsquo;s.")}
+        ${v.affiliate || prev || next ? `<div class="rip-nav">
           ${v.affiliate ? `<a class="btn btn-sky btn-sm" href="${esc(v.affiliate)}" rel="nofollow sponsored noopener">Rip one yourself</a>` : ""}
           ${prev ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(prev)}">&larr; Previous rip</a>` : ""}
           ${next ? `<a class="btn btn-ghost btn-sm" href="/${pathFor(next)}">Next rip &rarr;</a>` : ""}
-        </div>
+        </div>` : ""}
         ${v.affiliate ? `<p class="aff-note">Affiliate link. If you buy through it we may earn a small commission at no extra cost to you.</p>` : ""}
       </div>
     </div>
@@ -2397,6 +2417,11 @@ ${
           }</p>
           ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : ""}
           ${h.priceSource ? `<p class="hitcard-src">${esc(h.priceSource)}, ${esc(shortDate(h.priceAsOf) || h.priceAsOf)}</p>` : ""}
+          ${/* A SIBLING OF .hitcard-open, NEVER INSIDE IT. That button is an
+               empty overlay at z-index 2 covering the whole tile; this link
+               sits above it (.hitcard .sp-more in ui.css), so the 44px strip
+               goes to the species page and the rest of the tile still opens
+               the picture. */ speciesMore(h.name)}
         </div>
       </li>`,
         )

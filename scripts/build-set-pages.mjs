@@ -152,8 +152,39 @@ import { ripLabel, ownLineProduct } from "../shared/riplabel.mjs";
 // and /what-to-buy.html (2 October 2026, the sealed band's shelf prices).
 import { loadListings, multStr } from "../shared/listings.mjs";
 import { daysSince } from "../shared/today.mjs";
+import { channelPitch, PITCH_DAILY } from "../shared/channel-pitch.mjs";
+import { loadSpeciesLinks } from "../shared/species-link.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+/* A CARD NAME -> ITS /pokemon/ PAGE, 11 November 2026.
+ *
+ * A guide names every card in its set and linked none of them, so 143 of the
+ * 851 indexable species pages had one inbound link and 507 had three or fewer.
+ * /sets/pitch-black.html prints "Mega Darkrai ex" five times and
+ * /pokemon/darkrai.html was linked from one page on the whole site.
+ *
+ * shared/species-link.mjs is build-pokemon.mjs's own join and says what it
+ * will not link (a Trainer, an Energy, a noindex species). Four places on a
+ * guide use it and each is a real <a> that is a SIBLING of the pop-up's
+ * button, never a child of it:
+ *   - under each chase tile and each no-scan chase row
+ *   - on each "what we have hit" tile and text row
+ *   - in the pop-up, for whichever card is open (data-sp on the opener)
+ *   - "Every Pokemon in <set>", a collapsed A to Z list under the card list.
+ *     That list is how the card list's species get a crawlable link: a link
+ *     in each of up to 245 rows would need a 44px target per row, and the
+ *     row's name cell is read as a text node by the card list script.
+ * spMore() is the tile link; spOf() is the slug the pop-up reads. */
+const speciesLink = await loadSpeciesLinks(ROOT);
+const spMore = (name) => {
+  const sp = speciesLink(name);
+  return sp ? `<a class="sp-more" href="${sp.href}">All ${esc(sp.name)} cards</a>` : "";
+};
+const spData = (name, cat) => {
+  const sp = cat && cat !== "Pokemon" ? null : speciesLink(name);
+  return sp ? ` data-sp="${esc(sp.slug)}"` : "";
+};
 
 // Intrinsic size of each set logo, measured from the files themselves. These
 // are lazy and sit below the fold, so without a reserved box the section
@@ -1469,6 +1500,7 @@ function checklistBand(s, cls, pulled = new Map()) {
               (psa ? ` data-psa10="${esc(moneyCompact(psa))}"${psaSrc !== psaShared ? ` data-src="${esc(`${rawSrc} ${psaSrc}`)}"` : ""}` : "") +
               (rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : "") +
               (url ? ` data-url="${esc(affLink(url))}"` : "") +
+              spData(c.name, c.cat) +
               (hasScan(c) || c.tcgplayerId ? "" : " data-x");
             // THE TINT WAS THE ONLY MARK AND IT STOPPED BEING GOLD, 2 October
             // 2026. The copy under the list said "the gold rows" months after
@@ -1582,7 +1614,7 @@ function subsetBand(s, cls, pulled = new Map()) {
               // grid's buttons already carry. Without it a tap here downloaded
               // the 1.2MB remote PNG for all 192 rows, which is the download
               // sync-subset-scans.py exists to remove.
-              ? `<button class="cl-zm cs-zm" type="button" data-img="${esc(r.imageLarge || r.image)}"${r.imageAvif ? ` data-avif="${esc(r.imageAvif)}"` : ""} data-name="${esc(r.name)}" data-rarity="${esc([label, rl].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}" data-number="${esc(r.printed)}" data-price="${esc(price)}"${
+              ? `<button class="cl-zm cs-zm" type="button" data-img="${esc(r.imageLarge || r.image)}"${r.imageAvif ? ` data-avif="${esc(r.imageAvif)}"` : ""} data-name="${esc(r.name)}" data-rarity="${esc([label, rl].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}" data-number="${esc(r.printed)}" data-price="${esc(price)}"${spData(r.name)}${
                   r.psa10 ? ` data-psa10="${esc(moneyCompact(r.psa10))}"` : ""}${
                   rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""
                 } aria-label="Enlarge ${esc(r.name)} ${esc(r.printed)}">${esc(r.name)}</button>`
@@ -3456,7 +3488,7 @@ function zoomData(s, c, pulled) {
         data-number="${esc(numOf(s, c.number))}" data-price="${esc(moneyCompact(c.price))}"
         data-psa10="${esc(psa ? moneyCompact(psa) : "")}"
         data-url="${esc(c.url ? affLink(c.url) : "")}"${row?.ill ? ` data-ill="${esc(row.ill)}"` : ""}${alts ? ` data-alts="${esc(alts)}"` : ""}
-        data-src="${esc(src)}"${first ? ` data-rip="/${esc(first.path)}" data-rip-when="${esc(longDate(first.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""}`;
+        data-src="${esc(src)}"${spData(c.name)}${first ? ` data-rip="/${esc(first.path)}" data-rip-when="${esc(longDate(first.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""}`;
 }
 
 /**
@@ -3600,7 +3632,7 @@ function hitBand(s) {
   // rather than sorting as if it were free.
   const priced = [
     ...mine.map((h) => ({
-      kind: "mine", img: h.img, name: esc(h.name),
+      kind: "mine", img: h.img, name: esc(h.name), sp: spMore(h.name),
       meta: `${esc(rarityLabel(h.rarity) || "")}${h.n ? ` &bull; ${compAt(s.id, h.n) ? esc(`${compAt(s.id, h.n).label} ${compAt(s.id, h.n).printed}`) : `#${esc(h.n)}`}` : ""}`,
       price: typeof h.price === "number" ? h.price : null, psa10: null,
       // COUNT AND RIPS BOTH COME FROM THE GROUPING ABOVE. This rebuild used
@@ -3613,7 +3645,7 @@ function hitBand(s) {
       num: h.n || null,
     })),
     ...promoHits.map((h) => ({
-      kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card),
+      kind: "promo", img: h.img ? `${h.img}/low.webp` : null, name: esc(h.card), sp: spMore(h.card),
       meta: `${esc(h.setName || "Black Star Promo")}${h.number ? ` &bull; #${esc(h.number)}` : ""}`,
       // THE FRESHER READ FIRST, the same chain /hall.html and the rip pages use
       // (shared/graded-price.mjs). This printed the hit row's 13 August hand
@@ -3626,7 +3658,7 @@ function hitBand(s) {
       rips: [{ path: h.path, label: h.label, published: h.published }],
     })),
     ...proseCards.map((h) => ({
-      kind: "prose", img: h.resolved.img,
+      kind: "prose", img: h.resolved.img, sp: spMore(h.resolved.name),
       name: `${esc(h.resolved.name)}${h.count > 1 ? ` <span class="mine-x">x${h.count}</span>` : ""}`,
       // rarityLabel, for the same reason the `mine` rows above call it: this
       // is TCGdex's raw field and TCGdex ships "Double rare" and "Ultra Rare"
@@ -3709,7 +3741,7 @@ ${priced.length ? `<ul class="mine-grid mine-cols" style="${mineCols(priced.leng
          same fault came back inside one tile. ripLinks() draws one link for
          one rip and a row of dated chips for several. h.name is already
          escaped markup, so the tags come off rather than escaping it twice. */
-      ripLinks(h.rips, String(h.name).replace(/<[^>]*>/g, ""))}
+      ripLinks(h.rips, String(h.name).replace(/<[^>]*>/g, ""))}${h.sp}
   </li>`
     )
     .join("\n      ")}
@@ -3724,7 +3756,7 @@ ${prose.length ? `<ul class="mine-list">
       }
     ${/* Same fix as the tiles above, 2 October 2026: these rows had no
           label at all and a card logged twice printed two identical buttons. */
-      ripLinks(h.rips, esc(h.card), { one: "mine-btn", many: "mine-btn" })}</li>`
+      ripLinks(h.rips, esc(h.card), { one: "mine-btn", many: "mine-btn" })}${spMore(h.card)}</li>`
     )
     .join("\n      ")}
 </ul>
@@ -4097,6 +4129,22 @@ const PAGE_CSS = `
 }
 .cc-cell .chase-card{position:relative;margin-bottom:14px}
 .cc-cell .cc-rip{margin:-10px 0 8px}
+/* THE LINKS UNDER A CHASE TILE, 11 November 2026: the rip that pulled it and
+   "All <species> cards" (.sp-more, ui.css), stacked in the subgrid's second
+   row. The wrapper takes the margin a lone .cc-rip used to carry. */
+.cc-more{display:flex;flex-direction:column;align-items:flex-start;margin:-10px 0 8px;min-width:0}
+.cc-cell .cc-more .cc-rip{margin:0}
+.mine .sp-more{align-self:flex-start}
+.flat-item a.sp-more{color:var(--sky-deep)}
+/* EVERY POKEMON IN THE SET. Columns by auto-fill so 320 gets two and 1440
+   gets as many as fit; each link fills its cell and is 44px tall, because
+   every one of them is a standalone target. Teal: they all go somewhere. */
+.sp-list{list-style:none;margin:0;padding:var(--s2) var(--s4) var(--s3);display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(min(132px,100%),1fr));gap:0 var(--s4)}
+.sp-list a{display:flex;align-items:center;min-height:44px;font:600 var(--t-sm)/1.3 var(--body);
+  color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
+.sp-list a:hover,.sp-list a:focus-visible{color:var(--sky)}
+.sp-det:not([open]) .cl-hide,.sp-det[open] .cl-show{display:none}
 /* The meta line: tighter tracking and a no-break run (see the builder) so
    "Special Illustration Rare &bull; 121/088" is two lines on a phone, not three. */
 .chase-grid .chase-card .rr{letter-spacing:.02em}
@@ -4169,6 +4217,10 @@ const PAGE_CSS = `
 .lbx-rip{margin:8px 0 0;font:700 var(--t-sm)/1.4 var(--body)}
 .lbx-rip a{color:var(--sky-deep)}
 .lbx-rip a:hover,.lbx-rip a:focus-visible{color:var(--sky)}
+/* The species link is the pop-up's one route into the rest of the site, so it
+   gets a full 44px target; the margin gives back what the taller box adds. */
+#lbSp{margin:0}
+#lbSp a{display:inline-flex;align-items:center;min-height:44px}
 @media(min-width:760px){
   .lb .lb-inner.lbx{max-width:860px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:24px;
     align-items:center;text-align:left;padding:24px}
@@ -4683,7 +4735,13 @@ function setPage(s) {
               gradedAsOf(s.id, c.number, c.name, s.name) ? `<span class="pr10-d">read ${esc(longDate(gradedAsOf(s.id, c.number, c.name, s.name)))}</span>` : ""
             }</div>`
           : ""}
-      </button>${rips.length ? ripLinks(rips, esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}</div>`;
+      </button>${(() => {
+        /* ROW TWO OF THE CELL'S SUBGRID HOLDS ONE NODE, so the rip link and the
+           species link share a wrapper when a tile has either. A cell with
+           neither still emits nothing and is spaced as it always was. */
+        const more = (rips.length ? ripLinks(rips, esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : "") + spMore(c.name);
+        return more ? `<div class="cc-more">${more}</div>` : "";
+      })()}</div>`;
       }).join("\n      ")}
     </div>` : ""}
     ${noScan.length ? `${withScan.length ? `<h3 class="flat-h">No scan for ${noScan.length === 1 ? "this one" : "these"}</h3>` : ""}
@@ -4698,7 +4756,7 @@ function setPage(s) {
               the least useful accessible name on the page belongs to its most
               important row. */ ""}${c.url ? `<a href="${esc(affLink(c.url))}" rel="nofollow noopener" target="_blank"
           aria-label="Check the current price of ${esc(c.name)} ${esc(numOf(s, c.number))}, opens on ${linkHost(c.url)}">Check current price</a>` : ""}${
-          (pulled.get(cardNumKey(c.number)) || []).length ? ripLinks(pulled.get(cardNumKey(c.number)), esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}
+          (pulled.get(cardNumKey(c.number)) || []).length ? ripLinks(pulled.get(cardNumKey(c.number)), esc(c.name), { one: "cc-rip" }).replace("Watch the rip &rarr;", "Watch us pull it &rarr;") : ""}${spMore(c.name)}
       </li>`).join("\n      ")}
     </ul>
     <p class="mine-note">The card database has no scan for ${
@@ -4860,6 +4918,18 @@ function setPage(s) {
     <ul class="runrows">
 ${rows}
     </ul>
+    ${/* THE REASON TO SUBSCRIBE, WHERE THE READER HAS JUST SEEN THE RIPS, 11
+          November 2026 (shared/channel-pitch.mjs). A guide had no Subscribe
+          in its body and the only pitch for the channel was in the footer.
+          "STILL OPENING" IS CHECKED, NOT ASSUMED: it is only said of a set
+          whose newest rip is 30 days old or less. An older set gets the
+          footer's claim, a pack every day, which is true whatever we open
+          next. This whole band is absent on a set with no rips, so the pitch
+          is too. */ ""}${channelPitch(
+      (daysSince(newest.published) ?? 999) <= 30
+        ? `We are still opening ${esc(s.name)}. Subscribe so you catch the next pack.`
+        : `${PITCH_DAILY} Subscribe so you catch the next one.`,
+    )}
   </div>
 </section>`);
     })(),
@@ -5063,6 +5133,49 @@ ${rows}
     // Right under the checklist, so the two card lists sit together; the chip
     // names the subset, which is the word a reader came looking for.
     compOf(s.id) ? tag("subset", compOf(s.id).rows[0].label, (cls) => subsetBand(s, cls, pulled)) : null,
+    (() => {
+      // EVERY POKEMON IN THE SET, A TO Z, EACH A LINK TO ITS OWN PAGE, 11
+      // November 2026. The card list above is up to 245 rows whose names are
+      // not links (see speciesLink at the top of this file for why not), so
+      // this is where a crawler, and a reader who came for one Pokemon, gets
+      // from the set to every card that Pokemon has. One link per species,
+      // however many printings the set gives it, drawn from the same rows the
+      // card list, the subset list and the chase grid print.
+      //
+      // COLLAPSED, like both card lists: 151 names at 44px a row is a long
+      // scroll, and the links are in the document either way. The pop-up
+      // reads its "All <name> cards" label off these anchors, so the class
+      // and the href shape here are that script's contract.
+      //
+      // A Trainer, an Energy and a species whose page is noindex are left
+      // out, so the count in the summary is the count of links, and the lede
+      // does not call it the number of Pokemon in the set.
+      const seen = new Map();
+      for (const c of checklists[s.id]?.cards || []) {
+        const sp = c.cat && c.cat !== "Pokemon" ? null : speciesLink(c.name);
+        if (sp) seen.set(sp.slug, sp);
+      }
+      for (const c of [...(compOf(s.id)?.rows || []), ...(s.chase || [])]) {
+        const sp = speciesLink(c.name);
+        if (sp) seen.set(sp.slug, sp);
+      }
+      const list = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name, "en"));
+      if (!list.length) return null;
+      return tag("species", null, (cls) => `<section class="${cls}">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>By Pokemon</p>
+    <h2>Every Pokemon in <span class="hl">${esc(s.name)}</span></h2>
+    <p class="lede">Collecting one Pokemon rather than one set? Each name goes to every card we could find for
+      that Pokemon, across every set.</p>
+    <details class="ig-list sp-det">
+      <summary><span class="cl-show">Show ${list.length === 1 ? "the 1 Pokemon" : `all ${list.length} Pokemon`}</span><span class="cl-hide">Hide the list</span></summary>
+      <ul class="sp-list">
+        ${list.map((sp) => `<li><a href="${sp.href}">${esc(sp.name)}</a></li>`).join("\n        ")}
+      </ul>
+    </details>
+  </div>
+</section>`);
+    })(),
     intlSets[s.id]?.sources?.length ? tag("languages", null, (cls) => intlBand(s, cls)) : null,
     productsBySet[s.id]?.products?.length ? tag("products", "Sealed prices", (cls) => productBand(s, cls)) : null,
 
@@ -5338,6 +5451,7 @@ ${body}
       <p class="lbx-src" id="lbSrc"></p>
       <p class="lbx-alts" id="lbAlts" hidden></p>
       <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
+      <p class="lbx-rip" id="lbSp" hidden><a id="lbSpA" href="#"></a></p>
       <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on pricecharting.com" hidden>Check current price</a></div>
     </div>
   </div>
@@ -5422,6 +5536,12 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
       var a=$('lbRipA'); a.href=d.rip;
       a.textContent='We pulled this on camera'+(d.ripWhen ? ', '+d.ripWhen : '')+(d.ripN ? ', the first of '+d.ripN+' rips' : '')+'. Watch the rip →';
     }
+    // THE OPEN CARD'S SPECIES PAGE, 11 November 2026. data-sp is the slug and
+    // the name is read off the "Every Pokemon in this set" list further down
+    // the page, which already prints it once, so 245 rows do not each carry it.
+    var sp=$('lbSp'), spA=d.sp && document.querySelector('.sp-list a[href="/pokemon/'+d.sp+'.html"]');
+    sp.hidden=!spA;
+    if(spA){ $('lbSpA').href=spA.getAttribute('href'); $('lbSpA').textContent='All '+spA.textContent+' cards →'; }
     // THE BUTTON NAMES WHERE IT GOES, 14 October 2026: a new tab and an
     // aria-label ending "opens on <host>", like every other outbound link, and
     // the host read off the link itself, which follows the price shown
@@ -5522,7 +5642,7 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
       b.dataset.name=nm; b.dataset.rarity=tierOf(li);
       b.dataset.number=of ? no+'/'+of : no;
       b.dataset.price=pr ? txt(pr) : 'No price yet';
-      ['ill','psa10','src','rip','ripWhen','ripN','url'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
+      ['ill','psa10','src','rip','ripWhen','ripN','url','sp'].forEach(function(k){ if(d[k]) b.dataset[k]=d[k]; });
       if(d.psa10 && !d.src) b.dataset.src=(ol.getAttribute('data-src')||'')+' '+(ol.getAttribute('data-src10')||'');
       var alts=(byName[nm]||[]).filter(function(x){return x!==li;}).map(function(x){
         var p=x.querySelector('.ig-pr'); return '#'+txt(x.querySelector('.ig-no'))+' '+tierOf(x)+' '+(p ? txt(p) : 'no price');
