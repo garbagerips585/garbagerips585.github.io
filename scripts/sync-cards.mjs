@@ -49,6 +49,16 @@ const CACHE = join(ROOT, ".cache", "tcgdex");
 const OUTDIR = join(ROOT, "public/data/cards");
 const API = "https://api.tcgdex.net/v2/en";
 
+/* ONE UPSTREAM WORD MUST NOT FREEZE THE SITE, 11 November 2026. TCGdex began
+   answering "Mega Attack Rare" for Ascended Heroes cards it had called "Ultra
+   Rare" since the set shipped. The site has no rung for that name on purpose
+   (import-sheet.mjs RARITY_SYNONYM, sync-sets.mjs and data/rarity.json all
+   record why: single-sourced, 14 + 7 = 21 Ultra Rares), so build-set-pages.mjs
+   threw on the orphan and the nightly of 11 November rebuilt nothing. Folded
+   here, at the one place the word enters, to the tier every other file already
+   maps it to. Giving it a rung of its own is a feature and the owner's call. */
+const RARITY_ALIAS = { "Mega Attack Rare": "Ultra Rare" };
+
 const FORCE = process.argv.includes("--force");
 const PRICES = process.argv.includes("--prices");
 // --rotate refreshes a quarter of the sets per run, chosen by the day number, so
@@ -270,7 +280,7 @@ for (const [slug, tcgdexId] of entries) {
     cards.push({
       n: brief.localId || null,
       name: brief.name || full?.name || "",
-      rarity: full?.rarity && full.rarity !== "None" ? full.rarity : null,
+      rarity: full?.rarity && full.rarity !== "None" ? (RARITY_ALIAS[full.rarity] || full.rarity) : null,
       cat: full?.category || null,
       img: full?.image || null, // append /low.webp or /high.webp at render time
       price,
