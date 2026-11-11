@@ -669,11 +669,22 @@ const rawValue = (v) => HIT_VALUE[v.id] || 0;
  * retina screen. Latest did not move and its string is unchanged. */
 const HOFX_SIZES = "(max-width:424px) calc(85vw - 70px), (max-width:544px) calc(71.5vw - 63px), " +
   "(max-width:640px) 413px, (max-width:699px) 399px, (max-width:1199px) 273px, (max-width:1499px) calc(30.6vw - 94px), 365px";
+/* THE PHONE CLAUSE CHANGED ON 11 NOVEMBER 2026, WITH THE PHONE ROWS. Below 545
+ * both shelves are a two-up swipe row now (see note 3 after homeCss), so the
+ * pack no longer draws at "92vw - 88px, capped at 304". The slide is
+ * (100vw - 2 * 20px gutter - 2 * 12px gap - 26px of peek) / 2, the art box is
+ * that less the card's 1px border and 6px padding each side, the box is 9:16,
+ * and .hero-art img draws at (box height - 44) * 1.0867 tall and 9:16 wide.
+ * That reduces to 0.543vw - 91: 82.9 at 320, 120.9 at 390, 204.6 at 544, read
+ * back off the built page with getBoundingClientRect at those three widths.
+ * A DPR 3 phone at 390 asks for 363 device pixels and takes the 400w tile
+ * (about 41KB of AVIF) where the single slide took the 810w file (110KB). */
+const PHONE_ROW_SIZES = "(max-width:544px) calc(54.3vw - 90px), ";
 const HERO_SIZES = {
-  latest: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:899px) 377px, " +
+  latest: PHONE_ROW_SIZES + "(max-width:899px) 377px, " +
     "(max-width:999px) calc(38.9vw - 88px), (max-width:1199px) calc(39vw - 89px), " +
     "(max-width:1399px) calc(33.4vw - 85px), (max-width:1499px) calc(27.8vw - 85px), 333px",
-  hof: "(max-width:429px) calc(92vw - 88px), (max-width:544px) 304px, (max-width:699px) 377px, " +
+  hof: PHONE_ROW_SIZES + "(max-width:699px) 377px, " +
     "(max-width:1199px) 273px, " +
     "(max-width:1499px) calc(30.6vw - 94px), 365px",
 };
@@ -1247,6 +1258,10 @@ ${list
           // See the long note in heroTile for why this is an index and not a
           // media query.
           //
+          // (11 November 2026: the phone no longer hides the band, see note 3
+          // after homeCss, so the saving below is no longer taken. The
+          // conclusion stands for a different reason: slide 0 is on screen
+          // at every width now.)
           // SLIDE 0 KEEPS ITS REAL src EVEN THOUGH THE PHONE NOW HIDES A WHOLE
           // BAND. The obvious follow-up to the max-width:544px block beside
           // homeCss is to defer slide 0 as well, so the hidden Greatest Hits
@@ -3293,6 +3308,33 @@ ${BRAND_STYLE_MIN}
 .roc-counts a:hover span{text-decoration:underline}
 .roc-src{font-size:var(--t-micro);line-height:1.5;color:var(--ink-2);
   margin-top:var(--s4);max-width:60em}
+/* The band's second way onward. The heading's link goes to the cards
+   (/hall.html, "Best pulls", the nav's own word for it); this one goes to the
+   videos, and says so. A direct child of .hof .wrap, so from 700 up it is a
+   third grid row under the trophy and the shelf and moves neither. */
+/* THE HEADING LINK HOLDS ITS BOX THROUGH THE FONT SWAP. It is pushed right by
+   margin-left:auto, so its LEFT edge is wherever its text width puts it, and
+   "Best pulls" sets 3.7px narrower in Outfit than in the fallback: one layout
+   shift of 0.00005 at the swap, on the first screen, where the old label
+   happened to differ by under the 3px Chrome ignores. A min-width wider than
+   either rendering (80.6 and 76.8 at 14px) pins the box. */
+.hof-head a{min-width:5.9em;justify-content:flex-end}
+.hof-more{margin:var(--s3) 0 0}
+.hof-more a{display:inline-flex;align-items:center;min-height:44px;
+  font:700 var(--t-sm)/1 var(--body);color:var(--sky-deep)}
+.hof-more a:hover{text-decoration:underline}
+/* FROM 700 IT COSTS NO HEIGHT WHEN THE SHELF HAS A PAGER. ui.css gives the
+   trophy 44px + s3 of margin-bottom there so its frame ends level with the
+   slides and not with the pager under them, which leaves exactly one pager
+   row of empty band under the trophy. The link goes in that row, level with
+   the arrows. ABSOLUTE, NOT A NEGATIVE MARGIN: a third grid row still pays the
+   grid's 32px row gap however far its item is pulled up, measured as +32px of
+   band at 1440. Out of flow it pays nothing and the band is the height it was.
+   With no pager (.is-static) that margin is not there, so it takes a short
+   row of its own instead. */
+@media(min-width:700px){.hof-more{grid-column:1/-1;margin-top:calc(var(--s3) - var(--s6))}
+.hof .wrap:has(.vcar:not(.is-static)){position:relative}
+.hof .wrap:has(.vcar:not(.is-static)) .hof-more{position:absolute;left:0;bottom:0;margin:0}}
 @media(min-width:545px) and (max-width:899px){
 .vcar .hero{max-width:520px;margin:0 auto;padding:var(--s5)}
 .vcar .hero-art,
@@ -3329,9 +3371,54 @@ ${BRAND_STYLE_MIN}
 .vcar .vcar-bar{justify-content:flex-start}
 }
 @media(max-width:544px){
-.hof .shelf{display:none}
-.vcar-slide:not(:first-child){display:none}
+/* 3. THE PHONE ROWS, 11 November 2026. This block used to be three display:none
+   rules (one video per band). It is two swipe rows now, and Latest rips is
+   drawn directly under Greatest Hits. Argued in note 3 below this template.
+   LAYOUT ONLY: no colour, and nothing here reaches 545 and up. */
+/* 3a. THE ORDER. main becomes a column so three order values can move Latest
+   rips (the only classless child of main, so it keeps order 0 beside the drops
+   band and .hof) above the three "who is this" bands. The DOM order is
+   untouched, which is the desktop order the owner set on 24 August 2026. min-width:0
+   because a flex item's default min-width is its content, and the Pokedex grid
+   would otherwise be allowed to push the page sideways.
+   :has(>.hof) IS NOT DECORATION. about, shops, wanted, hall and both Garbage
+   Plate pages take their <head> by slicing index.html, so this block ships on
+   all of them, and a bare main{display:flex} turned every one of their mains
+   into a column: /where-to-get-a-garbage-plate.html went 390 to 798px wide on
+   a 390px phone the one build it was tried. Only the home page has .hof as a
+   child of main. A browser without :has() keeps the markup order, which is
+   the page as it was. */
+main:has(>.hof){display:flex;flex-direction:column}
+main:has(>.hof)>*{min-width:0}
+main:has(>.hof)>:is(.about,.rstats,.roc){order:1}
+main:has(>.hof)>:is(.mwband,.pokedex,.tools){order:2}
+/* 3b. THE ROWS. Two whole tiles and 26px of a third, so the cut edge says
+   there is more. The track bleeds to both screen edges and pads itself back
+   in, so a swiped tile leaves through the edge of the phone and not through
+   an invisible wall 20px short of it. */
+.hof .shelf{margin-top:var(--s4)}
+.vcar-track{gap:var(--s3);margin-inline:calc(var(--gut) * -1);padding-inline:var(--gut);
+  scroll-padding-inline:var(--gut)}
+.vcar-slide{flex:0 0 calc((100% - 2 * var(--s3) - 26px) / 2);scroll-snap-align:start;display:flex}
+.vcar .hero{flex:1 1 auto;min-width:0;padding:6px;gap:var(--s2);align-content:start}
+/* 9:16, NOT THE 2:3 A GRID TILE USES, AND THE STAGE WITH IT. The player is
+   9:16 centred in the stage, so in a 2:3 stage this narrow the video would be
+   under 115px wide. With the art box and the stage both 9:16 the video fills
+   the tile edge to edge and the card is the same height before, during and
+   after a rip. Change one of the two, change the other. */
+.vcar .hero-art,
+.vcar .tile-stage{max-width:none;aspect-ratio:9/16}
+.vcar .hero-body{padding:0 2px 2px}
+.vcar .hero-kicker{margin-bottom:6px;gap:4px 6px}
+.vcar .hero-body h3{font-size:1rem;line-height:1.15;margin-bottom:6px;overflow-wrap:break-word}
+.vcar .hero-new{padding:3px 8px}
+.vcar .hero-body h3 a{min-height:44px}
+.vcar .hero-meta{line-height:1.4}
 .vcar-bar{display:none}
+.wall:has(.vcar) > .brk{margin-top:var(--s4)}
+.hof{padding-bottom:var(--s3)}
+.hof-more{margin-top:var(--s1)}
+.wall > .vcar.is-static{padding-bottom:0}
 /* 4. THE FOLD. Argued in full in note 4 below this template. */
 main{padding-top:0}
 .wdrop{padding:6px 0}
@@ -3353,9 +3440,82 @@ main{padding-top:0}
    oddly, which is where a row stops being a row. */
 @media(max-width:359px){
 .roc-counts{grid-template-columns:1fr;gap:var(--s4)}
+/* A 320px phone's tile has 97px of caption, and "Phantasmal" is 100px wide at
+   1rem in the display face, so it broke mid-word. */
+.vcar .hero-body h3{font-size:.875rem}
 }</style>`;
-/* 3. ONE VIDEO PER BAND ON A PHONE, max-width:544px. LAYOUT ONLY: three
- * display rules, no colour, no spacing, nothing that changes above 544.
+/* 3. THE PHONE ROWS, max-width:544px, 11 November 2026. THIS REPLACES "ONE
+ * VIDEO PER BAND", WHICH IS KEPT BELOW AS 3-OLD BECAUSE ITS MEASUREMENTS ARE
+ * STILL THE REASON THE MARKUP IS SHAPED THE WAY IT IS.
+ *
+ * WHAT WAS WRONG. Measured at 390x844 on the page as it stood: "Latest rips"
+ * began at y=2,645, on the fourth screen, and showed one tile; Greatest Hits
+ * showed one of its six. Between them sat the about text, the stat tiles and
+ * the Rochester band. A phone visitor mostly arrives from a video description
+ * wanting the newest rips and the best pulls, and the first two screens held
+ * one playable tile. The owner approved changing it.
+ *
+ * WHAT IT IS NOW. Both shelves are a swipe row, two whole tiles and 26px of a
+ * third, and Latest rips is drawn directly under Greatest Hits. "Latest rips"
+ * is at y=1,427 at 390. The first two screens hold the trophy, two whole hits
+ * and the top of two latest rips, with eight more a swipe away, where they
+ * held the trophy alone.
+ *
+ * THE ORDER IS CSS `order` AND NOT A MOVE IN index.html, ON PURPOSE. The owner set
+ * the running order himself on 24 August 2026 (the comment above .about in
+ * index.html quotes him) and nothing about 545px and up was asked to change.
+ * So the markup keeps his order and the phone block lifts one band. The cost
+ * is that a screen reader or a keyboard on a phone meets Latest rips after the
+ * Rochester band, where the eye meets it third; the bands are independent of
+ * one another, so the sequence still makes sense read either way. If the owner
+ * wants the same order at every width, move the Latest <div class="wrap"> in
+ * index.html up under .hof and delete the four order/flex lines in 3a.
+ *
+ * NOTHING IN packplayer.js CHANGED, AND THAT IS THE DESIGN. The carousel
+ * script measures the real track (hydrateSlides, syncCarousel), so the same
+ * markup that shows 2.35 to 3.3 slides on a desktop shows 2.2 here: slides the
+ * track shows are promoted on load, the rest when a swipe brings them within
+ * one slide, and every promoted image keeps loading="lazy". The end card's
+ * NEXT PACK walks the visible slides of its own band and scrolls the track
+ * after it mounts, which is the desktop path. Driven over CDP at 390x844 with
+ * real touch input, a fresh browser context per run: tapping Latest slide 2
+ * rips the pack in its own skin and mounts the player in that tile; with
+ * prefers-reduced-motion the tile goes straight to the video; NEXT PACK
+ * advances 2 to 3 to 4 to 5 with the playing slide on screen each time, slides
+ * 4 and 5 arriving with their own pack art, and no control after the fifth;
+ * the trophy hands off to the #1 hit. One iframe live throughout.
+ *
+ * THE TILE IS 9:16 HERE AND SO IS ITS STAGE. A 2:3 stage centres a 9:16
+ * player, which in a tile this narrow is a video about 107px wide. With both
+ * boxes 9:16 the video is the tile's full 128px (136 less the player's
+ * border) and the card is 437.3px tall before, during and after a rip. It is
+ * the same size of video /videos.html plays on a phone, which is the
+ * precedent, and it is small: if the owner wants a bigger one, the number is the
+ * `/ 2` in .vcar-slide's flex-basis. At 1.5 the video is about 190px wide and
+ * each row shows one whole tile and half of the next.
+ *
+ * THE LCP DID NOT MOVE AND THE REASON IS IN THE REQUEST LOG. The LCP element
+ * is still the trophy's pack image, found by the preload scanner and fetched
+ * at fetchpriority high. Every row image is loading="lazy", so none of them
+ * starts until first layout, and at 390x844 DPR 3 on Slow 4G with 4x CPU the
+ * trophy's file finishes at about 2,500ms and the first row image starts at
+ * about 2,550: they do not share the line. Median of 5, two rounds each,
+ * alternating, same harness: 2,648 and 2,592ms before, 2,684 and 2,680
+ * after. FCP moved by the same 40 to 60ms, so that is the larger first layout
+ * and not the images. CLS 0 on load and 0 across the rip.
+ *
+ * WHAT IT COSTS. On load the phone fetches six 400w pack tiles (37 to 43KB of
+ * AVIF each) where it fetched one 810w file (110KB): 141KB more over the
+ * wire, all of it after the LCP image. The page is 236px taller (7,939 to
+ * 8,175 at 390).
+ *
+ * THE PAGER STAYS HIDDEN ON A PHONE. A touch screen has the swipe, the cut
+ * third tile says there is more, and the arrows and the "1 / 5" would cost
+ * each row 56px. The arrows also assume a 16px gap when they step; the phone
+ * rows use 12, which only matters to a control that is not shown.
+ *
+ * 3-OLD. ONE VIDEO PER BAND ON A PHONE, max-width:544px. Three display rules,
+ * REPLACED by the block above on 11 November 2026; kept for its measurements.
  *
  * The owner, 18 August 2026: "only update to the home page on mobile is to only show
  * 1 video for each section, so show the Hall of fame video, but no other

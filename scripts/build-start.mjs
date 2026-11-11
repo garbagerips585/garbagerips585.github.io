@@ -223,21 +223,43 @@ const STEPS = [
   },
 ];
 
-// A SEVENTH QUESTION THAT IS NOT ONE OF THE OWNER'S SIX, and it sits outside the
-// numbered list for exactly the reason the paragraph below the list already
-// gives: renumbering it to seven would change what this page claims about
-// itself. Every step above is about a card somebody is ALREADY HOLDING. This
-// one is about the wallet in the other hand, and it is the question the owner
-// actually gets asked out loud, by parents, in shops.
+// THE BUYING QUESTION IS A CARD ABOVE THE LIST, NOT A PARAGRAPH BELOW IT.
+// 11 November 2026.
 //
-// It goes ABOVE the how-do-I-play paragraph rather than below it because a
-// reader who arrived at this page from a search for what to buy their kid is
-// being sent one tap further away every sentence they have to read first.
-const BUY = `<p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not on that
-      list, because it comes before you own a card at all:
-      <a href="/what-to-buy.html">what should you actually buy?</a> What to get for a kid who has never
-      opened a pack, what each box on the shelf actually is, what it should cost, and the three things
-      not to buy first.</p>`;
+// It is still not one of the owner's six and it is still not numbered, for the
+// reason it never was: every step in the list is about a card somebody is
+// ALREADY HOLDING, and renumbering to seven would change what this page claims
+// about itself. This one is about the wallet in the other hand, and it is the
+// question the owner actually gets asked out loud, by parents, in shops.
+//
+// WHAT CHANGED IS WHERE IT SITS. It was an inline text link in a paragraph
+// after step six, about 3,000px down a phone, so a parent who landed here
+// wanting "what should I buy" read six questions about cards they do not own
+// before meeting the one sentence written for them. The comment that stood
+// here already said why that is wrong ("sent one tap further away every
+// sentence they have to read first") and then put it under the whole list.
+// Now it is the first thing after the breadcrumb, inside the first screen at
+// 390x844, with a real button.
+//
+// IT USES THE STEP CARD'S OWN CLASSES (.st, .st-body, .st-links, .btn-sky) so
+// it reads as part of this page, less the number disc: .st-buy only drops the
+// grid's first column, which exists to hold that disc. The button is the
+// full-size .btn where the six steps use .btn-sm, because this card has one
+// job and the six each have a reading order to protect. Teal fill per the
+// accent rule; --on-accent on --sky measures 7.22:1.
+//
+// THE PARAGRAPH IS GONE RATHER THAN SHORTENED, so the page says it once. The
+// how-to-play paragraph under the list opened "And one that is not about a
+// card at all", which leaned on the sentence removed from above it, so its
+// first words changed to stand alone.
+const BUY = `<div class="st st-buy">
+      <div class="st-body">
+        <h2>Buying for someone? Start here.</h2>
+        <p>If nobody owns a card yet, skip the list. What to get for a kid who has never opened a
+          pack, what each box on the shelf is, what it should cost, and three things not to buy first.</p>
+        <p class="st-links"><a class="btn btn-sky" href="/what-to-buy.html">What to buy first</a></p>
+      </div>
+    </div>`;
 
 const desc =
   `New to Pokemon cards? Is it real, what is it, what is it worth, should you grade it, where to buy. ` +
@@ -345,6 +367,12 @@ ${/* Inline rather than in ui.css: this is the only page outside the rarity
    right for "18 Aug 2026 &bull; 3 packs" on a set guide and wrong for a whole
    video title, which measured 505px wide and hung 204px off a 390px viewport
    the one time it was tried on /openings/index.html. */
+/* The buying card above the list. .st is auto 1fr, a number disc and a body;
+   this card has no disc, so it is the body alone. minmax(0,1fr) for the reason
+   the 359px rule above gives. The margin matches .st-list's own, so the card
+   and the first step are one gap apart, the same gap the steps keep. */
+.st-buy{grid-template-columns:minmax(0,1fr);margin-top:var(--s5)}
+.st-buy + .st-list{margin-top:var(--s4)}
 .st-rips{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
   max-width:44em}
 .st-rips li{background:var(--card);border:1px solid var(--hair);
@@ -377,6 +405,7 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / Start here</nav>
+    ${BUY}
     <ol class="st-list">
       ${STEPS.map(
         (s) => `<li class="st">
@@ -407,8 +436,7 @@ ${MENU}
           somebody meets them, with a link to each page and no argument about
           which to install: that argument is on both of those pages and it is a
           table. */ ""}
-    ${BUY}
-    <p class="lede" style="max-width:44em;margin-top:var(--s5)">And one that is not about a card at all:
+    <p class="lede" style="max-width:44em;margin-top:var(--s5)">One question that is not about a card at all:
       <a href="/how-to-play.html">how do you actually play?</a> Two players, 60 cards
       each, and three ways to win. The short version, for somebody who has never seen a game. There are also two
       free official apps, and they are not the same thing:
