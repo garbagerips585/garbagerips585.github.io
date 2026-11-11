@@ -244,8 +244,14 @@ for (const t of todo) {
     // Their numbers look like "161/131", ours like "161". Compare the part
     // before the slash, and refuse the row on a mismatch rather than writing a
     // price for whichever card the search happened to return.
-    const theirs = String(e.theirNumber || "").split("/")[0].trim();
-    if (theirs !== String(t.number).trim()) {
+    // LEADING ZEROS ARE NOT A DIFFERENT CARD. Theirs come back "098/094" and
+    // ours are stored "98" on some sets and "098" on others, so a string
+    // compare refused every correct match: on 10 November 2026 this step
+    // fetched 0 of 50 and still spent 34 credits. Promo and gallery numbers
+    // (TG12, GG05, SWSH123) keep their prefix and only lose padding zeros.
+    const normNum = (n) => String(n ?? "").trim().toUpperCase().replace(/^([A-Z]*)0+(?=\d)/, "$1");
+    const theirs = normNum(String(e.theirNumber || "").split("/")[0]);
+    if (theirs !== normNum(t.number)) {
       console.log(`wrong card back (#${e.theirNumber} "${e.theirName}"), skipped`);
       mismatches.push(`${t.key}: asked #${t.number}, got #${e.theirNumber}`);
       misses++;

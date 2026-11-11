@@ -1565,7 +1565,7 @@ const style = `
   background:var(--band-bg);color:var(--chrome-ink);border-bottom:none}
 .gc-t tbody th{font-weight:700;white-space:nowrap}
 .gc-t tbody tr:first-child{background:var(--sky-tint)}
-.gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2);opacity:.7}
+.gc-none span{font:400 var(--t-micro)/1 var(--mono);color:var(--ink-2)}
 /* The centering diagram beside the sentence it draws. The picture is useless
    above the paragraph and useless below it; the whole value is that a reader
    stuck on "60/40" can glance left mid-sentence. Under 700px it stacks, diagram

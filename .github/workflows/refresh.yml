@@ -77,6 +77,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: refresh
@@ -155,6 +156,10 @@ jobs:
     env:
       YT_API_KEY: ${{ secrets.YT_API_KEY }}
       PPT_API_KEY: ${{ secrets.PPT_API_KEY }}
+      # shared/today.mjs reads the process timezone. Without this the job ran
+      # in UTC, so a run after 7pm Eastern stamped tomorrow's date on every
+      # page while verify.yml and a local build (both New York) disagreed.
+      TZ: America/New_York
     steps:
       - uses: actions/checkout@v4
 
@@ -370,7 +375,7 @@ jobs:
             echo "Nothing changed today."
             exit 0
           fi
-          git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
+          git commit -m "Nightly refresh: $(date +%Y-%m-%d)
 
           $(git diff --cached --stat | tail -1)"
           # A PUSH RACE IS RESOLVED BY REBUILDING, NEVER BY MERGING.
@@ -406,7 +411,7 @@ jobs:
               echo "Rebuilt on top of their push and nothing differs. Their tree already has it."
               exit 0
             fi
-            git commit -m "Nightly refresh: $(date -u +%Y-%m-%d)
+            git commit -m "Nightly refresh: $(date +%Y-%m-%d)
 
           $(git diff --cached --stat | tail -1)"
           done
@@ -479,3 +484,35 @@ jobs:
           echo "::warning title=Sync reported bad data::sync-intl-guides.mjs exited non-zero."
           echo "The refresh above still ran and committed, and the site still deploys."
           echo "Read the 'Non-English set guides' step for which guide and why."
+
+      # THE ALERT, 11 November 2026. From 4 to 8 November this job was red five
+      # nights running and nobody was told: a red X on the Actions tab is only
+      # a signal to somebody looking at the Actions tab. One open issue titled
+      # below gets a comment per bad night, naming what failed and linking the
+      # run, and a clean night closes it. GitHub emails issue activity to the
+      # repository's watchers, which is the whole mechanism; no outside service.
+      # It never fails the job, so it cannot itself block a deploy.
+      - name: Tell the owner when the nightly is not healthy
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+          YT: ${{ steps.youtube.outcome }}
+          PRICES: ${{ steps.prices.outcome }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          title="Nightly refresh is not healthy"
+          n=$(gh issue list -R "$REPO" --state open --search "in:title \"$title\"" --json number --jq '.[0].number // empty')
+          what=""
+          if [ "$JOB_STATUS" != "success" ]; then what="$what The job ended $JOB_STATUS, so the site may not have refreshed at all."; fi
+          if [ "$YT" = "failure" ]; then what="$what The YouTube sync failed, so new rips did not come in."; fi
+          if [ "$PRICES" = "failure" ]; then what="$what The PriceCharting refresh failed, so card prices kept their last read."; fi
+          if [ -n "$what" ]; then
+            body="$(date +%Y-%m-%d):$what Run: $RUN_URL"
+            if [ -n "$n" ]; then gh issue comment "$n" -R "$REPO" --body "$body"
+            else gh issue create -R "$REPO" --title "$title" --body "$body"; fi
+          elif [ -n "$n" ]; then
+            gh issue close "$n" -R "$REPO" --comment "$(date +%Y-%m-%d): a clean night. Closing. Run: $RUN_URL"
+          fi

@@ -448,6 +448,7 @@
     h+='<div class="rip-end-acts">'+
         '<button class="rip-end-act rip-end-again" type="button">Watch again</button>'+
         (d.href?'<a class="rip-end-act rip-end-full" href="'+eshtml(d.href)+'">Full rip page</a>':'')+
+        '<a class="rip-end-act rip-end-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank" aria-label="Subscribe on YouTube to Garbage Rips 585, a new rip every day. Opens YouTube.">Subscribe</a>'+
       '</div>';
     if(d.rows&&d.rows.length){
       h+='<div class="rip-end-rows">';

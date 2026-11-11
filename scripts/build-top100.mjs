@@ -879,7 +879,7 @@ const CSS = `
 /* The unit label. Never the same weight as the figure: the number is the fact
    and the grade is the caption. */
 .t100-gt{letter-spacing:.04em;text-transform:uppercase}
-.t100-na{opacity:.65}
+.t100-na{opacity:1}
 /* THE THUMB TARGET, WITHOUT MOVING A PIXEL OF THE LAYOUT.
    Measured at 390x844: this link was 108.8 x 17.0, one 11px line box, and there
    are 100 of them on /most-valuable-cards.html and 100 more on

@@ -3487,7 +3487,10 @@ function hitBand(s) {
         name: h.card,
         n: m ? m.n : h.number || null,
         rarity: (m && m.rarity) || (cm && cm.rarity) || h.rarity || null,
-        img: m && m.img ? `${m.img}/low.webp` : cm ? cm.image : null,
+        // A TCGdex-pending set (Delta Reign) has img null and a tcgplayerId on
+        // every card; the checklist and chase grid already draw from it, and
+        // this tile said "No scan" beside them until 11 November 2026.
+        img: m && m.img ? `${m.img}/low.webp` : m && m.tcgplayerId ? `https://tcgplayer-cdn.tcgplayer.com/product/${m.tcgplayerId}_200w.jpg` : cm ? cm.image : null,
         price: m && typeof m.price === "number" ? m.price : cm && cm.price != null ? cm.price : typeof h.price === "number" ? h.price : null,
         path: v ? v.path : null,
         label: v ? ripLabel(v, setNameById, descriptions[v.id]) || v.title : null,

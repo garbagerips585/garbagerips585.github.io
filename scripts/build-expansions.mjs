@@ -641,7 +641,7 @@ const style = `
    are sampled, so it was never passing with anything to spare. --ink is 6.70:1.
    The underline stays and is what marks it as a link, which is the rule
    anyway: colour alone is never allowed to be the only signal. */
-.xp-sub a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.xp-sub a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;display:inline-block;padding-block:7px}
 /* THE WRAP IS ON A SECOND CLASS, NOT ON .xp-name, and that is not fussiness.
    .xp-name is a nowrap flex row today, so its content width is part of what
    sets this table's minimum width at 390. Letting all 174 of them wrap could
@@ -665,7 +665,7 @@ const style = `
 .xp-cards{font-variant-numeric:tabular-nums;white-space:nowrap}
 .xp-cards .sec{color:var(--ink-2);font-size:var(--t-micro)}
 .xp-rips{white-space:nowrap}
-.xp-rips a{font-weight:700;color:var(--ketchup-deep)}
+.xp-rips a{font-weight:700;color:var(--ketchup-deep);display:inline-block;padding:6px 4px;margin-inline:-4px}
 .xp-rips a:hover{text-decoration:underline}
 /* --steel is not a token this stylesheet defines, so this always fell through
    to the #9FB0C0 literal: 2.22:1 on the white table, the worst contrast

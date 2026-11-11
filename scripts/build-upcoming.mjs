@@ -724,12 +724,22 @@ const ld = [
 
 const nextUp = sets[0] || extras[0];
 
+// The title named this year alone, so in November it promised "2026" over a
+// calendar whose dated rows were mostly next year's. It names every year the
+// page actually holds a date in, from today forward.
+const TITLE_YEARS = (() => {
+  const now = new Date(TODAY).getFullYear();
+  const ys = [...sets, ...extras].map((x) => Number(String(x.date || "").slice(0, 4))).filter((y) => y >= now);
+  const last = Math.max(now, ...ys);
+  return last > now ? `${now} and ${last}` : String(now);
+})();
+
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Upcoming Pokemon TCG Sets ${new Date(TODAY).getFullYear()}: Release Dates and Products</title>
+<title>Upcoming Pokemon TCG Sets ${TITLE_YEARS}: Release Dates and Products</title>
 <meta name="description" content="Every announced English Pokemon TCG set and product with its release date${
   nextUp ? `, next up ${nextUp.name} on ${longDate(nextUp.date)}` : ""
 }. Confirmed dates marked apart.">

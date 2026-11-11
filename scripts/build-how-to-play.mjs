@@ -390,7 +390,7 @@ const style = `
 .hp-box h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .hp-box p,.hp-box li{font-size:var(--t-sm);line-height:1.55}
 .hp-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--s4);margin-top:var(--s4)}
-@media(max-width:760px){.hp-cards{grid-template-columns:1fr}}
+@media(max-width:1000px){.hp-cards{grid-template-columns:1fr}}
 /* flex-wrap IS THE 320px FIX AND WITHOUT IT THE LABEL WAS CLIPPED AWAY.
    This h3 is a flex container, so it establishes its own formatting context and
    SHRINKS beside the .hp-kf float rather than flowing under it: at 320 the box

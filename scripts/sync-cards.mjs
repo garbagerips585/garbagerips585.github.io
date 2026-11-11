@@ -634,7 +634,9 @@ for (const [slug, setName] of Object.entries(map.tcgplayerPending || {})) {
         n: /^\d+$/.test(num) ? num.padStart(3, "0") : num,
         // TCGplayer writes the number into the name: "Raikou ex - 136/103", and
         // mid-name on the split Stadiums, "Legendary Summit - 096/103 (Left)".
-        name: String(r.productName).replace(/\s+-\s+[A-Za-z]*\d+\/\d+/, "").trim(),
+        // TCGplayer spells the two Nidoran "Nidoran F" / "Nidoran M"; every other
+        // set here, and the species join, uses the printed symbol.
+        name: String(r.productName).replace(/\s+-\s+[A-Za-z]*\d+\/\d+/, "").trim().replace(/^Nidoran F$/, "Nidoran♀").replace(/^Nidoran M$/, "Nidoran♂"),
         rarity: TP_RARITY[r.rarityName] || r.rarityName || null,
         // TCGdex's three categories, so a checklist filter treats both sources alike.
         cat: TP_CAT[r.customAttributes.cardType?.[0]] || r.customAttributes.cardType?.[0] || null,

@@ -108,7 +108,11 @@ jobs:
       # TZ, because the stamps are written by localDay() in New York and a
       # runner is UTC: an evening push would otherwise read every file as a day
       # older than it is and fail intermittently against a 3 day leash.
+      # always(): on a day the nightly made no commit the drift step above
+      # fails on the calendar alone and used to skip this one, so the log said
+      # "drift" when the truth was "the nightly did not run".
       - name: Is the data the nightly owns still fresh?
+        if: always()
         env:
           TZ: America/New_York
         run: node scripts/check-freshness.mjs

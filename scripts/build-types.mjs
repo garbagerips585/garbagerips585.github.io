@@ -553,7 +553,7 @@ const style = `
 .ty-fig figcaption{margin-top:6px;font-size:var(--t-micro);line-height:1.45}
 .ty-fig figcaption b{display:block}
 .ty-cs,.ty-cp,.ty-cv{display:block;color:var(--ink-2)}
-.ty-cs a{text-decoration:underline;text-underline-offset:2px}
+.ty-cs a{text-decoration:underline;text-underline-offset:2px;display:inline-block;padding:14px 8px;margin:-14px -8px}
 .ty-cp{margin-top:3px;color:var(--ink)}
 .ty-cv{margin-top:3px;font-size:10px;word-break:break-word}
 .ty-split{border:3px solid var(--ketchup);border-radius:12px;background:var(--card);

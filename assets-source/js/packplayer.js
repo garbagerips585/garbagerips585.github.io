@@ -977,6 +977,12 @@
     h+='<div class="rip-end-acts">'+
         '<button class="rip-end-act rip-end-again" type="button">Watch again</button>'+
         (d.href?'<a class="rip-end-act rip-end-full" href="'+eshtml(d.href)+'">Full rip page</a>':'')+
+        // SUBSCRIBE, 11 November 2026. The end of a rip is the one moment a
+        // viewer has just decided whether they liked it, and the card offered
+        // the next pack and no way to follow the channel. Same destination and
+        // the same label wording as the bar's own .sub (shared/chrome.mjs).
+        // It sits LAST and never replaces Next pack; the tiny card drops it.
+        '<a class="rip-end-act rip-end-sub" href="https://www.youtube.com/channel/UCnpEGJ2G_0af1YRyW2euIZQ?sub_confirmation=1" rel="noopener" target="_blank" aria-label="Subscribe on YouTube to Garbage Rips 585, a new rip every day. Opens YouTube.">Subscribe</a>'+
       '</div>';
     if(d.rows&&d.rows.length){
       h+='<div class="rip-end-rows">';

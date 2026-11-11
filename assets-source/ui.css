@@ -4634,9 +4634,11 @@ section.cs-wk{padding-block:var(--s2) var(--s2)}
 
 /* Rips that mention a Pokemon, on /pokemon/<name>.html */
 .poke-rips{list-style:none;display:grid;gap:2px;margin-top:var(--s4)}
-.poke-rips li{padding:10px 12px;background:var(--card);border:1px solid var(--hair);
+.poke-rips li{background:var(--card);border:1px solid var(--hair);
   border-radius:var(--r-sm)}
-.poke-rips a{font-weight:600;font-size:var(--t-sm);color:var(--ink)}
+/* The padding is on the link, not the row, so the whole row is the target.
+   On the row it left an 18px tall link inside a 40px box, 11 November 2026. */
+.poke-rips a{display:block;padding:12px;font-weight:600;font-size:var(--t-sm);color:var(--ink)}
 .poke-rips a:hover{color:var(--sky-deep);text-decoration:underline}
 
 /* --------------------------------------------------------------------------
@@ -7380,6 +7382,10 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
   text-decoration:none;
 }
 .rip-end-act:hover,.rip-end-act:focus-visible{border-color:var(--mustard);color:var(--mustard)}
+/* The end card's Subscribe wears the bar button's own red so it reads as the
+   same control, not a third grey action. */
+.rip-end-sub{background:var(--yt-red);border-color:var(--yt-red);color:var(--on-yt)}
+.rip-end-sub:hover,.rip-end-sub:focus-visible{border-color:var(--ink);color:var(--on-yt)}
 /* THE ACCENT RULE, applied to the pair. Watch again goes nowhere and stays
    neutral; Full rip page is a link and wears the route colour, so a reader
    deciding where to go does not have to hover to find out which is which. */
@@ -7426,7 +7432,8 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .rip-end--tiny .rip-end-t,
 .rip-end--tiny .rip-end-rule,
 .rip-end--tiny .rip-end-rows,
-.rip-end--tiny .rip-end-full{display:none}
+.rip-end--tiny .rip-end-full,
+.rip-end--tiny .rip-end-sub{display:none}
 .rip-end--tiny .rip-end-next{flex-direction:column;gap:6px;padding:8px;text-align:center}
 .rip-end--tiny .rip-end-pack-wrap{width:40px;height:72px}
 .rip-end--tiny .rip-end-next-lab{font-size:.62rem}
@@ -7669,3 +7676,13 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 @media(prefers-reduced-motion:no-preference){
   .t30-pk.has{transition:box-shadow .2s ease}
 }
+
+/* SHORT VIEWPORTS GET THE CARD SHOW FILTERS IN THE FLOW, 11 November 2026.
+   Bar 60 + rail 114 + day header 56 is 230px of sticky chrome: 40.5% of a
+   320x568 phone and 44.9% of a phone on its side. Under 700px of height the
+   rail scrolls away with the page; the bar and the day header stay. */
+@media (max-height:700px){.rail.cs-rail{position:static}.show-day-h{top:var(--bar-h)}}
+/* ROW-HEADER LINKS IN THE DATA TABLES were 16 to 18px tall targets (the "151"
+   on /luck.html was 18x18). Block padding takes them past the 24px floor
+   without changing the type. */
+.cc-table tbody th a,.luck-table tbody th a{display:inline-block;padding-block:6px}

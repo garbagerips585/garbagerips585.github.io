@@ -1270,7 +1270,7 @@ const style = `
    it for the reason recorded there. */
 .luck-table .num em{display:block;font:400 var(--t-micro)/1.3 var(--body);font-style:normal;white-space:nowrap}
 .luck-table .rate{width:40%;min-width:120px}
-.luck-table tr.thin{opacity:.62}
+.luck-table tr.thin th,.luck-table tr.thin td{border-bottom-style:dashed}
 .thin-note{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);letter-spacing:.04em;text-transform:uppercase}
 /* Number first, bar second. With the bar leading, the percentage was pushed
    past the right edge of a 375px viewport and the one value the row exists to
@@ -1342,7 +1342,7 @@ const style = `
 /* A kind with too few logged rips to carry a rate is dimmed rather than hidden,
    the same treatment tr.thin gets in the table above, because "we opened one of
    these" is worth knowing and "1 of 1, 100%" is not. */
-.pcard--thin{opacity:.72}
+.pcard--thin{border-style:dashed}
 .pcard h3{display:flex;align-items:center;gap:var(--s3);font:400 var(--t-m)/1.2 var(--body);margin:0}
 .pcard h3 img,.pcard h3 .luck-noshot{flex:none;width:52px;height:52px;object-fit:contain;display:block;
   background:var(--paper-2);border:1px solid var(--hair);border-radius:var(--r-sm)}
