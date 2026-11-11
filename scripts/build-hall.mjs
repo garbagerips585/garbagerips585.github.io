@@ -1165,7 +1165,7 @@ const mvcArt = !mvc
           data-raw="${mvc.raw ? esc(moneyCompact(mvc.raw)) : ""}"
           data-psa="${mvc.psa10 ? esc(moneyCompact(mvc.psa10)) : ""}"
           aria-label="Enlarge ${esc(mvc.name)}">${avifPicture(
-            `<img src="${esc(big)}" alt="${[esc(mvc.name), esc(mvc.rarity || ""), mvc.setName ? `from ${/^pok[eé]mon\b/i.test(mvc.setName) ? "" : "Pokemon "}${esc(mvc.setName)}` : ""].filter(Boolean).join(" ")}" width="600" height="825">`
+            `<img src="${esc(big)}" alt="${[esc(mvc.name), esc(mvc.rarity || ""), mvc.setName ? `from ${/^pok[eé]mon\b/i.test(mvc.setName) ? "" : "Pokemon "}${esc(mvc.setName)}` : ""].filter(Boolean).join(" ")}" width="600" height="825" fetchpriority="high">`
           )}</button>`;
     })();
 
@@ -1207,6 +1207,67 @@ for (const c of ranked) {
   const n = (idTaken.get(stem) || 0) + 1;
   idTaken.set(stem, n);
   c.domId = n === 1 ? stem : `${stem}-${n}`;
+}
+
+/* ==========================================================================
+ * THE FILTER BAR'S KEYS, 11 November 2026. THE PAGE WAS 59,048px TALL ON A
+ * 390px PHONE, about 70 screens, with no way to ask it for one set.
+ * ==========================================================================
+ *
+ * The note beside `bestGraded` turned sort controls down for three reasons: a
+ * default to argue about, a shareable url this page did not have, and the
+ * last-row spans evenBand computes from the count. All three are answered
+ * here rather than ignored. The ORDER NEVER CHANGES: these are views of the
+ * one raw ranking, so the medallion still counts 1..N and a filtered plaque
+ * keeps the rank it has on the whole page. The state lives in the hash. And
+ * the spans are switched off whenever a view is narrower than everything (see
+ * the rule after the three evenBand bands in the style block).
+ *
+ * EVERY PLAQUE STAYS IN THE DOCUMENT. The page's promise is completeness, so
+ * nothing is paginated out of the HTML: a filter is a display:none rule keyed
+ * to a class on <html> or to these two attributes, and with scripting off
+ * neither exists and the page is exactly the full list it was.
+ *
+ * KEYED ON THE SET'S PRINTED NAME, not on c.set. The name is what the plaque
+ * shows and what the reader is choosing by; promos carry no set id at all, and
+ * the slug has to be something a person can read in a shared link. Diacritics
+ * are folded first so "Pokemon GO" does not come out as "pok-mon-go".
+ */
+const keySlug = (x) => idSlug(String(x || "").normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+for (const c of ranked) {
+  c.setKey = keySlug(c.setName);
+  c.rarKey = keySlug(c.rarity);
+}
+const facetOptions = (key, label) => {
+  const m = new Map();
+  for (const c of ranked) {
+    if (!c[key]) continue;
+    const o = m.get(c[key]) || { key: c[key], name: c[label], n: 0 };
+    o.n++;
+    m.set(c[key], o);
+  }
+  return [...m.values()].sort((a, b) => String(a.name).localeCompare(String(b.name)));
+};
+const setOptions = facetOptions("setKey", "setName");
+const rarOptions = facetOptions("rarKey", "rarity");
+// Top 10 means ranks 1 to 10, and rank 1 is the MVC frame ABOVE the list, so
+// the list keeps nine. With no MVC (the top card has no scan) it keeps ten.
+const listKeep = (n) => n - (mvc ? 1 : 0);
+
+/* THE TWO SCANS THIS PAGE HOTLINKED AS 171KB PNGs INTO A 120px BOX. TCGdex
+ * holds no image for the Trainer Gallery and Galarian Gallery subsets, so
+ * those plaques fall back to images.pokemontcg.io, which serves a PNG.
+ * sync-subset-scans.py already re-encodes the subsets the set guides show
+ * (data/subset-scans.json: a 245w WebP with an AVIF sibling, and a 600w AVIF),
+ * so a plaque whose scan is in that file takes the local pair: about 18KB for
+ * the thumbnail and the 600w AVIF for the lightbox. A scan that file does not
+ * hold stays on the remote PNG, which is the Silver Tempest Trainer Gallery
+ * card today (swsh12tg is not one of the two subsets that script mirrors). */
+let SUBSET_SCANS = {};
+try {
+  SUBSET_SCANS = JSON.parse(await readFile(join(ROOT, "data/subset-scans.json"), "utf8")).scans || {};
+} catch {
+  /* optional: the remote PNG is still a working picture */
 }
 
 /* ==========================================================================
@@ -1512,6 +1573,10 @@ function plaqueArt(url) {
   // pads to a fixed canvas and the plaque's own aspect-ratio rule owns the box.
   const tcg = /^(https:\/\/tcgplayer-cdn\.tcgplayer\.com\/product\/\d+)_in_1000x1000\.jpg$/.exec(url || "");
   if (tcg) return { src: `${tcg[1]}_200w.jpg`, extra: "", dims: "" };
+  const sub = SUBSET_SCANS[String(url || "").replace(/\.png$/, "")];
+  if (sub && sub.src) {
+    return { src: sub.src, extra: "", dims: ` width="${sub.w}" height="${sub.h}"`, big: sub.large || "" };
+  }
   return { src: url, extra: "", dims: "" };
 }
 
@@ -1591,7 +1656,7 @@ function plaque(c, i) {
   // stays and the button does not, so nothing offers a tap that does nothing.
   const frame = c.image
     ? `<button class="chof-art" type="button"
-          data-img="${esc(c.image)}" data-name="${esc(c.name)}"
+          data-img="${esc(art.big || c.image)}" data-name="${esc(c.name)}"
           data-set="${esc(c.setName)}" data-rarity="${esc(c.rarity || "")}"
           data-number="${esc(c.number || "")}" data-url="${esc(c.url || "")}"
           data-raw="${c.raw ? esc(moneyCompact(c.raw)) : ""}"
@@ -1603,7 +1668,7 @@ function plaque(c, i) {
   // `rank` would rot on the next price refresh, and for what emitting all 145
   // of them measured.
   const addr = c === bestGraded ? ` id="${esc(c.domId)}"` : "";
-  return `      <li class="chof${top}"${addr}>
+  return `      <li class="chof${top}"${addr} data-s="${esc(c.setKey)}" data-r="${esc(c.rarKey)}">
         <span class="chof-rank">${rank}</span>
         ${frame}
         ${look ? `<p class="chof-look">${esc(look)}</p>` : ""}
@@ -1683,6 +1748,13 @@ function plaque(c, i) {
  * today's count rots the next time a card is flagged. The count comes from
  * ranked.length below, so the emitted CSS follows the data.
  */
+// THE FILTER BAR'S RULES AND SCRIPTS SHIP WITHOUT THEIR COMMENTS. The rest of
+// this page's <style> is emitted as written, but the bar's CSS and both of its
+// scripts sit in the document AHEAD of the MVC scan, which is the largest
+// paint, so every byte of commentary there is a byte the frame waits behind.
+// The notes stay in this file, which costs nothing.
+const lean = (css) => css.replace(/\/\*[\s\S]*?\*\//g, "").replace(/\n\s*\n/g, "\n");
+const leanJs = (js) => js.replace(/^\s*\/\/.*$/gm, "").replace(/^\s+/gm, "").replace(/\n+/g, "\n").trim();
 const gcd = (a, b) => (b ? gcd(b, a % b) : a);
 const evenBand = (sel, n, c) => {
   const r = n % c;
@@ -1817,6 +1889,90 @@ ${evenBand(".chof-list", rest.length, 1)}}
 ${evenBand(".chof-list", rest.length, 2)}}
 @media(min-width:1081px){
 ${evenBand(".chof-list", rest.length, 3)}}
+${lean(`/* A NARROWED VIEW GOES BACK TO A PLAIN GRID. The spans above are computed from
+   the whole count and keyed to nth-last-child, which still matches the last
+   plaques in the DOM when most of them are display:none. Left on, a filtered
+   view would stretch whichever of those happened to survive. These come AFTER
+   the bands on purpose: the li rules tie them on specificity and win on order. */
+.chof-v10 .chof-list>li,.chof-v25 .chof-list>li,.chof-flt .chof-list>li{grid-column:auto}
+@media(min-width:621px) and (max-width:1080px){
+  .chof-v10 .chof-list,.chof-v25 .chof-list,.chof-flt .chof-list{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1081px){
+  .chof-v10 .chof-list,.chof-v25 .chof-list,.chof-flt .chof-list{grid-template-columns:repeat(3,1fr)}}
+/* Top 10 and Top 25. Rank 1 is the MVC frame above the list, so the list keeps
+   one fewer; the numbers are computed beside listKeep in the builder. A set or
+   rarity filter is the one rule the head script writes into its own style
+   element, because its selector carries the chosen key. */
+.chof-v10 .chof-list>li:nth-child(n+${listKeep(10) + 1}),
+.chof-v25 .chof-list>li:nth-child(n+${listKeep(25) + 1}){display:none}
+
+/* ------------------------------------------------------------ filter bar ---
+   Hidden until the head script says scripting is on. ONE ROW, 56px, so it can
+   stay stuck under the 60px header without eating the phone: 44px controls,
+   5px of padding and a 1px rule either side. It bleeds into the gutter so a plaque edge never
+   shows beside it while it is stuck, and the ground is the band's own colour,
+   solid, because plaques scroll underneath it. z-index 20 sits under the
+   header (60), the menu (70) and the lightbox (200). */
+.chof-bar,.chof-count,.chof-more{display:none}
+.chof-js .chof-bar{display:flex}
+.chof-js .chof-count{display:block}
+/* The bar is its own break under the intro, so the intro gives back half its
+   bottom margin: the MVC scan is the largest paint and every pixel the bar adds
+   above it is one fewer of it in the first screen. */
+.chof-js .chof-head{margin-bottom:var(--s4)}
+.chof-bar{position:sticky;top:var(--bar-h);z-index:20;flex-wrap:nowrap;align-items:center;
+  justify-content:center;gap:var(--s2);margin:0 calc(var(--gut) * -1);padding:5px var(--gut);
+  background:var(--band-bg);border-block:1px solid var(--hair)}
+.chof-seg{display:flex;flex:none}
+.chof-seg button{position:relative;min-width:44px;height:44px;padding:0 10px;cursor:pointer;
+  white-space:nowrap;font:700 var(--t-sm)/1 var(--body);color:var(--chrome-ink);
+  background:var(--card);border:1px solid var(--keyline);border-left-width:0}
+.chof-seg button:first-child{border-left-width:1px;border-radius:var(--r-pill) 0 0 var(--r-pill);padding-left:14px}
+.chof-seg button:last-child{border-radius:0 var(--r-pill) var(--r-pill) 0;padding-right:14px}
+.chof-seg button:focus-visible{z-index:1}
+/* The pressed look is keyed to the class on html, which is set before this
+   markup is parsed, so the right button is lit on the first paint. aria-pressed
+   carries the same fact for a screen reader. --mustard is a TEAL on this
+   palette; --on-accent on it is the pair every pressed chip uses. */
+.chof-v10 .chof-seg [data-view="10"],.chof-v25 .chof-seg [data-view="25"],
+.chof-vall .chof-seg [data-view="all"]{background:var(--mustard);color:var(--on-accent)}
+.chof-pick{position:relative;flex:1 1 0;min-width:0;max-width:280px}
+.chof-pick::after{content:"";position:absolute;right:16px;top:50%;width:7px;height:7px;
+  border:solid var(--sky-deep);border-width:0 2px 2px 0;transform:translateY(-70%) rotate(45deg);
+  pointer-events:none}
+/* 1rem, not smaller: iOS zooms the page on focus for any form control under
+   16px. */
+.chof-pick select{display:block;width:100%;height:44px;padding:0 34px 0 14px;appearance:none;
+  -webkit-appearance:none;font:600 1rem/1 var(--body);color:var(--chrome-ink);cursor:pointer;
+  background:var(--card);border:1px solid var(--keyline);border-radius:var(--r-pill);
+  text-overflow:ellipsis}
+.chof-pick-r{display:none}
+@media(min-width:621px){.chof-pick-r{display:block}}
+.chof-count{margin:var(--s2) auto var(--s5);min-height:1.6em;text-align:center;
+  font:700 var(--t-micro)/1.6 var(--mono);letter-spacing:.08em;text-transform:uppercase;
+  color:var(--chrome-dim)}
+/* Wherever the view is narrower than everything, the way back to the whole
+   list sits at the end of it. Same teal pill as "See it pulled" in the frame. */
+.chof-v10 .chof-more,.chof-v25 .chof-more,.chof-flt .chof-more{display:block}
+.chof-more{margin-top:var(--s6);text-align:center}
+.chof-more button{min-height:48px;padding:0 var(--s5);cursor:pointer;
+  font:700 var(--t-sm)/1 var(--body);color:var(--on-accent);background:var(--mustard);
+  border:2px solid var(--chrome-ink);border-radius:var(--r-pill)}
+/* Back to top. Fixed, 44px, clear of the home indicator. Nothing else on the
+   site is fixed at the bottom, and it sits under the header and the lightbox.
+   It carries the hidden attribute until the reader is a few screens down, so
+   it is out of the tab order as well as out of sight; there is no transition,
+   so there is nothing to gate under prefers-reduced-motion here (the scroll
+   itself is gated in the script). */
+.chof-up{position:fixed;z-index:50;right:calc(var(--s4) + env(safe-area-inset-right,0px));
+  bottom:calc(var(--s4) + env(safe-area-inset-bottom,0px));width:44px;height:44px;padding:0;
+  cursor:pointer;display:grid;place-items:center;font:700 1.25rem/1 var(--body);
+  color:var(--on-accent);background:var(--mustard);border:2px solid var(--chrome-ink);
+  border-radius:50%;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.chof-up:focus-visible{box-shadow:0 6px 18px rgba(0,0,0,.45),0 0 0 5px rgba(255,255,255,.95)}
+/* The one in-page anchor lands under the header AND the stuck bar now. */
+.chof[id],.mvc[id]{scroll-margin-top:calc(var(--bar-h) + 56px + var(--s5))}
+`)}
 .chof{position:relative;display:flex;gap:var(--s4);align-items:flex-start;
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);
   border-radius:14px;padding:var(--s4);transition:border-color .15s,transform .15s}
@@ -1961,6 +2117,150 @@ ${evenBand(".chof-list", rest.length, 3)}}
   color:#fff;font-size:1.3rem;cursor:pointer}
 `;
 
+/* ==========================================================================
+ * THE TWO SCRIPTS BEHIND THE BAR, AND WHY THERE ARE TWO.
+ * ==========================================================================
+ *
+ * headScript RUNS IN THE HEAD, BEFORE ANY OF THE BODY EXISTS. It reads the
+ * hash, decides the view, and writes it as a class on <html> (and, for a set
+ * or rarity, one rule into its own style element). Every hiding rule is keyed
+ * to that, so the phone default of Top 25 and a shared #set= link are both in
+ * force before the first plaque is parsed: nothing is painted and then taken
+ * away, which is the only way a 59,000px page becomes a 9,000px one with no
+ * layout shift. Desktop defaults to All and is untouched.
+ *
+ * barScript sits just above the list (see the note there for why it is not
+ * beside the bar) and wires the controls, which are parsed by then. The "Show all" button and the back-to-top button are parsed later, so
+ * their clicks are delegated from the document.
+ *
+ * THE HASH IS THE STATE: #view=top10, #view=top25, #view=all, #set=<key>,
+ * #rarity=<key>, joined with an ampersand. Every change is a pushState, so the
+ * back button walks the views, and a bare /hall.html keeps meaning the
+ * default. A hash with no "=" is an ordinary anchor (the best graded card's
+ * plaque, the skip link) and is left alone, except that a load that arrives
+ * on one opens the whole list so its target cannot be a hidden plaque.
+ *
+ * A KEY FROM THE HASH GOES INTO A SELECTOR, so it is held to [a-z0-9-] first.
+ * No backslash appears in either script: this is a template literal, and one
+ * would have to be doubled.
+ *
+ * EVERY CLASS THE CSS KEYS ON IS WRITTEN OUT WHOLE BELOW (chof-js, chof-v10,
+ * chof-v25, chof-vall, chof-flt), never assembled from parts.
+ */
+const headScript = `(function(){
+  var d=document.documentElement,C=window.CHOF={total:${ranked.length},view:'all',set:'',rar:''};
+  C.def=window.matchMedia&&matchMedia('(max-width:620px)').matches?'25':'all';
+  var st=document.createElement('style');document.head.appendChild(st);
+  function ok(x){return /^[a-z0-9-]+$/.test(x)?x:''}
+  C.read=function(){
+    var h=location.hash.replace(/^#/,'');
+    if(h&&h.indexOf('=')<0) return false;
+    var v=C.def,s='',r='';
+    h.split('&').forEach(function(p){
+      var i=p.indexOf('='),k=p.slice(0,i),x=p.slice(i+1);
+      if(k==='view') v=x==='top10'?'10':x==='top25'?'25':x==='all'?'all':v;
+      if(k==='set') s=ok(x);
+      if(k==='rarity') r=ok(x);
+    });
+    C.view=v;C.set=s;C.rar=r;return true;
+  };
+  C.paint=function(){
+    var f=C.set||C.rar,a=[];
+    d.classList.remove('chof-v10','chof-v25','chof-vall','chof-flt');
+    d.classList.add(f?'chof-flt':C.view==='10'?'chof-v10':C.view==='25'?'chof-v25':'chof-vall');
+    if(C.set) a.push('[data-s="'+C.set+'"]');
+    if(C.rar) a.push('[data-r="'+C.rar+'"]');
+    st.textContent=a.map(function(q){return '.chof-list>li:not('+q+'),.mvc:not('+q+'){display:none}'}).join('');
+  };
+  d.classList.add('chof-js');
+  if(!C.read()) C.view='all';
+  C.paint();
+})();`;
+
+const barScript = `
+(function(){
+  var C=window.CHOF; if(!C) return;
+  var d=document, seg=d.querySelectorAll('.chof-seg button'), selS=d.getElementById('chofSet'),
+      selR=d.getElementById('chofRar'), cnt=d.getElementById('chofCount'), mark=d.getElementById('chofMark'),
+      up=null, calm=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function n(x){return Number(x).toLocaleString('en-US')}
+  function pick(sel,key){
+    sel.value=key;
+    // A key no plaque carries falls back to the unfiltered option.
+    if(sel.selectedIndex<0||sel.value!==key){sel.value='';return ''}
+    return key;
+  }
+  function sel(){return (C.set?'[data-s="'+C.set+'"]':'')+(C.rar?'[data-r="'+C.rar+'"]':'')}
+  function count(){
+    var f=C.set||C.rar, t=n(C.total);
+    if(!f){cnt.textContent=C.view==='all'?'Showing all '+t+' cards':'Showing '+Math.min(+C.view,C.total)+' of '+t+' cards';return}
+    var q=sel(), k=d.querySelectorAll('.chof-list>li'+q+',.mvc'+q).length,
+        names=[selS,selR].map(function(s){var o=s.options[s.selectedIndex];return o&&o.value?o.text.replace(/ [(][0-9]+[)]$/,''):''}).filter(Boolean).join(', ');
+    cnt.textContent='Showing '+k+' of '+t+' cards: '+names+(k?'':'. Nothing here is both.');
+  }
+  function sync(){
+    C.set=pick(selS,C.set); C.rar=pick(selR,C.rar);
+    C.paint();
+    var f=C.set||C.rar;
+    for(var i=0;i<seg.length;i++) seg[i].setAttribute('aria-pressed',String(!f&&seg[i].getAttribute('data-view')===C.view));
+    count();
+  }
+  // A narrower list can leave the reader below the end of it. If the bar is
+  // stuck, bring the top of the list back under it; otherwise do not move.
+  function settle(){
+    var bar=d.querySelector('.bar'), h=bar?bar.offsetHeight:0, y=mark.getBoundingClientRect().top;
+    if(y<h) window.scrollTo(0,(window.pageYOffset||0)+y-h);
+  }
+  function go(){
+    sync();
+    var a=[];
+    if(C.set) a.push('set='+C.set);
+    if(C.rar) a.push('rarity='+C.rar);
+    if(!a.length) a.push('view='+(C.view==='all'?'all':'top'+C.view));
+    try{history.pushState(null,'','#'+a.join('&'))}catch(e){}
+  }
+  for(var i=0;i<seg.length;i++) seg[i].addEventListener('click',function(){
+    C.view=this.getAttribute('data-view'); C.set=''; C.rar=''; go(); settle();
+  });
+  selS.addEventListener('change',function(){C.set=selS.value; go(); settle()});
+  selR.addEventListener('change',function(){C.rar=selR.value; go(); settle()});
+  function fromHash(){
+    if(C.read()){sync();return}
+    // An ordinary anchor. Leave the view alone unless its target is hidden.
+    var t=null; try{t=d.getElementById(decodeURIComponent(location.hash.slice(1)))}catch(e){}
+    if(t&&!t.getClientRects().length){C.view='all';C.set='';C.rar='';sync();t.scrollIntoView()}
+  }
+  window.addEventListener('popstate',fromHash);
+  d.addEventListener('click',function(e){
+    var t=e.target.closest?e.target.closest('#chofAll,#chofUp'):null;
+    if(!t) return;
+    if(t.id==='chofUp'){
+      window.scrollTo({top:0,behavior:calm?'auto':'smooth'});
+      var m=d.getElementById('main'); if(m) m.focus({preventScroll:true});
+      return;
+    }
+    // Show all. The button is about to disappear, so focus goes to the first
+    // plaque it reveals (or, coming out of a filter, to the top of the list).
+    var lis=d.querySelectorAll('.chof-list>li'), was=C.set||C.rar, first=null;
+    for(var i=0;i<lis.length&&!first;i++) if(was||!lis[i].getClientRects().length) first=lis[i];
+    C.view='all'; C.set=''; C.rar=''; go();
+    if(was) settle();
+    var f=first&&first.querySelector('button,a'); if(f) f.focus({preventScroll:!was});
+  });
+  var tick=false;
+  window.addEventListener('scroll',function(){
+    if(tick) return; tick=true;
+    requestAnimationFrame(function(){
+      tick=false; up=up||d.getElementById('chofUp');
+      if(up) up.hidden=(window.pageYOffset||0)<window.innerHeight*2.5;
+    });
+  },{passive:true});
+  sync();
+  // A filtered count is a count of plaques, and they are parsed after this.
+  if(d.readyState==='loading') d.addEventListener('DOMContentLoaded',count);
+})();
+`;
+
 const body = `
 <main id="main" tabindex="-1" class="chofpage">
   <div class="wrap">
@@ -2038,6 +2338,45 @@ const body = `
             data. */ ""}
     </div>
 
+    ${/* THE FILTER BAR. Above the MVC frame, because a set filter hides that
+          frame when the top card is not in the set, and a control that sits
+          below something it removes jumps out from under the finger that
+          pressed it. It renders nothing visible without scripting (the rules
+          are gated on html.chof-js, set in the head), so a reader with scripts
+          off gets the whole list and no dead buttons.
+
+          THREE BUTTONS AND A NATIVE SELECT. The select is the most usable set
+          picker a phone has, and it lists only sets that have a plaque, each
+          with its count. Rarity is a second select from 621px up; on a phone
+          the bar is one 56px row so it can stay stuck under the header, and a
+          third control does not fit in it. A rarity link opened on a phone
+          still filters, and the count line names what is applied.
+
+          TEAL, NOT GOLD. Gold on this page means the biggest pull and nothing
+          else; a control is a route, so the pressed state is the teal fill
+          every chip on the site uses. */ ""}
+    ${ranked.length ? `<span id="chofMark"></span>
+    <div class="chof-bar" id="chofBar">
+      <div class="chof-seg" role="group" aria-label="How many cards to show">
+        <button type="button" data-view="10" aria-pressed="false">Top 10</button>
+        <button type="button" data-view="25" aria-pressed="false">Top 25</button>
+        <button type="button" data-view="all" aria-pressed="true">All</button>
+      </div>
+      <span class="chof-pick">
+        <select id="chofSet" aria-label="Filter by set">
+          <option value="">All sets</option>
+          ${setOptions.map((o) => `<option value="${esc(o.key)}">${esc(o.name)} (${o.n})</option>`).join("\n          ")}
+        </select>
+      </span>
+      <span class="chof-pick chof-pick-r">
+        <select id="chofRar" aria-label="Filter by rarity">
+          <option value="">All rarities</option>
+          ${rarOptions.map((o) => `<option value="${esc(o.key)}">${esc(o.name)} (${o.n})</option>`).join("\n          ")}
+        </select>
+      </span>
+    </div>
+    <p class="chof-count" id="chofCount" aria-live="polite">Showing all ${num(ranked.length)} cards</p>` : ""}
+
     ${/* THE MVC. The owner: "lets pull out the #1 most valuable card and put it in a
           gold frame at the top as the MVC most valuable card, something to make
           it special and stand out."
@@ -2069,7 +2408,7 @@ const body = `
           went nowhere -- which is today's state and is why hall.html shipped a
           dead in-page anchor. The plaque branch carries the same identity test,
           so exactly one of the two can ever fire. */ ""}
-    ${mvc ? `<div class="mvc"${mvc === bestGraded ? ` id="${esc(mvc.domId)}"` : ""}>
+    ${mvc ? `<div class="mvc"${mvc === bestGraded ? ` id="${esc(mvc.domId)}"` : ""} data-s="${esc(mvc.setKey)}" data-r="${esc(mvc.rarKey)}">
       <span class="mvc-rank">1</span>
       <span class="mvc-tag">MVC &middot; Most valuable card</span>
       ${mvcArt}
@@ -2102,10 +2441,19 @@ const body = `
       <p>${scopeSentence.replace(/^\s*/, "")}</p>
     </details>` : ""}
 
+    ${/* THE BAR'S SCRIPT, HERE AND NOT BESIDE THE BAR. What is hidden is
+          already decided by the class the head script put on <html>, so
+          nothing waits on this; it only wires the controls and writes the
+          count. Beside the bar it was 3.5KB in front of the MVC scan, which is
+          the largest paint. Here it is behind the frame and still ahead of
+          every plaque. */ ""}
+    ${ranked.length ? `<script>${leanJs(barScript)}</script>` : ""}
     ${ranked.length
       ? `<ol class="chof-list">
 ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
-    </ol>`
+    </ol>
+    <p class="chof-more"><button type="button" id="chofAll">Show all ${num(ranked.length)} cards</button></p>
+    <button type="button" class="chof-up" id="chofUp" aria-label="Back to top" hidden><span aria-hidden="true">&uarr;</span></button>`
       : `<p class="chof-empty">No cards inducted yet. Flag a card as <b>Card Hall of Fame</b> on the
          Chase Cards tab of the video log and it appears here, ranked automatically.</p>`}
 
@@ -2241,6 +2589,19 @@ const swapped = head
   .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE}/hall.html`)
   .replace(/(<meta property="og:title" content=")[^"]*/, `$1Card Hall of Fame | Garbage Rips 585`);
 
+/* A PRECONNECT TO THE HOST THE LARGEST PAINT COMES FROM. The MVC scan is this
+   page's LCP element and it is a third-party file, so the DNS, TCP and TLS for
+   assets.tcgdex.net used to start only when the parser reached the frame. It is
+   added to the sliced head by one anchored replace on the viewport meta, which
+   every page has, and it is skipped outright when the top card is not a TCGdex
+   scan or the anchor is missing: the slice itself is not touched either way.
+   No crossorigin: these are plain image fetches, and a crossorigin preconnect
+   opens a different socket than the one the image then uses. */
+const lcpOnTcgdex = !!mvc && /^https:\/\/assets\.tcgdex\.net\//.test(String(mvc.image));
+const swappedHead = lcpOnTcgdex
+  ? swapped.replace(/(<meta name="viewport"[^>]*>)/, `$1\n<link rel="preconnect" href="https://assets.tcgdex.net">`)
+  : swapped;
+
 await writeFile(
   join(ROOT, "public/hall.html"),
   dropUnusedPacksCSS(`<!DOCTYPE html>
@@ -2249,7 +2610,8 @@ ${/* THE NO-SCAN PANEL'S RULES RIDE WITH THE PANEL AND ONLY WITH IT. They are
       render-blocking bytes, so they go in on the page that emitted a box and
       nowhere else -- the same gate build-pages.mjs and the two set-guide
       builders apply. Today every run emits some, and a run where none is
-      emitted must not ship the rules for nothing. */ ""}<head>${swapped}<style>${style}${ranked.some((c) => !c.image) ? NOSCAN_CSS : ""}</style>
+      emitted must not ship the rules for nothing. */ ""}<head>${swappedHead}<style>${style}${ranked.some((c) => !c.image) ? NOSCAN_CSS : ""}</style>
+<script>${leanJs(headScript)}</script>
 </head>
 <body>
 ${skipLink}
