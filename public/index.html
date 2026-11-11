@@ -565,7 +565,13 @@ main{padding-top:0}
            115 hits" was the wrong word over a filtered figure, and the count
            region is gone rather than corrected: the destination already states
            its own scope, and a front-door label does not need to. -->
-      <a href="/videos.html?pull=1">Watch All The Hits &rarr;</a>
+      <!-- 11 November 2026: THE HEADING'S LINK GOES TO THE CARDS NOW, under the
+           nav's own name for that page. It read "Watch All The Hits" and went
+           to /videos.html?pull=1, while the bar and the footer call /hall.html
+           "Best pulls" and this page's body did not link to it at all. The
+           videos link is still here, as .hof-more under the shelf, labeled
+           for what it is. -->
+      <a href="/hall.html">Best pulls &rarr;</a>
     </div>
     <!-- HOFPICK:START -->
 <a class="hofx" href="/rip/i-just-pulled-a-1-000-card-iIgTusrqVtg.html" data-dur="28" data-views="1209">
@@ -656,6 +662,7 @@ main{padding-top:0}
     </div>
 <!-- HOF:END -->
     </div>
+    <p class="hof-more"><a href="/videos.html?pull=1">Watch every rip that hit &rarr;</a></p>
   </div>
 </section>
 
@@ -679,6 +686,13 @@ main{padding-top:0}
      now one uninterrupted run instead of being split by a carousel, and a
      first-time visitor reaches "what is this channel" without scrolling past
      two shelves of it. That is the trade the owner asked for, in his own order.
+
+     11 November 2026: BELOW 545px LATEST RIPS IS DRAWN DIRECTLY UNDER GREATEST
+     HITS, by `order` in the max-width:544px block of homeCss. The markup
+     order here is unchanged and is still what 545px and up render. A phone
+     visitor mostly arrives from a video description wanting the newest rips,
+     and they were on the fourth screen. See note 3 after homeCss in
+     build-proto.mjs.
 
      THE ORDER BELOW LATEST IS UNCHANGED AND IS THE NAV'S OWN ORDER:
      Most wanted and Card Pokedex are the channel's own data, then Card
