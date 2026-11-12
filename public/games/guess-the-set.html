@@ -22,9 +22,9 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
+<link rel="stylesheet" href="/assets/fonts.css?v=5dc04632">
 <link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c">
-<link rel="stylesheet" href="/assets/games.css?v=15befa74">
+<link rel="stylesheet" href="/assets/games.css?v=3a25d47f">
 <style>.btn-row .btn[aria-pressed="true"]{background:var(--gold);border-color:var(--ink);
   color:var(--on-accent);box-shadow:0 3px 0 var(--ink)}
 .btn-row .btn[aria-pressed="false"]{background:var(--card);color:var(--ink-2)}
@@ -84,7 +84,7 @@
 .tq-silpair b{display:block;margin-top:6px;font:700 var(--t-micro)/1.4 var(--mono);
   letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://garbagerips.com/games/"},{"@type":"ListItem","position":3,"name":"Guess the Set"}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});setTimeout(g,10000);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -257,30 +257,8 @@
 
     
     <figure class="tq-fig tq-corner">
-      <!-- PORTRAIT, AND THAT IS NOT A DETAIL. The first draft drew two 180x152
-           boxes, which is a landscape card, in a diagram whose entire subject is
-           where on a card two marks sit. 130x182 is 0.714, against a real card's
-           63x88mm, or 0.716.
-           The two marks: a disc for the symbol and a slash number beside it.
-           THE LEFT CARD IS BOTTOM RIGHT AND THE RIGHT CARD IS BOTTOM LEFT. Both
-           sat inside the left card on the first draft, so the drawing showed one
-           card wearing the mark twice and one wearing it nowhere, which is the
-           exact opposite of what the caption underneath it said. A diagram is
-           worth having only if somebody checks it against its own claim. -->
       <svg viewBox="44 0 324 232" role="img"
         aria-label="Two card outlines, both portrait. On the left, a card up to the XY era, with the collector number and the set symbol together in the bottom right corner. On the right, a card from Sun and Moon onward, with the number and symbol moved to the bottom left.">
-        <!-- THE INK IS A CLASS, NOT A fill= ATTRIBUTE, and that is deliberate:
-             this figure sits on .tq-fig, which is var(--paper-2), so its ink has
-             to move with the token rather than be re-sampled by hand the next
-             time the palette moves. It was #1E2419 throughout and that measured
-             1.74:1 on the new #2F4F39, so every mark here was invisible. The
-             classes are in TEACH_CSS below. --ink is 8.03:1 on the figure.
-             THE TWO FAINT GROUPS FLIPPED SENSE and that is the point of them:
-             they are the greeked artwork box and the greeked text lines, drawn
-             at 10% and 18%, and on a light figure that means "slightly darker
-             than the card". On a dark one it has to mean slightly LIGHTER, so
-             they are --ink at the same opacities rather than the old near-black
-             at the same opacities, which would have been no mark at all. -->
         <g class="tq-d" stroke-width="3">
           <rect x="60" y="10" width="130" height="182" rx="8"/>
           <rect x="220" y="10" width="130" height="182" rx="8"/>
@@ -295,8 +273,6 @@
           <rect x="230" y="126" width="110" height="7" rx="3.5"/>
           <rect x="230" y="140" width="86" height="7" rx="3.5"/>
         </g>
-        <!-- The disc keeps the amber, 4.51:1 here; its ring is --on-accent and
-             not --ink, because a near-white ring on amber is 1.78:1. -->
         <g>
           <circle cx="174" cy="174" r="8" fill="#F5A62B" class="tq-don" stroke-width="2.5"/>
           <text x="158" y="178" text-anchor="end" class="tq-dt" font-size="11">25/198</text>

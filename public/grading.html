@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is It Worth Grading? Pokemon Grading Costs and Break Even</title>
+<title>Is It Worth Grading Pokemon Cards? PSA Costs and Break Even</title>
 <meta name="description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS, TAG and SGC, and the break even math on 162 real cards.">
 <link rel="canonical" href="https://garbagerips.com/grading.html">
 <meta property="og:title" content="Is it worth grading? The actual math">
@@ -22,7 +22,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
+<link rel="stylesheet" href="/assets/fonts.css?v=5dc04632">
 <link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>.gc-grid{display:grid;gap:var(--s4);margin-top:var(--s5)}.gc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}.gc-price{font:400 1.7rem/1 var(--display);color:var(--ketchup-deep)}.gc-turn{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.04em}.gc-note,.gc-resale{font-size:var(--t-sm);color:var(--ink-2);line-height:1.6}.gc-sub{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s6)}.gcalc{display:grid;gap:var(--s3);margin-top:var(--s4)}.gcalc input:focus,.gcalc select:focus{outline:3px solid var(--gold);outline-offset:2px}.gcalc-out{margin-top:var(--s4);padding:var(--s5);background:var(--card);border:1px solid var(--hair);
@@ -54,7 +54,7 @@
 @media(min-width:1000px){.plate-rule{max-width:none}}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips.com/grading.html#faq","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 162 cards we hold both prices for, 121 would clear PSA's current fee and 41 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});setTimeout(g,10000);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -209,11 +209,6 @@
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">$79.99</div><div class="l">Cheapest PSA tier</div></div>
-      <!-- "Cheapest anywhere" was a claim about the whole industry made from a
-           table of four companies, which is not the same thing. SGC was the
-           missing fifth and it turned out to be the cheapest of the lot, so the
-           old label was wrong twice over. It is in the data now, and the count
-           is interpolated rather than typed so this cannot go stale again. -->
       <div class="fact"><div class="n">$15.00</div><div class="l">Cheapest of these five (SGC)</div></div>
       <div class="fact"><div class="n">121/162</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">August 13, 2026</div><div class="l">Fees last checked</div></div>
@@ -642,24 +637,12 @@
       <li>Fees are per card whatever the grade, so the math has to clear on the likely outcome, not the best one.</li>
       <li>If the gap between raw and PSA 10 is smaller than the fee, there is no version of this that pays.</li>
     </ul>
-    <!-- THE OTHER HALF OF THE QUESTION. Everything on this page assumes the card
-         comes back a 10, because that is the only outcome where the fee clears.
-         Whether it will is a completely different subject with its own page, and
-         a reader who works out that grading pays and then submits a 9 has been
-         let down by this page specifically. Prose link, not just nav: the
-         what-set and rarity pair do the same. -->
     <p class="price-note" style="margin-top:var(--s4)"><b>All of this assumes a 10.</b> That is the assumption
       doing the most work here, and it is the one most likely to be wrong. Front centering has to be about
       55/45 before PSA or CGC will call a card a 10, one print line is the whole difference between a 9 and a
       10 on a holo, and your worst attribute caps the grade no matter how good the rest is.
       <a href="/will-it-grade.html">Will it grade?</a> goes through what each company actually publishes,
       and it is worth ten minutes before you spend the fee.</p>
-    <!-- AND THE OTHER THING THAT DECIDES WHETHER THE FEE CLEARS ON AN OLD CARD,
-         which is not condition at all. On a 1999 Base Set card the break-even
-         moves by a factor of ten depending on which of the three print runs it
-         is, and that is a two mark check anybody can do at the kitchen table
-         before paying anybody anything. Prose link rather than nav only, same as
-         the will-it-grade pair above. -->
     <p class="price-note"><b>If it is from 1999, check the printing first.</b> A Base Set card can be a 1st
       Edition, a Shadowless or an Unlimited, the three are worth wildly different amounts, and the difference is
       a small stamp and a shadow that is either there or is not.

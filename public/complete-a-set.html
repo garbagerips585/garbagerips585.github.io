@@ -22,7 +22,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
+<link rel="stylesheet" href="/assets/fonts.css?v=5dc04632">
 <link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>.gc-grid{display:grid;gap:var(--s4);margin-top:var(--s5)}.gc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}.gc-price{font:400 1.7rem/1 var(--display);color:var(--ketchup-deep)}.gc-note,.gc-resale{font-size:var(--t-sm);color:var(--ink-2);line-height:1.6}@media(min-width:720px){.gc-grid{grid-template-columns:repeat(2,1fr)}}@media(min-width:1000px){.gc-grid{grid-template-columns:repeat(4,1fr)}}.cc-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--keyline)}.cc-table tbody tr:nth-child(even) th,
 .cc-table tbody tr:nth-child(even) td{background:var(--paper-2)}.cc-table tbody tr:hover th,
@@ -71,7 +71,7 @@ gap:11px;align-items:start}
 .faq-list p:last-child{margin-bottom:0}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Cost to complete a set","item":"https://garbagerips.com/complete-a-set.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips.com/complete-a-set.html#faq","mainEntity":[{"@type":"Question","name":"How much does it cost to complete a Pokemon set?","acceptedAnswer":{"@type":"Answer","text":"It depends enormously on the set. Across the 30 sets on this page the base set ranges from $26 for Black Bolt to $1,018 for Chilling Reign, buying every card as a single at the cheapest printing and before shipping. The master set, which adds the secret rares, is several times more: Ascended Heroes is $3,664."}},{"@type":"Question","name":"Is it cheaper to buy singles or open packs to complete a set?","acceptedAnswer":{"@type":"Answer","text":"Singles, almost always, and it is not close. A base set here averages $143 bought as singles. Opening enough packs to see every card in a set costs many times that, because packs repeat commons long before they finish the checklist. Packs are for the fun of opening them; singles are for finishing a set."}},{"@type":"Question","name":"What is the difference between a base set and a master set?","acceptedAnswer":{"@type":"Answer","text":"The base set is every card numbered up to the printed total, so a card that reads 131/131 is the last one. A master set adds everything numbered above that total, which is where the secret rares and most of the expensive chase cards live. That is why the two numbers are so far apart: in Phantasmal Flames a single card is 58% of the whole master-set bill."}}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});setTimeout(g,10000);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -207,26 +207,6 @@ gap:11px;align-items:start}
 
 <header class="set-hero">
   <div class="wrap">
-    <!-- The kicker used to read "Priced last night" and the lede called these
-         "live prices". Neither is true: the totals are computed from a price
-         file with a read date on it, which is stamped at the bottom of the page
-         and can be two days behind a build. Say the date instead of implying
-         a feed we do not run.
-
-         AND IT SAID THE WRONG DATE, IN THE WRONG WORDS, UNTIL 19 AUGUST 2026,
-         which is the exact trap shared/card-prices.mjs was written to close.
-         The stamp named "checked" is the day TCGdex was read for the CHECKLIST;
-         the one named "pricesChecked" is the day PriceCharting was read for the
-         MONEY. Both of these sentences are about money and both were stamped
-         with the checklist's date, so the top of the page said "Priced August
-         12" over totals whose own note at the foot said "read August 16". Two
-         dates for one set of numbers on one page, and the reader has no way to
-         tell which is the freshness of the figure they are judging. priceRead()
-         exists so a builder cannot reach for the wrong one by habit; use it.
-         The words moved with the date for the same reason: these are
-         PriceCharting guide values, not a marketplace's market prices, and the
-         note at the foot has drawn that distinction in the site's own wording
-         since the swap. -->
     <span class="kicker">Pokemon TCG &bull; Priced November 10, 2026</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
     <p class="lede w38">Every set we cover, costed three ways, from the commons run to the full
@@ -701,19 +681,19 @@ gap:11px;align-items:start}
       long tail attached, and it is worth seeing that number before you decide the set is out of reach.</p>
     <ul class="cs-ones">
       <li class="cs-one has-art">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/me/me02/125/low.webp" alt="Mega Charizard X ex, Phantasmal Flames card 125" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/me/me02/125/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/me/me02/125/low.webp" alt="Mega Charizard X ex, Phantasmal Flames card 125" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.style.visibility='hidden'"></picture>
         <div class="cs-one-b"><strong>Phantasmal Flames.</strong> Mega Charizard X ex is $591 of a
         $1,015 master set, which is 58% of it. The other 129 cards
         come to $425 between them.</div>
       </li>
       <li class="cs-one has-art">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/186/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/swsh/swsh12/186/low.webp" alt="Lugia V, Silver Tempest card 186" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/swsh/swsh12/186/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/swsh/swsh12/186/low.webp" alt="Lugia V, Silver Tempest card 186" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.style.visibility='hidden'"></picture>
         <div class="cs-one-b"><strong>Silver Tempest.</strong> Lugia V is $400 of a
         $892 master set, which is 45% of it. The other 214 cards
         come to $492 between them.</div>
       </li>
       <li class="cs-one has-art">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/232/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/sv/sv04.5/232/low.webp" alt="Mew ex, Paldean Fates card 232" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv04.5/232/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/sv/sv04.5/232/low.webp" alt="Mew ex, Paldean Fates card 232" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.style.visibility='hidden'"></picture>
         <div class="cs-one-b"><strong>Paldean Fates.</strong> Mew ex is $686 of a
         $2,257 master set, which is 30% of it. The other 244 cards
         come to $1,571 between them.</div>
@@ -725,7 +705,7 @@ gap:11px;align-items:start}
         come to $786 between them.</div>
       </li>
       <li class="cs-one has-art">
-        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/161/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/sv/sv08.5/161/low.webp" alt="Umbreon ex, Prismatic Evolutions card 161" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.remove()"></picture>
+        <picture><source type="image/avif" srcset="https://assets.tcgdex.net/en/sv/sv08.5/161/low.avif"><img class="cs-one-img" src="https://assets.tcgdex.net/en/sv/sv08.5/161/low.webp" alt="Umbreon ex, Prismatic Evolutions card 161" loading="lazy" decoding="async" width="245" height="337" onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):this.style.visibility='hidden'"></picture>
         <div class="cs-one-b"><strong>Prismatic Evolutions.</strong> Umbreon ex is $1,075 of a
         $3,647 master set, which is 29% of it. The other 179 cards
         come to $2,572 between them.</div>

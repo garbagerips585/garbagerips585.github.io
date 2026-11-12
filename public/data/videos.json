@@ -2,7 +2,7 @@
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
     "views": 341525,
-    "subscribers": 444,
+    "subscribers": 445,
     "videos": 402,
     "readAt": "2026-11-11"
   },
@@ -15,7 +15,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 945,
+      "views": 986,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +37,7 @@
       "published": "2026-11-10",
       "publishedAt": "2026-11-10T12:03:07Z",
       "duration": 23,
-      "views": 1090,
+      "views": 1106,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +59,7 @@
       "published": "2026-11-09",
       "publishedAt": "2026-11-09T11:04:25Z",
       "duration": 28,
-      "views": 1042,
+      "views": 1047,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1764,7 +1764,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1204,
+      "views": 1206,
       "vertical": true,
       "short": true,
       "sets": [
@@ -4474,10 +4474,10 @@
         }
       ],
       "boxNumber": 2,
-      "packNumber": 3,
+      "packNumber": 2,
       "openingType": "ETB",
       "packs": 1,
-      "label": "Chaos Rising ETB 2 - Pack 3"
+      "label": "Chaos Rising ETB 2 - Pack 2"
     },
     {
       "id": "Ec_2Is8DmI8",

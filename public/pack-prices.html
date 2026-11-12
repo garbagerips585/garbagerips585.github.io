@@ -22,7 +22,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="/assets/fonts.css?v=05d6747d">
+<link rel="stylesheet" href="/assets/fonts.css?v=5dc04632">
 <link rel="stylesheet" href="/assets/ui.css?v=aed8aa2c"><style data-pcss>.cc-table{border-collapse:collapse;width:100%;min-width:660px;font-size:.9rem}.cc-table thead th:first-child{left:0;z-index:2;box-shadow:2px 0 0 var(--keyline)}.cc-table tbody tr:nth-child(even) th,
 .cc-table tbody tr:nth-child(even) td{background:var(--paper-2)}.cc-table tbody tr:hover th,
 .cc-table tbody tr:hover td{background:var(--sky-tint)}.cc-table .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}.cc-table thead .num{text-align:right}.cc-yr{display:block;font-family:var(--mono);font-size:.64rem;color:var(--ink-soft);font-weight:400}@media (max-width:600px){.cc-table{font-size:.82rem}.cc-table tbody th{min-width:140px}}.cc-table tbody tr:nth-child(even) th,
@@ -88,7 +88,7 @@ gap:11px;align-items:start}
 .faq-list p:last-child{margin-bottom:0}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Pack prices by set","item":"https://garbagerips.com/pack-prices.html"}]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips.com/pack-prices.html#faq","mainEntity":[{"@type":"Question","name":"How much does a Pokemon booster pack cost?","acceptedAnswer":{"@type":"Answer","text":"It depends far more on the set than on where you buy it. Across the 30 sets priced on this page a pack runs from $4.78 for Perfect Order to $27.00 for 151, a spread of 5.65x for the same object. Those are TCGplayer market prices read on November 10, 2026, divided by the pack count printed on the product."}},{"@type":"Question","name":"Is a booster box cheaper per pack than buying single packs?","acceptedAnswer":{"@type":"Answer","text":"Not reliably. A single pack bought on its own is the cheapest pack in 12 of the 23 sets here that sell a pack both ways, and a box or bundle is cheaper in 11. It has to be checked set by set rather than assumed: on the 3 cheapest sets here the cheapest pack comes inside a box or a bundle, and on the 2 priciest the cheapest pack is bought loose."}},{"@type":"Question","name":"Is an Elite Trainer Box worth it?","acceptedAnswer":{"@type":"Answer","text":"Purely as packs, no. Across the 23 sets priced here the Elite Trainer Box is never the cheapest pack in its set, it is the priciest option on the row in 10 of them, and it runs a median of 1.46x the cheapest pack in the same set. It also comes with sleeves, dice, a promo card and the box itself, and we put no price on those, so whether that gap is worth paying is a question about the accessories rather than about the cards."}}]}</script>
-<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};setTimeout(g,1500);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
+<!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});setTimeout(g,10000);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="fc-flower" viewBox="0 0 24 24"><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(72 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(144 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(216 12 12)"/><ellipse cx="12" cy="5.4" rx="3.1" ry="4.6" transform="rotate(288 12 12)"/></symbol>
@@ -274,15 +274,6 @@ gap:11px;align-items:start}
 
 <section class="band tight">
   <div class="wrap">
-    <!-- SAY WHICH SETS, NOT "ALL". This label read "All 23 sets" while the rest of
-         the site said 41 set guides, so the one page whose whole job is a
-         complete price table implied the site had 23 sets in it. Two separate
-         things were wrong: products.json had gone stale and was five sets short
-         of sets.json, and the word "All" claimed a scope this page has never
-         had. The count is fixed by re-running sync-products.mjs; the word is
-         fixed here, because the imported Japanese and Korean guides are real
-         guides with no TCGplayer sealed listing to divide and never will be on
-         this table. -->
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>30 English sets</p>
     <h2>Cheapest pack to <span class="hl">priciest</span></h2>
     <p class="lede w40">Every English set we can price sealed, sorted by the cheapest pack available

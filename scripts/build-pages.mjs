@@ -1817,8 +1817,14 @@ const ripFact = (() => {
           ? `${esc(setLabel)} pack ${v.packNumber} on this channel`
           : `pack ${v.packNumber} of that ${esc(prodLabel)}`
       : "";
-  const named = v.hitCard && showableHits.length ? hits.filter((h) => h.name) : [];
-  const rar = (h) => (h.rarity && rarityLabel(h.rarity) ? `, ${article(rarityLabel(h.rarity))} ${esc(rarityLabel(h.rarity))}` : "");
+  // NOT gated on v.hitCard: a hit logged by hand in data/hits.json (every rip
+  // tagged from its description) has no Hit Card cell, and its facts line said
+  // nothing about the card the hit band under it was showing.
+  const named = showableHits.length ? hits.filter((h) => h.name) : [];
+  // article() above reads a capital U as "you" (a UPC, a Unova tin), which is
+  // right for products and wrong for the two rarities that start with one.
+  const rarArticle = (r) => (/^(ultra|uncommon)/i.test(r) ? "an" : article(r));
+  const rar = (h) => (h.rarity && rarityLabel(h.rarity) ? `, ${rarArticle(rarityLabel(h.rarity))} ${esc(rarityLabel(h.rarity))}` : "");
   const hitClause =
     named.length === 1
       ? `the hit was ${esc(named[0].name)}${rar(named[0])}`

@@ -45,6 +45,7 @@ import { pickIntlPrintingJp } from "../shared/intl-vocab.mjs";
 // than a change to it: that module is a pure function about a rule and this one
 // reads two files off disk.
 import { corpusScan, noScanBox, pinnedShot, NOSCAN_CSS } from "../shared/card-scan.mjs";
+import { breadcrumbScript } from "../shared/jsonld.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -2618,6 +2619,7 @@ ${/* THE NO-SCAN PANEL'S RULES RIDE WITH THE PANEL AND ONLY WITH IT. They are
       builders apply. Today every run emits some, and a run where none is
       emitted must not ship the rules for nothing. */ ""}<head>${swappedHead}<style>${style}${ranked.some((c) => !c.image) ? NOSCAN_CSS : ""}</style>
 <script>${leanJs(headScript)}</script>
+${breadcrumbScript([["Home", "/"], ["Best pulls"]])}
 </head>
 <body>
 ${skipLink}

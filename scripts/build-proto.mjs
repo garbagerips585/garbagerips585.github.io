@@ -3920,6 +3920,11 @@ for (const target of TARGETS) {
     }
     html = html.slice(0, a + start.length) + "\n" + body + "\n" + html.slice(b);
   }
+  // videos.html's head is hand kept, so its title could not carry a count
+  // without one being typed. The count is the catalogue's own length.
+  if (basename(target) === "videos.html") {
+    html = html.replace(/<title>[^<]*<\/title>/, `<title>Pokemon Pack Openings: ${videos.length} Rips by Set and Product</title>`);
+  }
   // THESE THREE HEADS ARE HAND MAINTAINED AND WERE NOT DERIVED FROM SITE.
 // index.html is the one page not generated wholesale: this script only replaces
 // the marked regions, so seven absolute URLs in its head (canonical, og:url,
