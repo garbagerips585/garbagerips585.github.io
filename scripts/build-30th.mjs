@@ -140,7 +140,18 @@ const jumbos = binder.jumbos || [];
    can ever be borrowed for one: 057 reverse is not 057. */
 const EXTRA_OWN = new Map((binder.extras || []).map((o) => [o.id, o]));
 const EXTRA_CELLS = ((doc.masterExtras || {}).rows || []).map((r) => {
-  const card = { name: r.name, n: r.n, section: "extra", setCode: r.tag || "", rarity: r.kind, pid: r.pid || null };
+  /* A CARD NOBODY HAS PHOTOGRAPHED DRAWS ITS REGULAR PRINTING, 12 November 2026.
+     The owner: "are you able to source images for all these new battle deck
+     exclusive cards so i know what im looking for, or at least put the name like
+     reverse holo or what makes it different". TCGplayer lists the deck printings
+     with no photo, so `base` is the same card as first printed (see the
+     masterExtras note), and the pop-up says the picture is the regular card. */
+  const base = r.pid ? null
+    : r.baseImg ? { img: r.baseImg }
+    : r.basePid ? { pid: r.basePid }
+    : r.group === "main" ? { dex: r.n } : null;
+  const card = { name: r.name, n: r.n, section: "extra", setCode: r.tag || "", pid: r.pid || null, base,
+    rarity: r.kind + (base ? " (regular card pictured)" : "") };
   const mine = EXTRA_OWN.get(r.id);
   return mine
     ? { has: true, owned: { ...card, got: mine.got }, slot: null, promo: true, group: r.group }
@@ -679,6 +690,24 @@ const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
 // this: 194 of 197 pocket numbers were bare, so every classic empty pocket was
 // ambiguous while the OWNED classic pockets beside them printed the whole
 // number from data/30th-binder.json -- the same card, two labels, one row apart.
+/* An extra's stand-in picture and its large twin; see `base` on EXTRA_CELLS. */
+const basePic = (s, low) => {
+  const b = s.base;
+  if (!b) return "";
+  if (b.pid) return tcgpImg(b.pid, s.name, low);
+  if (b.dex) { const id = dexLocalId("main", b.dex); return id ? cardImg(id, s.name, low) : ""; }
+  const d = imgDims(`${b.img}/low.webp`);
+  return `<img class="t30-card" src="${b.img}/low.webp" ` +
+    (low ? "" : `srcset="${b.img}/low.webp 245w, ${b.img}/high.webp 600w" sizes="${SIZES}" `) +
+    `alt="" loading="lazy" decoding="async"${d ? " " + d : ""} onload="t30l(this)" onerror="t30e(this)">`;
+};
+const baseBig = (s) => {
+  const b = s.base;
+  if (!b) return "";
+  if (b.pid) return `${tcgpBase(b.pid)}_in_1000x1000.jpg`;
+  if (b.dex) { const id = dexLocalId("main", b.dex); return id ? `${scanBase(id)}/high.webp` : ""; }
+  return `${b.img}/high.webp`;
+};
 const pocketNum = (section, n) =>
   section === "classic" || section === "extra" || /RGB/.test(String(n)) ? String(n) : String(n).split("/")[0];
 
@@ -838,11 +867,12 @@ const pocket = (c, i, slot, lg = "") => {
         pictureFor(c.name, { shot: c.shot, n: c.n, row: row || (c.pid ? { pid: c.pid } : null), section: c.section, fp: c.fp })
       : pictureFor(slot.name, { n: slot.n, row: slot, section: slot.section, low: true, fp: slot.fp });
     const px = pxOf(c, slot);
+    const pic2 = pic || (s.section === "extra" ? basePic(s, !c) : "");
     /* A JUMBO'S PRODUCT PHOTO CARRIES TCGPLAYER'S "OVERSIZE CARD" SASH across
        the art, so the enlarged view uses its standard-size twin's scan: the same
        artwork, clean. */
     const twin = c && /jumbo/i.test(c.kind || "") ? promos.find((o) => String(o.n) === String(c.n) && o.pid) : null;
-    const big = bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
+    const big = (s.section === "extra" && !s.pid && baseBig(s)) || bigOf(twin ? { ...s, pid: twin.pid } : s, twin ? { pid: twin.pid } : row || (s.pid ? { pid: s.pid } : null));
     const rar = row?.rarity || s.rarity || (c && /jumbo/i.test(c.kind || "") ? "Jumbo" : s.section === "promo" || s.setCode === "MEP" ? "Black Star Promo" : "");
     const attrs = zoomAttrs({ name: s.name, num: lab, rar, big, px, own: !!c, ill: s.fp ? s.fp.illustrator : illOf(s.section, s.n) });
     /* "Collected" IS SAID OUT LOUD, because otherwise it was communicated only
@@ -857,7 +887,7 @@ const pocket = (c, i, slot, lg = "") => {
                the big face was cut off at 390, and "#126" alone would read as
                the normal card beside it. */
             s.section === "extra" ? phOf(s.name + (s.setCode === "Rev" ? " reverse" : s.setCode === "Cos" ? " cosmos" : ""), "#" + String(s.n).split("/")[0]) : phOf(s.name, lab)}
-          ${pic}
+          ${pic2}
         </button>
         <span class="t30-pn">${c ? '<span class="t30-ok" aria-hidden="true"></span>' : ""}${esc(lab)}${
           /* A HALF AWAY FROM ITS PARTNER says which half it is in the strip:
@@ -2717,9 +2747,10 @@ ${BINDER_LEAVES.map(leafHtml).join("\n")}
       </div>
       </div>
       <p class="t30-sr" id="binder-live" role="status" aria-live="polite"></p>
-      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${FP_HAVE + promos.length + jumbos.length ? `, plus ${FP_HAVE + promos.length + jumbos.length} outside it${FP_HAVE ? `, ${FP_HAVE} of them First Partners` : ""}` : ""}.
+      <figcaption>${haveTotal} of ${TOTAL} toward the set, across ${LEAF_N} pages of nine pockets${FP_HAVE + promos.length + jumbos.length + EXTRA_HAVE ? `, plus ${FP_HAVE + promos.length + jumbos.length + EXTRA_HAVE} outside it${FP_HAVE ? `, ${FP_HAVE} of them First Partners` : ""}` : ""}.
         Turn a page with either corner, or jump to one below. A gray card is one still to find.${
-          jumbos.length ? ` The jumbos on the last page have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
+          EXTRA_CELLS.length ? ` A pocket marked Rev is the reverse holo of the card before it, and Cos is the Cosmos holo. The Stamps pages are cards from other sets reprinted for the Battle Decks as reverse holos with the 30th Celebration stamp, plus a few other stamped promos. Where nobody has a photo of the stamped or reverse printing yet, the pocket shows the regular card; tap it to see what makes yours different.` : ""}${
+          jumbos.length ? ` The jumbos have <a href="/jumbo-cards.html">a guide of their own</a>.` : ""
         }</figcaption>
     </figure>
     ${/* THE BINDER'S OWN SHARE LINK, /30th-binder.html, which previews as the
