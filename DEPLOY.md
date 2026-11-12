@@ -76,30 +76,109 @@ be the point.
 
 ## The nightly refresh
 
-`.github/workflows/refresh.yml` runs once a day at about 3am in New York. It
-re-syncs YouTube and the card prices, rebuilds, and commits if anything changed.
+`.github/workflows/refresh.yml` runs once a day. It re-syncs YouTube and the
+prices, rebuilds every page, and commits if anything changed. The commit is
+what publishes: `pages.yml` deploys when the nightly's run finishes green.
+
+**When it really runs: 8am to 2pm Eastern, not 3am.** It is BOOKED for 3am New
+York time, but GitHub starts it late. Measured on 11 November 2026 over the last
+20 runs: a median of 7 hours late, never less than 4. An older version of this
+file said "3:17am plus the worst measured delay still lands by 6:20am". That was
+five runs in August and it did not hold. So the nightly lands while people are
+working, and a push that crosses it is normal (see "A push during the nightly"
+below).
 
 **It is scheduled as TWO crons, 07:17 and 08:17 UTC, and that is deliberate.**
-Exactly one of them is 3am Eastern depending on whether daylight saving is in
-force, and a small `gate` job decides which by pairing New York's current UTC
-offset with `github.event.schedule`, the cron that fired. That is stamped at
-trigger time, so a late start cannot change the answer -- which matters,
-because GitHub has started these runs anywhere from 54 minutes to 3 hours
-late. The wrong cron's run is marked **skipped**, not failed, so a red X in the
-Actions tab is a real problem and not the daily noise it used to be.
+Exactly one of them is the 3am Eastern booking depending on whether daylight
+saving is in force, and a small `gate` job decides which by pairing New York's
+current UTC offset with `github.event.schedule`, the cron that fired. That is
+stamped at trigger time, so a late start cannot change the answer. The wrong
+cron's run is marked **skipped**, not failed, so a red X in the Actions tab is a
+real problem and not daily noise.
 
-**It ran at 9am Eastern from 19 August to 8 September 2026 and was moved.** The
-9am booking never actually produced a 9am run -- with GitHub's lateness it
-landed at 11:26am, 12:36pm and 12:55pm Eastern -- and a job that force-pushes a
-rebuild of ~1,400 pages arriving mid-session collided with in-flight editing on
-three consecutive days. 3:17am plus the worst measured delay still lands by
-6:20am, before the day starts.
+**It ran at 9am Eastern from 19 August to 8 September 2026 and was moved**,
+because a job that rewrites ~1,400 pages collided with in-flight editing on
+three consecutive days. The move to a 3am booking did not get it out of the
+working day, for the reason above; the race is handled in the job instead.
 
 This is the ONLY freshness mechanism. The site used to layer a live RSS feed
 over the committed JSON through a Cloudflare function; GitHub Pages cannot
 execute a function, so that fetch was a guaranteed 404 and has been removed. A
-new upload appears on the site within a day, or immediately if you run the
-workflow by hand from the Actions tab.
+new upload appears on the site within a day, or sooner if you run the workflow
+by hand.
+
+### What happens when part of it fails (since 11 November 2026)
+
+Every sync step is soft and runs through `scripts/nightly-step.sh`. One source
+being down no longer stops the others:
+
+- **The failed step's files go back to the last committed copy**, so the build
+  never reads a half-written file. That source simply shows last night's data.
+- **The job carries on**, builds, commits and deploys everything that did work.
+- **You are told.** See the alert issue below.
+
+**A degraded night.** If the page build itself fails on tonight's fresh data
+(one builder throwing on one new word from upstream is enough),
+`scripts/nightly-build.sh` throws away everything tonight's syncs wrote, goes
+back to the last committed data, and builds again. If that passes, the job ends
+green and the commit deploys: dates, show sweeps and "3 days ago" labels roll,
+but prices and videos are yesterday's. The alert issue says DEGRADED NIGHT and
+names the builder that failed. It repeats every night until that builder is
+fixed. If the second build fails too, the problem is in the source: nothing is
+committed, the job is red and nothing deploys.
+
+**A push during the nightly.** If somebody pushes while the nightly is running,
+its own push is rejected. `scripts/nightly-push.sh` then takes the new `main`,
+puts tonight's synced data files back on top (only the files the syncs own, and
+only where the other push did not touch them; a hand edit always wins), rebuilds
+every page from scratch and pushes that. Pages are never merged. Before 11
+November 2026 this path dropped the night's data without saying so.
+
+### The alert issues
+
+There is no outside alerting service. Three GitHub issues do the job, and GitHub
+emails issue activity to anyone watching the repository. **Watch the repository
+(Watch, then All Activity, or Custom with Issues ticked) or none of this reaches
+you.** Each issue gets one comment per bad day and is closed automatically by
+the first healthy run.
+
+| Issue title | Raised by | Means |
+| --- | --- | --- |
+| Nightly refresh is not healthy | the nightly itself | a sync step failed, the night was degraded, or the job ended red. The comment lists each one in a plain sentence. |
+| Nightly refresh did not commit | `verify.yml`, on its daily schedule | the newest "Nightly refresh:" commit on `main` is more than 36 hours old |
+| The live site is behind main | `verify.yml`, on its daily schedule | the commit being served is not the head of `main`, and `main` has not moved for 2 hours |
+
+`scripts/alert-issue.sh` holds the logic for all three.
+
+### `build.txt`: which commit is live
+
+`https://garbagerips.com/build.txt` holds the full sha of the commit the live
+site was deployed from. `pages.yml` writes it into the uploaded artifact just
+before the upload. It is not in the repository and must not be added to it. To
+check by hand:
+
+```bash
+rtk proxy curl -s "https://garbagerips.com/build.txt?$(date +%s)"; git rev-parse origin/main
+```
+
+The two lines should match within a few minutes of a push. `scripts/check-live.sh`
+makes the same comparison and is what `verify.yml` runs.
+
+### Running it by hand
+
+```bash
+gh workflow run "Nightly refresh"        # the whole nightly, now
+gh run watch                             # follow it
+gh run list --workflow "Nightly refresh" --limit 5
+```
+
+Or from the Actions tab: Nightly refresh, Run workflow. A manual run is never
+skipped by the gate, and running it twice in a day is safe. A non-admin token
+may get `HTTP 403` from `gh workflow run`; see the recovery note above, which
+applies here too.
+
+`RUNBOOK.md` has the checklist for a red nightly, and the list of the syncs that
+are NOT in the nightly and have to be run by hand.
 
 ---
 

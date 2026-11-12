@@ -38,12 +38,22 @@ on:
   # and the latest a nightly can now arrive became about 11:20 UTC. Left at
   # 16:40 on purpose: the wide margin costs nothing, and a midday check also
   # catches drift pushed by hand during the morning.
+  #
+  # CORRECTION, 11 NOVEMBER 2026: "observed 3 hour delay" is stale. Over the 20
+  # nightly runs to that date the nightly landed between 12:00 and 18:55 UTC (a
+  # median of 7 hours after its booking), and this workflow's own 16:40 booking
+  # started between 19:00 and 00:25 UTC. So this still runs after the nightly on
+  # nearly every day measured, but only because it is late as well. If GitHub ever
+  # starts running this one on time, move the cron to 21:40.
   schedule:
     - cron: "40 16 * * *"
   workflow_dispatch:
 
+# issues: write is for the two alerts at the foot of the job, which open,
+# comment on and close one issue each through scripts/alert-issue.sh.
 permissions:
   contents: read
+  issues: write
 
 jobs:
   drift:
@@ -116,3 +126,26 @@ jobs:
         env:
           TZ: America/New_York
         run: node scripts/check-freshness.mjs
+
+      # IS THE SITE THE COMMIT, AND DID THE NIGHTLY COMMIT? Added 11 November
+      # 2026; the reasons are in the header of scripts/check-live.sh. Two
+      # separate questions, two separate issues, both closed again by the
+      # first run that finds them healthy.
+      #
+      # NOT ON A PUSH. A push run starts seconds after the commit lands, when
+      # the deploy it triggered cannot have finished, so the answer would
+      # always be "in flight". The schedule and a manual run are the two that
+      # can say something. The comparison is written as != 'push' rather than
+      # == 'schedule' so a manual run can be used to test it.
+      #
+      # always(): this must report on exactly the days the steps above are red.
+      # It goes last so a red here never hides drift or freshness.
+      - name: Is the live site this commit, and did the nightly commit?
+        if: always() && github.event_name != 'push'
+        env:
+          TZ: America/New_York
+          ALERT: '1'
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: bash scripts/check-live.sh

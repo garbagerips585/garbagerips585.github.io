@@ -74,6 +74,24 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      # WHICH COMMIT IS LIVE, READABLE FROM OUTSIDE. Added 11 November 2026.
+      # Nothing could tell a deployed site from a queued, wedged or skipped
+      # deploy: main was right, every check was green and the site was old (30+
+      # minutes that day, twelve days in August). This writes the commit being
+      # deployed to /build.txt, and scripts/check-live.sh, run by verify.yml on
+      # its schedule, fetches it and compares it with the head of main.
+      #
+      # IT EXISTS ONLY IN THE UPLOADED ARTIFACT. It is written into this job's
+      # checkout after the checkout and is never committed, so check-build.py
+      # and check-tree-drift.mjs, which read the repository, cannot see it, and
+      # nothing can make it drift. Do not generate it from a builder: a
+      # committed copy would name the commit BEFORE the one that holds it.
+      # The name is safe beside the IndexNow key: scripts/indexnow.mjs finds its
+      # key file as <hex>.txt, and "build" is not hex.
+      # `git rev-parse HEAD` rather than GITHUB_SHA, because on a workflow_run
+      # event what matters is the commit this job actually checked out.
+      - name: Stamp the artifact with the commit it was built from
+        run: git rev-parse HEAD > public/build.txt
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

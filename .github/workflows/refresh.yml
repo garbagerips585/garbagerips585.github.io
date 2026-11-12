@@ -5,10 +5,13 @@
 # price is however old the last manual run was. Deploy is a separate workflow
 # that fires on any push to main, so committing here is what publishes.
 #
-# Runs once a day at about 3am in Rochester. It is scheduled as TWO crons,
-# 07:17 and 08:17 UTC, and a guard in the job ends the run on whichever one is
-# not 3am Eastern that day, so the time is fixed LOCALLY and a change to the
-# daylight saving rules needs no edit. See the schedule and the guard below.
+# BOOKED for 3am in Rochester, and it does NOT run then. Measured 11 November
+# 2026 over the last 20 runs: GitHub starts it a median of 7 hours late (5 to
+# 10), so it lands between 8am and 2pm Eastern. Plan around that, not around
+# the cron. It is scheduled as TWO crons, 07:17 and 08:17 UTC, and a guard in
+# the job ends the run on whichever one is not the 3am Eastern booking that
+# day, so the booking is fixed LOCALLY and a change to the daylight saving
+# rules needs no edit. See the schedule and the guard below.
 #
 # (This said "07:10 UTC, about 3am in Rochester" until 19 August 2026, which was
 # contradicted by the cron twenty lines below it in this same file. DEPLOY.md
@@ -22,7 +25,8 @@
 # TCGplayer half still runs on a fork or before the keys are added.
 name: Nightly refresh
 
-# 3am Eastern, every day.
+# Booked for 3am Eastern, every day. Lands 8am to 2pm Eastern (see the
+# correction dated 11 November 2026 a few paragraphs down).
 #
 # THE OWNER ASKED FOR 9am ON 17 AUGUST 2026 AND NEVER ONCE GOT IT. GitHub runs
 # scheduled jobs late, and measured here that lateness was 54 minutes to 3
@@ -47,6 +51,15 @@ name: Nightly refresh
 # which is earlier than any run this schedule has ever actually produced and
 # well before the day starts. The site is fresh when the owner wakes up, which
 # is what "9am" was asking for in the first place.
+#
+# CORRECTION, 11 NOVEMBER 2026: THE THREE PARAGRAPHS ABOVE DID NOT HOLD. "Worst
+# measured 3 hours" was five runs in August. Over the 20 runs to 11 November
+# the 08:17 UTC booking started between 12:02 and 18:44 UTC: a median of 7
+# hours late, never under 4, so the job lands at 8am to 2pm Eastern, which is
+# the working session the move to 3am was meant to avoid. The push race is
+# therefore the LIKELY case again. It is handled in scripts/nightly-push.sh,
+# which since the same day keeps the night's synced data through a race instead
+# of dropping it. The history above is left as written.
 #
 # GITHUB CRON IS UTC AND HAS NO CONCEPT OF DAYLIGHT SAVING, so one line cannot
 # be 3am Eastern all year. Two are scheduled instead, 07:17 and 08:17 UTC, and
@@ -163,9 +176,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # 24, THE SAME MAJOR AS verify.yml, pages.yml AND THE OWNER'S MACHINE. This
+      # was 22 until 11 November 2026, so the nightly built the tree on one
+      # Node and verify.yml rebuilt it on another to decide whether it had
+      # drifted. Nothing in scripts/ needs 22 (no package.json, no engines
+      # field, no native module); local builds and every drift check already
+      # run on 24.
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       # PYTHON AND PILLOW, BECAUSE build-all.mjs RUNS A PYTHON BUILDER.
       # scripts/build-og-pages.py draws the per-page social cards and imports
@@ -179,8 +198,24 @@ jobs:
         with:
           python-version: "3.12"
 
+      # PINNED, AND SOFT, both since 11 November 2026.
+      # Pinned: an unpinned install takes whatever PyPI released that morning,
+      # and a new Pillow is a new JPEG encoder, which redraws every share card
+      # and restamps every page that links one. 13.0.0 is what had been
+      # resolving here since its release on 16 October 2026 (PyPI, read 11
+      # November; the step ran --quiet, so the logs never named it). Raise it
+      # on purpose, in a commit, not by accident.
+      # Soft: PyPI being down used to end the night before a single price was
+      # read. scripts/nightly-build.sh checks whether PIL imports and, if it
+      # does not, builds the way verify.yml does every day, with the image
+      # builders skipped and the committed images kept.
       - name: Python deps for the image builders
-        run: python3 -m pip install --quiet Pillow
+        id: pillow
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "Pillow did not install, so the share-card images were not redrawn."
+          -- python3 -m pip install --quiet Pillow==13.0.0
 
       # The scripts cache raw API responses here. Restoring it keeps the
       # Pokemon TCG API calls down, since that one rate-limits hard and
@@ -207,16 +242,36 @@ jobs:
       # days of stale prices over a quota on a different service. A refused
       # sync leaves videos.json as it was, check-freshness.mjs still goes red on
       # its 3 day leash, and the warning at the foot of this job names it.
+      #
+      # EVERY SYNC STEP FROM HERE DOWN IS SOFT AND RUNS THROUGH
+      # scripts/nightly-step.sh, since 11 November 2026. Read that script's
+      # header. In short: the step still shows as failed, the job carries on,
+      # the files that step writes go back to the last committed copy so the
+      # build never reads a half-written one, and the sentence in quotes is
+      # what the owner is told in the alert issue. A step with no paths after
+      # the sentence is one whose script keeps its own last good file.
+      # No `if:` reads these outcomes for the restore, on purpose: a typo in
+      # an expression evaluates to false in silence.
       - name: New uploads
         id: youtube
         if: env.YT_API_KEY != ''
         continue-on-error: true
-        run: node scripts/sync-youtube.mjs
+        run: >-
+          bash scripts/nightly-step.sh
+          "The YouTube sync failed, so new rips did not come in."
+          data/descriptions.json public/data/videos.json public/data/playlists.json
+          -- node scripts/sync-youtube.mjs
 
       # Free and unauthenticated. --force because the whole point of a nightly
       # run is fresh numbers; without it every set would come back from cache.
       - name: Sealed product prices
-        run: node scripts/sync-products.mjs --force
+        id: products
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "Sealed product prices (TCGplayer) did not refresh; last night's stand."
+          public/data/products.json public/data/products-intl.json
+          -- node scripts/sync-products.mjs --force
 
       # Free and unauthenticated, and the only source that knows a Japanese set
       # exists. Cached, so this is one request per set after the first run.
@@ -225,7 +280,13 @@ jobs:
       # says when it was last updated.
 
       - name: Foreign-language sets
-        run: node scripts/sync-intl.mjs
+        id: intl
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The foreign-language set list (TCGdex) did not refresh; last night's stands."
+          public/data/intl-sets.json
+          -- node scripts/sync-intl.mjs
 
       # The guides for sets we have actually opened packs of. Heavily cached:
       # the first run made about 2,250 requests across TCGdex and PokeAPI, every
@@ -243,10 +304,15 @@ jobs:
       # continue-on-error KEEPS THE SIGNAL AND DROPS THE BLAST RADIUS: the data
       # still refreshes, and the last step below re-raises this into a red job
       # so it cannot become something nobody sees.
+      # No paths: this script writes its file in full and THEN exits 1 to flag
+      # a bad guide, so what is on disk is tonight's good data and stays.
       - name: Non-English set guides
         id: intl_guides
         continue-on-error: true
-        run: node scripts/sync-intl-guides.mjs
+        run: >-
+          bash scripts/nightly-step.sh
+          "The non-English set guides sync reported bad data for at least one guide."
+          -- node scripts/sync-intl-guides.mjs
 
       # Full card checklists and prices for the 23 English sets, 4,481 cards.
       # --rotate does a quarter of the sets per night so every one is current
@@ -265,14 +331,29 @@ jobs:
       # be 1,131 pages run by hand and then not run for six days.
       #
       # DO NOT RAISE --cold TO "CATCH UP". A month is the design.
+      # No paths: data/price-rotation.json is the bookmark for the pages this
+      # step put in .cache, and the script only moves its dates when pages
+      # really came back. Rolling it back would orphan the cache.
       - name: PriceCharting, 28 set guides daily plus a slice of the tail
         id: prices
         continue-on-error: true
-        run: node scripts/refresh-prices.mjs --hot --cold 26
+        run: >-
+          bash scripts/nightly-step.sh
+          "The PriceCharting refresh failed, so card prices kept their last read."
+          -- node scripts/refresh-prices.mjs --hot --cold 26
 
       # Parses the cache the step above just refreshed. Makes no request itself.
+      # If the step above failed this still runs, on whatever the cache holds,
+      # which is the last good read of each page. If THIS fails, its two files
+      # go back to HEAD and sync-cards.mjs below overlays last night's prices.
       - name: Card prices out of the refreshed pages
-        run: node scripts/sync-pricecharting-cards.mjs
+        id: pc_cards
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "Card prices could not be read out of the PriceCharting pages; last night's stand."
+          data/pricecharting-cards.json data/companion-prices.json
+          -- node scripts/sync-pricecharting-cards.mjs
 
       # 30th CELEBRATION, added 14 October 2026. The set is in no TCGdex set
       # sync-cards.mjs can reach and in no console refresh-prices.mjs reads, so
@@ -284,24 +365,70 @@ jobs:
       # continue-on-error like the prices step: a refused read keeps the last
       # good file (both scripts refuse to write a thinner one) and its own date.
       - name: 30th Celebration prices
+        id: thirtieth_prices
         continue-on-error: true
-        run: node scripts/sync-30th-prices.mjs
+        run: >-
+          bash scripts/nightly-step.sh
+          "30th Celebration prices did not refresh; the last read stands."
+          data/30th-prices.json
+          -- node scripts/sync-30th-prices.mjs
 
       - name: 30th Celebration card file
+        id: thirtieth_cards
         continue-on-error: true
-        run: node scripts/sync-30th-card-data.mjs
+        run: >-
+          bash scripts/nightly-step.sh
+          "The 30th Celebration card file did not refresh; the last one stands."
+          public/data/cards/30th-celebration.json
+          -- node scripts/sync-30th-card-data.mjs
 
+      # THE ONE THAT WRITES 29 FILES AND AN INDEX, so the one a crash can leave
+      # half done: it writes a card file per set as it goes and card-index.json
+      # last. On a crash every card file and the index go back to HEAD together
+      # (the 30th file is excluded: the step above owns it and it may be new).
+      # KEEP_IF_LOGGED: the script also exits 1 on purpose AFTER writing a full,
+      # consistent set, when a checklist came back smaller and was not
+      # overwritten. Its last progress line is the proof it got that far, and
+      # then the files are kept and only the note is raised.
       - name: Card checklists and prices
-        run: node scripts/sync-cards.mjs --prices --rotate
+        id: cards
+        continue-on-error: true
+        env:
+          KEEP_IF_LOGGED: "Wrote public/data/cards/*.json and card-index.json"
+        run: >-
+          bash scripts/nightly-step.sh
+          "Card checklists and prices (TCGdex) did not fully refresh."
+          public/data/card-index.json public/data/cards
+          ":(exclude)public/data/cards/30th-celebration.json"
+          -- node scripts/sync-cards.mjs --prices --rotate
 
       # MUST follow sync-cards and precede sync-chase. Makes TCGdex the single
       # source of truth for prices by pushing them into sets.json and
       # chase-tcg.json, so no two pages can quote the same card differently.
+      # If this fails, the card files go back to HEAD WITH sets.json and
+      # wanted.json, not only the two files it writes: its whole job is to
+      # make those agree, and tonight's card files beside last night's
+      # sets.json is exactly the disagreement it exists to prevent. Last
+      # night's set of all four agrees with itself. It reads only local files.
       - name: One price and one image per card
-        run: node scripts/reconcile-cards.mjs
+        id: reconcile
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The card price reconcile failed, so every card file went back to last night's copy."
+          public/data/sets.json public/data/wanted.json
+          public/data/card-index.json public/data/cards
+          ":(exclude)public/data/cards/30th-celebration.json"
+          -- node scripts/reconcile-cards.mjs
 
       - name: Preorder prices for upcoming sets
-        run: node scripts/sync-preorders.mjs --force
+        id: preorders
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "Preorder prices (TCGplayer) did not refresh; last night's stand."
+          public/data/preorders.json
+          -- node scripts/sync-preorders.mjs --force
 
       # Link-only: a TCGplayer product url per collector number, for every set
       # with a checklist. It writes no price and no card name, so there is
@@ -309,15 +436,26 @@ jobs:
       # reconcile pass that used to follow this step existed purely for that and
       # is gone.
       - name: TCGplayer product links
-        run: node scripts/sync-chase.mjs --force
+        id: chase
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "TCGplayer product links did not refresh; last night's stand."
+          data/chase-tcg.json
+          -- node scripts/sync-chase.mjs --force
 
       # 100 credits a day on the free tier and 2 credits per card, so 50 is the
       # daily ceiling. The script resumes rather than restarting, so it works
       # through the backlog a night at a time.
+      # No paths: it resumes from its own file, 50 cards a night.
       - name: PSA 10 prices
+        id: psa10
         if: env.PPT_API_KEY != ''
-        run: node scripts/sync-prices.mjs --limit 50
         continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "PSA 10 prices (pokemonpricetracker.com) did not refresh tonight."
+          -- node scripts/sync-prices.mjs --limit 50
 
       # ONE LIST, NOT TWO. This step used to enumerate every builder by hand,
       # duplicating the list in scripts/build-all.mjs, whose own header says the
@@ -342,8 +480,21 @@ jobs:
       # public/sets/), and stamp-assets last, with the reasons written next to
       # each. Calling it is what keeps this workflow correct by construction:
       # a builder added to build-all.mjs is a builder the nightly runs.
+      #
+      # A DEGRADED NIGHT STILL COMMITS, since 11 November 2026. This used to be
+      # a bare `node scripts/build-all.mjs`, so one builder throwing on one new
+      # word in tonight's data ended the job with no commit at all.
+      # scripts/nightly-build.sh builds on tonight's data and, if that fails,
+      # puts the tree back to HEAD and builds again on the last good data. If
+      # that passes the job carries on GREEN, commits and deploys (dates roll,
+      # tonight's prices and videos do not), and the alert issue names the
+      # builder that failed. If both builds fail the fault is in the source and
+      # this step fails as it always did: no commit, red job, no deploy.
       - name: Rebuild every page
-        run: node scripts/build-all.mjs
+        id: build
+        # The build command stays on this line: check-build.py fails the build
+        # if this file stops naming scripts/build-all.mjs outside a comment.
+        run: bash scripts/nightly-build.sh node scripts/build-all.mjs
 
       # Cheap guards. A nightly job that commits unattended should not be able
       # to publish a broken site quietly.
@@ -357,66 +508,50 @@ jobs:
       # requires conclusion == success. This site has already lost twelve days
       # of publishing to a freeze nobody could see. The message still prints in
       # full above, and on every local build, so it stays loud while it waits.
+      #
+      # check-build.py IS NOT RUN A SECOND TIME HERE ANY MORE, 11 November 2026.
+      # It is the last step of build-all.mjs, which exits 1 when it exits 1,
+      # carries on when it exits 2, and prints the problems it found in both
+      # cases, so the copy that stood here re-read 1,500 pages to learn what
+      # the step above had just said. Everything written above about exit 2 still holds; the
+      # ::warning for it moved into scripts/nightly-build.sh.
       - name: Check the build
-        run: |
-          node scripts/sync-chrome.mjs --check
-          python3 scripts/check-build.py || {
-            code=$?
-            if [ "$code" -ne 2 ]; then exit "$code"; fi
-            echo "::warning::check-build.py exit 2: the workbook needs a fix (see above). Continuing, because the build itself is sound."
-          }
+        run: node scripts/sync-chrome.mjs --check
 
+      # A PUSH RACE IS RESOLVED BY REBUILDING, NEVER BY MERGING.
+      #
+      # The first version of this rebased and retried, on the argument that
+      # this job "only ever ADDS generated output". Measured against real
+      # history, that is false and not marginally: a bot commit touches
+      # 1,164 to 1,172 files, and human commits pushed the same day
+      # overlapped it by 1,113, 1,113, 1,113, 261 and 88. Replaying one real
+      # rip post across one real bot diff conflicts on 14 files; a site-wide
+      # rebuild conflicts on 1,497, because stamp-assets.mjs rewrites the
+      # ?v= line on every page from both sides. Conflict is the COMMON case
+      # here, and on a conflict the loop bailed and the night was lost
+      # anyway.
+      #
+      # A CLEAN rebase was worse. Human edits a builder, bot commits pages
+      # built from the OLD builder, git merges them happily, and the pushed
+      # tree is new source with stale output -- the source/output drift
+      # verify.yml calls "this repo's worst documented failure mode", now
+      # published immediately because pages.yml deploys on workflow_run.
+      #
+      # So: throw the bot's commit away, take theirs, REBUILD, and commit
+      # the result. Generated files are never merged, so they cannot
+      # conflict and cannot drift from the source they came from.
+      #
+      # THE LOOP LIVES IN scripts/nightly-push.sh SINCE 11 NOVEMBER 2026, and
+      # one thing about it changed. It used to `git reset --hard HEAD~1`, pull
+      # and run ONLY build-all, which threw away every file the syncs had just
+      # written and never ran them again: a raced night committed a date roll
+      # at most, and the job was green. The script now keeps tonight's synced
+      # DATA files through the race (only the groups the other push did not
+      # touch; a person's edit always wins) and still rebuilds every page from
+      # scratch on top of their push. Nothing generated is merged, as above.
       - name: Commit if anything changed
-        run: |
-          git config user.name "garbage-rips-bot"
-          git config user.email "bot@garbagerips585.invalid"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "Nothing changed today."
-            exit 0
-          fi
-          git commit -m "Nightly refresh: $(date +%Y-%m-%d)
-
-          $(git diff --cached --stat | tail -1)"
-          # A PUSH RACE IS RESOLVED BY REBUILDING, NEVER BY MERGING.
-          #
-          # The first version of this rebased and retried, on the argument that
-          # this job "only ever ADDS generated output". Measured against real
-          # history, that is false and not marginally: a bot commit touches
-          # 1,164 to 1,172 files, and human commits pushed the same day
-          # overlapped it by 1,113, 1,113, 1,113, 261 and 88. Replaying one real
-          # rip post across one real bot diff conflicts on 14 files; a site-wide
-          # rebuild conflicts on 1,497, because stamp-assets.mjs rewrites the
-          # ?v= line on every page from both sides. Conflict is the COMMON case
-          # here, and on a conflict the loop bailed and the night was lost
-          # anyway.
-          #
-          # A CLEAN rebase was worse. Human edits a builder, bot commits pages
-          # built from the OLD builder, git merges them happily, and the pushed
-          # tree is new source with stale output -- the source/output drift
-          # verify.yml calls "this repo's worst documented failure mode", now
-          # published immediately because pages.yml deploys on workflow_run.
-          #
-          # So: throw the bot's commit away, take theirs, REBUILD, and commit
-          # the result. Generated files are never merged, so they cannot
-          # conflict and cannot drift from the source they came from.
-          for i in 1 2 3 4; do
-            if git push; then exit 0; fi
-            echo "Push rejected (attempt $i). Taking origin/main and rebuilding on top of it."
-            git reset --hard HEAD~1
-            git pull --ff-only origin main || exit 1
-            node scripts/build-all.mjs || exit 1
-            git add -A
-            if git diff --cached --quiet; then
-              echo "Rebuilt on top of their push and nothing differs. Their tree already has it."
-              exit 0
-            fi
-            git commit -m "Nightly refresh: $(date +%Y-%m-%d)
-
-          $(git diff --cached --stat | tail -1)"
-          done
-          echo "Still could not push after four attempts."
-          exit 1
+        id: commit
+        run: bash scripts/nightly-push.sh
 
       # RE-RAISED HERE, NOT SWALLOWED. Everything above has run and the refresh
       # is committed; this is only about the exit status the run reports, so it
@@ -492,27 +627,27 @@ jobs:
       # run, and a clean night closes it. GitHub emails issue activity to the
       # repository's watchers, which is the whole mechanism; no outside service.
       # It never fails the job, so it cannot itself block a deploy.
+      #
+      # WHAT IT SAYS COMES FROM A NOTES FILE, since later the same day. Every
+      # soft step that fails, a degraded build and a skipped image build each
+      # append one plain sentence to $RUNNER_TEMP/nightly-notes.txt (see
+      # scripts/nightly-step.sh and scripts/nightly-build.sh). This step posts
+      # those sentences plus the job's own status. It used to read two step
+      # outcomes by name and so could only ever name YouTube and prices.
+      # scripts/alert-issue.sh holds the open, comment and close logic, shared
+      # with verify.yml.
       - name: Tell the owner when the nightly is not healthy
         if: always()
         continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
           JOB_STATUS: ${{ job.status }}
-          YT: ${{ steps.youtube.outcome }}
-          PRICES: ${{ steps.prices.outcome }}
           REPO: ${{ github.repository }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
-          title="Nightly refresh is not healthy"
-          n=$(gh issue list -R "$REPO" --state open --search "in:title \"$title\"" --json number --jq '.[0].number // empty')
           what=""
-          if [ "$JOB_STATUS" != "success" ]; then what="$what The job ended $JOB_STATUS, so the site may not have refreshed at all."; fi
-          if [ "$YT" = "failure" ]; then what="$what The YouTube sync failed, so new rips did not come in."; fi
-          if [ "$PRICES" = "failure" ]; then what="$what The PriceCharting refresh failed, so card prices kept their last read."; fi
-          if [ -n "$what" ]; then
-            body="$(date +%Y-%m-%d):$what Run: $RUN_URL"
-            if [ -n "$n" ]; then gh issue comment "$n" -R "$REPO" --body "$body"
-            else gh issue create -R "$REPO" --title "$title" --body "$body"; fi
-          elif [ -n "$n" ]; then
-            gh issue close "$n" -R "$REPO" --comment "$(date +%Y-%m-%d): a clean night. Closing. Run: $RUN_URL"
-          fi
+          if [ "$JOB_STATUS" != "success" ]; then what="The job ended $JOB_STATUS, so the site may not have refreshed at all."; fi
+          notes="${NIGHTLY_NOTES:-$RUNNER_TEMP/nightly-notes.txt}"
+          if [ -s "$notes" ]; then what="$what $(tr '\n' ' ' < "$notes")"; fi
+          what="$(printf '%s' "$what" | sed -e 's/^ *//' -e 's/ *$//')"
+          bash scripts/alert-issue.sh "Nightly refresh is not healthy" "$what"

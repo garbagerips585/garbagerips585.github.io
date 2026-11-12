@@ -55,21 +55,123 @@ const WATCH = [
    nightly OWNS; a hand-run sync going quiet is a different question and wants a
    different answer than failing every push. */
 
+/* THE SECOND TIER, 11 November 2026: EVERYTHING ELSE A PAGE PRINTS A FIGURE
+   FROM. SOFT. IT NEVER CHANGES THE EXIT CODE.
+
+   The hard tier above is five files, and an audit that day found that a soft
+   nightly step (sealed prices, 30th prices, PSA 10) or a hand-run sync could
+   stop for months with no red anywhere. The paragraph above explains why those
+   must not FAIL a push: a hand-run file going quiet "wants a different answer".
+   This is that answer: a table on every run, a ::warning per overdue row when
+   this runs in Actions, and exit 0 from this tier always. verify.yml depends on
+   the hard tier's exit code and that is untouched.
+
+   Each row: file, how to read its date, leash in days, who refreshes it, what
+   it is. `nightly` rows get the same short leash as the hard tier. `hand` rows
+   get a REVIEW leash: how long before somebody should look again. THE HAND
+   LEASHES ARE PROPOSALS, NOT MEASUREMENTS, and are the owner's to change:
+   90 days for fee schedules, MSRPs and shop listings, 45 for shelf prices and
+   ranked price lists, 30 for the graded snapshot, 14 for the show calendar.
+   The sets and expansions stamps only move when the set LIST changes, so 100
+   days there means "a new set has come out and nobody ran the sync".
+
+   The date readers: a list of top-level keys (first one holding a date wins),
+   or a function of the parsed file for the two that keep their date elsewhere. */
+const newestAsOf = (doc) =>
+  Object.values(doc.auto || {}).map((v) => v && v.asOf).filter((v) => typeof v === "string").sort().pop();
+
+const SOFT = [
+  // refreshed by the nightly, through steps that are allowed to fail
+  ["public/data/products.json",               ["checked"],   3, "nightly", "sealed product prices (sync-products.mjs)"],
+  ["public/data/products-intl.json",          ["checked"],   3, "nightly", "foreign sealed product prices (sync-products.mjs)"],
+  ["public/data/intl-sets.json",              ["checked"],   3, "nightly", "foreign-language set list (sync-intl.mjs)"],
+  ["public/data/intl-guides.json",            ["checked"],   3, "nightly", "non-English set guides (sync-intl-guides.mjs)"],
+  ["data/30th-prices.json",                   ["checked"],   3, "nightly", "30th Celebration prices (sync-30th-prices.mjs)"],
+  ["public/data/cards/30th-celebration.json", ["checked"],   3, "nightly", "30th Celebration card file (sync-30th-card-data.mjs)"],
+  ["data/chase-tcg.json",                     ["checked"],   3, "nightly", "TCGplayer product links (sync-chase.mjs)"],
+  ["public/data/playlists.json",              ["syncedAt"],  3, "nightly", "playlists (sync-youtube.mjs)"],
+  // 50 cards a night, so the NEWEST entry is at most a day old when it runs.
+  ["data/psa10.json",                         newestAsOf,    3, "nightly", "PSA 10 prices, newest asOf in auto (sync-prices.mjs)"],
+  // refreshed by hand
+  ["data/drops.json",                         ["weekEnds"],  0, "hand", "this week's restock forecast; overdue once weekEnds has passed"],
+  ["data/shows.json",                         ["checked"],  14, "hand", "card show calendar"],
+  ["data/graded.json",                        ["checked"],  30, "hand", "graded prices for pulled cards (sync-pricecharting.mjs)"],
+  ["data/retailer-prices.json",               ["checked"],  45, "hand", "shelf prices read at retailers"],
+  ["data/top-raw.json",                       ["checked"],  45, "hand", "most valuable cards (sync-raw-top.mjs + verify-raw-top.mjs)"],
+  ["data/top-graded.json",                    ["checked"],  45, "hand", "top graded cards (sync-graded-top.mjs + verify-graded-top.mjs)"],
+  ["data/topps-top.json",                     ["checked"],  45, "hand", "Topps card values (sync-topps-top.mjs + verify-topps-top.mjs)"],
+  ["data/top100.json",                        ["checked"],  45, "hand", "most expensive sealed products (sync-top100.mjs)"],
+  ["data/first-partner.json",                 ["checked"],  45, "hand", "First Partner promo prices (sync-first-partner.mjs)"],
+  ["data/msrp.json",                          ["readOn"],   90, "hand", "MSRPs read from Pokemon Center"],
+  ["data/pokemon-center-prices.json",         ["readOn"],   90, "hand", "Pokemon Center shelf prices"],
+  ["data/grading.json",                       ["checked"],  90, "hand", "grading company fees and turnaround"],
+  ["data/selling.json",                       ["checked"],  90, "hand", "selling venue fees"],
+  ["data/buying.json",                        ["checked"],  90, "hand", "buying venue notes"],
+  ["data/shops.json",                         ["updated"],  90, "hand", "local card shop listings and hours"],
+  ["data/decks.json",                         ["checked"],  90, "hand", "deck usage from Limitless (sync-decks.mjs)"],
+  ["public/data/sets.json",                   ["syncedAt"], 100, "hand", "English set list (sync-sets.mjs); moves when a set is added"],
+  ["public/data/expansions.json",             ["syncedAt"], 100, "hand", "every expansion (sync-expansions.mjs); moves when a set is added"],
+];
+
+const JSON_OUT = process.argv.includes("--json");
+const say = (line) => { if (!JSON_OUT) console.log(line); };
 const today = localDay();
 const days = (iso) => Math.round((new Date(today) - new Date(iso)) / 86400000);
+const isDate = (v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}/.test(v);
+
+/** One row of either tier: read the file, find its date, measure it. */
+async function measure([rel, how, leash, owner, what], tier) {
+  const row = { file: rel, tier, owner, leash, what, stamp: null, age: null, status: "ok", problem: null };
+  const p = join(ROOT, rel);
+  if (!existsSync(p)) return { ...row, status: "missing", problem: "is missing entirely" };
+  let doc;
+  try { doc = JSON.parse(await readFile(p, "utf8")); } catch { return { ...row, status: "unreadable", problem: "does not parse" }; }
+  const found = typeof how === "function" ? how(doc) : how.map((k) => doc[k]).find(isDate);
+  if (!isDate(found)) {
+    const where = typeof how === "function" ? "the date it is read by" : `none of ${how.join(", ")}`;
+    return { ...row, status: "undated", problem: `carries ${where}, so its freshness cannot be checked` };
+  }
+  row.stamp = found.slice(0, 10);
+  row.age = days(row.stamp);
+  if (row.age > leash) row.status = "stale";
+  return row;
+}
+
+const hardRows = [];
+for (const w of WATCH) hardRows.push(await measure([w[0], w[1], w[2], "nightly", w[3]], "hard"));
+const softRows = [];
+for (const w of SOFT) softRows.push(await measure(w, "soft"));
 
 const bad = [];
-for (const [rel, keys, leash, what] of WATCH) {
-  const p = join(ROOT, rel);
-  if (!existsSync(p)) { bad.push(`${rel} is missing entirely (${what})`); continue; }
-  let doc;
-  try { doc = JSON.parse(await readFile(p, "utf8")); } catch { bad.push(`${rel} does not parse`); continue; }
-  const stamp = keys.map((k) => doc[k]).find((v) => typeof v === "string" && /^\d{4}-\d{2}-\d{2}/.test(v));
-  if (!stamp) { bad.push(`${rel} carries none of ${keys.join(", ")}, so its freshness cannot be checked`); continue; }
-  const age = days(stamp.slice(0, 10));
-  const line = `${rel.padEnd(32)} ${stamp.slice(0, 10)}  ${String(age).padStart(3)}d  (leash ${leash}d)  ${what}`;
-  if (age > leash) bad.push(line);
-  else console.log(`  ok    ${line}`);
+for (const r of hardRows) {
+  const line = `${r.file.padEnd(32)} ${r.stamp}  ${String(r.age).padStart(3)}d  (leash ${r.leash}d)  ${r.what}`;
+  if (r.status === "missing") bad.push(`${r.file} is missing entirely (${r.what})`);
+  else if (r.status === "unreadable") bad.push(`${r.file} does not parse`);
+  else if (r.status === "undated") bad.push(`${r.file} ${r.problem}`);
+  else if (r.status === "stale") bad.push(line);
+  else say(`  ok    ${line}`);
+}
+
+if (JSON_OUT) {
+  console.log(JSON.stringify({ today, hardStale: bad.length, rows: [...hardRows, ...softRows] }, null, 2));
+} else {
+  const overdue = softRows.filter((r) => r.status !== "ok");
+  console.log("\nEverything else a page prints a figure from (soft: reported, never fails):\n");
+  for (const r of softRows) {
+    const mark = r.status === "ok" ? "ok   " : r.status === "stale" ? "LATE " : "CHECK";
+    const when = r.stamp ? `${r.stamp}  ${String(r.age).padStart(3)}d` : "no date       ";
+    console.log(`  ${mark} ${r.file.padEnd(40)} ${when}  (leash ${String(r.leash).padStart(3)}d, ${r.owner.padEnd(7)})  ${r.what}${r.problem ? ` -- ${r.problem}` : ""}`);
+  }
+  if (overdue.length) {
+    console.log(`\n${overdue.length} of ${softRows.length} are past their leash or unreadable. Nightly rows: read the alert issue and the`);
+    console.log(`"Nightly refresh" run. Hand rows: RUNBOOK.md says which script refreshes each file.`);
+    if (process.env.GITHUB_ACTIONS === "true") {
+      for (const r of overdue) {
+        const why = r.status === "stale" ? `last dated ${r.stamp}, ${r.age} days ago, leash ${r.leash}` : r.problem;
+        console.log(`::warning title=Data past its leash (${r.owner})::${r.file}: ${why}. ${r.what}.`);
+      }
+    }
+  }
 }
 
 if (bad.length) {
@@ -80,4 +182,4 @@ if (bad.length) {
   console.error(`To refresh by hand: gh workflow run "Nightly refresh"\n`);
   process.exit(1);
 }
-console.log("\nall watched data is inside its leash");
+say("\nall watched data is inside its leash");
