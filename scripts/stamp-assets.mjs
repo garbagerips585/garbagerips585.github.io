@@ -247,15 +247,117 @@ function stripInlineCSS(html, name) {
   });
 }
 
+// ---------------------------------------------------------------------------
+// HTML COMMENTS, stripped here since 11 November 2026 for the same reason the
+// inline CSS is: this is the one step that sees every built page, and it runs
+// last. 1,598 pages carried them; outside the fences and markers kept below it
+// was builder prose, written beside the markup it explains and then shipped to
+// every reader (rarity 1.4KB gzipped, hall 1.4KB, the seven pages that slice
+// index.html's head about 1.25KB each of notes about the HOME page's head).
+// The comments stay in the builders. Only the generated page loses them.
+//
+// THREE PAGES ARE NOT TOUCHED AND THEY ARE THE THREE BIGGEST. public/index.html,
+// public/videos.html and public/playlists.html are HAND MAINTAINED AND
+// COMMITTED: they are their own source (build-proto.mjs's TARGETS; it rewrites
+// only the marked regions inside them). A comment stripped out of one of those
+// is deleted from the only copy there is, and index.html alone holds 13KB of
+// dated decisions. That is 5.9KB + 3.6KB + 1.0KB gzipped still on the wire,
+// and getting it back means moving the three skeletons into assets-source/
+// and having build-proto.mjs write public/ from them, the way ui.css moved.
+// Keep this list equal to TARGETS in scripts/build-proto.mjs.
+const HAND_MAINTAINED = new Set(["index.html", "videos.html", "playlists.html"]);
+//
+// WHAT IS KEPT, and the list is derived from the code that reads each one back
+// out of a BUILT file, not guessed:
+//   <!-- NAME:START --> / <!-- NAME:END -->   build-proto.mjs REGIONS, re-read
+//        on the next build (all inside the three files above today, kept
+//        anywhere so a new region page is safe by construction)
+//   <!--FOOT_SUB:START--> / <!--FOOT_SUB:END-->   shared/chrome.mjs; sync-chrome
+//        .mjs --check compares the built footer against the string that holds them
+//   <!--analytics:start--> / <!--analytics:end-->   GA_FENCE below, which is how
+//        the third pass finds and replaces its own block
+//   <!--[if ...]> and <![endif]-->   conditional comments. None exist today.
+// Everything else goes.
+const KEEP_COMMENT = /^<!--\s*(?:[A-Za-z][\w-]*:(?:START|END|start|end)\s*-->$|\[if\b|<!\[endif\])/;
+// Raw-text and whitespace-sensitive elements are copied through untouched. A
+// "<!--" inside a <script> or <style> is not a comment (and JSON-LD lives in a
+// <script>); <textarea> and <title> are RCDATA; <pre> could be parsed, but its
+// bytes are the content, so it is left alone on principle.
+const RAW = /^<(script|style|textarea|title|pre)\b/i;
+//
+// A WALK, NOT A REGEX, for the reason build-css.mjs gives about CSS: a regex
+// cannot tell `<!--` in markup from `<!--` inside a script string or a quoted
+// attribute value, and the day one appears it would eat the page to the next
+// `-->`. Tags are skipped whole with their quotes honoured.
+//
+// A comment that had lines to itself takes those lines with it, so no blank
+// line is left behind. A comment in the middle of a line is removed and
+// nothing else: the whitespace on either side of it is already there and stays,
+// so no two inline boxes that had a space between them lose it or gain one.
+export function stripHtmlComments(html) {
+  let out = "";
+  let i = 0;
+  const n = html.length;
+  while (i < n) {
+    const lt = html.indexOf("<", i);
+    if (lt === -1) { out += html.slice(i); break; }
+    out += html.slice(i, lt);
+    i = lt;
+    if (html.startsWith("<!--", i)) {
+      let end = html.indexOf("-->", i + 4);
+      end = end === -1 ? n : end + 3;
+      const text = html.slice(i, end);
+      if (KEEP_COMMENT.test(text)) { out += text; i = end; continue; }
+      const lineStart = out.lastIndexOf("\n") + 1;
+      const after = /^[ \t]*\r?\n/.exec(html.slice(end, end + 200));
+      if (after && /^[ \t]*$/.test(out.slice(lineStart))) {
+        out = out.slice(0, lineStart);
+        end += after[0].length;
+      }
+      i = end;
+      continue;
+    }
+    const raw = RAW.exec(html.slice(i, i + 12));
+    if (raw) {
+      const close = new RegExp("</" + raw[1] + "\\s*>", "ig");
+      close.lastIndex = i;
+      const m = close.exec(html);
+      const stop = m ? m.index + m[0].length : n;
+      out += html.slice(i, stop);
+      i = stop;
+      continue;
+    }
+    if (/^<[A-Za-z\/]/.test(html.slice(i, i + 2))) {
+      let j = i + 1;
+      while (j < n && html[j] !== ">") {
+        if (html[j] === '"' || html[j] === "'") {
+          const q = html.indexOf(html[j], j + 1);
+          j = q === -1 ? n : q + 1;
+        } else j += 1;
+      }
+      out += html.slice(i, j + 1);
+      i = j + 1;
+      continue;
+    }
+    out += "<";
+    i += 1;
+  }
+  return out;
+}
+
 let files = 0;
 let stamped = 0;
 let cssBefore = 0;
 let cssAfter = 0;
+let htmlComments = 0;
 for await (const f of walk(PUB)) {
   const raw = await readFile(f, "utf8");
-  const src = stripInlineCSS(raw, relative(PUB, f));
+  const rel = relative(PUB, f);
+  const css = stripInlineCSS(raw, rel);
+  const src = HAND_MAINTAINED.has(rel) || process.env.GR_KEEP_HTML_COMMENTS ? css : stripHtmlComments(css);
   cssBefore += Buffer.byteLength(raw);
-  cssAfter += Buffer.byteLength(src);
+  cssAfter += Buffer.byteLength(css);
+  htmlComments += Buffer.byteLength(css) - Buffer.byteLength(src);
   let changed = src !== raw;
   const out = [];
   let last = 0;
@@ -311,6 +413,7 @@ console.log(
   `Inline CSS comments stripped: ${(cssBefore - cssAfter).toLocaleString()} bytes ` +
     `out of ${cssBefore.toLocaleString()} of HTML`
 );
+console.log(`HTML comments stripped: ${htmlComments.toLocaleString()} bytes`);
 for (const [rel, v] of hashes) if (v) console.log(`  ${rel} -> ?v=${v}`);
 
 // ---------------------------------------------------------------------------
@@ -425,6 +528,43 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
      visitor who leaves inside 1.5s is not counted -- but they were not counted
      before either, because the script did not finish until about 2.8s.
      Re-measure if you touch it.
+
+     TOUCHED 11 NOVEMBER 2026, AND RE-MEASURED: IT NOW WAITS FOR THE load EVENT
+     AS WELL AS THE 1,500ms, THEN FOR AN IDLE SLOT. Everything above still
+     holds and none of it is undone: the floor is still 1,500ms counted from
+     the moment this snippet runs, exactly as the timer counted it, so no page
+     requests gtag EARLIER than the timer did, which is the half the August
+     load-event attempt and the rIC attempt both got wrong in opposite
+     directions. What changed is the pages where 1,500ms is not late enough.
+     Under 4x CPU the timer fired at about 2,150ms, in the middle of the image
+     downloads, and a script requested before load holds the load event open
+     until it has arrived and run. Measured at 390x844 DPR 3, Slow 4G, 4x CPU,
+     cache off, fresh context per run, medians of 5, with the gtag request
+     redirected to a local 172KB stand-in that runs one 110ms task (no request
+     reached Google and no hit was sent):
+
+                          gtag requested     load event        LCP
+       /index.html        2,144 -> 3,115ms   4,089 -> 3,101ms  2,496 -> 2,472ms
+       /sets/151.html     2,146 -> 2,650     3,604 -> 2,639      756 ->   784
+       a rip page         2,173 -> 2,159     1,749 -> 1,733    1,776 -> 1,760
+
+     So about a second comes off the load event on the pages that were still
+     loading at 1.5s, LCP does not move (it was already clear of the tag), and
+     total blocking time is the same 60ms either way because the tag's own
+     task is merely later. The rip page had finished loading before the floor
+     ran out, so it is requested when it was before and nothing on it moves.
+
+     THE ORDER IS load, THEN THE REST OF 1,500ms, THEN requestIdleCallback WITH
+     A 3s TIMEOUT. rIC is safe here in a way it was not as the ONLY gate: it
+     can no longer fire before the page has loaded. Safari has no rIC and goes
+     straight to the tag after the floor. pointerdown still brings it forward.
+
+     AND A 10s CEILING, BECAUSE load IS NOT GUARANTEED TO COME. One hung
+     third-party image (the scan host times out rather than failing) holds the
+     load event for as long as the socket stays open, and a tag that waits for
+     load alone would then count nobody for as long as the outage lasted, which
+     reads as a traffic drop rather than a bug. After 10 seconds it loads
+     regardless. On a page that slow the tag is not what is hurting it.
      gtag GOES ON `window` DELIBERATELY. The standard snippet declares it as a
      bare function in global scope; inside this IIFE it would not be, and
      anything on the site that later calls gtag() would throw. */
@@ -442,7 +582,11 @@ const GA_FENCE = /<!--analytics:start-->[\s\S]*?<!--analytics:end-->/g;
       `var s=document.createElement('script');s.async=true;` +
       `s.src='https://www.googletagmanager.com/gtag/js?id=${GA4_ID}';` +
       `document.head.appendChild(s)};` +
-      `setTimeout(g,1500);` +
+      // AFTER load AND NOT BEFORE 1,500ms, THEN IDLE, with a 10s ceiling,
+      // since 11 November 2026; the long note above has the measurements.
+      `var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};` +
+      `if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});` +
+      `setTimeout(g,10000);` +
       `addEventListener('pointerdown',g,{once:true,passive:true});` +
       `})();</script>`
     : "";

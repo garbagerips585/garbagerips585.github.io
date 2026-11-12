@@ -1266,7 +1266,20 @@ ${/* THE FIRST SCREEN IS THE CALENDAR NOW, 8 October 2026. At 390x844 the first
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/rochester.html">Local scene</a> / Card shows</nav>
     ${/* THE FIND PANEL SHIPS HIDDEN AND THE SCRIPT REVEALS IT, because every
           control in it needs the script, and a dead control is worse than none.
-          With no script the list below is complete and in date order. */ ""}
+          With no script the list below is complete and in date order.
+
+          THE REVEAL IS THE ONE-LINE SCRIPT RIGHT AFTER THE PANEL, NOT THE BIG
+          SCRIPT AT THE FOOT OF THE BODY, since 11 November 2026. The foot
+          script used to do it, which is after the first paint whenever the
+          parser yields before it gets there: 1440x900 under 4x CPU painted the
+          page without the panel and then pushed the weekend strip down 110px
+          (y 401 to 511), CLS 0.076 in 5 runs of 5. A phone usually won the
+          race, so it measured 0 there and looked fine. A classic inline script
+          runs during the parse, before anything after it can paint, so the
+          panel is in the first frame or (no script) never there. #csRail below
+          gets the same line for the same reason. The foot script still sets
+          both, which is harmless and covers a reader whose inline script was
+          stripped by something in between. */ ""}
     <div class="cs-find" id="csFind" hidden>
       <form class="cs-near" id="csNear" role="search" aria-label="Find shows near you">
         <label class="sr-only" for="csWhere">Zip code or town</label>
@@ -1285,6 +1298,7 @@ ${/* THE FIRST SCREEN IS THE CALENDAR NOW, 8 October 2026. At 390x844 the first
         <button class="chip sf" type="button" data-sort="near" aria-pressed="false">Nearest first</button>
       </div>
     </div>
+    <script>document.getElementById('csFind').hidden=false</script>
     <p class="cs-checked">Listings last checked ${esc(longDate(data.checked) || data.checked)}. <a href="/past-shows.html">Past shows</a> are kept on their own page, with the flyers.</p>
   </div>
 </section>
@@ -1324,8 +1338,14 @@ ${tiles.map((r, i) => {
       <button class="chip qf" type="button" data-q="free" aria-pressed="false" aria-label="Free entry">Free</button>
       <button class="chip qf" type="button" data-q="pk" aria-pressed="false" aria-label="Pokemon shows">Pokemon</button>
     </div>
-    <div class="cs-status"><span id="showCount" role="status"></span><button type="button" class="cs-clear" id="csClear" hidden>Clear all</button></div>
+    ${/* THE COUNT LINE SHIPS HOLDING ITS OWN HEIGHT (a no-break space), since
+          11 November 2026. Empty, the line was 0px tall until the foot script
+          wrote "89 shows, soonest first" into it, and the list under it moved
+          down 15px after first paint (CLS 0.0007 at 1440, 0.0016 at 768). The
+          script overwrites it; with no script it stays blank, as before. */ ""}
+    <div class="cs-status"><span id="showCount" role="status">&nbsp;</span><button type="button" class="cs-clear" id="csClear" hidden>Clear all</button></div>
   </div>
+  <script>document.getElementById('csRail').hidden=false</script>
   <div class="wrap">
     <div id="showList">
 ${dayGroups(nearRuns)}
@@ -1684,8 +1704,17 @@ await writeFile(join(ROOT, "public/card-shows.html"), page);
    start time is an ALL-DAY event rather than a guessed hour, and an end time is
    only written when the show published one. Times are converted to UTC through
    tzOffset(), the same offset the Event markup uses, so a reader in another zone
-   gets the right local time. DTSTAMP is the build day at midnight so the tree is
-   reproducible. The directory is cleared first, so a past show's file goes away
+   gets the right local time.
+
+   DTSTAMP IS THE DAY THE LISTINGS WERE LAST CHECKED (data.checked), NOT THE
+   BUILD DAY, since 11 November 2026. It was TODAY at midnight, which is
+   reproducible inside one day and no further: every one of the ~89 files
+   changed every night with nothing in it different, so the nightly commit
+   carried 89 files of noise and every calendar that had imported one was told
+   the event had been revised. RFC 5545 wants DTSTAMP present and in UTC; with
+   METHOD:PUBLISH it is "when this information was last revised", and
+   data.checked is the nearest thing this site holds to that. A file now changes
+   only when the show data does. The directory is cleared first, so a past show's file goes away
    the night it drops off the calendar. */
 const ICS_DIR = join(ROOT, "public/shows/ics");
 await rm(ICS_DIR, { recursive: true, force: true });
@@ -1706,9 +1735,13 @@ const icsFold = (line) => {
 };
 const icsUtc = (iso, hm) =>
   new Date(`${iso}T${hm}:00${tzOffset(iso)}`).toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+if (!/^\d{4}-\d{2}-\d{2}$/.test(String(data.checked || ""))) {
+  throw new Error(`data/shows.json "checked" must be YYYY-MM-DD to stamp the .ics files; got ${JSON.stringify(data.checked)}`);
+}
+const ICS_STAMP = `${data.checked.replace(/-/g, "")}T000000Z`;
 for (const r of runs) {
   const events = r.days.map((d) => {
-    const lines = ["BEGIN:VEVENT", `UID:${d.id}@garbagerips.com`, `DTSTAMP:${TODAY.replace(/-/g, "")}T000000Z`];
+    const lines = ["BEGIN:VEVENT", `UID:${d.id}@garbagerips.com`, `DTSTAMP:${ICS_STAMP}`];
     if (d.start) {
       lines.push(`DTSTART:${icsUtc(d.date, d.start)}`);
       if (d.end) lines.push(`DTEND:${icsUtc(d.date, d.end)}`);

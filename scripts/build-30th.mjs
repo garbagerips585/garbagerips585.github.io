@@ -438,12 +438,29 @@ const shotImg = (stem, name, sizes = SIZES) => {
  * about its _in_ renditions: every _200w sampled across all four sections is
  * exactly 200x279, a ratio of 0.717 against a real card's 0.714. */
 const tcgpBase = (pid) => `https://tcgplayer-cdn.tcgplayer.com/product/${pid}`;
-const tcgpImg = (pid, name, low = false, sizes = SIZES, side = false) =>
-  `<img class="t30-card${side ? " t30-side" : ""}" src="${tcgpBase(pid)}_200w.jpg" ` +
+/* A CHECKLIST ROW TAKES _150w ON A PHONE (\`thumb\`), 11 November 2026. The
+   row's picture is --rt wide: 44px under 600, 60 from 600, 68 from 1000 and 76
+   from 1280 (the .t30-cl block). It was the bare _200w file at every width,
+   and 44 x 3 is 132, which _150w covers with room; the CDN's real widths are
+   150, 200 and 400 and nothing between (see productSrcset() in
+   shared/format.mjs for the probe). So the row gets a two-rung ladder and an
+   honest sizes: every phone and every DPR 1 screen takes 150w, a DPR 2 desktop
+   (120 to 152 asked) takes 150w or 200w, and nothing takes 400w for a 76px
+   box. The grey POCKETS still pass \`low\` alone and keep _200w: a pocket is
+   up to 142px wide. */
+const ROW_SIZES = "(max-width:599px) 44px, (max-width:999px) 60px, (max-width:1279px) 68px, 76px";
+/* A LEGEND half is a landscape scan turned to fill the same portrait frame, so
+   its long edge is the frame's HEIGHT: 62px where an upright card is 44 (read
+   off the DOM at 390). 62 x 3 is 186, past 150w, so those rows declare the
+   long edge and a DPR 3 phone takes 200w for them, as before. */
+const ROW_SIZES_SIDE = "(max-width:599px) 62px, (max-width:999px) 84px, (max-width:1279px) 96px, 107px";
+const tcgpImg = (pid, name, low = false, sizes = SIZES, side = false, thumb = false) =>
+  `<img class="t30-card${side ? " t30-side" : ""}" src="${tcgpBase(pid)}_${thumb ? 150 : 200}w.jpg" ` +
+  (thumb ? `srcset="${tcgpBase(pid)}_150w.jpg 150w, ${tcgpBase(pid)}_200w.jpg 200w" sizes="${side ? ROW_SIZES_SIDE : ROW_SIZES}" ` : "") +
   /* A GREY POCKET TAKES THE SMALL FILE ONLY (\`low\`), 23 September 2026. It is
      drawn greyscaled at 78% opacity, so the 400w file bought nothing a reader
      can see, and at DPR 3 it was 470KB per Classic page turn on a phone. */
-  (low ? "" : `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
+  (low || thumb ? "" : `srcset="${tcgpBase(pid)}_200w.jpg 200w, ${tcgpBase(pid)}_400w.jpg 400w" ` +
   `sizes="${sizes}" `) +
   /* WIDTH AND HEIGHT, WHICH THIS USED TO OMIT ON PURPOSE AND SHOULD NOT HAVE.
      The reasoning was imgDims()'s rule that tcgplayer-cdn pads to a fixed
@@ -565,7 +582,7 @@ const fpImg = (f, name, sizes = SIZES) => {
     `<img class="t30-card" src="${f.img}" srcset="${set(".webp")}" sizes="${sizes}" alt="${esc(name)}, First Partner Illustration Collection promo" ` +
     `width="${f.imgWidth}" height="${f.imgHeight}" loading="lazy" decoding="async" onload="t30l(this)" onerror="t30e(this)"></picture>`;
 };
-const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES, fp = null }) => {
+const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES, fp = null, thumb = false }) => {
   if (fp) return fpImg(fp, name, sizes);
   const dex = dexLocalId(section ?? row?.section, n);
   if (dex) return cardImg(dex, name, low, sizes);
@@ -573,7 +590,7 @@ const pictureFor = (name, { shot, n, row, section, low = false, sizes = SIZES, f
      .avif for TCGdex and for our own pack renditions and returns its input
      untouched for anything else, so on a third party's .jpg the call was a
      no-op dressed as an optimisation. TCGplayer publishes no AVIF. */
-  if (row && row.pid) return tcgpImg(row.pid, name, low, sizes, isSideways(name));
+  if (row && row.pid) return tcgpImg(row.pid, name, low, sizes, isSideways(name), thumb);
   if (shot) return shotImg(shot, name, sizes);
   return "";
 };
@@ -2290,7 +2307,7 @@ const clRank = new Map(pricedCards.map((c, i) => [clKey(c.section, c.n), i + 1])
 const clOwned = new Set(owned.map((c) => clKey(c.section, c.n || "")));
 const clRow = (c) => {
   const k = clKey(c.section, c.n), pr = shownPriceOf(c), have = clOwned.has(k), ill = illOf(c.section, c.n);
-  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true });
+  const pic = pictureFor(c.name, { n: c.n, row: c, section: c.section, low: true, thumb: true });
   return `      <li class="t30-row${have ? " is-have" : ""}" data-s="${esc(c.section)}"${have ? ' data-have="1"' : ""} style="--rank:${clRank.get(k) || 9999}">
         ${pic ? `<button type="button" class="t30-rt t30-zm"${zoomOf(c)} aria-label="Show ${esc(c.name)} ${esc(pocketLabel(c.section, c.n))} larger">${pic}</button>` : `<span class="t30-rt"></span>`}
         <span class="t30-rm"><b>${esc(c.name)}</b><i><span class="t30-rn">#${esc(pocketNum(c.section, c.n))}</span> &middot; ${esc(

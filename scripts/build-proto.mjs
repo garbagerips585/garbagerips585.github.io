@@ -667,7 +667,33 @@ const rawValue = (v) => HIT_VALUE[v.id] || 0;
  * flat 272.6 from 823 to 1199 (read off the built page). Both strings declare
  * 273px there; the old 377 and 399 fetched the 810w file where 560w covers a
  * retina screen. Latest did not move and its string is unchanged. */
-const HOFX_SIZES = "(max-width:424px) calc(85vw - 70px), (max-width:544px) calc(71.5vw - 63px), " +
+/* A DPR 3 PHONE TAKES THE 560w FILE FOR THE TROPHY, NOT THE 810w ONE, since
+ * 11 November 2026. This is the home page's LCP image. The box is 260 CSS px
+ * at 390, so an honest sizes asks a DPR 3 phone for 780 device pixels and the
+ * only candidate that covers it is the 810w master: 114.5KB on the wire where
+ * the 560w -mid file is 64.6KB. The clause below declares 186px to a screen
+ * of 2.5dppx or more, and 186 x 3 = 558, so that screen takes 560w, which is
+ * 2.15 device pixels per CSS pixel on the art: the density every DPR 2 phone
+ * has always had here. Screenshotted element-exact at 390 DPR 3 with both
+ * files and compared at 3x magnification: the lettering and the mascot hold,
+ * and no difference is visible at phone size.
+ *
+ * Measured 390x844 DPR 3, Slow 4G, 4x CPU, cache off, fresh context per run,
+ * medians of 5, twice: LCP 2,484 -> 1,136ms and 2,468 -> 1,132ms; on-load
+ * transfer 560.7 -> 509.9KB; load event 3,095 -> 2,834ms. The LCP figure is
+ * bigger than the 50KB alone explains and the waterfall says why: the 810w
+ * file was still arriving at 2,416ms, sharing the pipe with the seven lazy
+ * tiles that start at 750 to 1,070ms, where the 560w file is done at 1,104ms,
+ * before they have taken much of it. That harness is HTTP/1.1; over HTTP/2
+ * with priorities the audit measured the same change at 2,028 -> 1,740ms.
+ *
+ * IT IS DELIBERATELY A LIE TO sizes, AND THE ONLY ONE IN THIS FILE. Every other
+ * clause is the measured box. It is fenced to phones (max-width:544px) and to
+ * 2.5dppx and up, so no DPR 1 or DPR 2 screen and no tablet reads it, and
+ * qa-sweep.mjs (which runs at DPR 1) does not see it. If the phone box grows
+ * past about 280px, re-take the screenshot before keeping the cap. */
+const HOFX_DPR3_CAP = "(max-width:544px) and (min-resolution:2.5dppx) 186px, ";
+const HOFX_SIZES = HOFX_DPR3_CAP + "(max-width:424px) calc(85vw - 70px), (max-width:544px) calc(71.5vw - 63px), " +
   "(max-width:640px) 413px, (max-width:699px) 399px, (max-width:1199px) 273px, (max-width:1499px) calc(30.6vw - 94px), 365px";
 /* THE PHONE CLAUSE CHANGED ON 11 NOVEMBER 2026, WITH THE PHONE ROWS. Below 545
  * both shelves are a two-up swipe row now (see note 3 after homeCss), so the

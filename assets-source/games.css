@@ -1,0 +1,455 @@
+/* Games. Loaded only by /games/, so nothing here can affect the rest of the site.
+ *
+ * BUILT FOR ONE THUMB IN A QUEUE. Every layout decision below follows from the
+ * same brief as games.js: standing in line, phone in one hand, may have to stop
+ * without warning. So the answers sit at the BOTTOM of the screen where a thumb
+ * reaches, in a 2x2 grid rather than a 1x4 list, because a four row list pushes
+ * the last answer past the fold on a short phone and makes the top two a
+ * stretch. Targets are 56px tall, comfortably over the 44px minimum, because
+ * the failure mode here is tapping the wrong answer and losing a streak.
+ *
+ * THE STAGE RESERVES ITS HEIGHT. Card scans and Pokemon artwork arrive at
+ * different times over a venue's wifi, and a stage that grows when the image
+ * lands would shift the answer buttons under a thumb already on its way down.
+ * aspect-ratio holds the box open before anything loads.
+ */
+
+/* THE STAGE RESERVED ITS HEIGHT BUT THE MOUNT DID NOT, which meant the whole
+   trick above only started working after the game existed. All three game pages
+   ship `<div id="game"></div>` empty and games.js writes the entire .gq block
+   into it on load, so at first paint the page is short enough that the FOOTER
+   is inside the viewport, and the arriving game shoves it out. Measured in
+   headless Chrome at 1440x900: CLS 0.2702, attributed to FOOTER, against a 0.1
+   budget. It is intermittent (1 of 3 runs) because it is a race between the
+   script and the first paint, which is exactly the kind of defect that looks
+   fine every time you check it by hand.
+
+   The reserve is sized from the assembled game. RE-MEASURED 17 August 2026 on
+   all three pages, at DPR 2, after the stat bar gained a third pill and the foot
+   gained 22px of reserved room for the skip hint:
+
+                quiz   guess-the-set   min(78svh,720) was   min(84svh,760) is
+      375x667    471        547               520  SHORT           560
+      390x844    604        663               658  SHORT           709
+      414x896    621        688               699                  753
+      768x1024   659        729               720  SHORT           760
+      1440x900   635        698               702                  756
+      1920x1080  659        729               720  SHORT           760
+
+   THE OLD VALUE WAS ALREADY SHORT ON A 375x667 BEFORE ANY OF TODAY'S CHANGES:
+   Guess the Set measures 547 there now and 525 without the 22px, against a 520
+   reserve, so the smallest phone this site supports was the one screen the guard
+   did not cover. The other three misses are today's 22px, and the reason the
+   figures above are 22 higher than the ones this comment used to carry.
+
+   Where it over-reserves, the slack is taken back BELOW the fold: nothing that
+   moves was ever on screen, so the correction costs no CLS. Sized in svh rather
+   than vh for the same reason .gq-stage is, see the note there.
+
+   :empty is the whole condition. The moment games.js writes into the mount the
+   rule stops matching, so there is no dead whitespace to clean up and nothing
+   to keep in step with the game's real height. */
+#game:empty { min-height: min(84svh, 760px); }
+
+.gq {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* Stats. Space Mono so the streak counter does not reflow the row every time it
+   ticks from 9 to 10.
+   WRAPS, because the bar gained a third pill. It carried "streak" and "best"
+   and a clock that only shows in sprint, and it now carries the run tally as
+   well (see games.js, point 1). Three pills plus a clock do not fit 366px on a
+   390px phone, and the failure mode without this is one pill pushed out of the
+   centred row rather than a tidy second line. Gap trimmed from --s3 to --s2 for
+   the same reason: it buys the third pill about 16px. */
+.gq-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s2);
+  row-gap: 8px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--s4);
+  font: 700 var(--t-micro) / 1 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.gq-stat {
+  background: var(--paper-2, #2F4F39);
+  border: 2px solid var(--ink);
+  border-radius: var(--r-pill);
+  padding: 8px 14px;
+  color: var(--ink-2);
+}
+.gq-stat b {
+  font-size: 1.15rem;
+  color: var(--ink);
+  font-family: var(--mono);
+}
+.gq-clock {
+  background: var(--mustard);
+  color: var(--on-accent);
+}
+
+/* The compact header the three game pages use. The standard hero is 319px on a
+   phone, which pushed the answer buttons 125px below the fold and made you
+   scroll to play every single question. */
+.g-hero { padding-top: var(--s3); padding-bottom: var(--s3); }
+.g-hero h1 { font-size: var(--t-l); }
+/* The section that holds the game opens tight against the header, and its
+   breadcrumb is moved below the play area in the markup. Together with the
+   compact hero this is the 108px that got the answer buttons back on screen. */
+.g-hero + section { padding-top: var(--s3); }
+.g-hero + section .btn-row { margin-bottom: var(--s3) !important; gap: var(--s2); }
+.g-hero + section .crumbs { margin-top: var(--s5); }
+
+/* The picture. A fixed box so nothing moves when the art arrives.
+   svh, NOT vh: on iOS Safari vh is the height with the browser chrome HIDDEN,
+   so a 45vh stage is taller than 45% of what you can actually see and pushes
+   the answers back under the address bar, which is the exact bug this is here
+   to prevent. svh is the small viewport, chrome showing. */
+.gq-stage {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: min(34svh, 330px);
+  display: grid;
+  place-items: center;
+  background: var(--paper-2, #2F4F39);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  overflow: hidden;
+  padding: var(--s4);
+}
+.gq-stage img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  display: block;
+}
+
+/* The silhouette. brightness(0) crushes every pixel to black while leaving the
+   alpha channel alone, which is exactly a silhouette and needs no second image.
+   It only works on artwork with a transparent background, which is why this
+   game uses the artwork PNGs and not a card scan: a card scan is a rectangle,
+   and the silhouette of a rectangle is a rectangle. */
+.gq-sil img {
+  filter: brightness(0);
+}
+.gq-sil.is-shown img {
+  filter: none;
+}
+
+/* The stage's inner wrapper. It must FILL the stage and constrain the image,
+   never size itself from the image.
+   This carried a real bug: .gq-card set its own aspect-ratio: 3/4, but it is a
+   child of .gq-stage rather than the stage itself, so it took 3/4 of the stage
+   WIDTH as its height, overflowed the stage's 330px cap, and was clipped by the
+   stage's overflow: hidden. The part it cut off was the bottom of the card,
+   which is precisely where the set symbol and the card number sit, so Guess the
+   Set was hiding the only two things that answer the question. */
+.gq-sil,
+.gq-card {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+.gq-sil img,
+.gq-card img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+
+/* A card is portrait, so its stage is portrait too. A square stage showing a
+   portrait card wastes a third of the width and shrinks the symbol further. */
+.g-cards .gq-stage {
+  aspect-ratio: 3 / 4;
+  max-height: min(41svh, 400px);
+}
+
+/* Trivia. It used to have no picture at all and the question WAS the stage; it
+   now draws a species portrait every round, in the same square box, because the
+   answer buttons must not move between a game with art and one without it.
+
+   THE PICTURE ROW IS 1fr AND THE QUESTION IS auto, which is backwards from the
+   obvious way round and is the whole no-shift argument. The text takes the
+   height it needs and the portrait takes what is left, so a long question can
+   never be clipped by .gq-stage's overflow:hidden, and the 56.0% of questions
+   whose portrait does not appear until the answer is in still have the box
+   reserved from the first frame. Measured on the whole shipped bank at 320x568:
+   inner box 148px, longest question 88px at the size set further down, so the
+   portrait gets 52px there and 92px on the median and never pushes out a word.
+   Nothing below the stage moves either: aspect-ratio and max-height are untouched.
+
+   place-self, NOT align-self, AND BOTH HALVES WERE BUGS THAT SHIPPED IN TESTING.
+   .gq-stage is place-items:center, so a grid item is sized by its CONTENT.
+   Without the vertical stretch .gq-art had no definite height, the picture's
+   max-height:100% resolved to none and it drew 249px tall in a 157px row, and
+   overflow:hidden cut the top and bottom off the Pokemon. Without the
+   horizontal one it sized to its in-flow content, which is nothing once the
+   picture is positioned: 0px wide, indistinguishable from a broken image.
+   min-height:0 is the usual grid companion, or the item refuses to shrink. */
+.gq-art {
+  place-self: stretch;
+  min-height: 0;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+/* 128px IS THE SIZE THIS RENDITION IS CUT FOR. /assets/species/ is 256px, 1:1
+   at a 128px box on a DPR 2 phone, and the same pairing /pokemon/ already ships
+   beside its h1. Uncapped, the portrait grew with the row: 213px on a one line
+   question against 157px on a four line one, so it changed size question to
+   question and the large end was a 1.7x upscale. The 475px lg rendition carries
+   a bigger box and Who's That Pokemon pays for it, because there the picture IS
+   the question; here it is 19.6KB against 11.9KB median every round, on a game
+   whose brief is a venue's wifi.
+
+   ABSOLUTE, BECAUSE A PERCENTAGE max-height DOES NOT RESOLVE AGAINST A STRETCHED
+   GRID ROW. max-height:min(100%,128px) in flow looked right at 390x844, where
+   the 128px branch binds and hid the fault; at 320x568 the row drops to 48px on
+   a long question, the 100% branch has to bind and resolves to none, and the
+   question was painted ON TOP OF THE POKEMON. Out of flow the percentages
+   resolve against .gq-art's padding box, whose used height is the grid row and
+   is definite at every width. inset:0 with margin:auto is the centring. */
+.gq-art img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  max-width: 128px;
+  max-height: 128px;
+  object-fit: contain;
+  display: block;
+}
+/* The mark that holds the slot open on a question whose portrait IS the answer.
+   aria-hidden in the markup, so this is only ever seen. */
+.gq-pending {
+  font: 400 var(--t-xl) / 1 var(--display);
+  color: var(--ink);
+  opacity: .22;
+}
+.gq-q {
+  font: 400 var(--t-l) / 1.25 var(--display);
+  color: var(--ink);
+  text-align: center;
+  text-wrap: balance;
+}
+/* The trivia stage only. Guess the Set and Who's That Pokemon put a single
+   image in the box and want it centred, which is what .gq-stage already does. */
+.g-quiz .gq-stage {
+  grid-template-rows: 1fr auto;
+  gap: var(--s2);
+}
+
+.gq-say {
+  min-height: 2.6em;
+  margin: var(--s3) 0;
+  text-align: center;
+  font: 600 var(--t-sm) / 1.4 var(--body);
+  color: var(--ink-2);
+}
+.gq-say.is-right { color: var(--teal); }
+.gq-say.is-wrong { color: var(--ketchup-deep); }
+
+/* Answers: 2x2, thumb sized, at the bottom.
+
+   minmax(0, 1fr), NOT 1fr, AND THE DIFFERENCE WAS VISIBLE ON GUESS THE SET.
+   A bare 1fr is minmax(auto, 1fr), so a column cannot go under its content's
+   min-content width, which for a run of text is its longest WORD. Set names are
+   long single words. Measured at 320x568 across 40 questions: the two columns
+   came out 128px and 157px, a 29px spread, on "Gym Challenge" against "Pitch
+   Black", and the wider one then wrapped its neighbour to an extra line. Two
+   answers of equal standing were being drawn at different sizes because of how
+   long one of the words in them was. minmax(0,...) lets both columns take
+   exactly half and the text wrap inside them. */
+.gq-choices {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: var(--s2);
+}
+.gq-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--s2);
+  min-height: 56px;
+  padding: 10px 12px;
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: 0 3px 0 var(--ink);
+  font: 700 var(--t-sm) / 1.2 var(--body);
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+}
+.gq-btn:active { box-shadow: 0 1px 0 var(--ink); transform: translateY(2px); }
+/* aria-disabled, not :disabled. games.js stopped using the `disabled` property
+   because a disabled button fires no click and bubbles nothing, which made the
+   four biggest targets on the screen the only place a tap-to-continue could not
+   be heard. The selector has to follow or a locked button keeps the text
+   cursor. Nothing else changes: there was never a :disabled rule. */
+.gq-btn[aria-disabled="true"] { cursor: default; }
+.gq-num {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--paper-3, #405D49);
+  font: 700 var(--t-micro) / 1 var(--mono);
+  color: var(--ink-2);
+}
+/* Right and wrong are not carried by colour alone: the correct answer also
+   gains a heavier border, so the result reads without relying on hue. */
+.gq-btn.is-right {
+  background: var(--teal);
+  border-color: var(--ink);
+  border-width: 4px;
+  /* WAS #fff. The teal is a light accent now, so white on it is 2.10:1. The
+     heavier border still carries the answer without relying on hue, which is
+     what the note above is about. */
+  color: var(--on-accent);
+}
+.gq-btn.is-right .gq-num { background: rgba(255,255,255,.85); color: var(--on-accent); }
+.gq-btn.is-wrong {
+  background: var(--ketchup-deep);
+  border-color: var(--ink);
+  color: var(--on-accent);
+}
+.gq-btn.is-wrong .gq-num { background: rgba(255,255,255,.85); color: var(--on-accent); }
+
+.gq-again { grid-column: 1 / -1; justify-content: center; background: var(--mustard); color: var(--on-accent); }
+
+.gq-foot { margin-top: var(--s4); text-align: center; }
+/* The skip hint. It appears under the answers on the first three results of a
+   session and then never again, so it must not change the height of the foot
+   when it goes: the mode button would step up 20px under a thumb on its way to
+   it. Absolutely positioned inside a foot that already reserves the room. */
+.gq-foot { position: relative; padding-top: 22px; }
+.gq-skip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  font: 700 var(--t-micro) / 1.4 var(--mono);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.gq-skip[hidden] { display: none; }
+.gq-mode {
+  /* 44px tall, because it is a standalone control with no larger equivalent
+     anywhere: measured at 122x26.8 it was the only real tap-target failure on
+     the game pages, and these pages are explicitly built to be used one-handed
+     in a queue. See the note below on where the dashed rule actually lives. */
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  background: none;
+  border: 0;
+  padding: 4px 10px;
+  font: 700 var(--t-sm) / 1.2 var(--body);
+  color: var(--ink-2);
+  cursor: pointer;
+}
+/* The dashed rule underlines the TEXT, not the 44px button.
+   The comment above claimed this already, and it was not true: the border sat
+   on the button itself, so growing the target to 44px left the rule floating
+   about 14px below the words and running behind the mode pills underneath,
+   where only the segments between them showed. It read as a broken striped
+   element poking out from under two buttons. */
+.gq-mode span,
+.gq-mode { text-underline-offset: 4px; }
+.gq-mode { text-decoration: underline dashed 2px; }
+
+/* Sprint result. */
+.gq-over { text-align: center; }
+.gq-over-n { font: 400 clamp(3rem, 18vw, 5rem) / 1 var(--display); color: var(--ink); }
+.gq-over-l { font: 600 var(--t-sm) / 1.4 var(--body); color: var(--ink-2); }
+
+/* The hub. */
+.g-list { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); width: 100%; min-width: 0; }
+.g-card {
+  display: block;
+  padding: var(--s5);
+  background: var(--card);
+  border: 3px solid var(--ink);
+  border-radius: var(--r);
+  box-shadow: 0 4px 0 var(--ink);
+  text-decoration: none;
+  color: inherit;
+}
+/* h2, not h3: the game name is the only heading under the hub's h1, so an h3
+   skipped a level. Declaration unchanged from the `.g-card h3` it replaces, so
+   nothing moves; the size never came from the UA heading default. */
+.g-card h2 { font: 400 var(--t-m) / 1.15 var(--display); margin-bottom: 6px; }
+.g-card p { font: 400 var(--t-sm) / 1.45 var(--body); color: var(--ink-2); }
+.g-card .g-tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border-radius: var(--r-pill);
+  background: var(--mustard);
+  /* The pill inherits the card's --ink, which is a near-white on the teal fill:
+     1.99:1. Every other filled control on the site writes --on-accent. */
+  color: var(--on-accent);
+  font: 700 var(--t-micro) / 1.6 var(--mono);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+/* Lore. */
+.lore-list { display: grid; gap: var(--s4); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); width: 100%; min-width: 0; }
+.lore {
+  padding: var(--s4);
+  background: var(--card);
+  border: 2px solid var(--ink);
+  border-radius: var(--r);
+}
+.lore h3 { font: 700 var(--t-sm) / 1.3 var(--body); text-transform: uppercase; letter-spacing: .06em; color: var(--ink-2); margin-bottom: 6px; }
+.lore p { font: 400 var(--t-body) / 1.5 var(--body); color: var(--ink); }
+.lore .lore-src { display: block; margin-top: 8px; font: 400 var(--t-micro) / 1.4 var(--mono); color: var(--ink-2); }
+
+/* SHORT SCREENS, which is a separate axis from narrow ones. A 375x667 iPhone SE
+   is the same width as a 375x812 but has 145px less to spend, and on it the
+   answers finished 47px below the fold even after the stage was capped. Every
+   value here is trimmed rather than removed: the streak still shows, the
+   result line still reserves its space so the buttons cannot jump, and the
+   targets stay at 50px, above the 44px minimum. */
+@media (max-height: 720px) {
+  .g-hero { padding-top: 6px; padding-bottom: 6px; }
+  .g-hero h1 { font-size: var(--t-m); }
+  .gq-stage { max-height: min(30svh, 260px); padding: var(--s2); }
+  .g-cards .gq-stage { max-height: min(40svh, 300px); }
+  /* THE QUESTION WAS THE SAME 22.4px ON A 148px BOX AS ON A 249px ONE, and the
+     stage is the only element on the page that does not get to scroll. Measured
+     against the whole shipped bank at 320x568: at var(--t-l) the longest
+     question is 140px tall inside a 148px box, so the trivia had EIGHT pixels
+     of headroom before this pass ever put a picture in it. It was already one
+     longer question away from clipping a word. At var(--t-m) the same question
+     is 88px and the median is 56px, which is what buys the portrait its room.
+     .gq-pending follows it down: a 2.75rem question mark in a 148px box reads
+     as a graphic rather than as a placeholder. */
+  .g-quiz .gq-q { font-size: var(--t-m); }
+  .g-quiz .gq-pending { font-size: var(--t-l); }
+  .gq-bar { margin-bottom: var(--s2); }
+  .gq-stat { padding: 5px 10px; }
+  .gq-say { min-height: 2em; margin: var(--s2) 0; }
+  .gq-btn { min-height: 50px; }
+  .gq-foot { margin-top: var(--s3); }
+}
+
+@media (min-width: 700px) {
+  .gq-btn { font-size: var(--t-body); min-height: 62px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gq-btn:active { transform: none; }
+}
