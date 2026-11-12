@@ -1,3 +1,7 @@
+> **History.** This is the launch readiness report, moved here from the repo root on 2026-11-11 and otherwise unchanged. The site has
+> been live on garbagerips.com since launch, so nothing below is a current instruction. Paths in it are written
+> relative to the repo root as they were then. CLAUDE.md at the repo root is the index for current rules.
+
 # Launch checklist
 
 Everything that has to happen before garbagerips.com is live, and the things
