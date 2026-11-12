@@ -71,12 +71,28 @@ const WATCH = [
    get a REVIEW leash: how long before somebody should look again. THE HAND
    LEASHES ARE PROPOSALS, NOT MEASUREMENTS, and are the owner's to change:
    90 days for fee schedules, MSRPs and shop listings, 45 for shelf prices and
-   ranked price lists, 30 for the graded snapshot, 14 for the show calendar.
+   the sealed ranking, 14 for the show calendar. (The graded snapshot and the
+   three card rankings were hand rows at 30 and 45 until the weekly job took
+   them; see the weekly owner below.)
    The sets and expansions stamps only move when the set LIST changes, so 100
    days there means "a new set has come out and nobody ran the sync".
 
    The date readers: a list of top-level keys (first one holding a date wins),
    or a function of the parsed file for the two that keep their date elsewhere. */
+/* THE WEEKLY OWNER, 11 November 2026. Five of the hand rows moved to
+   .github/workflows/weekly-prices.yml ("Weekly price lists"), which runs on
+   Sundays. Their leash is 10 days: one missed week is a warning, not two.
+   Still soft. The job has its own alert issue for a week that fails; this row
+   is the backstop for a week that never ran at all.
+
+   THE THREE RANKED LISTS ARE READ BY `verify.ran`, NOT `checked`. Since the
+   weekly job took them over, `checked` is the OLDEST console listing read
+   behind the rows (the nightly's cache is a month deep by design, see
+   scripts/weekly-check.mjs), so it sits two to four weeks back on a healthy
+   week. `verify.ran` is the day every published row was last re-read from its
+   product page, which is the thing the weekly job does and the thing that
+   stops when it stops. */
+const verifyRan = (doc) => doc.verify && doc.verify.ran;
 const newestAsOf = (doc) =>
   Object.values(doc.auto || {}).map((v) => v && v.asOf).filter((v) => typeof v === "string").sort().pop();
 
@@ -92,16 +108,17 @@ const SOFT = [
   ["public/data/playlists.json",              ["syncedAt"],  3, "nightly", "playlists (sync-youtube.mjs)"],
   // 50 cards a night, so the NEWEST entry is at most a day old when it runs.
   ["data/psa10.json",                         newestAsOf,    3, "nightly", "PSA 10 prices, newest asOf in auto (sync-prices.mjs)"],
+  // refreshed by the weekly job (weekly-prices.yml), through scripts/weekly-run.sh
+  ["data/graded.json",                        ["checked"],  10, "weekly", "graded prices for pulled and chase cards (sync-pricecharting.mjs)"],
+  ["data/top-graded.json",                    verifyRan,    10, "weekly", "top graded cards, last re-verified (sync-graded-top.mjs + verify-graded-top.mjs)"],
+  ["data/top-raw.json",                       verifyRan,    10, "weekly", "most valuable cards, last re-verified (sync-raw-top.mjs + verify-raw-top.mjs)"],
+  ["data/topps-top.json",                     verifyRan,    10, "weekly", "Topps card values, last re-verified (sync-topps-top.mjs + verify-topps-top.mjs)"],
+  ["data/first-partner.json",                 ["checked"],  10, "weekly", "First Partner promo prices (sync-first-partner.mjs)"],
   // refreshed by hand
   ["data/drops.json",                         ["weekEnds"],  0, "hand", "this week's restock forecast; overdue once weekEnds has passed"],
   ["data/shows.json",                         ["checked"],  14, "hand", "card show calendar"],
-  ["data/graded.json",                        ["checked"],  30, "hand", "graded prices for pulled cards (sync-pricecharting.mjs)"],
   ["data/retailer-prices.json",               ["checked"],  45, "hand", "shelf prices read at retailers"],
-  ["data/top-raw.json",                       ["checked"],  45, "hand", "most valuable cards (sync-raw-top.mjs + verify-raw-top.mjs)"],
-  ["data/top-graded.json",                    ["checked"],  45, "hand", "top graded cards (sync-graded-top.mjs + verify-graded-top.mjs)"],
-  ["data/topps-top.json",                     ["checked"],  45, "hand", "Topps card values (sync-topps-top.mjs + verify-topps-top.mjs)"],
   ["data/top100.json",                        ["checked"],  45, "hand", "most expensive sealed products (sync-top100.mjs)"],
-  ["data/first-partner.json",                 ["checked"],  45, "hand", "First Partner promo prices (sync-first-partner.mjs)"],
   ["data/msrp.json",                          ["readOn"],   90, "hand", "MSRPs read from Pokemon Center"],
   ["data/pokemon-center-prices.json",         ["readOn"],   90, "hand", "Pokemon Center shelf prices"],
   ["data/grading.json",                       ["checked"],  90, "hand", "grading company fees and turnaround"],
@@ -164,11 +181,15 @@ if (JSON_OUT) {
   }
   if (overdue.length) {
     console.log(`\n${overdue.length} of ${softRows.length} are past their leash or unreadable. Nightly rows: read the alert issue and the`);
-    console.log(`"Nightly refresh" run. Hand rows: RUNBOOK.md says which script refreshes each file.`);
+    console.log(`"Nightly refresh" run. Weekly rows: read the "Weekly price lists are not healthy" issue and the "Weekly`);
+    console.log(`price lists" workflow (weekly-prices.yml). Hand rows: RUNBOOK.md says which script refreshes each file.`);
     if (process.env.GITHUB_ACTIONS === "true") {
       for (const r of overdue) {
         const why = r.status === "stale" ? `last dated ${r.stamp}, ${r.age} days ago, leash ${r.leash}` : r.problem;
-        console.log(`::warning title=Data past its leash (${r.owner})::${r.file}: ${why}. ${r.what}.`);
+        const who = r.owner === "weekly"
+          ? ` The "Weekly price lists" workflow (weekly-prices.yml) refreshes this file; check its last run, or start one: gh workflow run "Weekly price lists".`
+          : "";
+        console.log(`::warning title=Data past its leash (${r.owner})::${r.file}: ${why}. ${r.what}.${who}`);
       }
     }
   }

@@ -53,6 +53,81 @@ see "Mega Attack Rare" in docs/set-pages.md.
 - `TZ=America/New_York node scripts/check-freshness.mjs`: prints each watched data file with its stamp, its age
   in days and its leash, and fails if any is past it.
 
+## The weekly price job (11 November 2026)
+
+`.github/workflows/weekly-prices.yml` ("Weekly price lists") puts the price syncs that used to be hand runs on a
+schedule: `data/graded.json`, the three ranked lists (`data/top-graded.json`, `data/top-raw.json`,
+`data/topps-top.json`) and `data/first-partner.json`. RUNBOOK.md is the operating page (what it owns, how to run
+it by hand, what its alert means). What is worth knowing before changing it:
+
+- **Booked Sunday 22:17 UTC, in the nightly's concurrency group (`refresh`).** The two can never run at once. A
+  concurrency group holds only one WAITING run and a newer one cancels it, and the nightly is two crons of which
+  the earlier is the wanted one from March to November. So a scheduled weekly run that GitHub delivers between
+  11:00 and 19:59 UTC does not start (its `gate` job says so on the alert issue). Do not move the cron into the
+  hours before the nightly's landing window without redoing that sum.
+- **It restores the nightly's API cache and never saves one.** The ranked lists are built from
+  `.cache/pricecharting-console/`, which only the nightly fills. A save from a week where the restore came back
+  empty would hand the next nightly an empty cache.
+- **It adds no crawl.** `sync-graded-top.mjs` runs without `--refresh` and under `scripts/weekly-net-guard.mjs`
+  with a budget of 40 requests; the two other ranked syncs make none. The requests it does make are the ones
+  the hand runs made: searches and product pages for graded.json, one product page per ranked row, about 32
+  pages for First Partner, all at about 1.1 seconds apart. `--cold 26` in refresh.yml is untouched.
+- **Each chain is one command, `scripts/weekly-run.sh <name>`, run through `scripts/nightly-step.sh`**, so a
+  failure anywhere in a chain puts that chain's file back to HEAD and leaves a sentence for the alert issue
+  ("Weekly price lists are not healthy"). A sync and its verifier are one chain because they write one file.
+- **`scripts/weekly-check.mjs` is the judgment a person used to supply.** It refuses a thin graded.json; it sets
+  a ranked list's `checked` to the oldest console listing read behind the rows it can print (from
+  `data/price-rotation.json`) and records the spread in `listingReads`; it writes an `excluded` entry for a
+  disagreeing row only when PriceCharting's own change figure reconciles the two reads to the cent or the
+  listing was read on an earlier day than the product page, and refuses the whole file when a row fits neither,
+  when more than a fifth disagree or when the corpus shrank. Entries it writes carry `auto: true`.
+- **First Partner is prices only.** The sync runs with every host except pricecharting.com refused, the
+  committed pictures are put back, and only `checked` and each card's `pc` block are taken from the new read.
+- **The build runs twice.** Once as a probe that puts only the three ranked files back if a builder rejects
+  them, then `scripts/nightly-build.sh` as in the nightly. `scripts/weekly-push.sh` is a copy of the nightly's
+  push loop with the weekly's own file groups.
+- **Deploy.** A push made with the default token starts no workflow and pages.yml's `workflow_run` names only
+  "Nightly refresh", so the job's last step runs `gh workflow run pages.yml` (the one event that token may
+  raise; it needs `actions: write`). If pages.yml ever gains "Weekly price lists" in its `workflow_run` list,
+  delete that step.
+- **`data/top100.json` (sealed) is not in it.** `sync-top100.mjs` reads an undocumented TCGplayer endpoint and
+  runs unattended nowhere. It stays a hand run.
+
+### How fresh the ranked lists really are
+
+Measured 11 November 2026 from `data/price-rotation.json`: the rows those three lists can print come from 86
+consoles, nearly all in the cold rotation. The listing behind 2 of 120 top-graded rows, 5 of 160 top-raw rows
+and 0 of 179 Topps rows had been read in the previous 7 days; 72, 72 and 179 were more than 21 days old. The
+weekly job cannot change that inside the owner's limit (no extra console crawl), which is why it dates each
+list by its oldest listing read rather than by the day it ran. `check-freshness.mjs` watches these three by
+`verify.ran`, the day the rows were last re-read from their product pages. Making the lists themselves weekly
+fresh would mean reading those 86 consoles every week, in addition to or ahead of the cold rotation. That is
+a load decision for the owner and has not been made.
+
+## The weekly price snapshot (`data/price-history/`)
+
+`scripts/snapshot-prices.mjs` writes one file per ISO week, `data/price-history/2026-W46.json`, from
+`public/data/cards/*.json`. No network and no clock: the week is the one the NEWEST `pricesChecked` falls in,
+so a run on stale data rewrites nothing. The weekly job runs it after the syncs and before the build; the first
+file was taken by hand on 11 November 2026. No page reads these yet. A 30 day trend needs four of them.
+
+```
+{ "week": "2026-W46", "unit": "US cents", "newestRead": "2026-11-10", "oldestRead": "2026-11-10",
+  "counts": { "sets": 31, "cards": 5695, "raw": 5695, "grade9": 5646, "psa10": 5644 },
+  "sets": { "<set id>": { "read": "<that set's pricesChecked>",
+                          "cards": [ ["<number>", raw, grade9, psa10], ["002", 126, 1874, 14637, "Reverse Holo"] ] } } }
+```
+
+- Money is integer US cents; `null` means the card file holds no figure. A card with none of the three is left out.
+- A fifth element names the printing the row's figures are for when it is not a standard one (the card file
+  prices the most valuable printing of a number). If it differs between two weeks, the change is not a market
+  move: do not chart across it.
+- A second run in the same week overwrites the file only when no set's read is older and at least one is newer.
+  `--force` overrides that.
+- `node scripts/snapshot-prices.mjs --check` fails if a file does not parse, is not named for the week it
+  holds, has a malformed row, or if the files are not in strictly increasing order of `newestRead`.
+- Size, first file: 165KB, 49KB gzipped, one line per set so a weekly diff stays readable.
+
 ## The custom domain
 
 **`public/CNAME` IS NOT THE SWITCH, and all three docs now say so.** DEPLOY.md

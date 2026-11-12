@@ -1,0 +1,291 @@
+# Weekly price lists: re-read the price files nobody re-read unless a person
+# remembered to, rebuild, commit, deploy.
+#
+# The nightly (refresh.yml) keeps every set guide, checklist, Pokemon page and
+# rip page on last night's PriceCharting listing figures. Five files sat outside
+# it and were refreshed by hand, last on 13 and 14 October 2026:
+#
+#   data/graded.json         graded prices for the cards the channel pulled and
+#                            each set's top chase cards, off product pages
+#   data/top-graded.json     the PSA 10 ranking        (/top-graded.html, /base-set.html)
+#   data/top-raw.json        the ungraded ranking      (/most-valuable-cards.html)
+#   data/topps-top.json      the Topps rankings        (/topps.html, /topps-card-values.html)
+#   data/first-partner.json  the 27 First Partner promos
+#
+# The owner, 11 November 2026: prices should be "the most up to date they can be
+# always, even if it's a once a week update". This is the once a week. It also
+# takes the weekly price snapshot (scripts/snapshot-prices.mjs).
+#
+# WHAT IT MAY ASK PRICECHARTING FOR, AND NOTHING MORE. The same requests the
+# hand-run steps made, at the scripts' own pacing of about 1.1 seconds a page:
+# roughly 300 searches and 300 product pages for graded.json, 459 product pages
+# across the three verifiers, about 32 pages for First Partner. It does NOT
+# crawl console listings: the ranked lists are built from the page cache the
+# nightly maintains (sync-graded-top.mjs runs WITHOUT --refresh, and under a
+# request budget so an empty cache stops it rather than starting the crawl). It
+# does not touch the nightly's `--cold 26`. See scripts/weekly-run.sh.
+#
+# data/top100.json (most expensive sealed, scripts/sync-top100.mjs) IS NOT HERE
+# ON PURPOSE. It reads an undocumented TCGplayer search endpoint and runs in no
+# workflow today, so there is no unattended run of it to copy. It stays a hand
+# run: RUNBOOK.md.
+#
+# EVERY CHAIN IS SOFT AND HAS LAST-GOOD SEMANTICS, the nightly's pattern: each
+# runs through scripts/nightly-step.sh, which puts that chain's file back to the
+# last committed copy if anything in the chain fails, and writes a sentence for
+# the alert issue. A sync and its verifier are ONE chain (scripts/weekly-run.sh)
+# because they write the same file: a re-ranked list that was only half verified
+# can never be what the build reads.
+name: Weekly price lists
+
+# SUNDAY 22:17 UTC, AND THE HOUR IS CHOSEN AGAINST THE NIGHTLY'S REAL LANDING
+# WINDOW, NOT ITS BOOKING. Measured 11 November 2026: GitHub starts this
+# repository's scheduled runs 2 to 10 hours late, and the nightly lands between
+# 12:00 and 19:00 UTC. A 22:17 booking therefore lands between about 00:15 and
+# 08:15 UTC on Monday (Sunday evening to 3am in Rochester, NY) and is finished
+# well before the earliest nightly. Not on the hour, for the reason refresh.yml
+# gives: jobs booked at :00 are delayed most and sometimes dropped.
+#
+# WHY THE OVERLAP MATTERS MORE THAN IT LOOKS. This workflow shares the nightly's
+# concurrency group so the two can never run at once. But a group holds only ONE
+# waiting run: a newer waiting run CANCELS an older one. The nightly is two
+# crons an hour apart, and from March to November the one that must run is the
+# EARLIER one. If both arrived while this job held the group, the wanted run
+# would be cancelled by the one whose only job is to skip, and that day's
+# refresh would be lost in silence. So the `gate` job below refuses to start a
+# scheduled run that GitHub delivered inside the nightly's window. A manual run
+# is never gated: do not start one between 11:00 and 20:00 UTC.
+on:
+  schedule:
+    - cron: "17 22 * * 0"
+  workflow_dispatch:
+    inputs:
+      ranked:
+        description: "Also rebuild and re-verify the three ranked lists (top graded, top raw, Topps)"
+        type: boolean
+        default: true
+
+# contents: commit and push. issues: the alert issue. actions: the last step
+# starts the Pages deploy with `gh workflow run`, which needs it; see that step.
+permissions:
+  contents: write
+  issues: write
+  actions: write
+
+# THE NIGHTLY'S GROUP, so the two never rebuild and push at the same time.
+concurrency:
+  group: refresh
+  cancel-in-progress: false
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      go: ${{ steps.decide.outputs.go }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: decide
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          if [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "Manual run; never gated."
+            echo "go=1" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          hour=$((10#$(date -u +%H)))
+          if [ "$hour" -ge 11 ] && [ "$hour" -le 19 ]; then
+            msg="This week's run was delivered at $(date -u +%H:%M) UTC, inside the hours the nightly refresh lands in, so it did not start (it shares the nightly's lock and could cost that day's refresh). The price lists keep last week's figures. Run it by hand after 20:00 UTC: gh workflow run \"Weekly price lists\""
+            echo "::warning title=Weekly price lists skipped::$msg"
+            bash scripts/alert-issue.sh "Weekly price lists are not healthy" "$msg"
+            echo "go=0" >> "$GITHUB_OUTPUT"
+          else
+            echo "Delivered at $(date -u +%H:%M) UTC, clear of the nightly's window."
+            echo "go=1" >> "$GITHUB_OUTPUT"
+          fi
+
+  weekly:
+    needs: gate
+    if: needs.gate.outputs.go == '1'
+    runs-on: ubuntu-latest
+    # About 30 minutes of polite requests and two page builds on a warm cache.
+    # Ninety stops a wedged run from holding the nightly's lock for a day.
+    timeout-minutes: 90
+    env:
+      # shared/today.mjs reads the process timezone, and every date this job
+      # stamps must be the day it is in Rochester, NY. Same as refresh.yml.
+      TZ: America/New_York
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Same pin and same softness as refresh.yml: scripts/nightly-build.sh
+      # skips the image builders when PIL does not import.
+      - name: Python deps for the image builders
+        id: pillow
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "Pillow did not install, so the share-card images were not redrawn."
+          -- python3 -m pip install --quiet Pillow==13.0.0
+
+      # THE NIGHTLY'S CACHE, READ AND NEVER WRITTEN BACK. The ranked lists are
+      # built from .cache/pricecharting-console/, which only the nightly fills.
+      # RESTORE ONLY, on purpose: there is no save step in this job. If this
+      # restore ever came back empty and the job then saved, the newest
+      # `api-cache-` entry would be an empty one and the next nightly would
+      # start cold, losing the month of console pages its rotation bookmarks
+      # point at. Nothing this job fetches is worth keeping between weeks
+      # anyway: the product pages must be re-read every time to count as a
+      # second read.
+      - name: Restore the nightly's API cache
+        id: cache
+        uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: api-cache-${{ github.run_id }}
+          restore-keys: api-cache-
+
+      - name: Graded prices for pulled and chase cards
+        id: graded
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The graded price read (data/graded.json) failed or came back thin, so last week's file stands."
+          data/graded.json
+          -- bash scripts/weekly-run.sh graded
+
+      - name: Top graded list, rebuilt from the cache and re-verified
+        id: graded_top
+        if: github.event_name != 'workflow_dispatch' || inputs.ranked
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The top graded list (data/top-graded.json) was not publishable this week, so last week's stands. The step's log says which rows."
+          data/top-graded.json
+          -- bash scripts/weekly-run.sh graded-top
+
+      - name: Most valuable cards list, rebuilt from the cache and re-verified
+        id: raw_top
+        if: github.event_name != 'workflow_dispatch' || inputs.ranked
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The most valuable cards list (data/top-raw.json) was not publishable this week, so last week's stands. The step's log says which rows."
+          data/top-raw.json
+          -- bash scripts/weekly-run.sh raw-top
+
+      - name: Topps lists, rebuilt from the cache and re-verified
+        id: topps_top
+        if: github.event_name != 'workflow_dispatch' || inputs.ranked
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The Topps lists (data/topps-top.json) were not publishable this week, so last week's stand. The step's log says which rows."
+          data/topps-top.json
+          -- bash scripts/weekly-run.sh topps-top
+
+      - name: First Partner promo prices
+        id: first_partner
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "First Partner promo prices (data/first-partner.json) did not refresh, so last week's stand."
+          data/first-partner.json
+          -- bash scripts/weekly-run.sh first-partner
+
+      # After the syncs, before the build. It reads the card files the nightly
+      # wrote and nothing else; the --check proves every week file still parses
+      # and the weeks are in date order before any of it is committed.
+      - name: Weekly price snapshot
+        id: snapshot
+        continue-on-error: true
+        run: >-
+          bash scripts/nightly-step.sh
+          "The weekly price snapshot (data/price-history/) was not written or did not validate."
+          data/price-history
+          -- bash -c "node scripts/snapshot-prices.mjs && node scripts/snapshot-prices.mjs --check"
+
+      # DO THE PAGES BUILD ON THIS WEEK'S RANKED LISTS? Asked on its own, before
+      # the real build, because the builders behind those three files carry
+      # hard checks against them (named cards that must be double-read, expected
+      # rows on the Topps pages) and a re-ranked list can trip one. If this
+      # build fails, ONLY the three ranked files go back to last week's and the
+      # real build below still publishes this week's graded and First Partner
+      # prices. Without it, scripts/nightly-build.sh's own fallback would throw
+      # away everything this job read. Image builders are skipped here; the
+      # real build runs them.
+      - name: Do the pages build on this week's ranked lists
+        id: probe
+        if: github.event_name != 'workflow_dispatch' || inputs.ranked
+        continue-on-error: true
+        env:
+          GR_SKIP_IMAGE_BUILDERS: "1"
+        run: >-
+          bash scripts/nightly-step.sh
+          "The page build failed on this week's ranked lists, so all three (top graded, most valuable, Topps) went back to last week's."
+          data/top-graded.json data/top-raw.json data/topps-top.json
+          -- node scripts/build-all.mjs
+
+      # The nightly's build, with its fallback: build on this week's data, and
+      # if that fails put the tree back to HEAD and build again.
+      - name: Rebuild every page
+        id: build
+        run: bash scripts/nightly-build.sh node scripts/build-all.mjs
+
+      - name: Check the build
+        id: check
+        run: node scripts/sync-chrome.mjs --check
+
+      # "Weekly price lists: <date>". A push race is resolved by rebuilding,
+      # never by merging: scripts/weekly-push.sh, a copy of the nightly's loop.
+      - name: Commit if anything changed
+        id: commit
+        run: bash scripts/weekly-push.sh
+
+      # A PUSH MADE WITH THE DEFAULT TOKEN STARTS NO OTHER WORKFLOW, so the
+      # commit above would sit on main undeployed until the next nightly, and
+      # scripts/check-live.sh would open "The live site is behind main" in
+      # between. pages.yml deploys the nightly through `workflow_run`, which
+      # names only "Nightly refresh". `workflow_dispatch` is the one event the
+      # default token IS allowed to raise, and pages.yml already accepts it, so
+      # this starts the deploy directly and needs no edit to that file. It runs
+      # only when the step above pushed. A failure here does not fail the job:
+      # the next nightly deploys HEAD anyway.
+      - name: Deploy the commit
+        id: deploy
+        if: steps.commit.outputs.pushed == '1'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run pages.yml --repo "${{ github.repository }}" --ref "${{ github.ref_name }}"
+
+      # Same pattern as the nightly's alert, under its own issue so a bad week
+      # and a bad night are never one thread. Every soft step that failed left
+      # one sentence in the notes file; a clean week closes the issue.
+      - name: Tell the owner when the weekly price lists are not healthy
+        id: alert
+        if: always()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JOB_STATUS: ${{ job.status }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          what=""
+          if [ "$JOB_STATUS" != "success" ]; then what="The job ended $JOB_STATUS, so this week's price lists may not have been committed at all."; fi
+          notes="${NIGHTLY_NOTES:-$RUNNER_TEMP/nightly-notes.txt}"
+          if [ -s "$notes" ]; then what="$what $(tr '\n' ' ' < "$notes")"; fi
+          what="$(printf '%s' "$what" | sed -e 's/^ *//' -e 's/ *$//')"
+          bash scripts/alert-issue.sh "Weekly price lists are not healthy" "$what"

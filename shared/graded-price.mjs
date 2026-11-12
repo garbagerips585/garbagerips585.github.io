@@ -44,6 +44,27 @@
 //                                 behind the several hundred it does not reach.
 //                                 A stamped fallback figure beats a dash.
 //
+// TIER 2 IS TWO READS OF ONE SOURCE, AND THE NEWER READ WINS. Restated 11
+// November 2026 because the list above reads as if data/graded.json always
+// answers first, and it has not since 23 September 2026. PriceCharting reaches
+// this module twice: data/graded.json (product pages, read by
+// sync-pricecharting.mjs, weekly since .github/workflows/weekly-prices.yml) and
+// the per-set card files under public/data/cards/ (console listing pages, read
+// nightly). For ONE printing held by both:
+//
+//   - the read with the NEWER date wins. A graded.json row is dated by its own
+//     `checked` or `asOf` where it carries one and by the file's `checked`
+//     otherwise; a card-file figure is dated by its set file's `pricesChecked`;
+//   - A TIE GOES TO data/graded.json, because a product-page read carries every
+//     grading company's figure and its printing was checked against `matched`;
+//   - a read with NO date never beats a dated one out of its place: an undated
+//     card file loses to graded.json, exactly as before the rule existed;
+//   - where only one of the two holds the printing, that one answers. That is
+//     every promo (no card file) and every card outside the graded sample.
+//
+// newerRead() below is that comparison and nothing else decides it. The date,
+// source and url returned are the winner's own, never the other read's.
+//
 // The `auto` tier keeps its ten-sale floor. Volcarona came back at 15x its raw
 // price off six recorded sales, which is an anecdote and not a market. The
 // human tier skips the floor, because if the owner typed it he stands behind it, and
@@ -74,6 +95,22 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 /** The ten-sale floor, exported so a builder cannot quietly pick its own. */
 export const MIN_SALES = 10;
+
+/* WHICH OF TWO PRICECHARTING READS OF ONE PRINTING IS FRESHER. Pure and
+ * exported so the rule can be tested without a tree on disk.
+ *
+ * Returns true only when `cardFileDay` is a real ISO day strictly after
+ * `gradedDay`. Equal days, a missing day or an unreadable day on either side
+ * all return false, which leaves data/graded.json answering: ties go to the
+ * product-page read, and a figure with no date is never promoted over one that
+ * has one. ISO days compare correctly as strings, so no Date is built here and
+ * no timezone can move the answer. */
+const isoDay = (v) => (typeof v === "string" && /^\d{4}-\d{2}-\d{2}/.test(v) ? v.slice(0, 10) : null);
+export function newerRead(cardFileDay, gradedDay) {
+  const a = isoDay(cardFileDay);
+  const b = isoDay(gradedDay);
+  return Boolean(a && b && a > b);
+}
 
 /* THE BULK-CARD OUTLIER GUARD, 11 November 2026.
  *
@@ -272,6 +309,9 @@ export async function loadGradedPrices() {
     pcByName.get(k).push(rec);
   }
 
+  /** The day one data/graded.json row was read: its own date, else the file's. */
+  const gradedRead = (rec) => isoDay(rec?.checked) || isoDay(rec?.asOf) || isoDay(pc.checked) || pc.checked || null;
+
   /**
    * The PriceCharting record for one printing, or null.
    *
@@ -390,40 +430,47 @@ export async function loadGradedPrices() {
        104 of the Hall's 151 PSA 10s were a month old while tonight's figure sat
        one tier down (Mienshao $155 against $305, Rampardos ex $37.41 against
        $14). Same source, so the fresher read is simply the better one; tier 2
-       still answers wherever the nightly has no row, which is every promo. */
-    const pccEarly = at(pcCards, setId, number);
-    if (hit && pccFits(pccEarly) && typeof pccEarly.psa10 === "number" && pccEarly.asOf && pc.checked && pccEarly.asOf > pc.checked) {
-      return { price: pccEarly.psa10, from: "pricecharting", source: pccEarly.source, asOf: pccEarly.asOf, url: pccEarly.url, sales: null };
-    }
+       still answers wherever the nightly has no row, which is every promo.
+
+       ONE COMPARISON, WRITTEN ONCE, since 11 November 2026: newerRead() at the
+       top of this file. The graded row is dated by gradedRead(), which takes a
+       row's own date before the file's, so the day sync-pricecharting.mjs
+       starts stamping each row (a partial re-read, a resumed run) this needs no
+       edit. Measured that day over the 242 printings both reads hold: the
+       card file was newer on all 242 (10 November against 13 October), so this
+       rewrite moved no figure on any page; the weekly run is what will make the
+       tie and the graded.json-is-newer branches live. */
+    const pcc = at(pcCards, setId, number);
+    const card = pccFits(pcc) && typeof pcc.psa10 === "number" ? pcc : null;
+    const fromCard = () => ({
+      price: card.psa10,
+      from: "pricecharting",
+      source: card.source,
+      asOf: card.asOf,
+      url: card.url,
+      // Null for the same reason the graded.json branch is null: PriceCharting
+      // publishes no sale count, and a "279 sales" note under its number would
+      // be describing the other feed's measurement.
+      sales: null,
+    });
+    if (hit && card && newerRead(card.asOf, gradedRead(hit))) return fromCard();
     if (hit) {
       return {
         price: hit.psa10,
         from: "pricecharting",
         source: pc.source || "pricecharting.com",
-        // THE FILE'S DATE, NOT THE CARD'S. data/graded.json is a snapshot taken
-        // by one hand-run crawl and stamps the whole file, which is why it says
-        // so at the top level rather than per record.
-        asOf: pc.checked || null,
+        // THE DATE OF THIS READ, which today is the file's: data/graded.json is
+        // a snapshot taken by one crawl and stamps the whole file. A row that
+        // carries its own date is dated by it. See gradedRead().
+        asOf: gradedRead(hit),
         url: hit.url || null,
         sales: null,
       };
     }
 
-    // TIER 3: the same PriceCharting figure /grading.html has always used.
-    const pcc = at(pcCards, setId, number);
-    if (pccFits(pcc)) {
-      return {
-        price: pcc.psa10,
-        from: "pricecharting",
-        source: pcc.source,
-        asOf: pcc.asOf,
-        url: pcc.url,
-        // Null for the same reason tier 2 is null: PriceCharting publishes no
-        // sale count, and a "279 sales" note under its number would be
-        // describing the other feed's measurement.
-        sales: null,
-      };
-    }
+    // The same PriceCharting figure /grading.html has always used, for every
+    // printing data/graded.json holds no row for.
+    if (card) return fromCard();
 
     const a = at(psa10.auto, setId, number);
     if (!a?.psa10) return null;
@@ -470,7 +517,7 @@ export async function loadGradedPrices() {
       if (!setsAgree(rec.set, setName)) continue;
       const got = /#\s*(\d+)/.exec(rec.matched || "");
       if (!got || pcNum(got[1]) !== pcNum(number)) continue;
-      return { price: rec.ungraded, source: pc.source || "pricecharting.com", asOf: pc.checked || null, url: rec.url || null };
+      return { price: rec.ungraded, source: pc.source || "pricecharting.com", asOf: gradedRead(rec), url: rec.url || null };
     }
     return null;
   }

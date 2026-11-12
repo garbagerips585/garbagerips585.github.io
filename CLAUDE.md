@@ -139,6 +139,8 @@ Rules:
 - One price source per page. Raw prices are PriceCharting's (overlaid in sync-cards.mjs); do not add a second feed to a page that has one. Use `priceNote(doc)` from shared/card-prices.mjs for the date wording.
 - PSA 10 figures come through shared/graded-price.mjs and nowhere else. Do not delete its fallback or its printing check.
 - Nothing from PriceCharting is published on a single read; the ranked lists go through shared/graded-gate.mjs.
+- Between data/graded.json and a card file for one printing, the newer read wins and a tie goes to graded.json (`newerRead()` in shared/graded-price.mjs). Do not put either permanently in front.
+- A ranked list's `checked` is its oldest listing read, not the day the weekly job ran; `verify.ran` is the re-read day. Do not "correct" it to today. (docs/nightly-and-deploy.md)
 - The standard-printing allowlist in sync-pricecharting-cards.mjs is load bearing.
 - **A logged hit's printing is decided by the rarity the owner typed**, then an explicit number, and the dearest printing only as a last resort. If a resolver change moves the rarity mix, it is wrong.
 - "Mega Attack Rare" is folded to Ultra Rare at ingestion in scripts/sync-cards.mjs (matching import-sheet.mjs). Do not add a rung for it without the owner.
@@ -196,6 +198,7 @@ Rules:
 - `.github/workflows/refresh.yml` runs at about 3am New York time (two UTC crons, one skips), with `TZ: America/New_York`, syncs, rebuilds with build-all, checks, and commits. pages.yml then deploys `public/` only.
 - It can arrive up to about three hours late. Pull before editing.
 - A failed night comments on one GitHub issue titled "Nightly refresh is not healthy"; a clean night closes it.
+- `.github/workflows/weekly-prices.yml` ("Weekly price lists", Sundays) owns data/graded.json, the three ranked lists, First Partner prices and data/price-history/; it shares the nightly's lock, saves no cache and adds no crawl. (RUNBOOK.md, docs/nightly-and-deploy.md)
 - Check it: `gh issue list --search "Nightly refresh is not healthy"`, `gh run list --workflow=refresh.yml --limit 5`, and `TZ=America/New_York node scripts/check-freshness.mjs`.
 - `paginate()` in scripts/sync-youtube.mjs stops on an empty page, a repeated token or 200 pages. All three are load bearing; an endless loop there burned the API quota from 4 to 8 November 2026. (docs/video.md)
 - The custom domain is set in GitHub Settings, Pages. `public/CNAME` is a record of intent, not the switch.

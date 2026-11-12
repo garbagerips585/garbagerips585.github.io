@@ -77,6 +77,32 @@ Two constraints that shape these pages:
   figure, and where a page prints both it now names BOTH rather than falling
   back to "a separate graded sales feed".
 
+  **"THEN PRICECHARTING" IS TWO READS, AND THE NEWER ONE WINS.** PriceCharting
+  reaches the chain twice: `data/graded.json` (product pages, read by
+  `sync-pricecharting.mjs`, weekly since 11 November 2026) and the per-set card
+  files under `public/data/cards/` (console listings, read nightly). For one
+  printing held by both, the read with the newer date wins: a graded.json row
+  is dated by its own `checked` or `asOf` where it has one and by the file's
+  `checked` otherwise, a card-file figure by its set file's `pricesChecked`. A
+  tie goes to graded.json (a product-page read carries every grading company's
+  figure and its printing was checked against `matched`), and an undated read
+  never displaces a dated one. Where only one holds the printing, that one
+  answers, which is every promo. The comparison is `newerRead()` in
+  `shared/graded-price.mjs` and nothing else decides it; the hand override
+  still comes first and the outlier guard (`psa10Outlier`) still judges
+  whichever figure won. The rule itself dates from 23 September 2026.
+  MEASURED 11 NOVEMBER 2026, before the weekly job existed: 242 of the 258
+  graded.json rows had a card-file twin and the card file was newer on all 242
+  (10 November against 13 October), so graded.json supplied a printed PSA 10 on
+  only 4 of 5,938 lookups (logged pulls whose checklist figure is for another
+  printing) plus the promos. If graded.json had outranked the card file
+  instead, 236 printings would have printed the older figure, half of them more
+  than 7.6% off and 13 more than 50% off (Umbreon ex, Prismatic Evolutions
+  #161: $5,150 against $4,157). So what a weekly graded.json buys is the
+  promos, the grading-company comparison on /grading.html, and the day of the
+  week it is the newest read; the nightly figure takes over again the next
+  morning. Do not "fix" that by putting graded.json back in front.
+
   **THE PRINTING CHECK INSIDE THAT JOIN IS LOAD BEARING AND IS NOT AN
   OPTIMISATION.** `sync-pricecharting.mjs` only rejects a wrong number when it
   was given one, and it was run over `data/hits.json`, which mostly carries
