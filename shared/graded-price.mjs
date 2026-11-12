@@ -75,6 +75,61 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 /** The ten-sale floor, exported so a builder cannot quietly pick its own. */
 export const MIN_SALES = 10;
 
+/* THE BULK-CARD OUTLIER GUARD, 11 November 2026.
+ *
+ * WHAT IT STOPS. PriceCharting's PSA 10 column is a price guide value worked
+ * out of recorded sales, and on a bulk card there can be one sale behind it.
+ * The site was printing, sourced and dated like every other figure:
+ *
+ *      Shining Fates #29   Snom          Common     raw $1.11   PSA 10 $1,500
+ *      Pokemon GO #059     Bidoof        Common     raw $1.75   PSA 10 $1,325
+ *      Paradox Rift #175   Snorlax Doll  Uncommon   raw $1.50   PSA 10 $900
+ *      Silver Tempest #081 Espurr        Common     raw $1.77   PSA 10 $850
+ *      Pokemon GO #020     Slowbro       Uncommon   raw $1.71   PSA 10 $700
+ *
+ * Nobody pays $1,325 for a graded Bidoof. The Bidoof figure has already cost
+ * this site once: see the note on offPrinting() below, where it became "the
+ * best graded card" the channel has pulled.
+ *
+ * THE RULE, all four at once:
+ *   - the checklist rarity is Common, Uncommon or Rare (the three non-holo
+ *     tiers; "Holo Rare" and everything above it is never touched),
+ *   - the raw price on the same checklist row is under $5,
+ *   - the PSA 10 is more than 100 times that raw price,
+ *   - the PSA 10 is $400 or more.
+ *
+ * WHY THE $400 FLOOR, which was not in the first draft of this rule. The first
+ * three tests alone were measured against every checklist on 11 November 2026
+ * and matched 1,403 of the 3,440 bulk cards that carry a PSA 10: a Caterpie
+ * with a 28 cent raw price and a $170 slab is 600 times its raw price and is
+ * an ordinary market, because the grading fee alone puts a floor of $20 or so
+ * under any PSA 10 and a bulk card's raw price is cents. "100 times raw" is
+ * the normal state of a graded common, not a sign of a bad figure. The floor
+ * is what separates the absurd tail from that market: 17 figures on the day it
+ * was written, the five above among them. One of the 17 is a card the channel
+ * has logged, the Bidoof (rip QXS1W_L2qbs), and that row never printed the
+ * figure anyway: it is the Reverse Holo's, and offPrinting() below already
+ * refuses it for a pull logged with no printing named.
+ *
+ * A SECOND TEST WAS MEASURED AND NOT SHIPPED: "a Grade 9 exists and is under
+ * 10% of the PSA 10". It matched 161 more cards outside the bulk tiers,
+ * including whole runs of Black Bolt and White Flare Illustration Rares and
+ * Maushold, Paldea Evolved #226, which is a real and well known market. A wide
+ * gap between a 9 and a 10 is how modern chase cards actually price.
+ *
+ * A HUMAN-CHECKED FIGURE IS NEVER SUPPRESSED. data/psa10.json `prices` is tier
+ * 1 of the chain below and resolve() returns it before this is asked.
+ *
+ * Pure and exported so a builder that prints a PSA 10 from somewhere other
+ * than resolve() can ask the same question rather than writing its own.
+ */
+export const OUTLIER = { rarities: ["common", "uncommon", "rare"], rawUnder: 5, times: 100, floor: 400 };
+export function psa10Outlier({ psa10, raw, rarity } = {}) {
+  if (typeof psa10 !== "number" || typeof raw !== "number" || !(raw > 0)) return false;
+  if (!OUTLIER.rarities.includes(String(rarity || "").trim().toLowerCase())) return false;
+  return raw < OUTLIER.rawUnder && psa10 > OUTLIER.times * raw && psa10 >= OUTLIER.floor;
+}
+
 /* WHICH PRINTING A CHECKLIST FIGURE IS FOR, added 14 October 2026.
  *
  * A checklist row carries ONE price per collector number, and where the number
@@ -171,6 +226,11 @@ export async function loadGradedPrices() {
    * different days. Stamping a price with the card-data date would credit a
    * reading that never happened. */
   const pcCards = {};
+  // What psa10Outlier() needs to know about a card: its checklist rarity and
+  // the raw price on the same row. Kept for EVERY card, not only the ones the
+  // checklist carries a PSA 10 for, because the figure being judged can come
+  // from another tier (data/graded.json, the tracker) for the same printing.
+  const facts = {};
   let pcCardsSource = null;
   try {
     const { readdir } = await import("node:fs/promises");
@@ -181,6 +241,11 @@ export async function loadGradedPrices() {
       if (!doc?.set || !Array.isArray(doc.cards)) continue;
       pcCardsSource = pcCardsSource || doc.priceSource || "pricecharting.com";
       for (const c of doc.cards) {
+        if (c?.n != null) {
+          const fact = { rarity: c.rarity || null, raw: typeof c.price === "number" ? c.price : null, name: c.name || null };
+          facts[`${doc.set}-${c.n}`] = fact;
+          facts[`${doc.set}-${pcNum(c.n)}`] ??= fact;
+        }
         if (typeof c?.psa10 !== "number" || !c.psa10) continue;
         const rec = {
           psa10: c.psa10,
@@ -300,7 +365,7 @@ export async function loadGradedPrices() {
   // `logged: true` is a pricing of a pull out of data/hits.json, and then a
   // checklist figure for a printing the row did not name is refused (see
   // offPrinting() at the top of this file). `variant` is the row's own printing.
-  function resolve(setId, number, { name = null, setName = null, logged = false, variant = null } = {}) {
+  function resolveUnguarded(setId, number, { name = null, setName = null, logged = false, variant = null } = {}) {
     const pccFits = (rec) => rec && !(logged && offPrinting(rec.variant, variant));
     const manualRec = at(psa10.prices, setId, number) ?? at(psa10, setId, number);
     const manual = gnum(manualRec);
@@ -373,6 +438,26 @@ export async function loadGradedPrices() {
     };
   }
 
+  /* THE ONE PLACE THE OUTLIER GUARD RUNS. Every caller reaches the chain
+     through resolve(), price() or stamp(), and the last two call resolve(), so
+     a figure psa10Outlier() refuses comes back null from all three and the page
+     prints its ordinary "no PSA 10 price" state. A hand-entered figure is
+     returned untouched: `from: "manual"` is the owner's own number.
+
+     `suppressed` records what was refused, keyed by set and number, so a
+     builder or a test can count it instead of the figures vanishing quietly. */
+  const suppressed = new Map();
+  function resolve(setId, number, opts = {}) {
+    const r = resolveUnguarded(setId, number, opts);
+    if (!r || r.from === "manual") return r;
+    const f = at(facts, setId, number);
+    if (f && psa10Outlier({ psa10: r.price, raw: f.raw, rarity: f.rarity })) {
+      suppressed.set(`${setId}-${number}`, { set: setId, number: String(number), name: f.name, rarity: f.rarity, raw: f.raw, psa10: r.price, from: r.from });
+      return null;
+    }
+    return r;
+  }
+
   /**
    * PriceCharting's UNGRADED figure for one printing out of data/graded.json,
    * or null. Same join as `pricecharting()` above, number check and all; it
@@ -430,5 +515,5 @@ export async function loadGradedPrices() {
     return { asOf: r?.asOf || null, source: r?.source || null, url: r?.url || null };
   };
 
-  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp, ungraded, rawForHit };
+  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp, ungraded, rawForHit, suppressed, facts };
 }

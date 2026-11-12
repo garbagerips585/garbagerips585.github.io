@@ -1261,8 +1261,14 @@ const listKeep = (n) => n - (mvc ? 1 : 0);
  * (data/subset-scans.json: a 245w WebP with an AVIF sibling, and a 600w AVIF),
  * so a plaque whose scan is in that file takes the local pair: about 18KB for
  * the thumbnail and the 600w AVIF for the lightbox. A scan that file does not
- * hold stays on the remote PNG, which is the Silver Tempest Trainer Gallery
- * card today (swsh12tg is not one of the two subsets that script mirrors). */
+ * hold stays on the remote PNG.
+ *
+ * NONE DOES SINCE 11 November 2026. The last one was Corviknight V TG18, out
+ * of the Silver Tempest Trainer Gallery, which no set guide prints and so the
+ * script never mirrored. It now mirrors the cards data/hits.json logs out of
+ * that subset (HIT_ONLY in sync-subset-scans.py), which is this one card, and
+ * the plaque takes the local pair through the same lookup with no change to
+ * the code below: 24KB where it was 171KB. */
 let SUBSET_SCANS = {};
 try {
   SUBSET_SCANS = JSON.parse(await readFile(join(ROOT, "data/subset-scans.json"), "utf8")).scans || {};

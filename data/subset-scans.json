@@ -1,12 +1,13 @@
 {
   "_readme": [
-    "Written by scripts/sync-subset-scans.py; read by build-set-pages.mjs.",
+    "Written by scripts/sync-subset-scans.py; read by build-set-pages.mjs",
+    "and build-hall.mjs.",
     "Maps a companion-subset card's images.pokemontcg.io scan base (`gp` in",
     "public/data/printings) to locally encoded renditions under",
     "public/assets/subset/: `src` 245w (.webp with an .avif sibling) and",
     "`large` 600w (.avif only). See the script's docstring for why."
   ],
-  "checked": "2026-10-02",
+  "checked": "2026-11-11",
   "scans": {
     "https://images.pokemontcg.io/swsh12pt5gg/GG01": {
       "src": "/assets/subset/swsh12pt5gg-gg01.webp",
@@ -565,6 +566,14 @@
       "w": 245,
       "h": 342,
       "large": "/assets/subset/swsh12pt5gg-gg70-lg.avif",
+      "lw": 600,
+      "lh": 837
+    },
+    "https://images.pokemontcg.io/swsh12tg/TG18": {
+      "src": "/assets/subset/swsh12tg-tg18.webp",
+      "w": 245,
+      "h": 342,
+      "large": "/assets/subset/swsh12tg-tg18-lg.avif",
       "lw": 600,
       "lh": 837
     },

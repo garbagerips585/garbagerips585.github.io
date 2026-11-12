@@ -27,6 +27,7 @@ import { fileURLToPath } from "node:url";
 
 import { SITE } from "../shared/site.mjs";
 import { localDay } from "../shared/today.mjs";
+import { selectTargets, RETRY_DAYS } from "../shared/price-targets.mjs";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const API = "https://www.pokemonpricetracker.com/api/v2";
 
@@ -216,19 +217,36 @@ const today = localDay();
 // Skip what we already have, or --limit re-buys the same cards every run: on
 // the free tier day two would spend 74 of 90 credits re-pricing the 37 cards
 // day one fetched, and advance eight.
-const pending = targets.filter((t) => !doc.auto?.[t.key]);
-const todo = pending.slice(0, LIMIT);
+//
+// AND SKIP THE SETS THE PROVIDER DOES NOT CARRY, 11 November 2026. They used to
+// be sliced into the --limit and only then found to have no mapping, so the
+// same 33 cards from five unmapped sets took 33 of the nightly 50 slots every
+// night and priced nothing. `notCarried` in data/psa10.json remembers the day a
+// set was last confirmed missing and keeps it out of the queue for RETRY_DAYS.
+// The selection is shared/price-targets.mjs, which is pure so it can be tested
+// without the paid key this script needs; the whole argument is at its top.
+doc.notCarried = doc.notCarried || {};
+const picked = selectTargets({ targets, auto: doc.auto, notCarried: doc.notCarried, setMap: SET_MAP, today, limit: LIMIT });
+// A set that has a mapping now is asked for like any other; its old date goes.
+for (const id of picked.stale) delete doc.notCarried[id];
+const todo = picked.todo;
 let hits = 0, misses = 0;
 const problems = [];
 const mismatches = [];
 
-console.log(`${targets.length} cards total, ${targets.length - pending.length} already priced.`);
-console.log(`Fetching ${todo.length} now (${todo.length * 2} credits), ${pending.length - todo.length} left after this.\n`);
+console.log(`${targets.length} cards total, ${targets.length - picked.pending} already priced.`);
+for (const [id, sk] of Object.entries(picked.skipped)) {
+  console.log(`  resting: ${id}, ${sk.cards} card(s), not on their side since ${sk.since} (asked again after ${RETRY_DAYS} days)`);
+}
+console.log(`Fetching ${todo.length} now (up to ${todo.length * 2} credits), ${picked.left} left after this.\n`);
 for (const t of todo) {
   process.stdout.write(`  ${t.name} #${t.number} (${t.setName})... `);
   try {
     if (!SET_MAP[t.setId]) {
       console.log("set not on their side");
+      // Remembered, so the rest of this set's cards stop taking slots from
+      // tomorrow. No request was made and no credit spent.
+      doc.notCarried[t.setId] = today;
       misses++;
       continue;
     }
@@ -285,6 +303,18 @@ for (const t of todo) {
 }
 
 doc.auto = { ...(doc.auto || {}), ...auto };
+// Say what the new section is in the file itself, once, the way `prices` and
+// `auto` are explained there.
+const NOT_CARRIED_NOTE = "notCarried  set id -> the day sync-prices.mjs last confirmed the provider does not";
+if (Array.isArray(doc._readme) && Object.keys(doc.notCarried).length && !doc._readme.includes(NOT_CARRIED_NOTE)) {
+  doc._readme.push(
+    "",
+    NOT_CARRIED_NOTE,
+    `            carry that set. Its cards are not asked for again for ${RETRY_DAYS} days, so they`,
+    "            stop using up the nightly limit. Not a price and read by no page.",
+  );
+}
+if (!Object.keys(doc.notCarried).length) delete doc.notCarried;
 await mkdir(join(ROOT, "data"), { recursive: true });
 await writeFile(join(ROOT, "data/psa10.json"), JSON.stringify(doc, null, 2) + "\n");
 
@@ -294,6 +324,7 @@ Wrote data/psa10.json
 
   fetched          ${hits}
   no data          ${misses}
+  sets resting     ${Object.keys(doc.notCarried || {}).length}  (not on their side; see notCarried in the file)
   hand-entered     ${manual}  (untouched: these always win over a sync)
   credits used     ${spent * 2}
 `);

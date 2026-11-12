@@ -12,6 +12,11 @@ links", and an audit showed what that misses: the 310 rip pages alone clear the
 floor, so every set guide, every Pokemon page and all 19 root pages could vanish
 and it would still pass. Corrupting pokemon-index.json dropped 30 pages from the
 sitemap and 30 from search, and both old guards stayed green.
+
+EXIT CODES. 0: everything passes. 1: a broken build, do not publish. 2: the
+build is sound and something needs a person: a wrong cell in the hand-filled
+workbook, or an advisory finding (a duplicate pack number, a bare "Rochester",
+a blurb gone stale). build-all.mjs and the nightly both carry on past a 2.
 """
 import glob
 import json
@@ -42,10 +47,22 @@ sheet_fail = []
 # failure in this file names the file and the fix, so these do too. It is
 # still recorded as a failure rather than skipped, because a file that is
 # genuinely missing from a finished build IS a broken site.
+#
+# AND EACH PAGE IS READ FROM DISK ONCE, since 11 November 2026. Eleven separate
+# checks walk the whole tree and each one opened and decoded all 1,600 pages
+# again: about 90MB of HTML, eleven times. The source is kept after the first
+# read. It costs memory (about 325MB for this tree, measured) and buys back
+# more seconds than the checks added the same day spend.
+_page_cache = {}
+
+
 def _read_page(path):
     """Page source, or "" with the reason already recorded in `fail`."""
+    if path in _page_cache:
+        return _page_cache[path]
     try:
-        return open(path, encoding="utf-8").read()
+        _page_cache[path] = open(path, encoding="utf-8").read()
+        return _page_cache[path]
     except FileNotFoundError:
         fail.append(
             f"{path} was listed and then could not be read. If something is "
@@ -282,12 +299,25 @@ for _m in _stale[:8]:
 # It is safe to use here because these are .mjs. On a .js file node --check
 # parses as CommonJS and silently passes broken ES module syntax, which is a
 # trap worth remembering rather than rediscovering.
+#
+# EIGHT AT A TIME, since 11 November 2026. This was one node process after
+# another for 170 files and it was the slowest thing in the whole script by a
+# distance: measured at 9 of its 17 seconds, more than every page check put
+# together. Each one is an independent child process, so they are simply run
+# side by side. Same files, same order in the report, same message.
+from concurrent.futures import ThreadPoolExecutor as _Pool
+
+
+def _parses(_b):
+    return _b, _sp.run(["node", "--check", _b], capture_output=True, text=True)
+
+
 _broken = []
-for _b in sorted(glob.glob("scripts/*.mjs") + glob.glob("shared/*.mjs")):
-    _r = _sp.run(["node", "--check", _b], capture_output=True, text=True)
-    if _r.returncode != 0:
-        _first = (_r.stderr.strip().split("\n") or [""])[0]
-        _broken.append(f"{_b} does not parse: {_first[:110]}")
+with _Pool(max_workers=8) as _pool:
+    for _b, _r in _pool.map(_parses, sorted(glob.glob("scripts/*.mjs") + glob.glob("shared/*.mjs"))):
+        if _r.returncode != 0:
+            _first = (_r.stderr.strip().split("\n") or [""])[0]
+            _broken.append(f"{_b} does not parse: {_first[:110]}")
 for _t in _broken[:8]:
     fail.append(_t)
 # ---------------------------------------------------------------------------
@@ -1797,6 +1827,629 @@ if _tier_bad:
           "do NOT edit data/hits.json, which that script rebuilds per video."
     )
 
+# ===========================================================================
+# THE RULES THAT WERE ONLY EVER ENFORCED BY HABIT. Added 11 November 2026.
+#
+# An audit that day found the site's written rules live in a very long
+# instructions file and in whoever happens to remember them: every outbound
+# link carries the same four attributes because each builder was written
+# carefully, not because anything looks; "no em dashes in written copy" is a
+# sentence in CLAUDE.md; the word "dearest" reached a meta description and the
+# owner found it himself. Everything from here to the foot of the file turns one
+# of those into something this script reads off the built tree.
+#
+# TWO TIERS, AND WHICH ONE A CHECK GOES IN IS THE DESIGN.
+#
+#   fail    A HARD check. It goes here only if NOTHING A NIGHTLY SYNC CAN FETCH
+#           can trip it. That is the whole test, and it is why the copy checks
+#           look text up in the synced data before failing: a YouTube title
+#           with an en dash in it, a retailer's listing called "Mega
+#           Evolution—Pitch Black Booster Box", a card called "Pikachu with
+#           Grey Felt Hat" all arrive overnight with nobody at the keyboard, and
+#           a hard failure on any of them stops the nightly commit. This site
+#           has lost twelve days to exactly that kind of freeze. A hard check
+#           here fires on what a BUILDER or a hand-kept data file wrote.
+#
+#   advice  A SOFT finding: a duplicate pack number, a bare "Rochester", a date
+#           that has passed inside a sentence still written in the future. The
+#           pages are complete and publishable and a person has to decide. It
+#           exits 2, the same code a wrong workbook cell uses, which the nightly
+#           and build-all.mjs both tolerate. Their MESSAGES for exit 2 still say
+#           "workbook"; the heading this script prints above the findings is
+#           the accurate one.
+#
+# A FINDING SOMEBODY HAS ALREADY SEEN DOES NOT KEEP EXITING 2. A warning that
+# fires every night on a question only the owner can answer is how a real one
+# gets ignored, which build-all.mjs says about its own exit-2 handling. So
+# data/check-allow.json holds dated acknowledgements: an advisory whose text
+# contains an entry's `match` is counted and listed under "acknowledged" and
+# does not change the exit code. It never applies to a hard check. An entry
+# that matches nothing any more is reported, so the file cannot quietly fill up
+# with answers to questions nobody is asking.
+import html as _html
+import collections as _collections
+
+advice = []
+_acks = []
+if os.path.exists("data/check-allow.json"):
+    _ack_doc = _read_json("data/check-allow.json")
+    if isinstance(_ack_doc, dict):
+        _acks = [a for a in _ack_doc.get("acknowledged", [])
+                 if isinstance(a, dict) and a.get("check") and a.get("match")]
+_acked = []          # (finding, the entry that covered it)
+_ack_used = set()
+
+
+def _advise(check, text):
+    """Record a soft finding, or count it as acknowledged."""
+    for _i, _a in enumerate(_acks):
+        if _a["check"] == check and _a["match"] in text:
+            _ack_used.add(_i)
+            _acked.append((f"[{check}] {text}", _a))
+            return
+    advice.append(f"[{check}] {text}")
+
+
+def _family(path):
+    """public/rip/x.html -> "rip"; public/x.html -> "root"."""
+    parts = path.split("/")
+    return parts[1] if len(parts) > 2 else "root"
+
+
+# THE SYNCED TEXT, loaded once and only if a check needs to ask. Two groups,
+# because the answer differs: a string out of YouTube is the owner's own upload
+# quoted verbatim, and a string out of the others is somebody's product, set or
+# card name. Neither is written copy, and both can change overnight.
+_CORPUS_YT = ("public/data/videos.json", "data/descriptions.json", "public/data/playlists.json")
+_CORPUS_NAMES = (
+    "public/data/products.json", "public/data/products-intl.json", "public/data/preorders.json",
+    "public/data/expansions.json", "public/data/sets.json", "public/data/intl-sets.json",
+    "public/data/card-index.json", "public/data/pokemon-index.json",
+    "data/pack-counts-current.json", "data/pack-counts-history.json",
+    "data/retailer-prices.json", "data/etb-promos.json",
+    # Three more that a nightly step rewrites with names nobody here typed:
+    # the Japanese and Korean checklists, and the 30th Celebration price read.
+    "public/data/intl-guides.json", "data/30th-checklist.json", "data/30th-prices.json",
+)
+_DASHES = "\u2014\u2013"
+_corpus_cache = {}
+
+
+def _squash(s):
+    """Lower case, letters digits and the two dashes only. Spacing, entities,
+    an ellipsis where a builder clipped a title: none of it survives, so a
+    phrase on a page still meets the same phrase in a data file."""
+    return _re.sub(r"[^a-z0-9" + _DASHES + r"]+", "", s.lower())
+
+
+def _corpus(which):
+    if which not in _corpus_cache:
+        _parts = []
+        for _p in (_CORPUS_YT if which == "yt" else _CORPUS_NAMES):
+            try:
+                _parts.append(json.dumps(json.load(open(_p, encoding="utf-8")), ensure_ascii=False))
+            except Exception:
+                pass  # a missing or broken feed is reported by the checks above
+        _corpus_cache[which] = _squash("\n".join(_parts).replace("\\n", " "))
+    return _corpus_cache[which]
+
+
+def _from_outside(before, word, after, n=5):
+    """ "yt", "names" or None: is this word, with the few characters either
+    side of it, sitting verbatim in the synced data?"""
+    _key = _squash(before)[-n:] + _squash(word) + _squash(after)[:n]
+    if len(_key) < len(_squash(word)) + 3:
+        return None  # too little around it to mean anything
+    for _which in ("yt", "names"):
+        if _key in _corpus(_which):
+            return _which
+    return None
+
+
+# WHAT A READER (or a search result, or a screen reader) ACTUALLY GETS. Script,
+# style and comments go first; what is left is text nodes plus attributes, and
+# of the attributes only the ones that are read out or shown count.
+_INVISIBLE = _re.compile(r"<script\b.*?</script>|<style\b.*?</style>|<!--.*?-->", _re.S | _re.I)
+_ATTR = _re.compile(r'([\w:-]+)\s*=\s*"([^"]*)"')
+_READ_ATTRS = {"alt", "aria-label", "title"}
+_META_COPY = _re.compile(
+    r'(?:name|property)="(?:description|og:description|twitter:description|og:title|twitter:title)"')
+_TAGS = _re.compile(r"<[^>]*>")
+
+
+def _locate(clean, i):
+    """Where offset i sits: ("text", before, after, nb, na) for a text node,
+    ("@alt", ...) and so on for a read attribute, or None for anything a
+    reader never meets (an href, a class, a data attribute). before/after are
+    plain text, entities decoded, whitespace collapsed, and run ACROSS
+    neighbouring elements; nb/na stop at the edges of this one text node,
+    which is what a lookup in the data wants: the cell before a set's name is
+    not part of the name."""
+    _lt = clean.rfind("<", 0, i)
+    _gt = clean.rfind(">", 0, i)
+    if _lt > _gt:
+        _end = clean.find(">", i)
+        _tag = clean[_lt:_end + 1 if _end != -1 else len(clean)]
+        for _am in _ATTR.finditer(_tag):
+            if _lt + _am.start(2) <= i < _lt + _am.end(2):
+                _name = _am.group(1).lower()
+                if _name in _READ_ATTRS or (_name == "content" and _META_COPY.search(_tag)):
+                    _val, _off = _am.group(2), i - (_lt + _am.start(2))
+                    _vb = _html.unescape(_val[max(0, _off - 160):_off])
+                    _va = _html.unescape(_val[_off:_off + 160])
+                    return ("@" + ("meta" if _name == "content" else _name), _vb, _va, _vb, _va)
+                return None
+        return None
+    _b = _TAGS.sub(" ", clean[max(0, i - 400):i])
+    _a = _TAGS.sub(" ", clean[i:i + 400])
+    # A tag cut in half by the window leaves its tail (before) or head (after).
+    # Cut those off BEFORE decoding entities, or an &gt; in the copy is taken
+    # for the end of a tag.
+    _b = _html.unescape(_b[_b.rfind(">") + 1:] if ">" in _b else _b)
+    _a = _html.unescape(_a[:_a.find("<")] if "<" in _a else _a)
+    _nx = clean.find("<", i)
+    _nb = _html.unescape(clean[max(_gt + 1, i - 160):i])
+    _na = _html.unescape(clean[i:min(_nx if _nx != -1 else i + 160, i + 160)])
+    return ("text", _re.sub(r"\s+", " ", _b)[-160:], _re.sub(r"\s+", " ", _a)[:160],
+            _re.sub(r"\s+", " ", _nb), _re.sub(r"\s+", " ", _na))
+
+
+def _show(before, word, after):
+    return _re.sub(r"\s+", " ", f"{before[-45:]}{word}{after[len(word):len(word) + 40]}").strip()
+
+
+# ---------------------------------------------------------------------------
+# OUTBOUND LINKS: THE SHAPE, AND THE ONE HOST WITH A RULE OF ITS OWN. Hard.
+#
+# CLAUDE.md, "Every click stays on the site", ends up at one checkable thing
+# after pages of argument about which links may exist: "every one carries an
+# aria-label saying it leaves the site", with target="_blank" and
+# rel="noopener". It also says that is "checkable, it does not go stale". It
+# was never checked. This checks it on every <a href="http..."> whose host is
+# not ours, outside <script>.
+#
+# THE ACCEPTED WAYS TO SAY IT, derived from the 16,477 outbound links in the
+# tree on 11 November 2026, every one of which passes. If a builder needs a new
+# wording, add it here in the same edit and say why:
+#
+#   1. "..., opens on <host>"        the standard ending, with or without a full
+#                                    stop. <host> has to be the link's own host:
+#                                    with or without "www.", or a parent domain
+#                                    of it. 9,437 links. A label naming the
+#                                    wrong site is worse than none.
+#   2. "... Opens YouTube."          Subscribe (shared/chrome.mjs SUB_LABEL),
+#                                    youtube.com only. 5,230 links.
+#   3. "..., opens on their site"    a retailer's or the collection app's own
+#                                    page, where the host is already in the
+#                                    visible text. 1,597 links.
+#   4. "..., opens on Pokemon's site"  the how-to-play and app-guide end blocks.
+#                                    8 links.
+#   5. NO aria-label, with aria-hidden="true" AND tabindex="-1": the picture
+#      half of a product row whose text link beside it carries the label. It is
+#      out of the accessibility tree and out of the tab order, so there is
+#      nobody to tell. 205 links.
+#
+# YOUTUBE. Every video tile goes to that video's page on this site. The links
+# to youtube.com that may exist are a channel (Subscribe, ours and a shop's or
+# creator's @handle) and ONE watch link: a rip page's own "Watch this rip on
+# YouTube", to the video that page is about. A /watch, /playlist, /shorts or
+# youtu.be link anywhere else is the thing the rule exists to stop.
+_OUR_HOSTS = {"garbagerips.com", "www.garbagerips.com"}
+_A_TAG = _re.compile(r"<a\b[^>]*>", _re.I)
+_HREF_OUT = _re.compile(r'\bhref="(https?://([^/"?#]+)([^"]*))"', _re.I)
+_ARIA = _re.compile(r'\baria-label="([^"]*)"')
+_REL = _re.compile(r'\brel="([^"]*)"')
+_OPENS_ON = _re.compile(r"\bopens on ([a-z0-9.-]+?)\.?$", _re.I)
+_YT_HOST = _re.compile(r"(^|\.)(youtube\.com|youtu\.be|youtube-nocookie\.com)$")
+_YT_CHANNEL = _re.compile(r"^/(?:channel/[\w-]+|@[\w.-]+)/?(?:\?sub_confirmation=1)?$")
+_YT_WATCH = _re.compile(r"^/watch\?v=([\w-]{11})$")
+
+
+def _same_site(label_host, link_host):
+    _l = _re.sub(r"^www\.", "", label_host.lower())
+    _h = _re.sub(r"^www\.", "", link_host.lower())
+    return _l == _h or _h.endswith("." + _l)
+
+
+_out_hosts = _collections.Counter()
+_out_bad = []
+_out_total = 0
+
+# ---------------------------------------------------------------------------
+# COPY. Three things the instructions file asks for in prose.
+#
+# (a) NO EM DASH AND NO EN DASH IN WRITTEN COPY. Hard, outside /rip/ and
+#     /playlists/, where it is advice (those two families are mostly the owner's
+#     YouTube text and were being normalized by another change the night this
+#     was written). What is NOT written copy, and so passes, each counted in
+#     the summary line:
+#       - a lone dash that is the whole content of an aria-hidden element: the
+#         "no figure" mark in a table cell, with the words in .sr-only beside
+#         it. 395 on the day this was written.
+#       - an en dash joining two numbers or two weekday names with no spaces:
+#         "Nov 13–15", "Fri–Sun" on the show calendar. A range, not a
+#         sentence. 38.
+#       - a dash inside text that sits verbatim in the synced data: Pokemon's
+#         own product naming ("Scarlet & Violet—151 Ultra-Premium Collection",
+#         "HS—Unleashed"), a retailer's listing title, the owner's own YouTube
+#         title or description. Quoted, not written.
+#       - anything inside a <blockquote> or a <q>, for the same reason.
+# (b) "ROCHESTER" IS ALWAYS "Rochester, NY". Advice, never hard: the Garbage
+#     Plate pages are about the city and say its name seventy ways. The owner,
+#     28 August 2026: "there is more than one Rochester in the US". What passes
+#     is in _ROCH_AFTER and _ROCH_BEFORE below, built from every occurrence in
+#     the tree: proper names (the Red Wings, Visit Rochester, East Rochester,
+#     which is a separate village), a street address, anything inside quotation
+#     marks or a <blockquote>, and anything out of YouTube.
+# (c) AMERICAN SPELLING. Hard. The short list of words that have actually
+#     reached this site or its drafts; zero in the tree the day it went in.
+#     "grey" is deliberately absent ("Pikachu with Grey Felt Hat" is a card).
+_DASH_PRE = ("\u2014", "\u2013", "&mdash;", "&ndash;", "&#82", "&#x201", "&#X201")
+_DASH = _re.compile(r"[\u2014\u2013]|&mdash;|&ndash;|&#8212;|&#8211;|&#x2014;|&#x2013;", _re.I)
+_EN = {"\u2013", "&ndash;", "&#8211;", "&#x2013;"}
+_BRIT_PRE = ("earest", "earer", "olour", "avourite", "er cent", "hilst", "icence")
+_BRIT = _re.compile(r"\b(dearest|dearer|colour\w*|favourite\w*|per cent|whilst|licen[c]e[sd]?)\b", _re.I)
+_AMERICAN = {"dearest": "most expensive", "dearer": "more expensive", "per cent": "percent",
+             "whilst": "while", "licence": "license"}
+_ROCH = _re.compile(r"\bRochester\b(?!\s?,\s?(?:NY|New York|N\.Y\.)|\s(?:NY|New York)\b)")
+_ROCH_AFTER = _re.compile(
+    r"^Rochester(?:"
+    r"['\u2019]s Pok"                        # the Garbodor video title, belt and braces
+    r"| (?:Red Wings|Plates\b)"              # the ball club, and its Plates nights
+    r"| plates?\b"                           # "Rochester plate", one of the dish's names
+    r"| Business Journal| Public Library| Institute of Technology| Heritage Trail"
+    r"| CCG\b| Pickups"                      # a shop, and a video series
+    r"| (?:&|and) (?:Genesee|Pittsburgh)"   # two railroads
+    r"| Garbage Plate"                       # an article title and a Commons file name
+    r"| (?:Rd|Road|St|Street|Ave|Avenue)\b"  # a street called Rochester
+    r")")
+_ROCH_BEFORE = _re.compile(
+    r"(?:\bGreater|\bVisit|\bEast|\bPort of|\bUniversity of|\bCity of|\bFest|\bJCC|File:"
+    r"|\b(?:St|Rd|Ave|Avenue|Blvd|Dr|Drive|Road|Street|Pkwy|Hwy|Way|Ln|Lane|Plaza|Pl|Ct)\.?,)\s*$")
+_dash_bad, _brit_bad = [], []
+_dash_ok = _collections.Counter()
+_roch_seen = 0
+_roch_bad = {}
+
+
+def _marked_quote(clean, i):
+    """True inside a <blockquote> or a <q>: somebody else's words, marked as
+    such in the markup, which no copy rule here applies to."""
+    for _open, _close in (("<blockquote", "</blockquote"), ("<q>", "</q>"), ("<q ", "</q>")):
+        _o = clean.rfind(_open, 0, i)
+        if _o != -1 and _o > clean.rfind(_close, 0, i):
+            return True
+    return False
+
+
+def _in_quotes(before):
+    """True when the text up to here has an unclosed quotation mark in it."""
+    if before.count('"') % 2 == 1:
+        return True
+    return before.rfind("\u201c") > before.rfind("\u201d")
+
+
+for _f in pages:
+    _raw = _read_page(_f)
+    if not _raw:
+        continue
+    _clean = _INVISIBLE.sub(" ", _raw)
+    _fam = _family(_f)
+
+    # -- outbound links
+    for _m in _A_TAG.finditer(_clean):
+        _tag = _m.group(0)
+        if 'href="http' not in _tag:
+            continue
+        _hm = _HREF_OUT.search(_tag)
+        if not _hm:
+            continue
+        _url, _host, _rest = _hm.group(1), _hm.group(2).lower(), _hm.group(3)
+        if _host in _OUR_HOSTS:
+            continue
+        _out_total += 1
+        _out_hosts[_re.sub(r"^www\.", "", _host)] += 1
+        _why = []
+        if 'target="_blank"' not in _tag:
+            _why.append('no target="_blank"')
+        _rel = _REL.search(_tag)
+        if not _rel or "noopener" not in _rel.group(1).split():
+            _why.append('rel has no "noopener"')
+        _al = _ARIA.search(_tag)
+        _label = _html.unescape(_al.group(1)).strip() if _al else None
+        _is_yt = bool(_YT_HOST.search(_host))
+        if _label is None:
+            if not ('aria-hidden="true"' in _tag and 'tabindex="-1"' in _tag):
+                _why.append("no aria-label saying it leaves the site")
+        else:
+            _on = _OPENS_ON.search(_label)
+            if _on:
+                if not _same_site(_on.group(1), _host):
+                    _why.append(f'aria-label says "opens on {_on.group(1)}" but the link goes to {_host}')
+            elif _label.endswith("Opens YouTube."):
+                if not _is_yt:
+                    _why.append(f'aria-label says "Opens YouTube." but the link goes to {_host}')
+            elif not _re.search(r"\bopens on (?:their site|Pokemon's site)\.?$", _label):
+                _why.append(f'aria-label "{_label[:70]}" does not say it leaves the site '
+                            f'(end it ", opens on {_re.sub("^www[.]", "", _host)}")')
+        if _is_yt and not _YT_CHANNEL.match(_rest):
+            _w = _YT_WATCH.match(_rest)
+            _own = (_w and _fam == "rip" and _f.endswith(f"-{_w.group(1)}.html")
+                    and (_label or "").startswith("Watch this rip on YouTube"))
+            if not _own:
+                _why.append("a youtube.com link that is not a channel link or the rip page's own "
+                            '"Watch this rip on YouTube": video links go to /rip/ on this site')
+        if _why:
+            _out_bad.append(f"{_f}: outbound link {_url[:90]} -- {'; '.join(_why)}")
+
+    # -- dashes
+    if any(_p in _clean for _p in _DASH_PRE):
+        for _m in _DASH.finditer(_clean):
+            _i, _j = _m.start(), _m.end()
+            _loc = _locate(_clean, _i)
+            if not _loc:
+                continue
+            _kind, _b, _a, _nb, _na = _loc
+            _ch = _html.unescape(_m.group(0))
+            _a = _a[len(_ch):] if _a.startswith(_ch) else _a[1:]
+            _na = _na[len(_ch):] if _na.startswith(_ch) else _na[1:]
+            if _kind == "text":
+                _gt = _clean.rfind(">", 0, _i)
+                _lt = _clean.rfind("<", 0, _gt)
+                _nx = _clean.find("<", _j)
+                if (not _clean[_gt + 1:_i].strip() and not _clean[_j:_nx if _nx != -1 else _j].strip()
+                        and 'aria-hidden="true"' in _clean[_lt:_gt + 1]):
+                    _dash_ok["lone aria-hidden marks"] += 1
+                    continue
+            if (_m.group(0) in _EN and _re.search(r"(?:\d|Mon|Tue|Wed|Thu|Fri|Sat|Sun)$", _b)
+                    and _re.match(r"(?:\d|Mon|Tue|Wed|Thu|Fri|Sat|Sun)", _a)):
+                _dash_ok["number and weekday ranges"] += 1
+                continue
+            if _kind == "text" and _marked_quote(_clean, _i):
+                _dash_ok["inside a marked quotation"] += 1
+                continue
+            _src = _from_outside(_nb, _ch, _na)
+            if _src:
+                _dash_ok["quoted from YouTube" if _src == "yt" else "inside a product or set name"] += 1
+                continue
+            _name = "em dash" if _ch == "\u2014" else "en dash"
+            _msg = f"{_f}: {_name} in {_kind.lstrip('@')} copy: ...{_show(_b, _ch, _ch + _a)}..."
+            if _fam in ("rip", "playlists"):
+                _advise("dash", _msg)
+            else:
+                _dash_bad.append(_msg)
+
+    # -- British spellings
+    if any(_p in _clean for _p in _BRIT_PRE):
+        for _m in _BRIT.finditer(_clean):
+            _loc = _locate(_clean, _m.start())
+            if not _loc:
+                continue
+            _kind, _b, _a, _nb, _na = _loc
+            if _kind == "text" and _marked_quote(_clean, _m.start()):
+                continue  # a quotation keeps its author's spelling
+            if _from_outside(_nb, _m.group(0), _na[len(_m.group(0)):], n=6):
+                continue  # a card, a product or the owner's own YouTube words
+            _w = _m.group(0).lower()
+            _fix = _AMERICAN.get(_w) or _w.replace("colour", "color").replace("favourite", "favorite").replace("licence", "license")
+            _brit_bad.append(f'{_f}: "{_m.group(0)}" in {_kind.lstrip("@")} copy, write "{_fix}": '
+                             f'...{_show(_b, _m.group(0), _a)}...')
+
+    # -- Rochester
+    if "Rochester" in _clean:
+        for _m in _ROCH.finditer(_clean):
+            _loc = _locate(_clean, _m.start())
+            if not _loc:
+                continue
+            _kind, _b, _a, _nb, _na = _loc
+            _roch_seen += 1
+            # ", NY" can sit the other side of a closing tag: "Rochester</b>, NY".
+            if _re.match(r"Rochester\s?,\s?(?:NY|New York)\b|Rochester (?:NY|New York)\b", _a):
+                continue
+            if _ROCH_AFTER.match(_a) or _ROCH_BEFORE.search(_b) or _in_quotes(_b):
+                continue
+            if _kind == "text" and _marked_quote(_clean, _m.start()):
+                continue
+            if _from_outside(_nb, "Rochester", _na[9:], n=6) == "yt":
+                continue
+            _ctx = _show(_b, "Rochester", _a)
+            _roch_bad.setdefault((_f, _ctx), 0)
+            _roch_bad[(_f, _ctx)] += 1
+
+note(f"  {_out_total} outbound links checked on {len(_out_hosts)} hosts: "
+     + ", ".join(f"{h} {n}" for h, n in _out_hosts.most_common(8))
+     + (f", and {len(_out_hosts) - 8} more hosts" if len(_out_hosts) > 8 else ""))
+for _t in _out_bad[:12]:
+    fail.append(_t)
+if len(_out_bad) > 12:
+    fail.append(f"...and {len(_out_bad) - 12} more outbound links with the same kind of fault. "
+                'Every off-site <a> needs target="_blank", rel="noopener" and an aria-label '
+                'ending ", opens on <host>": see "Every click stays on the site" in CLAUDE.md.')
+for _t in _dash_bad[:12]:
+    fail.append(_t + ' -- no em or en dashes in written copy: use a comma, a colon or "to".')
+if len(_dash_bad) > 12:
+    fail.append(f"...and {len(_dash_bad) - 12} more dashes in written copy.")
+for _t in _brit_bad[:12]:
+    fail.append(_t + " -- American English only.")
+if len(_brit_bad) > 12:
+    fail.append(f"...and {len(_brit_bad) - 12} more British spellings.")
+for (_pf, _ctx), _n in sorted(_roch_bad.items()):
+    _advise("rochester", f'{_pf}: bare "Rochester"{f" x{_n}" if _n > 1 else ""}, write "Rochester, NY" '
+                         f"unless it is a proper name or a quotation: ...{_ctx}...")
+note("  copy: " + (", ".join(f"{n} {k}" for k, n in sorted(_dash_ok.items())) or "no dashes at all")
+     + f" passed as not written copy; {_roch_seen} bare Rochester checked")
+
+# ---------------------------------------------------------------------------
+# PACK NUMBERS THAT CANNOT ALL BE TRUE. Advice, never hard.
+#
+# A rip's label is "<set> <product> <box> - Pack <n>" (shared/riplabel.mjs), the
+# box and the pack both typed by the owner in the Video Log, with
+# data/overrides.json in front of the sheet (sync-youtube.mjs: `manual.packNumber
+# ?? log.packNumber`). The same precedence is applied here, so a correction
+# typed into overrides.json is judged tonight rather than after the next sync.
+#
+# WHAT IT CAUGHT THE DAY IT WAS WRITTEN: Wwc1wVyI6CQ and msETNgFSWD0 both read
+# "Chaos Rising ETB 2 - Pack 3", and the first one's own description says "We
+# are onto Pack #2 of our second Pokemon Chaos Rising Elite Trainer Box".
+#
+# Three findings, one line each:
+#   - the same pack number twice under one label. Usually two different boxes
+#     of one product with no Box # typed, which only the owner can tell apart.
+#   - a hole in the run (packs 1 and 4, no 2 or 3). Numbers missing BEFORE the
+#     first one are not reported: most series were being opened before the
+#     sheet started carrying pack numbers.
+#   - a description that states a pack number and it is not the typed one. A
+#     description naming only the NEXT pack ("can Pack #2 turn it around?") is
+#     the sign-off on half the channel's videos and is not a disagreement.
+_pk_vids = (_read_json("public/data/videos.json") or {}).get("videos") or []
+_pk_ov = _read_json("data/overrides.json") or {}
+_pk_desc = _read_json("data/descriptions.json") if os.path.exists("data/descriptions.json") else {}
+_pk_groups = {}
+_pk_count = 0
+for _v in _pk_vids:
+    _o = _pk_ov.get(_v.get("id")) if isinstance(_pk_ov.get(_v.get("id")), dict) else {}
+    _pn = _o.get("packNumber", _v.get("packNumber"))
+    if not isinstance(_pn, int) or isinstance(_pn, bool):
+        continue
+    _pk_count += 1
+    _label = _v.get("label") or ""
+    if _re.search(r"Pack\s+\d+$", _label):
+        _key = _re.sub(r"\s*-?\s*Pack\s+\d+$", "", _label)
+    else:
+        _key = " / ".join([str((_v.get("sets") or ["?"])[0]), str((_v.get("products") or ["?"])[0]),
+                           f"box {_o.get('boxNumber', _v.get('boxNumber')) or '-'}"])
+    _pk_groups.setdefault(_key, []).append((_pn, str(_v.get("published") or ""), _v.get("id")))
+    _said = {int(_x) for _x in _re.findall(r"\bPack\s*#?\s*(\d{1,2})\b", (_pk_desc or {}).get(_v.get("id")) or "", flags=_re.I)}
+    if _said and _pn not in _said and _said != {_pn + 1}:
+        _advise("packs", f'{_v.get("id")} ({_v.get("published")}) is logged as "{_label or _key}", pack {_pn}, '
+                         f'but its own description says Pack {", ".join("#" + str(_x) for _x in sorted(_said))}.')
+for _key, _g in sorted(_pk_groups.items()):
+    _by = {}
+    for _pn, _when, _id in sorted(_g, key=lambda _r: (_r[0], _r[1])):
+        _by.setdefault(_pn, []).append(f"{_id} ({_when})")
+    _dups = {_pn: _ids for _pn, _ids in _by.items() if len(_ids) > 1}
+    if _dups:
+        _advise("packs", f'"{_key}": ' + "; ".join(
+            f"Pack {_pn} is on {len(_ids)} rips: {', '.join(_ids)}" for _pn, _ids in sorted(_dups.items()))
+            + ". Two boxes of one product need a Box # each, or one of these is mistyped.")
+    _have = sorted(_by)
+    _holes = [_x for _x in range(_have[0], _have[-1] + 1) if _x not in _by]
+    if _holes:
+        _advise("packs", f'"{_key}": has packs {", ".join(map(str, _have))} and no pack '
+                         f'{", ".join(map(str, _holes))}.')
+note(f"  {_pk_count} rips with a typed pack number, in {len(_pk_groups)} series, checked for repeats and holes")
+
+# ---------------------------------------------------------------------------
+# "COMING DECEMBER 4" ABOUT A THING THAT IS ALREADY OUT. Advice.
+#
+# data/upcoming.json is hand kept, and so is data/30th.json, and on 11 November
+# 2026 the first one said the 30th Celebration ex Tin was coming on December 4
+# while the second said it had been out since September 16 and the owner had
+# opened three packs of one on camera. Nothing compared the two. A product in
+# upcoming.json is checked against the 30th Celebration product list (by name,
+# a different date that has already passed) and against the products the set
+# guides already list for a released set (same name, set released, upcoming
+# date still ahead).
+_today_local = _dt.date.today().isoformat()
+
+
+def _name_tokens(s):
+    _s = _re.sub(r"pok[e\u00e9]mon tcg:?", " ", str(s).lower())
+    return frozenset(_t for _t in _re.findall(r"[a-z0-9]+", _s) if _t not in ("and", "or", "the", "s"))
+
+
+_up = _read_json("data/upcoming.json") if os.path.exists("data/upcoming.json") else None
+if isinstance(_up, dict):
+    _t30 = _read_json("data/30th.json") if os.path.exists("data/30th.json") else None
+    _prods = (_read_json("public/data/products.json") or {}).get("sets") or {}
+    _rel = {_s.get("id"): _s.get("released") for _s in (_read_json("public/data/sets.json") or {}).get("sets") or []}
+    for _p in _up.get("products") or []:
+        _nm, _when = str(_p.get("name") or ""), str(_p.get("date") or "")
+        _tk = _name_tokens(_nm)
+        if not _tk:
+            continue
+        if isinstance(_t30, dict) and {"30th", "celebration"} <= _tk:
+            _rest = _tk - {"30th", "celebration"}
+            for _r in _t30.get("products") or []:
+                _rn = str(_r.get("name") or "")
+                if _rest and _rest in (_name_tokens(_rn.split(",")[0]), _name_tokens(_rn)):
+                    _rd = str(_r.get("date") or "")
+                    if _rd and _rd <= _today_local and _rd != _when:
+                        _advise("upcoming", f'data/upcoming.json lists "{_nm}" for {_when}, but data/30th.json '
+                                            f'has "{_rn}" out since {_rd}. One of the two files is wrong.')
+        if _when > _today_local:
+            for _sid, _s in _prods.items():
+                _sr = _rel.get(_sid)
+                if not _sr or _sr > _today_local:
+                    continue
+                for _r in (_s.get("products") or []) if isinstance(_s, dict) else []:
+                    if _name_tokens(_r.get("name")) == _tk:
+                        _advise("upcoming", f'data/upcoming.json lists "{_nm}" as coming {_when}, but '
+                                            f'public/data/products.json already carries "{_r.get("name")}" under '
+                                            f'{_sid}, a set released {_sr}. Is it out, or is that a preorder listing?')
+
+# ---------------------------------------------------------------------------
+# A PAST DATE IN A SENTENCE STILL WRITTEN IN THE FUTURE. Advice.
+#
+# The hand-written blurbs go stale without anything changing: "their next show
+# is penciled for October 12, 2026" is true the day it is typed and wrong on
+# the 13th. Four files, only the fields a page prints (a key ending "Note", or
+# "gap", is provenance kept for the next editor and quotes flyers and emails
+# verbatim, so those are skipped).
+_MONTHS = ("January February March April May June July August September "
+           "October November December").split()
+_DATE_IN_TEXT = _re.compile(r"\b(" + "|".join(_MONTHS) + r")\s+(\d{1,2})(?:st|nd|rd|th)?,?\s+(20\d\d)\b"
+                            r"|\b(20\d\d)-(\d\d)-(\d\d)\b")
+_FUTURE_WORDS = _re.compile(r"\b(penciled|pencilled|upcoming|will|is coming|are coming|is planned|"
+                            r"are planned|next month|coming soon)\b", _re.I)
+
+
+def _blurbs(x, path):
+    if isinstance(x, dict):
+        for _k, _v in x.items():
+            if str(_k).startswith("_") or str(_k).endswith("Note") or _k in ("gap", "why"):
+                continue
+            yield from _blurbs(_v, path + [str(_k)])
+    elif isinstance(x, list):
+        for _i, _v in enumerate(x):
+            _lab = (_v.get("id") or _v.get("slug") or _v.get("name")) if isinstance(_v, dict) else None
+            yield from _blurbs(_v, path + [str(_lab or _i)])
+    elif isinstance(x, str) and len(x) > 30:
+        yield path, x
+
+
+for _bf in ("data/shops.json", "data/vendors.json", "data/set-notes.json", "data/creators.json"):
+    if not os.path.exists(_bf):
+        continue
+    _bd = _read_json(_bf)
+    if _bd is None:
+        continue
+    for _path, _text in _blurbs(_bd, []):
+        for _sent in _re.split(r"(?<=[.!?])\s+(?=[A-Z\"'(])", _text):
+            _fw = _FUTURE_WORDS.search(_sent)
+            if not _fw:
+                continue
+            for _m in _DATE_IN_TEXT.finditer(_sent):
+                _d = (f"{_m.group(3)}-{_MONTHS.index(_m.group(1)) + 1:02d}-{int(_m.group(2)):02d}"
+                      if _m.group(1) else f"{_m.group(4)}-{_m.group(5)}-{_m.group(6)}")
+                if _d < _today_local:
+                    _advise("stale", f'{_bf} {" > ".join(_path)}: "{_fw.group(0)}" beside {_m.group(0)}, '
+                                     f'which has passed: {_sent.strip()[:220]}')
+                    break
+
+# An acknowledgement that covers nothing is itself worth a line: the question
+# was answered, or the text it matched moved, and either way the entry is dead.
+for _i, _a in enumerate(_acks):
+    if _i not in _ack_used:
+        note(f'  note: data/check-allow.json entry {_a["check"]} / "{_a["match"][:60]}" matched nothing '
+             f"this run and can be deleted")
+if _acked:
+    note(f"\n  {len(_acked)} advisory finding(s) already acknowledged in data/check-allow.json, "
+         f"waiting on a person and not counted against the build:")
+    for _t, _a in _acked:
+        note(f"    {_t[:260]}")
+        note(f"      acknowledged {_a.get('date', '?')}: {str(_a.get('why', ''))[:200]}")
+
 # DEDUPE AGAIN, HERE, BECAUSE THE EARLIER ONE CANNOT SEE THE LAST THIRD OF THIS
 # FILE. There is a `fail = list(dict.fromkeys(fail))` further up, added so that
 # one file read by three checks reports its problem once. It sits at the point
@@ -1838,6 +2491,19 @@ if sheet_fail:
     print("Fix the cell in Garbage-Rips-585-Video-Log.xlsx and re-run "
           "scripts/import-sheet.mjs.", file=sys.stderr)
 
+# ADVICE IS PRINTED UNDER ITS OWN HEADING, because "the log is wrong, fix the
+# cell" is the wrong instruction for a blurb that went stale or two rips sharing
+# a pack number. Same exit code as a workbook problem and for the same reason:
+# nothing an automated run can fix, and nothing that should stop one.
+advice = list(dict.fromkeys(advice))
+if advice:
+    print(f"\n{len(advice)} advisory finding(s) -- the build is fine and publishable, "
+          f"these need a person to look:", file=sys.stderr)
+    for f in advice:
+        print("  " + f, file=sys.stderr)
+    print("Fix the data or the copy; or, once somebody has seen one and it is waiting on an "
+          "answer, add a dated entry for it to data/check-allow.json.", file=sys.stderr)
+
 if fail:
     print(f"\n{len(fail)} problem(s):", file=sys.stderr)
     for f in fail:
@@ -1845,7 +2511,7 @@ if fail:
     print(f"{len(fail)} problem(s) found by scripts/check-build.py. "
           f"Run: python3 scripts/check-build.py", file=sys.stderr)
     sys.exit(1)
-if sheet_fail:
+if sheet_fail or advice:
     sys.exit(2)
 print("\nall checks pass")
 

@@ -14,9 +14,9 @@
  *
  *   1. speciesOf() strips the owner ("Iono's Bellibolt ex" -> "Bellibolt"),
  *      the mechanic suffix and "Mega". It is the same function, moved here
- *      word for word. build-pokemon.mjs still carries its own copy because
- *      this change was not allowed to edit that file; it should import this
- *      one, and until it does the two must be kept identical.
+ *      word for word, and build-pokemon.mjs imports it from this file (since
+ *      later on 11 November 2026; it carried its own copy for a few hours).
+ *      This is the only definition: change it here and both sides move.
  *   2. the name that is left is looked up in a tally built from the printing
  *      corpus (public/data/printings/*.json), where every Pokemon card carries
  *      its National Dex number. That is what resolves "Galarian Zigzagoon",

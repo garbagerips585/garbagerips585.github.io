@@ -600,7 +600,9 @@
     ],
     "products": [
       "etb"
-    ]
+    ],
+    "packNumber": 2,
+    "packNumberWhy": "11 November 2026. The Video Log row for this rip says Box # 2, Pack # 3, and so does the row for the next day's rip, msETNgFSWD0, so two rips carried the label \"Chaos Rising ETB 2 - Pack 3\". His own YouTube description for THIS video, typed by him on 2 July 2026, says: \"We are onto Pack #2 of our second Pokemon Chaos Rising Elite Trainer Box!\", and the next day's says \"After a slow start to the second Pokemon Chaos Rising ETB, Pack #3 finally delivers a HIT!\". So this one is Pack 2 and the sheet cell is a typo. The number is still his: it is quoted from words he typed, not parsed out of a title, which is the rule riplabel.mjs keeps. It lives here rather than in manual.json because the next CSV import rebuilds that file from the sheet, and the sheet still says 3 until the cell is fixed. Found by the pack-sequence lint in scripts/check-build.py, added the same day."
   },
   "xNGxOuMpSiw": {
     "products": [

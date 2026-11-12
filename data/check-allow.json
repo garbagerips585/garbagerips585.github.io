@@ -1,0 +1,134 @@
+{
+  "_readme": [
+    "Acknowledgements for the ADVISORY findings of scripts/check-build.py, and nothing else.",
+    "",
+    "That script has two kinds of result. A hard failure (exit 1) stops a publish and",
+    "cannot be acknowledged here or anywhere: fix it. An advisory (exit 2) is something",
+    "true about the data that only a person can settle: two rips sharing a pack number, a",
+    "bare \"Rochester\", a product listed as upcoming that another file says is out.",
+    "",
+    "An advisory that somebody has SEEN and that is waiting on an answer goes in",
+    "`acknowledged`. From then on the script still prints it, under 'already",
+    "acknowledged', and it no longer changes the exit code, so the nightly log is not",
+    "the same nineteen lines every night with a new one lost among them.",
+    "",
+    "  check   the tag in square brackets at the start of the finding: packs, rochester,",
+    "          dash, upcoming, stale",
+    "  match   text the finding must contain. Make it specific: for a pack finding it is",
+    "          the series and the video ids, so a NEW rip joining the series changes the",
+    "          finding and it comes back as unacknowledged.",
+    "  date    the day it was acknowledged",
+    "  why     who is being waited on, or why it is right as it stands",
+    "",
+    "DELETE AN ENTRY WHEN ITS QUESTION IS ANSWERED. The script names any entry that no",
+    "longer matches anything, so this file cannot fill up with dead answers.",
+    "",
+    "Every entry dated 2026-11-11 was written the night the checks went in, from the",
+    "findings they produced on the tree as it stood. None of them was a judgement that",
+    "the finding is wrong."
+  ],
+  "acknowledged": [
+    {
+      "check": "rochester",
+      "match": "(Restaurants in Rochester, Fairport, Henrietta",
+      "date": "2026-11-11",
+      "why": "Not our sentence: these are the names of Wikimedia Commons categories, listed where the Garbage Plate page records which searches were run. The owner's rule exempts Commons filenames and categories by name."
+    },
+    {
+      "check": "rochester",
+      "match": "Outside Rochester It travels",
+      "date": "2026-11-11",
+      "why": "A heading on the Garbage Plate page built on the inside/outside contrast, which the owner's rule names as an exception (qualifying it reads 'Outside Rochester, NY' as a place). Reported to the lead 11 November 2026 in case he wants it reworded anyway."
+    },
+    {
+      "check": "packs",
+      "match": "\"30th Celebration Blister\": Pack 1 is on 3 rips: tD8klCySHn8 (2026-09-16), kAuIvKbEYw8 (2026-11-01), klo7rTgTJkE (2026-11-10); Pack 2 is on 2 rips: AOdqwSZFsGw (2026-09-18), 7SV1GE23CGA (2026-11-03); Pack 3 is on 2 rips: AebP2_eyvGI (2026-09-20), heFRq2yODvQ (2026-11-04)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"30th Celebration Knock Out Collection\": Pack 1 is on 3 rips: ZqGxmY2mc90 (2026-10-02), tgqmJLdrK70 (2026-10-28), jCOfh3__6-U (2026-11-06); Pack 2 is on 3 rips: MUTiE4hsMsM (2026-10-04), H-u3HvtEFuI (2026-10-30), Y8F071922WQ (2026-11-08)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"30th Celebration ex Premium Collection\": Pack 1 is on 2 rips: sioMdPu-izo (2026-10-06), 1mUXNOw1GJ8 (2026-10-20); Pack 2 is on 2 rips: DCQKbd_q0tA (2026-10-08), sMPnsTcOXc0 (2026-10-22); Pack 3 is on 2 rips: BvnrfvDoaZ0 (2026-10-10), JrrgpXdSoq8 (2026-10-24); Pack 4 is on 2 rips: B-zVdn5vjso (2026-10-12), BXRHCA7aDkg (2026-10-26)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Ascended Heroes Booster Bundle\": Pack 1 is on 2 rips: Qf2PmYHL8Xw (2026-05-02), W2eIV9tya84 (2026-05-28); Pack 2 is on 2 rips: YQ2-iIhbOSY (2026-05-04), xrJFDqGZjOs (2026-05-29); Pack 3 is on 2 rips: PvitecaJjAc (2026-05-06), kcmXPW6_Odo (2026-05-30); Pack 4 is on 2 rips: UqZn1J9vVGc (2026-05-09), jAkffPVM-JA (2026-06-01); Pack 5 is on 2 rips: PPEKxxW-s_g (2026-05-12), iPxD2pp1zHo (2026-06-02); Pack 6 is on 2 rips: 8d2a5b_BmYQ (2026-05-15), vW8lkXEx3Ao (2026-06-04)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Ascended Heroes ex Premium Collection 1\": Pack 1 is on 2 rips: qKiLbaLhdp8 (2026-06-21), r4WG2IWWyKc (2026-06-22); Pack 2 is on 2 rips: zhE5GzB2Dns (2026-06-22), n4iGQVPBtfE (2026-06-23); Pack 3 is on 2 rips: na2bRZxxTHU (2026-06-24), w3dQBhumsug (2026-06-25); Pack 4 is on 2 rips: 7nGg08wavGM (2026-06-25), czBVJAWDB8U (2026-06-26)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Ascended Heroes ex Premium Collection 2\": Pack 1 is on 3 rips: Fgj5afnnXVk (2026-06-17), blSCuSk5nb0 (2026-07-06), WhfY82RrS4w (2026-07-08); Pack 2 is on 3 rips: 9DPytuABTf8 (2026-06-18), Nqu1vGtbAME (2026-07-07), uTGe-WswoVY (2026-07-10); Pack 3 is on 3 rips: hOBpKIl2lX4 (2026-06-19), u9zpVOVsWyg (2026-07-09), nBKJMnw9L2Y (2026-07-12); Pack 4 is on 3 rips: _Bu9zCfLI4c (2026-06-20), gFZ_jiV7DEY (2026-07-11), xqV7AYXoVJs (2026-07-13)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Chaos Rising Booster Bundle\": Pack 1 is on 2 rips: APS_RnpORC8 (2026-05-30), BiBdyozoD_Q (2026-06-07); Pack 2 is on 2 rips: xJyZLladJ0Q (2026-05-31), 1Kd_E966_4k (2026-06-08); Pack 3 is on 2 rips: c-5u5X8BT_Y (2026-06-01), -5rVYfdxRJw (2026-06-09); Pack 4 is on 2 rips: i_YeXB489EY (2026-06-03), xCDigA8yq1Y (2026-06-11); Pack 5 is on 2 rips: 16GEn7wSyuk (2026-06-04), udV4EBssAj0 (2026-06-12); Pack 6 is on 2 rips: 23RED_g8uOE (2026-06-05), R4TUGTf0Eb4 (2026-06-14)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Journey Together Booster Bundle\": Pack 1 is on 2 rips: DljCIsO2zkU (2026-04-12), C4IPzbJZlHw (2026-05-08); Pack 2 is on 2 rips: yMTuhasZsZ4 (2026-04-14), YqaeisWumvQ (2026-05-11); Pack 3 is on 2 rips: 39Rh6NJPK9M (2026-04-16), uGRqBM2AOag (2026-05-14); Pack 4 is on 2 rips: VP1UXW3MrGU (2026-04-18), 76YEF7mdqvk (2026-05-17); Pack 5 is on 2 rips: 53yMHXauDnA (2026-04-21), FlMsxjakWcs (2026-05-20); Pack 6 is on 2 rips: LGzHC-k4vh0 (2026-04-24), CP7sMGF3p3M (2026-05-25)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Paradox Rift Pack\": has packs 1, 4 and no pack 2, 3.",
+      "date": "2026-11-11",
+      "why": "Listed for the owner in the 11 November 2026 night report: either packs 2 and 3 were never filmed or their rows carry no Pack #. His to answer."
+    },
+    {
+      "check": "packs",
+      "match": "\"Perfect Order Booster Bundle\": Pack 1 is on 2 rips: OTKn4mNzQ7I (2026-04-10), JPzh3KWw084 (2026-05-31); Pack 2 is on 2 rips: 8Nbj7wLBgrc (2026-04-11), Y6rNMk6_kFs (2026-06-02); Pack 3 is on 2 rips: tlOeWpJhJ1E (2026-04-13), wtUPdMnZ_S8 (2026-06-03); Pack 4 is on 2 rips: 6sg185zTjM4 (2026-04-15), qUzKnP4zmjM (2026-06-05); Pack 5 is on 2 rips: fFbWjWLD1N4 (2026-04-17), 7qgnakc3__c (2026-06-06); Pack 6 is on 2 rips: 7PBrXPgt9kU (2026-04-20), l_vpvsLXG50 (2026-06-06)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Perfect Order Poke Ball Tin\": Pack 1 is on 2 rips: EJ0AKqX2a_Q (2026-07-03), O1hNutypTR8 (2026-07-14)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Surging Sparks Poke Ball Tin\": Pack 2 is on 2 rips: lrl5v4z317s (2026-07-04), RtJn1UOi2S8 (2026-07-16)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Surging Sparks ex Premium Collection\": Pack 1 is on 2 rips: ac3pK3zh0DE (2026-04-09), 4wt9xuZ-VV0 (2026-11-05)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "packs",
+      "match": "\"Twilight Masquerade Poke Ball Tin\": Pack 3 is on 2 rips: UpdeUMc-6ys (2026-07-05), 2S4poqmGKWE (2026-07-19)",
+      "date": "2026-11-11",
+      "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
+    },
+    {
+      "check": "upcoming",
+      "match": "\"Delta Reign Build & Battle Box\" as coming 2026-11-20",
+      "date": "2026-11-11",
+      "why": "Reported to the lead 11 November 2026. upcoming.json cites pokemon.com for November 20; the products.json row is a TCGplayer listing, which can be a preorder. Needs somebody to read the listing. Expires by itself on the 20th."
+    }
+  ]
+}

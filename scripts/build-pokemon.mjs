@@ -186,16 +186,15 @@ for (const f of await readdir(join(ROOT, "public/data/cards"))) {
   for (const c of doc.cards) cards.push({ ...c, set: doc.set, setName: doc.name });
 }
 
-/** "Mega Charizard ex" and "Team Rocket's Mewtwo" both come back "Charizard"/"Mewtwo". */
-function speciesOf(name) {
-  let n = String(name || "").trim();
-  // A Trainer's Pokemon files under the Pokemon. Split on the LAST possessive so
-  // two-word owners work too: "Team Rocket's Mewtwo" is one owner, not two.
-  if (n.includes("'s ")) n = n.split("'s ").pop();
-  n = n.replace(/\s+(ex|EX|V|VMAX|VSTAR|GX)$/, "");
-  n = n.replace(/^Mega\s+/, "");
-  return n.trim();
-}
+// ONE MATCHER, NOT TWO, 11 November 2026. speciesOf() ("Mega Charizard ex" and
+// "Team Rocket's Mewtwo" both come back "Charizard"/"Mewtwo") lived here and was
+// copied word for word into shared/species-link.mjs the day the set guides and
+// rip pages started linking card names to these pages, with a note that the two
+// "must be kept identical". Nothing enforced that, and a drift would have sent a
+// card's link to a page that does not list the card. This builder now imports
+// the shared one. Proven a no-op when it moved: every file under public/pokemon/
+// hashed the same before and after a full build.
+import { speciesOf } from "../shared/species-link.mjs";
 
 /* ---------------------------------------------------------------- printings */
 
