@@ -1353,8 +1353,23 @@ export function avifPicture(img, opts) {
      armPackArt. A handler that already deals with the source (t30e on the
      30th page) and an img with no handler (local files, which are guaranteed)
      are left alone. */
+  /* AND THE SECOND FAILURE HOLDS THE BOX INSTEAD OF REMOVING IT, 11 November
+     2026. With the scan host down or one request dropped, both tries fail and
+     `this.remove()` took the node out of the page: the frame collapsed and
+     everything under it moved (CLS 0.051 on /sets/151.html in 1 run of 7 in
+     the audit, and every run with assets.tcgdex.net blocked). An <img> that
+     carries width and height keeps its ratio box when it is merely hidden, so
+     where the tag has both and the handler is exactly `this.remove()`, the
+     last step hides it instead. Nothing is announced (visibility:hidden is out
+     of the accessibility tree, as a removed node was) and no broken-image
+     glyph is drawn. A tag with no dimensions, or a handler that removes
+     something other than the img itself, keeps the handler it came with.
+     The chain is two requests per image at most: the AVIF, then the WebP
+     once. Nothing re-arms after the second failure. */
+  const boxed = /\swidth="\d+"/.test(img) && /\sheight="\d+"/.test(img);
   const tag = img.replace(/\sonerror="([^"]*\.remove\(\))"/, (m, h) =>
-    ` onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):${h}"`);
+    ` onerror="var s=this.previousSibling;s?(s.remove(),this.src=this.src):${
+      boxed && h === "this.remove()" ? "this.style.visibility='hidden'" : h}"`);
   return `<picture><source type="image/avif" ${A.srcset}="${avif}"${
     sizes ? ` ${A.sizes}="${sizes}"` : ""
   }>${tag}</picture>`;
