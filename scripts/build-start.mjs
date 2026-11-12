@@ -37,6 +37,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, clipMeta} from "../shared/format.mjs";
+import { loadSetLinks } from "../shared/set-link.mjs";
 import { RARITY_CSS, rarityChip } from "../shared/rarity.mjs";
 
 import { localDay } from "../shared/today.mjs";
@@ -78,6 +79,29 @@ const startRips = START_KINDS.map(([kind, label]) => {
     .sort((a, b) => String(b.published || "").localeCompare(String(a.published || "")))[0];
   return v ? { label, v } : null;
 }).filter(Boolean);
+// THE SETS IN THOSE RIPS, LINKED TO THEIR GUIDES. The rows above are video
+// titles and each one is already a link to its rip, so a set named in a title
+// ("...the Brand New Delta Reign ETB!") could not also be a link to the set.
+// Every video record carries the ids of the sets opened in it, so the line
+// under the list names those sets and links each guide. Nothing is typed: when
+// the newest rip of a kind changes, the sets named here change with it, and a
+// set with no guide is left out rather than linked to nothing.
+const SET_LINKS = await loadSetLinks(ROOT);
+const ripSetLinks = (rips) => {
+  const seen = new Set();
+  const out = [];
+  for (const { v } of rips) {
+    for (const id of v.sets || []) {
+      const href = SET_LINKS.hrefFor(id);
+      if (!href || seen.has(id)) continue;
+      seen.add(id);
+      out.push(`<a href="${esc(href)}">${esc(SET_LINKS.nameFor(id))}</a>`);
+    }
+  }
+  if (out.length < 2) return out.join("");
+  return `${out.slice(0, -1).join(", ")} and ${out[out.length - 1]}`;
+};
+const startRipSets = ripSetLinks(startRips);
 const cardIndex = JSON.parse(await readFile(join(ROOT, "public/data/card-index.json"), "utf8"));
 let shows = 0;
 try {
@@ -380,6 +404,7 @@ ${/* Inline rather than in ui.css: this is the only page outside the rarity
 .st-rips a{display:block;min-height:44px;font:600 var(--t-sm)/1.35 var(--body);
   color:var(--sky-deep)}
 .st-rips a:hover,.st-rips a:focus-visible{text-decoration:underline}
+.st-ripsets a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .st-rips a span{display:block;font:700 var(--t-micro)/1.5 var(--mono);
   letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2)}
 </style>
@@ -476,7 +501,9 @@ ${startRips
     </ul>
     <p class="lede" style="max-width:44em;font-size:var(--t-sm);margin-top:var(--s3)">One of each of the three
       cheapest ways in, so you can see what the money actually buys before you spend any.
-      <a href="/openings/">Every other kind of sealed product</a> has its own page.</p>` : ""}
+      <a href="/openings/">Every other kind of sealed product</a> has its own page.${
+        startRipSets ? ` <span class="st-ripsets">Card lists and prices for the sets in those rips: ${startRipSets}.</span>` : ""
+      }</p>` : ""}
     <div class="btn-row">
       <a class="btn btn-yt" href="/videos.html">Watch the rips</a>
       <a class="btn btn-ghost" href="/hall.html">The good pulls</a>

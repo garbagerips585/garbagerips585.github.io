@@ -70,6 +70,7 @@ import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF } from "../shared/jsonld.mjs";
 import { channelPitch, PITCH_DAILY } from "../shared/channel-pitch.mjs";
 import { daysSince } from "../shared/today.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
@@ -2212,7 +2213,7 @@ function guidePage(g) {
       // sync date made one false and the other meaningless.
       datePublished: g.published || guides.checked,
       dateModified: guides.checked,
-      author: { "@type": "Organization", name: "Garbage Rips 585", url: SITE + "/" },
+      author: ORG_REF,
       publisher: {
         "@type": "Organization",
         name: "Garbage Rips 585",

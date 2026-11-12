@@ -31,6 +31,7 @@ import { SITE } from "../shared/site.mjs";
 import { BAR, MENU, SPRITE, SKIP, STYLES, footer, APP_JS, FONTS } from "../shared/chrome.mjs";
 import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { slugify } from "../shared/paths.mjs";
+import { clipMetaText } from "../shared/meta-text.mjs";
 import { esc, longDate, shortDate, viewCount, imgDims, productSrcsetAttr, packTileImg, LIB_TILE_SIZES, noWidowEmoji, RIP_BANNER, clipMeta, plainDashes} from "../shared/format.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
@@ -695,8 +696,34 @@ const compactViews = (n) => viewCount(n).toUpperCase();
 // eight names that already end in the brand would keep it while the other
 // thirteen lost it, which is the inconsistency this rule exists to prevent.
 // og:site_name carries the brand for the search result's site-name line.
-const titleFor = (p) =>
+const nameFor = (p) =>
   String(p.title || "").trim().replace(/\s*\|\s*Garbage\s*Rips\s*585\s*$/i, "").trim();
+
+// THE <title> SAYS HOW MANY RIPS AND CARRIES NO EMOJI, 11 November 2026. The
+// 22 titles were the raw YouTube names: Google strips emoji out of a result
+// title, so each one ended on a space where a glyph had been, and none of them
+// said what the page holds, which is a counted list of rips. The h1, og:title
+// and the breadcrumb still carry the name exactly as it was typed on YouTube;
+// this is the search result's line only.
+//
+// The count is the number of rips this page lists (the same `vids` the grid
+// renders), never YouTube's own item count. A name that is too long for
+// "<name>: <N> Rips" inside 60 characters gives up its second half first (the
+// part after a pipe or in brackets) and the count last. titleFor is checked
+// for collisions below, because trimming two names to their first half could
+// make them the same.
+const EMOJI_RE = /[\p{Extended_Pictographic}\p{Regional_Indicator}\uFE0F\u200D\u20E3]/gu;
+const titleFor = (p, count) => {
+  const full = nameFor(p)
+    .replace(EMOJI_RE, "")
+    .replace(/\s*\|\s*/g, ", ")
+    .replace(/\s*\(/g, " (")
+    .replace(/\s{2,}/g, " ")
+    .replace(/^[\s,]+|[\s,]+$/g, "");
+  const main = full.replace(/\s*(?:,| \().*$/, "");
+  const n = `${count} Rip${count === 1 ? "" : "s"}`;
+  return [`${full}: ${n}`, `${main}: ${n}`, main].find((t) => t.length <= 60) || main;
+};
 
 function labelsFor(vids) {
   const count = new Map();
@@ -882,6 +909,17 @@ let written = 0;
 let missing = 0;
 for (const p of live) missing += (p.videoIds || []).length - p.videoIds.map((id) => byId.get(id)).filter(Boolean).length;
 
+{
+  const seenTitles = new Map();
+  for (const { p, slug, vids } of runs) {
+    const t = titleFor(p, vids.length);
+    if (seenTitles.has(t)) {
+      throw new Error(`Two playlist pages would share the <title> "${t}": ${seenTitles.get(t)} and ${slug}. See titleFor.`);
+    }
+    seenTitles.set(t, slug);
+  }
+}
+
 for (const run of runs) {
   const { p, slug, vids } = run;
 
@@ -898,10 +936,11 @@ for (const run of runs) {
   // inside <meta name="description">. build-pages.mjs already did this for the
   // same reason and this file did not. `desc` below is untouched and goes
   // through blurbHtml, so the page reads in the owner's own paragraphs.
-  const metaDesc = clip(
+  const metaDesc = clipMetaText(
     (desc || `${vids.length} rip${vids.length === 1 ? "" : "s"} from Garbage Rips 585, in the order they were opened.`)
       .replace(/\s+/g, " ")
       .trim(),
+    clip,
     158,
   );
 
@@ -938,7 +977,7 @@ for (const run of runs) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(titleFor(p))}</title>
+<title>${esc(titleFor(p, vids.length))}</title>
 <meta name="description" content="${esc(clipMeta(metaDesc))}">
 <link rel="canonical" href="${url}">
 <meta property="og:title" content="${esc(p.title)}">

@@ -40,6 +40,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE, CONTACT_EMAIL } from "../shared/site.mjs";
+import { breadcrumbScript } from "../shared/jsonld.mjs";
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { esc, longDate } from "../shared/format.mjs";
 import { GA4_ID } from "../shared/analytics.mjs";
@@ -295,6 +296,7 @@ await writeFile(
 <script type="application/ld+json">
 ${JSON.stringify(schema, null, 2)}
 </script>
+${breadcrumbScript([["Home", "/"], ["Privacy"]])}
 </head>
 <body>
 ${skipLink}

@@ -48,6 +48,7 @@ import { readFile, readdir, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF, breadcrumbScript } from "../shared/jsonld.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -2283,7 +2284,14 @@ const ld =
         name: "Observed Pokemon card hit rates from Garbage Rips 585",
         description: `Hit rates observed across ${allPacks} packs opened on camera in ${judged.length} filmed rips, by set and by product type.`,
         url: `${SITE}/luck.html`,
-        creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
+        // THE DAY THE NEWEST COUNTED RIP WENT UP. A Dataset with no date gives a
+        // reader of the markup no way to tell this month's count from last
+        // year's. The numbers here change when a rip is judged and at no other
+        // time, so the newest judged rip's own publish date is the last day
+        // the dataset moved, and it is a date the rip log holds rather than
+        // the day somebody happened to run the build.
+        dateModified: judged.map((v) => String(v.published || "")).filter((d) => /^\d{4}-\d\d-\d\d$/.test(d)).sort().pop(),
+        creator: ORG_REF,
         isAccessibleForFree: true,
         /* CC BY 4.0, THE OWNER'S CHOICE, 28 August 2026, asked because Search
            Console's Datasets report wants a `license` and a licence is a
@@ -2337,6 +2345,7 @@ ${STYLES}
 ${ld ? `<script type="application/ld+json">
 ${JSON.stringify(ld, null, 2)}
 </script>` : "<!-- No Dataset markup: there are no judged rips yet, so there is nothing to describe. -->"}
+${breadcrumbScript([["Home", "/"], ["Rip results"]])}
 </head>
 <body>
 ${SKIP}

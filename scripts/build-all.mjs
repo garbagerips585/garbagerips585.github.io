@@ -409,6 +409,12 @@ const STEPS = [
   // rebuilt by hand. It carries no absolute site url today, which is the only
   // reason that was harmless.
   "node scripts/build-llms.mjs",
+  // public/feed.xml, the Atom feed of the 30 newest rips. It reads each rip's
+  // title, description and share image back off the page build-pages.mjs wrote,
+  // so its only ordering constraint is running AFTER that. It sits here with
+  // llms.txt, the other root file that is not a page: nothing reads it, and
+  // stamp-assets.mjs below does not touch it.
+  "node scripts/build-feed.mjs",
   "node scripts/build-404.mjs",
   // Not a page: it writes UNTAGGED.md, the worklist of videos still held out
   // of the index for want of a tag. Generated because the hand-written one

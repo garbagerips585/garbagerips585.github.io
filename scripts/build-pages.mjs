@@ -44,6 +44,7 @@ import { labelFor, pullLabel, isJpSet } from "../shared/taxonomy.mjs";
 import { raritiesIn, rarityChip, RARITY_CSS } from "../shared/rarity.mjs";
 import { ripPath } from "../shared/paths.mjs";
 import { channelPitch } from "../shared/channel-pitch.mjs";
+import { clipMetaText } from "../shared/meta-text.mjs";
 import { loadSpeciesLinks } from "../shared/species-link.mjs";
 import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
@@ -308,6 +309,7 @@ let cardsChecked = null;
 // the price file as a whole rather than claiming Pitch Black's two exceptions
 // are the site's.
 let pricesDoc = null;
+const GUIDE_MODIFIED = new Map();
 const CHECKLIST_PRICE = new Map();
 const unpadNum = (n) => String(n ?? "").replace(/^0+(?=\d)/, "").toLowerCase();
 try {
@@ -323,6 +325,13 @@ try {
   for (const f of await _rd(join(ROOT, "public/data/cards"))) {
     if (!f.endsWith(".json")) continue;
     const d = JSON.parse(await readFile(join(ROOT, "public/data/cards", f), "utf8"));
+    // The later of the checklist's two stamps, which is build-set-pages.mjs's
+    // own Article dateModified for that guide (see guideDates there). Kept for
+    // the sitemap, which used to date all 30 guides from sets.json's syncedAt.
+    {
+      const stamp = [d.checked, d.pricesChecked].filter((x) => /^\d{4}-\d\d-\d\d$/.test(String(x || ""))).sort().pop();
+      if (d.set && stamp) GUIDE_MODIFIED.set(d.set, stamp);
+    }
     pricesDoc.pricedBy.pricecharting += d.pricedBy?.pricecharting || 0;
     pricesDoc.pricedBy.tcgdex += d.pricedBy?.tcgdex || 0;
     /* THE CHASE FIGURE IS RE-READ OUT OF THE CHECKLIST IT IS DATED BY, which is
@@ -1160,6 +1169,27 @@ try {
 }
 const hasGuide = (setId) => Boolean(setId) && guideIds.has(setId);
 
+// WHEN EACH SET CAME OUT, AND WHAT LANGUAGE IT IS IN, for the one line of plain
+// facts under a rip's title (see ripFact in page()). Both come straight out of
+// the two files above: sets.json's `released` for the English sets, and
+// intl-guides.json's `released` and `langName` for the imported ones, where the
+// date is that country's own release date. A set in neither has no entry and
+// the line simply does not mention a date.
+const SET_FACTS = new Map();
+try {
+  for (const s of JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8")).sets) {
+    SET_FACTS.set(s.id, { released: s.released || null, lang: null });
+  }
+  const ig = JSON.parse(await readFile(join(ROOT, "public/data/intl-guides.json"), "utf8"));
+  for (const [id, g] of Object.entries(ig.sets || {})) SET_FACTS.set(id, { released: g.released || null, lang: g.langName || null });
+} catch {
+  /* same files as guideIds above; a clone without them writes no dates */
+}
+// The guide a set's name links to. /sets/<id>.html for every guide in the two
+// files above, and the one English guide that is built outside /sets/.
+const guideHref = (setId) =>
+  hasGuide(setId) ? `/sets/${setId}.html` : setId === "30th-celebration" ? "/30th-celebration.html" : null;
+
 // `pillarboxed` is read here rather than carried through the YouTube sync,
 // because it describes how a video was FILMED versus how it was uploaded, which
 // no API reports and only a human can say.
@@ -1586,7 +1616,10 @@ const desc = (v.blurb || descriptions[v.id] || "")
   const descSaysNothingNew = !desc || desc.length < 70 || flat(desc) === flat(title);
   const metaDesc = descSaysNothingNew
     ? shortTitle + descTail
-    : clip(desc.replace(/\s+/g, " "), 158);
+    : // Through shared/meta-text.mjs: en dashes out, a bare "Rochester" said in
+      // full, and the cut never lands between "Rochester," and "NY". This is
+      // the search result's copy only; `desc` itself is untouched below.
+      clipMetaText(desc.replace(/\s+/g, " "), clip, 158);
   // Still YouTube's frame for the VideoObject schema and the poster behind the
   // pack, where it is correct. It is NOT the share image: see ogCard().
   // The player poster is the LCP image of every rip page, and it was being
@@ -1724,6 +1757,84 @@ const desc = (v.blurb || descriptions[v.id] || "")
 // methodology about prices that were not on the page. About 1,150px of nothing
 // per page, under a heading that says what came out of this one.
 const showableHits = hits.filter((h) => h.img || typeof h.price === "number");
+
+/* THE RIP IN PLAIN FACTS, ONE LINE, BUILT FROM ITS OWN ROW. 11 November 2026.
+ *
+ * An SEO audit measured two things on these pages. Six imported-pack rips were
+ * the thinnest indexable pages on the site, because a rip of a set with no
+ * chase band and no box siblings is a title, a date and the owner's blurb. And
+ * sibling rips shared a median 0.69 of their seven-word runs, because what
+ * differs between pack 19 and pack 20 of the same set was carried by a number
+ * in a label and nothing else.
+ *
+ * This is not padding and must not become it. Every clause is a field this
+ * rip's row already holds, and a clause whose field is missing is not written:
+ *
+ *   how many packs      v.packs, the count the luck page already publishes
+ *   of what             the set, linked to its guide when it has one
+ *   released when       sets.json / intl-guides.json, see SET_FACTS
+ *   out of what         the product, unless it is a loose pack
+ *   which pack          packNumber (and boxNumber), single-pack videos only,
+ *                       because "pack 3" of a three-pack video is ambiguous
+ *   what it hit         the cards' names and rarity, only when the hits band
+ *                       below shows them and the free-text panel above does not
+ *
+ * NO PRICE, deliberately. A hit's price on this page can come from five
+ * different sources with five different read dates (the checklist, the 30th
+ * prices, the companion sets, First Partner, a graded guide), and the hits
+ * band prints each with its sourcing note. One sentence cannot carry that
+ * honestly, so it names the card and leaves the money to the band.
+ *
+ * NO "no hit" CLAUSE EITHER: the line directly above this one already says so.
+ *
+ * ONE SET ONLY. A video that opened packs of two sets has `v.packs` for the
+ * whole video and no honest way to say "N packs of X" from it, so it gets no
+ * line. An untagged (noindex) rip has no set or product to name and gets none.
+ */
+// The line's own two rules, shipped only on the pages that print it. Same
+// measure as .rip-desc under it (38em of .95rem) so the two share a right edge.
+const RIP_FACT_CSS = `.rip-fact{margin-top:var(--s4);max-width:38em;font-size:.95rem;line-height:1.55;color:var(--ink-soft)}.rip-fact a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}`;
+const COUNT_WORD = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve"];
+const ripFact = (() => {
+  if (!isTagged || (v.sets || []).length !== 1) return "";
+  const n = Number.isInteger(v.packs) && v.packs > 0 ? v.packs : null;
+  if (!n) return "";
+  const loose = /-pack$/.test(prodId);
+  const fact = SET_FACTS.get(setId) || {};
+  const href = guideHref(setId);
+  const setLink = href ? `<a href="${esc(href)}">${esc(setLabel)}</a>` : esc(setLabel);
+  const released = longDate(fact.released);
+  const s1 =
+    `${COUNT_WORD[n] || n} ${loose ? "loose " : ""}pack${n === 1 ? "" : "s"} of ${setLink}` +
+    (released ? `, ${fact.lang ? `${article(fact.lang)} ${esc(fact.lang)}` : "a"} set released ${esc(released)}` : "") +
+    (loose ? "" : `${released ? "," : ""} out of ${article(prodLabel)} ${esc(prodLabel)}`) +
+    ".";
+  const where =
+    n === 1 && Number.isInteger(v.packNumber)
+      ? v.boxNumber
+        ? `pack ${v.packNumber} of ${esc(prodLabel)} number ${esc(String(v.boxNumber))}`
+        : loose
+          ? `${esc(setLabel)} pack ${v.packNumber} on this channel`
+          : `pack ${v.packNumber} of that ${esc(prodLabel)}`
+      : "";
+  const named = v.hitCard && showableHits.length ? hits.filter((h) => h.name) : [];
+  const rar = (h) => (h.rarity && rarityLabel(h.rarity) ? `, ${article(rarityLabel(h.rarity))} ${esc(rarityLabel(h.rarity))}` : "");
+  const hitClause =
+    named.length === 1
+      ? `the hit was ${esc(named[0].name)}${rar(named[0])}`
+      : named.length > 1
+        ? `${(COUNT_WORD[named.length] || String(named.length)).toLowerCase()} hits came out of ${n === 1 ? "it" : "them"}, starting with ${esc(named[0].name)}${rar(named[0])}`
+        : "";
+  const s2 =
+    where && hitClause
+      ? ` It is ${where}, and ${hitClause}.`
+      : where
+        ? ` It is ${where}.`
+        : hitClause
+          ? ` ${hitClause[0].toUpperCase()}${hitClause.slice(1)}.`
+          : "";
+  return `<p class="rip-fact">${s1}${s2}</p>`;
+})();
 const pricedHits = hits.filter((h) => typeof h.price === "number");
 // WHETHER THIS PAGE PAYS FOR THE NO-SCAN PANEL'S RULES. The band renders every
 // hit once ANY of them is showable, so a row with neither a scan nor a price
@@ -2071,7 +2182,7 @@ ${/* THE PACK IS THIS PAGE'S LCP ELEMENT AND THE PRELOAD SCANNER CANNOT SEE IT.
 <link rel="preload" as="image" href="/assets/packs/${packSet}-garbage-rips-585-booster-pack.avif" type="image/avif" fetchpriority="high">
 ${FONTS}
 ${STYLES}
-<style>${RARITY_CSS_MIN}${noScanHits ? `\n${NOSCAN_CSS}` : ""}${showKind ? `\n${KIND_CSS}` : ""}</style>
+<style>${RARITY_CSS_MIN}${noScanHits ? `\n${NOSCAN_CSS}` : ""}${showKind ? `\n${KIND_CSS}` : ""}${ripFact ? `\n${RIP_FACT_CSS}` : ""}</style>
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -2287,6 +2398,7 @@ ${MENU}
           ${/* One link per species named, where the hit line parsed into cards. */
             [...new Set(hits.map((h) => speciesMore(h.name)).filter(Boolean))].join(" ")}
         </div>` : v.hasHit === false ? `<p class="hit-none">No hit in this one. Certified Garbage Rip.</p>` : ""}
+        ${ripFact}
         ${desc ? `<div class="rip-desc">${linkOwn(esc(desc))}</div>` : ""}
         ${/* THE SUBSCRIBE THAT USED TO LEAD .rip-nav, NOW WITH ITS REASON, 11
              November 2026. It was a bare red button beside Previous and Next,
@@ -2832,7 +2944,11 @@ let setPages = [];
 try {
   const sd = JSON.parse(await readFile(join(ROOT, "public/data/sets.json"), "utf8"));
   setPages = (sd.sets || []).map((s) => ({
-    loc: `${SITE}/sets/${s.id}.html`, freq: "weekly", pri: "0.8", mod: sd.syncedAt,
+    // THE GUIDE'S OWN dateModified, NOT sets.json's syncedAt (11 November
+    // 2026). All 30 said 2026-11-07 here while each page's Article schema and
+    // the price note it prints said the 10th: the sitemap was the one place
+    // on the site that thought the guides were older than they are.
+    loc: `${SITE}/sets/${s.id}.html`, freq: "weekly", pri: "0.8", mod: GUIDE_MODIFIED.get(s.id) || sd.syncedAt,
   }));
 } catch {
   /* set pages not generated yet */
@@ -2875,7 +2991,12 @@ try {
     (pk.pokemon || [])
       .filter((p) => p.index !== false)
       .map((p) => ({
-        loc: `${SITE}/pokemon/${p.slug}.html`, freq: "weekly", pri: "0.7", mod: pk.checked,
+        // The later of the two reads the index records. `checked` is the
+        // Pokedex and printing read; `pricesChecked` is the price read, which
+        // is the date every one of these pages prints beside its figures, and
+        // 851 of them said 2026-11-03 here under prices dated the 10th.
+        loc: `${SITE}/pokemon/${p.slug}.html`, freq: "weekly", pri: "0.7",
+        mod: [pk.checked, pk.pricesChecked].filter(Boolean).sort().pop(),
       }))
   );
 } catch {
@@ -3202,6 +3323,105 @@ const urls = [
   { loc: `${SITE}/eevee-evolutions.html`, freq: "monthly", pri: "0.8" },
   ...ordered.filter((v) => taggedIds.has(v.id)).map((v) => ({ loc: `${SITE}/${pathFor(v)}`, freq: "monthly", pri: "0.6", mod: v.published })),
 ];
+/* A lastmod FOR THE PAGES THAT ALREADY PRINT ONE. 11 November 2026.
+ *
+ * The rule under the writer below stands: no date unless it is known. But 52
+ * of the 54 root pages had none, and most of them DO know: each is built from
+ * a hand-kept data file that carries the day it was last read, and each prints
+ * that day on the page ("read August 17, 2026"). This hands the sitemap the
+ * same field the page's own builder prints, and nothing else.
+ *
+ * EVERY ROW WAS CHECKED TWO WAYS before it went in: the builder named beside
+ * it reads that file, and the date in that field appears in the built page's
+ * visible text. A page that is in the sitemap and not in this table has no
+ * date on it that a data file owns (privacy, start, about, the games, the
+ * local lists, hall, wanted, luck), and it keeps no lastmod rather than
+ * borrowing one.
+ *
+ * A LIST OF FIELDS MEANS THE LATEST OF THEM, for a page built from two reads.
+ * A date in the future, or anything that is not a plain YYYY-MM-DD, is
+ * dropped: check-build.py fails a future date, and a typo in a data file
+ * should cost this page its lastmod, not the build.
+ */
+const KNOWN_READ = {
+  "/drops.html": [["data/drops.json", "compiled"]], // build-drops.mjs
+  "/upcoming.html": [["data/upcoming.json", "checked"]], // build-upcoming.mjs
+  "/card-shows.html": [["data/shows.json", "checked"]], // build-shows.mjs
+  "/msrp.html": [["data/msrp.json", "readOn"], ["data/pokemon-center-prices.json", "readOn"]], // build-msrp.mjs
+  "/how-many-packs.html": [["data/pack-counts-current.json", "readAt"]], // build-how-many-packs.mjs
+  "/grading.html": [["data/grading.json", "checked"]], // build-grading.mjs
+  "/will-it-grade.html": [["data/grade-check.json", "checked"]], // build-grade-check.mjs
+  "/how-to-play.html": [["data/how-to-play.json", "checked"]], // build-how-to-play.mjs
+  "/tcg-live.html": [["data/tcg-live.json", "checked"]], // build-tcg-live.mjs
+  "/tcg-pocket.html": [["data/tcg-pocket.json", "checked"]], // build-tcg-pocket.mjs
+  "/video-games.html": [["data/video-games.json", "read_date"]], // build-video-games.mjs
+  "/decks.html": [["data/decks.json", "checked"]], // build-decks.mjs
+  "/top-100-playable.html": [["data/decks.json", "checked"]], // build-playable.mjs
+  "/top-graded.html": [["data/top-graded.json", "checked"]], // build-top-graded.mjs
+  "/topps.html": [["data/topps-top.json", "checked"]], // build-topps.mjs
+  "/topps-card-values.html": [["data/topps-top.json", "checked"]], // build-topps.mjs
+  "/lore.html": [["data/pokedex.json", "checked"]], // build-lore.mjs
+  "/evolution.html": [["data/evolutions.json", "checked"]], // build-evolution.mjs
+  "/eevee-evolutions.html": [["data/evolutions.json", "checked"]], // build-eevee.mjs
+  "/types.html": [["data/types.json", "checked"]], // build-types.mjs
+  "/fake-cards.html": [["data/fakes.json", "checked"]], // build-fakes.mjs
+  "/base-set.html": [["data/base-set.json", "checked"]], // build-base-set.mjs
+  "/first-partner-illustration-collection.html": [["data/first-partner.json", "checked"]], // build-first-partner.mjs
+  "/jumbo-cards.html": [["data/jumbo.json", "checked"]], // build-jumbo.mjs
+  "/garbage-plate.html": [["data/garbage-plate.json", "updated"]], // build-garbage-plate.mjs
+  "/where-to-get-a-garbage-plate.html": [["data/garbage-plate.json", "updated"]], // build-garbage-plate.mjs
+  "/expansions.html": [["public/data/expansions.json", "syncedAt"]], // build-expansions.mjs
+  "/what-set.html": [["public/data/expansions.json", "syncedAt"]], // build-what-set.mjs
+  "/30th-celebration.html": [["data/30th-prices.json", "checked"]], // build-30th.mjs
+  "/buying.html": [["data/buying.json", "checked"]], // build-buying.mjs
+  "/selling.html": [["data/selling.json", "checked"]], // build-selling.mjs
+  "/what-to-buy.html": [["data/what-to-buy.json", "written"]], // build-what-to-buy.mjs
+  "/retailers.html": [["data/retailers.json", "checked"]], // build-retailers.mjs
+  "/about.html": [["public/data/videos.json", "syncedAt"]], // build-about.mjs, its "Last updated" line
+};
+const isDay = (d) => /^\d{4}-\d\d-\d\d$/.test(String(d || ""));
+const BUILD_DAY = localDay();
+const readCache = new Map();
+const fieldOf = (file, key) => {
+  if (!readCache.has(file)) {
+    try {
+      readCache.set(file, JSON.parse(readFileSync(join(ROOT, file), "utf8")));
+    } catch {
+      readCache.set(file, null);
+    }
+  }
+  return readCache.get(file)?.[key];
+};
+const knownRead = (path) =>
+  (KNOWN_READ[path] || []).map(([f, k]) => fieldOf(f, k)).filter(isDay).sort().pop() || null;
+// The newest rip. The home page and /videos.html both lead with it and print
+// its date on its tile, and a new rip is the only thing that changes either.
+const NEWEST_RIP = videos.map((v) => v.published).filter(isDay).sort().pop() || null;
+const VIDEO_DAY = new Map(videos.map((v) => [v.id, v.published]));
+const PLAYLIST_DAY = new Map(
+  (JSON.parse(await readFile(join(ROOT, "public/data/playlists.json"), "utf8")).playlists || [])
+    .filter((p) => p.path)
+    // The newest rip in the playlist, which is the last tile on its page.
+    .map((p) => [`/${p.path}`, (p.videoIds || []).map((id) => VIDEO_DAY.get(id)).filter(isDay).sort().pop() || null]),
+);
+// The set guide index prints each guide's top card and the price read behind
+// it, so it is as new as the newest guide it lists.
+const NEWEST_GUIDE = [...GUIDE_MODIFIED.values()].sort().pop() || null;
+const RETAILERS_READ = fieldOf("data/retailers.json", "checked");
+for (const u of urls) {
+  const path = u.loc.slice(SITE.length);
+  if (!u.mod) {
+    u.mod =
+      knownRead(path) ||
+      (path === "/" || path === "/videos.html" ? NEWEST_RIP : null) ||
+      (path === "/sets/" ? NEWEST_GUIDE : null) ||
+      PLAYLIST_DAY.get(path) ||
+      // One page per shop, all built by build-retailers.mjs from the same file.
+      (/^\/retailers\/[^/]+\.html$/.test(path) && isDay(RETAILERS_READ) ? RETAILERS_READ : null);
+  }
+  if (u.mod && (!isDay(u.mod) || u.mod > BUILD_DAY)) u.mod = null;
+}
+
 await writeFile(
   join(ROOT, "public/sitemap.xml"),
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +

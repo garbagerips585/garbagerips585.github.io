@@ -46,6 +46,7 @@ import {
 } from "../shared/chrome.mjs";
 import { brandMark, BRAND_CREDIT, BRAND_STYLE } from "../shared/brands.mjs";
 import { esc, longDate, plateRule, PLATE_CSS, clipMeta} from "../shared/format.mjs";
+import { loadSetLinks } from "../shared/set-link.mjs";
 // THE EXPIRY MODEL MOVED OUT OF THIS FILE ON 17 AUGUST 2026 and it did not
 // change on the way. The home page now carries a compact band built from the
 // same rows, so "which rows are still true today" is a question two pages ask
@@ -60,6 +61,14 @@ import {
 } from "../shared/drops.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// A SET NAMED IN A ROW LINKS TO ITS GUIDE, ONCE PER PAGE. The rows are
+// hand-written sentences in data/drops.json, so nothing in the data says which
+// set a row is about; shared/set-link.mjs matches the guide names in the text
+// and explains which names it refuses to guess at. One `seen` set for the whole
+// page: nine rows that all say "30th Celebration" get one link between them.
+const SET_LINKS = await loadSetLinks(ROOT);
+const linkedSets = new Set();
 const doc = JSON.parse(await readFile(join(ROOT, "data/drops.json"), "utf8"));
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
@@ -226,7 +235,7 @@ const card = (d) => {
           <span class="drop-ch">${d.channel === "store" ? "In store" : "Online"}</span>
           <span class="drop-cf ${c.cls}">${esc(c.label)}</span>
         </div>
-        <p class="drop-what">${esc(d.what)}</p>
+        <p class="drop-what">${SET_LINKS.linkSetNames(d.what, esc, linkedSets)}</p>
         ${d.when ? `<p class="drop-when"><b>When.</b> ${esc(d.when)}</p>` : ""}
         ${dies ? `<p class="drop-exp">Good until <time datetime="${esc(ex)}">${esc(longDate(ex))}</time>, then it comes off this page. A window that has closed is not a forecast.</p>` : ""}
         ${(d.notes || []).map((n) => `<p class="drop-note">${esc(n)}</p>`).join("\n        ")}
@@ -250,7 +259,14 @@ const weekLabel =
 // whether to click. Both have a stale wording now, and both get it two ways:
 // the build applies it when the build clock knows, and the pass at the bottom of
 // the page applies it when the reader's clock knows and the build did not.
-const TITLE_FRESH = "Pokemon Card Drops and Restocks This Week";
+// THE TWO SHOPS ARE NAMED ONLY WHILE THIS WEEK HAS A ROW FOR EACH (11 November
+// 2026). "restocks this week at Target and Walmart" is the query, and it is a
+// promise about what is on the page, so it is checked against the rows rather
+// than typed: a week with no Walmart row gets the older, plainer title.
+const namesBoth = ["target", "walmart"].every((id) => (doc.drops || []).some((d) => d.retailer === id));
+const TITLE_FRESH = namesBoth
+  ? "Pokemon Card Restocks This Week at Target and Walmart"
+  : "Pokemon Card Drops and Restocks This Week";
 const TITLE_STALE = `Pokemon Card Drops and Restocks: Week of ${longDate(doc.weekOf)}`;
 const OG_FRESH = "Pokemon card drops and restocks this week";
 const OG_STALE = `Pokemon card drops and restocks, week of ${longDate(doc.weekOf)}`;
@@ -330,6 +346,7 @@ ${BRAND_STYLE}
   background:repeating-linear-gradient(45deg,var(--paper-3) 0 6px,var(--paper-2) 6px 12px)}
 .drop-src{font-size:var(--t-micro);color:var(--ink-2);margin-top:auto;padding-top:var(--s2)}
 .drop-what{font:600 var(--t-m)/1.35 var(--body)}
+.drop-what a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .drop-when,.drop-note{color:var(--ink-2);font-size:var(--t-sm);line-height:1.45}
 /* THE PERISHABLE ROW SAYS SO ON ITS OWN FACE. The sweep at the bottom of the
    page takes these away on the day after, but a reader should not have to trust

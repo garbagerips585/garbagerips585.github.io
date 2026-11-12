@@ -360,6 +360,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF } from "../shared/jsonld.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -1256,7 +1257,10 @@ const PAGES = [
     slug: "most-valuable-cards",
     og: "most-valuable-cards",
     navTitle: "Most valuable cards",
-    title: "The 100 Most Valuable Raw Pokemon Cards, by Price Guide",
+    // %YEAR% is the year of the read date this page prints (d.checked), filled
+    // in beside %DATE% below, so the title can never name a year the prices
+    // were not read in. Reworded 11 November 2026 to lead with the query.
+    title: "Most Valuable Pokemon Cards %YEAR%: Top 100 Ungraded Prices",
     h1: ["The 100 most valuable ", "raw", " Pokemon cards"],
     // "Pokemon cards", not "Pokemon TCG": thirteen of the hundred are Topps
     // cards, and "every language" is the change this page made in August 2026
@@ -1326,6 +1330,7 @@ for (const cfg of PAGES) {
   const items = d.items;
   const when = longDate(d.checked) || d.checked;
   const desc = cfg.desc.replace("%DATE%", when);
+  const pageTitle = cfg.title.replace("%YEAR%", String(d.checked || "").slice(0, 4)).replace(/\s+:/, ":");
   const url = `${SITE}/${cfg.slug}.html`;
 
   // Any dead scan actually in this list, named rather than assumed away.
@@ -1436,7 +1441,7 @@ for (const cfg of PAGES) {
       image: [`${SITE}/assets/og-${cfg.og}.jpg`],
       datePublished: d.checked,
       dateModified: d.checked,
-      author: { "@type": "Organization", name: "Garbage Rips 585" },
+      author: ORG_REF,
       publisher: {
         "@type": "Organization",
         "@id": SITE + "/#org",
@@ -1469,10 +1474,10 @@ for (const cfg of PAGES) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(cfg.title)}</title>
+<title>${esc(pageTitle)}</title>
 <meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${url}">
-<meta property="og:title" content="${esc(cfg.title)}">
+<meta property="og:title" content="${esc(pageTitle)}">
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${url}">

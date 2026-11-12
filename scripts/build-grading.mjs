@@ -372,7 +372,9 @@ const page = `<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Is It Worth Grading? Pokemon Grading Costs and Break Even</title>
+${/* "PSA Costs" because the break even on this page is PSA's: every row is
+      a PSA 10 price less the raw price less PSA's cheapest tier (feePsa). The
+      other four companies are in the fee table, and the description names them. */ ""}<title>Is It Worth Grading Pokemon Cards? PSA Costs and Break Even</title>
 <meta name="description" content="${esc(clipMeta(desc))}">
 <link rel="canonical" href="${SITE}/grading.html">
 <meta property="og:title" content="Is it worth grading? The actual math">

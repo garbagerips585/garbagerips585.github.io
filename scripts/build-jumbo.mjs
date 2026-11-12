@@ -43,6 +43,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF, breadcrumbScript } from "../shared/jsonld.mjs";
 /* COMPOSED FROM chrome.mjs, NOT SLICED OUT OF index.html, and that was a bug
    before it was a choice. The first cut of this page lifted the header out of
    the home page the way build-garbage-plate.mjs does, and shipped TWO h1s: the
@@ -230,7 +231,7 @@ const LD = {
   description: DESC,
   datePublished: doc.checked,
   dateModified: doc.checked,
-  author: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
+  author: ORG_REF,
   publisher: {
     "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/",
     logo: { "@type": "ImageObject", url: `${SITE}/assets/logo-square.jpg` },
@@ -342,6 +343,7 @@ const HEAD = `<!DOCTYPE html>
 <meta name="theme-color" content="#192D22">
 <link rel="preconnect" href="https://tcgplayer-cdn.tcgplayer.com">
 <script type="application/ld+json">${JSON.stringify(LD)}</script>
+${breadcrumbScript([["Home", "/"], ["Jumbo cards"]])}
 ${FONTS}
 ${STYLES}`;
 

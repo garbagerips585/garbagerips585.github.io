@@ -1231,7 +1231,19 @@ const miniCSS = (css) =>
 // the title it sat behind and returned nothing. og:site_name carries the brand
 // beside the result, and og:title below has always been the bare title, so
 // dropping it also stops <title> and og:title disagreeing.
-const TITLE = "Pokemon MSRP: what sealed product should cost";
+//
+// REWORDED 11 NOVEMBER 2026 to the query people type ("pokemon msrp list",
+// "etb msrp", "booster bundle msrp"). Nothing in it is typed twice: the year is
+// the year of the newest price read on the page, so it cannot roll over to a
+// year no figure here was read in, and the three product kinds are named only
+// while each still has a priced row. Lose one and the old wording comes back
+// rather than a title promising a price the page does not print.
+const TITLE_YEAR = priced.map((r) => String(r.readOn || "")).filter(Boolean).sort().pop()?.slice(0, 4);
+const titleKinds = ["etb", "bundle", "tin"].every((id) => priced.some((r) => r.id === id));
+const TITLE =
+  TITLE_YEAR && titleKinds
+    ? `Pokemon MSRP List ${TITLE_YEAR}: ETB, Booster Bundle and Tin Prices`
+    : "Pokemon MSRP: What Sealed Product Should Cost";
 const DESC =
   `What every kind of sealed Pokemon product should cost, so you can check in the shop how far ` +
   `over retail you are being charged. ${priced.length} products with a sourced price, ${store.length} of ` +

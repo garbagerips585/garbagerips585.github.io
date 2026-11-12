@@ -59,7 +59,7 @@
 import { readFile, writeFile, readdir } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { SITE } from "../shared/site.mjs";
+import { SITE, CONTACT_EMAIL } from "../shared/site.mjs";
 import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
@@ -442,7 +442,7 @@ const stripTags = (s) => String(s).replace(/<[^>]+>/g, "").replace(/\s+/g, " ").
 const FAQ = [
   [
     "Who runs Garbage Rips 585?",
-    "One person, in Rochester, New York. There is no team and no shop behind it: it is one guy with a camera, a table and a lot of packs. The quickest way to reach him is any of the channel's socials.",
+    `One person, in Rochester, New York. There is no team and no shop behind it: it is one guy with a camera, a table and a lot of packs. The quickest way to reach him is any of the channel's socials, or email ${CONTACT_EMAIL}.`,
   ],
   [
     "How often does Garbage Rips 585 upload?",
@@ -620,6 +620,7 @@ const style = `
   border:1px solid var(--hair);font:600 var(--t-sm)/1 var(--body)}
 .about-socials a:hover{border-color:var(--ink)}
 .about-socials i{width:11px;height:11px;border-radius:50%;background:var(--pip);flex:none}
+.about-mail{overflow-wrap:anywhere}
 
 /* THE PACK PICTURE. It sits with the paragraph about the sealed wrapper because
    that paragraph describes an object, and the object exists: it is the wrapper
@@ -1156,6 +1157,16 @@ ${FAQ.map(([q, a]) => `          <h3>${esc(q)}</h3>\n          <p>${a}</p>`).joi
           <div class="stat-row"><b>${num(setsRipped)}</b><span>sets opened</span></div>
           <div class="stat-row"><b>${num(guideCount)}</b><span>set guides</span></div>
           ${since ? `<div class="stat-row"><b>${since.split(" ")[0].slice(0, 3)} ${since.split(" ")[1]}</b><span>first rip</span></div>` : ""}
+          ${/* WHEN THESE WERE COUNTED, 11 November 2026. The page had no date on
+                it anywhere, so a reader (or a search engine) could not tell a
+                count from this week from one a year stale. It is the day the
+                rip log was last synced from YouTube, which is the day every
+                number in this card was last able to change; it is not the day
+                the build ran. */ ""}${
+            /^\d{4}-\d\d-\d\d$/.test(String(raw.syncedAt || ""))
+              ? `<p class="about-ripnote">Last updated <time datetime="${esc(raw.syncedAt)}">${esc(longDate(raw.syncedAt))}</time>.</p>`
+              : ""
+          }
         </div>
 
         ${/* THE SITE CARD IS GONE. The owner, 24 August 2026: "Remove the site stats
@@ -1192,6 +1203,10 @@ ${SOCIALS.map(
       { yt: "#FF0033", ig: "#BC1888", tt: "#FFFFFF", fb: "#1877F2" }[cls]
     }"></i>${label}</a>`
 ).join("\n")}
+${/* THE ONE WAY TO REACH THE CHANNEL THAT IS NOT A SOCIAL NETWORK. The same
+      public address eight other pages already print (CONTACT_EMAIL in
+      shared/site.mjs, and the note there on why it is a plain mailto). Same
+      row as the four above it, so it is a 48px target like they are. */ ""}            <a class="about-mail" href="mailto:${esc(CONTACT_EMAIL)}" aria-label="Email Garbage Rips 585 at ${esc(CONTACT_EMAIL)}"><i style="--pip:var(--sky)"></i>${esc(CONTACT_EMAIL)}</a>
           </div>
         </div>
       </aside>
@@ -1238,6 +1253,11 @@ const schema = {
       foundingDate: oldest || undefined,
       areaServed: { "@type": "City", name: "Rochester", addressRegion: "NY", addressCountry: "US" },
       sameAs: SOCIALS.map(([, , href]) => href),
+      // The channel's public address, the one printed in the "Find us" card on
+      // this page. Structured data may only say what the page says, and until
+      // 11 November 2026 this page gave no way to write to the channel at all.
+      email: CONTACT_EMAIL,
+      contactPoint: { "@type": "ContactPoint", contactType: "general inquiries", email: CONTACT_EMAIL },
     },
     {
       "@type": "AboutPage",

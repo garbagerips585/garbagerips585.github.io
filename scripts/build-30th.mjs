@@ -46,6 +46,7 @@ import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF } from "../shared/jsonld.mjs";
 import { localDay } from "../shared/today.mjs";
 import { gradedGate } from "../shared/graded-gate.mjs";
 import {
@@ -2167,8 +2168,17 @@ const ld = [
     headline: TITLE,
     description: clipMeta(DESC),
     url: SITE + PATH,
+    // THE THREE FIELDS EVERY OTHER Article ON THE SITE CARRIES AND THIS ONE DID
+    // NOT (11 November 2026). `image` is the page's own share card, the same
+    // file og:image names. datePublished is the day this page first went up,
+    // 11 September 2026 (commit 6190ee1cc3), typed once because it must never
+    // move: every date in the data files advances on a refresh, and a guide
+    // whose publish date follows its last price read is "published" every week.
+    image: [`${SITE}/assets/og-30th-celebration.jpg`],
+    mainEntityOfPage: SITE + PATH,
+    datePublished: "2026-09-11",
     dateModified: PAGE_CHECKED,
-    author: { "@type": "Organization", name: "Garbage Rips 585" },
+    author: ORG_REF,
     publisher: { "@type": "Organization", "@id": SITE + "/#org", name: "Garbage Rips 585", url: SITE + "/" },
   },
   {

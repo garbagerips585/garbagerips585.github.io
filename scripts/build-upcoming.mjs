@@ -62,8 +62,15 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, MONTHS_LONG, imgDims } from "../shared/format.mjs";
+import { loadSetLinks } from "../shared/set-link.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
+
+// A set that is already out and named in a blurb links to its guide, at its
+// first mention on the page only. See shared/set-link.mjs for what it matches.
+const SET_LINKS = await loadSetLinks(ROOT);
+const linkedSets = new Set();
+const blurbHtml = (text) => SET_LINKS.linkSetNames(text, esc, linkedSets);
 
 const doc = JSON.parse(await readFile(join(ROOT, "data/upcoming.json"), "utf8"));
 
@@ -249,7 +256,7 @@ const setCard = (s) => `      <article class="up-set" data-date="${esc(s.date ||
           </div>
           ${badge(s.confidence)}
         </div>
-        <p class="up-blurb">${esc(s.blurb)}</p>
+        <p class="up-blurb">${blurbHtml(s.blurb)}</p>
         ${
           (s.highlights || []).length
             ? `<ul class="up-hi">${s.highlights.map((h) => `<li>${esc(h)}</li>`).join("")}</ul>`
@@ -277,7 +284,7 @@ ${s.products.map(productRow).join("\n")}
 const extraCard = (p) => `      <li class="up-extra" data-date="${esc(p.date || "")}">
         <p class="up-when"><b>${longDate(p.date)}</b> <span class="up-cd">${countdown(p.date)}</span></p>
         <h3>${esc(p.name)}</h3>
-        <p class="up-blurb">${esc(p.blurb)}</p>
+        <p class="up-blurb">${blurbHtml(p.blurb)}</p>
         <p class="up-meta">${[p.packs ? `${p.packs} pack${p.packs === 1 ? "" : "s"}` : null, p.price || null]
           .filter(Boolean)
           .map(esc)
@@ -312,7 +319,7 @@ const japanCard = (r) => `      <li class="up-extra up-jp" data-date="${esc(r.da
         <p class="up-when"><span class="up-jp-flag">Japan only</span>
           <b>${longDate(r.date)}</b> <span class="up-cd">${countdown(r.date)}</span></p>
         <h3>${esc(r.name)}</h3>
-        <p class="up-blurb">${esc(r.blurb)}</p>
+        <p class="up-blurb">${blurbHtml(r.blurb)}</p>
         ${r.price ? `<p class="up-meta">${esc(r.price)}</p>` : ""}
       </li>`;
 
@@ -345,6 +352,7 @@ const style = `
 .up-code{font:700 var(--t-micro)/1 var(--mono);color:var(--ink-2);vertical-align:middle;
   letter-spacing:.08em}
 .up-blurb{color:var(--ink-2);max-width:46em}
+.up-blurb a,.up-jp-lede a,.up-nosets a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .up-hi{list-style:none;display:flex;flex-direction:column;gap:6px;margin:var(--s4) 0 0;max-width:62ch}
 .up-hi li{display:flex;gap:var(--s3);align-items:flex-start;color:var(--ink-2);font-size:var(--t-sm)}
 .up-hi li::before{content:"";flex:none;width:8px;height:8px;margin-top:.5em;border-radius:2px;
@@ -562,7 +570,12 @@ ${/* THE ONE EMPTY STATE ON THIS SITE THAT HAD NO MASCOT IN IT, 22 August 2026.
       the picture is one that only some readers ever see. A credit that appears
       only when that happens is a credit that is usually absent. */ ""}        <img class="empty-mascot" src="/assets/species/568.webp" alt=""
              width="256" height="256" loading="lazy" decoding="async" onerror="this.remove()">
-        <h2>Nothing on the calendar right now</h2>
+        ${/* WAS "Nothing on the calendar right now", 11 November 2026. This box is in
+      the markup of every build and hidden while anything English is listed, so
+      a crawler read that heading on a page whose next section lists five dated
+      products. The paragraph under it has always been about SETS ("No English
+      set after them has been named or dated"), so the heading now says the
+      same thing as its own paragraph and is true in the hidden state too. */ ""}<h2>No new English set has a confirmed date yet</h2>
         <p>Every release this page was tracking has come out. No English set after them has been
           named or dated, and this page does not print a set name nobody has announced, so there is
           nothing honest to put here yet. It fills up again the moment The Pokemon Company says
@@ -608,6 +621,18 @@ const body = `
       <div class="up-list" id="upList" data-today="${esc(TODAY)}">
 ${sets.map(setCard).join("\n")}
       </div>
+${
+  // NO SET BUT SOME PRODUCTS, which is the state the page is in most weeks
+  // between two sets and the one it had no words for: an h1 promising what is
+  // coming next, a legend, and then straight into "Other things with a date on
+  // them" with nothing saying the set list above it is empty on purpose. The
+  // browser pass hides this line when it reveals the empty box below, because
+  // by then the products under it have come out too.
+  !sets.length && extras.length
+    ? `      <p class="up-blurb up-nosets" id="upNoSets">No new English set has a confirmed date yet.
+        <a href="#upExtras">The products below</a> do, and <a href="/sets/">the set guides</a> cover what is already out.</p>`
+    : ""
+}
 ${emptyState}
     </div>
   </section>
@@ -635,7 +660,7 @@ ${extras.map(extraCard).join("\n")}
       <p class="up-jp-lede">Japan gets most of this months before we do, and we collect the Japanese
         cards too, so here is Japan's own calendar. <b>Every date in this section is a Japanese
         release date.</b> None of them is the English street date, and a Japanese set is not simply
-        the English set early: Delta Reign, out November 6, 2026, was built out of more than one Japanese
+        the English set early: ${SET_LINKS.hrefFor("delta-reign") ? `<a href="${esc(SET_LINKS.hrefFor("delta-reign"))}">Delta Reign</a>` : "Delta Reign"}, out November 6, 2026, was built out of more than one Japanese
         release, so the two calendars do not line up card for card either. The English dates are the
         ${sets.length ? "two sections" : "section"} above this one.</p>
       <ul class="up-extras up-jp-grid" id="upJapan">
@@ -727,6 +752,19 @@ const nextUp = sets[0] || extras[0];
 // The title named this year alone, so in November it promised "2026" over a
 // calendar whose dated rows were mostly next year's. It names every year the
 // page actually holds a date in, from today forward.
+// THE DESCRIPTION NAMES WHAT IS NEXT, AND GIVES UP ITS LAST SENTENCE BEFORE IT
+// RUNS LONG (11 November 2026). It was one fixed string around a product name
+// of any length, so "Mega Greninja ex League Battle Deck" made it 170
+// characters and the search result lost its tail mid-word. The first form that
+// fits 158 is used. The name is escaped now, too: it comes from a hand-kept
+// data file and went into an attribute raw.
+const META_DESC = (() => {
+  const base = "Every announced English Pokemon TCG set and product with its release date";
+  const next = nextUp ? `, next up ${nextUp.name} on ${longDate(nextUp.date)}` : "";
+  return [`${base}${next}. Confirmed dates marked apart.`, `${base}${next}.`, `${base}. Confirmed dates marked apart.`].find(
+    (d) => d.length <= 158,
+  );
+})();
 const TITLE_YEARS = (() => {
   const now = new Date(TODAY).getFullYear();
   const ys = [...sets, ...extras].map((x) => Number(String(x.date || "").slice(0, 4))).filter((y) => y >= now);
@@ -740,9 +778,7 @@ const html = `<!DOCTYPE html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Upcoming Pokemon TCG Sets ${TITLE_YEARS}: Release Dates and Products</title>
-<meta name="description" content="Every announced English Pokemon TCG set and product with its release date${
-  nextUp ? `, next up ${nextUp.name} on ${longDate(nextUp.date)}` : ""
-}. Confirmed dates marked apart.">
+<meta name="description" content="${esc(META_DESC)}">
 <link rel="canonical" href="${SITE}/upcoming.html">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
@@ -873,7 +909,11 @@ ${/* THE POKEAPI LINE IS THE CONDITION OF THE MASCOT, not a nicety, and it is
   // Everything on the page has come out. Same state the build renders when
   // data/upcoming.json is exhausted, reached from the other direction.
   var none = document.getElementById("upNone");
-  if (none && dated && out === dated) none.hidden = false;
+  if (none && dated && out === dated) {
+    none.hidden = false;
+    var noSets = document.getElementById("upNoSets");
+    if (noSets) noSets.hidden = true;
+  }
 })();
 </script>
 

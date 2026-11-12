@@ -2380,17 +2380,29 @@ const affOn = Boolean(aff.tcgplayer?.enabled && aff.tcgplayer?.linkTemplate);
  * nobody. Short names keep it.
  */
 const MAX_TITLE = 60;
-const BRAND = " | Garbage Rips 585";
-const setTitle = (name) => {
-  // The brand is kept in EVERY case and the descriptor gives way instead.
-  // Dropping it saved characters but cost the thing these pages are for: the
-  // site is trying to become a recognized entity, and 22 of 23 guides losing
-  // the name was the wrong half to sacrifice. "Set Guide" is the phrase people
-  // actually search next to a set name, so it is the part that stays; the
-  // rarities and values wording lives on in the H1 and the meta description,
-  // which is where it was doing the work anyway.
-  const rich = `${name} Set Guide: Cards & Values${BRAND}`;
-  return rich.length <= MAX_TITLE ? rich : `${name} Set Guide${BRAND}`;
+const setTitle = (name, { chase = true } = {}) => {
+  // REWRITTEN 11 NOVEMBER 2026, AND IT REVERSES THE DECISION THAT STOOD HERE.
+  // The title was "<Set> Set Guide: Cards & Values | Garbage Rips 585", with
+  // the brand "kept in EVERY case" and the descriptor giving way on the five
+  // long names, which left those five reading "<Set> Set Guide | Garbage Rips
+  // 585": no word in the title for the three things the page actually holds.
+  // An SEO audit of the built tree asked for the queries people type instead,
+  // "<set> card list", "<set> prices" and "<set> chase cards", and those do not
+  // fit beside a 19 character brand: the shortest set name would run 63.
+  // So the brand goes, as it already has from the 851 /pokemon/ pages, the rip
+  // pages and /sets/ itself for the same width reason. "Set guide" is not
+  // lost: it is the Article headline, the breadcrumb and the first words of
+  // the meta description, and the site name still reaches a result through
+  // og:site_name and the WebSite node.
+  //
+  // The descriptor still gives way before the set name does. Every name today
+  // fits the full pattern (the longest, Prismatic Evolutions, is 54), so the
+  // shorter forms are for a name that has not been printed yet. A set with no
+  // chase list does not promise chase cards.
+  const forms = chase
+    ? [`${name} Card List, Prices and Chase Cards`, `${name} Card List and Prices`, `${name} Card List`]
+    : [`${name} Card List and Prices`, `${name} Card List`];
+  return forms.find((t) => t.length <= MAX_TITLE) || forms[forms.length - 1];
 };
 
 // TCGplayer urls only, 14 October 2026: card links can now be PriceCharting
@@ -4526,6 +4538,7 @@ function setPage(s) {
   // characters and it was dropped, which is the one fact the edit was for.
   // Measured: 148, 156 and 141 characters on the three.
   const sub = compOf(s.id);
+  const descRead = top ? (top.comp && top.comp.read) || priceRead(s.priceStamps || {}) || s.pricesAsOf || null : null;
   const desc =
     (sub
       ? `${s.name} Pokemon TCG set guide, ${String(s.released || "").slice(0, 4) || "recently"}: ${s.total || "?"} cards plus the ${comp.cards} card ${sub.rows[0].label}.`
@@ -4538,6 +4551,12 @@ function setPage(s) {
         ? ` The priciest of those ${s.total} is ${top.name} at ${moneyCompact(top.price)}; ${comp.fullName} is a separate ${comp.cards} cards we hold no prices for.`
         : ` The priciest card is ${top.name} at ${moneyCompact(top.price)}.`
       : ``) +
+    // THE PRICE IN A SEARCH RESULT NOW CARRIES ITS READ DATE (11 November
+    // 2026), the same date the chase grid prints under the same figure. It is
+    // its own sentence so clipMeta drops it whole on the guides where the
+    // sentence before it has already used the budget, and it is only written
+    // when a price was.
+    (top && typeof top.price === "number" && descRead ? ` Prices read ${longDate(descRead)}.` : ``) +
     ` Full rarity breakdown, every card priced` +
     (s.chase?.length ? `, and the cards worth chasing.` : `.`);
 
@@ -5252,7 +5271,7 @@ ${rows}
   // The card list's per-tier filter rules ride with the page that draws those
   // chips, 2 October 2026; see checklistCSS().
   const clCss = checklistCSS(s);
-  return head({ title: setTitle(s.name), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css: clCss ? `${css}\n${clCss}` : css }) + `
+  return head({ title: setTitle(s.name, { chase: Boolean(s.chase?.length) }), desc, canonical: url, image: `${SITE}/assets/${ogCards.has(s.id) ? `og-${s.id}` : "og-image"}.jpg?v=2`, ld, css: clCss ? `${css}\n${clCss}` : css }) + `
 <header class="set-hero">
   <div class="wrap${fan ? " sh-has-fan" : ""}">
     <div class="sh-text">
@@ -5759,9 +5778,9 @@ function indexPage() {
   // list and .rarity-list, match nothing here and cost a few hundred bytes.
   // The index carries no brand suffix: with it this ran 706px at 20px Arial
   // against Google's ~580px cut and lost "& Chase Values", bare it is 527px.
-  // setTitle above is untouched and stays that way; the individual guides drop
-  // their DESCRIPTOR rather than their brand and 26 of 27 already fit the cut.
-  return head({ title: `Pokemon TCG Set Guides: Cards, Rarities & Chase Values`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, css: PAGE_CSS }) + `
+  // 11 November 2026: reworded to the same three things the guides' own titles
+  // now promise (see setTitle), still with no brand. 57 characters.
+  return head({ title: `Pokemon TCG Set Guides: Card Lists, Prices and Chase Cards`, desc, canonical: url, image: `${SITE}/assets/og-image.jpg?v=2`, ld, css: PAGE_CSS }) + `
 <header class="set-hero">
   <div class="wrap">
     <span class="kicker">Pokemon TCG &bull; Card Pokedex</span>

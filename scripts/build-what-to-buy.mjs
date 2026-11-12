@@ -167,6 +167,7 @@ import {
   APP_JS_NO_PACKPLAYER as APP_JS,
 } from "../shared/chrome.mjs";
 import { esc, longDate, moneyExact, productSrcsetAttr, clipMeta} from "../shared/format.mjs";
+import { loadSetLinks } from "../shared/set-link.mjs";
 // The photograph pins, shared with build-msrp.mjs so a pin exists once. This
 // file used to hold a second copy of them. See the photography note below.
 import { makePhotoFor } from "../shared/product-photos.mjs";
@@ -615,6 +616,30 @@ const buyRips = (() => {
     })
     .filter(Boolean);
 })();
+
+// THE SETS IN THOSE RIPS, LINKED TO THEIR GUIDES. The rows above are video
+// titles and each one is already a link to its rip, so a set named in a title
+// ("...the Brand New Delta Reign ETB!") could not also be a link to the set.
+// Every video record carries the ids of the sets opened in it, so the line
+// under the list names those sets and links each guide. Nothing is typed: when
+// the newest rip of a kind changes, the sets named here change with it, and a
+// set with no guide is left out rather than linked to nothing.
+const SET_LINKS = await loadSetLinks(ROOT);
+const ripSetLinks = (rips) => {
+  const seen = new Set();
+  const out = [];
+  for (const { v } of rips) {
+    for (const id of v.sets || []) {
+      const href = SET_LINKS.hrefFor(id);
+      if (!href || seen.has(id)) continue;
+      seen.add(id);
+      out.push(`<a href="${esc(href)}">${esc(SET_LINKS.nameFor(id))}</a>`);
+    }
+  }
+  if (out.length < 2) return out.join("");
+  return `${out.slice(0, -1).join(", ")} and ${out[out.length - 1]}`;
+};
+const buyRipSets = ripSetLinks(buyRips);
 
 // The glossary does NOT require a price: it is explaining what a thing is, and
 // seven rows in msrp.json legitimately carry no figure at all.
@@ -1255,6 +1280,8 @@ const STYLE = `
 .wtb-watch{margin-top:var(--s6)}
 .wtb-watch h3{font:400 var(--t-m)/1.2 var(--display);margin-bottom:var(--s2)}
 .wtb-watch p{color:var(--ink-2);max-width:34em;font-size:var(--t-sm);line-height:1.55}
+.wtb-watch-sets{margin-top:var(--s3)}
+.wtb-watch-sets a{color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .wtb-riplist{list-style:none;margin:var(--s4) 0 0;padding:0;display:grid;gap:var(--s2);
   grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
 .wtb-riplist li{background:var(--card);border:1px solid var(--hair);
@@ -1745,7 +1772,10 @@ ${buyRips
     (r) => `          <li><a href="/${esc(r.v.path)}"><span>${esc(r.label)}</span>${esc(r.v.siteTitle || r.v.title)}</a></li>`,
   )
   .join("\n")}
-        </ul>
+        </ul>${
+          buyRipSets ? `
+        <p class="wtb-watch-sets">Card lists and prices for the sets in those videos: ${buyRipSets}.</p>` : ""
+        }
       </div>` : ""}
 
       <div class="wtb-body" style="margin-top:var(--s6)" id="one-card">

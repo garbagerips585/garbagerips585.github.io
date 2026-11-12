@@ -16,6 +16,7 @@ import { GUIDES_OUTSIDE_SETS } from "../shared/guide-count.mjs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { breadcrumbScript } from "../shared/jsonld.mjs";
 // APP_JS_NO_PACKPLAYER, not APP_JS. Nothing on this page plays a rip where it
 // sits; verified by driving it with a real dispatched click, not by grepping.
 // packs.css is NOT dropped here and cannot be from this file: these four pages
@@ -719,6 +720,7 @@ const swapped = head
 const html = `<!DOCTYPE html>
 <html lang="en">
 <head>${swapped}<style>${style}</style>
+${breadcrumbScript([["Home", "/"], ["Most wanted"]])}
 </head>
 <body>
 ${skipLink}

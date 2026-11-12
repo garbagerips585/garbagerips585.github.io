@@ -33,6 +33,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { breadcrumbScript } from "../shared/jsonld.mjs";
 import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead } from "../shared/card-prices.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
@@ -1110,6 +1111,7 @@ ${STYLES}
 <script type="application/ld+json">
 ${JSON.stringify(FAQ.ld, null, 2)}
 </script>
+${breadcrumbScript([["Home", "/"], ["Rarity guide"]])}
 </head>
 <body>
 ${SKIP}

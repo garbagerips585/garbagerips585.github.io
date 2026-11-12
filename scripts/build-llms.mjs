@@ -59,6 +59,35 @@ const showLines = showPlan.map((p) => L(p.path.slice(1),
     ? `${p.runs.length} upcoming ${p.runs.length === 1 ? "show" : "shows"} in that area, in date order`
     : `${p.runs.length} upcoming ${p.runs.length === 1 ? "date" : "dates"} of this one show, each with venue, address, hours and admission`));
 
+// ADDED 11 NOVEMBER 2026: the newest set guides, the two pages that change
+// every week, the Pokedex, the shop pages and the feed. An audit found the
+// newest set on the site, five days old with a full guide, was not in this
+// file at all, because "Set guides" was one line pointing at the index.
+//
+// THE NEWEST THREE ENGLISH GUIDES BY RELEASE DATE, not a typed list, so the
+// next set takes the top line the day its guide is built and the oldest of the
+// three drops off. Card count and release date are sets.json's; no price is
+// quoted here, because a price in this file would have no read date beside it.
+const longDay = (d) => {
+  const [y, m, day] = String(d).split("-").map(Number);
+  return `${["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"][m - 1]} ${day}, ${y}`;
+};
+const setsDoc = await read("public/data/sets.json").catch(() => ({ sets: [] }));
+const newestGuides = (setsDoc.sets || [])
+  .filter((s) => /^\d{4}-\d\d-\d\d$/.test(String(s.released || "")) && s.released <= today)
+  .sort((a, b) => b.released.localeCompare(a.released))
+  .slice(0, 3);
+const guideLines = newestGuides.map((s) =>
+  L(`sets/${s.id}.html`, `${s.name} set guide`, `${s.total} cards, released ${longDay(s.released)}: the full card list with dated prices, the rarity breakdown and the chase cards`));
+
+const drops = await read("data/drops.json").catch(() => null);
+const upcomingDoc = await read("data/upcoming.json").catch(() => null);
+const pokedex = await read("public/data/pokemon-index.json").catch(() => null);
+const retailerPages = await read("public/data/retailers-index.json").catch(() => null);
+const dexIndexed = pokedex ? (pokedex.pokemon || []).filter((p) => p.index !== false).length : 0;
+const nRetailers = retailerPages ? (retailerPages.pages || []).length : 0;
+const optional = (cond, line) => (cond ? `${line}\n` : "");
+
 const out = `# Garbage Rips 585
 
 > A Pokemon card pack ripping channel and reference site from Rochester, New York,
@@ -95,18 +124,22 @@ ${L("where-to-get-a-garbage-plate.html", "Where to get a Garbage Plate", "every 
 ${L("most-valuable-cards.html", "100 most valuable raw cards", "ranked by a price guide, each figure read twice on separate days before publishing")}
 ${L("top-graded.html", "100 highest PSA 10 values", "same sourcing discipline")}
 ${L("sets/", "Set guides", "one guide per English set plus international sets, with checklists, rarity ladders and chase cards")}
-${L("30th-celebration.html", "Pokemon 30th Celebration", "the products, the dates, the full card list with prices, and one collector's master set progress")}
+${guideLines.length ? `${guideLines.join("\n")}\n` : ""}${optional(dexIndexed, L("pokemon/", "Pokedex", `one page per Pokemon listing the cards it has been printed on; ${dexIndexed} of those pages carry dated prices`))}${L("30th-celebration.html", "Pokemon 30th Celebration", "the products, the dates, the full card list with prices, and one collector's master set progress")}
 ${L("jumbo-cards.html", "Pokemon jumbo cards", "what they are, how you get one, and what the most valuable ones are worth")}
 ${L("cards.html", "Card search", "every printing of every card in the corpus")}
 ${L("msrp.html", "Pokemon MSRP", "what sealed product is supposed to cost, from Pokemon Center's own prices")}
-${L("buying.html", "Where to buy", "every retailer compared, with what each one actually costs")}
+${optional(nRetailers, L("retailers.html", "Retailers", `how Pokemon cards are sold at the big chains, with a page for each of ${nRetailers} retailers and the day each was last checked`))}${L("buying.html", "Where to buy", "every retailer compared, with what each one actually costs")}
 ${L("selling.html", "Where to sell", "every venue compared, with the fees each one takes")}
 ${L("how-to-play.html", "How to play", "the rules, for a complete beginner")}
 ${L("luck.html", "Pack luck, measured", `what came out of ${tally.ripsJudged} judged rips. Observed results, explicitly not odds`)}
 
+## What changes every week
+
+${optional(drops && drops.weekOf && drops.weekEnds, L("drops.html", "Drops and restocks", `what community restock trackers expect at retailers for the week of ${drops ? longDay(drops.weekOf) : ""} to ${drops ? longDay(drops.weekEnds) : ""}, each row labeled with how sure it is. Nobody announces restocks, so none of it is a promise`))}${optional(upcomingDoc && upcomingDoc.checked, L("upcoming.html", "Upcoming releases", `every announced English Pokemon TCG set and product with its release date, confirmed dates marked apart from shop guesses, last checked ${upcomingDoc ? longDay(upcomingDoc.checked) : ""}`))}
 ## The channel
 
 ${L("videos.html", "Every rip", `${vids} videos, each with its own page on this site`)}
+${L("feed.xml", "New rips feed", "an Atom feed of the 30 newest rips, each linking to its page on this site")}
 ${L("hall.html", "Hall of Fame", "every card pulled on camera, with what it is worth and the rip it came from")}
 ${L("about.html", "About", "who runs this and why")}
 

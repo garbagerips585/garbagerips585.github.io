@@ -18,6 +18,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
+import { ORG_REF, breadcrumbScript } from "../shared/jsonld.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -944,7 +945,7 @@ ${JSON.stringify(
     description: `Release dates and card counts for all ${sets.length} English Pokemon Trading Card Game sets.`,
     url: `${SITE}/expansions.html`,
     dateModified: syncedAt,
-    creator: { "@type": "Organization", name: "Garbage Rips 585", url: `${SITE}/` },
+    creator: ORG_REF,
     isAccessibleForFree: true,
     temporalCoverage: `${firstYear}/${lastYear}`,
   },
@@ -952,6 +953,7 @@ ${JSON.stringify(
   2
 )}
 </script>
+${breadcrumbScript([["Home", "/"], ["All English sets"]])}
 </head>
 <body>
 ${SKIP}

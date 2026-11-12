@@ -756,6 +756,19 @@ const askFor = (e) => {
   return pk && `${pk} ${titleTail(e)}`.length <= TITLE_MAX_CHARS ? pk : plain;
 };
 
+// TITLE CASE FOR THE <title> AND og:title, AND ONLY THERE (11 November 2026).
+// Every other root page's title is title case; these fourteen read "What is in
+// a Pokemon blister pack? Price and 16 Openings", half and half in one line.
+// The h1 and the search index keep askFor() as the question it is. Short
+// joining words stay lower case, and so does "ex", which Pokemon writes that
+// way on the box. A word that already has a capital is left exactly as typed.
+const TITLE_SMALL = new Set(["a", "an", "and", "in", "of", "the", "ex"]);
+const titleCaseAsk = (s) =>
+  s
+    .split(" ")
+    .map((w, i) => (i > 0 && TITLE_SMALL.has(w) ? w : /^[a-z]/.test(w) ? w[0].toUpperCase() + w.slice(1) : w))
+    .join(" ");
+
 const LABEL =new Map(PRODUCT_TYPES.map((p) => [p.id, p.label]));
 
 // THE CODE CARD LINE, and the reason it is not on every page here.
@@ -2039,7 +2052,7 @@ for (const e of entries) {
     // "Opening" pluralises here the way the sentence above already pluralises
     // "set": one product had a single video and read "Price and 1 Openings".
     // titleTail drops "Price and" where the page prints no price table.
-    head(`${ask} ${titleTail(e)}`, desc, path, {
+    head(`${titleCaseAsk(ask)} ${titleTail(e)}`, desc, path, {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
