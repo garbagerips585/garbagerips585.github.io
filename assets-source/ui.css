@@ -2578,7 +2578,9 @@ footer .soc svg{fill:var(--chrome-ink)}
 .crumbs a{position:relative}
 .crumbs a::after{content:"";position:absolute;left:0;right:0;top:50%;
   height:44px;transform:translateY(-50%)}
-.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+/* margin-bottom: the buttons' 4px drop shadow sat ON the next band's rule with
+   a 0px gap and read as clipped (live QA, 12 November 2026). */
+.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;margin-bottom:var(--s3)}
 /* THE CHANNEL PITCH, 11 November 2026 (shared/channel-pitch.mjs says why it
    exists and what it may claim). One line of reason and the Subscribe button,
    on a rip page above .rip-nav and on a set guide under that set's rip list.
@@ -2592,6 +2594,9 @@ footer .soc svg{fill:var(--chrome-ink)}
   border-radius:var(--r);background:var(--card)}
 .pitch-t{flex:1 1 15em;margin:0;font-size:var(--t-sm);line-height:1.45;color:var(--ink)}
 .pitch .btn-sub{flex:none}
+/* On a rip page the pitch follows .rip-desc, which is 38em of .95rem wide. At
+   1440 the pitch ran 204px past it, so the two boxes had different right edges. */
+.rip-desc ~ .pitch,.rip-fact ~ .pitch{max-width:36.1rem}
 
 /* ---------- set logo on a video page ---------- */
 .rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}

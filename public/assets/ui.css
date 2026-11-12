@@ -735,12 +735,13 @@ section.band-gold .vid-title a:hover{color:var(--sky-deep)}
 .crumbs a{position:relative}
 .crumbs a::after{content:"";position:absolute;left:0;right:0;top:50%;
   height:44px;transform:translateY(-50%)}
-.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.rip-nav{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;margin-bottom:var(--s3)}
 .pitch{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--s3) var(--s4);
   max-width:46em;margin-top:var(--s5);padding:var(--s3) var(--s4);border:1px solid var(--hair);
   border-radius:var(--r);background:var(--card)}
 .pitch-t{flex:1 1 15em;margin:0;font-size:var(--t-sm);line-height:1.45;color:var(--ink)}
 .pitch .btn-sub{flex:none}
+.rip-desc ~ .pitch,.rip-fact ~ .pitch{max-width:36.1rem}
 .rip-setlogo{display:block;height:clamp(34px,5vw,54px);width:auto;margin-bottom:14px}
 .sec-head .setlogo{height:clamp(30px,4.4vw,50px);width:auto;display:block;margin-bottom:6px}
 .set-hero{
