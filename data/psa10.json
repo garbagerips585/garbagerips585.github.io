@@ -19,7 +19,11 @@
     "times in one set at three rarities.",
     "",
     "A card with no entry in either section shows its raw TCGplayer price alone,",
-    "which is the honest default. Nothing is ever guessed."
+    "which is the honest default. Nothing is ever guessed.",
+    "",
+    "notCarried  set id -> the day sync-prices.mjs last confirmed the provider does not",
+    "            carry that set. Its cards are not asked for again for 30 days, so they",
+    "            stop using up the nightly limit. Not a price and read by no page."
   ],
   "checkedBy": "The owner",
   "prices": {},
@@ -1562,6 +1566,195 @@
       "rawNm": 94.47,
       "asOf": "2026-11-09",
       "source": "pokemonpricetracker.com"
+    },
+    "phantasmal-flames-98": {
+      "psa10": 86.6,
+      "psa10Confidence": "high",
+      "psa10Sales": 662,
+      "psa10LastSale": "2026-11-09",
+      "rawNm": 9.92,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-78": {
+      "psa10": 224.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 374,
+      "psa10LastSale": "2026-11-09",
+      "rawNm": 65.39,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-98": {
+      "psa10": 65.5,
+      "psa10Confidence": "low",
+      "psa10Sales": 2,
+      "psa10LastSale": "2026-04-24",
+      "rawNm": 53.65,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-66": {
+      "psa10": 176.5,
+      "psa10Confidence": "medium",
+      "psa10Sales": 303,
+      "psa10LastSale": "2026-11-11",
+      "rawNm": 54.03,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-68": {
+      "psa10": 148.62,
+      "psa10Confidence": "medium",
+      "psa10Sales": 207,
+      "psa10LastSale": "2026-11-10",
+      "rawNm": 43.78,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-67": {
+      "psa10": 179.75,
+      "psa10Confidence": "medium",
+      "psa10Sales": 147,
+      "psa10LastSale": "2026-11-09",
+      "rawNm": 40.34,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-94": {
+      "psa10": 89.38,
+      "psa10Confidence": "medium",
+      "psa10Sales": 75,
+      "psa10LastSale": "2026-10-13",
+      "rawNm": 38.62,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-92": {
+      "psa10": 66.05,
+      "psa10Confidence": "medium",
+      "psa10Sales": 64,
+      "psa10LastSale": "2026-10-25",
+      "rawNm": 33.19,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "shrouded-fable-69": {
+      "psa10": 143.5,
+      "psa10Confidence": "medium",
+      "psa10Sales": 114,
+      "psa10LastSale": "2026-11-10",
+      "rawNm": 28.96,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-72": {
+      "psa10": 284,
+      "psa10Confidence": "high",
+      "psa10Sales": 420,
+      "psa10LastSale": "2026-11-10",
+      "rawNm": 48.53,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-79": {
+      "psa10": 144,
+      "psa10Confidence": "high",
+      "psa10Sales": 225,
+      "psa10LastSale": "2026-11-04",
+      "rawNm": 46.7,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-81": {
+      "psa10": 164.79,
+      "psa10Confidence": "medium",
+      "psa10Sales": 133,
+      "psa10LastSale": "2026-11-07",
+      "rawNm": 41.53,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-86": {
+      "psa10": 144.24,
+      "psa10Confidence": "medium",
+      "psa10Sales": 190,
+      "psa10LastSale": "2026-11-09",
+      "rawNm": 34.02,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-11": {
+      "psa10": 137.25,
+      "psa10Confidence": "medium",
+      "psa10Sales": 692,
+      "psa10LastSale": "2026-11-09",
+      "rawNm": 19.07,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-76": {
+      "psa10": 169.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 81,
+      "psa10LastSale": "2026-11-08",
+      "rawNm": 15.82,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-18": {
+      "psa10": 88.2,
+      "psa10Confidence": "medium",
+      "psa10Sales": 341,
+      "psa10LastSale": "2026-11-12",
+      "rawNm": 12.07,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "pokemon-go-80": {
+      "psa10": 76.88,
+      "psa10Confidence": "high",
+      "psa10Sales": 18,
+      "psa10LastSale": "2026-09-30",
+      "rawNm": 13.01,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "ascended-heroes-293": {
+      "psa10": 72,
+      "psa10Confidence": "high",
+      "psa10Sales": 89,
+      "psa10LastSale": "2026-11-08",
+      "rawNm": 15.88,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "ascended-heroes-269": {
+      "psa10": 127.5,
+      "psa10Confidence": "high",
+      "psa10Sales": 2569,
+      "psa10LastSale": "2026-11-10",
+      "rawNm": 29.34,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
+    },
+    "ascended-heroes-271": {
+      "psa10": 95,
+      "psa10Confidence": "high",
+      "psa10Sales": 1262,
+      "psa10LastSale": "2026-11-10",
+      "rawNm": 21.23,
+      "asOf": "2026-11-12",
+      "source": "pokemonpricetracker.com"
     }
+  },
+  "notCarried": {
+    "delta-reign": "2026-11-12",
+    "crown-zenith": "2026-11-12",
+    "silver-tempest": "2026-11-12",
+    "celebrations": "2026-11-12",
+    "chilling-reign": "2026-11-12",
+    "shining-fates": "2026-11-12",
+    "rebel-clash": "2026-11-12"
   }
 }
