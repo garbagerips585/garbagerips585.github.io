@@ -128,6 +128,27 @@ const FP_HAVE = FP_CELLS.filter((c) => c.has).length;
    Star Promo is a distribution channel -- the owner's Greninja ex is both, as
    two separate objects, which is the case that proves they cannot share a list. */
 const jumbos = binder.jumbos || [];
+/* THE REST OF A MASTER SET, 12 November 2026. The owner sent a full master set
+   spreadsheet: "there is actually reverse holos in the 30th Celebrations master
+   set, they come in the battle decks ... add them next to their normal non
+   commons in the binder ... I want the binder to be set up to be a complete
+   master set binder". data/30th.json `masterExtras` lists them (reverse and
+   Cosmos holo printings of main set cards, stamped cards from other sets, four
+   Energy with no rarity mark); data/30th-binder.json `extras` says which he has.
+   Same standing as the promos: a pocket each, outside the 199, never in `owned`.
+   Their section is "extra" so no checklist row, TCGdex scan or main set price
+   can ever be borrowed for one: 057 reverse is not 057. */
+const EXTRA_OWN = new Map((binder.extras || []).map((o) => [o.id, o]));
+const EXTRA_CELLS = ((doc.masterExtras || {}).rows || []).map((r) => {
+  const card = { name: r.name, n: r.n, section: "extra", setCode: r.tag || "", rarity: r.kind, pid: r.pid || null };
+  const mine = EXTRA_OWN.get(r.id);
+  return mine
+    ? { has: true, owned: { ...card, got: mine.got }, slot: null, promo: true, group: r.group }
+    : { has: false, owned: null, slot: card, promo: true, group: r.group };
+});
+const extrasIn = (g) => EXTRA_CELLS.filter((c) => c.group === g);
+const EXTRA_HAVE = EXTRA_CELLS.filter((c) => c.has).length;
+const numOf = (n) => Number(String(n || "").split("/")[0]);
 
 /* THE SET'S OWN LOGO IN THE HERO. The owner sent the artwork on 16 September
  * 2026 -- "30th logo now in the downloads folder" -- which closes the one gap
@@ -659,7 +680,7 @@ const NO_PICS = TOTAL - DEX_PICS - REMOTE_PICS - OWN_PICS;
 // ambiguous while the OWNED classic pockets beside them printed the whole
 // number from data/30th-binder.json -- the same card, two labels, one row apart.
 const pocketNum = (section, n) =>
-  section === "classic" || /RGB/.test(String(n)) ? String(n) : String(n).split("/")[0];
+  section === "classic" || section === "extra" || /RGB/.test(String(n)) ? String(n) : String(n).split("/")[0];
 
 /* THE LABEL ON THE STRIP AT THE FOOT OF A POCKET. The set code is dropped where
    it says nothing -- "30C" was on 97 pockets of a binder that is entirely 30th
@@ -830,8 +851,12 @@ const pocket = (c, i, slot, lg = "") => {
        "Last added" line above the binder. */
     const L = lg ? legendOf(s.name) : null;
     return `<li class="t30-pk ${c ? "has" : "need"}${lg ? " " + lg : ""}" title="${esc(s.name)}">
-        <button type="button" class="t30-cf"${attrs} aria-label="${esc(s.name)} ${esc(lab)}, ${c ? "collected" : "not collected yet"}${L ? `, one half of ${esc(L.base)}, joins ${esc(pocketLabel(L.mate.section, L.mate.n))}` : ""}. Show it larger">
-          ${phOf(s.name, lab)}
+        <button type="button" class="t30-cf"${attrs} aria-label="${esc(s.name)} ${esc(lab)}${s.section === "extra" ? ", " + esc(s.rarity) : ""}, ${c ? "collected" : "not collected yet"}${L ? `, one half of ${esc(L.base)}, joins ${esc(pocketLabel(L.mate.section, L.mate.n))}` : ""}. Show it larger">
+          ${/* AN EXTRA'S NAME CARD SAYS THE SHORT NUMBER AND THE PRINTING. Most have
+               no photo anywhere yet, so this card is the pocket: "#146/159" in
+               the big face was cut off at 390, and "#126" alone would read as
+               the normal card beside it. */
+            s.section === "extra" ? phOf(s.name + (s.setCode === "Rev" ? " reverse" : s.setCode === "Cos" ? " cosmos" : ""), "#" + String(s.n).split("/")[0]) : phOf(s.name, lab)}
           ${pic}
         </button>
         <span class="t30-pn">${c ? '<span class="t30-ok" aria-hidden="true"></span>' : ""}${esc(lab)}${
@@ -885,6 +910,13 @@ ${miss.map((c) => `          <li><span>${esc("#" + pocketNum(c.section, c.n))}</
         <summary><b>First Partners</b> <span>${fpMiss.length} still to find</span></summary>
         <ul>
 ${fpMiss.map((c) => `          <li><span>${esc("#" + c.n + " MEP")}</span> ${esc(c.name)} <i>Series ${esc(String(c.fp.series))}, ${esc(c.fp.region)}</i></li>`).join("\n")}
+        </ul>
+      </details>`);
+  const xMiss = EXTRA_CELLS.filter((c) => !c.has).map((c) => c.slot);
+  if (xMiss.length) rows.push(`      <details class="t30-need">
+        <summary><b>Reverse holos and stamps</b> <span>${xMiss.length} still to find</span></summary>
+        <ul>
+${xMiss.map((c) => `          <li><span>${esc(pocketLabel(c.section, c.n, c.setCode))}</span> ${esc(c.name)} <i>${esc(c.rarity)}</i></li>`).join("\n")}
         </ul>
       </details>`);
   return rows.length ? `    <div class="t30-needs">
@@ -990,10 +1022,15 @@ const leafOf = (cells, meta) => {
    Built before anything renders so the leaf headers can say "page 4 of 25"
    without a second pass. */
 const BINDER_LEAVES = (() => {
-  const out = [];
+  /* THE ORDER IS THE OWNER'S, 12 November 2026: "first partners, pikachus, common
+     holos and reverse holo commons together, then rest how you have it just
+     change the energies to be last after all the promo card". Each group builds
+     its own leaves and ORDER below strings them together. */
+  const by = { fp: [], promo: [], stamp: [], jumbo: [] };
+  const ORDER = ["fp", "pikachu", "main", "secret", "classic", "promo", "stamp", "jumbo", "energy"];
   /* First Partners first: see FP_CELLS. One page per series. */
   for (let p = 0; p < Math.ceil(FP_CELLS.length / POCKETS); p++)
-    out.push(leafOf(FP_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
+    by.fp.push(leafOf(FP_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
       { key: "fp", label: "First Partners", total: FP_CELLS.length, page: p + 1, pages: Math.ceil(FP_CELLS.length / POCKETS), of: FP_CELLS.length }));
   for (const [key, label, total] of SECTIONS) {
     const have = ownedIn(key);
@@ -1017,11 +1054,29 @@ const BINDER_LEAVES = (() => {
       const shown = Math.min(total, Math.max(POCKETS, Math.ceil(have.length / POCKETS) * POCKETS));
       for (let i = 0; i < shown; i++) cards.push({ has: Boolean(have[i]), owned: have[i], slot: null });
     }
+    /* A reverse or Cosmos holo goes in the pocket right after the normal card
+       with the same number, which is where he asked for it. */
+    if (key === "main")
+      for (const x of extrasIn("main")) {
+        let at = -1;
+        cards.forEach((c, i) => { if (numOf((c.owned || c.slot || {}).n) === numOf((x.owned || x.slot).n)) at = i; });
+        cards.splice(at < 0 ? cards.length : at + 1, 0, x);
+      }
+    /* The four Energy with no rarity mark are MEE 002 to 007, so they lead. */
+    if (key === "energy") cards.unshift(...extrasIn("energy"));
     const pages = Math.max(1, Math.ceil(cards.length / POCKETS));
+    by[key] = [];
     for (let p = 0; p < pages; p++)
-      out.push(leafOf(cards.slice(p * POCKETS, (p + 1) * POCKETS), {
+      by[key].push(leafOf(cards.slice(p * POCKETS, (p + 1) * POCKETS), {
         key, label, total, page: p + 1, pages, of: cards.length,
       }));
+  }
+  const STAMPS = extrasIn("stamped");
+  if (STAMPS.length) {
+    const pages = Math.ceil(STAMPS.length / POCKETS);
+    for (let p = 0; p < pages; p++)
+      by.stamp.push(leafOf(STAMPS.slice(p * POCKETS, (p + 1) * POCKETS),
+        { key: "stamp", label: "Stamps", total: STAMPS.length, page: p + 1, pages, of: STAMPS.length }));
   }
   /* EVERY KNOWN 30th PROMO GETS A POCKET, 23 September 2026. The owner, asked
      whether the promos he does not have should show as pockets to fill: "yes".
@@ -1032,16 +1087,16 @@ const BINDER_LEAVES = (() => {
   if (PROMO_CELLS.length) {
     const pages = Math.max(1, Math.ceil(PROMO_CELLS.length / POCKETS));
     for (let p = 0; p < pages; p++)
-      out.push(leafOf(PROMO_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
+      by.promo.push(leafOf(PROMO_CELLS.slice(p * POCKETS, (p + 1) * POCKETS),
         { key: "promo", label: "Promos", total: PROMO_CELLS.length, page: p + 1, pages, of: PROMO_CELLS.length }));
   }
   if (jumbos.length) {
     const pages = Math.max(1, Math.ceil(jumbos.length / POCKETS));
     for (let p = 0; p < pages; p++)
-      out.push(leafOf(jumbos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
+      by.jumbo.push(leafOf(jumbos.slice(p * POCKETS, (p + 1) * POCKETS).map((o) => ({ has: true, owned: o, slot: null, promo: true })),
         { key: "jumbo", label: "Jumbo cards", total: jumbos.length, page: p + 1, pages, of: jumbos.length }));
   }
-  return out.map((l, i) => ({ ...l, no: i + 1 }));
+  return ORDER.flatMap((k) => by[k] || []).map((l, i) => ({ ...l, no: i + 1 }));
 })();
 const LEAF_N = BINDER_LEAVES.length;
 
@@ -1147,12 +1202,18 @@ const railHtml = (() => {
    headings they used to live on. */
 const sectionSummary = [
   ...(FP_CELLS.length ? [{ key: "fp", label: "First Partners", total: FP_CELLS.length, have: FP_HAVE }] : []),
-  ...SECTIONS.map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
+  ...SECTIONS.filter(([key]) => key !== "energy").map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length })),
   ...(PROMO_CELLS.length ? [{ key: "promo", label: "Promos", total: PROMO_CELLS.length, have: promos.length }] : []),
-  ...(jumbos.length ? [{ key: "jumbo", label: "Jumbo cards", total: null, have: jumbos.length }] : [])]
-  .map(({ label, total, have }) => {
+  /* ONE TILE FOR ALL THE EXTRAS, though they sit in three places (beside their
+     main set twins, on the Stamped pages, with the Energy): three more tiles
+     for 45 cards outside the set would crowd the nine that matter. It opens
+     the Stamped pages, where most of them are. */
+  ...(EXTRA_CELLS.length ? [{ key: "stamp", label: "Reverse holos and stamps", leaf: "Stamps", total: EXTRA_CELLS.length, have: EXTRA_HAVE }] : []),
+  ...(jumbos.length ? [{ key: "jumbo", label: "Jumbo cards", total: null, have: jumbos.length }] : []),
+  ...SECTIONS.filter(([key]) => key === "energy").map(([key, label, total]) => ({ key, label, total, have: ownedIn(key).length }))]
+  .map(({ label, leaf, total, have }) => {
     const pcLocal = total ? Math.round((have / total) * 100) : 0;
-    const first = BINDER_LEAVES.find((l) => l.label === label);
+    const first = BINDER_LEAVES.find((l) => l.label === (leaf || label));
     return `          <li>
             <a href="#bl${first ? first.no : 1}">
               <b>${have}${total ? ` <i>of ${total}</i>` : ""}</b>

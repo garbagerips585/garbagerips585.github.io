@@ -53,7 +53,7 @@
     "because none was given and inventing one would be the same class of error this",
     "rebuild exists to remove."
   ],
-  "checked": "2026-11-07",
+  "checked": "2026-11-12",
   "owned": [
     {
       "name": "Basic Grass Energy",
@@ -2026,5 +2026,7 @@
     ],
     "missing": [],
     "checked": "2026-10-31"
-  }
+  },
+  "_extrasNote": ["WHICH OF data/30th.json's masterExtras HE OWNS, one object per card: {\"id\": \"main-057-reverse\", \"got\": \"YYYY-MM-DD\"}.", "Empty on November 12, 2026: he said he has both Battle Decks, but did not list the cards in the binder, and this file only takes what he lists."],
+  "extras": []
 }
