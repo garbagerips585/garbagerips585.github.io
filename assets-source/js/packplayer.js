@@ -460,7 +460,19 @@
        already carry a full-size player above them; neither wants this. The
        collection grids do: .wall--lib is /videos.html's own grid, and playlist
        pages carry data-riplb. */
-    if (a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
+    /* ON A PHONE THE HOME PAGE OPENS THE OVERLAY TOO, 12 November 2026. The
+       swipe rows that went in the day before show two tiles and a peek, so a
+       rip played in place was a 128px wide video under YouTube's own Shorts
+       chrome and the Tap for sound button. The owner, with a screenshot: "the
+       videos are small now on home page and lots of overlays over them so hard
+       to see the video". The overlay is the full-screen player /videos.html
+       already uses, so the row stays a row to browse and the video gets the
+       whole screen. Wider than a phone the tiles are big enough and still play
+       in place, which is the owner's earlier call and is unchanged. The width
+       is the same 544px the phone rows are fenced to in build-proto.mjs. */
+    var phoneHome = (a.closest(".vcar") || (a.matches && a.matches(".hofx"))) &&
+      window.matchMedia && window.matchMedia("(max-width:544.98px)").matches;
+    if (phoneHome || a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
     else playInTile(a, m[1]);
   }
 
@@ -695,7 +707,13 @@
     armEndCard(host, function () {
       return payloadFor(
         t,
-        function () { return stepCells(a.closest("article.v"), "article.v", "a.art"); },
+        // A collection grid steps through its own cells; a home page tile
+        // (phones only, see onDocClick) steps along its row the way the
+        // in-tile player does, and nextOnHome only needs an element to start from.
+        function () {
+          var cell = a.closest("article.v");
+          return cell ? stepCells(cell, "article.v", "a.art") : nextOnHome(a);
+        },
         advanceOverlay
       );
     });

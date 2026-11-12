@@ -2636,6 +2636,16 @@ const { listings: SHOP_LISTINGS } = await loadListings();
 
 // Every reading under a name, never the last one seen: resolvePC's own fix for
 // the two "V Heroes Tin (Espeon V)" SKUs at $19.99 and $24.99.
+// A READING CAN CARRY ITS OWN DATE, since 12 November 2026. The file's readOn
+// is the 17 August pass; products read later (Delta Reign, by the owner's ask)
+// say so on the row, and a guide must print the date its own figures were read.
+// The OLDEST date among the readings behind a figure is the honest one.
+const pcReadOf = (rows) => rows.map((r) => r.readOn || PC_FILE.readOn).sort()[0] || PC_FILE.readOn;
+const pcReadSpan = (dates) => {
+  const ds = [...new Set(dates.filter(Boolean))].sort();
+  if (!ds.length) return esc(longDate(PC_FILE.readOn));
+  return ds.length === 1 ? esc(longDate(ds[0])) : `between ${esc(longDate(ds[0]))} and ${esc(longDate(ds[ds.length - 1]))}`;
+};
 const PC_INDEX = new Map();
 for (const p of PC_FILE.products || []) {
   if (!PC_INDEX.has(p.name)) PC_INDEX.set(p.name, []);
@@ -2714,7 +2724,7 @@ function pcPriceFor(s, p) {
     return null;
   }
   const first = hits[0].all[0];
-  return { price: first.price, name: first.name, url: `${PC_FILE.base || ""}${first.path}`, readOn: PC_FILE.readOn, n: hits.reduce((a, h) => a + h.all.length, 0) };
+  return { price: first.price, name: first.name, url: `${PC_FILE.base || ""}${first.path}`, readOn: pcReadOf(hits.flatMap((h) => h.all)), n: hits.reduce((a, h) => a + h.all.length, 0) };
 }
 
 // Set membership for a retailer's free-text title. Dashes and colons are
@@ -3026,7 +3036,7 @@ function productBand(s, cls) {
     const list = and(runs.map((r, i) => `${and(r.items.map((x) => `the ${name(x.p)}`))} at ${priceUSD(r.each)}${
       i === 0 && !(r.items.length === 1 && r.items[0].packs === 1) ? " a pack" : ""}`));
     const flat = said.length > 1 && runs.length === 1;
-    lede += ` At Pokemon Center's own prices, read ${esc(longDate(PC_FILE.readOn))}, ${list}.${
+    lede += ` At Pokemon Center's own prices, read ${pcReadSpan(said.map((x) => x.pc.readOn))}, ${list}.${
       flat ? " On that shelf the size of the box makes no difference to what a pack costs." : ""
     }`;
   }
@@ -3173,7 +3183,7 @@ ${cards}
          which is what that file's _readme requires wherever they appear. */
       anyShelf || anyShop ? `
     <p class="prod-note">${anyShelf ? `A Pokemon Center figure is that exact product's price in Pokemon's own shop, read by hand
-      on ${esc(longDate(PC_FILE.readOn))}. Pokemon Center is the manufacturer selling its own product, so this site treats
+      ${(() => { const sp = pcReadSpan(items.map((p) => shelf.get(p)).filter(Boolean).map((x) => x.readOn)); return /^between /.test(sp) ? sp : `on ${sp}`; })()}. Pokemon Center is the manufacturer selling its own product, so this site treats
       its price as the suggested retail price: <a href="/msrp.html">what sealed Pokemon should cost</a>. The multiple
       beside it is the market price divided by it, and its name (${OVER_BANDS.map((b, i, a) => `${esc(b.label.toLowerCase())} ${b.upto == null ? `past ${multStr(a[i - 1].upto)}x` : `to ${multStr(b.upto)}x`}`).join(", ")}) is this site's rule of thumb, not a measurement. ` : ""}${
       anyShop ? `A shop figure is one listing of that product on one day at a retailer selling its own stock, dated

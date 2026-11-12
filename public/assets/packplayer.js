@@ -172,7 +172,9 @@
     var m = VID.exec(a.getAttribute("href") || "");
     if (!m) return;                       // not a rip url; leave it alone
     e.preventDefault();
-    if (a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
+    var phoneHome = (a.closest(".vcar") || (a.matches && a.matches(".hofx"))) &&
+      window.matchMedia && window.matchMedia("(max-width:544.98px)").matches;
+    if (phoneHome || a.closest(".wall--lib, [data-riplb]")) playInOverlay(a, m[1]);
     else playInTile(a, m[1]);
   }
   function buildHost(id, title, skin, cls, dur) {
@@ -298,7 +300,10 @@
     armEndCard(host, function () {
       return payloadFor(
         t,
-        function () { return stepCells(a.closest("article.v"), "article.v", "a.art"); },
+        function () {
+          var cell = a.closest("article.v");
+          return cell ? stepCells(cell, "article.v", "a.art") : nextOnHome(a);
+        },
         advanceOverlay
       );
     });

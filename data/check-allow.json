@@ -123,12 +123,6 @@
       "match": "\"Twilight Masquerade Poke Ball Tin\": Pack 3 is on 2 rips: UpdeUMc-6ys (2026-07-05), 2S4poqmGKWE (2026-07-19)",
       "date": "2026-11-11",
       "why": "Box identity question for the owner, listed in the 11 November 2026 night report. These read as separate boxes of one product opened weeks apart with no Box # typed, and only he can say which rip came out of which box. Nobody else may set a box or pack number. A new rip joining this series changes the text and the finding comes back."
-    },
-    {
-      "check": "upcoming",
-      "match": "\"Delta Reign Build & Battle Box\" as coming 2026-11-20",
-      "date": "2026-11-11",
-      "why": "Reported to the lead 11 November 2026. upcoming.json cites pokemon.com for November 20; the products.json row is a TCGplayer listing, which can be a preorder. Needs somebody to read the listing. Expires by itself on the 20th."
     }
   ]
 }
