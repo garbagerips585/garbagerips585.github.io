@@ -62,7 +62,7 @@ const GA_COOKIES = GA4_ID ? ["_ga", `_ga_${GA4_ID.replace(/^G-/, "")}`] : [];
 const HOSTS = [
   ["assets.tcgdex.net", "Card pictures. TCGdex is the open card database this site reads."],
   ["tcgplayer-cdn.tcgplayer.com", "Card scans for the few cards TCGdex holds no picture of."],
-  ["storage.googleapis.com", "Card pictures from PriceCharting, on the pages that quote its prices."],
+  ["storage.googleapis.com", "Topps card pictures, on the Topps pages."],
   ["i.ytimg.com", "Thumbnails for the videos, served by YouTube."],
   ["www.googletagmanager.com", "The analytics script itself."],
   ["www.google-analytics.com", "Where that script sends what it counts."],

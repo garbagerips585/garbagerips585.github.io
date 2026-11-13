@@ -187,6 +187,11 @@ for (const c of cards) {
   // date and the feed name move with the figure, so the note under the grid
   // cannot end up dating a number it is no longer describing.
   const g = gradedPrice(c.set, c.number, c.name, c.setName);
+  // 13 November 2026: no graded figure but the shared chain's, which returns only
+  // hand typed ones now; the snapshot's own psa10 (pokemonpricetracker.com) is
+  // dropped with it. The card's PriceCharting page is carried for the link.
+  c.psa10 = null;
+  c.pcUrl = gradedFor.link(c.set, c.number, { name: c.name, setName: c.setName });
   if (g != null) {
     const stamp = gradedStamp(c.set, c.number, c.name, c.setName);
     c.psa10 = g;
@@ -662,8 +667,8 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
           leave 29 dollar figures on the page with no source. That is the owner's call
           to make explicitly rather than mine to infer from a crop. */ ""}
     <p class="price-note">RAW PRICES ARE ${
-      esc((rawSources.length === 1 ? rawSources[0] : "PRICECHARTING.COM").toUpperCase())
-    }'S PRICE GUIDE VALUE FOR AN UNGRADED COPY${
+      esc((rawSources.length === 1 ? rawSources[0] : "TCGPLAYER MARKET PRICE").toUpperCase())
+    }S FOR AN UNGRADED COPY${
       rawAsOf ? `, READ ${shortDate(rawAsOf).toUpperCase()}` : ""
     }.${
       anyChecklistPrice
@@ -684,8 +689,8 @@ ${caught.map((c) => cardTile(c, { hunted: false })).join("\n")}
                  IS still true, and is the thing the sentence exists to say, is
                  that a graded sale and an ungraded guide value measure
                  different objects and are read off different files on
-                 different days. */ ""}A GRADED PRICE IS A DIFFERENT MEASUREMENT FROM THE UNGRADED GUIDE VALUE ABOVE AND IS READ SEPARATELY, SO THE TWO COLUMNS ARE NOT ONE READING.`
-          : `<br>PSA 10 PRICES ARE NOT LISTED FOR THESE YET. GRADED SALES COME FROM A SEPARATE FEED AND FROM CHECKING BY HAND.`
+                 different days. */ ""}A GRADED PRICE IS A DIFFERENT MEASUREMENT FROM THE UNGRADED MARKET PRICE ABOVE AND IS READ SEPARATELY, SO THE TWO COLUMNS ARE NOT ONE READING.`
+          : `<br>GRADED PRICES ARE NOT SHOWN HERE. EACH CARD'S SET GUIDE LINKS TO ITS GRADED PRICES ON PRICECHARTING.`
       }</p>
   </div>
 </main>`;
@@ -711,7 +716,7 @@ const swapped = head
       hunting.length
     } Pokemon cards Garbage Rips 585 is chasing right now, led by ${esc(
       hunting[0]?.name || "the current chase card"
-    )}. Raw and PSA 10 market prices, updated as the market moves.">`
+    )}. Raw market prices, updated as the market moves.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/wanted.html">`)
   .replace(/(<meta property="og:url" content=")[^"]*/, `$1${SITE}/wanted.html`)

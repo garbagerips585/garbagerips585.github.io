@@ -111,29 +111,13 @@ export function priceNote(doc, opts = {}) {
      already decides which of the two forms is true. */
   const { lead = "Prices", trailing = "", readPhrase = "" } = opts;
   const read = longDate(priceRead(doc)) || priceRead(doc);
-  const src = doc?.priceSource || "pricecharting.com";
+  // TCGPLAYER AGAIN FROM 13 NOVEMBER 2026: PriceCharting requires a paid plan
+  // to show their prices and the owner declined (shared/no-pricecharting.mjs).
   const bits = [
-    `${lead} are ${src}'s price guide value for an ungraded copy` +
+    `${lead} are TCGplayer market prices for an ungraded copy, via TCGdex` +
       (readPhrase ? `, ${readPhrase}` : read ? `, read ${read}` : "") +
       ".",
   ];
-  // A guide value is not a marketplace's market price and the pages that print
-  // both have to keep them apart. One clause, on every page, in one wording.
-  bits.push(
-    "A guide value is computed across the sales PriceCharting tracks, which is a wider set of venues than any one marketplace."
-  );
-  const fell = doc?.pricedBy?.tcgdex || 0;
-  if (fell > 0) {
-    // NAMED, NOT HIDDEN. PriceCharting covers 5,179 of the 5,181 cards in the
-    // guides, so this clause is rare, and a page crediting PriceCharting for a
-    // figure it did not supply is exactly what the site must not do.
-    const total = fell + (doc?.pricedBy?.pricecharting || 0);
-    bits.push(
-      `${fell === 1 ? "One card of the" : `${fell} cards of the`} ${total.toLocaleString("en-US")} priced here ` +
-        `${fell === 1 ? "is" : "are"} not listed by PriceCharting and ` +
-        `${fell === 1 ? "keeps its" : "keep their"} TCGplayer market price via TCGdex instead.`
-    );
-  }
   if (trailing) bits.push(trailing);
   return bits.join(" ");
 }
@@ -148,6 +132,6 @@ export function priceNote(doc, opts = {}) {
  */
 export function priceFooter(extra = "") {
   return (
-    "Card data from TCGdex. Card prices from PriceCharting." + (extra ? ` ${extra}` : "")
+    "Card data from TCGdex. Card prices are TCGplayer market prices, via TCGdex." + (extra ? ` ${extra}` : "")
   );
 }

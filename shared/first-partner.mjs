@@ -53,8 +53,6 @@ export function namesProduct(h) {
 }
 
 /** A price column only counts when its two independent reads agreed. */
-const agreed = (col) =>
-  col && col.status === "agree" && typeof col.value === "number" ? col.value : null;
 
 export async function loadFirstPartner() {
   let doc = null;
@@ -98,27 +96,18 @@ export async function loadFirstPartner() {
   function priceForHit(h) {
     const card = cardForHit(h);
     if (!card) return null;
-    const raw = agreed(card.pc?.cols?.raw);
-    const psa10 = agreed(card.pc?.cols?.psa10);
+    // TCGplayer market price from 13 November 2026; no graded figure (see
+    // data/first-partner.json's readme).
+    const raw = typeof card.tcgp?.market === "number" ? card.tcgp.market : null;
     return {
       card,
       number: card.number,
       setName: FP_PRODUCT,
       price: raw,
-      psa10,
-      url: card.pc?.url || null,
-      // "pricecharting.com", NOT data/first-partner.json's "PriceCharting".
-      // The same company, spelled two ways, and a hall plaque priced from this
-      // file sits beside plaques priced from data/graded.json in one sentence:
-      // /hall.html's credit line came out reading "PSA 10 FROM PRICECHARTING.COM
-      // AND POKEMONPRICETRACKER.COM AND PRICECHARTING", which reads as three
-      // feeds. The domain form is what every other price source on this site
-      // records, so it is the one that survives here. The First Partner page
-      // itself still prints the file's own wording, because it reads the file
-      // directly and nothing on that page sits beside another feed.
-      source: /^pricecharting$/i.test(String(doc?.priceSource || "").trim())
-        ? "pricecharting.com"
-        : doc?.priceSource || null,
+      psa10: null,
+      url: card.tcgp?.pid ? `https://www.tcgplayer.com/product/${card.tcgp.pid}` : null,
+      pcUrl: card.pc?.url || null,
+      source: raw != null ? "TCGplayer" : null,
       asOf: doc?.checked || null,
       img: card.img || null,
       imgLarge: card.imgLarge || card.img || null,

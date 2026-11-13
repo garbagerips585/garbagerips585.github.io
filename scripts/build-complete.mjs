@@ -540,21 +540,18 @@ ${MENU}
          AND IT SAID THE WRONG DATE, IN THE WRONG WORDS, UNTIL 19 AUGUST 2026,
          which is the exact trap shared/card-prices.mjs was written to close.
          The stamp named "checked" is the day TCGdex was read for the CHECKLIST;
-         the one named "pricesChecked" is the day PriceCharting was read for the
+         the one named "pricesChecked" is the day the prices were read for the
          MONEY. Both of these sentences are about money and both were stamped
          with the checklist's date, so the top of the page said "Priced August
          12" over totals whose own note at the foot said "read August 16". Two
          dates for one set of numbers on one page, and the reader has no way to
          tell which is the freshness of the figure they are judging. priceRead()
          exists so a builder cannot reach for the wrong one by habit; use it.
-         The words moved with the date for the same reason: these are
-         PriceCharting guide values, not a marketplace's market prices, and the
-         note at the foot has drawn that distinction in the site's own wording
-         since the swap. -->
+         The words follow the source: these are TCGplayer market prices. -->
     <span class="kicker">Pokemon TCG &bull; Priced ${esc(longDate(priceRead(priceDoc)) || "recently")}</span>
     <h1>What does it cost to <span class="hl">complete</span> a set?</h1>
     <p class="lede w38">Every set we cover, costed three ways, from the commons run to the full
-      master set. Every figure is added up from price guide values read on
+      master set. Every figure is added up from TCGplayer market prices read on
       ${esc(longDate(priceRead(priceDoc)) || "the date at the bottom of this page")}, not a number somebody typed
       into an article two years ago, and they get read again each night.</p>
   </div>
@@ -675,11 +672,11 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Two different prices</p>
     <h2>The cards are nearly free. The <span class="hl">postage</span> is not.</h2>
-    <p class="lede w40">Every figure above is a PriceCharting guide value, worked out from what copies have
+    <p class="lede w40">Every figure above is a TCGplayer market price, worked out from what copies have
       actually been selling for. There is a second number worth knowing: the cheapest copy listed right now. On the cards that make
       up a base set those two are miles apart, and on the cards that make up a master set they are almost the same.</p>
     <div class="facts">
-      <div class="fact"><div class="n">${baseSpread.toFixed(1)}x</div><div class="l">Typical set: guide value above cheapest listings, base set</div></div>
+      <div class="fact"><div class="n">${baseSpread.toFixed(1)}x</div><div class="l">Typical set: market price above cheapest listings, base set</div></div>
       <div class="fact"><div class="n">${masterSpread.toFixed(1)}x</div><div class="l">Typical set: the same comparison, master set</div></div>
       <div class="fact wide"><div class="n">${moneyRound(totalBaseFloor / rows.length)}</div><div class="l">Average base set at cheapest listings, before postage</div></div>
     </div>
@@ -719,7 +716,7 @@ ${MENU}
     </ul>
     <p class="price-note">${esc(priceNote(priceDoc))}
       The cheapest-listing figures on this page are a different measurement from a different source: they are the
-      lowest live TCGplayer listing via TCGdex, which is one seller's asking price rather than a guide value.
+      lowest live TCGplayer listing via TCGdex, which is one seller's asking price rather than a market price.
       Card counts are the published checklists. Totals are computed from those two
       things and nothing else: no estimates, no rounding up to a nicer number. No affiliate links, and nothing here is
       a recommendation to buy anything.</p>

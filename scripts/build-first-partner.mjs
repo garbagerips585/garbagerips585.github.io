@@ -176,6 +176,7 @@ import {
 } from "../shared/chrome.mjs";
 import { esc, longDate, clipMeta} from "../shared/format.mjs";
 import { namesProduct } from "../shared/first-partner.mjs";
+import { gradedLinkHtml } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const PATH = "/first-partner-illustration-collection.html";
@@ -284,8 +285,9 @@ const SERIES = [
 
 const bySeries = (n) => cards.filter((c) => c.series === n);
 const byRegion = (r) => cards.filter((c) => c.region === r);
-const rawOf = (c) => c.pc?.cols?.raw?.value ?? null;
-const psaOf = (c) => c.pc?.cols?.psa10?.value ?? null;
+// TCGplayer market price from 13 November 2026, no graded figure (see the
+// readme in data/first-partner.json).
+const rawOf = (c) => (typeof c.tcgp?.market === "number" ? c.tcgp.market : null);
 
 // ---------------------------------------------------------------------------
 // THE OWNER'S OWN PULLS, JOINED RATHER THAN HAND LISTED
@@ -407,9 +409,7 @@ const regionCost = REGIONS.map((r) => ({ region: r, raw: total(byRegion(r), rawO
 const seriesCost = SERIES.map((s) => ({ n: s.n, raw: total(bySeries(s.n), rawOf) }));
 const allRaw = total(cards, rawOf);
 
-const psaHave = cards.filter((c) => psaOf(c) != null).length;
-const psaRefused = cards.filter((c) => c.pc?.cols?.psa10?.status === "disagree").length;
-const psaNone = cards.filter((c) => c.pc?.cols?.psa10?.status === "none").length;
+
 // HOW MANY CARDS ARE SMALLER THAN THE BIGGEST ONE, asked of the data rather
 // than hard-coded to a series. It is 0 today, because all 27 now mirror at
 // 420x585 off pokemon.com's `full` path, so the paragraph it guards does not
@@ -493,18 +493,14 @@ function trio(region, { lazy = true } = {}) {
 </figure>`;
 }
 
-const priceCell = (v, col) => {
-  if (v != null) return `<span class="fp-money">${usd(v)}</span>`;
-  const st = col?.status;
-  if (st === "disagree") return `<span class="fp-nil" title="two readings disagreed">checked, held back</span>`;
-  return `<span class="fp-nil">none yet</span>`;
-};
+const priceCell = (v) =>
+  v != null ? `<span class="fp-money">${usd(v)}</span>` : `<span class="fp-nil">none yet</span>`;
 
 const cardRow = (c) => `<tr>
   <td class="fp-c-img">${scan(c, { sizes: STRIP_SIZES })}</td>
   <th scope="row" class="fp-c-id"><b>${esc(c.name)}</b><span>MEP ${esc(c.number)} &bull; ${esc(c.region)} &bull; Series ${c.series}</span></th>
-  <td class="fp-c-p">${priceCell(rawOf(c), c.pc?.cols?.raw)}</td>
-  <td class="fp-c-p">${priceCell(psaOf(c), c.pc?.cols?.psa10)}</td>
+  <td class="fp-c-p">${priceCell(rawOf(c))}</td>
+  <td class="fp-c-p">${c.pc?.url ? gradedLinkHtml(c.pc.url, `${c.name} MEP ${c.number}`, { text: "On PriceCharting" }) : ""}</td>
 </tr>`;
 
 /**
@@ -832,10 +828,9 @@ ${
   <section class="tight">
     <div class="wrap">
       <h2>All <span class="hl">27 cards</span>, with prices</h2>
-      <p class="fp-note" style="margin-bottom:var(--s5)">Every figure below is PriceCharting's, read
-        twice from two different pages of theirs and only printed when the two readings agree. Raw is
-        an ungraded card; PSA 10 is a perfect graded one. ${psaHave} of the 27 have a PSA 10 figure
-        so far${psaNone ? `, and ${psaNone} have none at all because Series 3 has only been out since ${esc(longDate("2026-08-07"))} and nothing has come back from grading yet` : ""}${psaRefused ? `. One card's two readings disagreed and its PSA 10 is held back rather than published` : ""}.</p>
+      <p class="fp-note" style="margin-bottom:var(--s5)">Every figure below is TCGplayer's market price for an
+        ungraded card, read ${esc(longDate(doc.checked))}. Graded prices are not shown here: the link in the last
+        column opens that card's graded prices on PriceCharting.</p>
       <!-- THE ONLY DATA TABLE ON THE SITE THAT HAD NONE OF THE SCROLLABLE-TABLE
            TREATMENT, and the pattern was already settled in build-complete.mjs,
            build-expansions.mjs, build-luck.mjs, build-openings.mjs and
@@ -849,8 +844,8 @@ ${
            money columns announce which card they belong to. -->
       <div class="fp-scroll" tabindex="0" role="region" aria-label="All 27 First Partner promos with prices, scrollable table">
         <table class="fp-table">
-          <caption class="sr-only">Every First Partner Illustration Collection promo, with its raw and PSA 10 price</caption>
-          <thead><tr><th scope="col"><span class="sr-only">Card art</span></th><th scope="col">Card</th><th scope="col" style="text-align:right">Raw</th><th scope="col" style="text-align:right">PSA 10</th></tr></thead>
+          <caption class="sr-only">Every First Partner Illustration Collection promo, with its raw price and a link to its graded prices</caption>
+          <thead><tr><th scope="col"><span class="sr-only">Card art</span></th><th scope="col">Card</th><th scope="col" style="text-align:right">Raw</th><th scope="col" style="text-align:right">Graded</th></tr></thead>
           <tbody>
 ${cards.map(cardRow).join("\n")}
           </tbody>
@@ -949,9 +944,9 @@ ${pulls
           themselves, which are the image each gallery leads with, cropped to the package out of its
           wider marketing frame and otherwise unaltered. All of them are mirrored onto this site
           rather than loaded from pokemon.com's servers.</li>
-        <li><b>The prices.</b> PriceCharting, read ${esc(longDate(doc.checked))}, twice per figure
-          from two different pages and only published where the two readings agreed.
-          <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="PriceCharting's Pokemon promo price guide, opens on pricecharting.com">PriceCharting's promo price guide</a>.</li>
+        <li><b>The prices.</b> TCGplayer market prices, read ${esc(longDate(doc.checked))}, matched to each card
+          by its MEP number.
+          <a href="${esc(doc.priceSourceUrl)}" rel="nofollow noopener" target="_blank" aria-label="TCGplayer's Mega Evolution promo listings, opens on tcgplayer.com">TCGplayer's promo listings</a>.</li>
         <li><b>The box price.</b> Our own readings, dated above, because no official page publishes
           one for this product.</li>
       </ul>
@@ -1001,7 +996,7 @@ const ld = [
 
 const TITLE = "First Partner Illustration Collection: 27 Cards, Prices";
 const DESC =
-  `Every card in the 2026 Pokemon First Partner Illustration Collection: all 27 promos with raw and PSA 10 prices, what is in each box, ` +
+  `Every card in the 2026 Pokemon First Partner Illustration Collection: all 27 promos with raw prices, what is in each box, ` +
   `the ${usd(MSRP)} suggested price against ${usd(SHELF)} on shelves, and the three series' release dates from Pokemon's own product galleries.`;
 
 const html = `<!DOCTYPE html>
@@ -1040,7 +1035,7 @@ ${BAR}
 ${MENU}
 ${body}
 
-${footer(`Card prices from PriceCharting, read ${longDate(doc.checked)}, every figure read twice. Card images are The Pokemon Company's, from its official product galleries.`)}
+${footer(`Card prices are TCGplayer market prices, read ${longDate(doc.checked)}. Card images are The Pokemon Company's, from its official product galleries.`)}
 ${APP_JS_NO_PACKPLAYER}
 </body>
 </html>
@@ -1051,5 +1046,4 @@ await writeFile(join(ROOT, "public" + PATH), html);
 console.log(`Wrote public${PATH}
   ${cards.length} cards, ${cards.filter((c) => c.img).length} with a scan (${thumbs} thumbnail only)
   raw prices published: ${cards.filter((c) => rawOf(c) != null).length}
-  PSA 10 published: ${psaHave}, held back: ${psaRefused}, none yet: ${psaNone}
   ${pulls.length} tagged rip(s) of this product`);

@@ -27,7 +27,7 @@ import { SITE } from "../shared/site.mjs";
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
-import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull, gradedLinkHtml } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { readSpan } from "../shared/card-prices.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
@@ -350,6 +350,7 @@ if (!hall.length) {
           _psa10AsOf: h.priceAsOf || fp?.asOf || null,
           _psa10Source: h.priceSource || fp?.source || null,
           _psa10Url: h.priceUrl || fp?.url || null,
+          _pcUrl: (/pricecharting\.com/.test(h.priceUrl || "") ? h.priceUrl : null) || fp?.pcUrl || null,
           // THE CORPUS SET NAME BEFORE THE GENERIC ONE. "MEP Black Star Promos"
           // and "SVP Black Star Promos" are different sets and the plaque should
           // say which; "Black Star Promo" is the last resort, not the label.
@@ -754,6 +755,7 @@ if (source === "intl") intlIn.push({ set: h.set, card: m.name, n: m.n, art: m.im
           _psa10AsOf: thirtiethPrice(h).asOf,
           _psa10Source: "pricecharting.com",
           _psa10Url: thirtiethPrice(h).url,
+          _pcUrl: thirtiethPrice(h).pcUrl || null,
         } : {}),
         // THE JAPANESE RUNG FIRST WHERE THE CHECKLIST CARRIES ONE. Same
         // precedence as _img above -- the file this row resolved out of wins --
@@ -834,7 +836,7 @@ const setById = new Map(sets.map((s) => [s.id, s]));
 // numbers, which is exactly what the header of this file says cannot happen.
 // Read that module before changing anything below: the number check against
 // `matched` is load bearing and its reasons are listed there.
-const { pc, pricecharting, nearMisses, resolve: gradedResolve } = await loadGradedPrices();
+const { pc, pricecharting, nearMisses, link: gradedLink, resolve: gradedResolve } = await loadGradedPrices();
 
 // TCGplayer product links, keyed by set then collector number.
 //
@@ -993,6 +995,10 @@ function resolve(c) {
     // no set file to read, and pokemonpricetracker's rawNm is the last resort.
     raw: c._raw ?? chase?.price ?? pcHit?.ungraded ?? auto?.rawNm ?? null,
     psa10,
+    // The card's PriceCharting page, printed where a graded figure used to be
+    // (13 November 2026: PriceCharting requires a paid plan to show prices).
+    pcUrl: (c.number ? gradedLink(c.set || null, c.number, { name: c.name, setName }) : null)
+      || c._pcUrl || (/pricecharting\.com/.test(c._psa10Url || "") ? c._psa10Url : null) || null,
     psa10AsOf:
       psaFrom === "manual" ? manual?.asOf || null
       /* THE RESOLVER'S OWN DATE FIRST. `pc.checked` is data/graded.json's, and
@@ -1694,7 +1700,9 @@ function plaque(c, i) {
           ${c.rarity ? `<span class="chof-rar">${esc(c.rarity)}</span>` : ""}
           <dl class="chof-prices">
             <div><dt>Raw NM</dt><dd>${c.raw ? moneyCompact(c.raw) : noValue("Not recorded")}</dd></div>
-            <div class="psa"><dt>PSA 10${c.psa10 && c.psa10AsOf ? ` <i>${esc(shortDate(c.psa10AsOf) || c.psa10AsOf)}</i>` : ""}</dt><dd>${c.psa10 ? moneyCompact(c.psa10) : noValue("No PSA 10 price for this printing")}</dd></div>
+            ${c.psa10
+              ? `<div class="psa"><dt>PSA 10${c.psa10AsOf ? ` <i>${esc(shortDate(c.psa10AsOf) || c.psa10AsOf)}</i>` : ""}</dt><dd>${moneyCompact(c.psa10)}</dd></div>`
+              : c.pcUrl ? `<div class="psa"><dt>Graded</dt><dd>${gradedLinkHtml(c.pcUrl, c.name, { text: "On PriceCharting" })}</dd></div>` : ""}
           </dl>
           ${c.pulledOn || c.pulledIn
             ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${shortDate(c.pulledOn)}` : ""}${
@@ -2470,10 +2478,10 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
           describing the old comparator, which is exactly how a page comes to
           contradict itself. It carries the extra fact the lede has no room
           for: the graded figure is printed but is not the key. */ ""}
-    <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. A PSA 10 IS PRINTED WHEREVER WE
-      HAVE ONE AND IS NOT WHAT THE ORDER IS BUILT ON: NOTHING HERE IS GRADED.
+    <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. NOTHING HERE IS GRADED; THE
+      GRADED LINK ON A CARD OPENS ITS GRADED PRICES ON PRICECHARTING.
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
-      RAW NEAR MINT IS PRICECHARTING'S UNGRADED PRICE GUIDE VALUE, THE SAME FIGURE EVERY SET GUIDE
+      RAW NEAR MINT IS THE TCGPLAYER MARKET PRICE FOR AN UNGRADED COPY, THE SAME FIGURE EVERY SET GUIDE
       AND THE CARD SEARCH PRINT, FOR THE CARDS IN OUR SET CHECKLISTS; PROMOS AND NON-ENGLISH PULLS ARE PRICED BY HAND IN THE RIP LOG AND APPEAR IN NEITHER${rawSpanTxt ? `, ${rawSpanTxt.toUpperCase()}` : ""}.${psaNote}</p>
 
     ${/* WHOSE PULLS THESE ARE. /about.html carried ZERO in-body inbound links
@@ -2588,7 +2596,7 @@ const swapped = head
     // "RANKED BY VALUE" NAMED NO KEY, which is the same fault the lede had.
     // The description is the one line a stranger reads before deciding to
     // click, so it says which of the two prices the order is built on.
-    `<meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked on raw near mint price, with PSA 10 market values where we have them.">`
+    `<meta name="description" content="The best Pokemon cards ever pulled on Garbage Rips 585, ranked on raw near mint price, with links to their graded prices.">`
   )
   .replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${SITE}/hall.html">`)
   .replace(/(<meta property="og:image" content="[^"]*\/assets\/)og-image\.jpg/, `$1og-hall.jpg`)

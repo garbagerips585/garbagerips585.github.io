@@ -136,12 +136,13 @@ Rules:
 ## Prices, pull rates, printings (docs/set-pages.md)
 
 - **Pull rates are a sourcing rule: state one only if the publisher confirmed it** (TPCi, Pokemon Center, pokemon.com, printed odds). An opened box is a sample, not a rate. A leak, another region or another product is not confirmed. Prefer a guarantee to a rate. /luck.html stays labeled as the channel's own observed results.
-- One price source per page. Raw prices are PriceCharting's (overlaid in sync-cards.mjs); do not add a second feed to a page that has one. Use `priceNote(doc)` from shared/card-prices.mjs for the date wording.
+- NO PRICECHARTING NUMBERS, ANYWHERE (13 November 2026). PriceCharting requires a paid plan to show their prices; the owner declined. shared/no-pricecharting.mjs refuses every request to pricecharting.com in the workflows. Linking TO a card's PriceCharting page is fine and is how graded prices are handled: `gradedLinkHtml()` in shared/graded-price.mjs prints "Graded prices on PriceCharting". No graded dollar figure is shown (the owner chose links only).
+- One price source per page. Raw prices are TCGplayer market prices via TCGdex (sync-cards.mjs); the 30th Celebration and First Partner promos read TCGplayer directly. Do not add a second feed to a page that has one. Use `priceNote(doc)` from shared/card-prices.mjs for the date wording.
 - PSA 10 figures come through shared/graded-price.mjs and nowhere else. Do not delete its fallback or its printing check.
-- Nothing from PriceCharting is published on a single read; the ranked lists go through shared/graded-gate.mjs.
+- /most-valuable-cards.html and the chase-match game read TCGplayer's list in data/top100.json. /top-graded.html is a retired redirect. The Topps values page is a card list with no prices.
 - Between data/graded.json and a card file for one printing, the newer read wins and a tie goes to graded.json (`newerRead()` in shared/graded-price.mjs). Do not put either permanently in front.
 - A ranked list's `checked` is its oldest listing read, not the day the weekly job ran; `verify.ran` is the re-read day. Do not "correct" it to today. (docs/nightly-and-deploy.md)
-- The standard-printing allowlist in sync-pricecharting-cards.mjs is load bearing.
+- The sync-pricecharting*, refresh-prices, sync-*-top, verify-*-top and sync-first-partner scripts are retired with PriceCharting; nothing may call them.
 - **A logged hit's printing is decided by the rarity the owner typed**, then an explicit number, and the dearest printing only as a last resort. If a resolver change moves the rarity mix, it is wrong.
 - "Mega Attack Rare" is folded to Ultra Rare at ingestion in scripts/sync-cards.mjs (matching import-sheet.mjs). Do not add a rung for it without the owner.
 - A set TCGdex has not published uses the pending path (`tcgplayerPending`, `PENDING_META`, derived scan pins). Retire all three together when TCGdex carries the set.

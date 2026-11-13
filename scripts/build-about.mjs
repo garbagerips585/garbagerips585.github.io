@@ -332,9 +332,8 @@ const GUIDES = [
     "worth",
     "What a card is worth",
     [
-      ["/cards.html", "Card search", "Every printing of every card, with a price guide value on it."],
-      ["/most-valuable-cards.html", "The 100 most valuable raw cards", "Ranked on an ungraded price guide value, with a link on every row so you can check whether the figure still holds."],
-      ["/top-graded.html", "The 100 highest PSA 10 values", "The same catalog asked a different question: what a perfect graded copy is worth."],
+      ["/cards.html", "Card search", "Every printing of every card, with its TCGplayer market price on it."],
+      ["/most-valuable-cards.html", "The 100 most valuable raw cards", "Ranked on TCGplayer market price, with a link on every row so you can check whether the figure still holds."],
       ["/most-expensive-sealed.html", "The 100 most expensive sealed products", "Boxes and collections rather than cards."],
       ["/base-set.html", "1st Edition, Shadowless or Unlimited", "Which 1999 Base Set print run a card in your hand came from, and why it matters to the price."],
       ["/topps.html", "Topps Pokemon cards", "The Pokemon cards that are not TCG cards at all. Most collectors have never knowingly held one and several are worth real money."],

@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// RETIRED 13 NOVEMBER 2026. This reads PriceCharting, which requires a paid plan
+// to show their prices; the owner declined. Nothing may call it, and every
+// request it makes is refused by shared/no-pricecharting.mjs in the workflows.
 // The 27 First Partner Illustration Collection promos: identity, official
 // artwork, and PriceCharting's raw and PSA 10 figures read TWICE.
 //

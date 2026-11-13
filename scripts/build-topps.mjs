@@ -222,6 +222,7 @@ import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue, imgDims, a
 // product page, a 21x error on Base Set Charizard that looks like a reasonable
 // price. Read shared/graded-gate.mjs before relaxing anything here.
 import { gradedGate } from "../shared/graded-gate.mjs";
+import { gradedLinkHtml } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/topps-top.json"), "utf8"));
@@ -327,6 +328,26 @@ const buildList = (order, key) =>
 
 const rawList = buildList(d.rawOrder, "ungraded");
 const psaList = buildList(d.psaOrder, "psa10");
+
+/* THE CARD LIST, NO PRICES, 13 November 2026. The two ranked hundreds were
+   PriceCharting's guide values; PriceCharting requires a paid plan to show
+   their prices and the owner declined (shared/no-pricecharting.mjs). His
+   decision: keep the cards and pictures, drop the dollar values and any
+   ranking by value. So the cards that made either hundred are listed once
+   each, in release order and then by card number, each linking to its own
+   PriceCharting page for anybody who wants the price. */
+const RELEASE_ORDER = new Map((facts.releases || []).flatMap((r, i) => (r.pcConsoles || []).map((c) => [c.console, i])));
+const numKey = (c) => {
+  const m = /(\d+)/.exec(String(c.number || ""));
+  return m ? Number(m[1]) : 9999;
+};
+const CARDS = [...new Map([...rawList, ...psaList].map((c) => [c.rank, c])).values()].sort(
+  (a, b) =>
+    (RELEASE_ORDER.get(a.console) ?? 99) - (RELEASE_ORDER.get(b.console) ?? 99) ||
+    String(a.set).localeCompare(String(b.set)) ||
+    numKey(a) - numKey(b) ||
+    String(a.name).localeCompare(String(b.name)),
+);
 
 // A figure that is not the list's own ranking column is printed only where its
 // own column agreed, and where it did not the row says WHICH THING happened
@@ -924,12 +945,11 @@ const peek = (list, key, label) =>
         : "";
       return `<li><span class="n">${i + 1}</span>${art}<span class="w">${esc(c.name)}<small>${esc(
         c.set,
-      )}</small></span><span class="m">${moneyCompact(c[key])}</span></li>`;
+      )}</small></span></li>`;
     })
     .join("")}</ol>
-  <p class="price-note">${esc(label)} PriceCharting price guide values read ${esc(read)}, each read a second time
-    from the card's own product page before it was printed. <a href="/topps-card-values.html">All 100, and the
-    other hundred ranked the other way</a>.</p>`;
+  <p class="price-note"><a href="/topps-card-values.html">All ${CARDS.length} standout cards, by set</a>, each
+    with a link to its prices on PriceCharting.</p>`;
 
 // ---------------------------------------------------------------------------
 // THE SIDE BY SIDE. The one section on this page where a picture is not an
@@ -1045,9 +1065,8 @@ ${MENU}
 
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${releases.length}</div><div class="l">Topps Pokemon sets, ${setYears[0]} to ${setYears[setYears.length - 1]}</div></div>
-      <div class="fact"><div class="n">${d.scanned.productsWithUngraded.toLocaleString("en-US")}</div><div class="l">Topps listings with a price on them</div></div>
-      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value, ${esc(rawTop.name)}</div></div>
-      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value, ${esc(psaTop.name)}</div></div>
+      <div class="fact"><div class="n">${usSets.length}</div><div class="l">Sold in the States</div></div>
+      <div class="fact"><div class="n">${CARDS.length}</div><div class="l">Standout cards pictured on <a href="/topps-card-values.html">the card list</a></div></div>
     </div>
   </div>
 </section>
@@ -1056,14 +1075,9 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Why this page exists</p>
     <h2>Nobody talks about them and <span class="hl">some are worth thousands</span></h2>
-    <p class="lede" style="max-width:44em">This is not a hunch and it is checkable on this site in about ten
-      seconds.${
-        toppsOnRawTop100
-          ? ` Our list of <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon cards</a> ranks
-      every Pokemon card PriceCharting prices, in every language, and <b>${toppsOnRawTop100} of those hundred rows
-      are Topps cards</b>. Anybody who has read that page has already scrolled past ${toppsOnRawTop100} of them.`
-          : ""
-      }</p>
+    <p class="lede" style="max-width:44em">Look any of the cards on <a href="/topps-card-values.html">our Topps
+      card list</a> up on a price guide and the point makes itself: the best of them sell for more than a lot of
+      the game cards everybody knows about.</p>
     <p style="max-width:44em">The reason is roughly this. Topps' cards were treated as the cheap ones at the
       time, because the game cards were the ones with a game attached, so far fewer were kept in sleeves and far
       fewer have ever been graded. The Chrome sets are the extreme case: chromium stock, heavily embossed, thick,
@@ -1073,11 +1087,8 @@ ${MENU}
       published insert odds for some of these sets, and we have not recorded them: this site only prints odds the
       publisher itself confirmed, and nobody has checked those printed odds against a wrapper yet.</p>
 
-    <h3 style="margin-top:26px">The five most valuable raw, right now</h3>
-    ${peek(rawList, "ungraded", "Ungraded")}
-
-    <h3 style="margin-top:26px">The five most valuable in a PSA 10</h3>
-    ${peek(psaList, "psa10", "PSA 10")}
+    <h3 style="margin-top:26px">Five of the standouts</h3>
+    ${peek(CARDS, null, "")}
   </div>
 </section>
 
@@ -1194,15 +1205,13 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where to go next</p>
     <h2>The prices, and the rest of the <span class="hl">site</span></h2>
-    <p class="lede" style="max-width:44em"><a href="/topps-card-values.html">Topps card values</a> holds both
-      hundreds in full, ranked raw and ranked by PSA 10, with the source path on every row and the date they
-      were read.</p>
+    <p class="lede" style="max-width:44em"><a href="/topps-card-values.html">The Topps card list</a> pictures
+      ${CARDS.length} standout cards set by set, each linked to its prices on PriceCharting. This site does not
+      print Topps prices itself.</p>
     <p style="max-width:44em">Elsewhere: <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon
-      cards</a> and <a href="/top-graded.html">the 100 highest PSA 10 values</a> rank everything, Topps included,
-      against the whole catalog. <a href="/expansions.html">Every English set</a> and
+      cards</a> ranks the game cards. <a href="/expansions.html">Every English set</a> and
       <a href="/sets/">the set guides</a> cover the actual card game. <a href="/grading.html">Is it worth
-      grading?</a> does the subtraction on raw against graded prices, which is the question these two lists
-      raise on nearly every row. And <a href="/lore.html">Pokemon lore</a> and
+      grading?</a> does the subtraction on raw against graded prices. And <a href="/lore.html">Pokemon lore</a> and
       <a href="/video-games.html">every Pokemon video game</a> are the other two pages here that are about
       Pokemon rather than about cards.</p>
 
@@ -1210,9 +1219,8 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
     <p style="max-width:44em"><b>Set names, dates, card counts and what each subset is:</b> Bulbapedia, read
       ${esc(longDate(facts.read) || facts.read)}. One page per set, and each set card above names the one it came
       from. Thanks to them for keeping it.</p>
-    <p style="max-width:44em"><b>Prices, card scans and the packaging photographs:</b> pricecharting.com, read
-      ${esc(read)}, methodology published at their /page/methodology. Every priced row on the values page carries
-      its own path on that site. The pack and box photographs are theirs as well, and they are the reason this
+    <p style="max-width:44em"><b>Card scans and the packaging photographs:</b> pricecharting.com. The pack and
+      box photographs are theirs, and they are the reason this
       page can show you what a 1999 Topps wrapper looked like at all: nothing else we could reach has one.
       ${releases.length - pics.sets.filter((x) => x.pack).length} of the ${releases.length} sets have no
       packaging photograph in their catalog, and those show a card and say nothing about packaging rather
@@ -1245,19 +1253,40 @@ ${APP_JS}
 // and it was spending 13 of the ~60 characters a result actually shows. This
 // was the only title on the site carrying a hard date; every other dated page
 // keeps it in body copy.
-const valuesTitle = "Topps Pokemon Card Values: Ungraded and PSA 10 Top 100s";
+const valuesTitle = "Topps Pokemon Cards: The Standouts, Set by Set";
 const valuesDesc =
-  `The ${rawList.length} most valuable Topps Pokemon cards ungraded and the ${psaList.length} highest PSA 10 values, ` +
-  `ranked from PriceCharting's price guide across ${d.scanned.products.toLocaleString("en-US")} Topps products ` +
-  `and read on ${readShort}. Every figure read twice. Not auction records, and prices move.`;
+  `${CARDS.length} standout Topps Pokemon trading cards from ${releases.length} sets, pictured set by set and ` +
+  `in card number order, each linked to its prices on PriceCharting. Topps cards are not Pokemon TCG cards.`;
 
-const listHead = (id, title, kicker, lede) => `
-    <p class="sec-label" id="${id}"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>${esc(kicker)}</p>
-    <h2>${title}</h2>
-    <p class="lede" style="max-width:44em">${lede}</p>`;
+/** One card on the list: the picture, the name, the set, and its price page. No figure. */
+function cardRow(c) {
+  const src = scanSrc(c);
+  const img = src
+    ? `<img class="tp-scan" src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">`
+    : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
+  return `<li class="tp-row">
+  <span class="tp-art">${img}</span>
+  <span class="tp-body">
+    <span class="tp-name">${esc(c.name)}</span>
+    <span class="tp-set">${esc(c.set)}</span>
+    ${c.url ? `<span class="tp-src">${gradedLinkHtml(c.url, c.name, { text: "Prices on PriceCharting" })}</span>` : ""}
+  </span>
+</li>`;
+}
 
-const values = `${head(valuesTitle, valuesDesc, "topps-card-values", "topps-card-values", ldFor("Topps card values", valuesTitle, valuesDesc, "topps-card-values"))}
-<style>${CSS}</style>
+const bySet = [];
+for (const c of CARDS) {
+  const last = bySet[bySet.length - 1];
+  if (last && last.set === c.set) last.cards.push(c);
+  else bySet.push({ set: c.set, cards: [c] });
+}
+
+const values = `${head(valuesTitle, valuesDesc, "topps-card-values", "topps-card-values", ldFor("Topps card list", valuesTitle, valuesDesc, "topps-card-values"))}
+<style>${CSS}
+.tp-norank .tp-row{grid-template-columns:64px 1fr}
+.tp-norank .tp-src a{font-family:var(--sans,inherit);font-size:13px}
+@media (min-width:560px){.tp-norank .tp-row{grid-template-columns:84px 1fr}}
+@media (min-width:900px){.tp-norank .tp-row{grid-template-columns:100px 1fr}.tp-norank .tp-body{display:block}}</style>
 </head>
 <body>
 ${SKIP}
@@ -1268,197 +1297,37 @@ ${MENU}
 
 <header class="set-hero">
   <div class="wrap">
-    <span class="kicker">Topps trading cards &bull; Ungraded and PSA 10, priced by PriceCharting &bull; Read ${esc(read)}</span>
-    <h1>Topps Pokemon card values: <span class="hl">two</span> top 100s</h1>
-    <p class="lede" style="max-width:42em">${/* PRODUCT RECORDS, NOT CARDS, and this
-      line was the one place on this page that got it wrong. `scanned.products`
-      counts PriceCharting rows, and a row is a printing rather than a card: 2000
-      Topps Chrome is 604 rows against 151 cards. The same figure is printed
-      correctly three other times in this file -- "Topps products" in the meta
-      description, "Topps listings read" on the stat tile, and "products" in the
-      note -- and CLAUDE.md names this as the easiest number on the page to
-      publish wrongly. */ ""}The same ${d.scanned.products.toLocaleString("en-US")} Topps listings
-      ranked twice, because raw and graded do not give the same answer and it is not close. The most valuable loose
-      Topps card is ${esc(rawTop.name)}; the highest PSA 10 value is ${esc(psaTop.name)}, ${psaTopRawPlace}. Both
-      read on ${esc(read)}.</p>
+    <span class="kicker">Topps trading cards &bull; ${CARDS.length} cards from ${bySet.length} sets</span>
+    <h1>Topps Pokemon cards: <span class="hl">the standouts</span></h1>
+    <p class="lede" style="max-width:42em">The Topps Pokemon cards collectors look for, set by set and in card
+      number order. These are trading cards, not Pokemon TCG cards: <a href="/topps.html">the Topps guide</a> explains
+      the difference. Each card links to its own page on PriceCharting, where its ungraded and graded prices are.</p>
   </div>
 </header>
 
 <section class="tight">
   <div class="wrap">
-    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/topps.html">Topps Pokemon cards</a> / Values</nav>
-
-    <div class="fk-golden">
-      <p class="fk-golden-h">What these numbers are</p>
-      <h2>A price guide value, not an <span class="hl">auction record</span></h2>
-      <p>Every figure here is PriceCharting's own price guide, the <b>Ungraded</b> column for the first hundred
-        and the <b>PSA 10</b> column for the second, read on <b>${esc(read)}</b>. Their published method computes
-        it from completed eBay sales plus their own marketplace, blending the most recent sale, the median, the
-        average and an age weighted average, with outliers and sale dates taken into account. Shipping is
-        excluded. It is an estimate of what a copy is worth right now. It is not a live listing, it is not any
-        one sale, and it is not an appraisal.</p>
-      <p><b>These are Topps cards, which are not Pokemon TCG cards.</b> They are trading cards of Pokemon:
-        anime and film stills on card stock, made under license between ${esc(facts.window.from)} and
-        ${esc(facts.window.to)}, with nothing on them to play a game with. PriceCharting files and prices them
-        under Pokemon, which is why they can be ranked here at all.
-        <a href="/topps.html">What they are, every set, and how to spot one</a> is the guide.</p>
-      <p><b>${esc(String(chromeIn(rawList)))} of the raw hundred and ${esc(String(chromeIn(psaList)))} of the
-        PSA 10 hundred are Chrome cards</b>, out of ${releases.length} Topps sets. That is not a thumb on the
-        scale, it is what the data says: the two Chrome sets are a small part of the catalog and nearly all of
-        the top of it.</p>
-      <p><b>An empty grade cell is an answer, not a gap.</b> ${esc(String(missing(rawList, "psa10")))} rows of
-        the raw hundred carry no PSA 10 figure and ${esc(String(missing(rawList, "g9")))} carry no Grade 9
-        figure. This guide prices from completed sales, so a card nobody has sold in that grade recently has no
-        value to report, and a row that could not be confirmed twice says so in place of the number rather than
-        printing one.</p>
-      <p><b>What this ranking cannot see.</b> Auction and private sales, which is where a lot of vintage Topps
-        actually changes hands, and any card with no recent recorded sale in the column being ranked. It also
-        cannot see condition: a raw price is a guide value for a loose copy, and the range between a beaten copy
-        and a clean one on cards this old is enormous.</p>
-      <p><b>Every figure was read twice before it went on this page.</b> The ranking comes off PriceCharting's
-        set listings; each candidate was then re-read from that card's own product page, which is a different
-        page with different columns, and the two readings compared. <b>${esc(String(v.agree))} of
-        ${esc(String(v.checked))}</b> candidates agreed.${excNote} A figure that was read once is not published
-        here, because the column names on those two pages do not mean the same thing and a single read cannot
-        tell.</p>
-      <p>Prices move every day and this page does not. The date above is the date the numbers were read, and if
-        it looks old then the numbers are old.</p>
-    </div>
-
-    <div class="facts" style="margin-top:20px">
-      <div class="fact"><div class="n">${moneyCompact(rawTop.ungraded)}</div><div class="l">Top raw value</div></div>
-      <div class="fact"><div class="n">${moneyCompact(psaTop.psa10)}</div><div class="l">Top PSA 10 value</div></div>
-      <div class="fact"><div class="n">${d.scanned.products.toLocaleString("en-US")}</div><div class="l">Topps listings read</div></div>
-      <div class="fact"><div class="n">${d.scanned.consoles}</div><div class="l">Price guide buckets searched</div></div>
-      <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(read)}</div><div class="l">Prices read on</div></div>
-    </div>
-
-    <p class="lede" style="max-width:44em;margin-top:20px">Two lists, both below:
-      <a href="#raw">the ${rawList.length} most valuable ungraded</a> and
-      <a href="#psa">the ${psaList.length} highest PSA 10 values</a>. ${
-        rawList.filter((c) => psaList.some((p) => p.rank === c.rank)).length
-      } cards are on both. Paths under each row are all on pricecharting.com.</p>
-  </div>
-</section>
-
-<section class="band tight">
-  <div class="wrap">
-${listHead(
-  "raw",
-  `The ${rawList.length} most valuable <span class="hl">ungraded</span>`,
-  "Raw",
-  `Loose cards, out of a sleeve, ungraded, ranked by PriceCharting's Ungraded column on ${esc(read)}. The PSA 10 ` +
-    `and Grade 9 figures from the same record sit under each one, because a raw price on a card this old is only ` +
-    `half the story. Number one is ${esc(moneyCompact(rawTop.ungraded))} and number ${rawList.length} is ` +
-    `${esc(moneyExact(rawFloor.ungraded))}.`,
-)}
-    <ol class="tp-list">
-${rawList.map((c, i) => row(c, i, "ungraded")).join("\n")}
-    </ol>
-  </div>
-</section>
-
-<section class="tight">
-  <div class="wrap">
-${listHead(
-  "psa",
-  `The ${psaList.length} highest <span class="hl">PSA 10</span> values`,
-  "Graded",
-  `The same cards ranked by what PriceCharting says a copy graded PSA 10 is worth, read the same day. This is a ` +
-    `different list rather than the same one reordered: number one here is ${esc(psaTop.name)} at ` +
-    `${esc(moneyCompact(psaTop.psa10))}, and number ${psaList.length} is ${esc(moneyExact(psaFloor.psa10))}. ` +
-    `${missing(psaList, "ungraded")} of these rows carry no confirmed ungraded figure at all.`,
-)}
-    <ol class="tp-list">
-${psaList.map((c, i) => row(c, i, "psa10")).join("\n")}
-    </ol>
-
-    <p class="price-note" style="margin-top:var(--s5)">Prices are PriceCharting price guide values for that exact
-      printing, read on ${esc(read)} and re-read from each card's own product page before publication. They move
-      daily, so treat them as the shape of the market rather than a quote. The path under each row is that card's
-      own address on pricecharting.com, printed rather than linked, so any single figure can be looked up on its
-      own. Card scans are PriceCharting's, shown at the size these rows draw them.${
-        noScanRows
-          ? ` ${noScanRows === 1 ? "One card" : `${noScanRows} cards`} across the two lists ${
-              noScanRows === 1 ? "has" : "have"
-            } no scan in PriceCharting's catalog and ${noScanRows === 1 ? "shows" : "show"} an empty frame
-      saying so; that is their record, not a fault here.`
-          : ""
-      }
-      Not financial advice, and definitely not a suggestion to buy any of this.</p>
-  </div>
-</section>
-
-<section class="tight">
-  <div class="wrap">
-    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Showing our work</p>
-    <h2>How these lists were <span class="hl">made</span></h2>
-    <div class="tp-defs">
-      <div>
-        <h3>Where the numbers come from</h3>
-        <p>PriceCharting's own price guide: <code>pricecharting.com</code>, methodology published at
-          <code>${esc(d.sourceMethodology || "")}</code>. It is the same source the set guides, the Pokedex pages
-          and the two site-wide value lists here are priced from, so a Topps card on this page and the same card
-          on any other page of this site cannot disagree.</p>
-      </div>
-      <div>
-        <h3>How we know these are the top 100 and not the first 100 we found</h3>
-        <p>There is no all-of-Topps listing to sort and their one price sort works a bucket at a time, so the top
-          of any one bucket says nothing about the top of the rest. Every Topps bucket was pulled and ranked
-          here: <b>${d.scanned.consoles}</b> buckets, <b>${d.scanned.products.toLocaleString("en-US")}</b>
-          products, of which <b>${d.scanned.productsWithUngraded.toLocaleString("en-US")}</b> carry an ungraded
-          value and <b>${d.scanned.productsWithPsa10.toLocaleString("en-US")}</b> a PSA 10 value. Each hundred is
-          the top of all of those, not the top of a sample.</p>
-      </div>
-      <div>
-        <h3>Checked twice, on purpose</h3>
-        <p>Every candidate for either list was read again from its own product page, a different template with
-          different columns, and <b>${esc(String(v.agree))} of ${esc(String(v.checked))}</b> agreed within
-          ${esc(String(Math.round((v.tolerance || 0.15) * 100)))}%. That is the check that catches a column read
-          off the wrong header, which on one card elsewhere on this site is a 21 times error that still looks
-          like a reasonable price. Both ranking columns are gated on it independently, so a card whose raw price
-          confirmed and whose PSA 10 price did not appears on one list and not the other.</p>
-      </div>
-      <div>
-        <h3>What a row is</h3>
-        <p>One PriceCharting product, which is one printing of one card. "Charizard #6", "Charizard [Sparkle] #6"
-          and "Charizard [Tekno] #6" are three rows, not one, and the part in brackets is the finish. A guide
-          value is computed across the sales that guide tracks rather than quoted from one of them, so treat a
-          row as "what a loose copy of this printing is worth", not as a quote for a specific card.</p>
-      </div>
-      <div>
-        <h3>Why the set names look wrong</h3>
-        <p>They are PriceCharting's, and PriceCharting files these cards by card type rather than by the set
-          Topps actually shipped. "2000 Topps TV Heroes &amp; Villians" was never a Topps release; it is where
-          two different sets' character cards ended up. <a href="/topps.html">The guide</a> lists Topps' own
-          ${releases.length} sets with their dates and card counts, and maps every one of these buckets onto the
-          release it came out of.</p>
-      </div>
-      <div>
-        <h3>What was taken out</h3>
-        <p>${
-          (d.notCards || []).length
-            ? esc(String((d.notCards || []).length)) + " sealed products that leaked into the crawl."
-            : "Nothing. Every row flagged as possibly not a single card was checked by hand and every one of them turned out to be a card, so no row was removed from either ranking."
-        } Sealed Topps product is not ranked here at all: the crawl behind these figures excludes it, and
-          unopened boxes have their own list at <a href="/most-expensive-sealed.html">the 100 most expensive
-          sealed Pokemon products</a>.</p>
-      </div>
-    </div>
-
-    <p class="price-note" style="margin-top:var(--s4)">Want the whole catalog rather than just Topps?
-      <a href="/most-valuable-cards.html">The 100 most valuable raw Pokemon cards</a> and
-      <a href="/top-graded.html">the 100 highest PSA 10 values</a> rank every Pokemon card this source prices, in
-      every language. <a href="/grading.html">Is it worth grading?</a> does the subtraction between the two
-      columns on this page.</p>
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/topps.html">Topps Pokemon cards</a> / The standouts</nav>
+${bySet
+  .map(
+    (g) => `    <h2 style="margin-top:var(--s6)">${esc(g.set)} <span class="hl">${g.cards.length}</span></h2>
+    <ol class="tp-list tp-norank">
+${g.cards.map(cardRow).join("\n")}
+    </ol>`,
+  )
+  .join("\n")}
+    <p class="price-note" style="margin-top:var(--s5)">This site does not print Topps prices. The link under each
+      card leaves this site and opens that card on PriceCharting. Card scans are PriceCharting's, shown at the size
+      these rows draw them.</p>
     <p class="price-note">Card images are the property of their respective owners and appear here for
       identification. Pokemon and all card artwork are trademarks of The Pokemon Company, Nintendo, Game Freak
-      and Creatures Inc.</p>
+      and Creatures Inc. Topps is a trademark of its owner. This is a fan page and none of them are involved
+      in it.</p>
   </div>
 </section>
 
 </main>
-${footer("Prices move daily. The date on this page is the date they were read.")}
+${footer()}
 ${APP_JS}
 </body>
 </html>
@@ -1470,18 +1339,6 @@ await writeFile(join(ROOT, "public/topps-card-values.html"), values);
 console.log(
   `Wrote public/topps.html and public/topps-card-values.html\n` +
     `  ${releases.length} Topps releases from data/topps-sets.json, ` +
-    `${mappingChecks} bucket mappings re-checked against the crawl, all passed\n` +
-    `  ${d.scanned.consoles} PriceCharting buckets, ${d.scanned.products} products, read ${d.checked}\n` +
-    `  raw hundred: ${rawList.length} rows, ${moneyExact(rawTop.ungraded)} down to ${moneyExact(rawFloor.ungraded)}, ` +
-    `${chromeIn(rawList)} of them Chrome\n` +
-    `  PSA 10 hundred: ${psaList.length} rows, ${moneyExact(psaTop.psa10)} down to ${moneyExact(psaFloor.psa10)}, ` +
-    `${chromeIn(psaList)} of them Chrome\n` +
-    `  ${v.agree}/${v.checked} candidates confirmed on a second read, ${v.disagree} not, ${v.unreadable} unreadable\n` +
-    `  ${rawList.filter((c) => psaList.some((p) => p.rank === c.rank)).length} cards appear on both lists` +
-    (toppsOnRawTop100 != null ? `\n  ${toppsOnRawTop100} of the site-wide raw top 100 are Topps cards` : ""),
+    `${mappingChecks} bucket mappings re-checked\n` +
+    `  ${CARDS.length} standout cards in ${bySet.length} sets, no prices`,
 );
-if (rawList.length < WANT || psaList.length < WANT)
-  console.log(
-    `  NOTE: a list is short of ${WANT}. Candidates that failed their second read are not published and not\n` +
-      `        padded out. Widen KEEP in scripts/sync-topps-top.mjs and re-run the verifier if that matters.`,
-  );

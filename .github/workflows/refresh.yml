@@ -322,49 +322,12 @@ jobs:
           "The non-English set guides sync reported bad data for at least one guide."
           -- node scripts/sync-intl-guides.mjs
 
-      # Full card checklists and prices for the 23 English sets, 4,481 cards.
-      # --rotate does a quarter of the sets per night so every one is current
-      # within four days without making 4,500 requests to a free API daily.
-      # PRICES, HOT TIER THEN A SLICE OF THE TAIL. The owner, 28 August 2026:
-      # "targeted price updates daily for the cards that are ... shown in the set
-      # guides etc, but then for the rest ... slow overnight updates daily small
-      # batches ... can take a full month."
-      #
-      # The unit is a CONSOLE PAGE, not a card: PriceCharting's set listing
-      # carries Ungraded, Grade 9 and PSA 10 for every card in the set, so 28
-      # pages refresh all 5,181 card prices the guides, the Pokedex and the rip
-      # pages read. The other 766 consoles feed the ranked pages and walk past
-      # at 26 a night, a full pass every 30 days. Together about 110 pages a
-      # night at 1.1s pacing, roughly two minutes, against a crawl that used to
-      # be 1,131 pages run by hand and then not run for six days.
-      #
-      # DO NOT RAISE --cold TO "CATCH UP". A month is the design.
-      # No paths: data/price-rotation.json is the bookmark for the pages this
-      # step put in .cache, and the script only moves its dates when pages
-      # really came back. Rolling it back would orphan the cache.
-      # OFF FROM 13 NOVEMBER 2026. PriceCharting requires a paid plan to show
-      # their prices and the owner declined; see shared/no-pricecharting.mjs.
-      - name: PriceCharting, 28 set guides daily plus a slice of the tail
-        id: prices
-        if: ${{ false }}
-        continue-on-error: true
-        run: >-
-          bash scripts/nightly-step.sh
-          "The PriceCharting refresh failed, so card prices kept their last read."
-          -- node scripts/refresh-prices.mjs --hot --cold 26
-
-      # Parses the cache the step above just refreshed. Makes no request itself.
-      # If the step above failed this still runs, on whatever the cache holds,
-      # which is the last good read of each page. If THIS fails, its two files
-      # go back to HEAD and sync-cards.mjs below overlays last night's prices.
-      - name: Card prices out of the refreshed pages
-        id: pc_cards
-        continue-on-error: true
-        run: >-
-          bash scripts/nightly-step.sh
-          "Card prices could not be read out of the PriceCharting pages; last night's stand."
-          data/pricecharting-cards.json data/companion-prices.json
-          -- node scripts/sync-pricecharting-cards.mjs
+      # NO PRICECHARTING STEPS FROM 13 NOVEMBER 2026. Two steps stood here: the
+      # nightly read of PriceCharting's set pages (refresh-prices.mjs) and the
+      # parse of those pages into card prices (sync-pricecharting-cards.mjs).
+      # PriceCharting requires a paid plan to show their prices and the owner
+      # declined; see shared/no-pricecharting.mjs. Card prices are TCGplayer's
+      # via TCGdex in "Card checklists and prices" below.
 
       # 30th CELEBRATION, added 14 October 2026. The set is in no TCGdex set
       # sync-cards.mjs can reach and in no console refresh-prices.mjs reads, so
@@ -597,16 +560,6 @@ jobs:
         with:
           path: .cache
           key: api-cache-${{ github.run_id }}
-
-      - name: Say so if the price refresh did not happen
-        if: steps.prices.outcome == 'failure'
-        run: |
-          echo "::warning title=Price refresh degraded::refresh-prices.mjs exited non-zero."
-          echo "Prices keep their real per-set read dates, so nothing publishes a"
-          echo "freshness it does not have. check-freshness.mjs will go red if this"
-          echo "persists. Read the 'PriceCharting' step above for which consoles"
-          echo "were refused. The site still deploys, deliberately: see the comment"
-          echo "on this step."
 
       # DOWNGRADED FROM A FAILURE TO A WARNING, for the reason the price step
       # three above already gives. The bot's commit has ALREADY landed on main

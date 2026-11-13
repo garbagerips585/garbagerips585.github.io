@@ -7,16 +7,12 @@
   "037-045 of this set and carries no image for any of them, so for eighteen",
   "of these cards the publisher's own picture is the only record that exists.",
   "",
-  "PRICES are PriceCharting's, read TWICE through the two different parsers",
-  "in shared/pricecharting.mjs, once off the /console/pokemon-promo listing",
-  "and once off the card's own product page. A column only carries a `value`",
-  "when the two reads agree within 15%. Both readings stay on every row so a",
-  "refusal is visible rather than blank. Never publish a figure whose status",
-  "is not 'agree'.",
-  "",
-  "The name+number key is load bearing: PriceCharting files every English",
-  "promo in one console with no set code, and SVP collides with MEP on four",
-  "of these numbers. See the header of scripts/sync-first-partner.mjs.",
+  "PRICES are TCGplayer market prices from 13 November 2026, read through",
+  "TCGplayer's own search (set \"ME: Mega Evolution Promo\") and matched on the",
+  "collector number; `tcgp.pid` is the product. They were PriceCharting's until",
+  "then; PriceCharting requires a paid plan to show their prices and the owner",
+  "declined (shared/no-pricecharting.mjs). `pc.url` stays only for the outbound",
+  "\"Graded prices on PriceCharting\" link. No graded figure is held.",
   "",
   "PACKAGING is one product shot per series, the image each official gallery",
   "leads with, mirrored on the same terms as the card scans and cropped to",
@@ -24,9 +20,9 @@
   "taken. A series with no obtainable shot gets no entry here at all and the",
   "page names it rather than borrowing another series' box."
  ],
- "checked": "2026-10-14",
- "priceSource": "PriceCharting",
- "priceSourceUrl": "https://www.pricecharting.com/console/pokemon-promo",
+ "checked": "2026-11-13",
+ "priceSource": "TCGplayer",
+ "priceSourceUrl": "https://www.tcgplayer.com/search/pokemon/me-mega-evolution-promo",
  "imageSource": "pokemon.com product galleries",
  "cards": [
   {
@@ -42,27 +38,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/bulbasaur-37",
-    "title": "Bulbasaur #37",
-    "id": "12351391",
-    "cols": {
-     "raw": {
-      "listing": 19.82,
-      "product": 21.74,
-      "status": "agree",
-      "value": 21.74
-     },
-     "psa10": {
-      "listing": 78.52,
-      "product": 72,
-      "status": "agree",
-      "value": 72
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/bulbasaur-37"
    },
    "imgLarge": "/assets/first-partner/mep-037-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684461,
+    "market": 18.15
+   }
   },
   {
    "number": "038",
@@ -77,27 +61,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/charmander-38",
-    "title": "Charmander #38",
-    "id": "12342777",
-    "cols": {
-     "raw": {
-      "listing": 26.75,
-      "product": 26.75,
-      "status": "agree",
-      "value": 26.75
-     },
-     "psa10": {
-      "listing": 86.37,
-      "product": 86.37,
-      "status": "agree",
-      "value": 86.37
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/charmander-38"
    },
    "imgLarge": "/assets/first-partner/mep-038-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684462,
+    "market": 21.29
+   }
   },
   {
    "number": "039",
@@ -112,27 +84,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/squirtle-39",
-    "title": "Squirtle #39",
-    "id": "12351392",
-    "cols": {
-     "raw": {
-      "listing": 23.99,
-      "product": 23.99,
-      "status": "agree",
-      "value": 23.99
-     },
-     "psa10": {
-      "listing": 84.28,
-      "product": 84.28,
-      "status": "agree",
-      "value": 84.28
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/squirtle-39"
    },
    "imgLarge": "/assets/first-partner/mep-039-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684463,
+    "market": 20.04
+   }
   },
   {
    "number": "040",
@@ -147,27 +107,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/turtwig-40",
-    "title": "Turtwig #40",
-    "id": "12351395",
-    "cols": {
-     "raw": {
-      "listing": 5.69,
-      "product": 5.69,
-      "status": "agree",
-      "value": 5.69
-     },
-     "psa10": {
-      "listing": 39.27,
-      "product": 39.27,
-      "status": "agree",
-      "value": 39.27
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/turtwig-40"
    },
    "imgLarge": "/assets/first-partner/mep-040-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684464,
+    "market": 5.17
+   }
   },
   {
    "number": "041",
@@ -182,27 +130,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/chimchar-41",
-    "title": "Chimchar #41",
-    "id": "12351396",
-    "cols": {
-     "raw": {
-      "listing": 5.15,
-      "product": 5.15,
-      "status": "agree",
-      "value": 5.15
-     },
-     "psa10": {
-      "listing": 43,
-      "product": 43,
-      "status": "agree",
-      "value": 43
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/chimchar-41"
    },
    "imgLarge": "/assets/first-partner/mep-041-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684465,
+    "market": 4.94
+   }
   },
   {
    "number": "042",
@@ -217,27 +153,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/piplup-42",
-    "title": "Piplup #42",
-    "id": "12351397",
-    "cols": {
-     "raw": {
-      "listing": 11.05,
-      "product": 11.05,
-      "status": "agree",
-      "value": 11.05
-     },
-     "psa10": {
-      "listing": 49.96,
-      "product": 49.96,
-      "status": "agree",
-      "value": 49.96
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/piplup-42"
    },
    "imgLarge": "/assets/first-partner/mep-042-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684466,
+    "market": 9.92
+   }
   },
   {
    "number": "043",
@@ -252,27 +176,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/rowlet-43",
-    "title": "Rowlet #43",
-    "id": "12351398",
-    "cols": {
-     "raw": {
-      "listing": 5.83,
-      "product": 5.99,
-      "status": "agree",
-      "value": 5.99
-     },
-     "psa10": {
-      "listing": 41.08,
-      "product": 45,
-      "status": "agree",
-      "value": 45
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/rowlet-43"
    },
    "imgLarge": "/assets/first-partner/mep-043-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684467,
+    "market": 5.18
+   }
   },
   {
    "number": "044",
@@ -287,27 +199,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/litten-44",
-    "title": "Litten #44",
-    "id": "12351399",
-    "cols": {
-     "raw": {
-      "listing": 6.18,
-      "product": 6.18,
-      "status": "agree",
-      "value": 6.18
-     },
-     "psa10": {
-      "listing": 35,
-      "product": 35,
-      "status": "agree",
-      "value": 35
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/litten-44"
    },
    "imgLarge": "/assets/first-partner/mep-044-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684468,
+    "market": 5.73
+   }
   },
   {
    "number": "045",
@@ -322,27 +222,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/popplio-45",
-    "title": "Popplio #45",
-    "id": "12351400",
-    "cols": {
-     "raw": {
-      "listing": 5.55,
-      "product": 5.49,
-      "status": "agree",
-      "value": 5.49
-     },
-     "psa10": {
-      "listing": 39.49,
-      "product": 38.6,
-      "status": "agree",
-      "value": 38.6
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/popplio-45"
    },
    "imgLarge": "/assets/first-partner/mep-045-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 684469,
+    "market": 4.32
+   }
   },
   {
    "number": "046",
@@ -357,27 +245,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/chikorita-46",
-    "title": "Chikorita #46",
-    "id": "13384137",
-    "cols": {
-     "raw": {
-      "listing": 6.5,
-      "product": 6.5,
-      "status": "agree",
-      "value": 6.5
-     },
-     "psa10": {
-      "listing": 90.93,
-      "product": 90.93,
-      "status": "agree",
-      "value": 90.93
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/chikorita-46"
    },
    "imgLarge": "/assets/first-partner/mep-046-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699870,
+    "market": 4.98
+   }
   },
   {
    "number": "047",
@@ -392,27 +268,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/cyndaquil-47",
-    "title": "Cyndaquil #47",
-    "id": "13384139",
-    "cols": {
-     "raw": {
-      "listing": 8.49,
-      "product": 8.49,
-      "status": "agree",
-      "value": 8.49
-     },
-     "psa10": {
-      "listing": 79.43,
-      "product": 79.43,
-      "status": "agree",
-      "value": 79.43
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/cyndaquil-47"
    },
    "imgLarge": "/assets/first-partner/mep-047-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699871,
+    "market": 7.26
+   }
   },
   {
    "number": "048",
@@ -427,27 +291,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/totodile-48",
-    "title": "Totodile #48",
-    "id": "13384140",
-    "cols": {
-     "raw": {
-      "listing": 9.99,
-      "product": 9.99,
-      "status": "agree",
-      "value": 9.99
-     },
-     "psa10": {
-      "listing": 84,
-      "product": 84,
-      "status": "agree",
-      "value": 84
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/totodile-48"
    },
    "imgLarge": "/assets/first-partner/mep-048-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699872,
+    "market": 7.41
+   }
   },
   {
    "number": "049",
@@ -462,27 +314,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/snivy-49",
-    "title": "Snivy #49",
-    "id": "13384159",
-    "cols": {
-     "raw": {
-      "listing": 4,
-      "product": 4,
-      "status": "agree",
-      "value": 4
-     },
-     "psa10": {
-      "listing": 63,
-      "product": 63,
-      "status": "agree",
-      "value": 63
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/snivy-49"
    },
    "imgLarge": "/assets/first-partner/mep-049-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699873,
+    "market": 3.24
+   }
   },
   {
    "number": "050",
@@ -497,27 +337,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/tepig-50",
-    "title": "Tepig #50",
-    "id": "13384160",
-    "cols": {
-     "raw": {
-      "listing": 4.25,
-      "product": 4.25,
-      "status": "agree",
-      "value": 4.25
-     },
-     "psa10": {
-      "listing": 53.11,
-      "product": 53.11,
-      "status": "agree",
-      "value": 53.11
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/tepig-50"
    },
    "imgLarge": "/assets/first-partner/mep-050-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699874,
+    "market": 2.66
+   }
   },
   {
    "number": "051",
@@ -532,27 +360,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/oshawott-51",
-    "title": "Oshawott #51",
-    "id": "13384173",
-    "cols": {
-     "raw": {
-      "listing": 5.5,
-      "product": 5.5,
-      "status": "agree",
-      "value": 5.5
-     },
-     "psa10": {
-      "listing": 87.77,
-      "product": 87.77,
-      "status": "agree",
-      "value": 87.77
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/oshawott-51"
    },
    "imgLarge": "/assets/first-partner/mep-051-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699875,
+    "market": 4.6
+   }
   },
   {
    "number": "052",
@@ -567,27 +383,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/grookey-52",
-    "title": "Grookey #52",
-    "id": "13384192",
-    "cols": {
-     "raw": {
-      "listing": 4.98,
-      "product": 4.98,
-      "status": "agree",
-      "value": 4.98
-     },
-     "psa10": {
-      "listing": 75.13,
-      "product": 75.13,
-      "status": "agree",
-      "value": 75.13
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/grookey-52"
    },
    "imgLarge": "/assets/first-partner/mep-052-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699876,
+    "market": 2.92
+   }
   },
   {
    "number": "053",
@@ -602,27 +406,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/scorbunny-53",
-    "title": "Scorbunny #53",
-    "id": "13384200",
-    "cols": {
-     "raw": {
-      "listing": 3.46,
-      "product": 3.46,
-      "status": "agree",
-      "value": 3.46
-     },
-     "psa10": {
-      "listing": 46,
-      "product": 46,
-      "status": "agree",
-      "value": 46
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/scorbunny-53"
    },
    "imgLarge": "/assets/first-partner/mep-053-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699877,
+    "market": 3.5
+   }
   },
   {
    "number": "054",
@@ -637,27 +429,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/sobble-54",
-    "title": "Sobble #54",
-    "id": "13384202",
-    "cols": {
-     "raw": {
-      "listing": 3.06,
-      "product": 3.06,
-      "status": "agree",
-      "value": 3.06
-     },
-     "psa10": {
-      "listing": 46,
-      "product": 46,
-      "status": "agree",
-      "value": 46
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/sobble-54"
    },
    "imgLarge": "/assets/first-partner/mep-054-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 699878,
+    "market": 2.94
+   }
   },
   {
    "number": "055",
@@ -672,27 +452,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/treecko-55",
-    "title": "Treecko #55",
-    "id": "13982194",
-    "cols": {
-     "raw": {
-      "listing": 7.49,
-      "product": 7.07,
-      "status": "agree",
-      "value": 7.07
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/treecko-55"
    },
    "imgLarge": "/assets/first-partner/mep-055-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709969,
+    "market": 5.57
+   }
   },
   {
    "number": "056",
@@ -707,27 +475,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/torchic-56",
-    "title": "Torchic #56",
-    "id": "13982195",
-    "cols": {
-     "raw": {
-      "listing": 7.73,
-      "product": 7.73,
-      "status": "agree",
-      "value": 7.73
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/torchic-56"
    },
    "imgLarge": "/assets/first-partner/mep-056-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709970,
+    "market": 5.48
+   }
   },
   {
    "number": "057",
@@ -742,27 +498,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/mudkip-57",
-    "title": "Mudkip #57",
-    "id": "13982191",
-    "cols": {
-     "raw": {
-      "listing": 12.99,
-      "product": 12.99,
-      "status": "agree",
-      "value": 12.99
-     },
-     "psa10": {
-      "listing": 212.2,
-      "product": 212.2,
-      "status": "agree",
-      "value": 212.2
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/mudkip-57"
    },
    "imgLarge": "/assets/first-partner/mep-057-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709971,
+    "market": 11.28
+   }
   },
   {
    "number": "058",
@@ -777,27 +521,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/chespin-58",
-    "title": "Chespin #58",
-    "id": "13982060",
-    "cols": {
-     "raw": {
-      "listing": 3.4,
-      "product": 3.4,
-      "status": "agree",
-      "value": 3.4
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/chespin-58"
    },
    "imgLarge": "/assets/first-partner/mep-058-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709972,
+    "market": 2.44
+   }
   },
   {
    "number": "059",
@@ -812,28 +544,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/fennekin-59",
-    "title": "Fennekin #59",
-    "id": "13982193",
-    "cols": {
-     "raw": {
-      "listing": 4.01,
-      "product": 4.99,
-      "status": "disagree",
-      "reconciles": 4.01,
-      "value": null
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/fennekin-59"
    },
    "imgLarge": "/assets/first-partner/mep-059-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709973,
+    "market": 2.72
+   }
   },
   {
    "number": "060",
@@ -848,27 +567,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/froakie-60",
-    "title": "Froakie #60",
-    "id": "13982192",
-    "cols": {
-     "raw": {
-      "listing": 6.59,
-      "product": 6.03,
-      "status": "agree",
-      "value": 6.03
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/froakie-60"
    },
    "imgLarge": "/assets/first-partner/mep-060-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709974,
+    "market": 3.7
+   }
   },
   {
    "number": "061",
@@ -883,27 +590,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/sprigatito-61",
-    "title": "Sprigatito #61",
-    "id": "13980983",
-    "cols": {
-     "raw": {
-      "listing": 5.99,
-      "product": 5.99,
-      "status": "agree",
-      "value": 5.99
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/sprigatito-61"
    },
    "imgLarge": "/assets/first-partner/mep-061-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709975,
+    "market": 4.2
+   }
   },
   {
    "number": "062",
@@ -918,27 +613,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/fuecoco-62",
-    "title": "Fuecoco #62",
-    "id": "13980980",
-    "cols": {
-     "raw": {
-      "listing": 5.9,
-      "product": 5.9,
-      "status": "agree",
-      "value": 5.9
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/fuecoco-62"
    },
    "imgLarge": "/assets/first-partner/mep-062-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709976,
+    "market": 3.93
+   }
   },
   {
    "number": "063",
@@ -953,27 +636,15 @@
    "imgWidth": 245,
    "imgHeight": 342,
    "pc": {
-    "url": "https://www.pricecharting.com/game/pokemon-promo/quaxly-63",
-    "title": "Quaxly #63",
-    "id": "13980982",
-    "cols": {
-     "raw": {
-      "listing": 4.35,
-      "product": 4.4,
-      "status": "agree",
-      "value": 4.4
-     },
-     "psa10": {
-      "listing": null,
-      "product": null,
-      "status": "none",
-      "value": null
-     }
-    }
+    "url": "https://www.pricecharting.com/game/pokemon-promo/quaxly-63"
    },
    "imgLarge": "/assets/first-partner/mep-063-420.webp",
    "imgLargeWidth": 420,
-   "imgLargeHeight": 585
+   "imgLargeHeight": 585,
+   "tcgp": {
+    "pid": 709977,
+    "market": 2.76
+   }
   }
  ],
  "packaging": [

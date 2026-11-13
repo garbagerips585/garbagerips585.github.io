@@ -85,7 +85,7 @@ PAGES = {
     # built around, because the share card is the only part of the page most
     # people see: "ungraded" and "on TCGplayer" are the two qualifiers that stop
     # the headline being a claim the data cannot support.
-    "most-valuable-cards": ("UNGRADED, EVERY LANGUAGE", "The 100 priciest cards", "PriceCharting guide values, read and dated"),
+    "most-valuable-cards": ("UNGRADED, ENGLISH", "The 100 priciest cards", "TCGplayer market prices, read and dated"),
     # The two Topps pages. The kicker on the first is the whole pitch: somebody
     # sharing it is handing it to a collector who does not know these exist, and
     # the headline is the page's own H1. The second names the measurement rather
@@ -104,7 +104,7 @@ PAGES = {
     "garbage-plate": ("TRADEMARKED SINCE 1992", "What is a Garbage Plate?", "What is on one, how to order it, where it came from"),
     "where-to-get-a-garbage-plate": ("EVERY MENU CHECKED", "Where to get a Garbage Plate", "Every plate in Rochester, NY, by area, with hours"),
     "30th-celebration": ("EVERY CARD IS FOIL", "Pokemon 30th Celebration", "Every product, every date and the full card list"),
-    "topps-card-values": ("PRICE GUIDE, NOT HAMMER PRICE", "Topps card values", "Two top 100s, raw and PSA 10, every figure read twice"),
+    "topps-card-values": ("TOPPS TRADING CARDS", "Topps standout cards", "The ones collectors look for, set by set"),
     "most-expensive-sealed": ("NOBODY OPENED THESE", "The 100 priciest sealed", "Boxes, cases and 1999 packs, dated"),
     "complete": ("PRICED LAST NIGHT", "Cost to complete a set", "Every set, three tiers, live prices"),
     "pack-prices": ("PRICED NIGHTLY", "What does a pack cost?", "Every set, box against bundle against loose pack"),

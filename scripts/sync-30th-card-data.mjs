@@ -149,8 +149,6 @@ for (const c of src) {
        ".../low.webp/low.webp" and a broken picture. */
     img: c.image || null,
     ...(pr && typeof pr.raw === "number" ? { price: pr.raw } : {}),
-    ...(pr && typeof pr.psa10 === "number" ? { psa10: pr.psa10 } : {}),
-    ...(pr && typeof pr.g9 === "number" ? { g9: pr.g9 } : {}),
     ...(pr && pr.pc ? { pcUrl: `https://www.pricecharting.com${pr.pc}` } : {}),
   });
 }
@@ -181,7 +179,8 @@ await writeFile(OUT, JSON.stringify({
   ],
   set: SLUG,
   name: doc.set.name.replace(/^Pokemon TCG:\s*/, ""),
-  source: "tcgdex 30th for cards and art, pricecharting for money",
+  source: "tcgdex 30th for cards and art, TCGplayer market price for money",
+  priceSource: "TCGplayer market price",
   /* localDay(), not the UTC date: a run after 8pm Eastern stamped tomorrow. */
   checked: localDay(),
   /* WHEN THE MONEY WAS READ, which is not when this file was written. Every
@@ -196,4 +195,4 @@ console.log(`Wrote public/data/cards/${SLUG}.json  ${cards.length} cards`);
 console.log(`  without a rarity: ${noRarity}`);
 console.log(`  without a price:  ${noPrice}`);
 console.log(`  without a category: ${noCat}  (categories: ${catSource})`);
-console.log(`  with a PSA 10:    ${cards.filter((c) => typeof c.psa10 === "number").length}`);
+

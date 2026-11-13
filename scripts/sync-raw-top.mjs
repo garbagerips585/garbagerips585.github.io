@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+// RETIRED 13 NOVEMBER 2026. This reads PriceCharting, which requires a paid plan
+// to show their prices; the owner declined. Nothing may call it, and every
+// request it makes is refused by shared/no-pricecharting.mjs in the workflows.
 // The highest UNGRADED values in Pokemon, from PriceCharting's own price guide.
 //
 //   node scripts/sync-raw-top.mjs            read the cache, write the file

@@ -39,6 +39,7 @@
  * All ten agreed to the cent. Three figures were deliberately NOT published and
  * `excluded` in the data says which and why.
  */
+import { gradedLinkHtml } from "../shared/graded-price.mjs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -68,7 +69,7 @@ const dt = (s) => new Date(s + "T12:00:00Z").toLocaleDateString("en-US", { month
 /* THE CARD PICTURE. tcgplayer-cdn serves a fixed 200 wide and a VARIABLE height,
    which is why shared/format.mjs's imgDims() declines to give dimensions for
    this host -- so the frame is a fixed box in CSS and the picture is centred
-   inside it by object-fit, exactly as /topps.html does for PriceCharting scans.
+   inside it by object-fit, exactly as /topps.html does for its scans.
    Every one carries onerror, because a withdrawn image must remove itself
    rather than paint a broken glyph. */
 const cardImg = (pid, alt) => pid == null ? "" :
@@ -79,9 +80,11 @@ const cardImg = (pid, alt) => pid == null ? "" :
 
 const valueRows = doc.value.map((v) => {
   const tag = v.format === "topper" ? `<span class="jb-tag jb-tag--t">Box topper</span>` : `<span class="jb-tag">Jumbo</span>`;
-  const grades = [["Raw", v.raw], ["Grade 9", v.g9], ["PSA 10", v.psa10]]
-    .filter(([, n]) => n != null)
-    .map(([k, n]) => `<span><i>${k}</i> ${money(n)}</span>`).join("");
+  // TCGplayer market where it has one, and the PriceCharting page for graded
+  // prices: no PriceCharting figure is shown from 13 November 2026.
+  const grades =
+    (v.market != null ? `<span><i>TCGplayer market</i> ${money(v.market)}</span>` : `<span><i>TCGplayer market</i> no recent sales</span>`) +
+    (v.pc ? `<span>${gradedLinkHtml(`https://www.pricecharting.com/game/${v.pc}`, `${v.name} ${v.sub}`)}</span>` : "");
   return `<li class="jb-v">
       <span class="jb-rank">${v.rank}</span>
       <span class="jb-pic">${cardImg(v.pid, `${v.name} ${v.sub}`)}</span>
@@ -190,8 +193,8 @@ const body = `<main id="main">
     <ol class="jb-vlist">
 ${valueRows}
     </ol>
-    <h3>Three figures deliberately left off</h3>
-    <ul class="jb-excl">${doc.excluded.map((x) => `<li><b>${esc(x.what)}.</b> ${esc(x.why)}</li>`).join("\n")}</ul>
+    ${doc.excluded.length ? `<h3>Figures deliberately left off</h3>
+    <ul class="jb-excl">${doc.excluded.map((x) => `<li><b>${esc(x.what)}.</b> ${esc(x.why)}</li>`).join("\n")}</ul>` : ""}
   </section>
 
   <section class="wrap jb-sec jb-base">
@@ -291,7 +294,7 @@ const CSS = `<style>
 }
 /* PHONE ROWS, 14 October 2026. At 320 the third column was 103px: the reason
    ran 13 characters a line and 378px tall beside a 134px picture, and the
-   nowrap price spans ("PSA 10 $23,272.22") ran past the column and 2px past the
+   nowrap price spans (a five figure graded price) ran past the column and 2px past the
    card's own border. Below 480 the text box dissolves into the row's grid: the
    name and the sub line stay beside the picture, and the prices and the reason
    take the full width under it. The second row soaks up the picture's spare

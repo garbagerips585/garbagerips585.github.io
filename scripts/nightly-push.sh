@@ -43,10 +43,8 @@ GROUPS_OWNED=(
   "public/data/intl-sets.json"
   # sync-intl-guides.mjs
   "public/data/intl-guides.json"
-  # refresh-prices.mjs (the rotation bookmarks; the pages are in .cache)
-  "data/price-rotation.json"
-  # sync-pricecharting-cards.mjs
-  "data/pricecharting-cards.json data/companion-prices.json"
+  # (refresh-prices.mjs and sync-pricecharting-cards.mjs are off from
+  # 13 November 2026: see shared/no-pricecharting.mjs)
   # sync-30th-prices.mjs
   "data/30th-prices.json"
   # sync-30th-card-data.mjs, sync-cards.mjs and reconcile-cards.mjs: one group,

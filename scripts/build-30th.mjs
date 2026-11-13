@@ -283,18 +283,10 @@ const priceOf = (c) => PRICE.get(`${c.section}|${c.n}`) || null;
    /most-valuable-cards.html is held to, and the FAQ says where they stand. */
 const RGB_SHOWN = new Map();
 let rgbRead = null;
-try {
-  const rawTop = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
-  const { verified } = gradedGate(rawTop, "data/top-raw.json", "scripts/verify-raw-top.mjs");
-  for (const c of US.cards || []) {
-    const row = (rawTop.cards || []).find((r) => r.set === "30th Celebration" && r.name === `Mew ${c.n}`);
-    const v = row ? verified.get(row.rank) : null;
-    if (row && typeof row.ungraded === "number" && v?.cols?.ungraded?.status === "agree") {
-      RGB_SHOWN.set(`secret|${c.n}`, { raw: row.ungraded, psa10: null, g9: null, pc: row.url || null });
-      rgbRead = rawTop.checked || null;
-    }
-  }
-} catch { /* no raw list, or it fails its own gate: the rows say "No price yet" as before */ }
+/* 13 NOVEMBER 2026: the RGB Mew figures came off data/top-raw.json, which was
+   PriceCharting's. PriceCharting requires a paid plan to show their prices and
+   the owner declined (shared/no-pricecharting.mjs), so the RGB rows say "No
+   price yet" again and the FAQ takes its no-figure branch. */
 /** A checklist row's displayed price: the set's own file, then a gated RGB Mew figure. */
 const shownPriceOf = (c) => priceOf(c) || RGB_SHOWN.get(`${c.section}|${c.n}`) || null;
 const rgbVals = [...RGB_SHOWN.values()].map((x) => x.raw).sort((a, b) => a - b);
@@ -748,9 +740,8 @@ const pxOf = (c, slot) => {
     /* First Partner prices: data/first-partner.json's double-read PriceCharting
        figures, the same ones its own page prints. A column that did not agree on
        both reads has no `value` and is not shown. */
-    const cols = (s.fp.pc || {}).cols || {};
-    const raw = cols.raw?.value, psa10 = cols.psa10?.value;
-    return raw || psa10 ? { raw, psa10 } : null;
+    const raw = s.fp.tcgp?.market;
+    return typeof raw === "number" ? { raw, psa10: null } : null;
   }
   if (c && /jumbo/i.test(c.kind || "")) return (prices.promos || {})[`jumbo|${c.n}`] || null;
   if ((c && c.setCode === "MEP") || s.section === "promo") {
@@ -2322,8 +2313,8 @@ const valueBand = !pricedCards.length ? "" : `
     <p class="sec-label">The ones you want</p>
     <h2>Most valuable <span class="hl">30th Celebration</span> cards</h2>
     <p class="lede" style="max-width:44em">The top ${Math.min(TOP_N, pricedCards.length)} by what an ungraded copy is worth.
-      ${pricedCards.length} of the ${TOTAL} cards have a price, ${prices.counts && prices.counts.psa10 ? `${prices.counts.psa10} with a PSA 10 figure; ` : ""}the
-      rest have not sold enough yet for a guide value. Every price is in the <a href="#checklist">checklist</a>,
+      ${pricedCards.length} of the ${TOTAL} cards have a price, the
+      rest have no TCGplayer market price yet. Every price is in the <a href="#checklist">checklist</a>,
       which sorts by price too.</p>
     <ol class="t30-cts t30-cts--top" data-zg="values">
 ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
@@ -2334,10 +2325,9 @@ ${pricedCards.slice(0, TOP_N).map((c) => cardTile(c)).join("\n")}
       <li><b>${UNDER_1}</b><span>Cards under $1</span></li>
       <li><b>${OVER_20}</b><span>Cards at $20 or more</span></li>
     </ul>
-    <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
+    <p class="price-note">Raw NM prices are TCGplayer market prices for an ungraded copy, read ${esc(
       longDate(prices.checked || doc.checked)
-    )}. A guide value is computed across the sales PriceCharting tracks, which is wider than any one
-      marketplace. The Classic Collection is priced too: its 30 cards are reprints that keep their original
+    )}. The Classic Collection is priced too: its 30 cards are reprints that keep their original
       numbering, so each is matched on its name and that number together. We do not sell cards.</p>
   </div>
 </section>`;
@@ -2428,7 +2418,7 @@ const checklistBand = !(checklist.cards || []).length ? "" : `
     <p class="sec-label">Every card</p>
     <h2>30th Celebration checklist: <span class="hl">every numbered card</span></h2>
     <p class="lede" style="max-width:44em">${(checklist.cards || []).length} of the ${TOTAL} are listed here,
-      ${pricedCards.length} with a raw price${prices.counts && prices.counts.psa10 ? ` and ${prices.counts.psa10} with a PSA 10` : ""}. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
+      ${pricedCards.length} with a raw price. Not listed here: the ${E.energy} foil basic Energy, which are numbered in their own MEE set and
       live in the binder above. Filter by section, sort by price, or show only the cards still missing from the
       binder.</p>
     <form class="t30-clf" onsubmit="return false" aria-label="Filter the checklist">
@@ -2454,7 +2444,7 @@ ${clSections.map(([key, label]) => {
 ${rows.map(clRow).join("\n")}`;
 }).join("\n")}
     </ol>
-    <p class="price-note">Raw NM and PSA 10 are pricecharting.com guide values, read ${esc(
+    <p class="price-note">Raw NM prices are TCGplayer market prices for an ungraded copy, read ${esc(
       longDate(prices.checked || doc.checked)
     )}. A tick and a pink edge mark a card already in the binder. Illustrator credits are TCGdex's, which covers the
       ${Object.keys(ILLUS).length} cards numbered in this set's own run; the Classic Collection reprints and the RGB Mews print
@@ -2877,7 +2867,7 @@ ${doc.japanList.map((c) => `        <li><span>${esc(c.n ? "#" + String(c.n).padS
       <dd>${esc(doc.set.packContents.split(".")[0])}. Every pack also has one of the 30 Pikachu.</dd>
       ${pricedCards[0] ? `<dt>What is the most valuable 30th Celebration card?</dt>
       <dd>${esc(pricedCards[0].name)} (#${esc(pocketNum(pricedCards[0].section, pricedCards[0].n))}), at ${esc(moneyExact(pricedCards[0].pr.raw))}
-        raw on PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}, among the cards with a published price.
+        raw on TCGplayer, read ${esc(longDate(prices.checked || doc.checked))}, among the cards with a published price.
         ${rgbVals.length
           ? `The three RGB Mews are worth far more, ${esc(moneyRound(rgbVals[0]))} to ${esc(moneyRound(rgbVals[rgbVals.length - 1]))} raw on the same guide, read ${esc(longDate(rgbRead))}, and appear on <a href="/most-valuable-cards.html">the most valuable cards list</a>. They are priced on their own rows here but not ranked, because the first copies surfaced through a leak before release.`
           : `The three RGB Mews are left out of this ranking: the first copies surfaced through a leak before release.`} <a href="#values">The top ten</a>.</dd>` : ""}
@@ -2947,7 +2937,7 @@ ${
         <ul class="lgx-halves" id="t30lbH" hidden></ul>
         <button type="button" class="lgx-alt" id="t30lbJ" hidden></button>
         <p class="t30-lb-rip" id="t30lbR" hidden><a id="t30lbRa" href="#">Watch the rip it came from</a></p>
-        <p class="t30-lb-src" id="t30lbS" hidden>Market value from PriceCharting, read ${esc(longDate(prices.checked || doc.checked))}.</p>
+        <p class="t30-lb-src" id="t30lbS" hidden>Market value from TCGplayer, read ${esc(longDate(prices.checked || doc.checked))}.</p>
         <div class="t30-lb-nav">
           <button type="button" class="t30-lb-go" id="t30lbPrev" aria-label="Previous card">&larr; Previous</button>
           <button type="button" class="t30-lb-go" id="t30lbNext" aria-label="Next card">Next &rarr;</button>
@@ -3507,14 +3497,14 @@ ${APP_JS_NO_PACKPLAYER}
     var row = function (h) {
       return "<li" + (h.cur ? ' aria-current="true"' : "") + "><span><b>" + h.half + " half</b><small>" + (h.own ? '<span class="t30-ok" aria-hidden="true"></span>' : "") +
         esc(h.num || "") + (h.own ? " &middot; in the binder" : " &middot; to find") + "</small></span>" +
-        '<span class="lgx-p"><i>Raw</i><span>' + (h.raw ? esc(h.raw) : "&ndash;") + '</span></span><span class="lgx-p"><i>PSA 10</i><span>' + (h.psa ? esc(h.psa) : "&ndash;") + "</span></span></li>";
+        '<span class="lgx-p"><i>Raw</i><span>' + (h.raw ? esc(h.raw) : "&ndash;") + '</span></span>' + (h.psa ? '<span class="lgx-p"><i>PSA 10</i><span>' + esc(h.psa) + "</span></span>" : "") + "</li>";
     };
     var rows = lgv === "both" ? row(T0) + row(B0) : row(me);
     /* The pair added up, only when both halves have both figures: a sum with a
        missing term would be a smaller number presented as the total. */
-    if (lgv === "both" && T0.raw && B0.raw && T0.psa && B0.psa) {
+    if (lgv === "both" && T0.raw && B0.raw) {
       rows += '<li class="sum"><span><b>The pair, added up</b></span><span class="lgx-p"><i>Raw</i><span>' + fmt$(num$(T0.raw) + num$(B0.raw), true) +
-        '</span></span><span class="lgx-p"><i>PSA 10</i><span>' + fmt$(num$(T0.psa) + num$(B0.psa)) + "</span></span></li>";
+        "</span></span>" + (T0.psa && B0.psa ? '<span class="lgx-p"><i>PSA 10</i><span>' + fmt$(num$(T0.psa) + num$(B0.psa)) + "</span></span>" : "") + "</li>";
     }
     H.innerHTML = rows; H.hidden = false;
     S.hidden = !(me.raw || me.psa || mate.raw || mate.psa);

@@ -82,6 +82,7 @@ import { gradedGate } from "../shared/graded-gate.mjs";
 // WHY THE OTHER PAGE SAYS $10,000 FOR THE CARD THIS ONE PRICES AT $988. Read the
 // header of that file before touching any figure in the money section here.
 import { loadPriceBasis, basisSentence } from "../shared/price-basis.mjs";
+import { gradedLinkHtml } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/base-set.json"), "utf8"));
@@ -137,12 +138,21 @@ function priceRow(ref) {
     return null;
   }
   const v = verified.get(c.rank);
+  // Links only from 13 November 2026, so the double-read gate no longer decides
+  // whether a row is shown; it still decides whether its picture is trusted.
+  return { name: c.name, set: c.set, url: c.url, pcImg: c.pcImg, imgOk: v?.imgOk === true };
+  // eslint-disable-next-line no-unreachable
   if (v?.status !== "agree") {
     missingPrice.push(
       `${ref.set} / ${ref.name}: rank ${c.rank} was not double-read (${v?.status || "outside the verified range"})`,
     );
     return null;
   }
+  /* 13 NOVEMBER 2026: NO FIGURE, ONLY THE PAGE. PriceCharting requires a paid
+     plan to show their prices and the owner declined (shared/no-pricecharting
+     .mjs), so a row keeps its product link and picture and loses every number. */
+  return { name: c.name, set: c.set, url: c.url, pcImg: c.pcImg, imgOk: v.imgOk };
+  // eslint-disable-next-line no-unreachable
   const held = rawExcluded.find((x) => x.set === ref.set && x.name === ref.name);
   if (held) {
     missingPrice.push(`${ref.set} / ${ref.name}: Ungraded withheld, data/top-raw.json excludes it (${held.decided || "no date"})`);
@@ -168,7 +178,7 @@ for (const r of d.runs) r.price = priceRow(r.pcRow);
  */
 const stampPairs = (d.stampPairs?.cards || [])
   .map((p) => ({ ...p, a: priceRow(p.first), b: priceRow(p.shadowless) }))
-  .filter((p) => p.a && p.b);
+  .filter((p) => typeof p.a?.ungraded === "number" && typeof p.b?.ungraded === "number");
 
 // The sealed pack, from the other price file. Corroborated against TCGplayer's
 // own pricepoints endpoint on the crawl (see data/top100.json `sealed.method`),
@@ -662,14 +672,16 @@ function priceCard(r) {
         <span class="bs-p-name">${esc(r.name)}</span>
         <span class="bs-p-when">${esc(r.order)}</span>
         ${
-          p
+          p && p.url && p.ungraded == null && p.psa10 == null
+            ? `<span class="bs-p-nums"><span class="bs-p-n">${gradedLinkHtml(p.url, `${r.name}, ${p.name}`, { text: "Prices on PriceCharting" })}</span></span>`
+            : p
             ? `<span class="bs-p-nums">
           ${p.ungraded ? `<span class="bs-p-n"><b>${moneyCompact(p.ungraded)}</b> <span class="bs-u">Ungraded</span></span>` : ""}
           ${p.g9 ? `<span class="bs-p-n">${moneyCompact(p.g9)} <span class="bs-u">Grade 9</span></span>` : ""}
           ${p.psa10 ? `<span class="bs-p-n">${moneyCompact(p.psa10)} <span class="bs-u">PSA 10</span></span>` : ""}
         </span>${p.ungradedHeld ? `
         <span class="bs-p-none">No ungraded figure: ${esc(p.ungradedHeld)}.</span>` : ""}`
-            : `<span class="bs-p-none">No double-read figure for this printing, so none is printed.</span>`
+            : `<span class="bs-p-none">No price is shown for this printing.</span>`
         }
       </span>
     </li>`;
@@ -1234,7 +1246,7 @@ const style = `
    A LIST OF CARDS, NOT A <table>, and it is the same call .bs-prices and
    /top-graded.html's .tg-list both made. The natural table here is card by
    printing by tier, which is six figures on a row: at 390px the widest figure
-   this table prints is "$343,098", eight characters, and six of those plus their
+   this table prints is six figures long, eight characters, and six of those plus their
    labels do not go into 366px of usable width at any font size worth reading.
    MEASURED IN REAL CHARACTERS rather than in ch, per the note in
    build-top-graded.mjs: a ch is the advance of a "0" and measures nothing here.
@@ -1257,7 +1269,7 @@ const style = `
 .bs-cmp-n b{color:var(--ink);font-size:19px}
 /* The printing name needs its own air. A single markup space between a 19px
    figure and a 10px mono label is about 4px and reads as one token: at 390 the
-   worst pair is "$343,098 1ST EDITION" and the label looked stuck to the
+   worst pair is a six figure price beside "1ST EDITION" and the label looked stuck to the
    comma. Checked in the rendered page, not in the markup, where it looked fine. */
 .bs-cmp-n .bs-u{margin-left:5px}
 /* The gold rule is the only mark that separates the derived number from the two
@@ -1688,10 +1700,13 @@ ${d.tells.map(tellCard).join("\n")}
     <ul class="bs-prices">
 ${d.runs.map(priceCard).join("\n")}
     </ul>
-    <p class="bs-p2" style="margin-top:var(--s4)">Every figure above is PriceCharting's price guide for
-      <b>Charizard 4/102</b>, one line per printing, read on ${esc(read)} and read a second time from each card's
-      own product page before it was published here. It is a guide value computed from completed sales, not a
-      record of any single sale. Prices move and this page does not.</p>
+    <p class="bs-p2" style="margin-top:var(--s4)">Each line above is one printing of <b>Charizard 4/102</b>,
+      and its link opens that printing's ungraded and graded prices on PriceCharting.${
+        basis.pairs.find((x) => x.card === "Charizard")
+          ? ` On TCGplayer, the market price for an ungraded Shadowless Charizard, read ${esc(basis.tcgRead)}, was
+      ${esc(moneyCompact(basis.pairs.find((x) => x.card === "Charizard").market))}.`
+          : ""
+      } Prices move and this page does not.</p>
     ${/* THE OTHER MEASUREMENT, NAMED HERE RATHER THAN LEFT TO BE DISCOVERED.
           A marketplace prices the same ungraded Shadowless Charizard at ten
           times the figure printed above. Both numbers are real and they measure

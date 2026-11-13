@@ -319,7 +319,7 @@ function bandNote(led, { lead, psaLead, trailing = "" }) {
           // sentence. Same correction in build-wanted.mjs and
           // build-set-pages.mjs, made in the same pass so the three cannot
           // word it three ways.
-          ". A graded price is a different measurement from the raw guide value and is read separately, so the two are not one number."
+          ". A graded price is a different measurement from the raw market price and is read separately, so the two are not one number."
       )
     );
   }
@@ -386,6 +386,11 @@ try {
 for (const c of wanted.cards || []) {
   if (!c.set || !c.number) continue;
   const g = gradedPrice(c.set, c.number, c.name, c.setName || setLabel(c.set));
+  // 13 November 2026: no graded figure but the shared chain's, which returns only
+  // hand typed ones now; the snapshot's own psa10 (pokemonpricetracker.com) is
+  // dropped with it. The card's PriceCharting page is carried for the link.
+  c.psa10 = null;
+  c.pcUrl = gradedFor.link(c.set, c.number, { name: c.name, setName: c.setName || setLabel(c.set) });
   if (g != null) {
     const stamp = gradedStamp(c.set, c.number, c.name, c.setName || setLabel(c.set));
     c.psa10 = g;

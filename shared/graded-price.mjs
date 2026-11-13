@@ -279,7 +279,7 @@ export async function loadGradedPrices() {
       pcCardsSource = pcCardsSource || doc.priceSource || "pricecharting.com";
       for (const c of doc.cards) {
         if (c?.n != null) {
-          const fact = { rarity: c.rarity || null, raw: typeof c.price === "number" ? c.price : null, name: c.name || null };
+          const fact = { rarity: c.rarity || null, raw: typeof c.price === "number" ? c.price : null, name: c.name || null, pcUrl: c.pcUrl || null };
           facts[`${doc.set}-${c.n}`] = fact;
           facts[`${doc.set}-${pcNum(c.n)}`] ??= fact;
         }
@@ -423,6 +423,14 @@ export async function loadGradedPrices() {
       };
     }
 
+    /* NO GRADED FIGURE BUT THE OWNER'S OWN, FROM 13 NOVEMBER 2026. Below this
+       line the chain read PriceCharting (graded.json and the card files) and
+       then pokemonpricetracker.com (psa10.json `auto`). PriceCharting requires
+       a paid plan to show their prices and the owner declined; asked what graded
+       values should become, he chose links only: "Graded prices on PriceCharting"
+       where a figure used to be (see link() below). So nothing past a hand typed
+       figure is returned. psa10.json `auto` is still on disk and untouched. */
+    return null;
     const hit = name && setName ? pricecharting(name, setName, number) : null;
     /* THE NEWER OF THE TWO PRICECHARTING READS WINS, 23 September 2026. Tier 2
        is data/graded.json, one hand-run crawl stamped August 23; tier 3 is the
@@ -554,6 +562,24 @@ export async function loadGradedPrices() {
   }
 
   /** Just the figure, for the callers that only print one. */
+  /* THE PRICECHARTING PAGE FOR A CARD, AS A LINK, NEVER A NUMBER. From 13
+     November 2026 no PriceCharting figure is shown anywhere (they require a paid
+     plan; see shared/no-pricecharting.mjs), so where a page used to print a
+     graded value it prints "Graded prices on PriceCharting" pointing here. The
+     card file's own pcUrl first, then the graded.json row that matched by
+     name, set and number. */
+  function link(setId, number, { name = null, setName = null } = {}) {
+    const f = at(facts, setId, number);
+    if (f?.pcUrl) return f.pcUrl;
+    if (!name || !setName) return null;
+    for (const rec of pcByName.get(pcNorm(name)) || []) {
+      if (!rec.url || !setsAgree(rec.set, setName)) continue;
+      const got = /#\s*(\d+)/.exec(rec.matched || "");
+      if (!got || pcNum(got[1]) !== pcNum(number)) continue;
+      return rec.url;
+    }
+    return null;
+  }
   const price = (setId, number, opts) => resolve(setId, number, opts)?.price ?? null;
 
   /** Who said so and when, for the sourcing lines under a grid. */
@@ -562,5 +588,14 @@ export async function loadGradedPrices() {
     return { asOf: r?.asOf || null, source: r?.source || null, url: r?.url || null };
   };
 
-  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp, ungraded, rawForHit, suppressed, facts };
+  return { psa10, pc, pricecharting, nearMisses, resolve, price, stamp, ungraded, rawForHit, suppressed, facts, link };
+}
+
+/* The one way a page prints the PriceCharting link that stands where a graded
+   value used to be. Teal like every link on the site, leaves the site, says so. */
+const escAttr = (x) => String(x ?? "").replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
+export function gradedLinkHtml(url, name = "", { text = "Graded prices on PriceCharting", cls = "pc-link" } = {}) {
+  if (!url) return "";
+  const who = name ? ` for ${name}` : "";
+  return `<a class="${cls}" href="${escAttr(url)}" target="_blank" rel="noopener" aria-label="${escAttr(`Graded prices${who} on PriceCharting, opens on pricecharting.com`)}">${text}</a>`;
 }

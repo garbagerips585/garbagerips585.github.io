@@ -258,7 +258,9 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
     setName: setName.get(mk?.[1] || "") || null,
   });
   const psa10 =
-    (typeof manual === "number" ? manual : manual?.price) ?? shared?.price ?? pcHit ?? a.psa10;
+    // 13 November 2026: hand typed figures only. PriceCharting requires a paid
+    // plan to show their prices and the owner chose links only for graded.
+    (typeof manual === "number" ? manual : manual?.price) ?? null;
   // TCGdex first, the graded feed's own raw as the fallback.
   const raw = rawPrice.get(ck) ?? a.rawNm;
   if (typeof psa10 !== "number" || typeof raw !== "number" || raw <= 0) continue;
@@ -334,7 +336,7 @@ const rivals = g.companies
 const rivalList = rivals.length > 1 ? `${rivals.slice(0, -1).join(", ")} and ${rivals.at(-1)}` : rivals.join("");
 const desc =
   `What Pokemon card grading actually costs in ${new Date(g.checked).getFullYear()}, PSA against ${rivalList}, ` +
-  `and the break even math on ${rows.length} real cards. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
+  `${rows.length ? `and the break even math on ${rows.length} real cards` : "and the break even math for your own card"}. PSA's cheapest tier is now ${moneyRound(psaCo.cheapest)}.`;
 
 const FAQ = faqBlock(
   [
@@ -344,7 +346,9 @@ const FAQ = faqBlock(
     ],
     [
       "Is it worth grading my Pokemon card?",
-      `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.`,
+      rows.length
+        ? `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of ${rows.length} cards we hold both prices for, ${worth.length} would clear PSA's current fee and ${notWorth.length} would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.`
+        : `Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. A 9 is worth far less than a 10, so work it out on the 10 as the best case and not the expected one.`,
     ],
   ],
   {
@@ -461,7 +465,7 @@ ${MENU}
            old label was wrong twice over. It is in the data now, and the count
            is interpolated rather than typed so this cannot go stale again. -->
       <div class="fact"><div class="n">${moneyCompact(cheapest.cheapest)}</div><div class="l">Cheapest of these ${coWord} (${esc(cheapest.name)})</div></div>
-      <div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>
+      ${rows.length ? `<div class="fact"><div class="n">${worth.length}/${rows.length}</div><div class="l">Cards that clear the PSA fee</div></div>` : ""}
       <div class="fact wide"><div class="n" style="font-size:1.15rem">${esc(longDate(g.checked) || g.checked)}</div><div class="l">Fees last checked</div></div>
     </div>
   </div>
@@ -504,8 +508,9 @@ ${MENU}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Work it out</p>
     <h2>Your <span class="hl">card</span></h2>
-    <p class="lede">Put in what your card sells for raw and what it sells for in a PSA 10. Both numbers are on the
-      <a href="/cards.html">card search</a> and on any set guide.</p>
+    <p class="lede">Put in what your card sells for raw and what it sells for in a PSA 10. The raw price is on the
+      <a href="/cards.html">card search</a> and on any set guide. For the PSA 10 price, a card's pop-up on its set
+      guide links to its graded prices on PriceCharting.</p>
     <form class="gcalc" onsubmit="return false">
       <label>Raw price
         <input id="gRaw" type="number" min="0" step="0.01" inputmode="decimal" placeholder="25.00">
@@ -543,7 +548,7 @@ ${MENU}
   </div>
 </section>
 
-<section class="band-sky tight">
+${rows.length ? `<section class="band-sky tight">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Real cards</p>
     <h2>${worth.length} of ${rows.length} cards <span class="hl">clear the fee</span></h2>
@@ -572,7 +577,7 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     <p class="price-note">These are cards where the PSA 10 sells for less than the raw card plus the fee. At the old
       ${moneyRound(24.99)} Value tier several of them worked. That is what a fee change does.</p>` : ""}
   </div>
-</section>
+</section>` : ""}
 
 <section class="tight">
   <div class="wrap">
@@ -682,16 +687,9 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
       card.</p>
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
       sometimes with two weeks' notice, so click through before you send anything.
-      ${esc(priceNote(priceDoc, { lead: "Raw prices" }))}
-      They are the same figures the rest of this site quotes.
-      ${esc(
-        fromTrackerPsa > 0
-          ? `PSA 10 prices come from the same PriceCharting guide for ${fromPcPsa} of the ${fromPcPsa + fromTrackerPsa} cards below, ${psaSpan()}, so both halves of the subtraction describe one printing out of one source. The other ${fromTrackerPsa} come from pokemonpricetracker.com.`
-          : `PSA 10 prices come from the same PriceCharting guide, ${psaSpan()}, so both halves of the subtraction describe one printing of one card out of one source.`
-      )}
-      Which cards appear here is still decided by pokemonpricetracker.com's recorded sale counts, because it is the
-      only feed that publishes one, and only cards with at least ten recorded sales are used. Card scans
-      are TCGdex's, mirrored here at the size the rows draw them, and each one is the card named beside it. No affiliate
+      ${rows.length ? `${esc(priceNote(priceDoc, { lead: "Raw prices" }))}
+      They are the same figures the rest of this site quotes. PSA 10 figures here are typed by hand from a named
+      source. Card scans are TCGdex's, mirrored here at the size the rows draw them. ` : ""}No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>
   </div>

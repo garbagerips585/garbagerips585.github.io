@@ -1723,8 +1723,8 @@ function enChase(g, en, { standalone = false, why = "" } = {}) {
         .join("\n      ")}
     </div>
     <p class="price-note">English ${esc(en.name)} card scans from TCGdex, ${
-      esc(enPriceDocs.get(en.id)?.priceSource || "pricecharting.com")
-    } price guide values for an ungraded copy${
+      esc(enPriceDocs.get(en.id)?.priceSource || "TCGplayer market price")
+    }s for an ungraded copy${
       // The card file's own price date first, because that is the day the money
       // was read; the set record's stamp is the fallback and says the same
       // thing today. Both beat the checklist date, which is a different read.

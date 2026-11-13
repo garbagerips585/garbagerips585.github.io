@@ -60,4 +60,4 @@ that file's style) and the acknowledged entries in data/check-allow.json can com
 - Pokemon Center listed only two Delta Reign products on 12 November 2026 (display box $161.64, booster bundle $26.94, both sold out). No Elite Trainer Box or single pack was listed, so those have no shelf price yet.
 - MSRP, grading fee and selling fee reads are from August 2026 and are due for a re-read (RUNBOOK.md lists each).
 - PokemonPriceTracker: staying on the free tier (his call, 12 November 2026).
-- Ranked lists weekly instead of monthly: waiting on PriceCharting's reply to the permission email before adding any load.
+- PriceCharting answered 13 November 2026: paid plan required. Declined; their figures are off the site. Possible later: refresh data/top100.json (TCGplayer) on a schedule, and TCGplayer prices for the three subsets (Shining Fates Shiny Vault and the others) which show no price now.

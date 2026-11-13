@@ -157,12 +157,6 @@
       "for": "the jumbo deck at the 2022 International Championships"
     },
     {
-      "name": "PriceCharting",
-      "url": "https://www.pricecharting.com/",
-      "read": "2026-09-23",
-      "for": "the ranked list and every graded price"
-    },
-    {
       "name": "tcgcsv.com",
       "url": "https://tcgcsv.com/tcgplayer/3/1528/products",
       "read": "2026-09-23",
@@ -190,9 +184,7 @@
       "year": 2002,
       "format": "topper",
       "pid": 210841,
-      "raw": 901.66,
-      "g9": 4505.5,
-      "psa10": 23272.22,
+      "market": 1075.0,
       "pc": "pokemon-legendary-collection/charizard-box-topper-s1",
       "why": "One oversized reverse holo topper sat on top of each booster box, so supply is capped at one per box ever opened. PSA's own set registry article notes toppers are prone to edge and surface damage, which is why high grades are scarce."
     },
@@ -204,9 +196,7 @@
       "year": 2003,
       "format": "topper",
       "pid": 210851,
-      "raw": 735,
-      "g9": 1850,
-      "psa10": 8350,
+      "market": null,
       "pc": "pokemon-skyridge/charizard-box-topper-9",
       "why": "A Crystal Transparent box topper, one per booster box, out of a set with a famously small print run."
     },
@@ -218,10 +208,10 @@
       "year": 2005,
       "format": "jumbo",
       "pid": 127168,
-      "raw": 442.88,
+      "market": 200.0,
       "g9": null,
       "psa10": null,
-      "why": "The most valuable actual jumbo on this list. It came out alongside Pokemon XD: Gale of Darkness, and it is the only jumbo of a Shadow Pokemon. PriceCharting records no Grade 9 or PSA 10 sales for it at all.",
+      "why": "The most valuable actual jumbo on this list. It came out alongside Pokemon XD: Gale of Darkness, and it is the only jumbo of a Shadow Pokemon.",
       "pc": "pokemon-promo/shadow-lugia-jumbo"
     },
     {
@@ -232,9 +222,7 @@
       "year": 2002,
       "format": "topper",
       "pid": 210844,
-      "raw": 399.99,
-      "g9": 1170.14,
-      "psa10": 4382.66,
+      "market": 299.99,
       "pc": "pokemon-legendary-collection/mewtwo-box-topper-s4",
       "why": "One of the four Legendary Collection toppers, same one per box supply."
     },
@@ -246,9 +234,7 @@
       "year": 2002,
       "format": "topper",
       "pid": 210842,
-      "raw": 398.06,
-      "g9": 1125.5,
-      "psa10": 6100.02,
+      "market": 399.99,
       "pc": "pokemon-legendary-collection/dark-blastoise-box-topper-s2",
       "why": "The most valuable card in TCGplayer's own jumbo group, where the Charizard toppers carry no market price at all."
     },
@@ -260,9 +246,7 @@
       "year": 2003,
       "format": "topper",
       "pid": 210853,
-      "raw": 358.45,
-      "g9": 649.0,
-      "psa10": 2499.99,
+      "market": null,
       "pc": "pokemon-skyridge/ho-oh-box-topper-11",
       "why": "The second Skyridge Crystal Transparent topper."
     },
@@ -274,9 +258,7 @@
       "year": 2002,
       "format": "topper",
       "pid": 210843,
-      "raw": 306.52,
-      "g9": 845.36,
-      "psa10": 3830.0,
+      "market": null,
       "pc": "pokemon-legendary-collection/dark-raichu-box-topper-s3",
       "why": "The fourth Legendary Collection topper."
     },
@@ -288,8 +270,7 @@
       "year": 1999,
       "format": "jumbo",
       "pid": 179079,
-      "raw": 264.9,
-      "g9": 2695.0,
+      "market": 350.0,
       "psa10": null,
       "pc": "pokemon-japanese-promo/charizard-corocoro-comics-4",
       "why": "A magazine insert rather than a short print. This one is expensive because it is Charizard and it is old, not because it is scarce."
@@ -302,28 +283,13 @@
       "year": 2023,
       "format": "jumbo",
       "pid": null,
-      "raw": 159.0,
-      "g9": 254.7,
-      "psa10": 696.72,
+      "market": null,
       "pc": "pokemon-scarlet-violet-151/mew-ex-jumbo-205",
       "why": "Region lock, not age. It was exclusive to the Brazilian 151 Mew ex and Mewtwo Special Collection; every other region got a different box."
     }
   ],
-  "valueNote": "Ranked on PriceCharting's ungraded price, read {checked} and checked twice. Seven of the nine are box toppers or a magazine insert rather than modern jumbos, which is the point the section above makes.",
-  "excluded": [
-    {
-      "what": "Marshtomp [Jumbo] #11, an e-League prize at $299.99",
-      "why": "It belongs on the list on price and is left off because PriceCharting dates it January 1, 2025, which is a placeholder for a 2003 card, and we could not source a real one. The price is real; the record around it is not clean enough to print."
-    },
-    {
-      "what": "Any BGS 10 Black figure, including $151,270 on the Legendary Collection Charizard",
-      "why": "Sparse grade tiers on PriceCharting are algorithmic estimates rather than observed sales."
-    },
-    {
-      "what": "Celebrations Pikachu [Jumbo] #58 at $4,293.55 in a PSA 10",
-      "why": "Its raw price is $6.76, so the PSA 10 figure is 635 times the ungraded one on a mass produced 2021 promo. Verified on the page and deliberately not published as a value."
-    }
-  ],
+  "valueNote": "Chosen in September 2026 for what these cards sell for ungraded. The figure on a row is TCGplayer's market price for that product, read November 13, 2026, where TCGplayer has one; a row with none has had no recent sales there. Seven of the nine are box toppers or a magazine insert rather than modern jumbos, which is the point the section above makes.",
+  "excluded": [],
   "baseline": {
     "headline": "Most jumbo cards are worth a few dollars",
     "body": "A ranked list is misleading on its own, because the typical jumbo is not rare and was never meant to be. Anything that came in a collection box or a premium box from roughly 2016 onward generally sells raw for a few dollars.",

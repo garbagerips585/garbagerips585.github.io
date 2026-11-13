@@ -1860,7 +1860,7 @@ const prodCard = (r, rank) => {
               ? `<span class="lbar" style="--w:${Math.max(2, r.rate)}%"><b>${r.rate}%</b></span><span class="pc-den">${r.hits} of ${r.judged} answered rips</span>`
               : `<span class="thin-note">${r.hits} of ${r.judged} answered rip${r.judged === 1 ? "" : "s"} &bull; too few for a rate</span>`
           }</p>
-          ${bestLine(r.bestRaw, "Best card") || '<span class="pc-best pc-best--none"><em>Best card</em><i>nothing from this one carries a guide value yet</i></span>'}
+          ${bestLine(r.bestRaw, "Best card") || '<span class="pc-best pc-best--none"><em>Best card</em><i>nothing from this one carries a market price yet</i></span>'}
           ${bestLine(r.bestPsa, "Best PSA 10")}
         </article>`;
 };
@@ -2026,7 +2026,7 @@ ${prodRows.map((r, i) => prodCard(r, i)).join("\n")}
           ? ` between ${shortDate(dates[0])} and ${shortDate(dates[dates.length - 1])}`
           : dates.length ? ` on ${shortDate(dates[0])}` : "";
         return ` PSA 10 figures come from ${who.join(" and ")}, read${when}, and are a`
-          + ` different measurement from the ungraded guide value above.`;
+          + ` different measurement from the ungraded market price above.`;
       })()}</p>
       <div class="bests">
 ${
@@ -2035,7 +2035,7 @@ ${
           <span>Best card, ungraded</span>
           <b>${esc(moneyCompact(bestRawCard.raw))}</b>
           <a href="/${esc(bestRawCard.v.path)}">${esc(bestRawCard.name)}${bestRawCard.setName ? `, ${esc(bestRawCard.setName)}` : ""}</a>
-          <p>The highest guide value among the ${rawCards.length} of ${cardRows} cards in the rip log that carry one.${
+          <p>The highest market price among the ${rawCards.length} of ${cardRows} cards in the rip log that carry one.${
             bestRawCard.v.products?.length
               ? ` It came out of ${esc(String(labelFor("products", bestRawCard.v.products[0]) || "a sealed product").toLowerCase())}`
               : ""
@@ -2054,7 +2054,7 @@ ${
                 it is a ranking of that minority and reads as a ranking of the lot
                 unless it says otherwise. */ ""}A different question from the one beside it, and it rests on a much
           smaller set: ${psaCards.length} of the ${cardRows} cards in the rip log have a graded figure at all. Nothing here
-          has been graded. This is what the guide says a 10 sells for.</p>
+          has been graded. This is what a 10 sells for.</p>
         </div>`
     : ""
 }
@@ -2064,8 +2064,8 @@ ${
           <span>Best return a rip</span>
           <b>at least ${esc(moneyCompact(richestRow.guidePerRip))}</b>
           <a href="/videos.html?product=${esc(richestRow.key)}">${esc(richestRow.label)}</a>
-          <p>Guide value of every priced card out of it, over its ${richestRow.judged} answered rips. <b>At least</b> is
-          load bearing: a card with no guide value counts as nothing in that sum, so the figure is a floor and can only
+          <p>Market price of every priced card out of it, over its ${richestRow.judged} answered rips. <b>At least</b> is
+          load bearing: a card with no market price counts as nothing in that sum, so the figure is a floor and can only
           climb. Only kinds with ${MIN_SAMPLE} or more answered rips are eligible.</p>
         </div>`
     : ""
@@ -2268,7 +2268,7 @@ ${monthFigure()}
       <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener" target="_blank"
         aria-label="Creative Commons Attribution 4.0 International license, opens on creativecommons.org">CC BY 4.0</a>
       with credit to Garbage Rips 585. That covers the figures we counted, not the card names, prices or set data
-      beside them, which come from TCGdex, PriceCharting and the Pokemon TCG API.</p></div>
+      beside them, which come from TCGdex, TCGplayer and the Pokemon TCG API.</p></div>
 </main>`;
 
 // NO Dataset MARKUP UNTIL THERE IS A DATASET. With nothing logged this

@@ -46,7 +46,7 @@ import { ripPath } from "../shared/paths.mjs";
 import { channelPitch } from "../shared/channel-pitch.mjs";
 import { clipMetaText } from "../shared/meta-text.mjs";
 import { loadSpeciesLinks } from "../shared/species-link.mjs";
-import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull, gradedLinkHtml } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
@@ -285,6 +285,10 @@ const GRADED_READ = JSON.parse(
   await readFile(join(ROOT, "data/graded.json"), "utf8").catch(() => "{}")
 ).checked || null;
 const firstPartner = await loadFirstPartner();
+// ONE SENTENCE FOR GRADED PRICES, which this site no longer prints (13 November
+// 2026: PriceCharting requires a paid plan to show their prices).
+const GRADED_NOTE =
+  "Graded prices are not shown here. Where a card has one, the Graded prices on PriceCharting link under it opens that card on pricecharting.com.";
 const gradedPrice = (setId, number, name, setName) =>
   gradedFor.price(setId, number, { name, setName });
 
@@ -712,8 +716,9 @@ async function resolveHits(vid) {
            holds PriceCharting reads for twelve promos, newer than the figures
            typed onto the hit rows, and the rip page never asked it. A frozen
            number should lose to a fresh one and win against nothing. */
-        psa10: psaFor(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null)
-          ?? (typeof h.psa10 === "number" ? h.psa10 : fp?.psa10 ?? null),
+        psa10: psaFor(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null),
+        pcUrl: (/pricecharting\.com/.test(h.priceUrl || "") ? h.priceUrl : null) || fp?.pcUrl
+          || gradedFor.link(null, h.number || fp?.number || (pm && pm.i) || null, { name: h.card, setName: h.setName || fp?.setName || (pm && pm.s) || null }),
         // THE STAMP FOLLOWS THE RAW FIGURE THAT WON, never the hand row's date
         // over a graded.json figure. The PSA 10 above comes off the same
         // graded.json read wherever this does, so one date covers both.
@@ -921,6 +926,13 @@ async function resolveHits(vid) {
       psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName, h.variant || null)
         : !m && !intl ? (thirtiethPrice(h)?.psa10 ?? (h.number ? psaFor(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName) : null) ?? comp?.psa10 ?? null)
         : null,
+      // The card's PriceCharting page, printed as a "Graded prices on
+      // PriceCharting" link where a graded figure used to be (13 November 2026).
+      pcUrl: intl
+        ? null
+        : (m || h.number
+            ? gradedFor.link(h.set, m ? m.n : h.number, { name: m ? m.name : h.card, setName: setData.get(h.set)?.name || h.setName })
+            : null) || thirtiethPrice(h)?.pcUrl || comp?.url || null,
       // A promo, or a card outside the set checklist, will not resolve. Kept
       // and shown by name rather than dropped, because it WAS pulled.
       unresolved: !m && !sub,
@@ -1665,6 +1677,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
     // set whose checklist has not landed. See CHECKLIST_PRICE above.
     price: chasePrice(c),
     psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
+    pcUrl: gradedFor.link(setId, c.number, { name: c.name, setName: setData.get(setId)?.name || setLabel }),
   }));
   // WILL THE HITS BAND CARRY THE SOURCING NOTE? The chase band below prints
   // prices too, so it needs one -- but only when the hits band is not already
@@ -1702,7 +1715,8 @@ const desc = (v.blurb || descriptions[v.id] || "")
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(printedNo(c.number))}` : ""}</span>
-          <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>
+          <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>${c.pcUrl && !c.psa10 ? `
+          <span class="chaser-pc">${gradedLinkHtml(c.pcUrl, c.name)}</span>` : ""}
           ${speciesMore(c.name)}
         </div>
       </li>`).join("\n      ")}
@@ -1725,10 +1739,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
           source in fewer words than the band above it invites the reader to
           wonder which one is the real disclosure. */ ""}
     ${hitsBandHasNote ? "" : `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices" }))}
-      PSA 10 prices come from PriceCharting's guide too, ${esc(
-        readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
-      )}, and only exist for some cards, so the
-      line is shown where we have one and left off where we do not. We do not sell cards.</p>`}
+      ${GRADED_NOTE} We do not sell cards.</p>`}
   </div>
 </section>`
     : "";
@@ -2534,7 +2545,7 @@ ${
           <p class="hitcard-p">${
             typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`
           }</p>
-          ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : ""}
+          ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : h.pcUrl ? `<p class="hitcard-psa">${gradedLinkHtml(h.pcUrl, h.name)}</p>` : ""}
           ${h.priceSource ? `<p class="hitcard-src">${esc(h.priceSource)}, ${esc(shortDate(h.priceAsOf) || h.priceAsOf)}</p>` : ""}
           ${/* A SIBLING OF .hitcard-open, NEVER INSIDE IT. That button is an
                empty overlay at z-index 2 covering the whole tile; this link
@@ -2556,11 +2567,8 @@ ${
       sentence that makes the number worth trusting.
     */ ""}${pricedHits.length || hits.some((h) => h.psa10)
       ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices", readPhrase: rawSpanFor(pricesDoc) }))}
-      PSA 10 prices come from PriceCharting's guide too, ${esc(
-        readSpan([GRADED_READ, priceRead(pricesDoc)]) || "read on the date shown"
-      )}, and only exist for some cards, so the
-      line is shown where we have one and left off where we do not. Promos have no set checklist: a promo's price is PriceCharting's
-      own read of that card where we hold one, otherwise a figure read by hand, and the source and date are named under it. We do not sell cards.</p>`
+      ${GRADED_NOTE} Promos have no set checklist: a promo's price is a TCGplayer
+      figure read by hand where we hold one, and the source and date are named under it. We do not sell cards.</p>`
       : ""}
   </div>
 </section>`
@@ -3172,7 +3180,6 @@ const urls = [
   // site promising a freshness it has not arranged. High priority anyway, since
   // "most valuable pokemon cards" is asked constantly and almost every answer
   // is an unsourced list; this one names its measurement and cites every row.
-  { loc: `${SITE}/top-graded.html`, freq: "monthly", pri: "0.9" },
   // The two Topps pages. The GUIDE is monthly and high priority because what it
   // holds is a print run from 1999 to 2004: set names, dates, card counts and
   // how to tell a Topps card from a TCG card do not expire, and "topps pokemon
@@ -3363,7 +3370,6 @@ const KNOWN_READ = {
   "/video-games.html": [["data/video-games.json", "read_date"]], // build-video-games.mjs
   "/decks.html": [["data/decks.json", "checked"]], // build-decks.mjs
   "/top-100-playable.html": [["data/decks.json", "checked"]], // build-playable.mjs
-  "/top-graded.html": [["data/top-graded.json", "checked"]], // build-top-graded.mjs
   "/topps.html": [["data/topps-top.json", "checked"]], // build-topps.mjs
   "/topps-card-values.html": [["data/topps-top.json", "checked"]], // build-topps.mjs
   "/lore.html": [["data/pokedex.json", "checked"]], // build-lore.mjs

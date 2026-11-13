@@ -45,6 +45,12 @@ set -euo pipefail
 
 cd "$(dirname "$0")/.."
 what=${1:-}
+
+# OFF FROM 13 NOVEMBER 2026. Every step below reads or rebuilds PriceCharting
+# figures, and PriceCharting requires a paid plan to show their prices; the
+# owner declined. See shared/no-pricecharting.mjs. Nothing runs.
+echo "weekly-run: retired 13 November 2026 (PriceCharting), nothing to do for '${what}'."
+exit 0
 node_guard=(node --import ./scripts/weekly-net-guard.mjs)
 
 verify_flags=()

@@ -438,66 +438,23 @@ const desc =
 // The image prefix is stripped from every row and restored in the browser. It
 // is the same 55 characters a hundred times, and the same trick build-games.mjs
 // uses on the species artwork urls for the same reason.
-const IMG_PREFIX = "https://storage.googleapis.com/images.pricecharting.com/";
-const REND = "/240.jpg";
-const POOL_SIZE = 100;
+// FROM 13 NOVEMBER 2026 THE POOL IS TCGPLAYER'S, data/top100.json `cards`,
+// the same hundred /most-valuable-cards.html publishes. It was PriceCharting's
+// (data/top-raw.json) until PriceCharting required a paid plan to show their
+// prices and the owner declined (shared/no-pricecharting.mjs). A row whose
+// product has no photo on TCGplayer's CDN is left out, because a card nobody can
+// see is a card nobody can match.
+const IMG_PREFIX = "https://tcgplayer-cdn.tcgplayer.com/product/";
+const REND = "_200w.jpg";
 
-const raw = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
-const verified = new Map((raw.verify?.rows || []).map((r) => [r.rank, r]));
-// THE HUNDRED IS THE HUNDRED /most-valuable-cards.html PUBLISHES, WHICH IS NOT
-// THE SAME THING AS ranks 1 to 100. This used to cut the file at `rank <= 100`
-// and then THROW if any of those hundred had failed its re-read, which worked
-// only for as long as every contested row happened to land below the cut. On
-// the 22 August 2026 crawl one landed at rank 98 (Latias & Latios GX #170, Team
-// Up, whose ungraded guide value moved $382.78 between the listing read and the
-// product read; the working is in that file's `excluded`), and the build stopped.
-//
-// The fix is to select the way build-top100.mjs already selects, in one line:
-// take the first POOL_SIZE rows that AGREED. The file keeps 160 candidates for
-// exactly this, the comment above this block has always said the pool is "the
-// 100 cleanest rows in that file", and the page whose list this game claims to
-// be dealing from fills its own hundred by the identical rule. Cutting the pool
-// to 97 instead, which this file's own error message offered, would have made
-// the game quietly stop being the hundred it says it is.
-//
-// The assertions below are unchanged and are now POST-conditions: if the
-// selection cannot find a clean hundred, or a selected row has no picture, that
-// is a real fault and still stops the build.
-const top = raw.cards
-  .filter((c) => verified.get(c.rank)?.status === "agree")
+const raw = JSON.parse(await readFile(join(ROOT, "data/top100.json"), "utf8")).cards;
+const top = (raw.items || [])
+  .filter((c) => c.noImg !== true && c.productId && typeof c.market === "number")
   .sort((a, b) => a.rank - b.rank)
-  .slice(0, POOL_SIZE);
-
-if (top.length !== POOL_SIZE) {
-  throw new Error(
-    `build-chase-match: data/top-raw.json holds ${top.length} rows that agreed with their own ` +
-      `re-read, not ${POOL_SIZE}. Run: node scripts/verify-raw-top.mjs`,
-  );
-}
-{
-  const noImg = top.filter((c) => verified.get(c.rank)?.imgOk !== true).map((c) => c.rank);
-  if (noImg.length) {
-    throw new Error(
-      `build-chase-match: ${noImg.length} of the top ${POOL_SIZE} have no verified image ` +
-        `(rank ${noImg.slice(0, 8).join(", ")}). A card with no picture is a card nobody can match. ` +
-        `Run: node scripts/verify-raw-top.mjs`
-    );
-  }
-  const disagreed = top.filter((c) => verified.get(c.rank)?.status === "disagree").map((c) => c.rank);
-  if (disagreed.length) {
-    throw new Error(
-      `build-chase-match: ${disagreed.length} of the top ${POOL_SIZE} did not agree with their own ` +
-        `re-read (rank ${disagreed.join(", ")}). This game prints the price on the card it deals, so a ` +
-        `contested figure cannot ship in it. Fix the row, or drop the pool below that rank.`
-    );
-  }
-  const odd = top.filter((c) => !c.pcImg || !c.pcImg.startsWith(IMG_PREFIX));
-  if (odd.length) {
-    throw new Error(
-      `build-chase-match: ${odd.length} image urls are not on ${IMG_PREFIX} (rank ` +
-        `${odd.map((c) => c.rank).join(", ")}), so the prefix this page strips is no longer shared.`
-    );
-  }
+  .map((c) => ({ name: c.name, set: c.setName, ungraded: c.market, key: String(c.productId) }));
+const POOL_SIZE = top.length;
+if (POOL_SIZE < 90) {
+  throw new Error(`build-chase-match: data/top100.json holds only ${POOL_SIZE} cards with a photo. Run: node scripts/sync-top100.mjs cards`);
 }
 
 // ONE ROW IS FOUR FIELDS AND IT IS AN ARRAY, not an object, for the reason
@@ -509,7 +466,7 @@ const pool = top.map((c) => [
   c.name,
   c.set,
   Math.round(c.ungraded),
-  c.pcImg.slice(IMG_PREFIX.length).replace(/\/\d+\.jpg$/, ""),
+  c.key,
 ]);
 
 // A JSON island is script DATA, not markup, so HTML entities are never decoded
@@ -1571,11 +1528,9 @@ ${MENU}
               plate on the buying and selling pages is drawn. The faces are the real cards.</figcaption>
           </figure>
 
-          <p class="price-note">Prices are PriceCharting's ungraded price guide value, read ${esc(readOn)}. That is a
-            price guide figure for a loose ungraded copy, computed from completed sales: it is not an auction result,
-            not a live listing and not a marketplace's market price. Card images are PriceCharting's. The ranking spans
-            every language, because their Pokemon catalog is not split by one and roughly half of the top
-            ${POOL_SIZE} is Japanese. Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan
+          <p class="price-note">Prices are TCGplayer market prices for a loose ungraded copy, read ${esc(readOn)},
+            for their English Pokemon catalog. A market price is worked out from recent sales on their marketplace: it
+            is not an auction result and not a live listing. Card images are TCGplayer's. Pokemon and all Pokemon names are trademarks of The Pokemon Company. This is fan
             content.</p>
         </div>
         </div>

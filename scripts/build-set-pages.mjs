@@ -1207,10 +1207,10 @@ function valueBand(s, cls) {
   // AND ONCE THE SUBSET IS IN THE SUM, the sentence names both parts, so
   // "every card" is never claimed for a total that is two lists added up.
   const opening = sub
-    ? `Buy one copy of each of the ${v.listTotal} cards on this guide's ${esc(s.name)} checklist and the ${sub.priced.length} priced cards of ${esc(comp.name)} at its guide value and you would spend`
+    ? `Buy one copy of each of the ${v.listTotal} cards on this guide's ${esc(s.name)} checklist and the ${sub.priced.length} priced cards of ${esc(comp.name)} at its TCGplayer market price and you would spend`
     : comp
-    ? `Buy one copy of each of the ${v.total} cards on this guide's ${esc(s.name)} checklist at its guide value and you would spend`
-    : `Buy one copy of ${some} in ${esc(s.name)} at its guide value and you would spend`;
+    ? `Buy one copy of each of the ${v.total} cards on this guide's ${esc(s.name)} checklist at its TCGplayer market price and you would spend`
+    : `Buy one copy of ${some} in ${esc(s.name)} at its TCGplayer market price and you would spend`;
   // Both read dates where the subset's differs from the checklist's.
   const span = sub ? readSpan([priceRead(v.priceStamps || {}), sub.read]) : null;
   return `<section class="${cls}">
@@ -1400,7 +1400,7 @@ function checklistBand(s, cls, pulled = new Map()) {
   const psaShared = [...psaCount.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || "";
   const ofTot = s.printedTotal ? (setPads(s) ? String(s.printedTotal).padStart(3, "0") : String(s.printedTotal)) : "";
   const rawRead = longDate(priceRead(doc)) || priceRead(doc);
-  const rawSrc = `Raw price: ${doc.priceSource || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.`;
+  const rawSrc = `Raw price: ${doc.priceSource || "TCGplayer market price"} for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.`;
   const showChase = nChase > 0 && nChase < doc.cards.length;
 
   return `<section class="${cls}">
@@ -1500,6 +1500,7 @@ function checklistBand(s, cls, pulled = new Map()) {
               (psa ? ` data-psa10="${esc(moneyCompact(psa))}"${psaSrc !== psaShared ? ` data-src="${esc(`${rawSrc} ${psaSrc}`)}"` : ""}` : "") +
               (rip ? ` data-rip="/${esc(rip.path)}" data-rip-when="${esc(longDate(rip.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : "") +
               (url ? ` data-url="${esc(affLink(url))}"` : "") +
+              (chase && c.pcUrl ? ` data-pc="${esc(c.pcUrl)}"` : "") +
               spData(c.name, c.cat) +
               (hasScan(c) || c.tcgplayerId ? "" : " data-x");
             // THE TINT WAS THE ONLY MARK AND IT STOPPED BEING GOLD, 2 October
@@ -1581,11 +1582,10 @@ function subsetBand(s, cls, pulled = new Map()) {
   const n = sub.rows.length;
   const top = sub.priced.slice().sort((a, b) => b.price - a.price)[0] || null;
   const read = longDate(sub.read) || sub.read;
-  const src = sub.rows[0].source || "pricecharting.com";
+  const src = sub.rows[0].source || "TCGplayer market price";
   // ONE SOURCE SENTENCE FOR THE LIST, carried on the <ol> the pop-up reads it
   // from (grp.dataset.src), because every row shares one feed and one day.
-  const rawSrc = `${label}. Raw price: ${src}'s price guide value for an ungraded copy, read ${read}.` +
-    (sub.rows.some((r) => r.psa10) ? ` PSA 10: graded sales data from ${src}, off the same row, read ${read}.` : "");
+  const rawSrc = sub.priced.length ? `${label}. Raw price: ${src} for an ungraded copy, read ${read}.` : `${label}.`;
   return `<section class="${cls}">
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Filed separately</p>
@@ -1627,11 +1627,11 @@ function subsetBand(s, cls, pulled = new Map()) {
           .join("\n        ")}
       </ol>
     </details>
-    <p class="price-note">${esc(priceNote({ priceSource: src, pricesChecked: sub.read }))} They come off the same ${esc(s.name)}
-      page on PriceCharting as the checklist's, where ${esc(label)} cards are filed beside the main set, and each was matched
-      on its number and its name; a special printing filed under the same number (a jumbo, an Ultra Premium Collection copy)
-      is never taken for the pack card. The PSA 10 figure on a row is PriceCharting's PSA 10 column from the same reading.
-      ${sub.priced.length} of ${n} cards have a price.${
+    <p class="price-note">${
+      sub.priced.length
+        ? `${esc(priceNote({ priceSource: src, pricesChecked: sub.read }))} ${sub.priced.length} of ${n} cards have a price.`
+        : `No prices are shown for ${esc(label)} cards: the free price feed this site reads for the checklist does not cover them.`
+    }${
         sub.rows.some((r) => r.image)
           ? ` Card pictures are images.pokemontcg.io's scans; TCGdex, which supplies the checklist's, has none for ${esc(label)} cards.`
           : ` Neither card database this site reads has a picture of any ${esc(label)} card, so none is shown.`
@@ -1852,7 +1852,7 @@ for (const [setId, c] of Object.entries(companions)) {
       imageLarge,
       imageAvif,
       read: cp.checked,
-      source: compPrices.source || "pricecharting.com",
+      source: compPrices.source || "TCGplayer market price",
       label,
       missing: (cp.missing || []).find((m) => m.n === r.i)?.why || null,
     };
@@ -1886,8 +1886,10 @@ function cardPriceLink(setId, n) {
   if (!pcRowIx.has(setId)) pcRowIx.set(setId, new Map((checklists[setId]?.cards || []).map((c) => [cardNumKey(c.n), c])));
   const row = pcRowIx.get(setId).get(n);
   if (!row) return null;
-  if (row.src === "tcgdex") return chaseLinks[setId]?.links?.[n] || null;
-  return row.pcUrl || null;
+  // 13 NOVEMBER 2026: every price is TCGplayer's again, so the price link goes
+  // to TCGplayer where data/chase-tcg.json has the product. Elsewhere the button
+  // becomes "Graded prices on PriceCharting" (the pop-up script reads the host).
+  return chaseLinks[setId]?.links?.[n] || null;
 }
 /** The subset card's PriceCharting page, off the same reading as its price. */
 const compPriceLink = (setId, key) => compPrices.sets?.[setId]?.cards?.[key]?.url || null;
@@ -1956,7 +1958,7 @@ for (const st of sets) {
   // TCGdex was read for the CHECKLIST and it moves nightly; `doc.pricesChecked`
   // is the day PriceCharting was read for the money. Stamping the first one
   // against a column of dollars claimed a freshness the figures do not have.
-  st.chasePriceSource = "PriceCharting";
+  st.chasePriceSource = "TCGplayer";
   st.priceStamps = {
     priceSource: doc.priceSource,
     pricesChecked: doc.pricesChecked,
@@ -3501,7 +3503,7 @@ function zoomData(s, c, pulled) {
   const rawRead = cr ? longDate(cr.read) || cr.read : longDate(priceRead(doc)) || priceRead(doc);
   const src =
     (cr ? `${cr.label} ${cr.printed}. ` : "") +
-    `Raw price: ${(cr ? cr.source : doc.priceSource) || "pricecharting.com"}'s price guide value for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.` +
+    `Raw price: ${(cr ? cr.source : doc.priceSource) || "TCGplayer market price"} for an ungraded copy${rawRead ? `, read ${rawRead}` : ""}.` +
     (psa ? ` PSA 10: graded sales data from ${psaWho || "a separate graded sales feed"}${psaRead ? `, read ${longDate(psaRead) || psaRead}` : ""}.` : "");
   const rips = (pulled && pulled.get(k)) || [];
   const first = [...rips].sort((a, b) => String(a.published || "").localeCompare(String(b.published || "")))[0] || null;
@@ -3509,7 +3511,7 @@ function zoomData(s, c, pulled) {
         data-name="${esc(c.name)}" data-rarity="${esc([cr ? cr.label : "", rarityLabel(c.rarity) || ""].filter((x, i, a) => x && a.indexOf(x) === i).join(", "))}"
         data-number="${esc(numOf(s, c.number))}" data-price="${esc(moneyCompact(c.price))}"
         data-psa10="${esc(psa ? moneyCompact(psa) : "")}"
-        data-url="${esc(c.url ? affLink(c.url) : "")}"${row?.ill ? ` data-ill="${esc(row.ill)}"` : ""}${alts ? ` data-alts="${esc(alts)}"` : ""}
+        data-url="${esc(c.url ? affLink(c.url) : "")}"${row?.pcUrl ? ` data-pc="${esc(row.pcUrl)}"` : ""}${row?.ill ? ` data-ill="${esc(row.ill)}"` : ""}${alts ? ` data-alts="${esc(alts)}"` : ""}
         data-src="${esc(src)}"${spData(c.name)}${first ? ` data-rip="/${esc(first.path)}" data-rip-when="${esc(longDate(first.published) || "")}"${rips.length > 1 ? ` data-rip-n="${rips.length}"` : ""}` : ""}`;
 }
 
@@ -5081,7 +5083,7 @@ ${rows}
               same one is worse than saying nothing. The true difference is what
               is being measured and when it was read, which is what the sentence
               was always for. Same correction in build-proto.mjs and
-              build-wanted.mjs. */ ""}The raw figure beside it is ${esc(s.priceStamps?.priceSource || "pricecharting.com")}'s price guide value for an ungraded copy, which is a different measurement${
+              build-wanted.mjs. */ ""}The raw figure beside it is the ${esc(s.priceStamps?.priceSource || "TCGplayer market price")} for an ungraded copy, which is a different measurement${
       /* AND ONLY A DIFFERENT DAY WHEN IT REALLY IS ONE. This said "read on a
          different day" unconditionally, and it stopped being true the moment
          the nightly refresh started moving the raw prices: 23 of the 28 English
@@ -5347,13 +5349,13 @@ ${rows}
         : "";
       // A subset card's figure was read with its subset, so it carries that day.
       const read = top?.comp ? longDate(top.comp.read) || top.comp.read : longDate(priceRead(doc)) || priceRead(doc);
-      const src = (top?.comp ? top.comp.source : doc.priceSource) || "pricecharting.com";
+      const src = (top?.comp ? top.comp.source : doc.priceSource) || "TCGplayer market price";
       const second = top && typeof top.price === "number" && read
         ? sub
-          ? `Its most valuable card is ${esc(top.name)}${top.comp ? `, ${esc(compName(top.comp))}` : ""}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}.`
+          ? `Its most valuable card is ${esc(top.name)}${top.comp ? `, ${esc(compName(top.comp))}` : ""}: ${moneyCompact(top.price)} for an ungraded copy at ${esc(src)}, read ${esc(read)}.`
           : comp
-          ? `The most valuable of those ${s.total} is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}. ${esc(comp.name[0].toUpperCase() + comp.name.slice(1))} is not priced here.`
-          : `Its most valuable card is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy on ${esc(src)}'s price guide, read ${esc(read)}.`
+          ? `The most valuable of those ${s.total} is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy at ${esc(src)}, read ${esc(read)}. ${esc(comp.name[0].toUpperCase() + comp.name.slice(1))} is not priced here.`
+          : `Its most valuable card is ${esc(top.name)}: ${moneyCompact(top.price)} for an ungraded copy at ${esc(src)}, read ${esc(read)}.`
         : top
           ? `Its most valuable card is ${esc(top.name)}.`
           : `Prices have not landed for it yet, so the card list and the rarity counts come first.`;
@@ -5481,7 +5483,7 @@ ${body}
       <p class="lbx-alts" id="lbAlts" hidden></p>
       <p class="lbx-rip" id="lbRip" hidden><a id="lbRipA" href="#"></a></p>
       <p class="lbx-rip" id="lbSp" hidden><a id="lbSpA" href="#"></a></p>
-      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on pricecharting.com" hidden>Check current price</a></div>
+      <div class="lb-actions"><a class="btn btn-sky btn-sm" id="lbUrl" href="#" rel="nofollow noopener" target="_blank" aria-label="Check the current price, opens on tcgplayer.com" hidden>Check current price</a><a class="btn btn-ghost btn-sm" id="lbPc" href="#" rel="noopener" target="_blank" aria-label="Graded prices on PriceCharting, opens on pricecharting.com" hidden>Graded prices on PriceCharting</a></div>
     </div>
   </div>
 </div>
@@ -5573,15 +5575,17 @@ ${footer(priceFooter(`${gradedRows(s).length ? `PSA 10 prices from ${gradedWho(s
     if(spA){ $('lbSpA').href=spA.getAttribute('href'); $('lbSpA').textContent='All '+spA.textContent+' cards →'; }
     // THE BUTTON NAMES WHERE IT GOES, 14 October 2026: a new tab and an
     // aria-label ending "opens on <host>", like every other outbound link, and
-    // the host read off the link itself, which follows the price shown
-    // (cardPriceLink in the builder): PriceCharting, or TCGplayer for the rare
-    // row TCGdex priced.
+    // the host read off the link itself (cardPriceLink in the builder):
+    // TCGplayer for the price, or the card's graded prices page.
     var u=$('lbUrl');
     if(d.url){
-      var pc=d.url.indexOf('pricecharting.com')>-1;
+      var pc=d.url.indexOf('tcgplayer')<0;
       u.href=d.url;u.hidden=false;
-      u.setAttribute('aria-label','Check the current price of '+d.name+' '+d.number+' on '+(pc?'PriceCharting, opens on pricecharting.com':'TCGplayer, opens on tcgplayer.com'));
+      u.textContent=pc?'Graded prices on PriceCharting':'Check current price';
+      u.setAttribute('aria-label',pc?'Graded prices for '+d.name+' '+d.number+' on PriceCharting, opens on pricecharting.com':'Check the current price of '+d.name+' '+d.number+' on TCGplayer, opens on tcgplayer.com');
     }else{u.hidden=true;}
+    var g=$('lbPc');
+    if(g){if(d.pc){g.href=d.pc;g.hidden=false;g.setAttribute('aria-label','Graded prices for '+d.name+' '+d.number+' on PriceCharting, opens on pricecharting.com');}else{g.hidden=true;}}
     $('lbNav').hidden=list.length<2;
     $('lbOf').textContent='Card '+(at+1)+' of '+list.length;
   }

@@ -129,7 +129,9 @@ export async function loadPriceBasis() {
     } else if (typeof row.ungraded !== "number") {
       guideWhy = `${p.pc.name} carries no ungraded value`;
     } else {
-      guide = row.ungraded;
+      // No guide value is used from 13 November 2026: it was PriceCharting's,
+      // which requires a paid plan to show (shared/no-pricecharting.mjs).
+      guideWhy = "PriceCharting figures are not shown on this site";
     }
     return {
       ...p,

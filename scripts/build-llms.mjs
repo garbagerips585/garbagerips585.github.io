@@ -121,8 +121,7 @@ ${L("where-to-get-a-garbage-plate.html", "Where to get a Garbage Plate", "every 
 
 ## Reference and data
 
-${L("most-valuable-cards.html", "100 most valuable raw cards", "ranked by a price guide, each figure read twice on separate days before publishing")}
-${L("top-graded.html", "100 highest PSA 10 values", "same sourcing discipline")}
+${L("most-valuable-cards.html", "100 most valuable raw cards", "ranked by TCGplayer market price, each figure read from two TCGplayer endpoints")}
 ${L("sets/", "Set guides", "one guide per English set plus international sets, with checklists, rarity ladders and chase cards")}
 ${guideLines.length ? `${guideLines.join("\n")}\n` : ""}${optional(dexIndexed, L("pokemon/", "Pokedex", `one page per Pokemon listing the cards it has been printed on; ${dexIndexed} of those pages carry dated prices`))}${L("30th-celebration.html", "Pokemon 30th Celebration", "the products, the dates, the full card list with prices, and one collector's master set progress")}
 ${L("jumbo-cards.html", "Pokemon jumbo cards", "what they are, how you get one, and what the most valuable ones are worth")}

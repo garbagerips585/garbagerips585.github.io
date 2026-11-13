@@ -168,7 +168,6 @@ const PAGES = [
   // make: it ranks one price guide's PSA 10 column, because the auction-record
   // version could not be sourced. Search copy that promises the list nobody
   // could build is how the careful title gets undone one blurb at a time.
-  ["/top-graded.html", "Highest PSA 10 values", "The 100 highest PSA 10 price guide values in Pokemon, ranked across 793 sets with the source on every row"],
 ["/games/garbage-run.html", "Garbage Run", "A one thumb arcade game for the restock line, solo or two players on one phone"],
 // THE BLURB NAMES THE DECK, NOT THE GENRE. "A memory game" is a thing a
 // thousand pages are; what nobody else has is a concentration board dealt from
@@ -218,7 +217,7 @@ const PAGES = [
   // The two ranked price lists. Both are one line each here for the reason the
   // comment above PAGES gives: four pages once shipped without one and were
   // unsearchable on a site whose nav search is the main way around it.
-  ["/most-valuable-cards.html", "Most valuable cards", "The 100 most valuable ungraded Pokemon cards in PriceCharting's guide, dated"],
+  ["/most-valuable-cards.html", "Most valuable cards", "The 100 most valuable ungraded Pokemon cards by TCGplayer market price, dated"],
   // THE TITLE LEADS WITH "TOPPS" because that is the whole of what somebody
   // types, and the blurb leads with what the cards are rather than what they are
   // worth: the commonest way to arrive at this page is holding one and not
@@ -227,7 +226,7 @@ const PAGES = [
   // price guide columns read on one day and the blurb must not upgrade that.
   ["/topps.html", "Topps Pokemon cards", "The trading cards Topps made from 1999 to 2004, every set, and how to tell one from a real TCG card"],
   ["/jumbo-cards.html", "Jumbo cards", "Oversize Pokemon cards: how big they are, which products include one, why they cannot be played, and what they are worth"],
-  ["/topps-card-values.html", "Topps card values", "Two top 100s of Topps Pokemon cards, ranked raw and by PSA 10 from PriceCharting's guide, dated"],
+  ["/topps-card-values.html", "Topps standout cards", "The Topps Pokemon trading cards collectors look for, pictured set by set"],
   ["/most-expensive-sealed.html", "Most expensive sealed", "The 100 most expensive sealed Pokemon products on TCGplayer, dated"],
   ["/hall.html", "Hall of Fame", "The best pulls on the channel"],
   ["/wanted.html", "Most wanted", "The cards still being chased"],

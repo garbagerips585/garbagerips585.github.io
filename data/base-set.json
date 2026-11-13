@@ -189,8 +189,8 @@
   },
   "worth": {
     "title": "What each one is worth",
-    "lede": "One card, three printings, one price guide, read on the same day. This is the clearest number anyone can put on the gap, and it is worth reading the three columns rather than only the big one.",
-    "note": "The PSA 10 column is where the three runs look closest and it is also where the evidence is thinnest, because a card that has not sold recently in that grade has no figure at all. The ungraded and Grade 9 columns are the ones with sales behind them, and that is where the print run actually shows up."
+    "lede": "One card, three printings. Each link opens that printing's ungraded and graded prices, and comparing them is the clearest way to see the gap.",
+    "note": "When you compare them, the PSA 10 figures are where the three runs look closest and where the evidence is thinnest, because a card that has not sold recently in that grade has no figure at all. The ungraded and Grade 9 figures are the ones with sales behind them, and that is where the print run actually shows up."
   },
   "stampPairs": {
     "title": "The same gap, on three cards",
@@ -238,7 +238,7 @@
     "The EDITION 1 stamp, the missing expansion symbol and the copyright line: read off TCGdex's own scans of Base Set on August 17, 2026. All 16 Base Set Holofoil scans TCGdex serves carry the stamp, so its Base Set is scanned from a 1st Edition copy, which is where the magnified pictures on this page come from.",
     "The 1999-2000 copyright line: read off PriceCharting's photograph of that printing on August 17, 2026, where it is legible as 1995, 96, 98 Nintendo, Creatures, GAMEFREAK. 1999-2000 Wizards.",
     "Release dates and card counts: api.pokemontcg.io, through this site's own expansion list.",
-    "Prices: PriceCharting's PSA 10 price guide, crawled August 16, 2026 and re-read from each card's own product page before publication. The sealed pack figure is TCGplayer market price, read August 16, 2026."
+    "Prices: TCGplayer market prices. Each printing's graded prices are linked to its page on PriceCharting."
   ],
   "unverified": [
     "That the yellow border is thinner on Shadowless than on Unlimited. It is repeated everywhere and we could not check it: it needs two cards measured in the hand, and a scan is cropped by whoever made it, so measuring a border off one proves nothing.",

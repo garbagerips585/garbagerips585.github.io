@@ -44,7 +44,14 @@ const PC = "https://www.pricecharting.com";
 
 const shape = (r) =>
   r && typeof r.raw === "number"
-    ? { price: r.raw, psa10: r.psa10 ?? null, source: "PriceCharting", asOf: doc.checked || null, url: r.pc ? PC + r.pc : null }
+    ? {
+        price: r.raw,
+        psa10: null,
+        source: "TCGplayer",
+        asOf: doc.checked || null,
+        url: r.pid ? `https://www.tcgplayer.com/product/${r.pid}` : null,
+        pcUrl: r.pc ? PC + r.pc : null,
+      }
     : null;
 
 /** A Classic Collection card by its printed number, "69/132". */

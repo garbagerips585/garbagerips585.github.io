@@ -509,7 +509,6 @@ export const NAV = [
     // /top-100-playable.html is "Most played" precisely so it does not join them.
     ["/most-valuable-cards.html", "Raw top 100"],
     ["/most-expensive-sealed.html", "Sealed top 100"],
-    ["/top-graded.html", "PSA 10 top 100"],
   ]],
 
   // The three things you do with money and a card, in the order you do them.

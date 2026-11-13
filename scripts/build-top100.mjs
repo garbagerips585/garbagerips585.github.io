@@ -402,79 +402,12 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 // /base-set.html.
 const top = JSON.parse(await readFile(join(ROOT, "data/top100.json"), "utf8"));
 
-// CARDS, from PriceCharting. Gated: no verify block, or a verify block stamped
-// for a different crawl, or a disagreeing row with no recorded reason, and this
-// build stops rather than printing a figure that was only read once.
-const rawFile = JSON.parse(await readFile(join(ROOT, "data/top-raw.json"), "utf8"));
-const { verified: rawOk } = gradedGate(
-  rawFile,
-  "data/top-raw.json",
-  "scripts/verify-raw-top.mjs",
-);
-
-// ---------------------------------------------------------------------------
-// THE PUBLISHED HUNDRED, ASSEMBLED HERE RATHER THAN IN THE PAGE LOOP
-// ---------------------------------------------------------------------------
-//
-// A row is published only if its RANKING column was read twice and agreed. A
-// row that failed is not printed and not renumbered around: the ranks are the
-// positions in the published list, 1 to 100 with no gaps, and how many
-// candidates were dropped and why is said in words above the list. That is the
-// same call /top-graded.html makes, and the alternative, printing the source
-// file's own rank with visible gaps, would claim to be a top 100 of something
-// while showing 96 rows.
-//
-// THE TWO GRADED FIGURES ARE GATED SEPARATELY from the row itself. A card whose
-// ungraded figure was confirmed and whose PSA 10 figure was not is still a row
-// worth printing; what it must not do is print the PSA 10. So each carries its
-// own reason string and the row prints the reason instead of the figure.
-const rawSay = {
-  none: (label) => `No ${label} value recorded for this card`,
-  onesided: (label) =>
-    `Only one of our two reads found a ${label} value for this card, so none is published`,
-  disagree: (label) => `Our two reads of this card's ${label} value did not agree, so neither is published`,
-  unreadable: (label) => `We could not read a ${label} value for this card a second time, so none is published`,
-};
-const rawCol = (c, key, label) => {
-  const v = rawOk.get(c.rank)?.cols?.[key];
-  const status = v?.status || "unreadable";
-  return status === "agree"
-    ? { value: c[key], why: "" }
-    : { value: null, why: (rawSay[status] || rawSay.unreadable)(label) };
-};
-
-const rawPublished = rawFile.cards.filter((c) => rawOk.get(c.rank)?.status === "agree").slice(0, 100);
-const RAW = {
-  checked: rawFile.checked,
-  scanned: rawFile.scanned,
-  sourceMethodology: rawFile.sourceMethodology,
-  verify: rawFile.verify,
-  excluded: rawFile.excluded,
-  notCards: rawFile.notCards,
-  items: rawPublished.map((c, i) => {
-    const g9 = rawCol(c, "g9", "Grade 9");
-    const psa10 = rawCol(c, "psa10", "PSA 10");
-    return {
-      rank: i + 1,
-      name: c.name,
-      setName: c.set,
-      price: c.ungraded,
-      g9: g9.value,
-      g9Why: g9.why,
-      psa10: psa10.value,
-      psa10Why: psa10.why,
-      url: c.url,
-      // The listing thumbnail is 60 pixels high. This is the same file at the
-      // size the box actually paints, which is the rendition /top-graded.html
-      // uses and the one verify-raw-top.mjs HEADs on every run.
-      img: c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null,
-      noImg: rawOk.get(c.rank)?.imgOk !== true,
-      // Where it sat before the rows that failed their second read were taken
-      // out. Not printed; kept so the log can say when the two differ.
-      sourceRank: c.rank,
-    };
-  }),
-};
+// CARDS, from TCGplayer again, out of the same data/top100.json as sealed.
+// From 18 August to 13 November 2026 this list was PriceCharting's ungraded
+// guide value (data/top-raw.json). PriceCharting requires a paid plan to show
+// their prices and the owner declined (shared/no-pricecharting.mjs), so it is
+// back on TCGplayer's market price for their English catalog, the source it
+// had before, with no graded columns.
 
 let noScan = { deadUrls: [] };
 try {
@@ -611,10 +544,7 @@ function row(item, kind) {
   // scan on every run; on the sealed page from sync-top100.mjs plus the dead
   // TCGplayer ids in data/no-scan.json. Either way it is known before the page
   // is written, so no reader ever spends the round trip.
-  const dead =
-    kind === "cards"
-      ? item.noImg === true
-      : item.noImg === true || DEAD.has(String(item.productId));
+  const dead = item.noImg === true || DEAD.has(String(item.productId));
   // THE STAND-IN, AND IT ONLY EVER FILLS A FRAME THAT WOULD OTHERWISE BE EMPTY.
   // Sealed only, and only where the product's own photograph is known dead.
   // Every unphotographed row on that page is a CASE, because TCGplayer
@@ -716,8 +646,8 @@ function row(item, kind) {
   // only exception links that opened in the same tab and read "(opens
   // PriceCharting)" rather than ", opens on pricecharting.com", which is the
   // shape CLAUDE.md makes the condition of every outbound link.
-  const where = kind === "cards" ? "PriceCharting" : "TCGplayer";
-  const host = kind === "cards" ? "pricecharting.com" : "tcgplayer.com";
+  const where = "TCGplayer";
+  const host = "tcgplayer.com";
   const check = `<a class="t100-check" href="${esc(item.url)}" rel="noopener nofollow" target="_blank"
       aria-label="Check ${esc(item.name)} on ${where}, opens on ${host}">check on ${where}</a>`;
 
@@ -756,15 +686,11 @@ function row(item, kind) {
   <a class="t100-name" href="${esc(link.href)}">${esc(item.name)}<span class="t100-go">, ${esc(link.why)}</span></a>
   <span class="t100-meta">${meta.join(' <i aria-hidden="true">&bull;</i> ')}</span>
   <span class="t100-set">${esc(item.setName)}</span>
-  <span class="t100-tag">${kind === "cards" ? gradedCell("g9", "Grade 9") : esc(form.label)}</span>
-  <span class="t100-count">${kind === "cards" ? gradedCell("psa10", "PSA 10") : esc(listings)}</span>
+  <span class="t100-tag">${kind === "cards" ? esc(item.rarity || "") : esc(form.label)}</span>
+  <span class="t100-count">${esc(listings)}</span>
   <span class="t100-price">
-    <b>${esc(money(kind === "cards" ? item.price : item.market))}</b>
-    ${
-      kind === "cards"
-        ? `<span class="t100-grades">${gradedCell("psa10", "PSA 10")} ${gradedCell("g9", "Grade 9")}</span>`
-        : low
-    }
+    <b>${esc(money(item.market))}</b>
+    ${low}
     ${check}
     ${flag}
   </span>${pictured ? `\n  ${pictured}` : ""}
@@ -1253,37 +1179,29 @@ const methodology = (cfg, d) =>
 const PAGES = [
   {
     key: "cards",
-    source: "pricecharting",
+    source: "tcgplayer",
     slug: "most-valuable-cards",
     og: "most-valuable-cards",
     navTitle: "Most valuable cards",
-    // %YEAR% is the year of the read date this page prints (d.checked), filled
-    // in beside %DATE% below, so the title can never name a year the prices
-    // were not read in. Reworded 11 November 2026 to lead with the query.
-    title: "Most Valuable Pokemon Cards %YEAR%: Top 100 Ungraded Prices",
+    title: "Most Valuable Pokemon Cards %YEAR%: Top 100 Raw Prices on TCGplayer",
     h1: ["The 100 most valuable ", "raw", " Pokemon cards"],
-    // "Pokemon cards", not "Pokemon TCG": thirteen of the hundred are Topps
-    // cards, and "every language" is the change this page made in August 2026
-    // and the first thing a reader should know about the list.
-    kicker: "Pokemon cards &bull; Ungraded, every language, priced by PriceCharting",
+    kicker: "Pokemon TCG &bull; Ungraded, English, priced by TCGplayer",
     lede:
-      "Every one of these is a loose card, out of a sleeve, ungraded. Ranked by PriceCharting's ungraded price " +
-      "guide value across their whole Pokemon catalog, Japanese and English together, read on the date below " +
-      "and read a second time from each card's own product page.",
+      "Every one of these is a loose card, out of a sleeve, ungraded. Ranked by TCGplayer's own market price for " +
+      "their English Pokemon catalog, read on the date below and checked against a second TCGplayer source.",
     desc:
-      "The 100 most valuable ungraded Pokemon cards by PriceCharting's price guide, read %DATE%. Every language, " +
-      "no sealed product, no auction records, with the Grade 9 and PSA 10 value beside every raw price.",
+      "The 100 most valuable ungraded Pokemon cards by TCGplayer market price, read %DATE%. English cards only, " +
+      "no graded slabs, no auction sales, with the cheapest live listing beside every market price.",
+    lineTotal: "29,911",
     excludes:
-      "Graded slabs are not what it ranks: the PSA 10 and Grade 9 values are printed on every row, but the order " +
-      "is the ungraded column and nothing else, and the list ranked the other way is our PSA 10 top 100. Auction " +
-      "and private sales are not in it either. The six and seven figure numbers people usually mean by most " +
-      "valuable are single hammer prices at auction houses, and a guide value is a computed estimate across many " +
-      "sales, which is a different kind of fact: the card at number one has a widely reported 2022 sale of about " +
-      "$5.3 million against the guide value shown here.",
-    searchBlurb: "The priciest ungraded Pokemon cards in PriceCharting's guide, ranked and dated",
+      "Graded cards are not in it: a PSA 10 of any of these is a different object at a different price and this " +
+      "feed does not carry one. Japanese cards are not in it either, because they are a separate catalog on the " +
+      "same site. Nor are the six and seven figure cards people usually mean by most valuable, because those sell " +
+      "at auction houses and private sales that TCGplayer never sees.",
+    searchBlurb: "The priciest ungraded singles on TCGplayer, ranked and dated",
     listLede:
-      "Ranked by ungraded guide value, priciest first. The picture, the name and the set take you to our page for " +
-      "it; the small link under each price opens that card on PriceCharting so you can check the figure yourself.",
+      "Ranked by market price, priciest first. The picture, the name and the set take you to our page for it; " +
+      "the small link under each price opens that card on TCGplayer so you can check the figure yourself.",
     filter: null,
   },
   {
@@ -1318,7 +1236,7 @@ const PAGES = [
 const built = [];
 
 for (const cfg of PAGES) {
-  const d = cfg.source === "pricecharting" ? RAW : top[cfg.key];
+  const d = top[cfg.key];
   if (!d?.items?.length) {
     console.log(
       `  ${cfg.slug}: nothing to build from ${
@@ -1559,10 +1477,8 @@ ${/* WHAT THIS LIST ACTUALLY IS MOVED TO THE FOOT, 24 August 2026. The owner, ab
 
     <div class="t100-head" aria-hidden="true">
       <span class="t100-h-name">Rank and name</span><span>Set</span><span>${
-        cfg.key === "sealed" ? "Form" : "Grade 9"
-      }</span><span class="t100-h-count">${cfg.key === "sealed" ? "For sale" : "PSA 10"}</span><span class="t100-h-price">${
-        cfg.key === "sealed" ? "Market price" : "Ungraded"
-      }</span>
+        cfg.key === "sealed" ? "Form" : "Rarity"
+      }</span><span class="t100-h-count">For sale</span><span class="t100-h-price">Market price</span>
     </div>
     <ol class="t100" id="t100list">
 ${items.map((i) => row(i, cfg.key)).join("\n")}
@@ -1578,7 +1494,7 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
       number. ${dead.length ? `${dead.length} of these cards have no scan in PriceCharting's catalog and show an empty frame; that is their record, not a fault here.` : ""}`
         : `Prices are TCGplayer market prices for their English Pokemon
       catalog, read on ${esc(when)} and re-read from a second TCGplayer endpoint the same day. They move daily, so
-      treat them as the shape of the market rather than a quote. Product photography is TCGplayer's, shown at the size
+      treat them as the shape of the market rather than a quote. ${cfg.key === "cards" ? "Card pictures are" : "Product photography is"} TCGplayer's, shown at the size
       these rows draw it and linked back to the product it belongs to. The link under each price leaves this site and
       opens on TCGplayer; there is no affiliate code in it and we make nothing from it, it is there so you can check the
       number. ${
@@ -1611,10 +1527,8 @@ ${items.map((i) => row(i, cfg.key)).join("\n")}
           anything anybody opened. */ ""}
     <p class="price-note" style="margin-top:var(--s4)">${
       cfg.key === "cards"
-        ? `The same catalog ranked in a slab instead is <a href="/top-graded.html">the 100 highest PSA 10 values</a>, and
-      nothing anybody opened is in <a href="/most-expensive-sealed.html">the 100 most expensive sealed products</a>.`
-        : `Loose cards rather than boxes are <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>,
-      and the same cards graded are <a href="/top-graded.html">the 100 highest PSA 10 values</a>.`
+        ? `Nothing anybody opened is in <a href="/most-expensive-sealed.html">the 100 most expensive sealed products</a>.`
+        : `Loose cards rather than boxes are <a href="/most-valuable-cards.html">the 100 most valuable raw cards</a>.`
     } Want the other half of the question? <a href="/grading.html">Is it
       worth grading?</a> does the subtraction on raw against graded prices, <a href="/pack-prices.html">pack prices by
       set</a> covers what a pack costs today, and <a href="/complete-a-set.html">cost to complete a set</a> prices the

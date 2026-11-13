@@ -504,10 +504,10 @@ const newest = [index.checked, printings.checked].filter(Boolean).sort().pop();
 // could: the meta and og descriptions are the copy Google shows, so the wrong
 // source was the version most people read. The source name comes from the same
 // default that module uses rather than being typed twice.
-const priceSourceName = index.priceSource || "PriceCharting";
+const priceSourceName = index.priceSource || "TCGplayer market price";
 const desc =
   `Search ${printings.total.toLocaleString("en-US")} Pokemon card printings across ${printings.sets} sets by name or card number, ` +
-  `with rarity and ${priceSourceName}'s current price guide value for an ungraded copy. ` +
+  `with rarity and the current ${priceSourceName} for an ungraded copy. ` +
   `Updated ${longDate(newest) || newest}.`;
 
 // DESKTOP LAYOUT, and it lives here rather than in assets-source/ui.css on
@@ -823,7 +823,7 @@ ${MENU}
     <p class="price-note"><b>Searching for a card that is not here at all?</b> Topps printed its own Pokemon
       cards from 1999 to 2004, trading cards rather than game cards, and they are in no set this box searches
       because they are not Pokemon TCG cards. <a href="/topps.html">What they are and how to spot one</a>, and
-      <a href="/topps-card-values.html">what they are worth</a>.</p>
+      <a href="/topps-card-values.html">the standout cards, set by set</a>.</p>
   </div>
 </section>
 

@@ -50,6 +50,11 @@ something in the tables below.
 
 ## The weekly price job ("Weekly price lists")
 
+> **RETIRED 13 November 2026.** Every chain in this section read PriceCharting,
+> which requires a paid plan to show their prices; the owner declined.
+> weekly-prices.yml has no schedule and scripts/weekly-run.sh exits at once.
+> The rest of this section is history. See shared/no-pricecharting.mjs.
+
 `.github/workflows/weekly-prices.yml` runs once a week, booked for Sunday 22:17
 UTC. GitHub starts it hours late, so it lands Sunday evening to about 3am
 Monday in Rochester, NY, clear of the nightly. It commits as
@@ -123,6 +128,10 @@ YOUR `.cache/pricecharting-console/`, which is only as fresh as your last
 crawl, not the nightly's; the runner's copy is the current one.
 
 ## What the nightly refreshes (nothing to do by hand)
+
+> From 13 November 2026 the PriceCharting steps are off and card prices are
+> TCGplayer market prices via TCGdex (sync-cards.mjs), plus
+> sync-30th-prices.mjs reading TCGplayer for the 30th Celebration.
 
 YouTube videos and playlists, sealed product prices, foreign set lists and
 guides, PriceCharting card prices (28 set guides nightly, the rest on a 30 day
