@@ -27,7 +27,7 @@ import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { faqBlock, FAQ_CSS } from "../shared/faq.mjs";
 import { priceNote, priceFooter, priceRead , readSpan } from "../shared/card-prices.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, psaCreditText } from "../shared/graded-price.mjs";
 // NEITHER packplayer.js NOR packs.css. Nothing on this page plays a rip where
 // it sits, so both attach to nothing: ~11.9KB gzipped and 2 requests for a
 // script that finds no tile and a stylesheet whose classes never appear.
@@ -258,9 +258,10 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
     setName: setName.get(mk?.[1] || "") || null,
   });
   const psa10 =
-    // 13 November 2026: hand typed figures only. PriceCharting requires a paid
-    // plan to show their prices and the owner chose links only for graded.
-    (typeof manual === "number" ? manual : manual?.price) ?? null;
+    // 13 November 2026: a hand typed figure, else Pokemon Price Tracker's through
+    // the shared chain (ten-sale floor and outlier guard included). PriceCharting
+    // is out: they require a paid plan to show their prices.
+    (typeof manual === "number" ? manual : manual?.price) ?? (shared?.from === "tracker" ? shared.price : null);
   // TCGdex first, the graded feed's own raw as the fallback.
   const raw = rawPrice.get(ck) ?? a.rawNm;
   if (typeof psa10 !== "number" || typeof raw !== "number" || raw <= 0) continue;
@@ -292,6 +293,7 @@ for (const [key, a] of Object.entries(psa.auto || {})) {
     netPsa: psa10 - raw - feePsa,
     netCheap: psa10 - raw - feeCheap,
     sales: a.psa10Sales ?? null,
+    psa10AsOf: manual != null ? manual?.asOf || null : shared?.asOf || a.asOf || null,
   });
 }
 rows.sort((a, b) => b.netPsa - a.netPsa);
@@ -322,7 +324,7 @@ const verdictRow = (r) => `        <li class="gr">
           <span class="gr-name">${rowShot(r)}<span>${esc(r.name)}</span></span>
           <span class="gr-set">${esc(r.set)} &bull; ${esc(r.num)}</span>
           <span class="gr-raw">${moneyExact(r.raw)}<em>raw</em></span>
-          <span class="gr-psa">${moneyExact(r.psa10)}<em>PSA 10</em></span>
+          <span class="gr-psa">${moneyExact(r.psa10)}<em>PSA 10</em><span class="psa-src">${esc(psaCreditText({ from: "tracker", asOf: r.psa10AsOf }))}</span></span>
           <span class="gr-net ${r.netPsa > 0 ? "up" : "down"}">${r.netPsa > 0 ? "+" : ""}${moneyExact(r.netPsa)}<em>after fees</em></span>
         </li>`;
 
@@ -510,7 +512,7 @@ ${MENU}
     <h2>Your <span class="hl">card</span></h2>
     <p class="lede">Put in what your card sells for raw and what it sells for in a PSA 10. The raw price is on the
       <a href="/cards.html">card search</a> and on any set guide. For the PSA 10 price, a card's pop-up on its set
-      guide links to its graded prices on PriceCharting.</p>
+      guide shows Pokemon Price Tracker's where we have one and links to its graded prices on PriceCharting.</p>
     <form class="gcalc" onsubmit="return false">
       <label>Raw price
         <input id="gRaw" type="number" min="0" step="0.01" inputmode="decimal" placeholder="25.00">
@@ -688,8 +690,9 @@ ${notWorth.slice(-12).reverse().map(verdictRow).join("\n")}
     <p class="price-note">Fees and turnarounds read on ${esc(longDate(g.checked) || g.checked)} and they change often,
       sometimes with two weeks' notice, so click through before you send anything.
       ${rows.length ? `${esc(priceNote(priceDoc, { lead: "Raw prices" }))}
-      They are the same figures the rest of this site quotes. PSA 10 figures here are typed by hand from a named
-      source. Card scans are TCGdex's, mirrored here at the size the rows draw them. ` : ""}No affiliate
+      They are the same figures the rest of this site quotes. PSA 10 figures are graded sales from Pokemon Price
+      Tracker, dated beside each one, and only for cards with at least ten recorded PSA 10 sales. The two prices
+      come from two different sources read on different days, so treat each sum as close, not exact. Card scans are TCGdex's, mirrored here at the size the rows draw them. ` : ""}No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>
   </div>

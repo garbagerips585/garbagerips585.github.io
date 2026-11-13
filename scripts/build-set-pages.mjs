@@ -14,7 +14,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { SITE } from "../shared/site.mjs";
 import { priceNote, priceFooter, priceRead , readSpan } from "../shared/card-prices.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, psaCreditText } from "../shared/graded-price.mjs";
 // NO packplayer.js, BUT packs.css STAYS. These pages wear a .pack facade as
 // decoration, so the stylesheet is doing real work; the script is not.
 // THE "On the channel" LIST IS PLAIN TEXT LINKS, which is the whole reason this
@@ -3679,6 +3679,7 @@ function hitBand(s) {
       price: gradedFor.rawForHit(h)?.price ?? (typeof h.price === "number" ? h.price : null),
       psa10: gradedFor.resolve(null, h.number, { name: h.card, setName: h.setName, logged: true })?.price
         ?? (typeof h.psa10 === "number" ? h.psa10 : null),
+      psa10Src: psaCreditText(gradedFor.resolve(null, h.number, { name: h.card, setName: h.setName, logged: true })),
       rips: [{ path: h.path, label: h.label, published: h.published }],
     })),
     ...proseCards.map((h) => ({
@@ -3756,7 +3757,7 @@ ${priced.length ? `<ul class="mine-grid mine-cols" style="${mineCols(priced.leng
           down keep moneyExact, because those really are rows where the
           number is the point. */ ""}<p class="mine-p">${typeof h.price === "number" ? moneyCompact(h.price) : "No price"}${
         typeof h.psa10 === "number" ? ` <span class="mine-psa">${moneyCompact(h.psa10)} in a 10</span>` : ""
-      }</p>
+      }</p>${typeof h.psa10 === "number" && h.psa10Src ? `<span class="psa-src">PSA 10 from ${esc(h.psa10Src)}</span>` : ""}
     ${/* THE CARD IS IN THE LINK'S NAME. Pitch Black printed ten "Watch the rip"
          links to ten different rips; out of context, which is how a screen
          reader's link list reads them, they were ten identical links.
@@ -4763,7 +4764,9 @@ function setPage(s) {
               // 2026" broke mid-date at 768 once the grid went four across. The
               // figure and the read date are each one unbroken line now, and the
               // date says it is a read date rather than leaving that to the bullet.
-              gradedAsOf(s.id, c.number, c.name, s.name) ? `<span class="pr10-d">read ${esc(longDate(gradedAsOf(s.id, c.number, c.name, s.name)))}</span>` : ""
+              // WHO AND WHEN, 13 November 2026: "Pokemon Price Tracker, Aug 12, 2026",
+              // the feed named beside its own figure rather than only in the note.
+              psaCreditText(gradedResolve(s.id, c.number, c.name, s.name)) ? `<span class="pr10-d">${esc(psaCreditText(gradedResolve(s.id, c.number, c.name, s.name)))}</span>` : ""
             }</div>`
           : ""}
       </button>${(() => {
@@ -4780,7 +4783,8 @@ function setPage(s) {
       ${noScan.map((c) => `<li class="flat-item">
         <b>${esc(c.name)}</b>${/* The same flag and link as a pictured tile, 2 October 2026. */ (pulled.get(cardNumKey(c.number)) || []).length ? ` <span class="cc-flag is-inline">We pulled it</span>` : ""}
         <span>${[c.comp ? c.comp.label : "", rarityLabel(c.rarity) || ""].filter((x, i, a) => x && a.indexOf(x) === i).map(esc).join(" &bull; ")} &bull; ${esc(numOf(s, c.number))}</span>
-        <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>
+        <span class="flat-pr">${moneyCompact(c.price)}${psa(c) ? ` &bull; PSA 10 ${moneyCompact(psa(c))}` : ""}</span>${
+          psa(c) && psaCreditText(gradedResolve(s.id, c.number, c.name, s.name)) ? `<span class="psa-src">PSA 10 from ${esc(psaCreditText(gradedResolve(s.id, c.number, c.name, s.name)))}</span>` : ""}
         ${/* "Check current price" names no card, and there can be several of
               these rows on one guide. It fires once in the whole tree today,
               on Celebrations' Mew 25, which is that set's own chase card, so
@@ -5826,7 +5830,8 @@ function indexPage() {
         ${setCardLogo(s.id, `${esc(s.name)} logo`, { eager: i < EAGER_SET_CARDS })}
         <span>
           <span class="ttl">${esc(s.name)}</span><br>
-          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name))} PSA 10` : ""}` : ""}</span>
+          <span class="meta">${s.total ?? "?"} cards${s.released ? ` &bull; ${s.released.slice(0, 4)}` : ""}${ripsBySet[s.id] ? ` &bull; ${ripsBySet[s.id]} rip${ripsBySet[s.id] === 1 ? "" : "s"}` : ""}${(s.chase || [])[0]?.price ? ` &bull; top ${moneyCompact(s.chase[0].price)}${gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name) ? ` / ${moneyCompact(gradedPrice(s.id, s.chase[0].number, s.chase[0].name, s.name))} PSA 10${
+            psaCreditText(gradedResolve(s.id, s.chase[0].number, s.chase[0].name, s.name)) ? ` (${esc(psaCreditText(gradedResolve(s.id, s.chase[0].number, s.chase[0].name, s.name)))})` : ""}` : ""}` : ""}</span>
         </span>
       </a>`).join("\n      ")}
     </div>

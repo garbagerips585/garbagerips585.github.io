@@ -27,7 +27,7 @@ import { esc, shortDate, moneyCompact, imgDims, avifPicture, rarityLabel } from 
 // priceRead(), so this page cannot stamp the checklist's date under a column of
 // dollars. See the long note beside the checklist join below.
 import { priceRead , readSpan } from "../shared/card-prices.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, psaCreditText } from "../shared/graded-price.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -187,9 +187,9 @@ for (const c of cards) {
   // date and the feed name move with the figure, so the note under the grid
   // cannot end up dating a number it is no longer describing.
   const g = gradedPrice(c.set, c.number, c.name, c.setName);
-  // 13 November 2026: no graded figure but the shared chain's, which returns only
-  // hand typed ones now; the snapshot's own psa10 (pokemonpricetracker.com) is
-  // dropped with it. The card's PriceCharting page is carried for the link.
+  // 13 November 2026: no graded figure but the shared chain's (a hand typed
+  // figure, else pokemonpricetracker.com's, credited beside it); the snapshot's
+  // own psa10 is dropped. The card's PriceCharting page is carried for the link.
   c.psa10 = null;
   c.pcUrl = gradedFor.link(c.set, c.number, { name: c.name, setName: c.setName });
   if (g != null) {
@@ -316,6 +316,10 @@ function prices(c) {
     rows.push(
       `<div class="pr pr-psa"><span class="pr-k">PSA 10</span><span class="pr-v">${moneyCompact(c.psa10)}</span></div>`
     );
+    // Who said so and when, beside the figure: "Pokemon Price Tracker, Aug 16, 2026".
+    if (/pokemonpricetracker/i.test(c.psa10Source || "")) {
+      rows.push(`<span class="psa-src">PSA 10 from ${esc(psaCreditText({ from: "tracker", asOf: c.psa10AsOf }))}</span>`);
+    }
   }
   return rows.join("");
 }

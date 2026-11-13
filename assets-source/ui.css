@@ -7750,3 +7750,9 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .pc-link{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:3;
   font:600 var(--t-micro)/1.3 var(--body);color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
 .pc-link:hover,.pc-link:focus-visible{color:var(--sky)}
+/* WHO SAID SO, BESIDE A PSA 10 FIGURE (13 November 2026): "PSA 10 from Pokemon
+   Price Tracker, Aug 16, 2026". Source text, so the quiet gray of every source
+   line, never the pink of the price it names. Block so it sits under the figure. */
+.psa-src{display:block;font:600 var(--t-micro)/1.35 var(--body);color:var(--ink-2);overflow-wrap:anywhere}
+/* Inside a nowrap price cell (/grading.html .gr-psa) the credit still wraps. */
+.gr-psa .psa-src{white-space:normal;font-weight:400;margin-top:2px}

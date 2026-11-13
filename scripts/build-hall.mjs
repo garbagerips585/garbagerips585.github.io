@@ -27,7 +27,7 @@ import { SITE } from "../shared/site.mjs";
 import { APP_JS_NO_PACKPLAYER as APP_JS, dropUnusedPacksCSS } from "../shared/chrome.mjs";
 import { loadCorpus, corpusCard } from "../shared/subset-cards.mjs";
 import { esc, shortDate, moneyCompact, noValue, rarityLabel, imgDims, cardNumKey, avifPicture } from "../shared/format.mjs";
-import { loadGradedPrices, rawForPull, gradedLinkHtml } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull, gradedLinkHtml, psaCreditText } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { readSpan } from "../shared/card-prices.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
@@ -1015,6 +1015,8 @@ function resolve(c) {
     // when the tracker did not supply the figure: a "182 sales" note under a
     // PriceCharting number would be describing a different measurement.
     psa10Sales: psaFrom === "tracker" ? auto?.psa10Sales ?? null : null,
+    // "Pokemon Price Tracker, Aug 16, 2026", printed beside the figure.
+    psa10Credit: psaFrom === "tracker" || psaFrom === "manual" ? psaCreditText(shared) : "",
     psa10Source:
       // NOT THE OWNER'S NAME. This string is PUBLISHED: it lands in
       // public/data/wanted.json and prints in the "PSA 10 prices come from"
@@ -1379,9 +1381,10 @@ const bestGradedLine = !bestGraded ? "" : (() => {
   const link = `<a href="#${esc(bestGraded.domId)}">${esc(bestGraded.name)}</a>`;
   const from = bestGraded.setName ? ` out of ${esc(bestGraded.setName)}` : "";
   const money = moneyCompact(bestGraded.psa10);
+  const cred = bestGraded.psa10Credit ? ` (${esc(bestGraded.psa10Credit)})` : "";
   return bestGradedRank === 1
-    ? `<p class="chof-best">The best graded card here is the best raw one too: ${link}${from}, ${money} in a PSA 10.</p>`
-    : `<p class="chof-best">The biggest number on this page is not at the top of it. The best graded card is ${link}${from}, ${money} in a PSA 10, and raw order puts it at ${bestGradedRank}.</p>`;
+    ? `<p class="chof-best">The best graded card here is the best raw one too: ${link}${from}, ${money} in a PSA 10${cred}.</p>`
+    : `<p class="chof-best">The biggest number on this page is not at the top of it. The best graded card is ${link}${from}, ${money} in a PSA 10${cred}, and raw order puts it at ${bestGradedRank}.</p>`;
 })();
 
 /* ------------------------------------------------ what this page ACTUALLY is
@@ -1703,7 +1706,9 @@ function plaque(c, i) {
             ${c.psa10
               ? `<div class="psa"><dt>PSA 10${c.psa10AsOf ? ` <i>${esc(shortDate(c.psa10AsOf) || c.psa10AsOf)}</i>` : ""}</dt><dd>${moneyCompact(c.psa10)}</dd></div>`
               : c.pcUrl ? `<div class="psa"><dt>Graded</dt><dd>${gradedLinkHtml(c.pcUrl, c.name, { text: "On PriceCharting" })}</dd></div>` : ""}
-          </dl>
+          </dl>${c.psa10 && c.psa10Credit ? `
+          <span class="psa-src">PSA 10 from ${esc(c.psa10Credit)}</span>` : ""}${c.psa10 && c.pcUrl ? `
+          ${gradedLinkHtml(c.pcUrl, c.name)}` : ""}
           ${c.pulledOn || c.pulledIn
             ? `<span class="chof-pulled">Pulled${c.pulledOn ? ` ${shortDate(c.pulledOn)}` : ""}${
                 c.pulledIn ? ` &bull; ${esc(c.pulledIn)}` : ""
@@ -2433,7 +2438,8 @@ const body = `
         <dl class="mvc-pr">
           ${mvc.raw ? `<div><dt>Raw NM</dt><dd>${esc(moneyCompact(mvc.raw))}</dd></div>` : ""}
           ${mvc.psa10 ? `<div><dt>PSA 10${mvc.psa10AsOf ? ` <i>${esc(shortDate(mvc.psa10AsOf))}</i>` : ""}</dt><dd>${esc(moneyCompact(mvc.psa10))}</dd></div>` : ""}
-        </dl>
+        </dl>${mvc.psa10 && mvc.psa10Credit ? `
+        <span class="psa-src">PSA 10 from ${esc(mvc.psa10Credit)}</span>` : ""}
         ${mvc.rip ? `<a class="mvc-see" href="/${esc(mvc.rip.path)}">See it pulled <span aria-hidden="true">&rarr;</span></a>` : ""}
       </div>
     </div>` : ""}
@@ -2478,8 +2484,9 @@ ${rest.map((c, i) => plaque(c, i + 1)).join("\n")}
           describing the old comparator, which is exactly how a page comes to
           contradict itself. It carries the extra fact the lede has no room
           for: the graded figure is printed but is not the key. */ ""}
-    <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. NOTHING HERE IS GRADED; THE
-      GRADED LINK ON A CARD OPENS ITS GRADED PRICES ON PRICECHARTING.
+    <p class="chof-note">RANKED ON RAW NEAR MINT, HIGHEST TO LOWEST. NOTHING HERE IS GRADED. A PSA 10 IS
+      PRINTED WHERE POKEMON PRICE TRACKER HAS ONE, WITH THE DATE IT WAS READ, AND IS NOT WHAT THE
+      ORDER IS BUILT ON; THE GRADED LINK ON A CARD OPENS ITS OTHER GRADED PRICES ON PRICECHARTING.
       A DASH MEANS NO PRICE WE ARE WILLING TO STAND BEHIND YET, NOT A CARD WORTH NOTHING.
       RAW NEAR MINT IS THE TCGPLAYER MARKET PRICE FOR AN UNGRADED COPY, THE SAME FIGURE EVERY SET GUIDE
       AND THE CARD SEARCH PRINT, FOR THE CARDS IN OUR SET CHECKLISTS; PROMOS AND NON-ENGLISH PULLS ARE PRICED BY HAND IN THE RIP LOG AND APPEAR IN NEITHER${rawSpanTxt ? `, ${rawSpanTxt.toUpperCase()}` : ""}.${psaNote}</p>

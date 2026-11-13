@@ -46,7 +46,7 @@ import { ripPath } from "../shared/paths.mjs";
 import { channelPitch } from "../shared/channel-pitch.mjs";
 import { clipMetaText } from "../shared/meta-text.mjs";
 import { loadSpeciesLinks } from "../shared/species-link.mjs";
-import { loadGradedPrices, rawForPull, gradedLinkHtml } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull, gradedLinkHtml, psaCreditText } from "../shared/graded-price.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
@@ -285,12 +285,17 @@ const GRADED_READ = JSON.parse(
   await readFile(join(ROOT, "data/graded.json"), "utf8").catch(() => "{}")
 ).checked || null;
 const firstPartner = await loadFirstPartner();
-// ONE SENTENCE FOR GRADED PRICES, which this site no longer prints (13 November
-// 2026: PriceCharting requires a paid plan to show their prices).
+// ONE SENTENCE FOR GRADED PRICES (13 November 2026). PriceCharting requires a
+// paid plan to show their prices, so their figures are links only; the PSA 10
+// figures that remain are Pokemon Price Tracker's, credited and dated beside
+// each one.
 const GRADED_NOTE =
-  "Graded prices are not shown here. Where a card has one, the Graded prices on PriceCharting link under it opens that card on pricecharting.com.";
+  "PSA 10 prices are graded sales from Pokemon Price Tracker, with the date each was read beside it. Other graded prices are not shown; the Graded prices on PriceCharting link opens a card on pricecharting.com.";
 const gradedPrice = (setId, number, name, setName) =>
   gradedFor.price(setId, number, { name, setName });
+// The credit for the same lookup: "Pokemon Price Tracker, Aug 16, 2026".
+const gradedCredit = (setId, number, name, setName, opts = {}) =>
+  psaCreditText(gradedFor.resolve(setId, number, { name, setName, ...opts }));
 
 const { videos } = JSON.parse(await readFile(join(ROOT, "public/data/videos.json"), "utf8"));
 
@@ -717,6 +722,7 @@ async function resolveHits(vid) {
            typed onto the hit rows, and the rip page never asked it. A frozen
            number should lose to a fresh one and win against nothing. */
         psa10: psaFor(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null),
+        psa10Src: gradedCredit(null, h.number || fp?.number || (pm && pm.i) || null, h.card, h.setName || fp?.setName || (pm && pm.s) || null, { logged: true }),
         pcUrl: (/pricecharting\.com/.test(h.priceUrl || "") ? h.priceUrl : null) || fp?.pcUrl
           || gradedFor.link(null, h.number || fp?.number || (pm && pm.i) || null, { name: h.card, setName: h.setName || fp?.setName || (pm && pm.s) || null }),
         // THE STAMP FOLLOWS THE RAW FIGURE THAT WON, never the hand row's date
@@ -926,6 +932,9 @@ async function resolveHits(vid) {
       psa10: m && !intl ? psaFor(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName, h.variant || null)
         : !m && !intl ? (thirtiethPrice(h)?.psa10 ?? (h.number ? psaFor(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName) : null) ?? comp?.psa10 ?? null)
         : null,
+      psa10Src: m && !intl ? gradedCredit(h.set, m.n, m.name, setData.get(h.set)?.name || h.setName, { logged: true, variant: h.variant || null })
+        : !m && !intl && h.number ? gradedCredit(h.set, h.number, h.card, setData.get(h.set)?.name || h.setName, { logged: true })
+        : "",
       // The card's PriceCharting page, printed as a "Graded prices on
       // PriceCharting" link where a graded figure used to be (13 November 2026).
       pcUrl: intl
@@ -1677,6 +1686,7 @@ const desc = (v.blurb || descriptions[v.id] || "")
     // set whose checklist has not landed. See CHECKLIST_PRICE above.
     price: chasePrice(c),
     psa10: gradedPrice(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
+    psa10Src: gradedCredit(setId, c.number, c.name, setData.get(setId)?.name || setLabel),
     pcUrl: gradedFor.link(setId, c.number, { name: c.name, setName: setData.get(setId)?.name || setLabel }),
   }));
   // WILL THE HITS BAND CARRY THE SOURCING NOTE? The chase band below prints
@@ -1715,7 +1725,8 @@ const desc = (v.blurb || descriptions[v.id] || "")
         <div>
           <b>${esc(c.name)}</b>
           <span class="chaser-rar">${esc(rarityLabel(c.rarity) || "")}${c.number ? ` &bull; #${esc(printedNo(c.number))}` : ""}</span>
-          <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>${c.pcUrl && !c.psa10 ? `
+          <span class="chaser-pr">Raw ${moneyCompact(c.price)}${c.psa10 ? ` <i>PSA 10 ${moneyCompact(c.psa10)}</i>` : ""}</span>${c.psa10 && c.psa10Src ? `
+          <span class="psa-src">PSA 10 from ${esc(c.psa10Src)}</span>` : ""}${c.pcUrl ? `
           <span class="chaser-pc">${gradedLinkHtml(c.pcUrl, c.name)}</span>` : ""}
           ${speciesMore(c.name)}
         </div>
@@ -2545,7 +2556,7 @@ ${
           <p class="hitcard-p">${
             typeof h.price === "number" ? `<b>${moneyExact(h.price)}</b> <span>raw NM</span>` : `<span class="hitcard-nop">No market price</span>`
           }</p>
-          ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>` : h.pcUrl ? `<p class="hitcard-psa">${gradedLinkHtml(h.pcUrl, h.name)}</p>` : ""}
+          ${h.psa10 ? `<p class="hitcard-psa">${moneyRound(h.psa10)} <span>PSA 10</span></p>${h.psa10Src ? `<p class="psa-src">PSA 10 from ${esc(h.psa10Src)}</p>` : ""}` : ""}${h.pcUrl ? `<p class="hitcard-psa">${gradedLinkHtml(h.pcUrl, h.name)}</p>` : ""}
           ${h.priceSource ? `<p class="hitcard-src">${esc(h.priceSource)}, ${esc(shortDate(h.priceAsOf) || h.priceAsOf)}</p>` : ""}
           ${/* A SIBLING OF .hitcard-open, NEVER INSIDE IT. That button is an
                empty overlay at z-index 2 covering the whole tile; this link

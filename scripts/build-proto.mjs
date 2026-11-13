@@ -25,7 +25,9 @@ import { labelFor, PRODUCT_TYPES } from "../shared/taxonomy.mjs";
 // has to print the same sentence about them or the site has two answers to one
 // question. See shared/card-prices.mjs.
 import { priceNote, priceRead, chaseByPrice } from "../shared/card-prices.mjs";
-import { loadGradedPrices } from "../shared/graded-price.mjs";
+import { loadGradedPrices, psaCreditText } from "../shared/graded-price.mjs";
+// "Pokemon Price Tracker, Aug 16, 2026" for a stamp the tracker supplied, else "".
+const trackerCredit = (st) => (/pokemonpricetracker/i.test(st?.source || "") ? psaCreditText({ from: "tracker", asOf: st.asOf }) : "");
 // The drops band's expiry model. NOT reimplemented here: /drops.html and this
 // page print the same rows, so "is this row still true" is answered in one
 // place for both. See shared/drops.mjs.
@@ -386,9 +388,9 @@ try {
 for (const c of wanted.cards || []) {
   if (!c.set || !c.number) continue;
   const g = gradedPrice(c.set, c.number, c.name, c.setName || setLabel(c.set));
-  // 13 November 2026: no graded figure but the shared chain's, which returns only
-  // hand typed ones now; the snapshot's own psa10 (pokemonpricetracker.com) is
-  // dropped with it. The card's PriceCharting page is carried for the link.
+  // 13 November 2026: no graded figure but the shared chain's (a hand typed
+  // figure, else pokemonpricetracker.com's, credited beside it); the snapshot's
+  // own psa10 is dropped. The card's PriceCharting page is carried for the link.
   c.psa10 = null;
   c.pcUrl = gradedFor.link(c.set, c.number, { name: c.name, setName: c.setName || setLabel(c.set) });
   if (g != null) {
@@ -1501,7 +1503,9 @@ const setsHtml = (
           <span class="set-art">${face}</span>
           <b>${esc(s.name)}</b>
           <span class="set-meta">${esc(bits.join(" · "))}</span>
-          ${topVal ? `<span class="set-top">Top card ${moneyCompact(topVal)}${showPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}
+          ${topVal ? `<span class="set-top">Top card ${moneyCompact(topVal)}${showPsa ? " <i>PSA 10</i>" : ""}</span>` : ""}${
+            !useComp && topPsa && trackerCredit(gradedStamp(s.id, top.number, top.name, s.name || setLabel(s.id)))
+              ? `<span class="psa-src">PSA 10 from ${esc(trackerCredit(gradedStamp(s.id, top.number, top.name, s.name || setLabel(s.id))))}</span>` : ""}
           ${n ? `<span class="set-rips">${n} rip${n === 1 ? "" : "s"}</span>` : ""}
         </a>`;
     })
@@ -1563,7 +1567,9 @@ const wantedHtml = (wanted.cards || [])
         ? mwArt(img, `${c.name} ${c.rarity || ""} from ${c.setName}`.replace(/\s+/g, " ").trim())
         : `<span class="mw-none">${esc(c.name)}</span>`
     }</span>
-        <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>`;
+        <b>${esc(c.name)}</b><p>${esc(c.setName.toUpperCase())} &bull; ${price}</p>${
+          c.psa10 && trackerCredit({ source: c.psa10Source, asOf: c.psa10AsOf })
+            ? `<span class="psa-src">PSA 10 from ${esc(trackerCredit({ source: c.psa10Source, asOf: c.psa10AsOf }))}</span>` : ""}`;
     // ALWAYS INTERNAL. These used to link out to prices.pokemontcg.io whenever
     // the card carried a url, which was 5 of the 6 cards, making the third band
     // on the home page the first thing that sends a visitor away. That already

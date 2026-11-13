@@ -79,7 +79,7 @@ import { labelFor } from "../shared/taxonomy.mjs";
 // .mjs exists because ten builders each held a private copy of the sourcing
 // sentence and the source moved under all ten. This page prints both, so it
 // calls both.
-import { loadGradedPrices, rawForPull } from "../shared/graded-price.mjs";
+import { loadGradedPrices, rawForPull, psaCreditText } from "../shared/graded-price.mjs";
 import { loadFirstPartner } from "../shared/first-partner.mjs";
 import { priceForHit as thirtiethPrice } from "../shared/thirtieth-prices.mjs";
 import { loadCompanionCards, companionForHit } from "../shared/companion-cards.mjs";
@@ -1836,7 +1836,8 @@ const prodCard = (r, rank) => {
     c
       ? `<span class="pc-best"><em>${kind}</em><a href="/${esc(c.v.path)}">${esc(c.name)}</a><b>${esc(moneyCompact(kind === "Best PSA 10" ? c.psa : c.raw))}</b>${
           c.setName ? `<i>${esc(c.setName)}</i>` : ""
-        }</span>`
+        }${kind === "Best PSA 10" && /pokemonpricetracker/i.test(c.psaSource || "")
+          ? `<span class="psa-src">PSA 10 from ${esc(psaCreditText({ from: "tracker", asOf: c.psaAsOf }))}</span>` : ""}</span>`
       : "";
   return `        <article class="pcard${enough ? "" : " pcard--thin"}">
           <h3>${shot
@@ -2048,7 +2049,9 @@ ${
     ? `        <div class="bestc">
           <span>Best card, PSA 10</span>
           <b>${esc(moneyCompact(bestPsaCard.psa))}</b>
-          <a href="/${esc(bestPsaCard.v.path)}">${esc(bestPsaCard.name)}${bestPsaCard.setName ? `, ${esc(bestPsaCard.setName)}` : ""}</a>
+          <a href="/${esc(bestPsaCard.v.path)}">${esc(bestPsaCard.name)}${bestPsaCard.setName ? `, ${esc(bestPsaCard.setName)}` : ""}</a>${
+            /pokemonpricetracker/i.test(bestPsaCard.psaSource || "") ? `
+          <span class="psa-src">PSA 10 from ${esc(psaCreditText({ from: "tracker", asOf: bestPsaCard.psaAsOf }))}</span>` : ""}
           <p>${/* THE SUBSET IS NAMED IN THE SENTENCE AND NOT IN A FOOTNOTE. A graded
                 figure exists for a small minority of these cards, so a ranking over
                 it is a ranking of that minority and reads as a ranking of the lot

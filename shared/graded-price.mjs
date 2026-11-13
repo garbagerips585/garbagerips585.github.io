@@ -406,7 +406,6 @@ export async function loadGradedPrices() {
   // checklist figure for a printing the row did not name is refused (see
   // offPrinting() at the top of this file). `variant` is the row's own printing.
   function resolveUnguarded(setId, number, { name = null, setName = null, logged = false, variant = null } = {}) {
-    const pccFits = (rec) => rec && !(logged && offPrinting(rec.variant, variant));
     const manualRec = at(psa10.prices, setId, number) ?? at(psa10, setId, number);
     const manual = gnum(manualRec);
     if (manual) {
@@ -423,63 +422,14 @@ export async function loadGradedPrices() {
       };
     }
 
-    /* NO GRADED FIGURE BUT THE OWNER'S OWN, FROM 13 NOVEMBER 2026. Below this
-       line the chain read PriceCharting (graded.json and the card files) and
-       then pokemonpricetracker.com (psa10.json `auto`). PriceCharting requires
-       a paid plan to show their prices and the owner declined; asked what graded
-       values should become, he chose links only: "Graded prices on PriceCharting"
-       where a figure used to be (see link() below). So nothing past a hand typed
-       figure is returned. psa10.json `auto` is still on disk and untouched. */
-    return null;
-    const hit = name && setName ? pricecharting(name, setName, number) : null;
-    /* THE NEWER OF THE TWO PRICECHARTING READS WINS, 23 September 2026. Tier 2
-       is data/graded.json, one hand-run crawl stamped August 23; tier 3 is the
-       nightly checklist read of the SAME product pages. Tier 2 always won, so
-       104 of the Hall's 151 PSA 10s were a month old while tonight's figure sat
-       one tier down (Mienshao $155 against $305, Rampardos ex $37.41 against
-       $14). Same source, so the fresher read is simply the better one; tier 2
-       still answers wherever the nightly has no row, which is every promo.
-
-       ONE COMPARISON, WRITTEN ONCE, since 11 November 2026: newerRead() at the
-       top of this file. The graded row is dated by gradedRead(), which takes a
-       row's own date before the file's, so the day sync-pricecharting.mjs
-       starts stamping each row (a partial re-read, a resumed run) this needs no
-       edit. Measured that day over the 242 printings both reads hold: the
-       card file was newer on all 242 (10 November against 13 October), so this
-       rewrite moved no figure on any page; the weekly run is what will make the
-       tie and the graded.json-is-newer branches live. */
-    const pcc = at(pcCards, setId, number);
-    const card = pccFits(pcc) && typeof pcc.psa10 === "number" ? pcc : null;
-    const fromCard = () => ({
-      price: card.psa10,
-      from: "pricecharting",
-      source: card.source,
-      asOf: card.asOf,
-      url: card.url,
-      // Null for the same reason the graded.json branch is null: PriceCharting
-      // publishes no sale count, and a "279 sales" note under its number would
-      // be describing the other feed's measurement.
-      sales: null,
-    });
-    if (hit && card && newerRead(card.asOf, gradedRead(hit))) return fromCard();
-    if (hit) {
-      return {
-        price: hit.psa10,
-        from: "pricecharting",
-        source: pc.source || "pricecharting.com",
-        // THE DATE OF THIS READ, which today is the file's: data/graded.json is
-        // a snapshot taken by one crawl and stamps the whole file. A row that
-        // carries its own date is dated by it. See gradedRead().
-        asOf: gradedRead(hit),
-        url: hit.url || null,
-        sales: null,
-      };
-    }
-
-    // The same PriceCharting figure /grading.html has always used, for every
-    // printing data/graded.json holds no row for.
-    if (card) return fromCard();
-
+    /* NO PRICECHARTING FIGURE, FROM 13 NOVEMBER 2026. The chain used to read
+       PriceCharting here (data/graded.json and the card files) before falling
+       to pokemonpricetracker.com. PriceCharting requires a paid plan to show
+       their prices and the owner declined, so those tiers are gone and the
+       PriceCharting page is offered as a link instead (see link() below).
+       Pokemon Price Tracker's PSA 10 stays: their terms allow free display on
+       a non-commercial site, and the owner chose to keep it the same day. Each
+       figure is credited to them, with its own date, wherever it prints. */
     const a = at(psa10.auto, setId, number);
     if (!a?.psa10) return null;
     if (a.psa10Sales != null && a.psa10Sales < MIN_SALES) return null;
@@ -598,4 +548,27 @@ export function gradedLinkHtml(url, name = "", { text = "Graded prices on PriceC
   if (!url) return "";
   const who = name ? ` for ${name}` : "";
   return `<a class="${cls}" href="${escAttr(url)}" target="_blank" rel="noopener" aria-label="${escAttr(`Graded prices${who} on PriceCharting, opens on pricecharting.com`)}">${text}</a>`;
+}
+
+/* WHO SAID SO, NEXT TO EVERY PSA 10 FIGURE. From 13 November 2026 the only PSA
+   10 prices on the site come from Pokemon Price Tracker (pokemonpricetracker.com,
+   free for a non-commercial site under their terms; no logo, no endorsement
+   implied) or are typed by the owner. So each printed figure carries its source
+   and its own read date, right beside it, not in a footnote. */
+export const PPT_NAME = "Pokemon Price Tracker";
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+export function psaDate(asOf) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(asOf || "");
+  return m ? `${MONTHS[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}` : "";
+}
+/** Plain text: "Pokemon Price Tracker, Aug 16, 2026", or "" for the owner's own figure. */
+export function psaCreditText(rec) {
+  if (!rec || rec.from === "manual") return rec?.asOf ? `typed by hand, ${psaDate(rec.asOf)}` : "";
+  const d = psaDate(rec.asOf);
+  return d ? `${PPT_NAME}, ${d}` : PPT_NAME;
+}
+/** The same, as a small span a page can style (class psa-src). */
+export function psaCreditHtml(rec, cls = "psa-src") {
+  const t = psaCreditText(rec);
+  return t ? `<span class="${cls}">${escAttr(t)}</span>` : "";
 }
