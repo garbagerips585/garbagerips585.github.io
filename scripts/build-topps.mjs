@@ -223,6 +223,7 @@ import { esc, longDate, shortDate, moneyCompact, moneyExact, noValue, imgDims, a
 // price. Read shared/graded-gate.mjs before relaxing anything here.
 import { gradedGate } from "../shared/graded-gate.mjs";
 import { gradedLinkHtml } from "../shared/graded-price.mjs";
+import { notPricecharting } from "../shared/pc-assets.mjs";
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const d = JSON.parse(await readFile(join(ROOT, "data/topps-top.json"), "utf8"));
@@ -877,13 +878,14 @@ const noDot = (s) => String(s).replace(/[.\s]+$/, "");
 
 /** The 240 rendition of a ranked row's scan, or null. Shared by the rows and
     the five-row summaries so the two cannot disagree about which have one. */
-const scanSrc = (c) => (ok.get(c.rank)?.imgOk && c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null);
+// Never a PriceCharting picture (shared/pc-assets.mjs), which today is every one.
+const scanSrc = (c) => notPricecharting(ok.get(c.rank)?.imgOk && c.pcImg ? c.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null);
 
 const frame = (img) => `<span class="tp-frame">${img}</span>`;
 
 /** A verified PriceCharting picture. NO width or height: see the CSS block. */
 function pcPic(p, alt, { lazy = true } = {}) {
-  if (!p || !p.ok || !p.img) return "";
+  if (!p || !p.ok || !notPricecharting(p.img)) return "";
   return `<img src="${esc(p.img)}" alt="${esc(alt)}"${lazy ? ' loading="lazy"' : ""} decoding="async">`;
 }
 
@@ -971,6 +973,8 @@ const versus = (() => {
   const t = pics.compare?.topps;
   const g = pics.compare?.tcg;
   if (!t?.ok || !g) return "";
+  // No Topps half, no comparison: half of a side by side is not one.
+  if (!notPricecharting(t.img)) return "";
   const toppsImg = pcPic(
     t,
     `${t.name}, a Topps trading card: a still of Charizard from the anime printed on plain card ` +
@@ -1024,7 +1028,7 @@ ${MENU}
         everybody does know about.</p>
     </div>
     ${
-      pics.hero?.ok
+      pics.hero?.ok && notPricecharting(pics.hero.img)
         ? `<figure class="tp-hero-fig">
       ${frame(
         pcPic(
@@ -1066,7 +1070,7 @@ ${MENU}
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">${releases.length}</div><div class="l">Topps Pokemon sets, ${setYears[0]} to ${setYears[setYears.length - 1]}</div></div>
       <div class="fact"><div class="n">${usSets.length}</div><div class="l">Sold in the States</div></div>
-      <div class="fact"><div class="n">${CARDS.length}</div><div class="l">Standout cards pictured on <a href="/topps-card-values.html">the card list</a></div></div>
+      <div class="fact"><div class="n">${CARDS.length}</div><div class="l">Standout cards on <a href="/topps-card-values.html">the card list</a></div></div>
     </div>
   </div>
 </section>
@@ -1205,7 +1209,7 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
   <div class="wrap">
     <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Where to go next</p>
     <h2>The prices, and the rest of the <span class="hl">site</span></h2>
-    <p class="lede" style="max-width:44em"><a href="/topps-card-values.html">The Topps card list</a> pictures
+    <p class="lede" style="max-width:44em"><a href="/topps-card-values.html">The Topps card list</a> names
       ${CARDS.length} standout cards set by set, each linked to its prices on PriceCharting. This site does not
       print Topps prices itself.</p>
     <p style="max-width:44em">Elsewhere: <a href="/most-valuable-cards.html">the 100 most valuable raw Pokemon
@@ -1219,15 +1223,10 @@ ${facts.tells.map((t) => defCard(t.tell, t.detail, t.source)).join("\n")}
     <p style="max-width:44em"><b>Set names, dates, card counts and what each subset is:</b> Bulbapedia, read
       ${esc(longDate(facts.read) || facts.read)}. One page per set, and each set card above names the one it came
       from. Thanks to them for keeping it.</p>
-    <p style="max-width:44em"><b>Card scans and the packaging photographs:</b> pricecharting.com. The pack and
-      box photographs are theirs, and they are the reason this
-      page can show you what a 1999 Topps wrapper looked like at all: nothing else we could reach has one.
-      ${releases.length - pics.sets.filter((x) => x.pack).length} of the ${releases.length} sets have no
-      packaging photograph in their catalog, and those show a card and say nothing about packaging rather
-      than borrowing a picture from a set next to them. Every picture on this page was fetched and checked
-      before it was published.</p>
-    <p style="max-width:44em"><b>The Pokemon TCG card in the comparison:</b> TCGdex
-      (assets.tcgdex.net), which is where the card scans on this site's set guides come from.</p>
+    <p style="max-width:44em"><b>No pictures of Topps cards or packaging:</b> the ones this page used to show were
+      PriceCharting's, and since 13 November 2026 this site no longer shows PriceCharting's prices or pictures.
+      Each card's PriceCharting page, linked from <a href="/topps-card-values.html">the card list</a>, has its
+      picture.</p>
     <p style="max-width:44em"><b>Not sourced, and therefore not said here:</b> who Topps signed the Pokemon
       license with, how many of anything was printed, what a pack cost, and any odds of pulling anything.</p>
     <p style="max-width:44em">Card images are the property of their respective owners and appear here for
@@ -1255,12 +1254,24 @@ ${APP_JS}
 // keeps it in body copy.
 const valuesTitle = "Topps Pokemon Cards: The Standouts, Set by Set";
 const valuesDesc =
-  `${CARDS.length} standout Topps Pokemon trading cards from ${releases.length} sets, pictured set by set and ` +
+  `${CARDS.length} standout Topps Pokemon trading cards from ${releases.length} sets, listed set by set and ` +
   `in card number order, each linked to its prices on PriceCharting. Topps cards are not Pokemon TCG cards.`;
 
 /** One card on the list: the picture, the name, the set, and its price page. No figure. */
 function cardRow(c) {
   const src = scanSrc(c);
+  // NO PICTURE, NO PICTURE BOX (13 November 2026). Every scan here was
+  // PriceCharting's and none is printed now (shared/pc-assets.mjs), so 156
+  // identical "No scan" boxes would be the whole page. The row is the name.
+  if (!src) {
+    return `<li class="tp-row tp-row--text">
+  <span class="tp-body">
+    <span class="tp-name">${esc(c.name)}</span>
+    <span class="tp-set">${esc(c.set)}</span>
+    ${c.url ? `<span class="tp-src">${gradedLinkHtml(c.url, c.name, { text: "Prices on PriceCharting" })}</span>` : ""}
+  </span>
+</li>`;
+  }
   const img = src
     ? `<img class="tp-scan" src="${esc(src)}" alt="" loading="lazy" decoding="async" onerror="this.remove()">`
     : `<span class="tp-noscan">No scan<span class="sr-only"> available for this card</span></span>`;
@@ -1281,12 +1292,46 @@ for (const c of CARDS) {
   else bySet.push({ set: c.set, cards: [c] });
 }
 
+/* HOW THE STANDOUTS SPREAD ACROSS THE SETS, as a drawn chart. The rows below
+   lost their scans with the PriceCharting pictures, and this is the one picture
+   the list itself can honestly supply: counted from CARDS, never typed. */
+const spreadChart = (() => {
+  if (!bySet.length) return "";
+  const max = Math.max(...bySet.map((g) => g.cards.length));
+  const rowH = 30;
+  // Wide enough for "2004 Topps Advanced Challenge Pop Up" at 12px.
+  const labelW = 250;
+  const barW = 260;
+  const h = bySet.length * rowH + 8;
+  const bars = bySet
+    .map((g, i) => {
+      const y = i * rowH + 4;
+      const w = Math.max(2, Math.round((g.cards.length / max) * barW));
+      return `<text x="${labelW - 8}" y="${y + 19}" text-anchor="end" class="tpc-l">${esc(g.set)}</text>` +
+        `<rect x="${labelW}" y="${y + 6}" width="${w}" height="18" rx="3" class="tpc-b"/>` +
+        `<text x="${labelW + w + 6}" y="${y + 19}" class="tpc-n">${g.cards.length}</text>`;
+    })
+    .join("");
+  return `<figure class="tpc">
+      <svg viewBox="0 0 ${labelW + barW + 40} ${h}" role="img" aria-label="${esc(
+        `Standout cards per set: ${bySet.map((g) => `${g.set} ${g.cards.length}`).join(", ")}`,
+      )}">${bars}</svg>
+      <figcaption class="tp-cap">How many of the ${CARDS.length} standouts each set holds.</figcaption>
+    </figure>`;
+})();
+
 const values = `${head(valuesTitle, valuesDesc, "topps-card-values", "topps-card-values", ldFor("Topps card list", valuesTitle, valuesDesc, "topps-card-values"))}
 <style>${CSS}
 .tp-norank .tp-row{grid-template-columns:64px 1fr}
+.tp-norank .tp-row--text{grid-template-columns:1fr}
+.tpc{margin:var(--s5) 0 0;max-width:640px}
+.tpc svg{width:100%;height:auto;display:block}
+.tpc-l{font:600 12px var(--body);fill:var(--ink)}
+.tpc-n{font:700 12px var(--mono);fill:var(--ink-2)}
+.tpc-b{fill:var(--ink-2);opacity:.55}
 .tp-norank .tp-src a{font-family:var(--sans,inherit);font-size:13px}
 @media (min-width:560px){.tp-norank .tp-row{grid-template-columns:84px 1fr}}
-@media (min-width:900px){.tp-norank .tp-row{grid-template-columns:100px 1fr}.tp-norank .tp-body{display:block}}</style>
+@media (min-width:900px){.tp-norank .tp-row{grid-template-columns:100px 1fr}.tp-norank .tp-row--text{grid-template-columns:1fr}.tp-norank .tp-body{display:block}}</style>
 </head>
 <body>
 ${SKIP}
@@ -1308,6 +1353,7 @@ ${MENU}
 <section class="tight">
   <div class="wrap">
     <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a> / <a href="/topps.html">Topps Pokemon cards</a> / The standouts</nav>
+    ${spreadChart}
 ${bySet
   .map(
     (g) => `    <h2 style="margin-top:var(--s6)">${esc(g.set)} <span class="hl">${g.cards.length}</span></h2>
@@ -1317,8 +1363,7 @@ ${g.cards.map(cardRow).join("\n")}
   )
   .join("\n")}
     <p class="price-note" style="margin-top:var(--s5)">This site does not print Topps prices. The link under each
-      card leaves this site and opens that card on PriceCharting. Card scans are PriceCharting's, shown at the size
-      these rows draw them.</p>
+      card leaves this site and opens that card on PriceCharting, where its picture is too.</p>
     <p class="price-note">Card images are the property of their respective owners and appear here for
       identification. Pokemon and all card artwork are trademarks of The Pokemon Company, Nintendo, Game Freak
       and Creatures Inc. Topps is a trademark of its owner. This is a fan page and none of them are involved

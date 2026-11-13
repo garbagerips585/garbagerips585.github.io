@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Is It Worth Grading Pokemon Cards? PSA Costs and Break Even</title>
-<meta name="description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS, TAG and SGC, and the break even math for your own card.">
+<meta name="description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS, TAG and SGC, and the break even math on 175 real cards.">
 <link rel="canonical" href="https://garbagerips.com/grading.html">
 <meta property="og:title" content="Is it worth grading? The actual math">
-<meta property="og:description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS, TAG and SGC, and the break even math for your own card. PSA's cheapest tier is now $80.">
+<meta property="og:description" content="What Pokemon card grading actually costs in 2026, PSA against CGC, BGS, TAG and SGC, and the break even math on 175 real cards. PSA's cheapest tier is now $80.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://garbagerips.com/grading.html">
 <meta property="og:site_name" content="Garbage Rips 585">
@@ -23,10 +23,11 @@
 <meta name="theme-color" content="#192D22">
 <link rel="preload" href="/assets/fonts/titan-one--khykw.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/fonts.css?v=5dc04632">
-<link rel="stylesheet" href="/assets/ui.css?v=aeabc886"><style data-pcss>.gc-grid{display:grid;gap:var(--s4);margin-top:var(--s5)}.gc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
+<link rel="stylesheet" href="/assets/ui.css?v=c58eb867"><style data-pcss>.gc-grid{display:grid;gap:var(--s4);margin-top:var(--s5)}.gc{background:var(--card);border:1px solid var(--hair);border-radius:var(--r);
   padding:var(--s5);box-shadow:var(--lift);display:flex;flex-direction:column;gap:6px}.gc-price{font:400 1.7rem/1 var(--display);color:var(--ketchup-deep)}.gc-turn{font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);text-transform:uppercase;
   letter-spacing:.04em}.gc-note,.gc-resale{font-size:var(--t-sm);color:var(--ink-2);line-height:1.6}.gc-sub{font:400 var(--t-m)/1.2 var(--display);margin-top:var(--s6)}.gcalc{display:grid;gap:var(--s3);margin-top:var(--s4)}.gcalc input:focus,.gcalc select:focus{outline:3px solid var(--gold);outline-offset:2px}.gcalc-out{margin-top:var(--s4);padding:var(--s5);background:var(--card);border:1px solid var(--hair);
-  border-radius:var(--r);box-shadow:var(--lift)}.gcalc-hint{color:var(--ink-2);font-size:var(--t-sm)}.gcalc-verdict{font:400 var(--t-l)/1.1 var(--display)}.gcalc-verdict.down{color:var(--ketchup-deep)}.gcalc-sum{font-size:var(--t-sm);margin-top:8px;line-height:1.7}.gr-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm)}.gr-net{grid-row:1 / span 2;grid-column:4;font-size:var(--t-m)}.gr-net.down{color:var(--ketchup-deep)}@media(max-width:560px){.gr-name,.gr-set{grid-column:1 / -1}.gr-net{grid-row:3;grid-column:3}}@media(min-width:720px){.gc-grid{grid-template-columns:repeat(2,1fr)}.gcalc{grid-template-columns:repeat(3,1fr)}}@media(min-width:1000px){.gc-grid{grid-template-columns:repeat(4,1fr)}}.gcalc{max-width:64em}@media(max-width:360px){.gr-raw,.gr-psa,.gr-net{white-space:normal}.gr-net{grid-row:4;grid-column:1 / -1;text-align:left}}</style>
+  border-radius:var(--r);box-shadow:var(--lift)}.gcalc-hint{color:var(--ink-2);font-size:var(--t-sm)}.gcalc-verdict{font:400 var(--t-l)/1.1 var(--display)}.gcalc-sum{font-size:var(--t-sm);margin-top:8px;line-height:1.7}.gr-list{list-style:none;display:grid;gap:2px;margin-top:var(--s4)}.gr-name{grid-row:1;grid-column:1;font-weight:700;font-size:var(--t-sm)}.gr-set{grid-row:2;grid-column:1;font:700 var(--t-micro)/1.5 var(--mono);color:var(--ink-2);
+  text-transform:uppercase;letter-spacing:.03em}.gr-raw,.gr-psa,.gr-net{font:700 var(--t-sm)/1.3 var(--mono);text-align:right;white-space:nowrap}.gr-raw{grid-row:1 / span 2;grid-column:2;color:var(--ink-2)}.gr-psa{grid-row:1 / span 2;grid-column:3;color:var(--ink)}.gr-net{grid-row:1 / span 2;grid-column:4;font-size:var(--t-m)}.gr-net.down{color:var(--ketchup-deep)}@media(max-width:560px){.gr-name,.gr-set{grid-column:1 / -1}.gr-raw{grid-row:3;grid-column:1;text-align:left}.gr-psa{grid-row:3;grid-column:2;text-align:center}.gr-net{grid-row:3;grid-column:3}}@media(min-width:720px){.gc-grid{grid-template-columns:repeat(2,1fr)}.gcalc{grid-template-columns:repeat(3,1fr)}}@media(min-width:1000px){.gc-grid{grid-template-columns:repeat(4,1fr)}}.gcalc{max-width:64em}@media(max-width:360px){.gr-raw,.gr-psa,.gr-net{white-space:normal}.gr-raw{grid-row:3;grid-column:1;text-align:left}.gr-psa{grid-row:3;grid-column:2;text-align:left}.gr-net{grid-row:4;grid-column:1 / -1;text-align:left}}.gr-psa .psa-src{white-space:normal;font-weight:400;margin-top:2px}</style>
 <style>.faq-sec{padding:var(--s6) 0}
 .faq-sec h2{font:400 var(--t-l)/1.15 var(--display);margin-bottom:var(--s2)}
 .faq-sec .faq-intro{color:var(--ink-2);max-width:44em;margin-bottom:var(--s3)}
@@ -48,7 +49,7 @@
 @media(prefers-reduced-motion:reduce){.plate-rule:active svg{transform:none}}
 @media(min-width:1000px){.plate-rule{max-width:none}}</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://garbagerips.com/"},{"@type":"ListItem","position":2,"name":"Grading"}]}</script>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips.com/grading.html#faq","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. A 9 is worth far less than a 10, so work it out on the 10 as the best case and not the expected one."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","@id":"https://garbagerips.com/grading.html#faq","mainEntity":[{"@type":"Question","name":"How much does it cost to grade a Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance."}},{"@type":"Question","name":"Is it worth grading my Pokemon card?","acceptedAnswer":{"@type":"Answer","text":"Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 175 cards we hold both prices for, 149 would clear PSA's current fee and 26 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case."}}]}</script>
 <!--analytics:start--><script>(function(){var n=navigator;if(/^(localhost|127\.0\.0\.1|\[::1\])$|\.localhost$/.test(location.hostname))return;if(n.globalPrivacyControl===true||n.doNotTrack==="1"||window.doNotTrack==="1"||n.msDoNotTrack==="1")return;window.dataLayer=window.dataLayer||[];window.gtag=function(){dataLayer.push(arguments)};gtag('js',new Date());gtag('config','G-Q1D034VG72');var d=false,g=function(){if(d)return;d=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=G-Q1D034VG72';document.head.appendChild(s)};var t=Date.now(),i=function(){setTimeout(function(){window.requestIdleCallback?requestIdleCallback(g,{timeout:3000}):g()},Math.max(0,1500-(Date.now()-t)))};if(document.readyState==='complete')i();else addEventListener('load',i,{once:true});setTimeout(g,10000);addEventListener('pointerdown',g,{once:true,passive:true});})();</script><!--analytics:end--></head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -204,7 +205,7 @@
     <div class="facts" style="margin-top:20px">
       <div class="fact"><div class="n">$79.99</div><div class="l">Cheapest PSA tier</div></div>
       <div class="fact"><div class="n">$15.00</div><div class="l">Cheapest of these five (SGC)</div></div>
-      
+      <div class="fact"><div class="n">149/175</div><div class="l">Cards that clear the PSA fee</div></div>
       <div class="fact wide"><div class="n" style="font-size:1.15rem">August 13, 2026</div><div class="l">Fees last checked</div></div>
     </div>
   </div>
@@ -272,7 +273,7 @@
     <h2>Your <span class="hl">card</span></h2>
     <p class="lede">Put in what your card sells for raw and what it sells for in a PSA 10. The raw price is on the
       <a href="/cards.html">card search</a> and on any set guide. For the PSA 10 price, a card's pop-up on its set
-      guide links to its graded prices on PriceCharting.</p>
+      guide shows Pokemon Price Tracker's where we have one and links to its graded prices on PriceCharting.</p>
     <form class="gcalc" onsubmit="return false">
       <label>Raw price
         <input id="gRaw" type="number" min="0" step="0.01" inputmode="decimal" placeholder="25.00">
@@ -298,7 +299,251 @@
   </div>
 </section>
 
+<section class="band-sky tight">
+  <div class="wrap">
+    <p class="sec-label"><svg class="flower" aria-hidden="true"><use href="#fc-flower"/></svg>Real cards</p>
+    <h2>149 of 175 cards <span class="hl">clear the fee</span></h2>
+    <p class="lede">Every card from our sets where we hold both a raw price and a PSA 10 price, with
+      $80 plus about $15 shipping subtracted. This is the upside, not the
+      expectation: every figure below assumes the card comes back a 10, and nothing here says how likely that
+      is.</p>
 
+    <h3 class="gc-sub">Worth it, best first</h3>
+    <ol class="gr-list">
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-161-umbreon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Umbreon ex</span></span>
+          <span class="gr-set">Prismatic Evolutions &bull; 161</span>
+          <span class="gr-raw">$1,173.04<em>raw</em></span>
+          <span class="gr-psa">$6,149.99<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net up">+$4,881.96<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/paldea-evolved-203-magikarp-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Magikarp</span></span>
+          <span class="gr-set">Paldea Evolved &bull; 203</span>
+          <span class="gr-raw">$289.66<em>raw</em></span>
+          <span class="gr-psa">$4,075.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 22, 2026</span></span>
+          <span class="gr-net up">+$3,690.35<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/paldean-fates-232-mew-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mew ex</span></span>
+          <span class="gr-set">Paldean Fates &bull; 232</span>
+          <span class="gr-raw">$817.75<em>raw</em></span>
+          <span class="gr-psa">$3,074.99<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 22, 2026</span></span>
+          <span class="gr-net up">+$2,162.25<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-130-mega-charizard-x-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard X ex</span></span>
+          <span class="gr-set">Phantasmal Flames &bull; 130</span>
+          <span class="gr-raw">$183.66<em>raw</em></span>
+          <span class="gr-psa">$2,206.57<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$1,927.92<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-294-mega-charizard-y-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard Y ex</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 294</span>
+          <span class="gr-raw">$211.88<em>raw</em></span>
+          <span class="gr-psa">$2,160.49<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 16, 2026</span></span>
+          <span class="gr-net up">+$1,853.62<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-105-seismitoad-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Seismitoad</span></span>
+          <span class="gr-set">Black Bolt &bull; 105</span>
+          <span class="gr-raw">$192.88<em>raw</em></span>
+          <span class="gr-psa">$2,108.75<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$1,820.88<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-276-pikachu-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Pikachu ex</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 276</span>
+          <span class="gr-raw">$537.59<em>raw</em></span>
+          <span class="gr-psa">$2,378.31<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 16, 2026</span></span>
+          <span class="gr-net up">+$1,745.73<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-284-mega-gengar-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Gengar ex</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 284</span>
+          <span class="gr-raw">$584.74<em>raw</em></span>
+          <span class="gr-psa">$2,199.99<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 16, 2026</span></span>
+          <span class="gr-net up">+$1,520.26<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-125-mega-charizard-x-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Charizard X ex</span></span>
+          <span class="gr-set">Phantasmal Flames &bull; 125</span>
+          <span class="gr-raw">$548.42<em>raw</em></span>
+          <span class="gr-psa">$1,962.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$1,318.59<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/151-199-charizard-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Charizard ex</span></span>
+          <span class="gr-set">151 &bull; 199</span>
+          <span class="gr-raw">$291.94<em>raw</em></span>
+          <span class="gr-psa">$1,455.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 22, 2026</span></span>
+          <span class="gr-net up">+$1,068.07<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-156-sylveon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Sylveon ex</span></span>
+          <span class="gr-set">Prismatic Evolutions &bull; 156</span>
+          <span class="gr-raw">$375.70<em>raw</em></span>
+          <span class="gr-psa">$1,525.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net up">+$1,054.31<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-290-mega-dragonite-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Dragonite ex</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 290</span>
+          <span class="gr-raw">$396.95<em>raw</em></span>
+          <span class="gr-psa">$1,447.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 16, 2026</span></span>
+          <span class="gr-net up">+$955.56<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/ascended-heroes-295-mega-dragonite-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Dragonite ex</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 295</span>
+          <span class="gr-raw">$143.92<em>raw</em></span>
+          <span class="gr-psa">$1,187.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 16, 2026</span></span>
+          <span class="gr-net up">+$948.59<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/prismatic-evolutions-155-espeon-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Espeon ex</span></span>
+          <span class="gr-set">Prismatic Evolutions &bull; 155</span>
+          <span class="gr-raw">$237.01<em>raw</em></span>
+          <span class="gr-psa">$1,224.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net up">+$892.50<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-171-victini-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Victini</span></span>
+          <span class="gr-set">Black Bolt &bull; 171</span>
+          <span class="gr-raw">$608.46<em>raw</em></span>
+          <span class="gr-psa">$1,537.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$833.55<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-105-oshawott-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Oshawott</span></span>
+          <span class="gr-set">White Flare &bull; 105</span>
+          <span class="gr-raw">$68.60<em>raw</em></span>
+          <span class="gr-psa">$970.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$806.41<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-173-reshiram-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Reshiram ex</span></span>
+          <span class="gr-set">White Flare &bull; 173</span>
+          <span class="gr-raw">$432.38<em>raw</em></span>
+          <span class="gr-psa">$1,304.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$777.13<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/scarlet-violet-210-drowzee-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Drowzee</span></span>
+          <span class="gr-set">Scarlet &amp; Violet &bull; 210</span>
+          <span class="gr-raw">$48.56<em>raw</em></span>
+          <span class="gr-psa">$905.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 25, 2026</span></span>
+          <span class="gr-net up">+$761.45<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-172-zekrom-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Zekrom ex</span></span>
+          <span class="gr-set">Black Bolt &bull; 172</span>
+          <span class="gr-raw">$554.78<em>raw</em></span>
+          <span class="gr-psa">$1,404.99<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$755.22<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/white-flare-172-victini-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Victini</span></span>
+          <span class="gr-set">White Flare &bull; 172</span>
+          <span class="gr-raw">$528.14<em>raw</em></span>
+          <span class="gr-psa">$1,377.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net up">+$754.37<em>after fees</em></span>
+        </li>
+    </ol>
+    <p class="price-note">Showing the top 20 of 149.</p>
+
+    <h3 class="gc-sub">Not worth it at PSA's current price</h3>
+    <ol class="gr-list">
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/151-170-squirtle-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Squirtle</span></span>
+          <span class="gr-set">151 &bull; 170</span>
+          <span class="gr-raw">$74.52<em>raw</em></span>
+          <span class="gr-psa">$105.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 22, 2026</span></span>
+          <span class="gr-net down">-$64.01<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="https://assets.tcgdex.net/en/sv/sv06.5/092/low.webp" alt="" loading="lazy" decoding="async"><span>Fezandipiti ex</span></span>
+          <span class="gr-set">Shrouded Fable &bull; 92</span>
+          <span class="gr-raw">$33.19<em>raw</em></span>
+          <span class="gr-psa">$66.05<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Nov 12, 2026</span></span>
+          <span class="gr-net down">-$62.13<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/twilight-masquerade-219-lana-s-aid-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Lana's Aid</span></span>
+          <span class="gr-set">Twilight Masquerade &bull; 219</span>
+          <span class="gr-raw">$28.36<em>raw</em></span>
+          <span class="gr-psa">$67.52<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net down">-$55.83<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-172-lacey-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Lacey</span></span>
+          <span class="gr-set">Stellar Crown &bull; 172</span>
+          <span class="gr-raw">$17.25<em>raw</em></span>
+          <span class="gr-psa">$58.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net down">-$53.74<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/151-168-charmander-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Charmander</span></span>
+          <span class="gr-set">151 &bull; 168</span>
+          <span class="gr-raw">$78.37<em>raw</em></span>
+          <span class="gr-psa">$119.75<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 22, 2026</span></span>
+          <span class="gr-net down">-$53.61<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-167-hydrapple-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Hydrapple ex</span></span>
+          <span class="gr-set">Stellar Crown &bull; 167</span>
+          <span class="gr-raw">$39.62<em>raw</em></span>
+          <span class="gr-psa">$85.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net down">-$49.61<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-128-mega-lopunny-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Mega Lopunny ex</span></span>
+          <span class="gr-set">Phantasmal Flames &bull; 128</span>
+          <span class="gr-raw">$11.08<em>raw</em></span>
+          <span class="gr-psa">$60.48<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net down">-$45.59<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="https://assets.tcgdex.net/en/sv/sv06.5/094/low.webp" alt="" loading="lazy" decoding="async"><span>Cassiopeia</span></span>
+          <span class="gr-set">Shrouded Fable &bull; 94</span>
+          <span class="gr-raw">$38.62<em>raw</em></span>
+          <span class="gr-psa">$89.38<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Nov 12, 2026</span></span>
+          <span class="gr-net down">-$44.23<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="https://assets.tcgdex.net/en/me/me02.5/293/low.webp" alt="" loading="lazy" decoding="async"><span>Surfer</span></span>
+          <span class="gr-set">Ascended Heroes &bull; 293</span>
+          <span class="gr-raw">$15.88<em>raw</em></span>
+          <span class="gr-psa">$72.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Nov 12, 2026</span></span>
+          <span class="gr-net down">-$38.87<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/black-bolt-170-n-s-plan-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>N's Plan</span></span>
+          <span class="gr-set">Black Bolt &bull; 170</span>
+          <span class="gr-raw">$53.22<em>raw</em></span>
+          <span class="gr-psa">$113.67<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net down">-$34.54<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/phantasmal-flames-126-rotom-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Rotom ex</span></span>
+          <span class="gr-set">Phantasmal Flames &bull; 126</span>
+          <span class="gr-raw">$9.83<em>raw</em></span>
+          <span class="gr-psa">$71.00<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 11, 2026</span></span>
+          <span class="gr-net down">-$33.82<em>after fees</em></span>
+        </li>
+        <li class="gr">
+          <span class="gr-name"><img class="gr-shot" src="/assets/cards/stellar-crown-168-galvantula-ex-pokemon-card.webp" alt="" loading="lazy" decoding="async" width="72" height="99"><span>Galvantula ex</span></span>
+          <span class="gr-set">Stellar Crown &bull; 168</span>
+          <span class="gr-raw">$18.71<em>raw</em></span>
+          <span class="gr-psa">$80.50<em>PSA 10</em><span class="psa-src">Pokemon Price Tracker, Aug 12, 2026</span></span>
+          <span class="gr-net down">-$33.20<em>after fees</em></span>
+        </li>
+    </ol>
+    <p class="price-note">These are cards where the PSA 10 sells for less than the raw card plus the fee. At the old
+      $25 Value tier several of them worked. That is what a fee change does.</p>
+  </div>
+</section>
 
 <section class="tight">
   <div class="wrap">
@@ -325,7 +570,10 @@
       card.</p>
     <p class="price-note">Fees and turnarounds read on August 13, 2026 and they change often,
       sometimes with two weeks' notice, so click through before you send anything.
-      No affiliate
+      Raw prices are TCGplayer market prices for an ungraded copy, via TCGdex, read November 13, 2026.
+      They are the same figures the rest of this site quotes. PSA 10 figures are graded sales from Pokemon Price
+      Tracker, dated beside each one, and only for cards with at least ten recorded PSA 10 sales. The two prices
+      come from two different sources read on different days, so treat each sum as close, not exact. Card scans are TCGdex's, mirrored here at the size the rows draw them. No affiliate
       links and no recommendation: we are not paid by any grading company and which one is right depends on your card
       and your patience. Not financial advice, just subtraction.</p>
   </div>
@@ -338,7 +586,7 @@
       <h3>How much does it cost to grade a Pokemon card?</h3>
       <p>PSA's cheapest active tier is $80 per card as of August 13, 2026, after it paused its Value and Value Bulk tiers in June 2026. The cheapest of the five is SGC at about $15. Add roughly $15 a card for shipping and insurance.</p>
       <h3>Is it worth grading my Pokemon card?</h3>
-      <p>Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. A 9 is worth far less than a 10, so work it out on the 10 as the best case and not the expected one.</p>
+      <p>Only if the gap between the raw price and the PSA 10 price is bigger than the fee, and only if the card is genuinely mint. Of 175 cards we hold both prices for, 149 would clear PSA's current fee and 26 would not. Those figures are all for a 10, and a 9 is worth far less, so treat them as the best case.</p>
     </div>
   </div>
 </section>

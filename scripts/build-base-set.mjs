@@ -61,6 +61,7 @@
 // (ranks 6 and 96), Blastoise (27 and 177) and Mewtwo (42 and 366), all six rows
 // double-read. See the comment above stampTable() for the argument.
 
+import { notPricecharting } from "../shared/pc-assets.mjs";
 import { readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -661,7 +662,8 @@ const tellCard = (t, i) => `      <article class="bs-t" id="${esc(t.id)}">
  */
 function priceCard(r) {
   const p = r.price;
-  const src = p?.pcImg ? p.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null;
+  // Never a PriceCharting picture (shared/pc-assets.mjs, 13 November 2026).
+  const src = notPricecharting(p?.pcImg ? p.pcImg.replace(/\/\d+\.jpg$/, "/240.jpg") : null);
   const art =
     p && p.imgOk && src
       ? `<img class="bs-p-scan" src="${esc(src)}" alt="${esc(p.name)}, ${esc(p.set)}"${imgDims(src)} loading="lazy" decoding="async">`
