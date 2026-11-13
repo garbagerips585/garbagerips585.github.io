@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-12T13:06:31Z</updated>
+  <updated>2026-11-13T12:30:05Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>Pack #2 Struck Out: Trubbish Feasts on Brand New Delta Reign! 🗑️💀</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-2-struck-out-trubbish-feasts-on-brand-new-delta-reign-GNLcSmuc1dQ.html"/>
+    <id>https://garbagerips.com/rip/pack-2-struck-out-trubbish-feasts-on-brand-new-delta-reign-GNLcSmuc1dQ.html</id>
+    <published>2026-11-13T12:30:05Z</published>
+    <updated>2026-11-13T12:30:05Z</updated>
+    <summary>Even the brand-new set isn't safe from a certified garbage rip! 🗑️💀 Moving right along with the Pokémon Delta Reign Elite Trainer Box on Pack #2...</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-delta-reign.jpg?v=2"/>
+  </entry>
   <entry>
     <title>I Pulled My Childhood 1999 Grail! Chunky Pikachu Classic Collection! ⚡✨</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/i-pulled-my-childhood-1999-grail-chunky-pikachu-classic-coll-M8M6lA0pL9E.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-15T10:32:36Z</updated>
     <summary>ANOTHER GOLD STAR BANGER! 🍏✨ For Pack #17 of Pokémon Destined Rivals, we avoided the bulk pile straight to Rochester, NY and pulled the Hydrapple...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-destined-rivals.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>First Pack Magic in the 30th Poster Collection?! 🌊✨</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/first-pack-magic-in-the-30th-poster-collection-YqEnr-bOn8k.html"/>
-    <id>https://garbagerips.com/rip/first-pack-magic-in-the-30th-poster-collection-YqEnr-bOn8k.html</id>
-    <published>2026-10-14T10:21:02Z</published>
-    <updated>2026-10-14T10:21:02Z</updated>
-    <summary>FIRST PACK MAGIC IS REAL! 🌊✨ For Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection, we came out swinging straight to Rochester, NY and...</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
   </entry>
 </feed>

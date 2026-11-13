@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 342581,
-    "subscribers": 448,
-    "videos": 403,
-    "readAt": "2026-11-12"
+    "views": 343889,
+    "subscribers": 447,
+    "videos": 404,
+    "readAt": "2026-11-13"
   },
-  "syncedAt": "2026-11-12",
+  "syncedAt": "2026-11-13",
   "videos": [
+    {
+      "id": "GNLcSmuc1dQ",
+      "title": "Pack #2 Struck Out: Trubbish Feasts on Brand New Delta Reign! 🗑️💀",
+      "path": "rip/pack-2-struck-out-trubbish-feasts-on-brand-new-delta-reign-GNLcSmuc1dQ.html",
+      "published": "2026-11-13",
+      "publishedAt": "2026-11-13T12:30:05Z",
+      "duration": 22,
+      "views": 273,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "M8M6lA0pL9E",
       "title": "I Pulled My Childhood 1999 Grail! Chunky Pikachu Classic Collection! ⚡✨",
@@ -15,7 +34,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 791,
+      "views": 1265,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 1003,
+      "views": 1014,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +75,7 @@
       "published": "2026-11-10",
       "publishedAt": "2026-11-10T12:03:07Z",
       "duration": 23,
-      "views": 1179,
+      "views": 1216,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-11-09",
       "publishedAt": "2026-11-09T11:04:25Z",
       "duration": 28,
-      "views": 1058,
+      "views": 1066,
       "vertical": true,
       "short": true,
       "sets": [
@@ -142,7 +161,7 @@
       "published": "2026-11-06",
       "publishedAt": "2026-11-06T11:02:29Z",
       "duration": 20,
-      "views": 429,
+      "views": 430,
       "vertical": true,
       "short": true,
       "sets": [
@@ -315,7 +334,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 299,
+      "views": 300,
       "vertical": true,
       "short": true,
       "sets": [
@@ -422,7 +441,7 @@
       "published": "2026-10-24",
       "publishedAt": "2026-10-24T12:57:15Z",
       "duration": 27,
-      "views": 1139,
+      "views": 1141,
       "vertical": true,
       "short": true,
       "sets": [
@@ -614,7 +633,7 @@
       "published": "2026-10-15",
       "publishedAt": "2026-10-15T10:32:36Z",
       "duration": 25,
-      "views": 920,
+      "views": 921,
       "vertical": true,
       "short": true,
       "sets": [
@@ -955,7 +974,7 @@
       "published": "2026-09-29",
       "publishedAt": "2026-09-29T10:14:04Z",
       "duration": 23,
-      "views": 1356,
+      "views": 1357,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1783,7 +1802,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1206,
+      "views": 1207,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2025,7 +2044,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1110,
+      "views": 1111,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2647,7 +2666,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1019,
+      "views": 1020,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8977,7 +8996,7 @@
       "published": "2026-04-27",
       "publishedAt": "2026-04-27T23:10:01Z",
       "duration": 23,
-      "views": 2626,
+      "views": 2629,
       "vertical": true,
       "short": true,
       "sets": [

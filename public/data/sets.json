@@ -49,13 +49,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 141,
       "pricedCount": 141,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Rayquaza ex",
           "number": "138",
           "rarity": "Special illustration rare",
-          "price": 310,
+          "price": 299.75,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/728061_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728061_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -64,7 +64,7 @@
           "name": "Mega Rayquaza ex",
           "number": "141",
           "rarity": "Mega Hyper Rare",
-          "price": 266.15,
+          "price": 258.89,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/728062_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728062_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -73,7 +73,7 @@
           "name": "Raikou ex",
           "number": "136",
           "rarity": "Special illustration rare",
-          "price": 89.25,
+          "price": 85,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/726574_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726574_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -82,7 +82,7 @@
           "name": "Mega Golurk ex",
           "number": "137",
           "rarity": "Special illustration rare",
-          "price": 27.01,
+          "price": 27.4,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/728060_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/728060_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -91,7 +91,7 @@
           "name": "Mega Golisopod ex",
           "number": "135",
           "rarity": "Special illustration rare",
-          "price": 21,
+          "price": 20.96,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/727592_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/727592_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -100,7 +100,7 @@
           "name": "Zinnia's Trust",
           "number": "140",
           "rarity": "Special illustration rare",
-          "price": 26,
+          "price": 25.53,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/726576_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726576_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -109,7 +109,7 @@
           "name": "Eevee",
           "number": "114",
           "rarity": "Illustration rare",
-          "price": 28.57,
+          "price": 26.55,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/726565_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726565_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -118,7 +118,7 @@
           "name": "Groudon",
           "number": "111",
           "rarity": "Illustration rare",
-          "price": 21.68,
+          "price": 20.36,
           "image": "https://tcgplayer-cdn.tcgplayer.com/product/726563_200w.jpg",
           "imageLarge": "https://tcgplayer-cdn.tcgplayer.com/product/726563_in_1000x1000.jpg",
           "source": "TCGplayer"
@@ -157,13 +157,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 120,
       "pricedCount": 120,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Darkrai ex",
           "number": "116",
           "rarity": "Special illustration rare",
-          "price": 138.05,
+          "price": 137.75,
           "image": "https://assets.tcgdex.net/en/me/me05/116/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/116/high.webp",
           "source": "TCGdex"
@@ -172,7 +172,7 @@
           "name": "Mega Darkrai ex",
           "number": "120",
           "rarity": "Mega Hyper Rare",
-          "price": 125.76,
+          "price": 121.62,
           "image": "https://assets.tcgdex.net/en/me/me05/120/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/120/high.webp",
           "source": "TCGdex"
@@ -181,7 +181,7 @@
           "name": "Morpeko ex",
           "number": "117",
           "rarity": "Special illustration rare",
-          "price": 64.34,
+          "price": 54.6,
           "image": "https://assets.tcgdex.net/en/me/me05/117/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/117/high.webp",
           "source": "TCGdex"
@@ -199,7 +199,7 @@
           "name": "Mega Chandelure ex",
           "number": "115",
           "rarity": "Special illustration rare",
-          "price": 30.06,
+          "price": 29,
           "image": "https://assets.tcgdex.net/en/me/me05/115/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me05/115/high.webp",
           "source": "TCGdex"
@@ -262,7 +262,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 122,
       "pricedCount": 122,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Greninja ex",
@@ -368,13 +368,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 124,
       "pricedCount": 124,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Zygarde ex",
           "number": "124",
           "rarity": "Mega Hyper Rare",
-          "price": 90,
+          "price": 80.88,
           "image": "https://assets.tcgdex.net/en/me/me03/124/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/124/high.webp",
           "source": "TCGdex"
@@ -383,7 +383,7 @@
           "name": "Meowth ex",
           "number": "121",
           "rarity": "Special illustration rare",
-          "price": 80,
+          "price": 82.5,
           "image": "https://assets.tcgdex.net/en/me/me03/121/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/121/high.webp",
           "source": "TCGdex"
@@ -392,7 +392,7 @@
           "name": "Mega Zygarde ex",
           "number": "120",
           "rarity": "Special illustration rare",
-          "price": 34.79,
+          "price": 39.25,
           "image": "https://assets.tcgdex.net/en/me/me03/120/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/120/high.webp",
           "source": "TCGdex"
@@ -419,7 +419,7 @@
           "name": "Mega Starmie ex",
           "number": "118",
           "rarity": "Special illustration rare",
-          "price": 30.07,
+          "price": 27.83,
           "image": "https://assets.tcgdex.net/en/me/me03/118/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/118/high.webp",
           "source": "TCGdex"
@@ -437,7 +437,7 @@
           "name": "Clefairy",
           "number": "094",
           "rarity": "Illustration rare",
-          "price": 13.08,
+          "price": 13,
           "image": "https://assets.tcgdex.net/en/me/me03/094/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me03/094/high.webp",
           "source": "TCGdex"
@@ -473,7 +473,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 295,
       "pricedCount": 295,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Gengar ex",
@@ -506,7 +506,7 @@
           "name": "Mega Charizard Y ex",
           "number": "294",
           "rarity": "Mega Hyper Rare",
-          "price": 260.74,
+          "price": 234.31,
           "image": "https://assets.tcgdex.net/en/me/me02.5/294/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02.5/294/high.webp",
           "source": "TCGdex"
@@ -579,7 +579,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 130,
       "pricedCount": 130,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Charizard X ex",
@@ -594,7 +594,7 @@
           "name": "Mega Charizard X ex",
           "number": "130",
           "rarity": "Mega Hyper Rare",
-          "price": 196.78,
+          "price": 205.25,
           "image": "https://assets.tcgdex.net/en/me/me02/130/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/130/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me2-130"
@@ -612,7 +612,7 @@
           "name": "Dawn",
           "number": "129",
           "rarity": "Special illustration rare",
-          "price": 17.66,
+          "price": 16.83,
           "image": "https://assets.tcgdex.net/en/me/me02/129/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/129/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me2-129"
@@ -630,7 +630,7 @@
           "name": "Meowth",
           "number": "106",
           "rarity": "Illustration rare",
-          "price": 15.27,
+          "price": 14.51,
           "image": "https://assets.tcgdex.net/en/me/me02/106/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me02/106/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me2-106"
@@ -684,7 +684,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 188,
       "pricedCount": 188,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mega Lucario ex",
@@ -699,7 +699,7 @@
           "name": "Mega Gardevoir ex",
           "number": "187",
           "rarity": "Mega Hyper Rare",
-          "price": 141.68,
+          "price": 140.84,
           "image": "https://assets.tcgdex.net/en/me/me01/187/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/187/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me1-187"
@@ -717,7 +717,7 @@
           "name": "Mega Gardevoir ex",
           "number": "178",
           "rarity": "Special illustration rare",
-          "price": 134.7,
+          "price": 128.83,
           "image": "https://assets.tcgdex.net/en/me/me01/178/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/178/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me1-178"
@@ -735,7 +735,7 @@
           "name": "Mega Latias ex",
           "number": "181",
           "rarity": "Special illustration rare",
-          "price": 54.2,
+          "price": 51,
           "image": "https://assets.tcgdex.net/en/me/me01/181/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/me/me01/181/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/me1-181"
@@ -789,13 +789,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 173,
       "pricedCount": 173,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Victini",
           "number": "172",
           "rarity": "Black White Rare",
-          "price": 487.4,
+          "price": 498.75,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/172/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/172/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/rsv10pt5-172"
@@ -804,7 +804,7 @@
           "name": "Reshiram ex",
           "number": "173",
           "rarity": "Black White Rare",
-          "price": 412.02,
+          "price": 416.29,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/173/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/173/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/rsv10pt5-173"
@@ -849,7 +849,7 @@
           "name": "Keldeo ex",
           "number": "167",
           "rarity": "Special illustration rare",
-          "price": 56.72,
+          "price": 56.33,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5w/167/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5w/167/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/rsv10pt5-167"
@@ -895,7 +895,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 172,
       "pricedCount": 172,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Victini",
@@ -919,7 +919,7 @@
           "name": "Zekrom ex",
           "number": "166",
           "rarity": "Special illustration rare",
-          "price": 184.22,
+          "price": 194.5,
           "image": "https://assets.tcgdex.net/en/sv/sv10.5b/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10.5b/166/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/zsv10pt5-166"
@@ -1002,7 +1002,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 244,
       "pricedCount": 244,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Team Rocket's Mewtwo ex",
@@ -1017,7 +1017,7 @@
           "name": "Cynthia's Garchomp ex",
           "number": "232",
           "rarity": "Special illustration rare",
-          "price": 150.75,
+          "price": 150.98,
           "image": "https://assets.tcgdex.net/en/sv/sv10/232/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/232/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-232"
@@ -1026,7 +1026,7 @@
           "name": "Ethan's Ho-Oh ex",
           "number": "230",
           "rarity": "Special illustration rare",
-          "price": 124.29,
+          "price": 110.98,
           "image": "https://assets.tcgdex.net/en/sv/sv10/230/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/230/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-230"
@@ -1053,7 +1053,7 @@
           "name": "Team Rocket's Crobat ex",
           "number": "234",
           "rarity": "Special illustration rare",
-          "price": 40,
+          "price": 38.5,
           "image": "https://assets.tcgdex.net/en/sv/sv10/234/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/234/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-234"
@@ -1062,7 +1062,7 @@
           "name": "Misty's Psyduck",
           "number": "193",
           "rarity": "Illustration rare",
-          "price": 45.24,
+          "price": 43.5,
           "image": "https://assets.tcgdex.net/en/sv/sv10/193/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv10/193/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv10-193"
@@ -1107,13 +1107,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 190,
       "pricedCount": 190,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Lillie's Clefairy ex",
           "number": "184",
           "rarity": "Special illustration rare",
-          "price": 75,
+          "price": 78.77,
           "image": "https://assets.tcgdex.net/en/sv/sv09/184/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/184/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-184"
@@ -1122,7 +1122,7 @@
           "name": "Salamence ex",
           "number": "187",
           "rarity": "Special illustration rare",
-          "price": 41.59,
+          "price": 40.86,
           "image": "https://assets.tcgdex.net/en/sv/sv09/187/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/187/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-187"
@@ -1131,7 +1131,7 @@
           "name": "N's Zoroark ex",
           "number": "185",
           "rarity": "Special illustration rare",
-          "price": 31.88,
+          "price": 33.06,
           "image": "https://assets.tcgdex.net/en/sv/sv09/185/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/185/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-185"
@@ -1140,7 +1140,7 @@
           "name": "Iono's Bellibolt ex",
           "number": "183",
           "rarity": "Special illustration rare",
-          "price": 27.55,
+          "price": 26,
           "image": "https://assets.tcgdex.net/en/sv/sv09/183/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/183/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-183"
@@ -1149,7 +1149,7 @@
           "name": "Hop's Zacian ex",
           "number": "186",
           "rarity": "Special illustration rare",
-          "price": 22.04,
+          "price": 21.99,
           "image": "https://assets.tcgdex.net/en/sv/sv09/186/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/186/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-186"
@@ -1158,7 +1158,7 @@
           "name": "N's Reshiram",
           "number": "167",
           "rarity": "Illustration rare",
-          "price": 13.63,
+          "price": 12,
           "image": "https://assets.tcgdex.net/en/sv/sv09/167/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/167/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-167"
@@ -1167,7 +1167,7 @@
           "name": "Articuno",
           "number": "161",
           "rarity": "Illustration rare",
-          "price": 15,
+          "price": 15.05,
           "image": "https://assets.tcgdex.net/en/sv/sv09/161/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/161/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-161"
@@ -1176,7 +1176,7 @@
           "name": "Volcanion ex",
           "number": "182",
           "rarity": "Special illustration rare",
-          "price": 14,
+          "price": 13.51,
           "image": "https://assets.tcgdex.net/en/sv/sv09/182/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv09/182/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv9-182"
@@ -1212,7 +1212,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 180,
       "pricedCount": 180,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Umbreon ex",
@@ -1236,7 +1236,7 @@
           "name": "Leafeon ex",
           "number": "144",
           "rarity": "Special illustration rare",
-          "price": 237.94,
+          "price": 232.29,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/144/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/144/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8pt5-144"
@@ -1245,7 +1245,7 @@
           "name": "Espeon ex",
           "number": "155",
           "rarity": "Special illustration rare",
-          "price": 223,
+          "price": 215,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/155/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/155/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8pt5-155"
@@ -1254,7 +1254,7 @@
           "name": "Vaporeon ex",
           "number": "149",
           "rarity": "Special illustration rare",
-          "price": 197.5,
+          "price": 190.5,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/149/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/149/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8pt5-149"
@@ -1263,7 +1263,7 @@
           "name": "Glaceon ex",
           "number": "150",
           "rarity": "Special illustration rare",
-          "price": 191.94,
+          "price": 205.7,
           "image": "https://assets.tcgdex.net/en/sv/sv08.5/150/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08.5/150/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8pt5-150"
@@ -1319,13 +1319,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 252,
       "pricedCount": 252,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Pikachu ex",
           "number": "238",
           "rarity": "Special illustration rare",
-          "price": 209.97,
+          "price": 228.5,
           "image": "https://assets.tcgdex.net/en/sv/sv08/238/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv08/238/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv8-238"
@@ -1425,7 +1425,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 175,
       "pricedCount": 175,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Squirtle",
@@ -1467,7 +1467,7 @@
           "name": "Terapagos ex",
           "number": "170",
           "rarity": "Special illustration rare",
-          "price": 34.03,
+          "price": 33.8,
           "image": "https://assets.tcgdex.net/en/sv/sv07/170/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv07/170/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv7-170"
@@ -1531,7 +1531,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 99,
       "pricedCount": 99,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Persian",
@@ -1638,7 +1638,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 226,
       "pricedCount": 226,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Greninja ex",
@@ -1744,13 +1744,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 218,
       "pricedCount": 218,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Gastly",
           "number": "177",
           "rarity": "Illustration rare",
-          "price": 88.62,
+          "price": 78.75,
           "image": "https://assets.tcgdex.net/en/sv/sv05/177/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/177/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-177"
@@ -1759,7 +1759,7 @@
           "name": "Morty's Conviction",
           "number": "211",
           "rarity": "Special illustration rare",
-          "price": 53.73,
+          "price": 52.23,
           "image": "https://assets.tcgdex.net/en/sv/sv05/211/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/211/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-211"
@@ -1768,7 +1768,7 @@
           "name": "Raging Bolt ex",
           "number": "208",
           "rarity": "Special illustration rare",
-          "price": 59.58,
+          "price": 57,
           "image": "https://assets.tcgdex.net/en/sv/sv05/208/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/208/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-208"
@@ -1777,7 +1777,7 @@
           "name": "Gengar ex",
           "number": "193",
           "rarity": "Ultra Rare",
-          "price": 50.05,
+          "price": 50,
           "image": "https://assets.tcgdex.net/en/sv/sv05/193/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/193/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-193"
@@ -1786,7 +1786,7 @@
           "name": "Sawsbuck",
           "number": "166",
           "rarity": "Illustration rare",
-          "price": 41.93,
+          "price": 45,
           "image": "https://assets.tcgdex.net/en/sv/sv05/166/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/166/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-166"
@@ -1795,7 +1795,7 @@
           "name": "Iron Crown ex",
           "number": "206",
           "rarity": "Special illustration rare",
-          "price": 44,
+          "price": 41,
           "image": "https://assets.tcgdex.net/en/sv/sv05/206/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/206/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-206"
@@ -1804,7 +1804,7 @@
           "name": "Gouging Fire ex",
           "number": "204",
           "rarity": "Special illustration rare",
-          "price": 47.16,
+          "price": 44.67,
           "image": "https://assets.tcgdex.net/en/sv/sv05/204/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/204/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-204"
@@ -1813,7 +1813,7 @@
           "name": "Walking Wake ex",
           "number": "205",
           "rarity": "Special illustration rare",
-          "price": 38.93,
+          "price": 37.99,
           "image": "https://assets.tcgdex.net/en/sv/sv05/205/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv05/205/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv5-205"
@@ -1851,7 +1851,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 245,
       "pricedCount": 244,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mew ex",
@@ -1875,7 +1875,7 @@
           "name": "Gardevoir ex",
           "number": "233",
           "rarity": "Special illustration rare",
-          "price": 127.68,
+          "price": 135.5,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/233/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/233/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4pt5-233"
@@ -1902,7 +1902,7 @@
           "name": "Charmander",
           "number": "109",
           "rarity": "Shiny rare",
-          "price": 35.45,
+          "price": 35.94,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/109/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/109/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4pt5-109"
@@ -1911,7 +1911,7 @@
           "name": "Mimikyu",
           "number": "160",
           "rarity": "Shiny rare",
-          "price": 44.68,
+          "price": 44.05,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/160/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/160/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4pt5-160"
@@ -1920,7 +1920,7 @@
           "name": "Ditto",
           "number": "201",
           "rarity": "Shiny rare",
-          "price": 35.33,
+          "price": 34.99,
           "image": "https://assets.tcgdex.net/en/sv/sv04.5/201/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04.5/201/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4pt5-201"
@@ -1956,13 +1956,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 266,
       "pricedCount": 266,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Groudon",
           "number": "199",
           "rarity": "Illustration rare",
-          "price": 86.96,
+          "price": 84.05,
           "image": "https://assets.tcgdex.net/en/sv/sv04/199/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/199/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4-199"
@@ -1971,7 +1971,7 @@
           "name": "Altaria ex",
           "number": "253",
           "rarity": "Special illustration rare",
-          "price": 44.8,
+          "price": 43.9,
           "image": "https://assets.tcgdex.net/en/sv/sv04/253/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/253/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4-253"
@@ -1980,7 +1980,7 @@
           "name": "Morpeko",
           "number": "206",
           "rarity": "Illustration rare",
-          "price": 47.93,
+          "price": 53.51,
           "image": "https://assets.tcgdex.net/en/sv/sv04/206/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/206/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4-206"
@@ -1989,7 +1989,7 @@
           "name": "Plusle",
           "number": "193",
           "rarity": "Illustration rare",
-          "price": 37.45,
+          "price": 35,
           "image": "https://assets.tcgdex.net/en/sv/sv04/193/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv04/193/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv4-193"
@@ -2062,7 +2062,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 207,
       "pricedCount": 207,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Charizard ex",
@@ -2086,7 +2086,7 @@
           "name": "Venusaur ex",
           "number": "198",
           "rarity": "Special illustration rare",
-          "price": 88.92,
+          "price": 87.77,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/198/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/198/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-198"
@@ -2095,7 +2095,7 @@
           "name": "Zapdos ex",
           "number": "202",
           "rarity": "Special illustration rare",
-          "price": 70.63,
+          "price": 69.89,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/202/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/202/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-202"
@@ -2104,7 +2104,7 @@
           "name": "Charmander",
           "number": "168",
           "rarity": "Illustration rare",
-          "price": 80,
+          "price": 78.5,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/168/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/168/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-168"
@@ -2113,7 +2113,7 @@
           "name": "Pikachu",
           "number": "173",
           "rarity": "Illustration rare",
-          "price": 59.67,
+          "price": 55.65,
           "image": "https://assets.tcgdex.net/en/sv/sv03.5/173/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03.5/173/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3pt5-173"
@@ -2168,7 +2168,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 230,
       "pricedCount": 230,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Charizard ex",
@@ -2183,7 +2183,7 @@
           "name": "Ninetales",
           "number": "199",
           "rarity": "Illustration rare",
-          "price": 31.74,
+          "price": 27.64,
           "image": "https://assets.tcgdex.net/en/sv/sv03/199/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/199/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3-199"
@@ -2192,7 +2192,7 @@
           "name": "Cleffa",
           "number": "202",
           "rarity": "Illustration rare",
-          "price": 31.06,
+          "price": 30.81,
           "image": "https://assets.tcgdex.net/en/sv/sv03/202/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/202/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3-202"
@@ -2201,7 +2201,7 @@
           "name": "Charizard ex",
           "number": "228",
           "rarity": "Hyper rare",
-          "price": 31.68,
+          "price": 31.09,
           "image": "https://assets.tcgdex.net/en/sv/sv03/228/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/228/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3-228"
@@ -2210,7 +2210,7 @@
           "name": "Gloom",
           "number": "198",
           "rarity": "Illustration rare",
-          "price": 19.26,
+          "price": 18.36,
           "image": "https://assets.tcgdex.net/en/sv/sv03/198/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv03/198/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv3-198"
@@ -2274,7 +2274,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 279,
       "pricedCount": 279,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Magikarp",
@@ -2289,7 +2289,7 @@
           "name": "Raichu",
           "number": "211",
           "rarity": "Illustration rare",
-          "price": 81.09,
+          "price": 84.58,
           "image": "https://assets.tcgdex.net/en/sv/sv02/211/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/211/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv2-211"
@@ -2316,7 +2316,7 @@
           "name": "Sprigatito",
           "number": "196",
           "rarity": "Illustration rare",
-          "price": 39.05,
+          "price": 40.48,
           "image": "https://assets.tcgdex.net/en/sv/sv02/196/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/196/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv2-196"
@@ -2325,7 +2325,7 @@
           "name": "Iono",
           "number": "269",
           "rarity": "Special illustration rare",
-          "price": 46.04,
+          "price": 45.47,
           "image": "https://assets.tcgdex.net/en/sv/sv02/269/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/269/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv2-269"
@@ -2343,7 +2343,7 @@
           "name": "Fuecoco",
           "number": "201",
           "rarity": "Illustration rare",
-          "price": 36.25,
+          "price": 38.65,
           "image": "https://assets.tcgdex.net/en/sv/sv02/201/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv02/201/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv2-201"
@@ -2380,7 +2380,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 258,
       "pricedCount": 258,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Gardevoir ex",
@@ -2395,7 +2395,7 @@
           "name": "Drowzee",
           "number": "210",
           "rarity": "Illustration rare",
-          "price": 50.03,
+          "price": 45.07,
           "image": "https://assets.tcgdex.net/en/sv/sv01/210/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/210/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-210"
@@ -2413,7 +2413,7 @@
           "name": "Kirlia",
           "number": "212",
           "rarity": "Illustration rare",
-          "price": 31.75,
+          "price": 31.99,
           "image": "https://assets.tcgdex.net/en/sv/sv01/212/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/212/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-212"
@@ -2422,7 +2422,7 @@
           "name": "Slowpoke",
           "number": "204",
           "rarity": "Illustration rare",
-          "price": 36.6,
+          "price": 37.28,
           "image": "https://assets.tcgdex.net/en/sv/sv01/204/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/204/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-204"
@@ -2440,7 +2440,7 @@
           "name": "Miraidon ex",
           "number": "244",
           "rarity": "Special illustration rare",
-          "price": 19.99,
+          "price": 18.47,
           "image": "https://assets.tcgdex.net/en/sv/sv01/244/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/sv/sv01/244/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/sv1-244"
@@ -2487,7 +2487,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 160,
       "pricedCount": 160,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Pikachu",
@@ -2594,7 +2594,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 215,
       "pricedCount": 215,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Lugia V",
@@ -2696,13 +2696,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 88,
       "pricedCount": 88,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mewtwo V",
           "number": "72",
           "rarity": "Ultra Rare",
-          "price": 50,
+          "price": 49.99,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/072/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/072/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/pgo-72"
@@ -2738,7 +2738,7 @@
           "name": "Radiant Charizard",
           "number": "11",
           "rarity": "Radiant Rare",
-          "price": 19.99,
+          "price": 19.35,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/011/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/011/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/pgo-11"
@@ -2747,7 +2747,7 @@
           "name": "Dragonite V",
           "number": "76",
           "rarity": "Ultra Rare",
-          "price": 15.9,
+          "price": 15.39,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/076/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/076/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/pgo-76"
@@ -2756,7 +2756,7 @@
           "name": "Radiant Blastoise",
           "number": "18",
           "rarity": "Radiant Rare",
-          "price": 11.31,
+          "price": 11.59,
           "image": "https://assets.tcgdex.net/en/swsh/swsh10.5/018/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh10.5/018/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/pgo-18"
@@ -2800,7 +2800,7 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 25,
       "pricedCount": 25,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Mew",
@@ -2833,7 +2833,7 @@
           "name": "Pikachu",
           "number": "5",
           "rarity": "Holo Rare",
-          "price": 5.15,
+          "price": 4.5,
           "image": "https://assets.tcgdex.net/en/swsh/cel25/5/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/cel25/5/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/cel25-5"
@@ -2905,13 +2905,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 233,
       "pricedCount": 233,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Blaziken VMAX",
           "number": "201",
           "rarity": "Secret Rare",
-          "price": 275.09,
+          "price": 297.5,
           "image": "https://assets.tcgdex.net/en/swsh/swsh6/201/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh6/201/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh6-201"
@@ -3012,13 +3012,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 73,
       "pricedCount": 73,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Skyla",
           "number": "72",
           "rarity": "Ultra Rare",
-          "price": 9.94,
+          "price": 9.62,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/72/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/72/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-72"
@@ -3036,7 +3036,7 @@
           "name": "Alcremie V",
           "number": "64",
           "rarity": "Ultra Rare",
-          "price": 5.95,
+          "price": 5.77,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/64/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/64/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-64"
@@ -3045,7 +3045,7 @@
           "name": "Ditto VMAX",
           "number": "51",
           "rarity": "Holo Rare VMAX",
-          "price": 5.63,
+          "price": 5.56,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/51/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/51/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-51"
@@ -3063,7 +3063,7 @@
           "name": "Ball Guy",
           "number": "65",
           "rarity": "Ultra Rare",
-          "price": 4.36,
+          "price": 4.28,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/65/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/65/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-65"
@@ -3072,7 +3072,7 @@
           "name": "Kyogre",
           "number": "21",
           "rarity": "Amazing Rare",
-          "price": 4.78,
+          "price": 4.6,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/21/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/21/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-21"
@@ -3081,7 +3081,7 @@
           "name": "Morpeko VMAX",
           "number": "38",
           "rarity": "Holo Rare VMAX",
-          "price": 4,
+          "price": 4.43,
           "image": "https://assets.tcgdex.net/en/swsh/swsh4.5/38/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh4.5/38/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh45-38"
@@ -3117,13 +3117,13 @@
       "raritiesFrom": "checklist",
       "cardsSeen": 209,
       "pricedCount": 209,
-      "pricesAsOf": "2026-11-12",
+      "pricesAsOf": "2026-11-13",
       "chase": [
         {
           "name": "Boss's Orders",
           "number": "189",
           "rarity": "Ultra Rare",
-          "price": 50.41,
+          "price": 50.76,
           "image": "https://assets.tcgdex.net/en/swsh/swsh2/189/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh2/189/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh2-189"
@@ -3132,7 +3132,7 @@
           "name": "Boss's Orders",
           "number": "200",
           "rarity": "Secret Rare",
-          "price": 40.19,
+          "price": 40.34,
           "image": "https://assets.tcgdex.net/en/swsh/swsh2/200/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh2/200/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh2-200"
@@ -3141,7 +3141,7 @@
           "name": "Ninetales V",
           "number": "177",
           "rarity": "Ultra Rare",
-          "price": 33.05,
+          "price": 33.75,
           "image": "https://assets.tcgdex.net/en/swsh/swsh2/177/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh2/177/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh2-177"
@@ -3159,7 +3159,7 @@
           "name": "Sonia",
           "number": "192",
           "rarity": "Ultra Rare",
-          "price": 19.59,
+          "price": 18.95,
           "image": "https://assets.tcgdex.net/en/swsh/swsh2/192/low.webp",
           "imageLarge": "https://assets.tcgdex.net/en/swsh/swsh2/192/high.webp",
           "url": "https://prices.pokemontcg.io/tcgplayer/swsh2-192"
