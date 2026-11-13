@@ -94,6 +94,23 @@ export function selectTargets({ targets, auto = {}, notCarried = {}, setMap = {}
     if (todo.length < limit) todo.push(t);
     else left++;
   }
+  // OLDEST FIRST WITH WHATEVER SLOTS ARE LEFT, 13 November 2026. Cards already
+  // priced used to be skipped forever, so 164 of 191 PSA 10s still carried an
+  // August date in November and the pages printed them as if current. Pokemon
+  // Price Tracker's terms ask that cached prices be refreshed on a reasonable
+  // schedule. New cards still go first; the spare slots re-read the oldest
+  // priced cards, so at 50 a night the whole list turns over in about 4 days.
+  const refresh = [];
+  if (todo.length < limit) {
+    const seen = new Set(todo.map((t) => t.key));
+    for (const t of targets || []) {
+      if (!auto?.[t.key] || seen.has(t.key) || !setMap[t.setId]) continue;
+      seen.add(t.key);
+      refresh.push(t);
+    }
+    refresh.sort((x, y) => String(auto[x.key].asOf || "").localeCompare(String(auto[y.key].asOf || "")));
+    for (const t of refresh) { if (todo.length >= limit) break; todo.push(t); }
+  }
   const stale = Object.keys(notCarried || {}).filter((id) => setMap[id]);
   return { todo, pending, skipped, left, stale };
 }
