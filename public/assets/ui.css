@@ -1950,9 +1950,14 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
 .t30-ct.nopic::before{content:"";display:block;aspect-ratio:245/337;
   background:var(--paper);border-radius:var(--r-sm)}
 .t30-pk.need .t30-card{filter:grayscale(1) contrast(.95);opacity:.78}
+.t30-railg a.is-here,.t30-railg a[aria-current="page"]{border-color:var(--sky);color:var(--ink);
+  background:var(--paper-3,var(--paper));font-weight:700}
 .t30-pk.has .t30-card{filter:none;opacity:1}
 .t30-pk.pad::after{display:none}
 .t30-pk.has .t30-pn{color:var(--ink)}
 @media(prefers-reduced-motion:no-preference){
 .t30-pk.has{transition:box-shadow .2s ease}
 }
+.pc-link{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:3;
+  font:600 var(--t-micro)/1.3 var(--body);color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.pc-link:hover,.pc-link:focus-visible{color:var(--sky)}

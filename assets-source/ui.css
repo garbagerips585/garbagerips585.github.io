@@ -7743,3 +7743,10 @@ footer .soc:focus-visible{box-shadow:0 0 0 5px rgba(255,255,255,.95)}
    on /luck.html was 18x18). Block padding takes them past the 24px floor
    without changing the type. */
 .cc-table tbody th a,.luck-table tbody th a{display:inline-block;padding-block:6px}
+/* THE PRICECHARTING LINK (13 November 2026), printed where a graded figure used
+   to be (shared/graded-price.mjs gradedLinkHtml). A link, so teal like every
+   link, never the pink of a price. Inline-flex and 44px so a short phrase in a
+   flex parent is still a tappable target. Sits above a tile's overlay button. */
+.pc-link{display:inline-flex;align-items:center;min-height:44px;position:relative;z-index:3;
+  font:600 var(--t-micro)/1.3 var(--body);color:var(--sky-deep);text-decoration:underline;text-underline-offset:2px}
+.pc-link:hover,.pc-link:focus-visible{color:var(--sky)}
