@@ -30,8 +30,9 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const WATCH = [
   ["public/data/videos.json",       ["syncedAt"],      3, "the YouTube sync"],
   ["public/data/preorders.json",    ["checked"],       4, "preorder prices"],
-  ["data/price-rotation.json",      ["lastRun"],       3, "the nightly PriceCharting refresh"],
-  ["data/pricecharting-cards.json", ["checked"],       3, "the 28 set-guide consoles, refreshed nightly"],
+  // RETIRED 13 November 2026: nothing reads PriceCharting any more (shared/no-pricecharting.mjs).
+  // ["data/price-rotation.json",      ["lastRun"],       3, "the nightly PriceCharting refresh"],
+  // ["data/pricecharting-cards.json", ["checked"],       3, "the 28 set-guide consoles, refreshed nightly"],
   ["public/data/card-index.json",   ["pricesChecked"], 3, "every card price on the site"],
 ];
 
@@ -109,11 +110,12 @@ const SOFT = [
   // 50 cards a night, so the NEWEST entry is at most a day old when it runs.
   ["data/psa10.json",                         newestAsOf,    3, "nightly", "PSA 10 prices, newest asOf in auto (sync-prices.mjs)"],
   // refreshed by the weekly job (weekly-prices.yml), through scripts/weekly-run.sh
-  ["data/graded.json",                        ["checked"],  10, "weekly", "graded prices for pulled and chase cards (sync-pricecharting.mjs)"],
-  ["data/top-graded.json",                    verifyRan,    10, "weekly", "top graded cards, last re-verified (sync-graded-top.mjs + verify-graded-top.mjs)"],
-  ["data/top-raw.json",                       verifyRan,    10, "weekly", "most valuable cards, last re-verified (sync-raw-top.mjs + verify-raw-top.mjs)"],
-  ["data/topps-top.json",                     verifyRan,    10, "weekly", "Topps card values, last re-verified (sync-topps-top.mjs + verify-topps-top.mjs)"],
-  ["data/first-partner.json",                 ["checked"],  10, "weekly", "First Partner promo prices (sync-first-partner.mjs)"],
+  // RETIRED 13 November 2026: nothing reads PriceCharting any more (shared/no-pricecharting.mjs).
+  // ["data/graded.json",                        ["checked"],  10, "weekly", "graded prices for pulled and chase cards (sync-pricecharting.mjs)"],
+  // ["data/top-graded.json",                    verifyRan,    10, "weekly", "top graded cards, last re-verified (sync-graded-top.mjs + verify-graded-top.mjs)"],
+  // ["data/top-raw.json",                       verifyRan,    10, "weekly", "most valuable cards, last re-verified (sync-raw-top.mjs + verify-raw-top.mjs)"],
+  // ["data/topps-top.json",                     verifyRan,    10, "weekly", "Topps card values, last re-verified (sync-topps-top.mjs + verify-topps-top.mjs)"],
+  // ["data/first-partner.json",                 ["checked"],  10, "weekly", "First Partner promo prices (sync-first-partner.mjs)"],
   // refreshed by hand
   ["data/drops.json",                         ["weekEnds"],  0, "hand", "this week's restock forecast; overdue once weekEnds has passed"],
   ["data/shows.json",                         ["checked"],  14, "hand", "card show calendar"],

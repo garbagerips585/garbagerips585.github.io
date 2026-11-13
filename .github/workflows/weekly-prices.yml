@@ -55,9 +55,12 @@ name: Weekly price lists
 # refresh would be lost in silence. So the `gate` job below refuses to start a
 # scheduled run that GitHub delivered inside the nightly's window. A manual run
 # is never gated: do not start one between 11:00 and 20:00 UTC.
+# NO SCHEDULE FROM 13 NOVEMBER 2026. Every list this job rebuilds is read from
+# PriceCharting, which requires a paid plan to show their prices; the owner
+# declined. See shared/no-pricecharting.mjs. Manual runs are refused there too.
 on:
-  schedule:
-    - cron: "17 22 * * 0"
+  # schedule:
+  #   - cron: "17 22 * * 0"
   workflow_dispatch:
     inputs:
       ranked:
@@ -120,6 +123,14 @@ jobs:
       TZ: America/New_York
     steps:
       - uses: actions/checkout@v4
+
+      # NOTHING ASKS PRICECHARTING FOR ANYTHING, from 13 November 2026. Every
+      # node process after this step loads shared/no-pricecharting.mjs first,
+      # which refuses any request to pricecharting.com. Set here and not as a
+      # workflow-level env, because the checkout above runs on node too and the
+      # file does not exist until it has run. Read that file before removing.
+      - name: Refuse every request to PriceCharting
+        run: echo "NODE_OPTIONS=--import $GITHUB_WORKSPACE/shared/no-pricecharting.mjs" >> "$GITHUB_ENV"
 
       - uses: actions/setup-node@v4
         with:

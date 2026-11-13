@@ -176,6 +176,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # NOTHING ASKS PRICECHARTING FOR ANYTHING, from 13 November 2026. Every
+      # node process after this step loads shared/no-pricecharting.mjs first,
+      # which refuses any request to pricecharting.com. Set here and not as a
+      # workflow-level env, because the checkout above runs on node too and the
+      # file does not exist until it has run. Read that file before removing.
+      - name: Refuse every request to PriceCharting
+        run: echo "NODE_OPTIONS=--import $GITHUB_WORKSPACE/shared/no-pricecharting.mjs" >> "$GITHUB_ENV"
+
       # 24, THE SAME MAJOR AS verify.yml, pages.yml AND THE OWNER'S MACHINE. This
       # was 22 until 11 November 2026, so the nightly built the tree on one
       # Node and verify.yml rebuilt it on another to decide whether it had
@@ -334,8 +342,11 @@ jobs:
       # No paths: data/price-rotation.json is the bookmark for the pages this
       # step put in .cache, and the script only moves its dates when pages
       # really came back. Rolling it back would orphan the cache.
+      # OFF FROM 13 NOVEMBER 2026. PriceCharting requires a paid plan to show
+      # their prices and the owner declined; see shared/no-pricecharting.mjs.
       - name: PriceCharting, 28 set guides daily plus a slice of the tail
         id: prices
+        if: ${{ false }}
         continue-on-error: true
         run: >-
           bash scripts/nightly-step.sh
