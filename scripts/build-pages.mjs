@@ -823,7 +823,15 @@ async function resolveHits(vid) {
     // The order here stays rarity-first regardless, because it is the same
     // answer by a shorter route and because this file must not start naming a
     // different printing from build-hall.mjs.
-    const m = intl
+    // A 30th CLASSIC COLLECTION HIT IS IN NO CARDS FILE (the reprints are left
+    // out of 30th-celebration.json on purpose), so falling through to same[0]
+    // named the first main-set card of that name instead: Pikachu 58/102
+    // (M8M6lA0pL9E) printed as "a Pikachu Rare" with Pikachu 023's picture.
+    // Leave it unresolved and the hit's own rarity, number and pinned shot win.
+    const classic30 = !intl && h.set === "30th-celebration" && want === norm("Classic Collection");
+    const m = classic30
+      ? null
+      : intl
       ? pickIntlPrintingJp(same, want)
       : (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||

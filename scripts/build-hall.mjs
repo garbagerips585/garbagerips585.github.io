@@ -580,6 +580,10 @@ const norm = (x) =>
       let m = (want && same.find((c) => norm(c.rarity) === want)) ||
               (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
               same[0];
+      // A 30th Classic Collection hit is in no cards file, so same[0] would be
+      // the main-set card of that name (Pikachu 58/102, M8M6lA0pL9E, came out
+      // as Pikachu 023). Same rule as build-pages.mjs: leave it unresolved.
+      if (h.set === "30th-celebration" && want === norm("Classic Collection")) m = null;
       // THE RARITY MATCH DOES NOT SURVIVE THE TRIP TO A JAPANESE SET, AND THE
       // FALLBACK IS WORSE THAN NO ANSWER THERE. `same[0]` is a safe last resort
       // on an English checklist because the sheet and TCGdex share a
