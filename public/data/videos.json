@@ -1,7 +1,7 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 343889,
+    "views": 344011,
     "subscribers": 447,
     "videos": 404,
     "readAt": "2026-11-13"
@@ -15,7 +15,7 @@
       "published": "2026-11-13",
       "publishedAt": "2026-11-13T12:30:05Z",
       "duration": 22,
-      "views": 273,
+      "views": 375,
       "vertical": true,
       "short": true,
       "sets": [
@@ -25,7 +25,10 @@
         "etb"
       ],
       "pulls": [],
-      "label": "Delta Reign ETB"
+      "hasHit": false,
+      "packNumber": 2,
+      "packs": 1,
+      "label": "Delta Reign ETB - Pack 2"
     },
     {
       "id": "M8M6lA0pL9E",
@@ -34,17 +37,19 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1265,
+      "views": 1280,
       "vertical": true,
       "short": true,
       "sets": [
         "30th-celebration"
       ],
       "products": [
-        "collection-box"
+        "blister"
       ],
       "pulls": [],
-      "label": "30th Celebration Collection Box"
+      "packNumber": 2,
+      "packs": 1,
+      "label": "30th Celebration Blister - Pack 2"
     },
     {
       "id": "B4A-HNC-F6M",
@@ -1168,7 +1173,7 @@
       "published": "2026-09-20",
       "publishedAt": "2026-09-20T10:39:12Z",
       "duration": 25,
-      "views": 1094,
+      "views": 1095,
       "vertical": true,
       "short": true,
       "sets": [

@@ -3233,5 +3233,27 @@
     "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to read the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
     "productsWhy": "Tech Sticker Collection, tagged blister to match the first Tech Sticker Collection's three rips."
+  },
+  "M8M6lA0pL9E": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 13 November 2026: \"do another youtube sync and mark any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 12 November 2026: \"Pack #2 of the Pokémon 30th Celebration Tech Sticker Collection just delivered straight to Rochester, NY with one of my all-time favorite cards ever printed: the Classic Collection Chunky Pikachu!\" Pack 2 of the second 30th Celebration Tech Sticker Collection (pack 1 is klo7rTgTJkE). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
+  },
+  "GNLcSmuc1dQ": {
+    "packNumber": 2,
+    "hasHit": false,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 13 November 2026: \"do another youtube sync and mark any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 13 November 2026: \"Moving right along with the Pokémon Delta Reign Elite Trainer Box on Pack #2 straight to Rochester, NY, and it was a direct feed to the bulk pile!\" Pack 2 of the Delta Reign Elite Trainer Box (pack 1 is ImL4P9zX8pg). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"a direct feed to the bulk pile\" and \"still hunting that epic Mega Rayquaza ex SIR and Raikou ex SIR\". Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so the box name can never add a second set."
   }
 }

@@ -1805,6 +1805,12 @@ if isinstance(_hits_doc, dict):
             _sid, _rar = _h.get("set"), _h.get("rarity")
             if not _sid or not _rar or _h.get("promo"):
                 continue
+            # The 30th Celebration card file leaves the 30 Classic Collection
+            # reprints out on purpose (sync-30th-card-data.mjs; TCGdex holds them
+            # as a separate set), so a Classic hit on a name the main set also
+            # prints (Pikachu, M8M6lA0pL9E) was checked against the wrong cards.
+            if _sid == "30th-celebration" and _norm_r(_rar) == _norm_r("Classic Collection"):
+                continue
             _cards = _cards_for(_sid)
             if not _cards:
                 continue  # intl guide or unguided set; see above

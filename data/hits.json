@@ -2731,6 +2731,17 @@
         "hallOfFame": false,
         "handNote": "The owner, 9 November 2026: \"please do a youtube sync and make sure to read titles and description to determine if i got a hit or not and if I did log it correctly for the site\", so the video's own description is the source, on his say-so. The video description, 9 November 2026: \"FIRST PACK MAGIC ON THE BRAND NEW SET! 🦑✨ Kicking off the hunt in Pokémon Delta Reign with Pack #1 of the Elite Trainer Box straight to Rochester, NY! ... Pack #1 came out swinging with the Mega Malamar ex (Double Silver Star Ultra Rare)!\" Delta Reign prints Mega Malamar ex twice, 069 Double Rare and 123 Ultra Rare; the description says \"Double Silver Star Ultra Rare\", so this is 123. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "M8M6lA0pL9E": [
+      {
+        "card": "Pikachu",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Classic Collection",
+        "number": "58/102",
+        "hallOfFame": false,
+        "handNote": "The owner, 13 November 2026: \"do another youtube sync and mark any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 12 November 2026: \"Pack #2 of the Pokémon 30th Celebration Tech Sticker Collection just delivered straight to Rochester, NY with one of my all-time favorite cards ever printed: the Classic Collection Chunky Pikachu!\" data/30th-checklist.json holds one Classic Collection Pikachu, the Base Set reprint at 58/102 (the description: \"Back in 1999, this exact artwork was my first-ever Pikachu card, pulled from a ... Base Set booster pack\"), number written whole because Classic Collection reprints keep their original numbering. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }
