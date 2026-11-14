@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 344011,
-    "subscribers": 447,
-    "videos": 404,
-    "readAt": "2026-11-13"
+    "views": 344508,
+    "subscribers": 450,
+    "videos": 405,
+    "readAt": "2026-11-14"
   },
-  "syncedAt": "2026-11-13",
+  "syncedAt": "2026-11-14",
   "videos": [
+    {
+      "id": "UZTMn49g5bY",
+      "title": "Double Black Star Salamence ex Saves the Pack! 🐲🔥",
+      "path": "rip/double-black-star-salamence-ex-saves-the-pack-UZTMn49g5bY.html",
+      "published": "2026-11-14",
+      "publishedAt": "2026-11-14T13:06:08Z",
+      "duration": 24,
+      "views": 266,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "GNLcSmuc1dQ",
       "title": "Pack #2 Struck Out: Trubbish Feasts on Brand New Delta Reign! 🗑️💀",
@@ -15,7 +34,7 @@
       "published": "2026-11-13",
       "publishedAt": "2026-11-13T12:30:05Z",
       "duration": 22,
-      "views": 375,
+      "views": 633,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +56,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1280,
+      "views": 1326,
       "vertical": true,
       "short": true,
       "sets": [
@@ -58,7 +77,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 1014,
+      "views": 1017,
       "vertical": true,
       "short": true,
       "sets": [
@@ -339,7 +358,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 300,
+      "views": 301,
       "vertical": true,
       "short": true,
       "sets": [
@@ -574,7 +593,7 @@
       "published": "2026-10-18",
       "publishedAt": "2026-10-18T11:13:05Z",
       "duration": 25,
-      "views": 1016,
+      "views": 1017,
       "vertical": true,
       "short": true,
       "sets": [
@@ -850,7 +869,7 @@
       "published": "2026-10-05",
       "publishedAt": "2026-10-05T10:05:40Z",
       "duration": 22,
-      "views": 1055,
+      "views": 1056,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1701,7 +1720,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1137,
+      "views": 1138,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2049,7 +2068,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1111,
+      "views": 1116,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2671,7 +2690,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1020,
+      "views": 1021,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5397,7 +5416,7 @@
       "published": "2026-06-19",
       "publishedAt": "2026-06-19T10:20:17Z",
       "duration": 22,
-      "views": 90,
+      "views": 91,
       "vertical": true,
       "short": true,
       "sets": [

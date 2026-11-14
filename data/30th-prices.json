@@ -9,7 +9,7 @@
     "graded-prices link; no PriceCharting number is held or shown (13 November 2026)."
   ],
   "source": "TCGplayer market price",
-  "checked": "2026-11-13",
+  "checked": "2026-11-14",
   "counts": {
     "asked": 202,
     "priced": 202,
@@ -21,7 +21,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712934,
-      "raw": 0.51,
+      "raw": 0.57,
       "pc": "/game/pokemon-30th-celebration/pikachu-23"
     },
     "pikachu|024/128": {
@@ -29,7 +29,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716309,
-      "raw": 0.42,
+      "raw": 0.49,
       "pc": "/game/pokemon-30th-celebration/pikachu-24"
     },
     "pikachu|025/128": {
@@ -37,7 +37,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712935,
-      "raw": 0.4,
+      "raw": 0.35,
       "pc": "/game/pokemon-30th-celebration/pikachu-25"
     },
     "pikachu|026/128": {
@@ -45,7 +45,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712936,
-      "raw": 0.47,
+      "raw": 0.56,
       "pc": "/game/pokemon-30th-celebration/pikachu-26"
     },
     "pikachu|027/128": {
@@ -53,7 +53,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716310,
-      "raw": 0.61,
+      "raw": 0.58,
       "pc": "/game/pokemon-30th-celebration/pikachu-27"
     },
     "pikachu|028/128": {
@@ -61,7 +61,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712937,
-      "raw": 0.57,
+      "raw": 0.52,
       "pc": "/game/pokemon-30th-celebration/pikachu-28"
     },
     "pikachu|029/128": {
@@ -69,7 +69,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716311,
-      "raw": 0.39,
+      "raw": 0.5,
       "pc": "/game/pokemon-30th-celebration/pikachu-29"
     },
     "pikachu|030/128": {
@@ -85,7 +85,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716312,
-      "raw": 0.43,
+      "raw": 0.4,
       "pc": "/game/pokemon-30th-celebration/pikachu-31"
     },
     "pikachu|032/128": {
@@ -93,7 +93,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712939,
-      "raw": 0.69,
+      "raw": 0.7,
       "pc": "/game/pokemon-30th-celebration/pikachu-32"
     },
     "pikachu|033/128": {
@@ -101,7 +101,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712940,
-      "raw": 0.42,
+      "raw": 0.48,
       "pc": "/game/pokemon-30th-celebration/pikachu-33"
     },
     "pikachu|034/128": {
@@ -109,7 +109,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712941,
-      "raw": 0.55,
+      "raw": 0.56,
       "pc": "/game/pokemon-30th-celebration/pikachu-34"
     },
     "pikachu|035/128": {
@@ -117,7 +117,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716313,
-      "raw": 0.52,
+      "raw": 0.5,
       "pc": "/game/pokemon-30th-celebration/pikachu-35"
     },
     "pikachu|036/128": {
@@ -125,7 +125,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 696680,
-      "raw": 0.65,
+      "raw": 0.77,
       "pc": "/game/pokemon-30th-celebration/pikachu-36"
     },
     "pikachu|037/128": {
@@ -133,7 +133,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 696681,
-      "raw": 0.46,
+      "raw": 0.42,
       "pc": "/game/pokemon-30th-celebration/pikachu-37"
     },
     "pikachu|038/128": {
@@ -157,7 +157,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712944,
-      "raw": 1.9,
+      "raw": 2.28,
       "pc": "/game/pokemon-30th-celebration/pikachu-40"
     },
     "pikachu|041/128": {
@@ -165,7 +165,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712945,
-      "raw": 0.45,
+      "raw": 0.38,
       "pc": "/game/pokemon-30th-celebration/pikachu-41"
     },
     "pikachu|042/128": {
@@ -173,7 +173,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712946,
-      "raw": 0.44,
+      "raw": 0.49,
       "pc": "/game/pokemon-30th-celebration/pikachu-42"
     },
     "pikachu|043/128": {
@@ -181,7 +181,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712947,
-      "raw": 0.63,
+      "raw": 0.67,
       "pc": "/game/pokemon-30th-celebration/pikachu-43"
     },
     "pikachu|044/128": {
@@ -189,7 +189,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712948,
-      "raw": 0.58,
+      "raw": 0.49,
       "pc": "/game/pokemon-30th-celebration/pikachu-44"
     },
     "pikachu|045/128": {
@@ -197,7 +197,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716314,
-      "raw": 0.43,
+      "raw": 0.47,
       "pc": "/game/pokemon-30th-celebration/pikachu-45"
     },
     "pikachu|046/128": {
@@ -205,7 +205,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716315,
-      "raw": 0.46,
+      "raw": 0.44,
       "pc": "/game/pokemon-30th-celebration/pikachu-46"
     },
     "pikachu|047/128": {
@@ -213,7 +213,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 696682,
-      "raw": 0.43,
+      "raw": 0.52,
       "pc": "/game/pokemon-30th-celebration/pikachu-47"
     },
     "pikachu|048/128": {
@@ -221,7 +221,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716316,
-      "raw": 0.52,
+      "raw": 0.47,
       "pc": "/game/pokemon-30th-celebration/pikachu-48"
     },
     "pikachu|049/128": {
@@ -229,7 +229,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712949,
-      "raw": 0.43,
+      "raw": 0.47,
       "pc": "/game/pokemon-30th-celebration/pikachu-49"
     },
     "pikachu|050/128": {
@@ -237,7 +237,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 712950,
-      "raw": 0.55,
+      "raw": 0.49,
       "pc": "/game/pokemon-30th-celebration/pikachu-50"
     },
     "pikachu|051/128": {
@@ -245,7 +245,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716317,
-      "raw": 0.36,
+      "raw": 0.42,
       "pc": "/game/pokemon-30th-celebration/pikachu-51"
     },
     "pikachu|052/128": {
@@ -253,7 +253,7 @@
       "name": "Pikachu",
       "section": "pikachu",
       "pid": 716318,
-      "raw": 0.49,
+      "raw": 0.46,
       "pc": "/game/pokemon-30th-celebration/pikachu-52"
     },
     "main|001/128": {
@@ -261,7 +261,7 @@
       "name": "Exeggcute",
       "section": "main",
       "pid": 716435,
-      "raw": 0.17,
+      "raw": 0.16,
       "pc": "/game/pokemon-30th-celebration/exeggcute-1"
     },
     "main|002/128": {
@@ -269,7 +269,7 @@
       "name": "Alolan Exeggutor",
       "section": "main",
       "pid": 716436,
-      "raw": 0.21,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/alolan-exeggutor-2"
     },
     "main|003/128": {
@@ -277,7 +277,7 @@
       "name": "Volbeat",
       "section": "main",
       "pid": 716437,
-      "raw": 0.18,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/volbeat-3"
     },
     "main|004/128": {
@@ -285,7 +285,7 @@
       "name": "Illumise",
       "section": "main",
       "pid": 716438,
-      "raw": 0.18,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/illumise-4"
     },
     "main|005/128": {
@@ -309,7 +309,7 @@
       "name": "Cherrim",
       "section": "main",
       "pid": 716441,
-      "raw": 0.2,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/cherrim-7"
     },
     "main|008/128": {
@@ -317,7 +317,7 @@
       "name": "Vivillon",
       "section": "main",
       "pid": 716442,
-      "raw": 0.18,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/vivillon-8"
     },
     "main|009/128": {
@@ -325,7 +325,7 @@
       "name": "Vulpix",
       "section": "main",
       "pid": 716443,
-      "raw": 0.24,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/vulpix-9"
     },
     "main|010/128": {
@@ -333,7 +333,7 @@
       "name": "Ninetales",
       "section": "main",
       "pid": 716444,
-      "raw": 0.24,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/ninetales-10"
     },
     "main|011/128": {
@@ -341,7 +341,7 @@
       "name": "Moltres",
       "section": "main",
       "pid": 716445,
-      "raw": 0.2,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/moltres-11"
     },
     "main|012/128": {
@@ -349,7 +349,7 @@
       "name": "Ho-Oh",
       "section": "main",
       "pid": 716446,
-      "raw": 0.25,
+      "raw": 0.23,
       "pc": "/game/pokemon-30th-celebration/ho-oh-12"
     },
     "main|013/128": {
@@ -357,7 +357,7 @@
       "name": "Victini",
       "section": "main",
       "pid": 696830,
-      "raw": 0.28,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/victini-13"
     },
     "main|014/128": {
@@ -365,7 +365,7 @@
       "name": "Reshiram",
       "section": "main",
       "pid": 716447,
-      "raw": 0.2,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/reshiram-14"
     },
     "main|015/128": {
@@ -373,7 +373,7 @@
       "name": "Fuecoco ex",
       "section": "main",
       "pid": 716448,
-      "raw": 0.36,
+      "raw": 0.39,
       "pc": "/game/pokemon-30th-celebration/fuecoco-ex-15"
     },
     "main|016/128": {
@@ -381,7 +381,7 @@
       "name": "Slowpoke",
       "section": "main",
       "pid": 716449,
-      "raw": 0.25,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/slowpoke-16"
     },
     "main|017/128": {
@@ -389,7 +389,7 @@
       "name": "Lapras",
       "section": "main",
       "pid": 716450,
-      "raw": 0.24,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/lapras-17"
     },
     "main|018/128": {
@@ -397,7 +397,7 @@
       "name": "Articuno",
       "section": "main",
       "pid": 716451,
-      "raw": 0.24,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/articuno-18"
     },
     "main|019/128": {
@@ -405,7 +405,7 @@
       "name": "Kyogre",
       "section": "main",
       "pid": 716452,
-      "raw": 0.23,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/kyogre-19"
     },
     "main|020/128": {
@@ -421,7 +421,7 @@
       "name": "Greninja ex",
       "section": "main",
       "pid": 696676,
-      "raw": 0.48,
+      "raw": 0.49,
       "pc": "/game/pokemon-30th-celebration/greninja-ex-21"
     },
     "main|022/128": {
@@ -429,7 +429,7 @@
       "name": "Wishiwashi",
       "section": "main",
       "pid": 716454,
-      "raw": 0.18,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/wishiwashi-22"
     },
     "main|053/128": {
@@ -437,7 +437,7 @@
       "name": "Pikachu ex",
       "section": "main",
       "pid": 712951,
-      "raw": 0.87,
+      "raw": 0.66,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-53"
     },
     "main|054/128": {
@@ -445,7 +445,7 @@
       "name": "Pikachu ex",
       "section": "main",
       "pid": 712952,
-      "raw": 0.88,
+      "raw": 0.78,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-54"
     },
     "main|055/128": {
@@ -453,7 +453,7 @@
       "name": "Zapdos",
       "section": "main",
       "pid": 716455,
-      "raw": 0.26,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/zapdos-55"
     },
     "main|056/128": {
@@ -461,7 +461,7 @@
       "name": "Zekrom",
       "section": "main",
       "pid": 716456,
-      "raw": 0.2,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/zekrom-56"
     },
     "main|057/128": {
@@ -469,7 +469,7 @@
       "name": "Zeraora",
       "section": "main",
       "pid": 696831,
-      "raw": 0.2,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/zeraora-57"
     },
     "main|058/128": {
@@ -493,7 +493,7 @@
       "name": "Toxtricity",
       "section": "main",
       "pid": 716459,
-      "raw": 0.15,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/toxtricity-60"
     },
     "main|061/128": {
@@ -501,7 +501,7 @@
       "name": "Morpeko",
       "section": "main",
       "pid": 716460,
-      "raw": 0.22,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/morpeko-61"
     },
     "main|062/128": {
@@ -509,7 +509,7 @@
       "name": "Miraidon",
       "section": "main",
       "pid": 716461,
-      "raw": 0.22,
+      "raw": 0.26,
       "pc": "/game/pokemon-30th-celebration/miraidon-62"
     },
     "main|063/128": {
@@ -517,7 +517,7 @@
       "name": "Mewtwo",
       "section": "main",
       "pid": 716462,
-      "raw": 0.3,
+      "raw": 0.29,
       "pc": "/game/pokemon-30th-celebration/mewtwo-63"
     },
     "main|064/128": {
@@ -525,7 +525,7 @@
       "name": "Mewtwo ex",
       "section": "main",
       "pid": 716463,
-      "raw": 0.63,
+      "raw": 0.58,
       "pc": "/game/pokemon-30th-celebration/mewtwo-ex-64"
     },
     "main|065/128": {
@@ -533,7 +533,7 @@
       "name": "Mew",
       "section": "main",
       "pid": 716464,
-      "raw": 0.43,
+      "raw": 0.36,
       "pc": "/game/pokemon-30th-celebration/mew-65"
     },
     "main|066/128": {
@@ -541,7 +541,7 @@
       "name": "Mew ex",
       "section": "main",
       "pid": 716465,
-      "raw": 1.41,
+      "raw": 1.3,
       "pc": "/game/pokemon-30th-celebration/mew-ex-66"
     },
     "main|067/128": {
@@ -549,7 +549,7 @@
       "name": "Marill",
       "section": "main",
       "pid": 716466,
-      "raw": 0.15,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/marill-67"
     },
     "main|068/128": {
@@ -557,7 +557,7 @@
       "name": "Azumarill",
       "section": "main",
       "pid": 716467,
-      "raw": 0.19,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/azumarill-68"
     },
     "main|069/128": {
@@ -565,7 +565,7 @@
       "name": "Espeon",
       "section": "main",
       "pid": 696678,
-      "raw": 0.28,
+      "raw": 0.29,
       "pc": "/game/pokemon-30th-celebration/espeon-69"
     },
     "main|070/128": {
@@ -573,7 +573,7 @@
       "name": "Espeon ex",
       "section": "main",
       "pid": 696834,
-      "raw": 0.58,
+      "raw": 0.55,
       "pc": "/game/pokemon-30th-celebration/espeon-ex-70"
     },
     "main|071/128": {
@@ -589,7 +589,7 @@
       "name": "Unown",
       "section": "main",
       "pid": 716468,
-      "raw": 0.25,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/unown-72"
     },
     "main|073/128": {
@@ -597,7 +597,7 @@
       "name": "Drifloon",
       "section": "main",
       "pid": 716469,
-      "raw": 0.19,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/drifloon-73"
     },
     "main|074/128": {
@@ -605,7 +605,7 @@
       "name": "Cresselia",
       "section": "main",
       "pid": 716470,
-      "raw": 0.22,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/cresselia-74"
     },
     "main|075/128": {
@@ -613,7 +613,7 @@
       "name": "Chandelure",
       "section": "main",
       "pid": 716471,
-      "raw": 0.12,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/chandelure-75"
     },
     "main|076/128": {
@@ -621,7 +621,7 @@
       "name": "Xerneas",
       "section": "main",
       "pid": 716472,
-      "raw": 0.18,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/xerneas-76"
     },
     "main|077/128": {
@@ -629,7 +629,7 @@
       "name": "Comfey",
       "section": "main",
       "pid": 716473,
-      "raw": 0.15,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/comfey-77"
     },
     "main|078/128": {
@@ -637,7 +637,7 @@
       "name": "Cosmog",
       "section": "main",
       "pid": 716474,
-      "raw": 0.15,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/cosmog-78"
     },
     "main|079/128": {
@@ -645,7 +645,7 @@
       "name": "Cosmoem",
       "section": "main",
       "pid": 716475,
-      "raw": 0.19,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/cosmoem-79"
     },
     "main|080/128": {
@@ -653,7 +653,7 @@
       "name": "Lunala",
       "section": "main",
       "pid": 716476,
-      "raw": 0.19,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/lunala-80"
     },
     "main|081/128": {
@@ -661,7 +661,7 @@
       "name": "Gimmighoul",
       "section": "main",
       "pid": 716477,
-      "raw": 0.17,
+      "raw": 0.16,
       "pc": "/game/pokemon-30th-celebration/gimmighoul-81"
     },
     "main|082/128": {
@@ -669,7 +669,7 @@
       "name": "Groudon",
       "section": "main",
       "pid": 716478,
-      "raw": 0.18,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/groudon-82"
     },
     "main|083/128": {
@@ -677,7 +677,7 @@
       "name": "Lucario",
       "section": "main",
       "pid": 716479,
-      "raw": 0.2,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/lucario-83"
     },
     "main|084/128": {
@@ -685,7 +685,7 @@
       "name": "Seismitoad",
       "section": "main",
       "pid": 716480,
-      "raw": 0.17,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/seismitoad-84"
     },
     "main|085/128": {
@@ -693,7 +693,7 @@
       "name": "Lycanroc",
       "section": "main",
       "pid": 716481,
-      "raw": 0.19,
+      "raw": 0.22,
       "pc": "/game/pokemon-30th-celebration/lycanroc-85"
     },
     "main|086/128": {
@@ -701,7 +701,7 @@
       "name": "Koraidon",
       "section": "main",
       "pid": 716482,
-      "raw": 0.17,
+      "raw": 0.15,
       "pc": "/game/pokemon-30th-celebration/koraidon-86"
     },
     "main|087/128": {
@@ -709,7 +709,7 @@
       "name": "Nidoran F",
       "section": "main",
       "pid": 716483,
-      "raw": 0.14,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/nidoran-87"
     },
     "main|088/128": {
@@ -717,7 +717,7 @@
       "name": "Nidorina",
       "section": "main",
       "pid": 716484,
-      "raw": 0.15,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/nidorina-88"
     },
     "main|089/128": {
@@ -725,7 +725,7 @@
       "name": "Alolan Meowth",
       "section": "main",
       "pid": 714359,
-      "raw": 0.14,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/alolan-meowth-89"
     },
     "main|090/128": {
@@ -733,7 +733,7 @@
       "name": "Gengar ex",
       "section": "main",
       "pid": 716485,
-      "raw": 1.08,
+      "raw": 0.98,
       "pc": "/game/pokemon-30th-celebration/gengar-ex-90"
     },
     "main|091/128": {
@@ -741,7 +741,7 @@
       "name": "Umbreon",
       "section": "main",
       "pid": 696679,
-      "raw": 0.3,
+      "raw": 0.33,
       "pc": "/game/pokemon-30th-celebration/umbreon-91"
     },
     "main|092/128": {
@@ -749,7 +749,7 @@
       "name": "Umbreon ex",
       "section": "main",
       "pid": 696835,
-      "raw": 0.67,
+      "raw": 0.64,
       "pc": "/game/pokemon-30th-celebration/umbreon-ex-92"
     },
     "main|093/128": {
@@ -757,7 +757,7 @@
       "name": "Murkrow",
       "section": "main",
       "pid": 716486,
-      "raw": 0.17,
+      "raw": 0.14,
       "pc": "/game/pokemon-30th-celebration/murkrow-93"
     },
     "main|094/128": {
@@ -765,7 +765,7 @@
       "name": "Scraggy",
       "section": "main",
       "pid": 716487,
-      "raw": 0.17,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/scraggy-94"
     },
     "main|095/128": {
@@ -773,7 +773,7 @@
       "name": "Zorua",
       "section": "main",
       "pid": 716488,
-      "raw": 0.25,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/zorua-95"
     },
     "main|096/128": {
@@ -781,7 +781,7 @@
       "name": "Zoroark",
       "section": "main",
       "pid": 716489,
-      "raw": 0.22,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/zoroark-96"
     },
     "main|097/128": {
@@ -789,7 +789,7 @@
       "name": "Deino",
       "section": "main",
       "pid": 716490,
-      "raw": 0.17,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/deino-97"
     },
     "main|098/128": {
@@ -797,7 +797,7 @@
       "name": "Zweilous",
       "section": "main",
       "pid": 716491,
-      "raw": 0.16,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/zweilous-98"
     },
     "main|099/128": {
@@ -805,7 +805,7 @@
       "name": "Hydreigon",
       "section": "main",
       "pid": 716492,
-      "raw": 0.19,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/hydreigon-99"
     },
     "main|100/128": {
@@ -813,7 +813,7 @@
       "name": "Yveltal",
       "section": "main",
       "pid": 716493,
-      "raw": 0.17,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/yveltal-100"
     },
     "main|101/128": {
@@ -821,7 +821,7 @@
       "name": "Galarian Meowth",
       "section": "main",
       "pid": 716494,
-      "raw": 0.16,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/galarian-meowth-101"
     },
     "main|102/128": {
@@ -829,7 +829,7 @@
       "name": "Jirachi ex",
       "section": "main",
       "pid": 716495,
-      "raw": 0.49,
+      "raw": 0.48,
       "pc": "/game/pokemon-30th-celebration/jirachi-ex-102"
     },
     "main|103/128": {
@@ -837,7 +837,7 @@
       "name": "Dialga",
       "section": "main",
       "pid": 716496,
-      "raw": 0.16,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/dialga-103"
     },
     "main|104/128": {
@@ -845,7 +845,7 @@
       "name": "Ferrothorn",
       "section": "main",
       "pid": 716497,
-      "raw": 0.16,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/ferrothorn-104"
     },
     "main|105/128": {
@@ -853,7 +853,7 @@
       "name": "Solgaleo",
       "section": "main",
       "pid": 716498,
-      "raw": 0.18,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/solgaleo-105"
     },
     "main|106/128": {
@@ -861,7 +861,7 @@
       "name": "Zacian",
       "section": "main",
       "pid": 716499,
-      "raw": 0.21,
+      "raw": 0.23,
       "pc": "/game/pokemon-30th-celebration/zacian-106"
     },
     "main|107/128": {
@@ -869,7 +869,7 @@
       "name": "Zamazenta",
       "section": "main",
       "pid": 716500,
-      "raw": 0.19,
+      "raw": 0.23,
       "pc": "/game/pokemon-30th-celebration/zamazenta-107"
     },
     "main|108/128": {
@@ -877,7 +877,7 @@
       "name": "Gholdengo",
       "section": "main",
       "pid": 716501,
-      "raw": 0.14,
+      "raw": 0.17,
       "pc": "/game/pokemon-30th-celebration/gholdengo-108"
     },
     "main|109/128": {
@@ -885,7 +885,7 @@
       "name": "Salamence ex",
       "section": "main",
       "pid": 716502,
-      "raw": 0.51,
+      "raw": 0.41,
       "pc": "/game/pokemon-30th-celebration/salamence-ex-109"
     },
     "main|110/128": {
@@ -893,7 +893,7 @@
       "name": "Jangmo-o",
       "section": "main",
       "pid": 716503,
-      "raw": 0.17,
+      "raw": 0.16,
       "pc": "/game/pokemon-30th-celebration/jangmo-o-110"
     },
     "main|111/128": {
@@ -909,7 +909,7 @@
       "name": "Kommo-o",
       "section": "main",
       "pid": 716505,
-      "raw": 0.16,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/kommo-o-112"
     },
     "main|113/128": {
@@ -917,7 +917,7 @@
       "name": "Meowth",
       "section": "main",
       "pid": 714356,
-      "raw": 0.17,
+      "raw": 0.18,
       "pc": "/game/pokemon-30th-celebration/meowth-113"
     },
     "main|114/128": {
@@ -941,7 +941,7 @@
       "name": "Eevee",
       "section": "main",
       "pid": 714357,
-      "raw": 0.23,
+      "raw": 0.29,
       "pc": "/game/pokemon-30th-celebration/eevee-116"
     },
     "main|117/128": {
@@ -949,7 +949,7 @@
       "name": "Eevee",
       "section": "main",
       "pid": 696832,
-      "raw": 0.23,
+      "raw": 0.26,
       "pc": "/game/pokemon-30th-celebration/eevee-117"
     },
     "main|118/128": {
@@ -957,7 +957,7 @@
       "name": "Eevee",
       "section": "main",
       "pid": 696833,
-      "raw": 0.27,
+      "raw": 0.29,
       "pc": "/game/pokemon-30th-celebration/eevee-118"
     },
     "main|119/128": {
@@ -965,7 +965,7 @@
       "name": "Snorlax",
       "section": "main",
       "pid": 716508,
-      "raw": 0.27,
+      "raw": 0.26,
       "pc": "/game/pokemon-30th-celebration/snorlax-119"
     },
     "main|120/128": {
@@ -981,7 +981,7 @@
       "name": "Lugia",
       "section": "main",
       "pid": 716510,
-      "raw": 0.24,
+      "raw": 0.27,
       "pc": "/game/pokemon-30th-celebration/lugia-121"
     },
     "main|122/128": {
@@ -997,7 +997,7 @@
       "name": "Hisuian Zoroark",
       "section": "main",
       "pid": 716512,
-      "raw": 0.24,
+      "raw": 0.2,
       "pc": "/game/pokemon-30th-celebration/hisuian-zoroark-123"
     },
     "main|124/128": {
@@ -1005,7 +1005,7 @@
       "name": "Minior",
       "section": "main",
       "pid": 716513,
-      "raw": 0.16,
+      "raw": 0.21,
       "pc": "/game/pokemon-30th-celebration/minior-124"
     },
     "main|125/128": {
@@ -1013,7 +1013,7 @@
       "name": "Maushold",
       "section": "main",
       "pid": 716514,
-      "raw": 0.23,
+      "raw": 0.26,
       "pc": "/game/pokemon-30th-celebration/maushold-125"
     },
     "main|126/128": {
@@ -1021,7 +1021,7 @@
       "name": "Poke Pad",
       "section": "main",
       "pid": 716515,
-      "raw": 0.27,
+      "raw": 0.23,
       "pc": "/game/pokemon-30th-celebration/poke-pad-126"
     },
     "main|127/128": {
@@ -1029,7 +1029,7 @@
       "name": "Switch",
       "section": "main",
       "pid": 716516,
-      "raw": 0.18,
+      "raw": 0.19,
       "pc": "/game/pokemon-30th-celebration/switch-127"
     },
     "main|128/128": {
@@ -1037,7 +1037,7 @@
       "name": "Ultra Ball",
       "section": "main",
       "pid": 716517,
-      "raw": 0.25,
+      "raw": 0.26,
       "pc": "/game/pokemon-30th-celebration/ultra-ball-128"
     },
     "secret|129/128": {
@@ -1045,7 +1045,7 @@
       "name": "Alolan Exeggutor",
       "section": "secret",
       "pid": 716218,
-      "raw": 1.22,
+      "raw": 1.23,
       "pc": "/game/pokemon-30th-celebration/alolan-exeggutor-129"
     },
     "secret|130/128": {
@@ -1053,7 +1053,7 @@
       "name": "Moltres",
       "section": "secret",
       "pid": 716219,
-      "raw": 3.03,
+      "raw": 3.45,
       "pc": "/game/pokemon-30th-celebration/moltres-130"
     },
     "secret|131/128": {
@@ -1061,7 +1061,7 @@
       "name": "Lapras",
       "section": "secret",
       "pid": 696683,
-      "raw": 3.47,
+      "raw": 3.26,
       "pc": "/game/pokemon-30th-celebration/lapras-131"
     },
     "secret|132/128": {
@@ -1077,7 +1077,7 @@
       "name": "Zapdos",
       "section": "secret",
       "pid": 716221,
-      "raw": 3.05,
+      "raw": 3.08,
       "pc": "/game/pokemon-30th-celebration/zapdos-133"
     },
     "secret|134/128": {
@@ -1085,7 +1085,7 @@
       "name": "Toxtricity",
       "section": "secret",
       "pid": 716222,
-      "raw": 1.44,
+      "raw": 1.42,
       "pc": "/game/pokemon-30th-celebration/toxtricity-134"
     },
     "secret|135/128": {
@@ -1093,7 +1093,7 @@
       "name": "Morpeko",
       "section": "secret",
       "pid": 716223,
-      "raw": 2.49,
+      "raw": 2.16,
       "pc": "/game/pokemon-30th-celebration/morpeko-135"
     },
     "secret|136/128": {
@@ -1101,7 +1101,7 @@
       "name": "Drifloon",
       "section": "secret",
       "pid": 696684,
-      "raw": 2.04,
+      "raw": 2.02,
       "pc": "/game/pokemon-30th-celebration/drifloon-136"
     },
     "secret|137/128": {
@@ -1109,7 +1109,7 @@
       "name": "Chandelure",
       "section": "secret",
       "pid": 716224,
-      "raw": 1.24,
+      "raw": 1.27,
       "pc": "/game/pokemon-30th-celebration/chandelure-137"
     },
     "secret|138/128": {
@@ -1117,7 +1117,7 @@
       "name": "Lycanroc",
       "section": "secret",
       "pid": 696685,
-      "raw": 0.98,
+      "raw": 1.12,
       "pc": "/game/pokemon-30th-celebration/lycanroc-138"
     },
     "secret|139/128": {
@@ -1125,7 +1125,7 @@
       "name": "Alolan Meowth",
       "section": "secret",
       "pid": 714360,
-      "raw": 3.37,
+      "raw": 3.81,
       "pc": "/game/pokemon-30th-celebration/alolan-meowth-139"
     },
     "secret|140/128": {
@@ -1133,7 +1133,7 @@
       "name": "Scraggy",
       "section": "secret",
       "pid": 716225,
-      "raw": 1.15,
+      "raw": 1.04,
       "pc": "/game/pokemon-30th-celebration/scraggy-140"
     },
     "secret|141/128": {
@@ -1141,7 +1141,7 @@
       "name": "Galarian Meowth",
       "section": "secret",
       "pid": 716226,
-      "raw": 3.45,
+      "raw": 3.64,
       "pc": "/game/pokemon-30th-celebration/galarian-meowth-141"
     },
     "secret|142/128": {
@@ -1149,7 +1149,7 @@
       "name": "Gholdengo",
       "section": "secret",
       "pid": 716227,
-      "raw": 0.99,
+      "raw": 0.94,
       "pc": "/game/pokemon-30th-celebration/gholdengo-142"
     },
     "secret|143/128": {
@@ -1157,7 +1157,7 @@
       "name": "Kommo-o",
       "section": "secret",
       "pid": 717621,
-      "raw": 0.96,
+      "raw": 1.07,
       "pc": "/game/pokemon-30th-celebration/kommo-o-143"
     },
     "secret|144/128": {
@@ -1165,7 +1165,7 @@
       "name": "Meowth",
       "section": "secret",
       "pid": 714358,
-      "raw": 4.14,
+      "raw": 4.43,
       "pc": "/game/pokemon-30th-celebration/meowth-144"
     },
     "secret|145/128": {
@@ -1173,7 +1173,7 @@
       "name": "Hisuian Zorua",
       "section": "secret",
       "pid": 696686,
-      "raw": 2.57,
+      "raw": 2.52,
       "pc": "/game/pokemon-30th-celebration/hisuian-zorua-145"
     },
     "secret|146/128": {
@@ -1181,7 +1181,7 @@
       "name": "Maushold",
       "section": "secret",
       "pid": 716228,
-      "raw": 4.94,
+      "raw": 4.99,
       "pc": "/game/pokemon-30th-celebration/maushold-146"
     },
     "secret|147/128": {
@@ -1189,7 +1189,7 @@
       "name": "Fuecoco ex",
       "section": "secret",
       "pid": 716229,
-      "raw": 9.51,
+      "raw": 9.6,
       "pc": "/game/pokemon-30th-celebration/fuecoco-ex-147"
     },
     "secret|148/128": {
@@ -1197,7 +1197,7 @@
       "name": "Greninja ex",
       "section": "secret",
       "pid": 716230,
-      "raw": 13.43,
+      "raw": 13.63,
       "pc": "/game/pokemon-30th-celebration/greninja-ex-148"
     },
     "secret|149/128": {
@@ -1205,7 +1205,7 @@
       "name": "Pikachu ex",
       "section": "secret",
       "pid": 712953,
-      "raw": 31.86,
+      "raw": 32.45,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-149"
     },
     "secret|150/128": {
@@ -1213,7 +1213,7 @@
       "name": "Pikachu ex",
       "section": "secret",
       "pid": 712954,
-      "raw": 34.81,
+      "raw": 37.08,
       "pc": "/game/pokemon-30th-celebration/pikachu-ex-150"
     },
     "secret|151/128": {
@@ -1221,7 +1221,7 @@
       "name": "Mewtwo ex",
       "section": "secret",
       "pid": 717603,
-      "raw": 30.71,
+      "raw": 31.25,
       "pc": "/game/pokemon-30th-celebration/mewtwo-ex-151"
     },
     "secret|152/128": {
@@ -1229,7 +1229,7 @@
       "name": "Mew ex",
       "section": "secret",
       "pid": 717605,
-      "raw": 52.8,
+      "raw": 54.37,
       "pc": "/game/pokemon-30th-celebration/mew-ex-152"
     },
     "secret|153/128": {
@@ -1237,7 +1237,7 @@
       "name": "Sylveon ex",
       "section": "secret",
       "pid": 716231,
-      "raw": 30.54,
+      "raw": 30.71,
       "pc": "/game/pokemon-30th-celebration/sylveon-ex-153"
     },
     "secret|154/128": {
@@ -1245,7 +1245,7 @@
       "name": "Gengar ex",
       "section": "secret",
       "pid": 717610,
-      "raw": 44.38,
+      "raw": 45.81,
       "pc": "/game/pokemon-30th-celebration/gengar-ex-154"
     },
     "secret|155/128": {
@@ -1253,7 +1253,7 @@
       "name": "Jirachi ex",
       "section": "secret",
       "pid": 716232,
-      "raw": 28.17,
+      "raw": 26.94,
       "pc": "/game/pokemon-30th-celebration/jirachi-ex-155"
     },
     "secret|156/128": {
@@ -1261,7 +1261,7 @@
       "name": "Salamence ex",
       "section": "secret",
       "pid": 716233,
-      "raw": 9.46,
+      "raw": 10.14,
       "pc": "/game/pokemon-30th-celebration/salamence-ex-156"
     },
     "secret|157/128": {
@@ -1269,7 +1269,7 @@
       "name": "Mewtwo ex",
       "section": "secret",
       "pid": 696687,
-      "raw": 25.63,
+      "raw": 25.79,
       "pc": "/game/pokemon-30th-celebration/mewtwo-ex-157"
     },
     "secret|158/128": {
@@ -1277,7 +1277,7 @@
       "name": "Mew ex",
       "section": "secret",
       "pid": 696688,
-      "raw": 26.81,
+      "raw": 27.49,
       "pc": "/game/pokemon-30th-celebration/mew-ex-158"
     },
     "classic|4/102": {
@@ -1285,7 +1285,7 @@
       "name": "Charizard",
       "section": "classic",
       "pid": 714372,
-      "raw": 111.63,
+      "raw": 111.11,
       "pc": "/game/pokemon-30th-celebration/charizard-4"
     },
     "classic|5/109": {
@@ -1293,7 +1293,7 @@
       "name": "Delcatty",
       "section": "classic",
       "pid": 716156,
-      "raw": 2.62,
+      "raw": 2.58,
       "pc": "/game/pokemon-30th-celebration/delcatty-5"
     },
     "classic|11/101": {
@@ -1301,7 +1301,7 @@
       "name": "Genesect EX (Team Plasma)",
       "section": "classic",
       "pid": 716158,
-      "raw": 4.88,
+      "raw": 4.61,
       "pc": "/game/pokemon-30th-celebration/genesect-ex-11"
     },
     "classic|11/113": {
@@ -1309,7 +1309,7 @@
       "name": "Metagross (Delta Species)",
       "section": "classic",
       "pid": 716157,
-      "raw": 3.73,
+      "raw": 3.8,
       "pc": "/game/pokemon-30th-celebration/metagross-11"
     },
     "classic|18/132": {
@@ -1317,7 +1317,7 @@
       "name": "Misty",
       "section": "classic",
       "pid": 716159,
-      "raw": 3.93,
+      "raw": 3.78,
       "pc": "/game/pokemon-30th-celebration/misty-18"
     },
     "classic|19/109": {
@@ -1325,7 +1325,7 @@
       "name": "Dark Tyranitar",
       "section": "classic",
       "pid": 716160,
-      "raw": 7.23,
+      "raw": 6.88,
       "pc": "/game/pokemon-30th-celebration/dark-tyranitar-19"
     },
     "classic|25/111": {
@@ -1333,7 +1333,7 @@
       "name": "Sneasel",
       "section": "classic",
       "pid": 716161,
-      "raw": 2.84,
+      "raw": 2.85,
       "pc": "/game/pokemon-30th-celebration/sneasel-25"
     },
     "classic|33/181": {
@@ -1341,7 +1341,7 @@
       "name": "Pikachu & Zekrom GX",
       "section": "classic",
       "pid": 714373,
-      "raw": 20.11,
+      "raw": 19.94,
       "pc": "/game/pokemon-30th-celebration/pikachu-&-zekrom-gx-33"
     },
     "classic|41/122": {
@@ -1349,7 +1349,7 @@
       "name": "Greninja BREAK",
       "section": "classic",
       "pid": 716162,
-      "raw": 7.42,
+      "raw": 6.87,
       "pc": "/game/pokemon-30th-celebration/greninja-break-41"
     },
     "classic|43/146": {
@@ -1357,7 +1357,7 @@
       "name": "Uxie",
       "section": "classic",
       "pid": 716163,
-      "raw": 2.83,
+      "raw": 2.66,
       "pc": "/game/pokemon-30th-celebration/uxie-43"
     },
     "classic|47/127": {
@@ -1365,7 +1365,7 @@
       "name": "Crobat G",
       "section": "classic",
       "pid": 716191,
-      "raw": 3.13,
+      "raw": 3.2,
       "pc": "/game/pokemon-30th-celebration/crobat-g-47"
     },
     "classic|050/185": {
@@ -1373,7 +1373,7 @@
       "name": "Raikou",
       "section": "classic",
       "pid": 716192,
-      "raw": 7.42,
+      "raw": 7.4,
       "pc": "/game/pokemon-30th-celebration/raikou-50"
     },
     "classic|57/111": {
@@ -1381,7 +1381,7 @@
       "name": "Buzzwole GX",
       "section": "classic",
       "pid": 716193,
-      "raw": 2.52,
+      "raw": 2.4,
       "pc": "/game/pokemon-30th-celebration/buzzwole-gx-57"
     },
     "classic|58/102": {
@@ -1389,7 +1389,7 @@
       "name": "Pikachu",
       "section": "classic",
       "pid": 716194,
-      "raw": 12.8,
+      "raw": 12.33,
       "pc": "/game/pokemon-30th-celebration/pikachu-58"
     },
     "classic|69/132": {
@@ -1397,7 +1397,7 @@
       "name": "Erika's Jigglypuff",
       "section": "classic",
       "pid": 716195,
-      "raw": 6.13,
+      "raw": 6.08,
       "pc": "/game/pokemon-30th-celebration/erika%27s-jigglypuff-69"
     },
     "classic|85/124": {
@@ -1405,7 +1405,7 @@
       "name": "Rayquaza EX",
       "section": "classic",
       "pid": 716196,
-      "raw": 17.01,
+      "raw": 15.91,
       "pc": "/game/pokemon-30th-celebration/rayquaza-ex-85"
     },
     "classic|89/149": {
@@ -1413,7 +1413,7 @@
       "name": "Solgaleo GX",
       "section": "classic",
       "pid": 716197,
-      "raw": 4.81,
+      "raw": 5.19,
       "pc": "/game/pokemon-30th-celebration/solgaleo-gx-89"
     },
     "classic|94/102": {
@@ -1421,7 +1421,7 @@
       "name": "Gengar (Prime)",
       "section": "classic",
       "pid": 716198,
-      "raw": 38.66,
+      "raw": 37.94,
       "pc": "/game/pokemon-30th-celebration/gengar-94"
     },
     "classic|99/102": {
@@ -1429,7 +1429,7 @@
       "name": "Darkrai & Cresselia Legend (Top)",
       "section": "classic",
       "pid": 716199,
-      "raw": 13.71,
+      "raw": 12.9,
       "pc": "/game/pokemon-30th-celebration/darkrai-&-cresselia-legend-99"
     },
     "classic|100/102": {
@@ -1437,7 +1437,7 @@
       "name": "Darkrai & Cresselia Legend (Bottom)",
       "section": "classic",
       "pid": 716200,
-      "raw": 14.47,
+      "raw": 13.52,
       "pc": "/game/pokemon-30th-celebration/darkrai-&-cresselia-legend-100"
     },
     "classic|101/101": {
@@ -1445,7 +1445,7 @@
       "name": "N",
       "section": "classic",
       "pid": 716202,
-      "raw": 10.04,
+      "raw": 9.62,
       "pc": "/game/pokemon-30th-celebration/n-101"
     },
     "classic|106/160": {
@@ -1453,7 +1453,7 @@
       "name": "M Gardevoir EX",
       "section": "classic",
       "pid": 716204,
-      "raw": 8.76,
+      "raw": 8.2,
       "pc": "/game/pokemon-30th-celebration/m-gardevoir-ex-106"
     },
     "classic|106/106": {
@@ -1461,7 +1461,7 @@
       "name": "Palkia LV.X",
       "section": "classic",
       "pid": 716203,
-      "raw": 8.52,
+      "raw": 7.65,
       "pc": "/game/pokemon-30th-celebration/palkia-lvx-106"
     },
     "classic|106/105": {
@@ -1469,7 +1469,7 @@
       "name": "Shining Celebi",
       "section": "classic",
       "pid": 716205,
-      "raw": 15.37,
+      "raw": 14.83,
       "pc": "/game/pokemon-30th-celebration/shining-celebi-106"
     },
     "classic|108/115": {
@@ -1477,7 +1477,7 @@
       "name": "Scizor ex",
       "section": "classic",
       "pid": 716206,
-      "raw": 8.34,
+      "raw": 7.76,
       "pc": "/game/pokemon-30th-celebration/scizor-ex-108"
     },
     "classic|114/264": {
@@ -1485,7 +1485,7 @@
       "name": "Mew VMAX",
       "section": "classic",
       "pid": 716207,
-      "raw": 16.33,
+      "raw": 16.49,
       "pc": "/game/pokemon-30th-celebration/mew-vmax-114"
     },
     "classic|123/172": {
@@ -1493,7 +1493,7 @@
       "name": "Arceus VSTAR",
       "section": "classic",
       "pid": 716208,
-      "raw": 7.57,
+      "raw": 7.39,
       "pc": "/game/pokemon-30th-celebration/arceus-vstar-123"
     },
     "classic|138/202": {
@@ -1501,7 +1501,7 @@
       "name": "Zacian V",
       "section": "classic",
       "pid": 716209,
-      "raw": 4.29,
+      "raw": 4.56,
       "pc": "/game/pokemon-30th-celebration/zacian-v-138"
     },
     "classic|149/147": {
@@ -1509,7 +1509,7 @@
       "name": "Lugia",
       "section": "classic",
       "pid": 714386,
-      "raw": 122.44,
+      "raw": 115.28,
       "pc": "/game/pokemon-30th-celebration/lugia-149"
     },
     "classic|203/193": {
@@ -1517,7 +1517,7 @@
       "name": "Magikarp",
       "section": "classic",
       "pid": 716210,
-      "raw": 63.3,
+      "raw": 62.41,
       "pc": "/game/pokemon-30th-celebration/magikarp-203"
     }
   },
@@ -1527,7 +1527,7 @@
       "name": "Greninja ex",
       "kind": "promo",
       "pid": 713268,
-      "raw": 0.69,
+      "raw": 0.57,
       "pc": "/game/pokemon-promo/greninja-ex-99"
     },
     "promo|095": {
@@ -1535,7 +1535,7 @@
       "name": "Lucario",
       "kind": "promo",
       "pid": 713263,
-      "raw": 0.39,
+      "raw": 0.43,
       "pc": "/game/pokemon-promo/lucario-95"
     },
     "promo|100": {
@@ -1543,7 +1543,7 @@
       "name": "Sylveon ex",
       "kind": "promo",
       "pid": 713267,
-      "raw": 0.9,
+      "raw": 0.79,
       "pc": "/game/pokemon-promo/sylveon-ex-100"
     },
     "promo|097": {
@@ -1551,7 +1551,7 @@
       "name": "Articuno",
       "kind": "promo",
       "pid": 713265,
-      "raw": 0.35
+      "raw": 0.4
     },
     "promo|096": {
       "n": "096",
@@ -1566,7 +1566,7 @@
       "name": "Zapdos",
       "kind": "promo",
       "pid": 713266,
-      "raw": 0.38,
+      "raw": 0.46,
       "pc": "/game/pokemon-promo/zapdos-98"
     },
     "promo|094": {
@@ -1574,7 +1574,7 @@
       "name": "Alolan Exeggutor",
       "kind": "promo",
       "pid": 713262,
-      "raw": 0.32,
+      "raw": 0.36,
       "pc": "/game/pokemon-promo/alolan-exeggutor-94"
     },
     "promo|101": {
@@ -1582,7 +1582,7 @@
       "name": "Nidorina",
       "kind": "promo",
       "pid": 713260,
-      "raw": 1.44,
+      "raw": 1.42,
       "pc": "/game/pokemon-promo/nidorina-101"
     },
     "promo|102": {
@@ -1590,7 +1590,7 @@
       "name": "Victini",
       "kind": "promo",
       "pid": 713286,
-      "raw": 23.19,
+      "raw": 22.92,
       "pc": "/game/pokemon-promo/victini-102"
     },
     "promo|103": {
@@ -1598,7 +1598,7 @@
       "name": "Zeraora",
       "kind": "promo",
       "pid": 713285,
-      "raw": 23.04,
+      "raw": 23.5,
       "pc": "/game/pokemon-promo/zeraora-103"
     },
     "promo|105": {
@@ -1606,7 +1606,7 @@
       "name": "Mew",
       "kind": "promo",
       "pid": 713288,
-      "raw": 19.01,
+      "raw": 17.57,
       "pc": "/game/pokemon-promo/mew-105"
     },
     "promo|106": {
@@ -1614,7 +1614,7 @@
       "name": "Ditto",
       "kind": "promo",
       "pid": 713287,
-      "raw": 17.27,
+      "raw": 16.91,
       "pc": "/game/pokemon-promo/ditto-106"
     },
     "jumbo|099": {
@@ -1630,7 +1630,7 @@
       "name": "Sylveon ex",
       "kind": "jumbo",
       "pid": 713270,
-      "raw": 2.99,
+      "raw": 2.96,
       "pc": "/game/pokemon-promo/sylveon-ex-jumbo-100"
     }
   }

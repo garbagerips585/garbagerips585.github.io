@@ -1,8 +1,8 @@
 {
   "_readme": "The channel's headline counts, computed by scripts/build-proto.mjs and read by scripts/build-hall.mjs so the two pages cannot disagree. Regenerated every build; do not hand-edit.",
-  "checked": "2026-11-13",
+  "checked": "2026-11-14",
   "packs": 544,
-  "rips": 404,
+  "rips": 405,
   "ripsWithHit": 204,
   "ripsJudged": 404,
   "cards": 261,
