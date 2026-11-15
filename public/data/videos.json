@@ -1,13 +1,29 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 344508,
+    "views": 345246,
     "subscribers": 450,
-    "videos": 405,
-    "readAt": "2026-11-14"
+    "videos": 406,
+    "readAt": "2026-11-15"
   },
-  "syncedAt": "2026-11-14",
+  "syncedAt": "2026-11-15",
   "videos": [
+    {
+      "id": "yw7IEoiEKyA",
+      "title": "Did the Final Pack Save the Archaludon ex Box?! 📦👀",
+      "path": "rip/did-the-final-pack-save-the-archaludon-ex-box-yw7IEoiEKyA.html",
+      "published": "2026-11-15",
+      "publishedAt": "2026-11-15T11:07:35Z",
+      "duration": 23,
+      "views": 6,
+      "vertical": true,
+      "short": true,
+      "sets": [],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": []
+    },
     {
       "id": "UZTMn49g5bY",
       "title": "Double Black Star Salamence ex Saves the Pack! 🐲🔥",
@@ -15,7 +31,7 @@
       "published": "2026-11-14",
       "publishedAt": "2026-11-14T13:06:08Z",
       "duration": 24,
-      "views": 266,
+      "views": 306,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +50,7 @@
       "published": "2026-11-13",
       "publishedAt": "2026-11-13T12:30:05Z",
       "duration": 22,
-      "views": 633,
+      "views": 784,
       "vertical": true,
       "short": true,
       "sets": [
@@ -56,7 +72,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1326,
+      "views": 1368,
       "vertical": true,
       "short": true,
       "sets": [
@@ -77,7 +93,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 1017,
+      "views": 1026,
       "vertical": true,
       "short": true,
       "sets": [
@@ -99,7 +115,7 @@
       "published": "2026-11-10",
       "publishedAt": "2026-11-10T12:03:07Z",
       "duration": 23,
-      "views": 1216,
+      "views": 1214,
       "vertical": true,
       "short": true,
       "sets": [
@@ -121,7 +137,7 @@
       "published": "2026-11-09",
       "publishedAt": "2026-11-09T11:04:25Z",
       "duration": 28,
-      "views": 1066,
+      "views": 1067,
       "vertical": true,
       "short": true,
       "sets": [
@@ -164,7 +180,7 @@
       "published": "2026-11-07",
       "publishedAt": "2026-11-07T12:10:25Z",
       "duration": 25,
-      "views": 19,
+      "views": 20,
       "vertical": true,
       "short": true,
       "sets": [
@@ -185,7 +201,7 @@
       "published": "2026-11-06",
       "publishedAt": "2026-11-06T11:02:29Z",
       "duration": 20,
-      "views": 430,
+      "views": 434,
       "vertical": true,
       "short": true,
       "sets": [
@@ -206,7 +222,7 @@
       "published": "2026-11-05",
       "publishedAt": "2026-11-05T12:58:22Z",
       "duration": 20,
-      "views": 994,
+      "views": 995,
       "vertical": true,
       "short": true,
       "sets": [
@@ -358,7 +374,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 301,
+      "views": 303,
       "vertical": true,
       "short": true,
       "sets": [
@@ -551,7 +567,7 @@
       "published": "2026-10-20",
       "publishedAt": "2026-10-20T13:50:03Z",
       "duration": 26,
-      "views": 1017,
+      "views": 1018,
       "vertical": true,
       "short": true,
       "sets": [
@@ -763,7 +779,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1140,
+      "views": 1142,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1019,7 +1035,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1375,
+      "views": 1376,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1276,7 +1292,7 @@
       "published": "2026-09-16",
       "publishedAt": "2026-09-16T23:20:06Z",
       "duration": 27,
-      "views": 1290,
+      "views": 1291,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1720,7 +1736,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1138,
+      "views": 1139,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2173,7 +2189,7 @@
       "published": "2026-08-16",
       "publishedAt": "2026-08-16T13:13:06Z",
       "duration": 21,
-      "views": 930,
+      "views": 931,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2690,7 +2706,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1021,
+      "views": 1024,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3388,7 +3404,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 677,
+      "views": 679,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3672,7 +3688,7 @@
       "published": "2026-07-13",
       "publishedAt": "2026-07-13T23:48:25Z",
       "duration": 24,
-      "views": 867,
+      "views": 868,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5135,7 +5151,7 @@
       "published": "2026-06-23",
       "publishedAt": "2026-06-23T10:13:30Z",
       "duration": 18,
-      "views": 39,
+      "views": 40,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9709,7 +9725,7 @@
       "published": "2026-04-18",
       "publishedAt": "2026-04-18T11:00:56Z",
       "duration": 24,
-      "views": 1432,
+      "views": 1434,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12033,7 +12049,7 @@
       "published": "2026-03-04",
       "publishedAt": "2026-03-04T11:14:00Z",
       "duration": 28,
-      "views": 338,
+      "views": 339,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12699,7 +12715,7 @@
       "published": "2026-02-13",
       "publishedAt": "2026-02-13T13:30:09Z",
       "duration": 18,
-      "views": 636,
+      "views": 637,
       "vertical": true,
       "short": true,
       "sets": [
