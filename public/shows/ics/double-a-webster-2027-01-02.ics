@@ -1,0 +1,17 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Garbage Rips 585//Card shows//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:double-a-webster-2027-01-02@garbagerips.com
+DTSTAMP:20261107T000000Z
+DTSTART:20270102T170000Z
+DTEND:20270102T210000Z
+SUMMARY:Double A's Moms Make Millionaires
+LOCATION:Harmony House\, 58 E Main St\, Webster\, NY
+DESCRIPTION:Admission: $5\, kids under 5 free\nDetails: https://garbagerips
+ .com/card-shows.html#s-double-a-webster-2027-01-02
+URL:https://garbagerips.com/card-shows.html#s-double-a-webster-2027-01-02
+END:VEVENT
+END:VCALENDAR

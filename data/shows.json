@@ -3685,6 +3685,28 @@
       "blurb": "A one day cards and collectibles show at the American Legion in Cicero, just north of Syracuse. The listing names no street address and no admission price, so check before you drive.",
       "source": "treasurehunter.show, read 7 November 2026 (\"Last confirmed Nov 6, 2026\")",
       "sourceNote": "ONE SOURCE: treasurehunter.show lists Sunday, December 13, 2026, 10am to 3pm, American Legion, Cicero, NY, category Sports Cards. No street address, organizer or admission is given, and none is guessed here: the map link is built from the venue and town. Pokemon is not stated. Added on the owner's OK of 7 November 2026."
+    },
+    {
+      "id": "double-a-webster-2027-01-02",
+      "name": "Double A's Moms Make Millionaires",
+      "date": "2027-01-02",
+      "start": "12:00",
+      "end": "16:00",
+      "venue": "Harmony House",
+      "address": "58 E Main St, Webster, NY",
+      "city": "Webster",
+      "region": "roc",
+      "admission": "$5, kids under 5 free",
+      "pokemon": false,
+      "pkmn": "some",
+      "pkmnWhy": "The organizer's own flyer: Pokemon logos fill the background, Psyduck is on the front, the Pokemon 30th Celebration mark is among the logos along the foot, and it offers \"Learn to Play at One of Our Pokémon GLC Tables\". It also carries One Piece, Magic, DC and Marvel, so it is a mixed show rather than a Pokemon one.",
+      "organiser": "Double A Card & Comic Collective",
+      "blurb": "Double A Card & Comic Collective is back at Harmony House on East Main Street in Webster for a relaxed afternoon show, with Pokemon learn-to-play tables. Five dollars in, kids under five free, and five dollars off your first purchase of $25 or more.",
+      "source": "the organizer's own flyer, sent to the channel 16 November 2026",
+      "sourceNote": "EVERYTHING HERE IS ON THE FLYER and nothing is added: the name, date, hours (12-4pm), venue, street address, price, the kids rule and the $5 off $25 offer. The flyer spells the name \"Moms Make Millionares\"; the listing spells it Millionaires. It prints no ZIP code, so none is given. It also carries a vendor inquiry email; that is for vendors and is not printed here. Added on the owner's word, 16 November 2026.",
+      "flyer": "double-a-webster-2027-01-02.jpg",
+      "flyerW": 440,
+      "flyerH": 587
     }
   ],
   "_towns": {

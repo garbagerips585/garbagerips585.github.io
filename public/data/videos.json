@@ -25,9 +25,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 4,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 1"
+      "label": "30th Celebration Blister 4 - Pack 1"
     },
     {
       "id": "yw7IEoiEKyA",
@@ -39,14 +40,17 @@
       "views": 12,
       "vertical": true,
       "short": true,
-      "sets": [],
+      "sets": [
+        "twilight-masquerade"
+      ],
       "products": [
         "ex-premium"
       ],
       "pulls": [],
       "hasHit": false,
       "packNumber": 4,
-      "packs": 1
+      "packs": 1,
+      "label": "Twilight Masquerade ex Premium Collection - Pack 4"
     },
     {
       "id": "UZTMn49g5bY",
@@ -65,9 +69,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 3,
       "packNumber": 3,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 3"
+      "label": "30th Celebration Blister 3 - Pack 3"
     },
     {
       "id": "GNLcSmuc1dQ",
@@ -108,9 +113,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 3,
       "packNumber": 2,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 2"
+      "label": "30th Celebration Blister 3 - Pack 2"
     },
     {
       "id": "B4A-HNC-F6M",
@@ -152,9 +158,10 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 3,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 1"
+      "label": "30th Celebration Blister 3 - Pack 1"
     },
     {
       "id": "ImL4P9zX8pg",
@@ -281,9 +288,10 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 2,
       "packNumber": 3,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 3"
+      "label": "30th Celebration Blister 2 - Pack 3"
     },
     {
       "id": "7SV1GE23CGA",
@@ -302,9 +310,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 2,
       "packNumber": 2,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 2"
+      "label": "30th Celebration Blister 2 - Pack 2"
     },
     {
       "id": "WuZlHKpYK-w",
@@ -346,9 +355,10 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 2,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 1"
+      "label": "30th Celebration Blister 2 - Pack 1"
     },
     {
       "id": "Wsmt5C1W6b4",
@@ -1244,9 +1254,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 1,
       "packNumber": 3,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 3"
+      "label": "30th Celebration Blister 1 - Pack 3"
     },
     {
       "id": "jJWVipd2sf0",
@@ -1286,9 +1297,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 1,
       "packNumber": 2,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 2"
+      "label": "30th Celebration Blister 1 - Pack 2"
     },
     {
       "id": "IYh51hhJkL0",
@@ -1328,9 +1340,10 @@
         "blister"
       ],
       "pulls": [],
+      "boxNumber": 1,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Blister - Pack 1"
+      "label": "30th Celebration Blister 1 - Pack 1"
     },
     {
       "id": "N02mLMwZSq0",

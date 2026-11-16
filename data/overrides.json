@@ -2777,6 +2777,8 @@
     "packNumberWhy": "The owner, 16 September 2026: \"Single Booster Pack, Pack #13, Hit yes, Mega Skarmory ex - Double Silver Star - Ultra Rare\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #13\", and that is still not a source -- it is the same string the regex was banned from trusting. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it. HE DID NOT NAME THE SET THIS TIME and none was needed: the video's own tag and its title both say Perfect Order, and Mega Skarmory ex is printed in no other set this site holds. NO hasHit HERE ON PURPOSE: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact."
   },
   "tD8klCySHn8": {
+    "boxNumber": 1,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 1.",
     "packNumber": 1,
     "packNumberWhy": "The owner, 16 September 2026: \"3-Pack Blister, Pack #1, Hit yes, Fuecoco ex - Double Black Star - Double Rare, 30th Celebration\". THE FIRST RIP OF THE 30th ON THIS CHANNEL, on the set's own launch day. Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title. The title does say \"Pack #1\" and that is still not a source. THE PRODUCT IS TAGGED `blister` AND BOTH HIS DESCRIPTIONS OF IT WERE TRUE. He typed \"3-Pack Blister\" and his video description says \"Pack #1 out of the Tech Sticker Collection\", which read as a contradiction until he settled it on 17 September 2026: \"yes it is the tech sticker collection, and yes its has 3 packs in it, and yes its a 3 pack blister\". TPCi's product NAME is the Tech Sticker Collection and its FORM is a three pack blister, so the two statements describe one object. The set has no product actually called a three pack blister, which is what made the pair look wrong: TCGplayer lists a 2-Pack Blister and this, and this is the one holding three. `blister` rather than the derived `collection-box` because it is what he typed for the rip log and because it is the form a reader recognises; /openings/ groups a run by this tag, and a three pack run belongs with the other blisters.",
     "products": [
@@ -2788,6 +2790,8 @@
     "packNumberWhy": "The owner, 17 September 2026: \"Single Booster Pack, Pack #11, Hit yes, Iono's Wattrel - Single Gold Star - Illustration Rare , Ascended Heroes\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does not even say a pack number -- it reads \"Ascended Heroes Pack #11\" in the nightly's own slug but the site does not parse that -- so his message is the whole source. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row."
   },
   "AOdqwSZFsGw": {
+    "boxNumber": 1,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 1.",
     "packNumber": 2,
     "products": [
       "blister"
@@ -2799,6 +2803,8 @@
     "packNumberWhy": "The owner, 19 September 2026: \"Single Booster Pack, Pack#14, Hit yes, Wigglytuff - Single Gold Star - Illustration Rare , Phantasmal Flames\". Typed by him, which is the only way a pack number may be set: riplabel.mjs refuses to read one out of a title after a regex published eight rips as \"Chaos Rising ETB #2\" and invented an ETB #9 that never existed. This title does read \"Pack #14\" and that is still not a source -- it is the same string the regex was banned from trusting. NO products OVERRIDE: the playlist \"Phantasmal Flames Booster Pack Openings\" already derives single-pack, which is what he typed, and no set override either for the same reason. No hasHit override: this rip HAS a hit and a hit is answered by its data/hits.json row, so writing hasHit as well would be two sources for one fact. His sheet has not caught up with this rip yet, so it lives here rather than in manual.json, which the next CSV import would rebuild without it."
   },
   "AebP2_eyvGI": {
+    "boxNumber": 1,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 1.",
     "packNumber": 3,
     "products": [
       "blister"
@@ -3117,6 +3123,8 @@
     "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
   },
   "kAuIvKbEYw8": {
+    "boxNumber": 2,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 2.",
     "packNumber": 1,
     "hasHit": false,
     "sets": [
@@ -3141,6 +3149,8 @@
     "setsWhy": "Destined Rivals, named in the description. Pinned so a series word in the title can never add a second set."
   },
   "7SV1GE23CGA": {
+    "boxNumber": 2,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 2.",
     "packNumber": 2,
     "sets": [
       "30th-celebration"
@@ -3153,6 +3163,8 @@
     "productsWhy": "blister, as on Pack #1 (kAuIvKbEYw8) and the first Tech Sticker Collection: the owner settled on 17 September 2026 that its product NAME is the Tech Sticker Collection and its FORM is a three pack blister. Without this the taxonomy reads \"Collection\" as collection-box."
   },
   "heFRq2yODvQ": {
+    "boxNumber": 2,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 2.",
     "packNumber": 3,
     "hasHit": false,
     "sets": [
@@ -3221,6 +3233,8 @@
     "setsWhy": "Twilight Masquerade, named in the description. Pinned so the box name can never add a second set."
   },
   "klo7rTgTJkE": {
+    "boxNumber": 3,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 3.",
     "packNumber": 1,
     "hasHit": false,
     "sets": [
@@ -3235,6 +3249,8 @@
     "productsWhy": "Tech Sticker Collection, tagged blister to match the first Tech Sticker Collection's three rips."
   },
   "M8M6lA0pL9E": {
+    "boxNumber": 3,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 3.",
     "packNumber": 2,
     "sets": [
       "30th-celebration"
@@ -3257,6 +3273,8 @@
     "setsWhy": "Delta Reign, named in the description. Pinned so the box name can never add a second set."
   },
   "UZTMn49g5bY": {
+    "boxNumber": 3,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 3.",
     "packNumber": 3,
     "sets": [
       "30th-celebration"
@@ -3273,9 +3291,14 @@
     "hasHit": false,
     "packNumberWhy": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 15 November 2026: \"Tearing into Pack #4 to finish off the Pokémon Archaludon ex Box straight to Rochester, NY, and the final pack gave us zero hits!\" Pack 4, the last, of the Archaludon ex Box (packs 1 to 3 are 4wt9xuZ-VV0, 8Rq81W27eys and B4A-HNC-F6M). Never read out of the title: riplabel.mjs refuses to.",
     "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"zero hits\" and \"straight to Trubbish's bulk bin\". Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
-    "_setsOpen": "No set pinned: the description does not name which booster pack 4 was (packs 1 and 2 were Surging Sparks, pack 3 Twilight Masquerade). Asked the owner 16 November 2026."
+    "sets": [
+      "twilight-masquerade"
+    ],
+    "setsWhy": "The owner, 16 November 2026, asked which set pack 4 was: \"pack 4 was TM\". Twilight Masquerade."
   },
   "3BHt2DzI3xY": {
+    "boxNumber": 4,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 4.",
     "packNumber": 1,
     "sets": [
       "30th-celebration"
