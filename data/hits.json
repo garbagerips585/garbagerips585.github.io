@@ -2742,6 +2742,28 @@
         "hallOfFame": false,
         "handNote": "The owner, 13 November 2026: \"do another youtube sync and mark any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 12 November 2026: \"Pack #2 of the Pokémon 30th Celebration Tech Sticker Collection just delivered straight to Rochester, NY with one of my all-time favorite cards ever printed: the Classic Collection Chunky Pikachu!\" data/30th-checklist.json holds one Classic Collection Pikachu, the Base Set reprint at 58/102 (the description: \"Back in 1999, this exact artwork was my first-ever Pikachu card, pulled from a ... Base Set booster pack\"), number written whole because Classic Collection reprints keep their original numbering. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
       }
+    ],
+    "UZTMn49g5bY": [
+      {
+        "card": "Salamence ex",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Double Rare",
+        "number": "109",
+        "hallOfFame": false,
+        "handNote": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 14 November 2026: \"We avoided Trubbish's bin this time and pulled the Salamence ex (Double Black Star Double Rare)!\" 30th Celebration prints Salamence ex twice, 109 Double Rare and 156 Special Illustration Rare; the description says \"Double Black Star Double Rare\", so this is 109. Hand kept until the My Hits tab carries it."
+      }
+    ],
+    "3BHt2DzI3xY": [
+      {
+        "card": "Mewtwo ex",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Special Illustration Rare",
+        "number": "151",
+        "hallOfFame": false,
+        "handNote": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 16 November 2026: \"We pulled the holy grail: Mewtwo ex Special Illustration Rare (Double Gold Star)!\" 30th Celebration prints Mewtwo ex three times, 064 Double Rare, 151 Special Illustration Rare and 157 Futuristic Rare; the description says \"Special Illustration Rare (Double Gold Star)\", so this is 151. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
+      }
     ]
   }
 }

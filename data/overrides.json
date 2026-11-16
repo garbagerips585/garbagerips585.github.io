@@ -3255,5 +3255,36 @@
     "packNumberWhy": "The owner, 13 November 2026: \"do another youtube sync and mark any hits from the descriptions\", so the video's own description is the source, on his say-so. The video description, 13 November 2026: \"Moving right along with the Pokémon Delta Reign Elite Trainer Box on Pack #2 straight to Rochester, NY, and it was a direct feed to the bulk pile!\" Pack 2 of the Delta Reign Elite Trainer Box (pack 1 is ImL4P9zX8pg). Never read out of the title: riplabel.mjs refuses to.",
     "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"a direct feed to the bulk pile\" and \"still hunting that epic Mega Rayquaza ex SIR and Raikou ex SIR\". Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
     "setsWhy": "Delta Reign, named in the description. Pinned so the box name can never add a second set."
+  },
+  "UZTMn49g5bY": {
+    "packNumber": 3,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 14 November 2026: \"Wrapping up another Pokémon 30th Celebration Tech Sticker Collection with Pack #3 straight to Rochester, NY!\" Pack 3 of the second 30th Celebration Tech Sticker Collection (packs 1 and 2 are klo7rTgTJkE and M8M6lA0pL9E). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
+  },
+  "yw7IEoiEKyA": {
+    "packNumber": 4,
+    "hasHit": false,
+    "packNumberWhy": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 15 November 2026: \"Tearing into Pack #4 to finish off the Pokémon Archaludon ex Box straight to Rochester, NY, and the final pack gave us zero hits!\" Pack 4, the last, of the Archaludon ex Box (packs 1 to 3 are 4wt9xuZ-VV0, 8Rq81W27eys and B4A-HNC-F6M). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy: \"zero hits\" and \"straight to Trubbish's bulk bin\". Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "_setsOpen": "No set pinned: the description does not name which booster pack 4 was (packs 1 and 2 were Surging Sparks, pack 3 Twilight Masquerade). Asked the owner 16 November 2026."
+  },
+  "3BHt2DzI3xY": {
+    "packNumber": 1,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 16 November 2026: \"Kicking off a brand-new Pokémon 30th Celebration Tech Sticker Collection with Pack #1 straight to Rochester, NY\". Pack 1 of a third 30th Celebration Tech Sticker Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
   }
 }
