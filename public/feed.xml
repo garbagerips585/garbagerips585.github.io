@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-16T12:40:10Z</updated>
+  <updated>2026-11-17T11:36:22Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>Pack #3 Brought the HEAT: Magmortar Illustration Rare! 🌋🔥</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-3-brought-the-heat-magmortar-illustration-rare-g6gjnXfj2Is.html"/>
+    <id>https://garbagerips.com/rip/pack-3-brought-the-heat-magmortar-illustration-rare-g6gjnXfj2Is.html</id>
+    <published>2026-11-17T11:36:22Z</published>
+    <updated>2026-11-17T11:36:22Z</updated>
+    <summary>Pack #3 brought pure volcano heat! 🌋🔥 Moving right along with the brand-new Pokémon Delta Reign Elite Trainer Box straight to Rochester, NY!</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-delta-reign.jpg?v=2"/>
+  </entry>
   <entry>
     <title>FIRST PACK MAGIC! Pulled the MEWTWO EX Special Illustration Rare! 🧬✨</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/first-pack-magic-pulled-the-mewtwo-ex-special-illustration-r-3BHt2DzI3xY.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-19T10:30:02Z</updated>
     <summary>WE’LL TAKE WHAT WE CAN GET! 🦈👑 For Pack #18 of Pokémon Destined Rivals, we avoided the bulk pile straight to Rochester, NY and pulled Cynthia’s Garchomp...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-destined-rivals.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>Pack #3 Brought Us Back Down to Earth! 🗑️💀</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-3-brought-us-back-down-to-earth-lYzfufx3H1M.html"/>
-    <id>https://garbagerips.com/rip/pack-3-brought-us-back-down-to-earth-lYzfufx3H1M.html</id>
-    <published>2026-10-18T11:13:05Z</published>
-    <updated>2026-10-18T11:13:05Z</updated>
-    <summary>After back-to-back hits, the bulk pile takes its revenge! 🗑️💀 For Pack #3 of the Pokémon 30th Celebration Poster Collection, we ended up with zero hits,...</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
   </entry>
 </feed>

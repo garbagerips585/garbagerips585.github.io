@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 345309,
+    "views": 345430,
     "subscribers": 451,
-    "videos": 407,
-    "readAt": "2026-11-16"
+    "videos": 408,
+    "readAt": "2026-11-17"
   },
-  "syncedAt": "2026-11-16",
+  "syncedAt": "2026-11-17",
   "videos": [
+    {
+      "id": "g6gjnXfj2Is",
+      "title": "Pack #3 Brought the HEAT: Magmortar Illustration Rare! 🌋🔥",
+      "path": "rip/pack-3-brought-the-heat-magmortar-illustration-rare-g6gjnXfj2Is.html",
+      "published": "2026-11-17",
+      "publishedAt": "2026-11-17T11:36:22Z",
+      "duration": 25,
+      "views": 931,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "3BHt2DzI3xY",
       "title": "FIRST PACK MAGIC! Pulled the MEWTWO EX Special Illustration Rare! 🧬✨",
@@ -15,7 +34,7 @@
       "published": "2026-11-16",
       "publishedAt": "2026-11-16T12:40:10Z",
       "duration": 25,
-      "views": 35,
+      "views": 53,
       "vertical": true,
       "short": true,
       "sets": [
@@ -81,7 +100,7 @@
       "published": "2026-11-13",
       "publishedAt": "2026-11-13T12:30:05Z",
       "duration": 22,
-      "views": 791,
+      "views": 792,
       "vertical": true,
       "short": true,
       "sets": [
@@ -103,7 +122,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1431,
+      "views": 1434,
       "vertical": true,
       "short": true,
       "sets": [
@@ -125,7 +144,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 1030,
+      "views": 1032,
       "vertical": true,
       "short": true,
       "sets": [
@@ -147,7 +166,7 @@
       "published": "2026-11-10",
       "publishedAt": "2026-11-10T12:03:07Z",
       "duration": 23,
-      "views": 1216,
+      "views": 1215,
       "vertical": true,
       "short": true,
       "sets": [
@@ -815,7 +834,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1142,
+      "views": 1143,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1459,7 +1478,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 944,
+      "views": 945,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1775,7 +1794,7 @@
       "published": "2026-08-29",
       "publishedAt": "2026-08-29T12:09:23Z",
       "duration": 22,
-      "views": 1139,
+      "views": 1140,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2123,7 +2142,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1117,
+      "views": 1120,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2708,7 +2727,7 @@
       "published": "2026-08-02",
       "publishedAt": "2026-08-02T11:20:07Z",
       "duration": 22,
-      "views": 895,
+      "views": 897,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2745,7 +2764,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1025,
+      "views": 1026,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5045,7 +5064,7 @@
       "published": "2026-06-25",
       "publishedAt": "2026-06-25T10:28:07Z",
       "duration": 22,
-      "views": 62,
+      "views": 63,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5990,7 +6009,7 @@
       "published": "2026-06-11",
       "publishedAt": "2026-06-11T23:40:33Z",
       "duration": 21,
-      "views": 1298,
+      "views": 1300,
       "vertical": true,
       "short": true,
       "sets": [
