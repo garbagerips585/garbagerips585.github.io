@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 345430,
-    "subscribers": 451,
-    "videos": 408,
-    "readAt": "2026-11-17"
+    "views": 346385,
+    "subscribers": 452,
+    "videos": 409,
+    "readAt": "2026-11-18"
   },
-  "syncedAt": "2026-11-17",
+  "syncedAt": "2026-11-18",
   "videos": [
+    {
+      "id": "_690yz1HUSQ",
+      "title": "Pack #2 Struck Out: Trubbish Is Eating Good Today! 🗑️💀",
+      "path": "rip/pack-2-struck-out-trubbish-is-eating-good-today-_690yz1HUSQ.html",
+      "published": "2026-11-18",
+      "publishedAt": "2026-11-18T11:39:11Z",
+      "duration": 20,
+      "views": 922,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "g6gjnXfj2Is",
       "title": "Pack #3 Brought the HEAT: Magmortar Illustration Rare! 🌋🔥",
@@ -15,7 +34,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 931,
+      "views": 955,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-16",
       "publishedAt": "2026-11-16T12:40:10Z",
       "duration": 25,
-      "views": 53,
+      "views": 59,
       "vertical": true,
       "short": true,
       "sets": [
@@ -78,7 +97,7 @@
       "published": "2026-11-14",
       "publishedAt": "2026-11-14T13:06:08Z",
       "duration": 24,
-      "views": 310,
+      "views": 308,
       "vertical": true,
       "short": true,
       "sets": [
@@ -122,7 +141,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1434,
+      "views": 1438,
       "vertical": true,
       "short": true,
       "sets": [
@@ -253,7 +272,7 @@
       "published": "2026-11-06",
       "publishedAt": "2026-11-06T11:02:29Z",
       "duration": 20,
-      "views": 435,
+      "views": 437,
       "vertical": true,
       "short": true,
       "sets": [
@@ -429,7 +448,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 303,
+      "views": 304,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1478,7 +1497,7 @@
       "published": "2026-09-11",
       "publishedAt": "2026-09-11T10:25:27Z",
       "duration": 20,
-      "views": 945,
+      "views": 946,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2142,7 +2161,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1120,
+      "views": 1125,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2691,7 +2710,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 673,
+      "views": 674,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3462,7 +3481,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 679,
+      "views": 680,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8415,7 +8434,7 @@
       "published": "2026-05-07",
       "publishedAt": "2026-05-07T23:57:00Z",
       "duration": 24,
-      "views": 485,
+      "views": 487,
       "vertical": true,
       "short": true,
       "sets": [
