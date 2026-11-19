@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 346385,
-    "subscribers": 452,
-    "videos": 409,
-    "readAt": "2026-11-18"
+    "views": 347358,
+    "subscribers": 453,
+    "videos": 410,
+    "readAt": "2026-11-19"
   },
-  "syncedAt": "2026-11-18",
+  "syncedAt": "2026-11-19",
   "videos": [
+    {
+      "id": "WaAxscrVmuI",
+      "title": "Trubbish Always Loves Eating Brand New Set Bulk! 🗑️⚡",
+      "path": "rip/trubbish-always-loves-eating-brand-new-set-bulk-WaAxscrVmuI.html",
+      "published": "2026-11-19",
+      "publishedAt": "2026-11-19T13:25:38Z",
+      "duration": 22,
+      "views": 517,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "_690yz1HUSQ",
       "title": "Pack #2 Struck Out: Trubbish Is Eating Good Today! 🗑️💀",
@@ -15,7 +34,7 @@
       "published": "2026-11-18",
       "publishedAt": "2026-11-18T11:39:11Z",
       "duration": 20,
-      "views": 922,
+      "views": 973,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 955,
+      "views": 962,
       "vertical": true,
       "short": true,
       "sets": [
@@ -141,7 +160,7 @@
       "published": "2026-11-12",
       "publishedAt": "2026-11-12T13:06:31Z",
       "duration": 26,
-      "views": 1438,
+      "views": 1437,
       "vertical": true,
       "short": true,
       "sets": [
@@ -163,7 +182,7 @@
       "published": "2026-11-11",
       "publishedAt": "2026-11-11T11:09:15Z",
       "duration": 21,
-      "views": 1032,
+      "views": 1033,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1197,7 +1216,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1288,
+      "views": 1289,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1919,7 +1938,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1207,
+      "views": 1211,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2161,7 +2180,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1125,
+      "views": 1126,
       "vertical": true,
       "short": true,
       "sets": [
