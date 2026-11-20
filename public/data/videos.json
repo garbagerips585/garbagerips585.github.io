@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 347358,
-    "subscribers": 453,
-    "videos": 410,
-    "readAt": "2026-11-19"
+    "views": 348292,
+    "subscribers": 454,
+    "videos": 411,
+    "readAt": "2026-11-20"
   },
-  "syncedAt": "2026-11-19",
+  "syncedAt": "2026-11-20",
   "videos": [
+    {
+      "id": "0952Fy9Fuj0",
+      "title": "This Greninja ex Artwork is a 10/10 Masterpiece! 🎨👀",
+      "path": "rip/this-greninja-ex-artwork-is-a-10-10-masterpiece-0952Fy9Fuj0.html",
+      "published": "2026-11-20",
+      "publishedAt": "2026-11-20T11:12:20Z",
+      "duration": 26,
+      "views": 864,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "WaAxscrVmuI",
       "title": "Trubbish Always Loves Eating Brand New Set Bulk! 🗑️⚡",
@@ -15,7 +34,7 @@
       "published": "2026-11-19",
       "publishedAt": "2026-11-19T13:25:38Z",
       "duration": 22,
-      "views": 517,
+      "views": 882,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-18",
       "publishedAt": "2026-11-18T11:39:11Z",
       "duration": 20,
-      "views": 973,
+      "views": 993,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 962,
+      "views": 965,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1938,7 +1957,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1211,
+      "views": 1217,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2180,7 +2199,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1126,
+      "views": 1127,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2802,7 +2821,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1026,
+      "views": 1028,
       "vertical": true,
       "short": true,
       "sets": [
