@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 348292,
+    "views": 348315,
     "subscribers": 454,
-    "videos": 411,
-    "readAt": "2026-11-20"
+    "videos": 412,
+    "readAt": "2026-11-21"
   },
-  "syncedAt": "2026-11-20",
+  "syncedAt": "2026-11-21",
   "videos": [
+    {
+      "id": "Ih8bSyXMd6g",
+      "title": "Pack #5 Delivered a MEGA Hit: Mega Malamar ex! 🦑✨",
+      "path": "rip/pack-5-delivered-a-mega-hit-mega-malamar-ex-Ih8bSyXMd6g.html",
+      "published": "2026-11-21",
+      "publishedAt": "2026-11-21T13:45:29Z",
+      "duration": 27,
+      "views": 646,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "0952Fy9Fuj0",
       "title": "This Greninja ex Artwork is a 10/10 Masterpiece! 🎨👀",
@@ -15,7 +34,7 @@
       "published": "2026-11-20",
       "publishedAt": "2026-11-20T11:12:20Z",
       "duration": 26,
-      "views": 864,
+      "views": 1107,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-19",
       "publishedAt": "2026-11-19T13:25:38Z",
       "duration": 22,
-      "views": 882,
+      "views": 1010,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-11-18",
       "publishedAt": "2026-11-18T11:39:11Z",
       "duration": 20,
-      "views": 993,
+      "views": 988,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +91,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 965,
+      "views": 967,
       "vertical": true,
       "short": true,
       "sets": [
@@ -113,7 +132,7 @@
       "published": "2026-11-15",
       "publishedAt": "2026-11-15T11:07:35Z",
       "duration": 23,
-      "views": 12,
+      "views": 13,
       "vertical": true,
       "short": true,
       "sets": [
@@ -486,7 +505,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 304,
+      "views": 306,
       "vertical": true,
       "short": true,
       "sets": [
@@ -891,7 +910,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1143,
+      "views": 1146,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1601,7 +1620,7 @@
       "published": "2026-09-08",
       "publishedAt": "2026-09-08T10:10:05Z",
       "duration": 21,
-      "views": 1586,
+      "views": 1594,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2821,7 +2840,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1028,
+      "views": 1029,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3519,7 +3538,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 680,
+      "views": 682,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7123,7 +7142,7 @@
       "published": "2026-05-27",
       "publishedAt": "2026-05-27T10:37:39Z",
       "duration": 22,
-      "views": 1868,
+      "views": 1869,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7366,7 +7385,7 @@
       "published": "2026-05-23",
       "publishedAt": "2026-05-23T23:34:17Z",
       "duration": 15,
-      "views": 1214,
+      "views": 1215,
       "vertical": true,
       "short": true,
       "sets": [
