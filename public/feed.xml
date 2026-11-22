@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-21T13:45:29Z</updated>
+  <updated>2026-11-22T12:55:18Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>A DOUBLE PIKACHU PACK?! Shinji Kanda Psychedelic Grail Pulled! 🎨⚡</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/a-double-pikachu-pack-shinji-kanda-psychedelic-grail-pulled-r7bjDlZdeiI.html"/>
+    <id>https://garbagerips.com/rip/a-double-pikachu-pack-shinji-kanda-psychedelic-grail-pulled-r7bjDlZdeiI.html</id>
+    <published>2026-11-22T12:55:18Z</published>
+    <updated>2026-11-22T12:55:18Z</updated>
+    <summary>AN INSANE DOUBLE PIKACHU PACK TO KICK OFF THE POSTER COLLECTION! ⚡🎨 Tearing into Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection...</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
+  </entry>
   <entry>
     <title>Pack #5 Delivered a MEGA Hit: Mega Malamar ex! 🦑✨</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-5-delivered-a-mega-hit-mega-malamar-ex-Ih8bSyXMd6g.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-24T12:57:15Z</updated>
     <summary>3 PACKS, 3 MASSIVE HITS! 🐭🌈 Pack #3 of the Pokémon 30th Celebration Sylveon ex Box kept the heater going straight to Rochester, NY with the Maushold...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>Another Garbage Rip... But the Gengar Hunt NEVER Stops! 👻🗑️</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/another-garbage-rip-but-the-gengar-hunt-never-stops-46KBIMb72AM.html"/>
-    <id>https://garbagerips.com/rip/another-garbage-rip-but-the-gengar-hunt-never-stops-46KBIMb72AM.html</id>
-    <published>2026-10-23T10:48:34Z</published>
-    <updated>2026-10-23T10:48:34Z</updated>
-    <summary>The bulk pile strikes again! 🗑️💀 Pack #16 of Pokémon Ascended Heroes was another textbook garbage rip straight to Rochester, NY.</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-ascended-heroes.jpg?v=2"/>
   </entry>
 </feed>
