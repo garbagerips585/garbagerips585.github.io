@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-22T12:55:18Z</updated>
+  <updated>2026-11-23T12:56:39Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>Trubbish Strikes Again: No Hits in Pack #6! 🗑️⚡</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/trubbish-strikes-again-no-hits-in-pack-6-nKACtfNNzPg.html"/>
+    <id>https://garbagerips.com/rip/trubbish-strikes-again-no-hits-in-pack-6-nKACtfNNzPg.html</id>
+    <published>2026-11-23T12:56:39Z</published>
+    <updated>2026-11-23T12:56:39Z</updated>
+    <summary>Back to the bulk bin with a classic garbage rip! 🗑️💀 Moving along with the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #6 straight to...</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-delta-reign.jpg?v=2"/>
+  </entry>
   <entry>
     <title>A DOUBLE PIKACHU PACK?! Shinji Kanda Psychedelic Grail Pulled! 🎨⚡</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/a-double-pikachu-pack-shinji-kanda-psychedelic-grail-pulled-r7bjDlZdeiI.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-25T12:18:00Z</updated>
     <summary>BULK PILE OFFICIALLY DENIED! 🍃💚 Pack #17 of Pokémon Ascended Heroes delivered straight to Rochester, NY with the stunning, bright green Sprigatito ex...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-ascended-heroes.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>3 Hits in a Row?! This Trippy Maushold IR is UNREAL! 🌈🐭</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/3-hits-in-a-row-this-trippy-maushold-ir-is-unreal-JrrgpXdSoq8.html"/>
-    <id>https://garbagerips.com/rip/3-hits-in-a-row-this-trippy-maushold-ir-is-unreal-JrrgpXdSoq8.html</id>
-    <published>2026-10-24T12:57:15Z</published>
-    <updated>2026-10-24T12:57:15Z</updated>
-    <summary>3 PACKS, 3 MASSIVE HITS! 🐭🌈 Pack #3 of the Pokémon 30th Celebration Sylveon ex Box kept the heater going straight to Rochester, NY with the Maushold...</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
   </entry>
 </feed>

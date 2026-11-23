@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 348471,
+    "views": 349565,
     "subscribers": 454,
-    "videos": 413,
-    "readAt": "2026-11-22"
+    "videos": 414,
+    "readAt": "2026-11-23"
   },
-  "syncedAt": "2026-11-22",
+  "syncedAt": "2026-11-23",
   "videos": [
+    {
+      "id": "nKACtfNNzPg",
+      "title": "Trubbish Strikes Again: No Hits in Pack #6! 🗑️⚡",
+      "path": "rip/trubbish-strikes-again-no-hits-in-pack-6-nKACtfNNzPg.html",
+      "published": "2026-11-23",
+      "publishedAt": "2026-11-23T12:56:39Z",
+      "duration": 21,
+      "views": 884,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "r7bjDlZdeiI",
       "title": "A DOUBLE PIKACHU PACK?! Shinji Kanda Psychedelic Grail Pulled! 🎨⚡",
@@ -15,7 +34,7 @@
       "published": "2026-11-22",
       "publishedAt": "2026-11-22T12:55:18Z",
       "duration": 25,
-      "views": 8,
+      "views": 17,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-21",
       "publishedAt": "2026-11-21T13:45:29Z",
       "duration": 27,
-      "views": 945,
+      "views": 1042,
       "vertical": true,
       "short": true,
       "sets": [
@@ -53,7 +72,7 @@
       "published": "2026-11-20",
       "publishedAt": "2026-11-20T11:12:20Z",
       "duration": 26,
-      "views": 1060,
+      "views": 1098,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +91,7 @@
       "published": "2026-11-19",
       "publishedAt": "2026-11-19T13:25:38Z",
       "duration": 22,
-      "views": 1014,
+      "views": 1015,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,7 +110,7 @@
       "published": "2026-11-18",
       "publishedAt": "2026-11-18T11:39:11Z",
       "duration": 20,
-      "views": 988,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
@@ -110,7 +129,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 968,
+      "views": 977,
       "vertical": true,
       "short": true,
       "sets": [
@@ -129,7 +148,7 @@
       "published": "2026-11-16",
       "publishedAt": "2026-11-16T12:40:10Z",
       "duration": 25,
-      "views": 59,
+      "views": 61,
       "vertical": true,
       "short": true,
       "sets": [
@@ -151,7 +170,7 @@
       "published": "2026-11-15",
       "publishedAt": "2026-11-15T11:07:35Z",
       "duration": 23,
-      "views": 13,
+      "views": 14,
       "vertical": true,
       "short": true,
       "sets": [
@@ -173,7 +192,7 @@
       "published": "2026-11-14",
       "publishedAt": "2026-11-14T13:06:08Z",
       "duration": 24,
-      "views": 308,
+      "views": 309,
       "vertical": true,
       "short": true,
       "sets": [
@@ -391,7 +410,7 @@
       "published": "2026-11-04",
       "publishedAt": "2026-11-04T14:03:19Z",
       "duration": 25,
-      "views": 17,
+      "views": 18,
       "vertical": true,
       "short": true,
       "sets": [
@@ -414,7 +433,7 @@
       "published": "2026-11-03",
       "publishedAt": "2026-11-03T11:11:19Z",
       "duration": 28,
-      "views": 26,
+      "views": 30,
       "vertical": true,
       "short": true,
       "sets": [
@@ -436,7 +455,7 @@
       "published": "2026-11-02",
       "publishedAt": "2026-11-02T12:20:13Z",
       "duration": 19,
-      "views": 681,
+      "views": 682,
       "vertical": true,
       "short": true,
       "sets": [
@@ -524,7 +543,7 @@
       "published": "2026-10-29",
       "publishedAt": "2026-10-29T10:38:21Z",
       "duration": 22,
-      "views": 307,
+      "views": 308,
       "vertical": true,
       "short": true,
       "sets": [
@@ -589,7 +608,7 @@
       "published": "2026-10-26",
       "publishedAt": "2026-10-26T10:04:04Z",
       "duration": 25,
-      "views": 1091,
+      "views": 1093,
       "vertical": true,
       "short": true,
       "sets": [
@@ -610,7 +629,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 53,
+      "views": 55,
       "vertical": true,
       "short": true,
       "sets": [
@@ -631,7 +650,7 @@
       "published": "2026-10-24",
       "publishedAt": "2026-10-24T12:57:15Z",
       "duration": 27,
-      "views": 1141,
+      "views": 1142,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1995,7 +2014,7 @@
       "published": "2026-08-26",
       "publishedAt": "2026-08-26T12:28:00Z",
       "duration": 20,
-      "views": 1217,
+      "views": 1218,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2786,7 +2805,7 @@
       "published": "2026-08-03",
       "publishedAt": "2026-08-03T11:52:35Z",
       "duration": 21,
-      "views": 674,
+      "views": 675,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2859,7 +2878,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1035,
+      "views": 1036,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3557,7 +3576,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 683,
+      "views": 684,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5372,7 +5391,7 @@
       "published": "2026-06-22",
       "publishedAt": "2026-06-22T10:05:09Z",
       "duration": 21,
-      "views": 595,
+      "views": 597,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11140,7 +11159,7 @@
       "published": "2026-04-01",
       "publishedAt": "2026-04-01T00:13:00Z",
       "duration": 25,
-      "views": 532,
+      "views": 534,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12202,7 +12221,7 @@
       "published": "2026-03-04",
       "publishedAt": "2026-03-04T11:14:00Z",
       "duration": 28,
-      "views": 339,
+      "views": 340,
       "vertical": true,
       "short": true,
       "sets": [
