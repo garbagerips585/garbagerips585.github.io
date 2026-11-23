@@ -138,12 +138,12 @@
     "information does not exist in machine-readable form because it does not",
     "exist in advance at all. Nobody knows, including the retailers."
   ],
-  "weekOf": "2026-11-16",
-  "weekEnds": "2026-11-22",
-  "compiled": "2026-11-16",
+  "weekOf": "2026-11-23",
+  "weekEnds": "2026-11-29",
+  "compiled": "2026-11-23",
   "source": {
     "name": "Community restock trackers",
-    "read": "2026-11-16",
+    "read": "2026-11-23",
     "note": "Stock tracking communities the owner follows, passed on as they were written. Not an announcement from any retailer, and not this site's own findings.",
     "url": null
   },
@@ -209,8 +209,8 @@
       "what": "Be on alert for a Pokemon Center drop. The trackers say multiple 30th Celebration products are loaded on the backend, and they will pass on any sign of a drop ahead of time.",
       "when": "The most common drop days are Monday to Wednesday, 11am to 2pm Eastern. That is a pattern people have noticed, not a schedule Pokemon Center publishes.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-18"
+        "from": "2026-11-23",
+        "to": "2026-11-25"
       },
       "expires": null,
       "notes": null
@@ -219,11 +219,11 @@
       "retailer": "costco",
       "channel": "store",
       "confidence": "expected",
-      "what": "A second wave of Ascended Heroes Mini Tins and 30th Celebration Elite Trainer Boxes and Booster Bundles is expected mid to late November, the trackers say. They do not expect 30th Celebration UPCs this week, and they call any claim that stores already have it in the system engagement bait.",
-      "when": "Mid to late November. That is the trackers' expectation, not a date Costco publishes.",
+      "what": "A second wave of Ascended Heroes Mini Tins and 30th Celebration Elite Trainer Boxes and Booster Bundles is starting to hit select warehouses, the trackers say. They do not expect 30th Celebration UPCs until early December, and say any source claiming warehouses already have it in the system is misleading you.",
+      "when": "No day given. Select warehouses only. Costco does not publish restock days.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": [
@@ -231,27 +231,14 @@
       ]
     },
     {
-      "retailer": "costco",
-      "channel": "online",
-      "confidence": "pattern",
-      "what": "A second wave of 30th Celebration Elite Trainer Boxes and Booster Bundles and Ascended Heroes Mini Tins is possible online, from cancelled or leftover stock, the trackers say. The UPCs are not loaded on the backend yet, so they do not expect it at this stage.",
-      "when": "No date. A backend listing is something the trackers watch from outside, not a schedule Costco publishes.",
-      "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
-      },
-      "expires": null,
-      "notes": null
-    },
-    {
       "retailer": "best-buy",
       "channel": "store",
       "confidence": "pattern",
-      "what": "More 30th Celebration and Delta Reign products are expected to restock in store this week, the trackers say.",
+      "what": "More 30th Celebration and Delta Reign products, Unova Poster Collections, Destined Rivals 3-Pack Blisters and Charizard ex Boxes are expected to restock in store this week, the trackers say.",
       "when": "No day given. This week.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": [
@@ -262,11 +249,24 @@
       "retailer": "target",
       "channel": "store",
       "confidence": "expected",
-      "what": "Select stores will have Delta Reign products and 30th Celebration products, the trackers say.",
+      "what": "Target's Black Friday deals include 30th Celebration Booster Bundles, Figure Collections, Battle Decks and Large Tins, the trackers say. Some stores may stock them earlier.",
+      "when": "Saturday, November 28, by the trackers' read of the Black Friday schedule. That is their report, not a date we have seen Target publish.",
+      "window": {
+        "from": "2026-11-28",
+        "to": "2026-11-28"
+      },
+      "expires": null,
+      "notes": null
+    },
+    {
+      "retailer": "target",
+      "channel": "store",
+      "confidence": "expected",
+      "what": "Select stores will also have Delta Reign products and 30th Celebration products through the week, the trackers say.",
       "when": "Store by store. Target does not publish restock days.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": null
@@ -275,11 +275,11 @@
       "retailer": "walmart",
       "channel": "store",
       "confidence": "pattern",
-      "what": "Stores are starting to put out display shelves of 30th Celebration Mini Tins, roughly 200 per store, the trackers say. Iono's Bellibolt Boxes will also be stocking in store, with the packs inside changed to Chaos Rising and Perfect Order.",
+      "what": "Stores will keep putting out display shelves of 30th Celebration Mini Tins, roughly 200 per store, the trackers say. Iono's Bellibolt Boxes will also be stocking in store, with the packs inside changed to Chaos Rising and Perfect Order.",
       "when": "No day given. Store by store.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": null
@@ -288,11 +288,11 @@
       "retailer": "sams-club",
       "channel": "store",
       "confidence": "expected",
-      "what": "Clubs could start stocking 30th Celebration Mini Tin 4-Packs as early as this week, the trackers say. They expect clubs to start receiving stock between November 15 and 22, with each club putting it out on a random day of the manager's choosing.",
-      "when": "Between Saturday, November 15 and Sunday, November 22. That is the trackers' expectation, not a date Sam's Club has published.",
+      "what": "Clubs are expected to start stocking 30th Celebration Mini Tin 4-Packs this week, the trackers say, with each club putting them out on a random day of the manager's choosing.",
+      "when": "No set day. Club by club, at the manager's call. That is the trackers' expectation, not a date Sam's Club has published.",
       "window": {
-        "from": "2026-11-15",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": null
@@ -304,8 +304,8 @@
       "what": "The trackers say a lot of 30th Celebration and Delta Reign products are loaded on Target's backend.",
       "when": "No date. A backend listing is something the trackers watch from outside, not a schedule Target publishes.",
       "window": {
-        "from": "2026-11-16",
-        "to": "2026-11-22"
+        "from": "2026-11-23",
+        "to": "2026-11-29"
       },
       "expires": null,
       "notes": null
@@ -315,10 +315,10 @@
       "channel": "online",
       "confidence": "pattern",
       "what": "The trackers are expecting the usual Walmart Wednesday raffle, but no products are loaded for it yet.",
-      "when": "Wednesday, November 18, if it follows the pattern. Walmart Wednesday is a pattern people have noticed rather than a timetable Walmart publishes.",
+      "when": "Wednesday, November 25, if it follows the pattern. Walmart Wednesday is a pattern people have noticed rather than a timetable Walmart publishes.",
       "window": {
-        "from": "2026-11-18",
-        "to": "2026-11-18"
+        "from": "2026-11-25",
+        "to": "2026-11-25"
       },
       "expires": null,
       "notes": null

@@ -21,14 +21,14 @@
 
 ## The local scene, which is the part least well covered elsewhere
 
-- [Card shows calendar](https://garbagerips.com/card-shows.html): 90 upcoming shows around Rochester, NY, Buffalo and Syracuse. 32 are all Pokemon, 55 more are mixed shows where Pokemon vendors are confirmed, 65 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
-- [Card shows near Rochester, NY](https://garbagerips.com/shows/rochester-ny.html): 46 upcoming shows in that area, in date order
+- [Card shows calendar](https://garbagerips.com/card-shows.html): 89 upcoming shows around Rochester, NY, Buffalo and Syracuse. 32 are all Pokemon, 54 more are mixed shows where Pokemon vendors are confirmed, 64 are free. Each listing names the venue, the full street address, the admission and who confirmed the Pokemon
+- [Card shows near Rochester, NY](https://garbagerips.com/shows/rochester-ny.html): 45 upcoming shows in that area, in date order
 - [Card shows near Buffalo, NY](https://garbagerips.com/shows/buffalo-ny.html): 62 upcoming shows in that area, in date order
 - [Card shows near Syracuse, NY](https://garbagerips.com/shows/syracuse-ny.html): 4 upcoming shows in that area, in date order
 - [814 Card Show, North East, PA](https://garbagerips.com/shows/814-card-show.html): 4 upcoming dates of this one show, each with venue, address, hours and admission
 - [Batavia Pokemon Show, Batavia, NY](https://garbagerips.com/shows/batavia-pokemon-show.html): 12 upcoming dates of this one show, each with venue, address, hours and admission
 - [Batavia Sports Card, Toys & Collectible Show, Batavia, NY](https://garbagerips.com/shows/batavia-sports-card-toys-collectible-show.html): 13 upcoming dates of this one show, each with venue, address, hours and admission
-- [CollectorFest Monthly, Rochester, NY](https://garbagerips.com/shows/collectorfest-monthly.html): 4 upcoming dates of this one show, each with venue, address, hours and admission
+- [CollectorFest Monthly, Rochester, NY](https://garbagerips.com/shows/collectorfest-monthly.html): 3 upcoming dates of this one show, each with venue, address, hours and admission
 - [EC3CON: East Coast Collectibles Convention, Uncasville, CT](https://garbagerips.com/shows/ec3con-east-coast-collectibles-convention.html): 1 upcoming date of this one show, each with venue, address, hours and admission
 - [Extreme Pokemon Show, Batavia, NY](https://garbagerips.com/shows/extreme-pokemon-show.html): 1 upcoming date of this one show, each with venue, address, hours and admission
 - [Northtowns Card & Memorabilia Show, Sanborn, NY](https://garbagerips.com/shows/northtowns-card-memorabilia-show.html): 13 upcoming dates of this one show, each with venue, address, hours and admission
@@ -63,7 +63,7 @@
 
 ## What changes every week
 
-- [Drops and restocks](https://garbagerips.com/drops.html): what community restock trackers expect at retailers for the week of November 16, 2026 to November 22, 2026, each row labeled with how sure it is. Nobody announces restocks, so none of it is a promise
+- [Drops and restocks](https://garbagerips.com/drops.html): what community restock trackers expect at retailers for the week of November 23, 2026 to November 29, 2026, each row labeled with how sure it is. Nobody announces restocks, so none of it is a promise
 - [Upcoming releases](https://garbagerips.com/upcoming.html): every announced English Pokemon TCG set and product with its release date, confirmed dates marked apart from shop guesses, last checked November 7, 2026
 
 ## The channel
