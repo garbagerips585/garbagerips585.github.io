@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 351650,
+    "views": 351685,
     "subscribers": 454,
-    "videos": 415,
-    "readAt": "2026-11-24"
+    "videos": 416,
+    "readAt": "2026-11-25"
   },
-  "syncedAt": "2026-11-24",
+  "syncedAt": "2026-11-25",
   "videos": [
+    {
+      "id": "5qVuq9Ig5tQ",
+      "title": "We Hit a LITERAL MICROWAVE in Delta Reign Pack #7! ♨️👀",
+      "path": "rip/we-hit-a-literal-microwave-in-delta-reign-pack-7-5qVuq9Ig5tQ.html",
+      "published": "2026-11-25",
+      "publishedAt": "2026-11-25T11:39:05Z",
+      "duration": 23,
+      "views": 6,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "delta-reign"
+      ],
+      "products": [
+        "etb"
+      ],
+      "pulls": [],
+      "label": "Delta Reign ETB"
+    },
     {
       "id": "E36QL3kJn70",
       "title": "Pack #2 Hit the Most FUN Card in 30th Celebration! 🌴😂",
@@ -15,7 +34,7 @@
       "published": "2026-11-24",
       "publishedAt": "2026-11-24T11:52:26Z",
       "duration": 24,
-      "views": 8,
+      "views": 10,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-23",
       "publishedAt": "2026-11-23T12:56:39Z",
       "duration": 21,
-      "views": 904,
+      "views": 995,
       "vertical": true,
       "short": true,
       "sets": [
@@ -72,7 +91,7 @@
       "published": "2026-11-21",
       "publishedAt": "2026-11-21T13:45:29Z",
       "duration": 27,
-      "views": 1081,
+      "views": 1108,
       "vertical": true,
       "short": true,
       "sets": [
@@ -148,7 +167,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 981,
+      "views": 983,
       "vertical": true,
       "short": true,
       "sets": [
@@ -452,7 +471,7 @@
       "published": "2026-11-03",
       "publishedAt": "2026-11-03T11:11:19Z",
       "duration": 28,
-      "views": 30,
+      "views": 31,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1311,7 +1330,7 @@
       "published": "2026-09-24",
       "publishedAt": "2026-09-24T10:32:21Z",
       "duration": 24,
-      "views": 1292,
+      "views": 1294,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2275,7 +2294,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1129,
+      "views": 1133,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8308,7 +8327,7 @@
       "published": "2026-05-11",
       "publishedAt": "2026-05-11T10:02:05Z",
       "duration": 38,
-      "views": 102,
+      "views": 103,
       "vertical": true,
       "short": true,
       "sets": [
@@ -8376,7 +8395,7 @@
       "published": "2026-05-10",
       "publishedAt": "2026-05-10T12:48:00Z",
       "duration": 20,
-      "views": 1277,
+      "views": 1278,
       "vertical": true,
       "short": true,
       "sets": [
@@ -9666,7 +9685,7 @@
       "published": "2026-04-21",
       "publishedAt": "2026-04-21T23:25:00Z",
       "duration": 17,
-      "views": 1224,
+      "views": 1225,
       "vertical": true,
       "short": true,
       "sets": [
