@@ -1,13 +1,32 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 351685,
+    "views": 351816,
     "subscribers": 454,
-    "videos": 416,
-    "readAt": "2026-11-25"
+    "videos": 417,
+    "readAt": "2026-11-26"
   },
-  "syncedAt": "2026-11-25",
+  "syncedAt": "2026-11-26",
   "videos": [
+    {
+      "id": "piCIenk9Fvc",
+      "title": "All 3 Legendary Birds Have IRs in 30th Celebration! ❄️👀",
+      "path": "rip/all-3-legendary-birds-have-irs-in-30th-celebration-piCIenk9Fvc.html",
+      "published": "2026-11-26",
+      "publishedAt": "2026-11-26T14:02:40Z",
+      "duration": 25,
+      "views": 5,
+      "vertical": true,
+      "short": true,
+      "sets": [
+        "30th-celebration"
+      ],
+      "products": [
+        "collection-box"
+      ],
+      "pulls": [],
+      "label": "30th Celebration Collection Box"
+    },
     {
       "id": "5qVuq9Ig5tQ",
       "title": "We Hit a LITERAL MICROWAVE in Delta Reign Pack #7! ♨️👀",
@@ -15,7 +34,7 @@
       "published": "2026-11-25",
       "publishedAt": "2026-11-25T11:39:05Z",
       "duration": 23,
-      "views": 6,
+      "views": 10,
       "vertical": true,
       "short": true,
       "sets": [
@@ -34,7 +53,7 @@
       "published": "2026-11-24",
       "publishedAt": "2026-11-24T11:52:26Z",
       "duration": 24,
-      "views": 10,
+      "views": 11,
       "vertical": true,
       "short": true,
       "sets": [
@@ -91,7 +110,7 @@
       "published": "2026-11-21",
       "publishedAt": "2026-11-21T13:45:29Z",
       "duration": 27,
-      "views": 1108,
+      "views": 1116,
       "vertical": true,
       "short": true,
       "sets": [
@@ -167,7 +186,7 @@
       "published": "2026-11-17",
       "publishedAt": "2026-11-17T11:36:22Z",
       "duration": 25,
-      "views": 983,
+      "views": 987,
       "vertical": true,
       "short": true,
       "sets": [
@@ -667,7 +686,7 @@
       "published": "2026-10-25",
       "publishedAt": "2026-10-25T12:18:00Z",
       "duration": 25,
-      "views": 55,
+      "views": 58,
       "vertical": true,
       "short": true,
       "sets": [
@@ -986,7 +1005,7 @@
       "published": "2026-10-10",
       "publishedAt": "2026-10-10T11:06:39Z",
       "duration": 27,
-      "views": 1150,
+      "views": 1151,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1135,7 +1154,7 @@
       "published": "2026-10-03",
       "publishedAt": "2026-10-03T11:05:18Z",
       "duration": 23,
-      "views": 1007,
+      "views": 1008,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1242,7 +1261,7 @@
       "published": "2026-09-28",
       "publishedAt": "2026-09-28T10:04:10Z",
       "duration": 20,
-      "views": 1376,
+      "views": 1377,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1458,7 +1477,7 @@
       "published": "2026-09-18",
       "publishedAt": "2026-09-18T10:20:24Z",
       "duration": 23,
-      "views": 954,
+      "views": 955,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3614,7 +3633,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 685,
+      "views": 686,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5114,7 +5133,7 @@
       "published": "2026-06-26",
       "publishedAt": "2026-06-26T23:47:01Z",
       "duration": 24,
-      "views": 19,
+      "views": 20,
       "vertical": true,
       "short": true,
       "sets": [
@@ -7808,7 +7827,7 @@
       "published": "2026-05-18",
       "publishedAt": "2026-05-18T23:02:00Z",
       "duration": 28,
-      "views": 932,
+      "views": 934,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11093,7 +11112,7 @@
       "published": "2026-04-02",
       "publishedAt": "2026-04-02T10:43:00Z",
       "duration": 52,
-      "views": 227,
+      "views": 231,
       "vertical": true,
       "short": true,
       "sets": [
@@ -13419,7 +13438,7 @@
       "published": "2026-02-01",
       "publishedAt": "2026-02-01T01:28:21Z",
       "duration": 416,
-      "views": 95,
+      "views": 96,
       "vertical": false,
       "short": false,
       "sets": [
