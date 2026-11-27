@@ -72,6 +72,16 @@ Do not manufacture a change to carry the push. An empty commit that names the
 reason is easier to read six months later than a cosmetic edit that pretends to
 be the point.
 
+### "No artifacts named github-pages were found"
+
+Seen 25 November 2026 and five times on 27 November. upload-pages-artifact logs
+"successfully finalized" and deploy-pages, half a second later, logs "Found 0
+artifact(s)". githubstatus.com said all systems operational throughout. Since
+27 November `pages.yml` tries deploy-pages up to three times, a minute and then
+two minutes apart, so this should now heal inside the same run. If all three
+tries fail, recover with an empty commit as above, and wait ten minutes or so
+before pushing it; back-to-back retries failed the same way.
+
 ---
 
 ## The nightly refresh

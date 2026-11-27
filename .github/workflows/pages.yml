@@ -51,7 +51,7 @@ jobs:
       github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy_try1.outputs.page_url || steps.deploy_try2.outputs.page_url || steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     # A TIMEOUT IS WHAT KEEPS `cancel-in-progress: false` FROM BECOMING A
     # PERMANENT OUTAGE. On 2026-08-06 a transient GitHub Actions incident left
@@ -96,7 +96,31 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: public
+      # DEPLOY UP TO THREE TIMES, BECAUSE GITHUB SOMETIMES CANNOT SEE AN ARTIFACT
+      # IT HAS JUST STORED. On 25 and 27 November 2026 upload-pages-artifact
+      # logged "successfully finalized" and deploy-pages, half a second later,
+      # logged "Found 0 artifact(s)" and failed. Five pushes on 27 November lost
+      # their deploy that way while githubstatus.com said all systems were
+      # operational, and the account cannot press Re-run (no admin), so each
+      # retry cost an empty commit. The lookup fails before any deployment is
+      # created, so trying again is safe. The first two tries are allowed to
+      # fail; the third is not, so a real failure still turns the run red and
+      # the IndexNow step below still runs only after a successful deploy.
+      - id: deploy_try1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Give the artifact a minute to appear
+        if: steps.deploy_try1.outcome == 'failure'
+        run: sleep 60
+      - id: deploy_try2
+        if: steps.deploy_try1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Give the artifact two more minutes
+        if: steps.deploy_try1.outcome == 'failure' && steps.deploy_try2.outcome == 'failure'
+        run: sleep 120
       - id: deployment
+        if: steps.deploy_try1.outcome == 'failure' && steps.deploy_try2.outcome == 'failure'
         uses: actions/deploy-pages@v4
 
       # TELL INDEXNOW WHAT CHANGED, AFTER THE DEPLOY AND NOT BEFORE. Announcing a
