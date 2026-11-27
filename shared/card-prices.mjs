@@ -114,7 +114,11 @@ export function priceNote(doc, opts = {}) {
   // TCGPLAYER AGAIN FROM 13 NOVEMBER 2026: PriceCharting requires a paid plan
   // to show their prices and the owner declined (shared/no-pricecharting.mjs).
   const bits = [
-    `${lead} are TCGplayer market prices for an ungraded copy, via TCGdex` +
+    // A SET TCGdex HAS NOT PUBLISHED IS READ OFF TCGplayer DIRECTLY (the pending
+    // path, `tcgplayerSet` on its card file), so "via TCGdex" would name a source
+    // its money never passed through. Delta Reign said so on three lines until
+    // 27 November 2026.
+    `${lead} are TCGplayer market prices for an ungraded copy${doc?.tcgplayerSet ? "" : ", via TCGdex"}` +
       (readPhrase ? `, ${readPhrase}` : read ? `, read ${read}` : "") +
       ".",
   ];

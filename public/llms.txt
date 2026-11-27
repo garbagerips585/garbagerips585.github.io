@@ -64,7 +64,7 @@
 ## What changes every week
 
 - [Drops and restocks](https://garbagerips.com/drops.html): what community restock trackers expect at retailers for the week of November 23, 2026 to November 29, 2026, each row labeled with how sure it is. Nobody announces restocks, so none of it is a promise
-- [Upcoming releases](https://garbagerips.com/upcoming.html): every announced English Pokemon TCG set and product with its release date, confirmed dates marked apart from shop guesses, last checked November 7, 2026
+- [Upcoming releases](https://garbagerips.com/upcoming.html): every announced English Pokemon TCG set and product with its release date, confirmed dates marked apart from shop guesses, last checked November 27, 2026
 
 ## The channel
 

@@ -65,8 +65,63 @@
     "  list because it is 'related', that is the bug, and the answer is a sentence",
     "  in the English entry's blurb naming the Japanese set, not a row."
   ],
-  "checked": "2026-11-07",
-  "sets": [],
+  "checked": "2026-11-27",
+  "sets": [
+    {
+      "name": "Mega Evolution: Flowing Fists",
+      "code": "ME07",
+      "date": "2027-02-06",
+      "confidence": "confirmed",
+      "blurb": "The seventh English Mega Evolution set and the card game debut of Z Mega Evolution, the new Megas from the Mega Dimension DLC for Pokemon Legends: Z-A. Mega Lucario Z ex leads it, and it lands on a Saturday, which The Pokemon Company says is when English sets will release from now on.",
+      "highlights": [
+        "Over 110 cards, by The Pokemon Company's own count",
+        "Headlined by Mega Lucario Z, with Mega Garchomp Z, Mega Absol Z and Mega Glimmora alongside it",
+        "The breakdown The Pokemon Company published on November 19, 2026: five Mega Evolution Pokemon ex, four Pokemon ex, 11 illustration rares, 17 ultra rares and six special illustration rares",
+        "Prereleases start January 23, 2027 at participating local game stores, which is The Pokemon Company's own date",
+        "Pokemon TCG Live gets the set on February 4, two days before it reaches shelves",
+        "Japan already has its cards: they came out there as Aura Seeker on November 27, 2026"
+      ],
+      "products": [
+        {
+          "name": "Booster Box",
+          "note": "Four pack wraps: Mega Lucario Z, Mega Garchomp Z, Mega Absol Z and Mega Glimmora"
+        },
+        {
+          "name": "Booster Bundle"
+        },
+        {
+          "name": "Sleeved Booster Pack"
+        },
+        {
+          "name": "Elite Trainer Box",
+          "note": "The box promo is a Riolu"
+        },
+        {
+          "name": "Pokemon Center Elite Trainer Box",
+          "note": "Pokemon Center exclusive"
+        },
+        {
+          "name": "Build and Battle Box"
+        },
+        {
+          "name": "3-Pack Checklane Blister"
+        },
+        {
+          "name": "Premium Checklane Blister, Bastiodon or Primarina"
+        },
+        {
+          "name": "Target Checklane Blister, Silvally or Armarouge",
+          "note": "Target exclusive"
+        }
+      ],
+      "productNote": "The Pokemon Company's announcement says only booster packs, Elite Trainer Boxes and various collections, and its press kit shows the Elite Trainer Box, the Build and Battle Box and the four pack wraps. The rest of this list is official product artwork PokeBeach published on November 19, 2026, so it is a real lineup rather than a guess at one. None of these has an announced price or a date of its own yet. If a shop quotes you a price for one, that is the shop's number and not a retail price.",
+      "sources": [
+        "https://press.pokemon.com/en/releases/MEDIA-ALERT-Z-Mega-Evolution-Pokemon-to-Debut-in-New-Pokemon-Trading-C",
+        "https://www.pokemon.com/us/pokemon-tcg/mega-evolution-flowing-fists",
+        "https://www.pokebeach.com/2026/11/flowing-fists-tcg-set-officially-revealed-for-february-full-product-lineup-revealed"
+      ]
+    }
+  ],
   "products": [
     {
       "name": "Mega Greninja ex League Battle Deck",
@@ -138,7 +193,7 @@
       "section called Japan that quietly holds three other regions is the same",
       "class of mistake as a Japanese date in the English list."
     ],
-    "checked": "2026-11-07",
+    "checked": "2026-11-27",
     "releases": [
       {
         "name": "Special Deck Set, Mega Feraligatr ex, Mega Dragonite ex and Mega Gengar ex",
@@ -156,12 +211,12 @@
         "date": "2026-11-27",
         "confidence": "confirmed",
         "price": "¥200 per 5 card pack",
-        "blurb": "Japan's M7 set (ハドウシーカー), starring Mega Lucario Z ex, and the first set with the Z Mega Evolutions from the Legends: Z-A Mega Dimension DLC. Pokemon revealed it on October 22 along with Mega Absol Z ex and Mega Garchomp Z ex, and has since shown Floatzel ex, Blastoise and a new alternate art Mega Lucario Z ex. Pokemon's own page leads with a Crasher Wake special art rare drawn by Fist of the North Star manga artist Tetsuo Hara. PokeBeach reports the English set will be called Flowing Fists; Pokemon has not announced it yet.",
+        "blurb": "Japan's M7 set (ハドウシーカー), starring Mega Lucario Z ex, and the first set with the Z Mega Evolutions from the Legends: Z-A Mega Dimension DLC. Pokemon revealed it on October 22 along with Mega Absol Z ex and Mega Garchomp Z ex, and has since shown Floatzel ex, Blastoise and a new alternate art Mega Lucario Z ex. Pokemon's own page leads with a Crasher Wake special art rare drawn by Fist of the North Star manga artist Tetsuo Hara. The same cards come to English as Mega Evolution: Flowing Fists on February 6, 2027.",
         "sources": [
           "https://www.pokemon-card.com/ex/m7/",
           "https://www.pokebeach.com/2026/10/aura-seeker-set-starring-mega-lucario-z-ex-officially-revealed",
           "https://www.pokebeach.com/2026/11/floatzel-ex-crasher-wake-drawn-by-famous-manga-artist-and-more-from-aura-seeker-revealed",
-          "https://www.pokebeach.com/2026/10/flowing-fists-pokemon-tcg-set-to-release-in-february-starring-mega-lucario-z-ex"
+          "https://press.pokemon.com/en/releases/MEDIA-ALERT-Z-Mega-Evolution-Pokemon-to-Debut-in-New-Pokemon-Trading-C"
         ]
       }
     ]

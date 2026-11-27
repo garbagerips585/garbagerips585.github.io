@@ -291,6 +291,9 @@ const firstPartner = await loadFirstPartner();
 // each one.
 const GRADED_NOTE =
   "PSA 10 prices are graded sales from Pokemon Price Tracker, with the date each was read beside it. Other graded prices are not shown; the Graded prices on PriceCharting link opens a card on pricecharting.com.";
+// The second half of GRADED_NOTE on its own, for a page with graded links and no PSA 10 figure.
+const GRADED_LINK_NOTE =
+  "Graded prices are not shown; the Graded prices on PriceCharting link opens a card on pricecharting.com.";
 const gradedPrice = (setId, number, name, setName) =>
   gradedFor.price(setId, number, { name, setName });
 // The credit for the same lookup: "Pokemon Price Tracker, Aug 16, 2026".
@@ -376,7 +379,13 @@ const HITS_READ = HITS_DOC.checked || null;
    honest form for exactly this: a span, as /luck.html and the PSA lines use.
    The page prints a hit card, so a log-priced promo MAY be among them; the span
    covers both without claiming either. */
-const rawSpanFor = (doc) => readSpan([priceRead(doc), HITS_READ].filter(Boolean));
+const rawSpanFor = (doc, logPriced = true) => readSpan([priceRead(doc), logPriced ? HITS_READ : null].filter(Boolean));
+/* 27 NOVEMBER 2026: THE SPAN WIDENS ONLY WHERE A LOG-PRICED CARD IS SHOWN. Every
+   rip page with a hit printed "read between September 14 and November 24" --
+   a Delta Reign card that came out on November 6 cannot have been read in
+   September. The hit band now passes whether any printed price came off the
+   log (a promo, or a card with no checklist row), and only those pages carry
+   HITS_READ in the span. */
 /* THE PRINTINGS CORPUS, FOR THE SETS THIS SITE KEEPS NO CHECKLIST FOR.
  * public/data/cards holds 28 English sets; Silver Tempest, Lost Origin, the
  * Trainer and Galarian Galleries and every Black Star Promo set are not among
@@ -696,6 +705,10 @@ async function resolveHits(vid) {
         // this got shipped in the first place.
         name: h.card,
         setName: h.setName || fp?.setName || (fp ? null : pm && pm.s) || null, setId: null,
+        // A promo is priced off the rip log or the hand-kept promo file, never
+        // the nightly checklist: the price note dates it and names promos only
+        // where one of these is on the page.
+        promo: true, logPriced: true,
         rarity: h.rarity || (fp ? null : pm && pm.r) || null,
         n: h.number || fp?.number || (fp ? null : pm && pm.i) || null,
         img: fp?.img || (pm && !fp ? cardScan(pm, false) : null),
@@ -916,6 +929,9 @@ async function resolveHits(vid) {
       // printedNo: the card's own three digit form on a guided set ("018", not
       // "18"); see shared/format.mjs. 1999 to Sun & Moon sets keep theirs.
       n: (hasGuide(h.set) ? printedNo : (x) => x)(m ? m.n : sub?.n || h.number || null) || null,
+      // No checklist row, so any price below is the rip log's or the corpus's,
+      // read on HITS_READ's day rather than the checklist's.
+      logPriced: !m,
       // THE GUIDE'S OWN SCAN FIRST, THEN THE CORPUS. Same precedence
       // build-hall.mjs uses: the file this row was resolved out of wins and the
       // second source stands behind it rather than over it.
@@ -2591,9 +2607,11 @@ ${
       price IS shown the note stays exactly as it was, because that is the
       sentence that makes the number worth trusting.
     */ ""}${pricedHits.length || hits.some((h) => h.psa10)
-      ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices", readPhrase: rawSpanFor(pricesDoc) }))}
-      ${GRADED_NOTE} Promos have no set checklist: a promo's price is a TCGplayer
-      figure read by hand where we hold one, and the source and date are named under it. We do not sell cards.</p>`
+      ? `<p class="price-note">${esc(priceNote(pricesDoc, { lead: "Raw prices", readPhrase: rawSpanFor(pricesDoc, pricedHits.some((h) => h.logPriced)) }))}
+      ${/* Each sentence only where the page shows what it describes (27 November
+           2026): 55 rip pages explained PSA 10 figures and promo pricing with
+           neither on the page. */ ""}${hits.some((h) => h.psa10) ? `${GRADED_NOTE} ` : hits.some((h) => h.pcUrl) ? `${GRADED_LINK_NOTE} ` : ""}${hits.some((h) => h.promo) ? `Promos have no set checklist: a promo's price is a TCGplayer
+      figure read by hand where we hold one, and the source and date are named under it. ` : ""}We do not sell cards.</p>`
       : ""}
   </div>
 </section>`

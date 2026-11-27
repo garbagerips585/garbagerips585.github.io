@@ -33,7 +33,12 @@ const WATCH = [
   // RETIRED 13 November 2026: nothing reads PriceCharting any more (shared/no-pricecharting.mjs).
   // ["data/price-rotation.json",      ["lastRun"],       3, "the nightly PriceCharting refresh"],
   // ["data/pricecharting-cards.json", ["checked"],       3, "the 28 set-guide consoles, refreshed nightly"],
-  ["public/data/card-index.json",   ["pricesChecked"], 3, "every card price on the site"],
+  // 5, NOT 3 (27 November 2026). sync-cards.mjs --rotate re-reads a quarter of
+  // the sets a night and pricesChecked is the OLDEST set, so it reads 4 days just
+  // before every nightly lands; with a leash of 3, verify.yml went red every
+  // afternoon on a healthy pipeline. Rotation length plus a day, as the rule
+  // below says for rotating syncs.
+  ["public/data/card-index.json",   ["pricesChecked"], 5, "every card price on the site"],
 ];
 
 /* data/graded.json WAS ON THIS LIST FOR ONE COMMIT AND THE LEASH WAS WRONG THE

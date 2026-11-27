@@ -1098,6 +1098,8 @@ function setValue(s) {
       pricesChecked: doc.pricesChecked,
       checked: doc.checked,
       pricedBy: doc.pricedBy,
+    tcgplayerSet: doc.tcgplayerSet, // the pending path: priceNote drops "via TCGdex"
+      tcgplayerSet: doc.tcgplayerSet, // the pending path: priceNote drops "via TCGdex"
     },
     counted: prices.length,
     total: doc.cards.length + (sub?.rows.length || 0),
@@ -1964,6 +1966,7 @@ for (const st of sets) {
     pricesChecked: doc.pricesChecked,
     checked: doc.checked,
     pricedBy: doc.pricedBy,
+    tcgplayerSet: doc.tcgplayerSet, // the pending path: priceNote drops "via TCGdex"
   };
   // Both stamps, because the price note reads pricesAsOf first and that date
   // described a read this list no longer uses.

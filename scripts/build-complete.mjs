@@ -487,7 +487,10 @@ const ld = [
 
 const row = (r) => `<tr${r.missing ? ' class="cc-part"' : ""}>
   <th scope="row"><a href="/sets/${esc(r.id)}.html">${esc(r.name)}</a><span class="cc-yr">${esc(String(r.released).slice(0, 4))}</span></th>
-  <td class="num">${moneyRound(r.bulk)}<span class="cc-n">${r.counts.bulk} cards</span></td>
+  <td class="num">${/* A set with no commons (Celebrations) printed "$0 / 0 cards", which reads
+    as a price. Same dash as the empty cells on /hall.html. */ ""}${r.counts.bulk
+    ? `${moneyRound(r.bulk)}<span class="cc-n">${r.counts.bulk} cards</span>`
+    : `<span aria-hidden="true">—</span><span class="sr-only">No commons in this set</span>`}</td>
   <td class="num"><strong>${moneyRound(r.base)}</strong><span class="cc-n">${r.counts.base} cards</span></td>
   <td class="num">${moneyRound(r.master)}<span class="cc-n">${r.counts.master} cards</span></td>
   <td class="cc-top">${esc(r.top?.name || "")}${r.top?.subset ? ` <span class="cc-yr">${esc(r.top.subset)}</span>` : ""}<span class="cc-n">${moneyRound(r.top?.price)}, ${pct(r.topShare)} of the master set</span></td>

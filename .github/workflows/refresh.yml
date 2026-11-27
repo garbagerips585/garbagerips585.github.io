@@ -176,14 +176,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # NOTHING ASKS PRICECHARTING FOR ANYTHING, from 13 November 2026. Every
-      # node process after this step loads shared/no-pricecharting.mjs first,
-      # which refuses any request to pricecharting.com. Set here and not as a
-      # workflow-level env, because the checkout above runs on node too and the
-      # file does not exist until it has run. Read that file before removing.
-      - name: Refuse every request to PriceCharting
-        run: echo "NODE_OPTIONS=--import $GITHUB_WORKSPACE/shared/no-pricecharting.mjs" >> "$GITHUB_ENV"
-
       # 24, THE SAME MAJOR AS verify.yml, pages.yml AND THE OWNER'S MACHINE. This
       # was 22 until 11 November 2026, so the nightly built the tree on one
       # Node and verify.yml rebuilt it on another to decide whether it had
@@ -193,6 +185,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+
+      # NOTHING ASKS PRICECHARTING FOR ANYTHING, from 13 November 2026. Every
+      # `node` a later step runs loads shared/no-pricecharting.mjs first, which
+      # refuses any request to pricecharting.com. Read that file before removing.
+      #
+      # A WRAPPER ON PATH, NOT NODE_OPTIONS IN $GITHUB_ENV. That was the first
+      # version and GitHub refuses it ("Can't store NODE_OPTIONS output parameter
+      # using '$GITHUB_ENV' command") while the step still goes green, so from 13
+      # to 27 November the guard never loaded and nothing said so. $GITHUB_PATH is
+      # allowed, and the wrapper exports NODE_OPTIONS itself so a child process a
+      # script spawns with process.execPath inherits the guard too. It sits AFTER
+      # setup-node because setup-node prepends its own node to PATH. Actions
+      # (checkout, cache) run on the runner's own node and never see it. The last
+      # line proves the guard is live without sending any request.
+      - name: Refuse every request to PriceCharting
+        run: |
+          bin="$RUNNER_TEMP/no-pricecharting-bin"
+          mkdir -p "$bin"
+          real="$(command -v node)"
+          guard="$GITHUB_WORKSPACE/shared/no-pricecharting.mjs"
+          printf '#!/bin/sh\nexport NODE_OPTIONS="--import %s${NODE_OPTIONS:+ $NODE_OPTIONS}"\nexec "%s" "$@"\n' "$guard" "$real" > "$bin/node"
+          chmod +x "$bin/node"
+          echo "$bin" >> "$GITHUB_PATH"
+          "$bin/node" -e 'if (!globalThis.__noPricecharting) { console.error("no-pricecharting guard did not load"); process.exit(1) } console.log("no-pricecharting guard loaded")'
 
       # PYTHON AND PILLOW, BECAUSE build-all.mjs RUNS A PYTHON BUILDER.
       # scripts/build-og-pages.py draws the per-page social cards and imports

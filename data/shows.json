@@ -2010,8 +2010,8 @@
       "pokemon": true,
       "admission": "$20, under 11 free",
       "organiser": "PokeKon Fest / OurCons",
-      "url": "http://pokekon.com/Rochester/",
-      "organiserUrl": "http://pokekon.com/Rochester/",
+      "url": "https://pokekon.com/Rochester/",
+      "organiserUrl": "https://pokekon.com/Rochester/",
       "urlNote": "http AND NOT https, DELIBERATELY, checked 28 August 2026. pokekon.com answers nothing at all on 443: not a certificate warning, not a redirect, no response. So http is the only way to reach them and upgrading this to https would turn a working link into a dead one. It is the only http url left anywhere in the built tree, which is how it was found, and it is the organiser's own site rather than ours. Re-check before changing it; if they ever add a certificate, this note goes with the edit.",
       "source": "pokekon.com",
       "blurb": "The same promoter as the Niagara Falls PokeKon, on our side of the state this time. All Pokemon, with free parking."
@@ -2804,8 +2804,8 @@
       "admission": "$20, kids under 11 free",
       "pokemon": true,
       "organiser": "PokeKon Fest",
-      "organiserUrl": "http://pokekon.com",
-      "url": "http://pokekon.com/Erie/",
+      "organiserUrl": "https://pokekon.com",
+      "url": "https://pokekon.com/Erie/",
       "blurb": "A one day all Pokemon convention in Erie from the people behind PokeKon Fest Rochester, with vendors, local artists, retro Pokemon and voice actor guests still to be announced.",
       "source": "pokekon.com/Erie, the organizer's own page, read 8 October 2026, and ourcons.com",
       "sourceNote": "The organizer: \"SATURDAY MARCH 27, 2027 | 10:00AM - 5:00PM ... $20 ADMISSION | KIDS FREE UNDER 11\" and \"AMBASSADOR BANQUET & CONFERENCE CENTER 7794 PEACH STREET ERIE, PENNSYLVANIA 16509\"."
