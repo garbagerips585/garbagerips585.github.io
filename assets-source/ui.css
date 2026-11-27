@@ -2430,6 +2430,20 @@ footer .soc svg{fill:var(--chrome-ink)}
 .vid-title{-webkit-line-clamp:3;line-clamp:3}
 .vid > .vid-meta{margin-top:auto}
 .vid-title a{text-decoration:none}
+/* THE TITLE IS THE ONLY WAY FROM A GRID TILE TO ITS RIP PAGE, so its tap target
+   is the whole caption, not the words (live QA, 27 November 2026). The artwork
+   plays in place, which left one-line titles like "Pack 2" with an 18px target
+   on a phone: 8 of /videos.html's tiles and every short rail title.
+   A stretched link: the title's ::after covers the whole tile, and every OTHER
+   direct child that is not the caption (the artwork, and the .tile-stage that
+   packplayer.js swaps in for it while a rip plays) is lifted above it, so a tap
+   on the art still plays and a tap on a live player still reaches the player.
+   What is left for the link is the title, the date line and the gaps around
+   them: measured in the build commit. The h3's overflow:hidden (the line clamp)
+   does not clip the overlay, because its containing block is the tile. */
+.v,.vid{position:relative}
+.v h3 a::after,.vid-title a::after{content:"";position:absolute;inset:0}
+.v > :not(h3):not(p),.vid > :not(.vid-title):not(.vid-meta){position:relative;z-index:2}
 .vid-title a:hover{color:var(--sky-deep)}
 .vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}.band-navy .vid-title a:hover{color:var(--mustard)}.vid-grid.dense{grid-template-columns:repeat(auto-fill,minmax(168px,1fr))}
 @media(max-width:520px){}section.band-gold .sec-label{color:var(--gold-band-label)}section.band-gold .hl{color:var(--on-accent);text-shadow:3px 3px 0 var(--chip-gold-bg)}section.band-gold .vid-title a:hover{color:var(--sky-deep)}.chip.prod[aria-pressed=true]{background:var(--mustard);color:var(--on-accent)}

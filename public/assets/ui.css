@@ -682,6 +682,9 @@ footer .soc svg{fill:var(--chrome-ink)}
 .vid-title{-webkit-line-clamp:3;line-clamp:3}
 .vid > .vid-meta{margin-top:auto}
 .vid-title a{text-decoration:none}
+.v,.vid{position:relative}
+.v h3 a::after,.vid-title a::after{content:"";position:absolute;inset:0}
+.v > :not(h3):not(p),.vid > :not(.vid-title):not(.vid-meta){position:relative;z-index:2}
 .vid-title a:hover{color:var(--sky-deep)}
 .vid-meta{font-family:var(--mono);font-size:.66rem;color:var(--ink-soft);letter-spacing:.04em}
 .band-navy .vid-title a:hover{color:var(--mustard)}
