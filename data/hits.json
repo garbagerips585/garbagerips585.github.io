@@ -2806,7 +2806,16 @@
         "rarity": "Pikachu Rare",
         "number": "040",
         "hallOfFame": false,
-        "handNote": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 22 November 2026: \"Tearing into Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY ... Not only did we pull the Pikachu ex (Double Black Star Double Rare), but we also hit hands-down my favorite artwork in the entire 30th Celebration set: the Shinji Kanda Pikachu!\" 30th Celebration prints thirty Pikachu Rares, 023 to 052, each by a different artist; data/30th-illustrators.json gives 040 to Shinji Kanda and no other, so this is 040. The Pikachu ex Double Rare from the same pack is NOT logged yet: 30th Celebration prints two, 053 and 054, and the description does not say which. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
+        "handNote": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 22 November 2026: \"Tearing into Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY ... Not only did we pull the Pikachu ex (Double Black Star Double Rare), but we also hit hands-down my favorite artwork in the entire 30th Celebration set: the Shinji Kanda Pikachu!\" 30th Celebration prints thirty Pikachu Rares, 023 to 052, each by a different artist; data/30th-illustrators.json gives 040 to Shinji Kanda and no other, so this is 040. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
+      },
+      {
+        "card": "Pikachu ex",
+        "set": "30th-celebration",
+        "setName": "30th Celebration",
+        "rarity": "Double Rare",
+        "number": "053",
+        "hallOfFame": false,
+        "handNote": "The video description, 22 November 2026: \"Not only did we pull the Pikachu ex (Double Black Star Double Rare), but we also hit hands-down my favorite artwork in the entire 30th Celebration set: the Shinji Kanda Pikachu!\" 30th Celebration prints two Double Rare Pikachu ex, 053 and 054, and the description does not say which. The owner, 27 November 2026, asked which printing after watching the video: \"053\". Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
       }
     ],
     "E36QL3kJn70": [
@@ -2829,6 +2838,17 @@
         "number": "132",
         "hallOfFame": false,
         "handNote": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 26 November 2026: \"Moving right along with the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY! Trubbish goes hungry again because we pulled the stunning Articuno Illustration Rare (Single Gold Star)!\" 30th Celebration prints Articuno twice, 018 Common and 132 Illustration Rare; the description says \"Illustration Rare (Single Gold Star)\", so this is 132. Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
+      }
+    ],
+    "5qVuq9Ig5tQ": [
+      {
+        "card": "Heat Rotom ex",
+        "set": "delta-reign",
+        "setName": "Delta Reign",
+        "rarity": "Double Rare",
+        "number": "023",
+        "hallOfFame": false,
+        "handNote": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\". The video description, 25 November 2026: \"Continuing through the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #7 straight to Rochester, NY! You can't make this up—we pulled the Heat Rotom ex!\" Delta Reign prints Heat Rotom ex twice, 023 Double Rare and 119 Ultra Rare, and the description does not say which. The owner, 27 November 2026, asked which printing after watching the video: \"023\". Hall of Fame left false: he did not say to add it. Hand kept until the My Hits tab carries it."
       }
     ]
   }
