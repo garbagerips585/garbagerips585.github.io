@@ -15,7 +15,7 @@
       "published": "2026-11-27",
       "publishedAt": "2026-11-27T11:06:37Z",
       "duration": 20,
-      "views": 7,
+      "views": 17,
       "vertical": true,
       "short": true,
       "sets": [
@@ -37,7 +37,7 @@
       "published": "2026-11-26",
       "publishedAt": "2026-11-26T14:02:40Z",
       "duration": 25,
-      "views": 9,
+      "views": 11,
       "vertical": true,
       "short": true,
       "sets": [
@@ -47,9 +47,10 @@
         "collection-box"
       ],
       "pulls": [],
+      "boxNumber": 2,
       "packNumber": 3,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 3"
+      "label": "30th Celebration Collection Box 2 - Pack 3"
     },
     {
       "id": "5qVuq9Ig5tQ",
@@ -89,9 +90,10 @@
         "collection-box"
       ],
       "pulls": [],
+      "boxNumber": 2,
       "packNumber": 2,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 2"
+      "label": "30th Celebration Collection Box 2 - Pack 2"
     },
     {
       "id": "nKACtfNNzPg",
@@ -132,9 +134,10 @@
         "collection-box"
       ],
       "pulls": [],
+      "boxNumber": 2,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 1"
+      "label": "30th Celebration Collection Box 2 - Pack 1"
     },
     {
       "id": "Ih8bSyXMd6g",
@@ -893,9 +896,10 @@
       ],
       "pulls": [],
       "hasHit": false,
+      "boxNumber": 1,
       "packNumber": 3,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 3"
+      "label": "30th Celebration Collection Box 1 - Pack 3"
     },
     {
       "id": "ofm2r2SliYo",
@@ -935,9 +939,10 @@
         "collection-box"
       ],
       "pulls": [],
+      "boxNumber": 1,
       "packNumber": 2,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 2"
+      "label": "30th Celebration Collection Box 1 - Pack 2"
     },
     {
       "id": "yxJsHPvs3uU",
@@ -977,9 +982,10 @@
         "collection-box"
       ],
       "pulls": [],
+      "boxNumber": 1,
       "packNumber": 1,
       "packs": 1,
-      "label": "30th Celebration Collection Box - Pack 1"
+      "label": "30th Celebration Collection Box 1 - Pack 1"
     },
     {
       "id": "79QR-6lfFMs",
