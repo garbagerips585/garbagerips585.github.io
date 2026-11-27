@@ -829,11 +829,17 @@ async function resolveHits(vid) {
     // (M8M6lA0pL9E) printed as "a Pikachu Rare" with Pikachu 023's picture.
     // Leave it unresolved and the hit's own rarity, number and pinned shot win.
     const classic30 = !intl && h.set === "30th-celebration" && want === norm("Classic Collection");
+    // THE TYPED NUMBER BREAKS A TIE INSIDE ONE RARITY. 30th Celebration prints
+    // thirty "Pikachu Rare" Pikachus (023 to 052), so a rarity-only find took
+    // 023 for the Shinji Kanda 040 logged on r7bjDlZdeiI (27 November 2026).
+    // It only chooses among cards the rarity already allows, so it cannot move
+    // the rarity mix.
     const m = classic30
       ? null
       : intl
       ? pickIntlPrintingJp(same, want)
-      : (want && same.find((c) => norm(c.rarity) === want)) ||
+      : (want && h.number && same.find((c) => norm(c.rarity) === want && norm(c.n) === norm(h.number))) ||
+        (want && same.find((c) => norm(c.rarity) === want)) ||
         (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
         same[0] || null;
     // THE SECOND PLACE A JAPANESE SCAN LIVES, AND THIS BUILDER HAD NEVER ASKED

@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-26T14:02:40Z</updated>
+  <updated>2026-11-27T11:06:37Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>Pack #8 Struck Out: Trubbish Is Eating New Set Bulk! 🗑️💀</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-8-struck-out-trubbish-is-eating-new-set-bulk-VwR1b0CJOjc.html"/>
+    <id>https://garbagerips.com/rip/pack-8-struck-out-trubbish-is-eating-new-set-bulk-VwR1b0CJOjc.html</id>
+    <published>2026-11-27T11:06:37Z</published>
+    <updated>2026-11-27T11:06:37Z</updated>
+    <summary>Back to feeding the bin on pack eight! 🗑️💀 Moving along with the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #8 straight to Rochester, NY!</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-delta-reign.jpg?v=2"/>
+  </entry>
   <entry>
     <title>All 3 Legendary Birds Have IRs in 30th Celebration! ❄️👀</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/all-3-legendary-birds-have-irs-in-30th-celebration-piCIenk9Fvc.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-29T10:38:21Z</updated>
     <summary>THE HYPE IS REAL! 🎤🔥 Pack #19 of Pokémon Destined Rivals avoided the bulk pile straight to Rochester, NY with the Emcee's Hype Ultra Rare (Double Silver...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-destined-rivals.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>Pack #1 Struck Out, But 30th is ALWAYS Fun to Rip! 🥊🗑️</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-1-struck-out-but-30th-is-always-fun-to-rip-tgqmJLdrK70.html"/>
-    <id>https://garbagerips.com/rip/pack-1-struck-out-but-30th-is-always-fun-to-rip-tgqmJLdrK70.html</id>
-    <published>2026-10-28T10:22:24Z</published>
-    <updated>2026-10-28T10:22:24Z</updated>
-    <summary>The bulk pile gets the knockout on pack one! 🥊🗑️ Kicking off the Pokémon 30th Celebration Knock Out Collection (Pack #1), we didn't hit anything, a...</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
   </entry>
 </feed>

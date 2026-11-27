@@ -3309,5 +3309,113 @@
     "packNumberWhy": "The owner, 16 November 2026: \"do another youtube sync, and add hits based on descriptions of video\", so the video's own description is the source, on his say-so. The video description, 16 November 2026: \"Kicking off a brand-new Pokémon 30th Celebration Tech Sticker Collection with Pack #1 straight to Rochester, NY\". Pack 1 of a third 30th Celebration Tech Sticker Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
     "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
     "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
+  },
+  "g6gjnXfj2Is": {
+    "packNumber": 3,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 17 November 2026: \"Pack #3 brought pure volcano heat! ... Moving right along with the brand-new Pokémon Delta Reign Elite Trainer Box straight to Rochester, NY! We avoided Trubbish's bin this time and pulled the incredible Magmortar Illustration Rare (Single Gold Star)!\" Pack 3 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "_690yz1HUSQ": {
+    "boxNumber": 4,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 4, the box whose pack 1 is 3BHt2DzI3xY; this description continues it.",
+    "packNumber": 2,
+    "hasHit": false,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 18 November 2026: \"No hits today—just a certified garbage rip! ... Moving on to Pack #2 of this Pokémon 30th Celebration Tech Sticker Collection straight to Rochester, NY, and it was a direct feed into the bulk pile!\" Pack 2 of the fourth 30th Celebration Tech Sticker Collection (pack 1 is 3BHt2DzI3xY). Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
+  },
+  "WaAxscrVmuI": {
+    "packNumber": 4,
+    "hasHit": false,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 19 November 2026: \"Moving along with the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #4 straight to Rochester, NY, and it delivered a certified garbage rip! Zero hits out of this pack\" Pack 4 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "0952Fy9Fuj0": {
+    "boxNumber": 4,
+    "boxNumberWhy": "The owner, 16 November 2026, asked whether the 30th Celebration Tech Sticker Collections number as box 1 (16 to 20 September), box 2 (1 to 4 November), box 3 (10 to 14 November) and box 4 (from 16 November): \"thats perfect number the boxes for sure\". Box 4, the box whose pack 1 is 3BHt2DzI3xY; this description continues it.",
+    "packNumber": 3,
+    "sets": [
+      "30th-celebration"
+    ],
+    "products": [
+      "blister"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 20 November 2026: \"Wrapping up this Pokémon 30th Celebration Tech Sticker Collection with Pack #3 straight to Rochester, NY, and it delivered pure heat! We pulled the stunning Greninja ex Special Illustration Rare (Double Gold Star)!\" Pack 3 of the fourth 30th Celebration Tech Sticker Collection (pack 1 is 3BHt2DzI3xY). Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set.",
+    "productsWhy": "Tech Sticker Collection, tagged blister to match the Tech Sticker Collection rips before it."
+  },
+  "Ih8bSyXMd6g": {
+    "packNumber": 5,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 21 November 2026: \"Continuing through the brand-new Pokémon Delta Reign Elite Trainer Box straight to Rochester, NY! We kept Trubbish at bay this time and pulled the Mega Malamar ex (Double Black Star Double Rare)! ... zero garbage rips on pack five\" Pack 5 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "r7bjDlZdeiI": {
+    "packNumber": 1,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 22 November 2026: \"Tearing into Pack #1 of the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY ... Not only did we pull the Pikachu ex (Double Black Star Double Rare), but we also hit hands-down my favorite artwork in the entire 30th Celebration set: the Shinji Kanda Pikachu!\" Pack 1 of a second 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "nKACtfNNzPg": {
+    "packNumber": 6,
+    "hasHit": false,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 23 November 2026: \"Moving along with the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #6 straight to Rochester, NY! Zero hits out of this one\" Pack 6 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "E36QL3kJn70": {
+    "packNumber": 2,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 24 November 2026: \"Rolling into Pack #2 of the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY! Trubbish goes hungry once again because we pulled the hilarious Alolan Exeggutor Illustration Rare (Single Gold Star)!\" Pack 2 of a second 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "5qVuq9Ig5tQ": {
+    "packNumber": 7,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 25 November 2026: \"Continuing through the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #7 straight to Rochester, NY! You can't make this up—we pulled the Heat Rotom ex!\" Pack 7 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "piCIenk9Fvc": {
+    "packNumber": 3,
+    "sets": [
+      "30th-celebration"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 26 November 2026: \"Moving right along with the brand-new Pokémon 30th Celebration Poster Collection straight to Rochester, NY! Trubbish goes hungry again because we pulled the stunning Articuno Illustration Rare (Single Gold Star)!\" Pack 3 of a second 30th Celebration Poster Collection. Never read out of the title: riplabel.mjs refuses to. NO hasHit HERE ON PURPOSE: this rip has a hit, answered by its data/hits.json row.",
+    "setsWhy": "30th Celebration, named in the description. Pinned so a series word in the title can never add a second set."
+  },
+  "VwR1b0CJOjc": {
+    "packNumber": 8,
+    "hasHit": false,
+    "sets": [
+      "delta-reign"
+    ],
+    "packNumberWhy": "The owner, 27 November 2026: \"do another youtube sync and add hits from descriptions\", so the video's own description is the source, on his say-so. The video description, 27 November 2026: \"Moving along with the brand-new Pokémon Delta Reign Elite Trainer Box on Pack #8 straight to Rochester, NY! Zero hits out of this one\" Pack 8 of a Delta Reign Elite Trainer Box. Never read out of the title: riplabel.mjs refuses to.",
+    "hasHitWhy": "No hit, from the description quoted under packNumberWhy, on his instruction to use the descriptions. Without this flag a no-hit rip counts as not yet judged, and /luck.html carries it in the shortfall.",
+    "setsWhy": "Delta Reign, named in the description. Pinned so a series word in the title can never add a second set."
   }
 }

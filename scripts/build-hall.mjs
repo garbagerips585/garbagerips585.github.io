@@ -577,7 +577,13 @@ const norm = (x) =>
       // not logged as hits in my video ... that is wrong." Nothing had been
       // added -- every plaque was a real logged card -- but they were the wrong
       // PRINTINGS, which reads exactly like the wanted list leaking in.
-      let m = (want && same.find((c) => norm(c.rarity) === want)) ||
+      // THE TYPED NUMBER BREAKS A TIE INSIDE ONE RARITY. 30th Celebration prints
+      // thirty "Pikachu Rare" Pikachus (023 to 052), so a rarity-only find took
+      // 023 for the Shinji Kanda 040 logged on r7bjDlZdeiI (27 November 2026).
+      // It only chooses among cards the rarity already allows, so it cannot move
+      // the rarity mix.
+      let m = (want && h.number && same.find((c) => norm(c.rarity) === want && norm(c.n) === norm(h.number))) ||
+              (want && same.find((c) => norm(c.rarity) === want)) ||
               (want && same.find((c) => norm(c.rarity).includes(want.slice(0, 8)))) ||
               same[0];
       // A 30th Classic Collection hit is in no cards file, so same[0] would be

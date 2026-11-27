@@ -1,6 +1,6 @@
 {
   "_readme": "Best RAW guide value of any card pulled in each rip, keyed by YouTube id. Written by scripts/build-pages.mjs, which resolves the hits; read by scripts/build-proto.mjs to order the home page's Greatest Hits shelf. Do not hand-edit: it is regenerated on every build.",
-  "checked": "2026-11-26",
+  "checked": "2026-11-27",
   "videos": {
     "kj7532tb0_I": 8.14,
     "TN7_ZsuRQSI": 8.51,
@@ -206,6 +206,12 @@
     "ImL4P9zX8pg": 2.34,
     "M8M6lA0pL9E": 11.52,
     "UZTMn49g5bY": 0.42,
-    "3BHt2DzI3xY": 31.47
+    "3BHt2DzI3xY": 31.47,
+    "g6gjnXfj2Is": 2.67,
+    "0952Fy9Fuj0": 12.99,
+    "Ih8bSyXMd6g": 0.45,
+    "r7bjDlZdeiI": 2.12,
+    "E36QL3kJn70": 0.97,
+    "piCIenk9Fvc": 2.69
   }
 }
