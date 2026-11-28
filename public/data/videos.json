@@ -1,13 +1,29 @@
 {
   "channelId": "UCnpEGJ2G_0af1YRyW2euIZQ",
   "channel": {
-    "views": 351853,
-    "subscribers": 454,
-    "videos": 418,
-    "readAt": "2026-11-27"
+    "views": 351962,
+    "subscribers": 453,
+    "videos": 419,
+    "readAt": "2026-11-28"
   },
-  "syncedAt": "2026-11-27",
+  "syncedAt": "2026-11-28",
   "videos": [
+    {
+      "id": "LLB2uZckyUw",
+      "title": "Pack #1 FIRST PACK MAGIC: Mew ex Pulled! 🔮✨",
+      "path": "rip/pack-1-first-pack-magic-mew-ex-pulled-LLB2uZckyUw.html",
+      "published": "2026-11-28",
+      "publishedAt": "2026-11-28T12:38:12Z",
+      "duration": 26,
+      "views": 7,
+      "vertical": true,
+      "short": true,
+      "sets": [],
+      "products": [
+        "ex-premium"
+      ],
+      "pulls": []
+    },
     {
       "id": "VwR1b0CJOjc",
       "title": "Pack #8 Struck Out: Trubbish Is Eating New Set Bulk! 🗑️💀",
@@ -15,7 +31,7 @@
       "published": "2026-11-27",
       "publishedAt": "2026-11-27T11:06:37Z",
       "duration": 20,
-      "views": 60,
+      "views": 95,
       "vertical": true,
       "short": true,
       "sets": [
@@ -59,7 +75,7 @@
       "published": "2026-11-25",
       "publishedAt": "2026-11-25T11:39:05Z",
       "duration": 23,
-      "views": 11,
+      "views": 13,
       "vertical": true,
       "short": true,
       "sets": [
@@ -102,7 +118,7 @@
       "published": "2026-11-23",
       "publishedAt": "2026-11-23T12:56:39Z",
       "duration": 21,
-      "views": 995,
+      "views": 994,
       "vertical": true,
       "short": true,
       "sets": [
@@ -146,7 +162,7 @@
       "published": "2026-11-21",
       "publishedAt": "2026-11-21T13:45:29Z",
       "duration": 27,
-      "views": 1117,
+      "views": 1122,
       "vertical": true,
       "short": true,
       "sets": [
@@ -167,7 +183,7 @@
       "published": "2026-11-20",
       "publishedAt": "2026-11-20T11:12:20Z",
       "duration": 26,
-      "views": 1111,
+      "views": 1112,
       "vertical": true,
       "short": true,
       "sets": [
@@ -495,7 +511,7 @@
       "published": "2026-11-05",
       "publishedAt": "2026-11-05T12:58:22Z",
       "duration": 20,
-      "views": 995,
+      "views": 996,
       "vertical": true,
       "short": true,
       "sets": [
@@ -1079,7 +1095,7 @@
       "published": "2026-10-09",
       "publishedAt": "2026-10-09T10:42:35Z",
       "duration": 25,
-      "views": 32,
+      "views": 33,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2366,7 +2382,7 @@
       "published": "2026-08-19",
       "publishedAt": "2026-08-19T13:34:36Z",
       "duration": 20,
-      "views": 1133,
+      "views": 1137,
       "vertical": true,
       "short": true,
       "sets": [
@@ -2988,7 +3004,7 @@
       "published": "2026-08-01",
       "publishedAt": "2026-08-01T10:00:30Z",
       "duration": 24,
-      "views": 1038,
+      "views": 1040,
       "vertical": true,
       "short": true,
       "sets": [
@@ -3686,7 +3702,7 @@
       "published": "2026-07-17",
       "publishedAt": "2026-07-17T23:45:08Z",
       "duration": 23,
-      "views": 686,
+      "views": 688,
       "vertical": true,
       "short": true,
       "sets": [
@@ -5887,7 +5903,7 @@
       "published": "2026-06-16",
       "publishedAt": "2026-06-16T23:15:08Z",
       "duration": 22,
-      "views": 994,
+      "views": 995,
       "vertical": true,
       "short": true,
       "sets": [
@@ -6126,7 +6142,7 @@
       "published": "2026-06-13",
       "publishedAt": "2026-06-13T11:00:20Z",
       "duration": 23,
-      "views": 932,
+      "views": 933,
       "vertical": true,
       "short": true,
       "sets": [
@@ -11097,7 +11113,7 @@
       "published": "2026-04-03",
       "publishedAt": "2026-04-03T10:22:01Z",
       "duration": 66,
-      "views": 236,
+      "views": 239,
       "vertical": true,
       "short": false,
       "sets": [
@@ -12331,7 +12347,7 @@
       "published": "2026-03-04",
       "publishedAt": "2026-03-04T11:14:00Z",
       "duration": 28,
-      "views": 340,
+      "views": 341,
       "vertical": true,
       "short": true,
       "sets": [
@@ -12628,7 +12644,7 @@
       "published": "2026-02-24",
       "publishedAt": "2026-02-24T12:06:00Z",
       "duration": 22,
-      "views": 394,
+      "views": 396,
       "vertical": true,
       "short": true,
       "sets": [
@@ -13491,7 +13507,7 @@
       "published": "2026-02-01",
       "publishedAt": "2026-02-01T01:28:21Z",
       "duration": 416,
-      "views": 97,
+      "views": 96,
       "vertical": false,
       "short": false,
       "sets": [

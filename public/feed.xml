@@ -5,13 +5,22 @@
   <id>https://garbagerips.com/feed.xml</id>
   <link rel="self" type="application/atom+xml" href="https://garbagerips.com/feed.xml"/>
   <link rel="alternate" type="text/html" href="https://garbagerips.com/videos.html"/>
-  <updated>2026-11-27T11:06:37Z</updated>
+  <updated>2026-11-28T12:38:12Z</updated>
   <author>
     <name>Garbage Rips 585</name>
     <uri>https://garbagerips.com/</uri>
   </author>
   <icon>https://garbagerips.com/favicon-32.png</icon>
   <logo>https://garbagerips.com/assets/og-image.jpg</logo>
+  <entry>
+    <title>Pack #1 FIRST PACK MAGIC: Mew ex Pulled! 🔮✨</title>
+    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-1-first-pack-magic-mew-ex-pulled-LLB2uZckyUw.html"/>
+    <id>https://garbagerips.com/rip/pack-1-first-pack-magic-mew-ex-pulled-LLB2uZckyUw.html</id>
+    <published>2026-11-28T12:38:12Z</published>
+    <updated>2026-11-28T12:38:12Z</updated>
+    <summary>FIRST PACK MAGIC TO START THE BOX! 🔮✨ Kicking off the brand-new Pokémon Sylveon ex Box on Pack #1 straight to Rochester, NY!</summary>
+    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-image.jpg?v=2"/>
+  </entry>
   <entry>
     <title>Pack #8 Struck Out: Trubbish Is Eating New Set Bulk! 🗑️💀</title>
     <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-8-struck-out-trubbish-is-eating-new-set-bulk-VwR1b0CJOjc.html"/>
@@ -272,14 +281,5 @@
     <updated>2026-10-30T10:47:38Z</updated>
     <summary>THE KNOCK OUT BOX REDEEMS ITSELF IN A MASSIVE WAY! 🦖🔥 Pack #2 of the Pokémon 30th Celebration Knock Out Collection brought pure vintage nostalgia...</summary>
     <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-30th-celebration.jpg?v=2"/>
-  </entry>
-  <entry>
-    <title>Pack #19 Brought Serious Hip Hop Vibes! Emcee’s Hype Hit! 🎤🔥</title>
-    <link rel="alternate" type="text/html" href="https://garbagerips.com/rip/pack-19-brought-serious-hip-hop-vibes-emcees-hype-hit--w4IhbVkH3k.html"/>
-    <id>https://garbagerips.com/rip/pack-19-brought-serious-hip-hop-vibes-emcees-hype-hit--w4IhbVkH3k.html</id>
-    <published>2026-10-29T10:38:21Z</published>
-    <updated>2026-10-29T10:38:21Z</updated>
-    <summary>THE HYPE IS REAL! 🎤🔥 Pack #19 of Pokémon Destined Rivals avoided the bulk pile straight to Rochester, NY with the Emcee's Hype Ultra Rare (Double Silver...</summary>
-    <link rel="enclosure" type="image/jpeg" href="https://garbagerips.com/assets/og-destined-rivals.jpg?v=2"/>
   </entry>
 </feed>
